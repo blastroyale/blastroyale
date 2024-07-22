@@ -3,6 +3,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -58,7 +59,6 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_leaveTeamButton.clicked += () => LeaveParty().Forget();
 
 			_copyCodeButton.clicked += OnCopyCodeClicked;
-
 			_friendsOnlineList.makeItem = OnMakeFriendsItem;
 			_friendsOnlineList.bindItem = OnBindFriendsItem;
 		}
@@ -66,13 +66,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 		public override void OnScreenOpen(bool reload)
 		{
 			RefreshData();
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
+			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
 		}
 
 		public override void OnScreenClose()
 		{
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
+			_services.MessageBrokerService.UnsubscribeAll(this);
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
 		}
 
@@ -99,7 +99,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			RefreshData();
 		}
 
-		private void OnLobbyChanged(ILobbyChanges lobbyChanges)
+		private void OnLobbyChanged(PartyLobbyUpdatedMessage m)
 		{
 			RefreshData();
 		}

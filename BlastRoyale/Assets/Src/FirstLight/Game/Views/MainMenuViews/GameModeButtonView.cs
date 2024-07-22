@@ -1,4 +1,5 @@
 ﻿using System;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -39,17 +40,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		public override void OnScreenOpen(bool reload)
 		{
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
+			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 		}
 
 		public override void OnScreenClose()
 		{
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
+			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
 		}
 
-		private void OnLobbyChanged(ILobbyChanges obj)
+		private void OnLobbyChanged(PartyLobbyUpdatedMessage m)
 		{
 			UpdateGameModeButton();
 		}

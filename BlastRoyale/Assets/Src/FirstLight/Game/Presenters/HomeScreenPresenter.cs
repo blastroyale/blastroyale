@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -214,13 +215,18 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
+			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnPartyLobbyUpdate);
 			
 			UpdatePlayButton();
 
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
 
 			return base.OnScreenOpen(reload);
+		}
+
+		private void OnPartyLobbyUpdate(PartyLobbyUpdatedMessage m)
+		{
+			UpdatePlayButton();
 		}
 
 		protected override UniTask OnScreenClose()
@@ -231,7 +237,6 @@ namespace FirstLight.Game.Presenters
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnPartyLobbyChanged;
 
 			return base.OnScreenClose();
 		}
@@ -239,11 +244,6 @@ namespace FirstLight.Game.Presenters
 		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
 		{
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
-		}
-		
-		private void OnPartyLobbyChanged(ILobbyChanges changes)
-		{
-			UpdatePlayButton();
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)
@@ -333,6 +333,7 @@ namespace FirstLight.Game.Presenters
 			var buttonClass = string.Empty;
 			var buttonEnabled = true;
 			
+			FLog.Verbose("Updating play button state");
 			var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
 
 			// TODO mihak: Add operation in progress logic for parties

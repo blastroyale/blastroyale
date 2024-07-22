@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -59,7 +60,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged += OnLobbyChanged;
+			_services.MessageBrokerService.Subscribe<MatchLobbyUpdatedMessage>(OnLobbyChanged);
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 
@@ -86,9 +87,9 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenClose();
 		}
 
-		private void OnLobbyChanged(ILobbyChanges changes)
+		private void OnLobbyChanged(MatchLobbyUpdatedMessage m)
 		{
-			if (changes.LobbyDeleted)
+			if (m.Changes.LobbyDeleted)
 			{
 				if (!_localPlayerHost)
 				{
@@ -212,7 +213,7 @@ namespace FirstLight.Game.Presenters
 		{
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 
-			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
+			_services.MessageBrokerService.UnsubscribeAll(this);
 
 			await _services.FLLobbyService.LeaveMatch();
 			await _services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData);

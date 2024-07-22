@@ -94,11 +94,13 @@ namespace FirstLight.Game.Services
 			Tick().Forget();
 
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
-
+			
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
+			
+			((ILobbyServiceSDKConfiguration)LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
 		}
-
+		
 		/// <summary>
 		/// Creates a new party for the current player with their ID.
 		/// </summary>
@@ -268,6 +270,7 @@ namespace FirstLight.Game.Services
 				FLog.Info($"Setting lobby ready status to: {!currentStatus}");
 				CurrentPartyLobby =
 					await LobbyService.Instance.UpdatePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId, options);
+
 				FLog.Info("Lobby status set successfully!");
 			}
 			catch (LobbyServiceException e)
@@ -716,20 +719,29 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchLobbyChanged(ILobbyChanges changes)
 		{
+			FLog.Verbose("Match lobby updated "+changes.Version.Value);
 			if (changes.LobbyDeleted)
 			{
 				CurrentMatchLobby = null;
 				return;
 			}
-
 			changes.ApplyToLobby(CurrentMatchLobby);
+			MainInstaller.ResolveServices().MessageBrokerService.Publish(new MatchLobbyUpdatedMessage()
+			{
+				Changes = changes
+			});
 		}
 
 		private void OnPartyLobbyChanged(ILobbyChanges changes)
 		{
+			FLog.Verbose("Party lobby updated version "+changes.Version.Value);
 			if (changes.LobbyDeleted)
 			{
 				CurrentPartyLobby = null;
+				MainInstaller.ResolveServices().MessageBrokerService.Publish(new PartyLobbyUpdatedMessage()
+				{
+					Changes = changes
+				});
 				return;
 			}
 
@@ -741,8 +753,11 @@ namespace FirstLight.Game.Services
 					_sentPartyInvites.Remove(playerJoined.Player.Id);
 				}
 			}
-
 			changes.ApplyToLobby(CurrentPartyLobby);
+			MainInstaller.ResolveServices().MessageBrokerService.Publish(new PartyLobbyUpdatedMessage()
+			{
+				Changes = changes
+			});
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage _)

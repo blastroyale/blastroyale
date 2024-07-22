@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
@@ -102,7 +103,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services.MatchmakingService.IsMatchmaking.Observe(OnMatchmaking);
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += OnLobbyJoined;
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
+			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
 			Element.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 
 			CleanAllRemote();
@@ -113,7 +114,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnMatchmaking);
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined -= OnLobbyJoined;
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
+			_services.MessageBrokerService.UnsubscribeAll();
 		}
 
 		private void OnGeometryChanged(GeometryChangedEvent evt)
@@ -124,7 +125,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private void OnLobbyChanged(ILobbyChanges changes)
+		private void OnLobbyChanged(PartyLobbyUpdatedMessage msg)
 		{
 			UpdateMembers().Forget();
 		}

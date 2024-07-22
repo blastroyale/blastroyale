@@ -8,9 +8,11 @@ using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using Unity.Services.Lobbies;
@@ -147,7 +149,7 @@ namespace FirstLight.Game.Services
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
 		public GameModeService(IConfigsProvider configsProvider, FLLobbyService lobbyService,
-							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService)
+							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService, IMessageBrokerService msgBroker)
 		{
 			_configsProvider = configsProvider;
 			_lobbyService = lobbyService;
@@ -158,9 +160,9 @@ namespace FirstLight.Game.Services
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe(OnGameModeSet);
-
+			
+			msgBroker.Subscribe<PartyLobbyUpdatedMessage>(OnPartyLobbyChanged);
 			_lobbyService.CurrentPartyCallbacks.LobbyJoined += OnPartyLobbyJoined;
-			_lobbyService.CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 		}
 
 		public void Init(GameModeRotationConfig config = default)
@@ -224,8 +226,9 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private void OnPartyLobbyChanged(ILobbyChanges changes)
+		private void OnPartyLobbyChanged(PartyLobbyUpdatedMessage m)
 		{
+			var changes = m.Changes;
 			if (changes.LobbyDeleted) return;
 
 			if (changes.Data.Changed && changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCHMAKING_GAMEMODE, out var gameModeConfig))

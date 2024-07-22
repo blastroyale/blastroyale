@@ -96,7 +96,6 @@ namespace FirstLight.Game.UIElements
 					playerBarContainer.Add(_moreActionsButton = new ImageButton {name = "more-actions-button"});
 					_moreActionsButton.AddToClassList(USS_MORE_ACTIONS_BUTTON);
 				}
-
 				background.Add(_acceptDeclineContainer = new VisualElement {name = "accept-decline-container"});
 				_acceptDeclineContainer.AddToClassList(USS_ACCEPT_DECLINE_CONTAINER);
 				{
@@ -113,6 +112,7 @@ namespace FirstLight.Game.UIElements
 			_moreActionsButton.clicked += () => _moreActionsAction?.Invoke(_moreActionsButton);
 			_acceptButton.clicked += () => _acceptAction?.Invoke();
 			_declineButton.clicked += () => _declineAction?.Invoke();
+			SetStatus(null, true);
 		}
 
 		public FriendListElement SetFromRelationship(Relationship relationship)

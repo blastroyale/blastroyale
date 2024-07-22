@@ -157,6 +157,11 @@ namespace FirstLight.UIService
 			}
 		}
 
+		public bool HasUIPresenterOpenOnLayer(UILayer uiLayer)
+		{
+			return _openedScreensLayer.TryGetValue(uiLayer, out _);
+		}
+
 		/// <summary>
 		/// Returns the screen of type <typeparamref name="T"/> if it's open.
 		///

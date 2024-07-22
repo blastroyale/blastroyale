@@ -1,20 +1,18 @@
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Services;
-using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.Commands;
+using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Commands
 {
 	/// <summary>
-	/// Collects all the reward on the to the player's current inventory.
+	/// Collects all the purchased items to the player's current inventory.
 	/// </summary>
-	public struct ClaimUnclaimedRewardCommand : IGameCommand
+	public struct ClaimPurchasedItem : IGameCommand
 	{
-		public ItemData ToClaim;
+		public ItemData PurchasedItemToClaim;
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
@@ -22,7 +20,12 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public UniTask Execute(CommandExecutionContext ctx)
 		{
-			var msg = new RewardClaimedMessage {Reward = ctx.Logic.RewardLogic().ClaimUnclaimedReward(ToClaim)};
+			var msg = new PurchaseClaimedMessage
+			{
+				ItemPurchased = ctx.Logic.RewardLogic().ClaimUnclaimedReward(PurchasedItemToClaim),
+				SupportingContentCreator = ctx.Logic.ContentCreatorLogic().SupportingCreatorCode.Value 
+			};
+
 			ctx.Services.MessageBrokerService().Publish(msg);
 			return UniTask.CompletedTask;
 		}

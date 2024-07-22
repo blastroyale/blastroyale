@@ -29511,6 +29511,127 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITGameModeSelection/rewards
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARDS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/select_event
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/event_info_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - EVENT INFO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/content_creator
+      TermType: 0
+      Description: 
+      Languages:
+      - Content Creator
+      - Content Creator
+      - "Criador de Conte\xFAdo"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/content_creator_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Support your favorite content creator
+      - Support your favorite content creator
+      - "Apoie seu criador de conte\xFAdo favorito"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/content_creator_support
+      TermType: 0
+      Description: 
+      Languages:
+      - Support
+      - Support
+      - Apoiar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_HammerTime
+      TermType: 0
+      Description: 
+      Languages:
+      - HAMMER TIME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_HammerTime_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - You can only use your hammer!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/buy_levels_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY BLAST PASS LEVELS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/content_creator_invalid_code
+      TermType: 0
+      Description: 
+      Languages:
+      - Content Creator Code doesn't exist
+      - Content Creator Code doesn't exist
+      - "Este c\xF3digo de criador de conte\xFAdo n\xE3o existe"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/content_creator_stop_supporting
+      TermType: 0
+      Description: 
+      Languages:
+      - Are you sure you want to stop supporting this content creator?
+      - Are you sure you want to stop supporting this content creator?
+      - "Voc\xEA tem certeza que n\xE3o quer mais apoiar este criador de conte\xFAdo?"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

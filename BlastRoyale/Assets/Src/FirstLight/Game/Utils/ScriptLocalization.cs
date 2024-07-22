@@ -2677,7 +2677,7 @@ namespace I2.Loc
 			public static string content_creator_invalid_code 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_invalid_code"); } }
 			public static string content_creator_stop_supporting 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_stop_supporting"); } }
 			public static string content_creator_support 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_support"); } }
-			public static string description_blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_large"); } }
+            public static string description_blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_large"); } }
 			public static string description_blastbuck_pack_medium 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_medium"); } }
 			public static string description_blastbuck_pack_small 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_small"); } }
 			public static string description_coin_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_coin_pack_large"); } }

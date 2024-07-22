@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -50,6 +51,7 @@ namespace FirstLight.Game.Presenters.Store
 		private VisualElement _categoryList;
 		private ScrollView _scroll;
 		private Dictionary<string, VisualElement> _categoriesElements = new ();
+        
 
 		private void Awake()
 		{
@@ -100,6 +102,7 @@ namespace FirstLight.Game.Presenters.Store
 				}
 
 				_productList.Add(categoryElement);
+                
 				var categoryButton = new Button();
 				categoryButton.text = category.Name;
 				categoryButton.AddToClassList(USS_CATEGORY_BUTTON);
@@ -107,8 +110,11 @@ namespace FirstLight.Game.Presenters.Store
 				_categoryList.Add(categoryButton);
 				_categoriesElements[category.Name] = categoryElement;
 			}
-		}
 
+			SetupCreatorsCodeSupport();
+		}
+        
+        
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
@@ -221,5 +227,88 @@ namespace FirstLight.Game.Presenters.Store
 			_blocker.style.display = DisplayStyle.Flex;
 			Data.OnPurchaseItem(product);
 		}
-	}
+        
+        
+        //Content Creator
+        private void SetupCreatorsCodeSupport()
+        {
+            var contentCreatorElement = InstantiateCreatorCodeVisualElement();
+            
+            contentCreatorElement.OnEnterCodeClicked = OpenEnterCreatorCodePopup;
+            contentCreatorElement.OnUpdateCodeClicked = OpenEnterCreatorCodePopup;
+            contentCreatorElement.OnStopSupportingClicked = OpenStopSupportingCreatorPopup;
+            
+            contentCreatorElement.SetData(_data.ContentCreatorDataProvider.SupportingCreatorCode.Value);
+            _data.ContentCreatorDataProvider.SupportingCreatorCode.Observe(contentCreatorElement.UpdateContentCreator);
+            
+        }
+        
+        private StoreCreatorCodeElement InstantiateCreatorCodeVisualElement()
+        {
+            var contentCreatorLabel = ScriptLocalization.UITStore.content_creator.ToUpperInvariant();
+            
+            var contentCreatorElement = new StoreCreatorCodeElement();
+            var categoryElement = new StoreCategoryElement(contentCreatorLabel);
+            categoryElement.Add(contentCreatorElement);
+            
+            _productList.Add(categoryElement);
+			
+            var categoryButton = new Button();
+            categoryButton.text = contentCreatorLabel;
+            categoryButton.AddToClassList(USS_CATEGORY_BUTTON);
+            categoryButton.clicked += () => SelectCategory(categoryElement);
+			
+            _categoryList.Add(categoryButton);
+            _categoriesElements[contentCreatorLabel] = categoryElement;
+            
+            return contentCreatorElement;
+        }
+
+        
+
+        private bool IsValidCreatorCode(string creatorCode)
+        {
+            if (_data.AppDataProvider.TitleData.TryGetValue("ACTIVE_CREATORS_CODE", out var activeCreatorsCode))
+            {
+                if (!string.IsNullOrEmpty(activeCreatorsCode))
+                {
+                    return activeCreatorsCode.Split(",").Contains(creatorCode);
+                }
+            }
+
+            return false;
+        }
+        
+        private void OpenEnterCreatorCodePopup()
+        {
+            PopupPresenter.OpenEnterCreatorCode(OnCreatorCodeSubmitted);
+        }
+
+        private void OpenStopSupportingCreatorPopup()
+        {
+            PopupPresenter.OpenGenericConfirm(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_stop_supporting, OnStopSupportingCreatorSubmitted);
+        }
+
+
+        private void OnCreatorCodeSubmitted(string creatorCode)
+        {
+            var creatorCodeValue = creatorCode.ToUpperInvariant();
+            
+            if (!IsValidCreatorCode(creatorCodeValue))
+            {
+                PopupPresenter.OpenGenericInfo(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_invalid_code);
+                return;
+            }
+            
+            _gameServices.CommandService.ExecuteCommand(new SupportCreatorCommand() { CreatorCode = creatorCodeValue});
+            PopupPresenter.Close();
+        }
+        
+        private void OnStopSupportingCreatorSubmitted()
+        {
+            _gameServices.CommandService.ExecuteCommand(new SupportCreatorCommand() { CreatorCode = string.Empty });
+            PopupPresenter.Close();
+        }
+
+    }
 }

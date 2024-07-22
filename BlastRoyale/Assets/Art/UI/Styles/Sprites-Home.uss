@@ -9,6 +9,7 @@
     --sprite-home__background-bundle-image: url('/Assets/Art/UI/Sprites/Home/background-bundle-image.png');
     --sprite-home__background-bundle-image-gradient: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png');
     --sprite-home__background-bundle-image-small: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-small.png');
+    --sprite-home__background-creatorcode: url('/Assets/Art/UI/Sprites/Home/background-creatorcode.png');
     --sprite-home__background-difficultygradient: url('/Assets/Art/UI/Sprites/Home/background-difficultygradient.png');
     --sprite-home__background-dots-effect: url('/Assets/Art/UI/Sprites/Home/background-dots-effect.png');
     --sprite-home__background-friends-player: url('/Assets/Art/UI/Sprites/Home/background-friends-player.png');
@@ -155,6 +156,7 @@
     --sprite-home__icon-core-epic: url('/Assets/Art/UI/Sprites/Home/icon-core-epic.png');
     --sprite-home__icon-core-legendary: url('/Assets/Art/UI/Sprites/Home/icon-core-legendary.png');
     --sprite-home__icon-core-rare: url('/Assets/Art/UI/Sprites/Home/icon-core-rare.png');
+    --sprite-home__icon-creatorcode: url('/Assets/Art/UI/Sprites/Home/icon-creatorcode.png');
     --sprite-home__icon-crown: url('/Assets/Art/UI/Sprites/Home/icon-crown.png');
     --sprite-home__icon-crown-2: url('/Assets/Art/UI/Sprites/Home/icon-crown-2.png');
     --sprite-home__icon-crown-ranked: url('/Assets/Art/UI/Sprites/Home/icon-crown-ranked.png');

@@ -1,0 +1,25 @@
+.content {
+    height: 486px;
+    width: 884px;
+    align-items: center;
+}
+
+.info-container {
+    width: 100%;
+    padding: 25px 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-text {
+    color: rgba(157, 131, 216, 1);
+    font-size: 36px;
+    -unity-text-align: middle-center;
+    -unity-text-outline: 1px black;
+    text-shadow: black 2px 2px 0;
+    margin: 10px;
+}
+
+.ok-button {
+    margin: 50px 0px;
+}

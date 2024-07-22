@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/GenericConfirmPopupStyle.uss?fileID=7433441132597879392&amp;guid=a4357ab6a1d022144b86715846bcbedf&amp;type=3#GenericConfirmPopupStyle" />
+    <ui:VisualElement name="Content" class="content">
+        <ui:VisualElement name="ConfirmTextContainer" class="confirm-text-container">
+            <ui:Label tabindex="-1" text="Generic Info Blask Royale Description Generic Info Blask Royale Description Generic Info Blask Royale Description Generic Info Blask Royale Description " parse-escape-sequences="true" display-tooltip-when-elided="true" name="ConfirmText" class="info-text confirm-text" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ButtonContainer" class="confirm-buttons-container">
+            <FirstLight.Game.UIElements.LocalizedButton name="ConfirmButton" localization-key="UITShared/confirm" class="button-long button-long--green button" />
+            <FirstLight.Game.UIElements.LocalizedButton name="CancelButton" localization-key="UITShared/cancel" class="button-long button-long--red button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

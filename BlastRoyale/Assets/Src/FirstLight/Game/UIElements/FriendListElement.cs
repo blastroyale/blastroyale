@@ -115,7 +115,7 @@ namespace FirstLight.Game.UIElements
 		public FriendListElement SetFromParty(Player partyPlayer)
 		{
 			SetPlayerName(partyPlayer.GetPlayerName());
-			SetAvatarHack(null, partyPlayer.GetPlayfabID()).Forget();
+			SetAvatarHack(partyPlayer.Id, null).Forget();
 			return this;
 		}
 
@@ -143,7 +143,7 @@ namespace FirstLight.Game.UIElements
 				return;
 			}
 			var services = MainInstaller.ResolveServices();
-			FLog.Verbose("Setting avatar hack for "+unityId);
+			FLog.Verbose("Setting avatar hack for "+unityId + " playfabid "+playfabid);
 			try
 			{
 				if (playfabid == null)
@@ -238,7 +238,10 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetAvatar(string avatarUrl)
 		{
-			MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_avatar, avatarUrl);
+			if (avatarUrl != null)
+			{
+				MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_avatar, avatarUrl);
+			}
 			_avatar.SetVisibility(avatarUrl != null);
 			return this;
 		}

@@ -195,9 +195,9 @@
     padding-left: 0;
     justify-content: center;
     -unity-background-image-tint-color: rgb(22, 20, 38);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 4px 4px 4 rgb(0, 0, 0);
     transition-property: scale;
     transition-duration: 0.1s;
 }

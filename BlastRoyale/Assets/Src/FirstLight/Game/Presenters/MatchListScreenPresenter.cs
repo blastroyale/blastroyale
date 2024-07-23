@@ -30,7 +30,7 @@ namespace FirstLight.Game.Presenters
 		[Q("ListHeaders")] private VisualElement _listHeaders;
 		[Q("NoLobbiesLabel")] private LocalizedLabel _noLobbiesLabel;
 		[Q("Loader")] private DotsLoadingElement _loader;
-		[Q("RefreshButton")] private Button _refreshButton;
+		[Q("RefreshButton")] private LocalizedButton _refreshButton;
 		[Q("GamesList")] private ListView _gamesList;
 		[Q("MatchSettings")] private VisualElement _matchSettings;
 		[Q("JoinWithCodeButton")] private LocalizedButton _joinWithCodeButton;

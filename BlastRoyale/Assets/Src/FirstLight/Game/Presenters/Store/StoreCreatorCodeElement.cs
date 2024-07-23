@@ -5,6 +5,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using UnityEngine;
@@ -21,9 +22,9 @@ namespace FirstLight.Game.Presenters.Store
 
         private Label creatorNameLabel;
         
-        private Button enterCodeButton;
-        private Button changeCodeButton;
-        private Button stopSupportingButton;
+        private LocalizedButton enterCodeButton;
+        private LocalizedButton changeCodeButton;
+        private LocalizedButton stopSupportingButton;
 
         private string currentCreatorSupporting;
 
@@ -41,13 +42,13 @@ namespace FirstLight.Game.Presenters.Store
             
             creatorNameLabel = this.Q<Label>("SupportingCreatorNameText");
             
-            enterCodeButton = this.Q<Button>("EnterCodeButton");
+            enterCodeButton = this.Q<LocalizedButton>("EnterCodeButton");
             enterCodeButton.clicked += () => OnEnterCodeClicked?.Invoke();
             
-            changeCodeButton = this.Q<Button>("ChangeButton");
+            changeCodeButton = this.Q<LocalizedButton>("ChangeButton");
             changeCodeButton.clicked += () => OnUpdateCodeClicked?.Invoke();
             
-            stopSupportingButton = this.Q<Button>("StopButton");
+            stopSupportingButton = this.Q<LocalizedButton>("StopButton");
             stopSupportingButton.clicked += () => OnStopSupportingClicked?.Invoke();
         }
 

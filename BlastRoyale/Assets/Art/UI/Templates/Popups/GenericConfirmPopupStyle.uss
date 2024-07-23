@@ -13,11 +13,12 @@
 }
 
 .confirm-text {
-    color: rgba(157, 131, 216, 1);
+    color: white;
     font-size: 36px;
     -unity-text-align: middle-center;
-    -unity-text-outline: 1px black;
-    text-shadow: black 2px 2px 0;
+    -unity-text-outline: 4px black;
+    text-shadow: black 4px 4px 0;
+    width: 100%;
     margin: 10px;
 }
 

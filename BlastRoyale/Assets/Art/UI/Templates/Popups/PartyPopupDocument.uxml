@@ -14,14 +14,14 @@
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/leave_party" name="LeavePartyButton" class="button-long button-long--red" />
         </ui:VisualElement>
         <ui:VisualElement name="MainContent" class="main-container">
-            <ui:Label tabindex="-1" text="YOUR PARTY (0)" name="YourTeamLabel" class="category-title" />
+            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="YOUR PARTY (0)" name="YourTeamLabel" class="category-title" />
             <ui:VisualElement name="YourTeamContainer" class="container-your-team">
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
             </ui:VisualElement>
-            <ui:Label tabindex="-1" text="FRIENDS ONLINE (0)" name="FriendsOnline" class="category-title" />
+            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="FRIENDS ONLINE (0)" name="FriendsOnline" class="category-title" />
             <ui:ListView name="FriendsOnlineList" virtualization-method="DynamicHeight" class="container-online-friends" />
         </ui:VisualElement>
     </ui:VisualElement>

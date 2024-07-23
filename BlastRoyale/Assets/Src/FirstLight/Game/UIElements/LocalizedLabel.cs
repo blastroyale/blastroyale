@@ -19,11 +19,11 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		
-		public LocalizedLabel(string localizationKey, string elementName) : base(elementName)
+		public LocalizedLabel(string localizationKey, string elementName, bool outlineHack = false) : base(elementName, outlineHack)
 		{
 			LocalizationKey = localizationKey;
 		}
+
 		public LocalizedLabel(string localizationKey) : base("localized-label")
 		{
 			LocalizationKey = localizationKey;

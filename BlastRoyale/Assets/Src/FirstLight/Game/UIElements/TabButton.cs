@@ -110,7 +110,7 @@ namespace FirstLight.Game.UIElements
 			Add(content);
 			content.AddToClassList("unity-tab-button__content");
 			
-			m_Label = new Label {name = "Label"};
+			m_Label = new LabelOutlined("Label");
 			content.Add(m_Label);
 			m_Label.AddToClassList("unity-tab-button__content-label");
 

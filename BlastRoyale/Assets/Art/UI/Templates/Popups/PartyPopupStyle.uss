@@ -1,9 +1,10 @@
 .category-title {
     font-size: 32px;
     color: rgb(255, 255, 255);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
     margin-left: 30px;
     margin-bottom: 16px;
+    -unity-text-outline: black 4px;
 }
 
 .main-container {

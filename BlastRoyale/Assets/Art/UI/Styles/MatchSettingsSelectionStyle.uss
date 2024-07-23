@@ -21,9 +21,8 @@
 .match-settings-selection__title {
     font-size: 38px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgba(0, 0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline: black 5px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
 }
 
 .match-settings-selection__subtitle {

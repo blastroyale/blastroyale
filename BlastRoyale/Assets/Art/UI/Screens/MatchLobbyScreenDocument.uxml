@@ -22,7 +22,7 @@
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/invite_friends" name="InviteFriendsButton" class="button-long" />
                     <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITCustomGames/lobby_code" show-copy-button="true" name="LobbyCode" value="ABC8ET" class="lobby-code" />
                     <ui:VisualElement style="flex-grow: 1;" />
-                    <ui:Label tabindex="-1" text="12/42" name="PlayersAmountLabel" class="player-count" />
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="12/42" name="PlayersAmountLabel" class="player-count" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Instance template="MatchSettings" name="MatchSettingsContainer" />

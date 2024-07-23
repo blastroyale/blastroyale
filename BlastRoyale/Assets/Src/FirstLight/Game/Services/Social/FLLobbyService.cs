@@ -514,7 +514,7 @@ namespace FirstLight.Game.Services
 			Assert.IsNull(CurrentMatchLobby, "Trying to create a match but the player is already in one!");
 
 			var lobbyName = matchOptions.ShowCreatorName
-				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName)
+				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
 				: matchOptions.MapID;
 
 			var data = new Dictionary<string, DataObject>

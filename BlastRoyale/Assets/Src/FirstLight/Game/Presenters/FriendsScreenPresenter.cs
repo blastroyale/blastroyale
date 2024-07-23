@@ -15,6 +15,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
+using Unity.Services.Friends.Notifications;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -79,32 +80,45 @@ namespace FirstLight.Game.Presenters
 			_blockedList.makeItem = OnMakeListItem;
 		}
 
+		private void OnRelationshipAdded(IRelationshipAddedEvent rde)
+		{
+			RefreshAll();
+		}
+		
+		private void OnRelationshipDeleted(IRelationshipDeletedEvent e)
+		{
+			RefreshAll();
+		}
+		
+		private void OnPresenceUpdate(IPresenceUpdatedEvent e)
+		{
+			RefreshAll();
+		}
+		
+		private void OnMessageReceived(IMessageReceivedEvent e)
+		{
+			FLog.Info("Message from "+e.UserId);
+		}
+
+		protected override UniTask OnScreenClose()
+		{
+			FriendsService.Instance.RelationshipDeleted -= OnRelationshipDeleted;
+			FriendsService.Instance.RelationshipAdded -= OnRelationshipAdded;
+			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdate;
+			FriendsService.Instance.MessageReceived -= OnMessageReceived;
+			return base.OnScreenClose();
+		}
+
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_yourIDField.value = AuthenticationService.Instance.PlayerId;
 			RefreshAll();
-
+			
 			// TODO mihak: Temporary, we just always refresh all lists
-			FriendsService.Instance.RelationshipDeleted += rde =>
-			{
-				FLog.Info($"Relationship deleted: {rde.Relationship.Id} - {rde.Relationship.Member.Id}");
-				RefreshAll();
-			};
-			FriendsService.Instance.RelationshipAdded += raa =>
-			{
-				FLog.Info($"Relationship added: {raa.Relationship.Id} - {raa.Relationship.Member.Id}");
-				RefreshAll();
-			};
-			FriendsService.Instance.PresenceUpdated += pue =>
-			{
-				FLog.Info($"Presence updated: {pue.ID} - {pue.Presence.Availability}");
-				RefreshAll();
-			};
-			FriendsService.Instance.MessageReceived += mre =>
-			{
-				FLog.Info($"Message received from: {mre.UserId}");
-			};
-
+			FriendsService.Instance.RelationshipDeleted += OnRelationshipDeleted;
+			FriendsService.Instance.RelationshipAdded += OnRelationshipAdded;
+			FriendsService.Instance.PresenceUpdated += OnPresenceUpdate;
+			FriendsService.Instance.MessageReceived += OnMessageReceived;
 			return base.OnScreenOpen(reload);
 		}
 

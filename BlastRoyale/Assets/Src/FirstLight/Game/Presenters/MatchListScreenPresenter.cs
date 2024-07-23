@@ -33,7 +33,7 @@ namespace FirstLight.Game.Presenters
 		[Q("RefreshButton")] private Button _refreshButton;
 		[Q("GamesList")] private ListView _gamesList;
 		[Q("MatchSettings")] private VisualElement _matchSettings;
-		[Q("JoinWithCodeButton")] private Button _joinWithCodeButton;
+		[Q("JoinWithCodeButton")] private LocalizedButton _joinWithCodeButton;
 		[Q("ShowAllRegionsToggle")] private LocalizedToggle _allRegionsToggle;
 
 		private MatchSettingsView _matchSettingsView;

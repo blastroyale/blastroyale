@@ -12,6 +12,7 @@ using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -51,12 +52,8 @@ namespace FirstLight.Game.UIElements
 		private Action<VisualElement> _moreActionsAction;
 		private Action _acceptAction;
 		private Action _declineAction;
-
-		public FriendListElement() : this("VeryLongPlayerNameThatWillBreakTheLayout")
-		{
-		}
-
-		public FriendListElement(string name)
+		
+		public FriendListElement()
 		{
 			AddToClassList(USS_BLOCK);
 
@@ -115,6 +112,13 @@ namespace FirstLight.Game.UIElements
 			SetStatus(null, true);
 		}
 
+		public FriendListElement SetFromParty(Player partyPlayer)
+		{
+			SetPlayerName(partyPlayer.GetPlayerName());
+			SetAvatarHack(partyPlayer.Id).Forget();
+			return this;
+		}
+
 		public FriendListElement SetFromRelationship(Relationship relationship)
 		{
 			var activity = relationship.Member?.Presence?.GetActivity<FriendActivity>();
@@ -156,7 +160,7 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetPlayerName(string playerName)
 		{
-			_nameAndTrophiesLabel.text = playerName;
+			_nameAndTrophiesLabel.text = playerName?.TrimPlayerNameNumbers();
 			return this;
 		}
 
@@ -225,10 +229,10 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		public FriendListElement SetAvatar(Texture2D avatar)
+		public FriendListElement SetAvatar(string avatarUrl)
 		{
-			_avatar.SetVisibility(avatar != null);
-			_avatar.style.backgroundImage = new StyleBackground(avatar);
+			MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_avatar, avatarUrl);
+			_avatar.SetVisibility(avatarUrl != null);
 			return this;
 		}
 

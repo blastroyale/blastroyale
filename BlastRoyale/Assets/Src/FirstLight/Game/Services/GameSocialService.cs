@@ -34,7 +34,6 @@ namespace FirstLight.Game.Services
 
 		[Preserve, DataMember(Name = "avatar", IsRequired = true, EmitDefaultValue = true)]
 		public string AvatarUrl { get; set; }
-		
 		public string Status => CurrentActivityEnum.ToString().Replace(@"_", " ");
 		public GameActivities CurrentActivityEnum => ((GameActivities) CurrentActivity);
 	}
@@ -50,6 +49,9 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		public GameSocialService(IGameServices services)
 		{
+			services.MatchmakingService.OnMatchmakingJoined += _ => SetCurrentActivity(GameActivities.In_Matchmaking);
+			services.MatchmakingService.OnMatchmakingCancelled += DecideBasedOnScreen;
+			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Main_Menu));
 			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Main_Menu));
 			services.MessageBrokerService.Subscribe<JoinRoomMessage>(_ => SetCurrentActivity(
 				IsCustomGame ? GameActivities.In_Game_Lobby : GameActivities.In_a_Match));
@@ -60,7 +62,31 @@ namespace FirstLight.Game.Services
 		}
 
 		private bool IsCustomGame => _services.RoomService.CurrentRoom?.Properties?.SimulationMatchConfig?.Value?.MatchType == MatchType.Custom;
-			
+
+		private void DecideBasedOnScreen()
+		{
+			var service = MainInstaller.ResolveServices().UIService;
+			if (service.IsScreenOpen<BattlePassScreenPresenter>())
+			{
+				SetCurrentActivity(GameActivities.In_Blast_Pass);
+			} else if (service.IsScreenOpen<CollectionScreenPresenter>())
+			{
+				SetCurrentActivity(GameActivities.In_Collection);
+			} else if (service.IsScreenOpen<FriendsScreenPresenter>())
+			{
+				SetCurrentActivity(GameActivities.In_Friends_Screen);
+			} else if (service.IsScreenOpen<PreGameLoadingScreenPresenter>())
+			{
+				SetCurrentActivity(GameActivities.In_a_Match);
+			} else if (service.IsScreenOpen<MatchLobbyScreenPresenter>())
+			{
+				SetCurrentActivity(GameActivities.In_Game_Lobby);
+			} else if (service.IsScreenOpen<HomeScreenPresenter>())
+			{
+				SetCurrentActivity(GameActivities.In_Main_Menu);
+			}
+		}
+		
 		public bool CanInvite(Relationship friend)
 		{
 			if (!friend.IsOnline()) return false;
@@ -90,20 +116,7 @@ namespace FirstLight.Game.Services
 
 		private void OnScreenOpened(string name, string layer)
 		{
-			var service = MainInstaller.ResolveServices().UIService;
-			if (service.IsScreenOpen<BattlePassScreenPresenter>())
-			{
-				SetCurrentActivity(GameActivities.In_Blast_Pass);
-			} else if (service.IsScreenOpen<CollectionScreenPresenter>())
-			{
-				SetCurrentActivity(GameActivities.In_Collection);
-			} else if (service.IsScreenOpen<FriendsScreenPresenter>())
-			{
-				SetCurrentActivity(GameActivities.In_Friends_Screen);
-			}else if (service.IsScreenOpen<PreGameLoadingScreenPresenter>())
-			{
-				SetCurrentActivity(GameActivities.In_a_Match);
-			}
+			DecideBasedOnScreen();
 		}
 		
 		public void SetCurrentActivity(GameActivities activity)

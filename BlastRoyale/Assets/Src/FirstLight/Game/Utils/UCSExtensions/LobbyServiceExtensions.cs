@@ -64,7 +64,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// </summary>
 		public static string GetPlayerName(this Player player)
 		{
-			return player.Data[FLLobbyService.KEY_PLAYER_NAME].Value;
+			return player.Data[FLLobbyService.KEY_PLAYER_NAME].Value.TrimPlayerNameNumbers();
 		}
 
 		/// <summary>

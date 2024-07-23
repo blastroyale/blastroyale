@@ -184,7 +184,7 @@ namespace FirstLight.Game.StateMachines
 			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeCheck);
 			store.WaitingFor(OpenStore).Target(homeCheck);
 			friends.WaitingFor(wait => OpenFriends(wait).Forget()).Target(homeCheck);
-			AddGoToMatchmakingHook(settingsMenu, collectionMenu, battlePass, leaderboard, store, news);
+			AddGoToMatchmakingHook(settingsMenu, collectionMenu, battlePass, leaderboard, store, news, friends);
 
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
 			playClickedCheck.Transition().Condition(CheckInvalidTeamSize)

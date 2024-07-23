@@ -47,8 +47,9 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string TrimPlayerNameNumbers(this string playerName)
 		{
-			int appendedNumberAmount = GameConstants.Data.PLAYER_NAME_APPENDED_NUMBERS;
-			return playerName.Remove(playerName.Length - appendedNumberAmount, appendedNumberAmount);
+			int index = playerName.LastIndexOf("#", StringComparison.Ordinal);
+			if (index == -1) return playerName;
+			return playerName.Substring(0, index);
 		}
 
 		/// <summary>

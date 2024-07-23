@@ -140,12 +140,16 @@ namespace FirstLight.Game.Views.UITK.Popups
 				foreach (var partyMember in partyLobby.Players!)
 				{
 					if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
-					_yourTeamContainer.Add(new FriendListElement(partyMember.GetPlayerName()));
+					var e = new FriendListElement().SetFromParty(partyMember);
+					_yourTeamContainer.Add(e);
 				}
 			}
 
 			// We always show the local player
-			_yourTeamContainer.Add(new FriendListElement(AuthenticationService.Instance.PlayerName));
+			var own = new FriendListElement();
+			own.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers());
+			own.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl);
+			_yourTeamContainer.Add(own);
 
 			// TODO mihak: Add invited friends
 			_friendsOnlineList.itemsSource = _friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToList();

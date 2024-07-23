@@ -114,7 +114,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnMatchmaking);
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined -= OnLobbyJoined;
-			_services.MessageBrokerService.UnsubscribeAll();
+			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
 		private void OnGeometryChanged(GeometryChangedEvent evt)

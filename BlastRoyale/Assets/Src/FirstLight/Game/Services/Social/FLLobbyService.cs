@@ -126,7 +126,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates the data / locked state of the current match lobby.
 		/// </summary>
-		UniTask<bool> SetMatchRoom(string roomName);
+		UniTask<bool> SetMatchRoom(string roomName, string teamOverwrites, string colorOverwrites);
 
 		/// <summary>
 		/// Sets the match host to the given player ID.
@@ -165,11 +165,14 @@ namespace FirstLight.Game.Services
 		public const string KEY_READY = "ready";
 		public const string KEY_PLAYFAB_ID = "playfab_id";
 		public const string KEY_SPECTATOR = "spectator";
+		public const string KEY_TEAM_ID = "team_id";
 		public const string KEY_MATCHMAKING_TICKET = "matchmaking_ticket";
 		public const string KEY_MATCHMAKING_GAMEMODE = "matchmaking_gamemode";
 
 		public const string KEY_MATCH_SETTINGS = "match_settings";
 		public const string KEY_MATCH_ROOM_NAME = "room_name";
+		public const string KEY_OVERWRITE_TEAMS = "overwrite_teams";
+		public const string KEY_OVERWRITE_COLORS = "overwrite_colors";
 		public const string KEY_REGION = "region"; // S1
 
 		/// <summary>
@@ -221,13 +224,13 @@ namespace FirstLight.Game.Services
 			Tick().Forget();
 
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
-			
+
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
-			
-			((ILobbyServiceSDKConfiguration)LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
+
+			((ILobbyServiceSDKConfiguration) LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
 		}
-		
+
 		/// <summary>
 		/// Creates a new party for the current player with their ID.
 		/// </summary>
@@ -505,7 +508,7 @@ namespace FirstLight.Game.Services
 
 			return null;
 		}
-		
+
 		/// <summary>
 		/// Creates a new public game lobby.
 		/// </summary>
@@ -667,11 +670,11 @@ namespace FirstLight.Game.Services
 
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Updates the data / locked state of the current match lobby.
 		/// </summary>
-		public async UniTask<bool> SetMatchRoom(string roomName)
+		public async UniTask<bool> SetMatchRoom(string roomName, string teamOverwrites, string colorOverwrites)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
@@ -679,7 +682,9 @@ namespace FirstLight.Game.Services
 			{
 				Data = new Dictionary<string, DataObject>
 				{
-					{KEY_MATCH_ROOM_NAME, new DataObject(DataObject.VisibilityOptions.Member, roomName)}
+					{KEY_MATCH_ROOM_NAME, new DataObject(DataObject.VisibilityOptions.Member, roomName)},
+					{KEY_OVERWRITE_TEAMS, new DataObject(DataObject.VisibilityOptions.Member, teamOverwrites)},
+					{KEY_OVERWRITE_COLORS, new DataObject(DataObject.VisibilityOptions.Member, colorOverwrites)}
 				}
 			};
 
@@ -744,7 +749,7 @@ namespace FirstLight.Game.Services
 		public async UniTask SetMatchSpectator(bool spectating)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to toggle spectator status but the player is not in a match!");
-			
+
 			var options = new UpdatePlayerOptions
 			{
 				Data = new Dictionary<string, PlayerDataObject>
@@ -846,7 +851,7 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchLobbyChanged(ILobbyChanges changes)
 		{
-			FLog.Verbose("Match lobby updated "+changes.Version.Value);
+			FLog.Verbose("Match lobby updated " + changes.Version.Value);
 			if (changes.LobbyDeleted)
 			{
 				CurrentMatchLobby = null;
@@ -855,6 +860,7 @@ namespace FirstLight.Game.Services
 			{
 				changes.ApplyToLobby(CurrentMatchLobby);
 			}
+
 			MainInstaller.ResolveServices().MessageBrokerService.Publish(new MatchLobbyUpdatedMessage()
 			{
 				Changes = changes
@@ -863,7 +869,7 @@ namespace FirstLight.Game.Services
 
 		private void OnPartyLobbyChanged(ILobbyChanges changes)
 		{
-			FLog.Verbose("Party lobby updated version "+changes.Version.Value);
+			FLog.Verbose("Party lobby updated version " + changes.Version.Value);
 			if (changes.LobbyDeleted)
 			{
 				CurrentPartyLobby = null;
@@ -882,6 +888,7 @@ namespace FirstLight.Game.Services
 					_sentPartyInvites.Remove(playerJoined.Player.Id);
 				}
 			}
+
 			changes.ApplyToLobby(CurrentPartyLobby);
 			MainInstaller.ResolveServices().MessageBrokerService.Publish(new PartyLobbyUpdatedMessage()
 			{

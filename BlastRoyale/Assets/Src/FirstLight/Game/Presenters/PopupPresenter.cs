@@ -37,9 +37,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private VisualTreeAsset _partyDocument;
 		[SerializeField, Required] private VisualTreeAsset _matchInfoDocument;
 		[SerializeField, Required] private VisualTreeAsset _inviteFriendsDocument;
-        [SerializeField, Required] private VisualTreeAsset _enterCreatorCodeDocument;
-        [SerializeField, Required] private VisualTreeAsset _genericInfoDocument;
-        [SerializeField, Required] private VisualTreeAsset _genericConfirmDocument;
+		[SerializeField, Required] private VisualTreeAsset _enterCreatorCodeDocument;
+		[SerializeField, Required] private VisualTreeAsset _genericInfoDocument;
+		[SerializeField, Required] private VisualTreeAsset _genericConfirmDocument;
 
 		private GenericPopupElement _popup;
 
@@ -78,15 +78,15 @@ namespace FirstLight.Game.Presenters
 				case InviteFriendsPopupView view:
 					SetupPopup(_inviteFriendsDocument, view);
 					break;
-                case EnterCreatorCodePopupView view:
-                    SetupPopup(_enterCreatorCodeDocument, view);
-                    break;
-                case GenericInfoPopupView view:
-                    SetupPopup(_genericInfoDocument, view);
-                    break;
-                case GenericConfirmPopupView view:
-                    SetupPopup(_genericConfirmDocument, view);
-                    break;
+				case EnterCreatorCodePopupView view:
+					SetupPopup(_enterCreatorCodeDocument, view);
+					break;
+				case GenericInfoPopupView view:
+					SetupPopup(_genericInfoDocument, view);
+					break;
+				case GenericConfirmPopupView view:
+					SetupPopup(_genericConfirmDocument, view);
+					break;
 				case SelectWeaponsPopupView view:
 					SetupPopup(_selectWeaponsDocument, view);
 					break;
@@ -119,7 +119,7 @@ namespace FirstLight.Game.Presenters
 		{
 			return OpenPopup(new SelectMutatorsPopupView(onMutatorsSelected, mutators), ScriptTerms.UITCustomGames.select_mutators);
 		}
-		
+
 		public static UniTaskVoid OpenSelectWeapons(Action<List<string>> onWeaponsSelected, List<string> weapons)
 		{
 			return OpenPopup(new SelectWeaponsPopupView(onWeaponsSelected, weapons), ScriptTerms.UITCustomGames.select_weapons);
@@ -130,9 +130,9 @@ namespace FirstLight.Game.Presenters
 			return OpenPopup(new PartyPopupView(), ScriptTerms.UITHomeScreen.party);
 		}
 
-		public static UniTaskVoid OpenMatchInfo(SimulationMatchConfig matchSettings, List<string> friendsPlaying)
+		public static UniTaskVoid OpenMatchInfo(SimulationMatchConfig matchSettings, List<string> friendsPlaying, Action selectAction)
 		{
-			return OpenPopup(new MatchInfoPopupView(matchSettings, friendsPlaying), "MATCH INFO");
+			return OpenPopup(new MatchInfoPopupView(matchSettings, friendsPlaying, selectAction), "MATCH INFO");
 		}
 
 		public static UniTaskVoid OpenMatchInfo(GameModeInfo info, Action selectClicked)
@@ -145,22 +145,22 @@ namespace FirstLight.Game.Presenters
 			return OpenPopup(new InviteFriendsPopupView(), ScriptTerms.UITCustomGames.invite_blasters);
 		}
 
-        public static UniTaskVoid OpenEnterCreatorCode(Action<string> creatorCode)
-        {
-            return OpenPopup(new EnterCreatorCodePopupView(creatorCode), ScriptTerms.UITStore.content_creator);
-        }
-        
-        public static UniTaskVoid OpenGenericInfo(string titleKey, string infoText)
-        {
-            return OpenPopup(new GenericInfoPopupView(infoText, () => Close().Forget()), titleKey, true);
-        }
+		public static UniTaskVoid OpenEnterCreatorCode(Action<string> creatorCode)
+		{
+			return OpenPopup(new EnterCreatorCodePopupView(creatorCode), ScriptTerms.UITStore.content_creator);
+		}
 
-        public static UniTaskVoid OpenGenericConfirm(string titleKey, string confirmText, Action confirmAction)
-        {
-            return OpenPopup(new GenericConfirmPopupView(confirmText, confirmAction, () => Close().Forget()), titleKey, true);
-        }
-        
-        public static UniTask Close()
+		public static UniTaskVoid OpenGenericInfo(string titleKey, string infoText)
+		{
+			return OpenPopup(new GenericInfoPopupView(infoText, () => Close().Forget()), titleKey, true);
+		}
+
+		public static UniTaskVoid OpenGenericConfirm(string titleKey, string confirmText, Action confirmAction)
+		{
+			return OpenPopup(new GenericConfirmPopupView(confirmText, confirmAction, () => Close().Forget()), titleKey, true);
+		}
+
+		public static UniTask Close()
 		{
 			var services = MainInstaller.ResolveServices();
 			return services.UIService.CloseScreen<PopupPresenter>();
@@ -168,9 +168,9 @@ namespace FirstLight.Game.Presenters
 
 		private static async UniTaskVoid OpenPopup(UIView view, string titleKey, bool closeOpenedPopups = false)
 		{
-            if (closeOpenedPopups)
-                Close().Forget();
-            
+			if (closeOpenedPopups)
+				Close().Forget();
+
 			var services = MainInstaller.ResolveServices();
 			await services.UIService.OpenScreen<PopupPresenter>(new StateData
 			{

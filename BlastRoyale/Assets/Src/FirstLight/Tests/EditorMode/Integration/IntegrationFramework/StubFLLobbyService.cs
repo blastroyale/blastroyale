@@ -87,6 +87,11 @@ namespace FirstLight.Tests.EditorMode
 			throw new System.NotImplementedException();
 		}
 
+		public UniTask<bool> SetMatchRoom(string roomName, string teamOverwrites, string colorOverwrites)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public UniTask<bool> SetMatchRoom(string roomName)
 		{
 			throw new System.NotImplementedException();

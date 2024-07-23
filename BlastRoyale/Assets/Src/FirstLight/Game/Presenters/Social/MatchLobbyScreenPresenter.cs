@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.UIService;
 using I2.Loc;
 using QuickEye.UIToolkit;
@@ -107,21 +110,39 @@ namespace FirstLight.Game.Presenters
 				if ((changes.Data.Changed || changes.Data.Added || changes.Data.Removed) &&
 					changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCH_ROOM_NAME, out var value))
 				{
+					var joinProperties = new PlayerJoinRoomProperties();
+					if (changes.Data.Value.TryGetValue(FLLobbyService.KEY_OVERWRITE_TEAMS, out var teamsSerialized)
+						&& !string.IsNullOrEmpty(teamsSerialized.Value.Value))
+					{
+						var dict = ModelSerializer.Deserialize<Dictionary<string, string>>(teamsSerialized.Value.Value);
+						if (dict.TryGetValue(AuthenticationService.Instance.PlayerId, out var teamValue))
+						{
+							joinProperties.Team = teamValue;
+						}
+					}
+
+					if (changes.Data.Value.TryGetValue(FLLobbyService.KEY_OVERWRITE_COLORS, out var colorsSerialized)
+						&& !string.IsNullOrEmpty(colorsSerialized.Value.Value))
+					{
+						var dict = ModelSerializer.Deserialize<Dictionary<string, string>>(colorsSerialized.Value.Value);
+						if (dict.TryGetValue(AuthenticationService.Instance.PlayerId, out var colorValue))
+						{
+							joinProperties.TeamColor = byte.Parse(colorValue);
+						}
+					}
+
 					var room = value.Value.Value;
-					JoinRoom(room).Forget();
+					JoinRoom(room, joinProperties).Forget();
 				}
 			}
 		}
 
-		private async UniTaskVoid JoinRoom(string room)
+		private async UniTaskVoid JoinRoom(string room, PlayerJoinRoomProperties playerJoinRoomProperties)
 		{
+			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			// TODO mihak: This should not be here, move when we refac network service
-			await _services.RoomService.JoinRoomAsync(room);
-
+			await _services.RoomService.JoinRoomAsync(room, playerJoinRoomProperties);
 			Data.MatchListStateData.PlayClicked();
-			_services.TeamService.AutoBalanceCustom = true;
-			await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
-			_services.RoomService.StartCustomGameLoading();
 		}
 
 		private void RefreshData()
@@ -178,7 +199,9 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid StartMatch()
 		{
+			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			var matchSettings = _matchSettingsView.MatchSettings;
+			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 
 			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
 
@@ -189,22 +212,28 @@ namespace FirstLight.Game.Presenters
 				SimulationConfig = matchSettings.ToSimulationMatchConfig(),
 				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
 			};
-
+			// TODO: ADD AUTO BALANCE OFF
+			var teams = new Dictionary<string, string>();
+			teams = _services.TeamService.AutomaticDistributeTeams(matchLobby.Players.Select(p => p.Id), matchSettings.SquadSize);
+			var colors = _services.TeamService.DistributeColors(teams);
 			try
 			{
-				await _services.RoomService.CreateRoomAsync(setup);
+				var localId = AuthenticationService.Instance.PlayerId;
+				await _services.RoomService.CreateRoomAsync(setup, new PlayerJoinRoomProperties()
+				{
+					TeamColor = Byte.Parse(colors[localId]),
+					Team = teams[localId]
+				});
 				Data.MatchListStateData.PlayClicked();
-				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
-
-				_services.TeamService.AutoBalanceCustom = true;
-				await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
-
-				_services.RoomService.StartCustomGameLoading();
+				var teamsSerialized = ModelSerializer.Serialize(teams).Value;
+				var colorsSerialized = ModelSerializer.Serialize(colors).Value;
+				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier, teamsSerialized, colorsSerialized);
 				await _services.FLLobbyService.LeaveMatch();
 			}
 			catch (Exception e)
 			{
 				FLog.Error("Could not create quantum room", e);
+				LeaveMatchLobby().Forget();
 			}
 		}
 

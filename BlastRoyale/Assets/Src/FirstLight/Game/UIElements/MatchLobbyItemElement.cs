@@ -62,7 +62,8 @@ namespace FirstLight.Game.UIElements
 			}
 			Add(_lobbyRegion = new LocalizedLabel("EU"));
 			_lobbyRegion.AddToClassList(USS_STATUS);
-			Add(_actionButton = new LocalizedButton(ScriptTerms.UITCustomGames.join));
+			Add(_actionButton = new LocalizedButton("ActionButton"));
+			_actionButton.LocalizationKey = ScriptTerms.UITCustomGames.join;
 			_actionButton.AddToClassList("button-long");
 			_actionButton.AddToClassList(USS_ACTION_BUTTON);
 			_actionButton.clicked += () => _onActionClicked.Invoke();

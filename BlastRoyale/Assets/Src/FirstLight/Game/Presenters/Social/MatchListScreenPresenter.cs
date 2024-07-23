@@ -23,7 +23,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public class StateData
 		{
-			public Action BackClicked; // Fucking disgusting
+			public Action BackClicked; // Fucking disgusting, UP 23 jul 2024
 			public Action PlayClicked;
 		}
 
@@ -136,7 +136,11 @@ namespace FirstLight.Game.Presenters
 		private void OpenMatchInfo(Lobby lobby)
 		{
 			var friendsPlaying = lobby.GetFriends().Select(p => p.GetPlayerName()).ToList();
-			PopupPresenter.OpenMatchInfo(lobby.GetMatchSettings().ToSimulationMatchConfig(), friendsPlaying).Forget();
+			PopupPresenter.OpenMatchInfo(lobby.GetMatchSettings().ToSimulationMatchConfig(), friendsPlaying, () =>
+			{
+				PopupPresenter.Close();
+				JoinMatch(lobby.Id).Forget();
+			}).Forget();
 		}
 
 		private async UniTask OpenMatchLobby()

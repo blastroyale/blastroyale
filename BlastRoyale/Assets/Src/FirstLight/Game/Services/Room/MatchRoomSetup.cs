@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
 using Photon.Deterministic;
@@ -41,9 +43,8 @@ namespace FirstLight.Game.Services
 				Reading = true
 			};
 			if (!setup.Serialize(bitStream)) return false;
-			
-			return true;
 
+			return true;
 		}
 
 		private bool Serialize(BitStream bitStream)

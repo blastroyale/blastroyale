@@ -17,6 +17,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using PlayerMatchData = Quantum.PlayerMatchData;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Utils
 {
@@ -502,6 +503,11 @@ namespace FirstLight.Game.Utils
 		public static T CloneSerializing<T>(this T value)
 		{
 			return ModelSerializer.Deserialize<T>(ModelSerializer.Serialize(value).Value);
+		}
+		
+		public static IEnumerable<T> Randomize<T>(this IEnumerable<T> source)
+		{
+			return source.OrderBy((_) => Random.value);
 		}
 	}
 }

@@ -56,10 +56,11 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_entryInfo = info;
 		}
 
-		public MatchInfoPopupView(SimulationMatchConfig matchSettings, List<string> friendsPlaying)
+		public MatchInfoPopupView(SimulationMatchConfig matchSettings, List<string> friendsPlaying, Action selectAction)
 		{
 			_matchSettings = matchSettings;
 			_friendsPlaying = friendsPlaying;
+			_clickAction = selectAction;
 		}
 
 		public bool IsEvent()
@@ -73,6 +74,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			Element.EnableInClassList(USS_EVENT, _matchSettings.MatchType == MatchType.Matchmaking);
 			Element.EnableInClassList(USS_CUSTOM, _matchSettings.MatchType == MatchType.Custom);
 			SetupMatchValues();
+			_actionButton.clicked += _clickAction;
 			if (_matchSettings.MatchType == MatchType.Custom)
 			{
 				SetupCustom();
@@ -102,7 +104,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 				var mutatorLabel = new LocalizedLabel(mutator.GetLocalizationKey());
 				mutatorLabel.RegisterCallback<ClickEvent>((ev) =>
 				{
-					mutatorLabel.OpenTooltip(Element.panel.visualTree, 
+					mutatorLabel.OpenTooltip(Element.panel.visualTree,
 						LocalizationManager.GetTranslation(mutator.GetDescriptionLocalizationKey()),
 						position: TooltipPosition.Top,
 						maxWidth: 350);
@@ -156,7 +158,6 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_summary.text = _entryInfo.Entry.Visual.LongDescriptionTranslationKey.GetText();
 			_actionButton.Localize("UITGameModeSelection/select_event");
 			_actionButton.AddToClassList("button-long--green");
-			_actionButton.clicked += _clickAction;
 			CheckCustomImage();
 			_rewardList.Clear();
 			foreach (var mod in _matchSettings.RewardModifiers)

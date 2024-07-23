@@ -106,6 +106,7 @@ namespace FirstLight.FLogger
 		/// <param name="e">An optional exception that will be added to the log</param>
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		[Conditional("LOG_LEVEL_INFO")]
+		[Conditional("UNITY_EDITOR")]
 		[HideInCallstack]
 		public static void Info(string tag, string message, Exception e = null) => WriteToAll(FLogLevel.Info, _formatter.FormatLog(FLogLevel.Info, tag, message, e));
 
@@ -116,6 +117,7 @@ namespace FirstLight.FLogger
 		/// <param name="e">An optional exception that will be added to the log</param>
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		[Conditional("LOG_LEVEL_INFO")]
+		[Conditional("UNITY_EDITOR")]
 		[HideInCallstack]
 		public static void Info(string message, Exception e = null) => WriteToAll(FLogLevel.Info, _formatter.FormatLog(FLogLevel.Info, null, message, e));
 
@@ -126,6 +128,7 @@ namespace FirstLight.FLogger
 		/// <param name="message">The message of the log.</param>
 		/// <param name="e">An optional exception that will be added to the log</param>
 		[Conditional("LOG_LEVEL_VERBOSE")]
+		[Conditional("UNITY_EDITOR")]
 		[HideInCallstack]
 		public static void Verbose(string tag, string message, Exception e = null) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, tag, message, e));
 
@@ -135,6 +138,7 @@ namespace FirstLight.FLogger
 		/// <param name="message">The message of the log.</param>
 		/// <param name="e">An optional exception that will be added to the log</param>
 		[Conditional("LOG_LEVEL_VERBOSE")]
+		[Conditional("UNITY_EDITOR")]
 		[HideInCallstack]
 		public static void Verbose(string message, Exception e = null) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, null, message, e));
 
@@ -143,6 +147,7 @@ namespace FirstLight.FLogger
 		/// Will serialize via .ToString() method
 		/// </summary>
 		[Conditional("LOG_LEVEL_VERBOSE")]
+		[Conditional("UNITY_EDITOR")]
 		[HideInCallstack]
 		public static void Verbose(object o) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, o.ToString()));
 
@@ -151,6 +156,7 @@ namespace FirstLight.FLogger
 		/// Will Serialize via JSON
 		/// </summary>
 		[Conditional("LOG_LEVEL_VERBOSE")]
+		[Conditional("UNITY_EDITOR")]
 		[HideInCallstack]
 		public static void VerboseToJson(object o) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, JsonUtility.ToJson(o, true)));
 

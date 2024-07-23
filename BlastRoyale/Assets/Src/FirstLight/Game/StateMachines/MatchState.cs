@@ -38,11 +38,8 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent MatchCompleteExitEvent = new StatechartEvent("Game Complete Exit Event");
 		public static readonly IStatechartEvent LeaveRoomClicked = new StatechartEvent("Leave Room Requested");
 		public static readonly IStatechartEvent MatchStateEndingEvent = new StatechartEvent("Match Flow Leaving Event");
-		public static readonly IStatechartEvent JoinedQuantumMatchmaking = new StatechartEvent("Enter Matchmaking");
-
 
 		public static readonly IStatechartEvent RoomGameStartEvent = new StatechartEvent("NETWORK - Room Game Start Event");
-		public static readonly IStatechartEvent CustomGameLoadStart = new StatechartEvent("NETWORK - Custom Game Load Start");
 
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
@@ -72,13 +69,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				statechartTrigger(RoomGameStartEvent);
 			};
-			_roomService.OnCustomGameLoadStart += () =>
-			{
-				statechartTrigger(CustomGameLoadStart);
-			};
 			_roomService.OnLocalPlayerKicked += OnLocalPlayerKicked;
 		}
-
 
 		/// <summary>
 		/// Setups the Adventure gameplay state
@@ -96,7 +88,6 @@ namespace FirstLight.Game.StateMachines
 			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectCheck = stateFactory.Choice("Post Reload Check");
 			var customGameCheck = stateFactory.Choice("Custom Game Check");
-			var customGameLobby = stateFactory.State("Custom Game Lobby");
 			var gameEndedChoice = stateFactory.Choice("Game Ended Check");
 			var leaderboardsCheck = stateFactory.Choice("Tutorial Check");
 			var gameEnded = stateFactory.State("Game Ended Screen");
@@ -116,11 +107,7 @@ namespace FirstLight.Game.StateMachines
 			// Reconnection is first, because if the custom game is running we skip the custom game screen
 			customGameCheck.Transition().Condition(IsInstantLoad).Target(loading);
 			customGameCheck.Transition().Condition(IsReconnection).Target(loading);
-			customGameCheck.Transition().Condition(IsCustomGame).Target(customGameLobby);
 			customGameCheck.Transition().Target(openLoadingScreen);
-
-			customGameLobby.Event(NetworkState.LeftRoomEvent).Target(randomLeftRoom);
-			customGameLobby.Event(CustomGameLoadStart).Target(openLoadingScreen);
 
 			openLoadingScreen.WaitingFor(OpenPreGameScreen).Target(loading);
 
@@ -198,6 +185,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
 			}
+
 			await _services.UIService.OpenScreen<HUDScreenPresenter>();
 		}
 
@@ -209,12 +197,6 @@ namespace FirstLight.Game.StateMachines
 		private bool IsReconnection()
 		{
 			return _roomService.CurrentRoom.GameStarted || _networkService.JoinSource.Value.IsSnapshotAutoConnect();
-		}
-
-
-		private bool IsCustomGame()
-		{
-			return _roomService.CurrentRoom.Properties.SimulationMatchConfig.Value.MatchType == MatchType.Custom;
 		}
 
 		private bool IsGameStarted()
@@ -263,7 +245,6 @@ namespace FirstLight.Game.StateMachines
 			return _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH;
 		}
 
-
 		/// <summary>
 		/// Whenever the simulation wants to fire logic commands.
 		/// This will also run on quantum server and will be sent to logic service from there.
@@ -277,13 +258,13 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			FLog.Verbose("Quantum Logic Command Received: " + ev.CommandType.ToString());
-			
+
 			_services.MessageBrokerService.Publish(new BeforeSimulationCommand()
 			{
 				Game = game,
 				Type = ev.CommandType
 			});
-			
+
 			var command = QuantumLogicCommandFactory.BuildFromEvent(ev);
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			command.FromFrame(game.Frames.Verified, new QuantumValues()
@@ -318,7 +299,6 @@ namespace FirstLight.Game.StateMachines
 			_matchServices.FrameSnapshotService.ClearFrameSnapshot();
 		}
 
-
 		private void OnGameEnded(EventOnGameEnded callback)
 		{
 			_statechartTrigger(MatchEndedEvent);
@@ -345,7 +325,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Simulation;
 		}
-
 
 		private async UniTask LoadMatchAssets()
 		{

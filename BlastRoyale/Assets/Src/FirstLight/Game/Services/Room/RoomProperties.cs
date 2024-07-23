@@ -16,15 +16,11 @@ namespace FirstLight.Game.Services.RoomService
 		// A list of mutators used in this room
 		public QuantumProperty<SimulationMatchConfig> SimulationMatchConfig;
 		public QuantumProperty<bool> GameStarted;
-		public QuantumProperty<bool> StartCustomGame;
 		public QuantumProperty<int> LoadingStartServerTime;
 		public QuantumProperty<int> SecondsToStart;
 
 		// For matchmaking, rooms are segregated by casual/ranked.
 
-		public QuantumProperty<Dictionary<string, string>> OverwriteTeams;
-		public QuantumProperty<Dictionary<string, string>> TeamMemberColors;
-		public QuantumProperty<bool> AutoBalanceTeams;
 
 		public RoomProperties()
 		{
@@ -34,10 +30,6 @@ namespace FirstLight.Game.Services.RoomService
 			GameStarted = Create<bool>("started", true);
 			SecondsToStart = Create<int>("secondstostart");
 			LoadingStartServerTime = Create<int>("loading");
-			StartCustomGame = Create<bool>("cstart");
-			OverwriteTeams = CreateDictionary("overwriteteams");
-			TeamMemberColors = CreateDictionary("tmcolors");
-			AutoBalanceTeams = Create<bool>("autobalance");
 			SimulationMatchConfig = CreateSimulationMatchConfig("mconfig",true);
 		}
 	}

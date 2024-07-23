@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.AddressablesExtensions;
 using FirstLight.AssetImporter;
@@ -32,7 +33,9 @@ namespace FirstLight.Game.Services
 		/// and will instantiate the asset if the given <paramref name="instantiate"/> is true
 		/// </summary>
 		UniTask<TAsset> RequestAsset<TId, TAsset>(TId id, bool loadAsynchronously = true, bool instantiate = true,
-												  Action<TId, TAsset, bool> onLoadCallback = null)
+												  Action<TId, TAsset, bool> onLoadCallback = null,
+												  CancellationToken cancellationToken = default
+		)
 			where TId : struct
 			where TAsset : Object;
 
@@ -42,7 +45,7 @@ namespace FirstLight.Game.Services
 		UniTask<TAsset> LoadAssetByReference<TAsset>(AssetReference assetReference, bool loadAsynchronously = true,
 													 bool instantiate = true,
 													 Action<TAsset, bool> onLoadCallback =
-														 null) where TAsset : Object;
+														 null, CancellationToken cancellationToken = default) where TAsset : Object;
 
 		/// <summary>
 		/// Requests the given <typeparamref name="TAsset"/> of the given <paramref name="id"/> while passing the
@@ -53,7 +56,8 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		UniTask<TAsset> RequestAsset<TId, TAsset, TData>(TId id, TData data, bool loadAsynchronously = true,
 														 bool instantiate = true,
-														 Action<TId, TAsset, TData, bool> onLoadCallback = null)
+														 Action<TId, TAsset, TData, bool> onLoadCallback = null,
+														 CancellationToken cancellationToken = default)
 			where TId : struct
 			where TAsset : Object;
 
@@ -65,7 +69,6 @@ namespace FirstLight.Game.Services
 											  bool activateOnLoad = true,
 											  bool setActive = true, Action<TId, SceneInstance> onLoadCallback = null)
 			where TId : struct;
-
 
 		/// <summary>
 		/// Loads all assets previously added from <seealso cref="IAssetAdderService.AddConfigs{TId,TAsset}(FirstLight.AssetImporter.AssetConfigsScriptableObject{TId,TAsset})"/>
@@ -246,21 +249,22 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public UniTask<TAsset> RequestAsset<TId, TAsset>(TId id, bool loadAsynchronously = true,
-															   bool instantiate = true,
-															   Action<TId, TAsset, bool> onLoadCallback = null)
+														 bool instantiate = true,
+														 Action<TId, TAsset, bool> onLoadCallback = null,
+														 CancellationToken cancellationToken = default)
 			where TId : struct
 			where TAsset : Object
 		{
 			return RequestAsset<TId, TAsset, int>(id, 0, loadAsynchronously, instantiate,
 				(arg1, arg2, _, arg4) =>
-					onLoadCallback?.Invoke(arg1, arg2, arg4));
+					onLoadCallback?.Invoke(arg1, arg2, arg4), cancellationToken);
 		}
 
 		/// <inheritdoc />
 		public async UniTask<TAsset> RequestAsset<TId, TAsset, TData>(TId id, TData data, bool loadAsynchronously = true,
 																	  bool instantiate = true,
-																	  Action<TId, TAsset, TData, bool> onLoadCallback =
-																		  null)
+																	  Action<TId, TAsset, TData, bool> onLoadCallback = null,
+																	  CancellationToken cancellationToken = default)
 			where TId : struct
 			where TAsset : Object
 		{
@@ -269,7 +273,7 @@ namespace FirstLight.Game.Services
 
 			if (dictionary == null || !dictionary.TryGetValue(id, out var assetReference))
 			{
-				FLog.Warn($"AssetResolverService-> RequestAsset error {id} {UnityEngine.StackTraceUtility.ExtractStackTrace ()}");
+				FLog.Warn($"AssetResolverService-> RequestAsset error {id} {UnityEngine.StackTraceUtility.ExtractStackTrace()}");
 				throw new MissingMemberException($"The {nameof(AssetResolverService)} does not have the " +
 					$"{nameof(AssetReference)} config to load the necessary asset for the " +
 					$"given {typeof(TAsset)} type with the given {id} id of {typeof(TId)} type");
@@ -290,7 +294,7 @@ namespace FirstLight.Game.Services
 
 			if (!assetReference.IsDone)
 			{
-				await assetReference.OperationHandle.Task.AsUniTask();
+				await assetReference.OperationHandle.ToUniTask(cancellationToken: cancellationToken);
 			}
 
 			if (assetReference.Asset == null)
@@ -312,8 +316,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public async UniTask<TAsset> LoadAssetByReference<TAsset>(AssetReference assetReference, bool loadAsynchronously = true,
 																  bool instantiate = true,
-																  Action<TAsset, bool> onLoadCallback =
-																	  null)
+																  Action<TAsset, bool> onLoadCallback = null,
+																  CancellationToken cancellationToken = default)
 			where TAsset : Object
 		{
 			TAsset asset;
@@ -334,7 +338,7 @@ namespace FirstLight.Game.Services
 
 			if (!assetReference.IsDone)
 			{
-				await assetReference.OperationHandle.Task.AsUniTask();
+				await assetReference.OperationHandle.ToUniTask(cancellationToken: cancellationToken);
 			}
 
 			if (assetReference.Asset == null)

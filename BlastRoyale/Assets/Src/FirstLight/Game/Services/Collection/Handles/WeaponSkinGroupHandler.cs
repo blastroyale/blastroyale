@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
@@ -51,7 +52,7 @@ namespace FirstLight.Game.Services.Collection.Handles
 					.SelectMany(x => x)
 					.Select(a => a.SkinId)
 					.ToHashSet();
-				
+
 				_spriteLookup = Configs.Groups.Select(groups => groups.Value)
 					.Select(group => group.Configs)
 					.SelectMany(x => x)
@@ -72,17 +73,16 @@ namespace FirstLight.Game.Services.Collection.Handles
 			}
 		}
 
-
 		public bool CanHandle(ItemData item)
 		{
 			CheckConfigInitialize();
 			return _canHandleLookup.Contains(item.Id);
 		}
 
-		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true, CancellationToken cancellationToken = default)
 		{
 			var assetRef = _spriteLookup[item.Id];
-			return await _assetResolver.LoadAssetByReference<Sprite>(assetRef, true, instantiate);
+			return await _assetResolver.LoadAssetByReference<Sprite>(assetRef, true, instantiate, cancellationToken: cancellationToken);
 		}
 
 		public async UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
@@ -92,7 +92,6 @@ namespace FirstLight.Game.Services.Collection.Handles
 			var obj = await _assetResolver.LoadAssetByReference<GameObject>(assetRef, true, instantiate);
 			if (!instantiate) return obj;
 			// Workaround, somehow the playercharacter monocomponent detaches the first child of the prefab, i tried to fix the code there but i couldn't do it quickly
-
 
 			var a = obj.AddComponent<RenderersContainerMonoComponent>();
 			a.UpdateRenderers();

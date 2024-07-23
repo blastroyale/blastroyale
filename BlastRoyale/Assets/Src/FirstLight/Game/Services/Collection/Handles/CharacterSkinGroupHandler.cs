@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
@@ -28,10 +29,10 @@ namespace FirstLight.Game.Services.Collection.Handles
 			return SkinContainer.Skins.Any(s => s.GameId == item.Id);
 		}
 
-		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true, CancellationToken cancellationToken = default)
 		{
 			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == item.Id);
-			return await _assetResolver.LoadAssetByReference<Sprite>(skin.Sprite, true, instantiate);
+			return await _assetResolver.LoadAssetByReference<Sprite>(skin.Sprite, true, instantiate, cancellationToken: cancellationToken);
 		}
 
 		public async UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)

@@ -156,7 +156,7 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return TouchOnScreen(elementPosition, root);
 		}
 
-		private IEnumerator TouchOnScreen(Vector2 position, VisualElement root)
+		public IEnumerator TouchOnScreen(Vector2 position, VisualElement root)
 		{
 			using (EventBase down = MakePointerEvent(TouchPhase.Began, position))
 				root.SendEvent(down);

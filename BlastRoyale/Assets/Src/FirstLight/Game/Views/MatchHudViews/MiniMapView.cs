@@ -55,7 +55,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private float _duration = 0.2f;
 		[SerializeField, Required] private float _pingDuration = 1f;
 
-
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
 
@@ -98,7 +97,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private float _mapConfigCameraSize;
 		private float _currentViewportSize = 0.2f;
 		private float _cameraAngleOffset;
-		
+
 		public event Action<float> OnClick;
 
 		private void OnValidate()
@@ -141,7 +140,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_button.onClick.AddListener(OnButtonClicked);
 			_fullScreenButton.onClick.AddListener(OnButtonClicked);
 			SetupCameraSize();
-			
+
 			_matchServices.PlayerInputService.Input.Gameplay.ToggleMinimapButton.performed += _ => Toggle();
 		}
 
@@ -251,11 +250,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			// Reference averageMapCameraSize and player ping size that works for most of the maps
 			// This is the "average" value of MinimapCameraSize that you can find on QuantumMapConfig.assets 
-			var referenceMinimapCameraSize = 120; 
-			
+			var referenceMinimapCameraSize = 120;
+
 			// Calculate the adjusted player size based on the current map's camera size (Get from Quantum)
 			var adjustedMinPlayerSize = _defaultPlayerSize * (referenceMinimapCameraSize / _mapConfigCameraSize);
-			
+
 			_animationModifier = f;
 			_minimapImage.materialForRendering.SetFloat(_playerCircleSizePID, Mathf.Lerp(adjustedMinPlayerSize, _defaultPlayerSize, f));
 			_rectTransform.anchorMin = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
@@ -265,7 +264,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_rectTransform.pivot = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
 			_backgroundImage.color = Color.Lerp(Color.clear, new Color(0f, 0f, 0f, 0.78f), f);
 			_currentViewportSize = Mathf.Lerp(_viewportSize, 1f, f);
-			
 		}
 
 		private void UpdatePlayerIndicator(in Vector3 playerViewportPoint, in Transform3D playerTransform)
@@ -374,7 +372,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 							continue;
 						}
 					}
-
 
 					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
 					_enemyPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
@@ -575,7 +572,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			foreach (var friendlyView in poolSpawnedReadOnly)
 			{
 				if (friendlyView.Entity != callback.Entity) continue;
-				
+
 				friendlyView.SetColor(_services.TeamService.GetTeamMemberColor(callback.Entity) ?? Color.white);
 				break;
 			}
@@ -602,19 +599,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (_spawnedFriendlies.Contains(entity)) return;
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view)) return;
-			
-			
+
 			var friendlyView = _friendliesPool.Spawn();
 			_spawnedFriendlies.Add(entity);
 			friendlyView.SetPlayer(entity, view.transform);
 			friendlyView.SetColor(_services.TeamService.GetTeamMemberColor(entity) ?? Color.white);
 
 			QuantumRunner.Default.Game.Frames.Verified.TryGet<CosmeticsHolder>(entity, out var cosmeticsHolder);
-			
+
 			var cosmetics = QuantumRunner.Default.Game.Frames.Verified.ResolveList(cosmeticsHolder.Cosmetics);
 
-			_services.CollectionService.LoadCollectionItemSprite(_services.CollectionService.GetCosmeticForGroup(cosmetics, GameIdGroup.PlayerSkin))
-									   .ContinueWith(friendlyView.SetAvatar);
+			UniTask.Void(async ct =>
+			{
+				var avatar = await _services.CollectionService.LoadCollectionItemSprite(_services.CollectionService.GetCosmeticForGroup(cosmetics, GameIdGroup.PlayerSkin), cancellationToken: ct);
+				friendlyView.SetAvatar(avatar);
+			}, this.GetCancellationTokenOnDestroy());
 		}
 
 		private Vector2 ViewportToMinimapPosition(Vector3 viewportPosition, Vector3 playerViewportPosition)

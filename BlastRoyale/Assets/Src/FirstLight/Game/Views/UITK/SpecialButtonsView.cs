@@ -99,6 +99,7 @@ namespace FirstLight.Game.Views.UITK
 		public void UpdateFromLatestVerifiedFrame(EntityRef entityRef)
 		{
 			var f = QuantumRunner.Default.Game.Frames.Verified;
+			if (!f.Exists(entityRef)) return;
 			var inventory = f.Get<PlayerInventory>(entityRef);
 			UpdateSpecials(f, inventory, ReviveSystem.IsKnockedOut(f, entityRef));
 		}

@@ -531,10 +531,9 @@ namespace FirstLight.Game.Services
 				if (appData.IsFirstSession || string.IsNullOrWhiteSpace(playfabName))
 				{
 					FLog.Info("Updating playfab name to auto generated unity one" + unityName);
-
 					await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
 					{
-						DisplayName = unityName
+						DisplayName = unityName.Length > 25 ? unityName.Substring(0, 25) : unityName
 					});
 					return;
 				}

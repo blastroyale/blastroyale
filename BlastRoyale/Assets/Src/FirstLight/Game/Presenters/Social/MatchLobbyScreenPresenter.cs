@@ -119,10 +119,8 @@ namespace FirstLight.Game.Presenters
 			await _services.RoomService.JoinRoomAsync(room);
 
 			Data.MatchListStateData.PlayClicked();
-
 			_services.TeamService.AutoBalanceCustom = true;
 			await UniTask.WaitForSeconds(5); // TODO mihak: REMOVE THIS HACK BEFORE RELEASE
-
 			_services.RoomService.StartCustomGameLoading();
 		}
 

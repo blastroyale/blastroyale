@@ -118,7 +118,6 @@ namespace FirstLight.Game.Views.UITK.Popups
 				.TryAddInviteOption(relationship, () =>
 				{
 					_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
-					RefreshData();
 				});
 			_elements[relationship.Member.Id] = e;
 		}
@@ -150,8 +149,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			own.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers());
 			own.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl);
 			_yourTeamContainer.Add(own);
-
-			// TODO mihak: Add invited friends
+			
 			_friendsOnlineList.itemsSource = _friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToList();
 			_friendsHeader.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
 		}

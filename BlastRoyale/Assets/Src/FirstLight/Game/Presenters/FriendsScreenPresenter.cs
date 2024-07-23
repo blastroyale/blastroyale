@@ -198,8 +198,6 @@ namespace FirstLight.Game.Presenters
 				.TryAddInviteOption(relationship, () =>
 				{
 					_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
-					// TODO mihak: Invite to squad
-					FLog.Info($"Squad invite clicked: {relationship.Id}");
 				});
 		}
 

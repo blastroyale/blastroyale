@@ -233,7 +233,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public async UniTask CreateParty()
 		{
-			Assert.IsNull(CurrentPartyLobby, "Trying to create a party but the player is already in one!");
+			if (CurrentPartyLobby != null) return;
 
 			var lobbyName = string.Format(PARTY_LOBBY_NAME, AuthenticationService.Instance.PlayerId);
 			// TODO: Should not have to resolve services here but there's a circular dependency
@@ -505,7 +505,7 @@ namespace FirstLight.Game.Services
 
 			return null;
 		}
-
+		
 		/// <summary>
 		/// Creates a new public game lobby.
 		/// </summary>

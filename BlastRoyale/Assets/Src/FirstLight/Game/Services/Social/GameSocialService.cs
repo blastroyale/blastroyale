@@ -49,6 +49,7 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		public GameSocialService(IGameServices services)
 		{
+			services.MatchmakingService.OnGameMatched += _ => CancelAllInvites();
 			services.MatchmakingService.OnMatchmakingJoined += _ => SetCurrentActivity(GameActivities.In_Matchmaking);
 			services.MatchmakingService.OnMatchmakingCancelled += DecideBasedOnScreen;
 			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Main_Menu));
@@ -59,6 +60,14 @@ namespace FirstLight.Game.Services
 			services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Shop));
 			services.UIService.OnScreenOpened += OnScreenOpened;
 			_services = services;
+		}
+
+		private void CancelAllInvites()
+		{
+			if (_services.UIService.IsScreenOpen<InvitePopupPresenter>())
+			{
+				_services.UIService.CloseScreen<InvitePopupPresenter>();
+			}
 		}
 
 		private bool IsCustomGame => _services.RoomService.CurrentRoom?.Properties?.SimulationMatchConfig?.Value?.MatchType == MatchType.Custom;
@@ -102,15 +111,17 @@ namespace FirstLight.Game.Services
 			{
 				return false;
 			}
-			if (_services.FLLobbyService.CurrentPartyLobby != null &&
-				_services.FLLobbyService.SentPartyInvites.Contains(friend.Member.Id))
+			if (_services.FLLobbyService.CurrentPartyLobby != null)
 			{
-				return false;
+				if(_services.FLLobbyService.SentPartyInvites.Contains(friend.Member.Id)) return false;
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id)) return false;
 			}
+			/*
 			if (_services.FLLobbyService.CurrentPartyLobby == null && _services.FLLobbyService.CurrentMatchLobby == null)
 			{
 				return false;
 			}
+			*/
 			return true;
 		}
 

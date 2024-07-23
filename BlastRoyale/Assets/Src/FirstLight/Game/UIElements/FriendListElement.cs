@@ -115,7 +115,7 @@ namespace FirstLight.Game.UIElements
 		public FriendListElement SetFromParty(Player partyPlayer)
 		{
 			SetPlayerName(partyPlayer.GetPlayerName());
-			SetAvatarHack(partyPlayer.Id).Forget();
+			SetAvatarHack(null, partyPlayer.GetPlayfabID()).Forget();
 			return this;
 		}
 
@@ -131,14 +131,14 @@ namespace FirstLight.Game.UIElements
 			}
 			else
 			{
-				SetAvatarHack(relationship.Member.Id).Forget();
+				SetAvatarHack(relationship.Member.Id, null).Forget();
 			}
 			return this;
 		}
 
-		private async UniTaskVoid SetAvatarHack(string unityId)
+		private async UniTaskVoid SetAvatarHack(string unityId, string playfabid)
 		{
-			if (unityId == null)
+			if (unityId == null && playfabid == null)
 			{
 				return;
 			}
@@ -146,8 +146,12 @@ namespace FirstLight.Game.UIElements
 			FLog.Verbose("Setting avatar hack for "+unityId);
 			try
 			{
-				var playfabId = await CloudSaveService.Instance.LoadPlayfabID(unityId);
-				services.ProfileService.GetPlayerPublicProfile(playfabId, profile =>
+				if (playfabid == null)
+				{
+					playfabid = await CloudSaveService.Instance.LoadPlayfabID(unityId);
+				}
+				
+				services.ProfileService.GetPlayerPublicProfile(playfabid, profile =>
 				{
 					services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
 				});
@@ -202,7 +206,10 @@ namespace FirstLight.Game.UIElements
 			var services = MainInstaller.ResolveServices();
 			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
 			if(showInvite)
-				return SetMainAction(ScriptLocalization.UITFriends.invite, callback, false);
+				return SetMainAction(ScriptLocalization.UITFriends.invite,  () =>
+				{
+					services.FLLobbyService.CreateParty().ContinueWith(callback);
+				}, false);
 			return SetMainAction("", null, false);;
 		}
 		

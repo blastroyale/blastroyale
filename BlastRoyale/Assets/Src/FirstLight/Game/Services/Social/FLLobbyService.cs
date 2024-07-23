@@ -850,9 +850,11 @@ namespace FirstLight.Game.Services
 			if (changes.LobbyDeleted)
 			{
 				CurrentMatchLobby = null;
-				return;
 			}
-			changes.ApplyToLobby(CurrentMatchLobby);
+			else
+			{
+				changes.ApplyToLobby(CurrentMatchLobby);
+			}
 			MainInstaller.ResolveServices().MessageBrokerService.Publish(new MatchLobbyUpdatedMessage()
 			{
 				Changes = changes

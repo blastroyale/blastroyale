@@ -52,8 +52,7 @@ namespace FirstLight.Game.Services
 			services.MatchmakingService.OnGameMatched += _ => CancelAllInvites();
 			services.MatchmakingService.OnMatchmakingJoined += _ => SetCurrentActivity(GameActivities.In_Matchmaking);
 			services.MatchmakingService.OnMatchmakingCancelled += DecideBasedOnScreen;
-			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Main_Menu));
-			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Main_Menu));
+			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => DecideBasedOnScreen());
 			services.MessageBrokerService.Subscribe<JoinRoomMessage>(_ => SetCurrentActivity(
 				IsCustomGame ? GameActivities.In_Game_Lobby : GameActivities.In_a_Match));
 			services.MessageBrokerService.Subscribe<MatchStartedMessage>(_ => SetCurrentActivity(GameActivities.In_a_Match));
@@ -72,8 +71,18 @@ namespace FirstLight.Game.Services
 
 		private bool IsCustomGame => _services.RoomService.CurrentRoom?.Properties?.SimulationMatchConfig?.Value?.MatchType == MatchType.Custom;
 
+		private bool IsInMenu  {
+			get
+			{
+				var services = MainInstaller.ResolveServices();
+				return services.UIService.IsScreenOpen<HomeScreenPresenter>() && !services.RoomService.InRoom &&
+					services.FLLobbyService.CurrentMatchLobby == null;
+			}
+		}
+		
 		private void DecideBasedOnScreen()
 		{
+			var services = MainInstaller.ResolveServices();
 			var service = MainInstaller.ResolveServices().UIService;
 			if (service.IsScreenOpen<BattlePassScreenPresenter>())
 			{
@@ -90,7 +99,7 @@ namespace FirstLight.Game.Services
 			} else if (service.IsScreenOpen<MatchLobbyScreenPresenter>())
 			{
 				SetCurrentActivity(GameActivities.In_Game_Lobby);
-			} else if (service.IsScreenOpen<HomeScreenPresenter>())
+			} else if (service.IsScreenOpen<HomeScreenPresenter>() && !services.RoomService.InRoom && services.FLLobbyService.CurrentMatchLobby == null)
 			{
 				SetCurrentActivity(GameActivities.In_Main_Menu);
 			}

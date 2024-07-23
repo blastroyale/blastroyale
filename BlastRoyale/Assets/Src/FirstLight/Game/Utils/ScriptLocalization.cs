@@ -2132,6 +2132,7 @@ namespace I2.Loc
 
 		public static class UITCustomGames
 		{
+			public static string all 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/all"); } }
 			public static string allow_bots 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/allow_bots"); } }
 			public static string browse_games 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/browse_games"); } }
 			public static string create_game 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/create_game"); } }
@@ -2177,7 +2178,9 @@ namespace I2.Loc
 			public static string select_map 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/select_map"); } }
 			public static string select_mutators 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/select_mutators"); } }
 			public static string select_squad_size 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/select_squad_size"); } }
+			public static string select_weapons 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/select_weapons"); } }
 			public static string selected_mutators 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/selected_mutators"); } }
+			public static string selected_weapons 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/selected_weapons"); } }
 			public static string show_all_regions 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/show_all_regions"); } }
 			public static string show_creator_name 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/show_creator_name"); } }
 			public static string spectate 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/spectate"); } }
@@ -2677,7 +2680,7 @@ namespace I2.Loc
 			public static string content_creator_invalid_code 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_invalid_code"); } }
 			public static string content_creator_stop_supporting 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_stop_supporting"); } }
 			public static string content_creator_support 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_support"); } }
-            public static string description_blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_large"); } }
+			public static string description_blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_large"); } }
 			public static string description_blastbuck_pack_medium 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_medium"); } }
 			public static string description_blastbuck_pack_small 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_small"); } }
 			public static string description_coin_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_coin_pack_large"); } }
@@ -4879,6 +4882,7 @@ namespace I2.Loc
 
 		public static class UITCustomGames
 		{
+		    public const string all = "UITCustomGames/all";
 		    public const string allow_bots = "UITCustomGames/allow_bots";
 		    public const string browse_games = "UITCustomGames/browse_games";
 		    public const string create_game = "UITCustomGames/create_game";
@@ -4924,7 +4928,9 @@ namespace I2.Loc
 		    public const string select_map = "UITCustomGames/select_map";
 		    public const string select_mutators = "UITCustomGames/select_mutators";
 		    public const string select_squad_size = "UITCustomGames/select_squad_size";
+		    public const string select_weapons = "UITCustomGames/select_weapons";
 		    public const string selected_mutators = "UITCustomGames/selected_mutators";
+		    public const string selected_weapons = "UITCustomGames/selected_weapons";
 		    public const string show_all_regions = "UITCustomGames/show_all_regions";
 		    public const string show_creator_name = "UITCustomGames/show_creator_name";
 		    public const string spectate = "UITCustomGames/spectate";

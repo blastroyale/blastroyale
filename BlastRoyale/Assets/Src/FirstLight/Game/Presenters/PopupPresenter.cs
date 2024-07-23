@@ -33,6 +33,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private VisualTreeAsset _selectMapDocument;
 		[SerializeField, Required] private VisualTreeAsset _selectSquadSizeDocument;
 		[SerializeField, Required] private VisualTreeAsset _selectMutatorsDocument;
+		[SerializeField, Required] private VisualTreeAsset _selectWeaponsDocument;
 		[SerializeField, Required] private VisualTreeAsset _partyDocument;
 		[SerializeField, Required] private VisualTreeAsset _matchInfoDocument;
 		[SerializeField, Required] private VisualTreeAsset _inviteFriendsDocument;
@@ -86,6 +87,9 @@ namespace FirstLight.Game.Presenters
                 case GenericConfirmPopupView view:
                     SetupPopup(_genericConfirmDocument, view);
                     break;
+				case SelectWeaponsPopupView view:
+					SetupPopup(_selectWeaponsDocument, view);
+					break;
 				default:
 					throw new NotImplementedException($"You need to implement the view type: {Data.View.GetType()}");
 			}
@@ -114,6 +118,11 @@ namespace FirstLight.Game.Presenters
 		public static UniTaskVoid OpenSelectMutators(Action<Mutator> onMutatorsSelected, Mutator mutators)
 		{
 			return OpenPopup(new SelectMutatorsPopupView(onMutatorsSelected, mutators), ScriptTerms.UITCustomGames.select_mutators);
+		}
+		
+		public static UniTaskVoid OpenSelectWeapons(Action<List<string>> onWeaponsSelected, List<string> weapons)
+		{
+			return OpenPopup(new SelectWeaponsPopupView(onWeaponsSelected, weapons), ScriptTerms.UITCustomGames.select_weapons);
 		}
 
 		public static UniTaskVoid OpenParty()

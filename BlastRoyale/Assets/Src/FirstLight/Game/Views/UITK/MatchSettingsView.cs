@@ -140,12 +140,7 @@ namespace FirstLight.Game.Views.UITK
 
 				_spectatorsScrollView.Add(playerElement);
 
-				// TODO mihak: Implement tooltip
-				// if (!isLocal)
-				// {
-				// 	playerElement.userData = player;
-				// 	playerElement.clicked += () => OnPlayerClicked(playerElement);
-				// }
+				// TODO: Implement tooltip
 			}
 		}
 
@@ -192,7 +187,12 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnWeaponFilterClicked()
 		{
-			// TODO mihak: Implement weapon filter
+			PopupPresenter.OpenSelectWeapons(weapons =>
+			{
+				MatchSettings.WeaponFilter = weapons;
+				RefreshData(true);
+				PopupPresenter.Close().Forget();
+			}, MatchSettings.WeaponFilter).Forget();
 		}
 
 		private void OnGameModeClicked()
@@ -236,8 +236,7 @@ namespace FirstLight.Game.Views.UITK
 			_allowBotsToggle.value = MatchSettings.BotDifficulty > 0;
 			_botDifficultySlider.value = MatchSettings.BotDifficulty;
 			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !_allowBotsToggle.value);
-			_mutatorsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN,
-				!_mutatorsToggle.value); // TODO mihak: I shouldn't have to do this
+			_mutatorsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !_mutatorsToggle.value);
 
 			foreach (var mutator in mutators)
 			{
@@ -249,17 +248,16 @@ namespace FirstLight.Game.Views.UITK
 			_filterWeaponsScroller.Clear();
 			var weaponFilter = MatchSettings.WeaponFilter;
 			_filterWeaponsToggle.value = weaponFilter.Count > 0 || _weaponFilterTurnedOn;
-			_filterWeaponsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN,
-				!_filterWeaponsToggle.value); // TODO mihak: I shouldn't have to do this
+			_filterWeaponsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !_filterWeaponsToggle.value);
 
 			foreach (var weapon in weaponFilter)
 			{
-				_filterWeaponsScroller.Add(new LocalizedLabel(weapon)); // TODO mihak: Add localization key
+				_filterWeaponsScroller.Add(new LocalizedLabel(Enum.Parse<GameId>(weapon).GetLocalizationKey()));
 			}
 
 			if (weaponFilter.Count == 0)
 			{
-				_filterWeaponsScroller.Add(new LocalizedLabel("All"));
+				_filterWeaponsScroller.Add(new LocalizedLabel(ScriptTerms.UITCustomGames.all));
 			}
 
 			if (newSettings)

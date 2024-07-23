@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -55,7 +56,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_battlePassProgressLabel = _battlePassButton.Q<Label>("BPProgressText").Required();
 			_battlePassRarity = _battlePassButton.Q<VisualElement>("BPRarity").Required();
 			_battlePassNextLevelLabel = _battlePassButton.Q<Label>("BarLevelLabel").Required();
-			_battlePassButton.clicked += () => Clicked?.Invoke();
+			_battlePassButton.LevelLock(Presenter, Presenter.Root, UnlockSystem.BattlePass, () => Clicked?.Invoke());
 		}
 
 		public override void OnScreenOpen(bool reload)

@@ -109,6 +109,7 @@ namespace FirstLight.Game.Presenters
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData("CustomGameButton", gameModeInfo, GetVisibleClass(orderNumber), VISIBLE_GAMEMODE_BUTTON + "last");
 			customGameView.Clicked += OnCustomGameClicked;
+			customGameView.LevelLock(UnlockSystem.GameModesCustomGames);
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
 			UpdateMapDropdownVisibility();

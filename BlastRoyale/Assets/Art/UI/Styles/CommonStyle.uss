@@ -618,7 +618,6 @@
     top: 0;
     align-items: center;
     justify-content: center;
-    transition-duration: 0.5s;
 }
 
 .fame-lock__icon {

@@ -159,8 +159,8 @@ namespace FirstLight.Game.Presenters
 			}
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
-			Root.Q<LocalizedButton>("FriendsButton").Required().clicked += Data.FriendsClicked;
-			Root.Q<LocalizedButton>("PartyUpButton").Required().clicked += ShowPartyUpPopup;
+			Root.Q<LocalizedButton>("FriendsButton").Required().LevelLock(this, Root, UnlockSystem.Friends, () => Data.FriendsClicked?.Invoke());
+			Root.Q<LocalizedButton>("PartyUpButton").Required().LevelLock(this, Root, UnlockSystem.Squads, ShowPartyUpPopup);
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
@@ -216,7 +216,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
 			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnPartyLobbyUpdate);
-			
+
 			UpdatePlayButton();
 
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
@@ -331,7 +331,7 @@ namespace FirstLight.Game.Presenters
 			var translationKey = ScriptTerms.UITHomeScreen.play;
 			var buttonClass = string.Empty;
 			var buttonEnabled = true;
-			
+
 			FLog.Verbose("Updating play button state");
 			var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
 

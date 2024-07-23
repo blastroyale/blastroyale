@@ -206,6 +206,15 @@
     width: 558px;
     height: 172px;
 }
+.battle-pass-button.fame-lock  .fame-lock__icon {
+    top: 30px;
+    right: -10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
 
 .battle-pass-button:active {
     background-image: var(--sprite-home__button-battlepass-pressed);
@@ -1092,7 +1101,8 @@
 }
 
 .button-with-icon.fame-lock > .fame-lock__holder {
-    top: -25px;
+    top: -20px;
+    right: 30px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;

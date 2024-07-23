@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -78,7 +79,7 @@ namespace FirstLight.Game.Views
 			_timeLeftLabel = Element.Q<Label>("StatusLabel").Required();
 			_infoButton = Element.Q<ImageButton>("InfoButton").Required();
 			_rewardContainer = Element.Q<VisualElement>("RewardsContainer").Required();
-			_button.clicked += () => Clicked?.Invoke(this);
+			_button.clicked += OnClicked;
 			_infoButton.clicked += () => PopupPresenter.OpenMatchInfo(GameModeInfo, () =>
 				PopupPresenter.Close().ContinueWith(() => Clicked?.Invoke(this)));
 		}
@@ -96,6 +97,17 @@ namespace FirstLight.Game.Views
 			{
 				_button.AddToClassList(extraClass);
 			}
+		}
+
+		public void OnClicked()
+		{
+			Clicked?.Invoke(this);
+		}
+
+		public void LevelLock(UnlockSystem unlockSystem)
+		{
+			_button.clicked -= OnClicked;
+			_button.LevelLock(Presenter, Presenter.Root, unlockSystem, OnClicked);
 		}
 
 		/// <summary>

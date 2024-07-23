@@ -49,6 +49,7 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		public GameSocialService(IGameServices services)
 		{
+			services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += _ => OnJoinedParty();
 			services.MatchmakingService.OnGameMatched += _ => CancelAllInvites();
 			services.MatchmakingService.OnMatchmakingJoined += _ => SetCurrentActivity(GameActivities.In_Matchmaking);
 			services.MatchmakingService.OnMatchmakingCancelled += DecideBasedOnScreen;
@@ -59,6 +60,15 @@ namespace FirstLight.Game.Services
 			services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Shop));
 			services.UIService.OnScreenOpened += OnScreenOpened;
 			_services = services;
+		}
+
+		private void OnJoinedParty()
+		{
+			var mm = MainInstaller.ResolveServices().MatchmakingService;
+			if (mm.IsMatchmaking.Value)
+			{
+				mm.LeaveMatchmaking();
+			}
 		}
 
 		private void CancelAllInvites()

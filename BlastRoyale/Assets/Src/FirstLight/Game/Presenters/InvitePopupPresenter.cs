@@ -53,7 +53,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			var sender = FriendsService.Instance.GetFriendByID(Data.SenderID);
-			var senderName = sender.Member.Profile.Name;
+			var senderName = sender.Member.Profile.Name.TrimPlayerNameNumbers();
 			_sender.SetPlayerName(senderName);
 			switch (Data.Type)
 			{

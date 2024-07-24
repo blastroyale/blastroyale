@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -39,7 +40,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		protected override void Attached()
 		{
-			var options = GameIdGroup.Weapon.GetIds().ToArray();
+			var options = _services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>().Select(c => c.Id).ToArray();
 
 			_scroller.Clear();
 			foreach (var weapon in options)

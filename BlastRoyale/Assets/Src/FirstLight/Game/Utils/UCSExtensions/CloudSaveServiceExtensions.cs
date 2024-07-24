@@ -42,8 +42,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			{
 				return playfabID.Value.GetAsString();
 			}
-
-			FLog.Error($"Could not find playfab id in cloud save for user: {playerID}");
+			FLog.Warn($"Could not find playfab id in cloud save for user: {playerID}");
 			return null;
 		}
 	}

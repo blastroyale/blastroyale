@@ -149,6 +149,7 @@ namespace FirstLight.Game.UIElements
 				if (playfabid == null)
 				{
 					playfabid = await CloudSaveService.Instance.LoadPlayfabID(unityId);
+					if (playfabid == null) return;
 				}
 				
 				services.ProfileService.GetPlayerPublicProfile(playfabid, profile =>

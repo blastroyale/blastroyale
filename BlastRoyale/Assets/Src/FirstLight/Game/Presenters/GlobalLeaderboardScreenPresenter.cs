@@ -82,7 +82,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements()
 		{
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
-			_header.backClicked += Data.OnBackClicked;
+			_header.backClicked = Data.OnBackClicked;
 			_fixedLocalPlayerHolder = Root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
 			_leaderboardPanel = Root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardListView = Root.Q<ListView>("LeaderboardList").Required();

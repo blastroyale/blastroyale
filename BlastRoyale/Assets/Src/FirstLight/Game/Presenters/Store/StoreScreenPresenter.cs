@@ -65,7 +65,7 @@ namespace FirstLight.Game.Presenters.Store
 			_productList = Root.Q("ProductList").Required();
 			_categoryList = Root.Q("Categories").Required();
 			_scroll = Root.Q<ScrollView>("ProductScrollView").Required();
-			_header.backClicked += Data.OnBackClicked;
+			_header.backClicked = Data.OnBackClicked;
 
 			Root.Q<CurrencyDisplayElement>("NOOBTokens")
 				.AttachView(this, out CurrencyDisplayView _);

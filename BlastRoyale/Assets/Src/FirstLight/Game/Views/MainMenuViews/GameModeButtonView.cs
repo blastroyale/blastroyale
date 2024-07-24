@@ -1,4 +1,5 @@
 ﻿using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -40,7 +41,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		public override void OnScreenOpen(bool reload)
 		{
-			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
+			if (!reload)
+			{
+				_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
+			}
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 		}
 
@@ -62,6 +66,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void UpdateGameModeButton()
 		{
+			FLog.Verbose("Updating game mode button");
 			_updateSchedule?.Pause();
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 

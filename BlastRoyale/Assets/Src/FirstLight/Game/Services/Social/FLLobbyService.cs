@@ -11,6 +11,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
 using Newtonsoft.Json;
+using Photon.Realtime;
 using PlayFab;
 using Quantum;
 using Unity.Services.Authentication;
@@ -19,6 +20,7 @@ using Unity.Services.Friends.Exceptions;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Assert = UnityEngine.Assertions.Assert;
+using Player = Unity.Services.Lobbies.Models.Player;
 
 namespace FirstLight.Game.Services
 {
@@ -230,7 +232,7 @@ namespace FirstLight.Game.Services
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
 			CurrentMatchCallbacks.KickedFromLobby += OnMatchLobbyKicked;
 
-			((ILobbyServiceSDKConfiguration) LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
+			
 		}
 
 		/// <summary>
@@ -347,6 +349,9 @@ namespace FirstLight.Game.Services
 				await _partyLobbyEvents.UnsubscribeAsync();
 				_partyLobbyEvents = null;
 				CurrentPartyLobby = null;
+				
+				// because local player does not receive this
+				MainInstaller.ResolveServices().MessageBrokerService.Publish(new PartyLobbyUpdatedMessage());
 			}
 			catch (LobbyServiceException e)
 			{
@@ -876,7 +881,12 @@ namespace FirstLight.Game.Services
 		
 		private void OnMatchLobbyKicked()
 		{
-			_notificationService.QueueNotification("You have been kicked from the lobby.");
+			var service = MainInstaller.ResolveServices().RoomService;
+			if (!service.InRoom && !service.IsJoiningRoom)
+			{
+				_notificationService.QueueNotification("You have been kicked from the lobby.");
+			}
+			
 			CurrentMatchLobby = null;
 		}
 

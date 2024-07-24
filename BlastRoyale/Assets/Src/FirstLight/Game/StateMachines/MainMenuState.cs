@@ -21,6 +21,7 @@ using FirstLight.Statechart;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = System.Object;
@@ -38,8 +39,9 @@ namespace FirstLight.Game.StateMachines
 
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 
+		private readonly IStatechartEvent _customGameJoined = new StatechartEvent("Custom Game Joined");
 		private readonly IStatechartEvent _backButtonClicked = new StatechartEvent("Back Button Clicked");
-		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
+		private readonly IStatechartEvent _customGameButtonClicked = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
 		private readonly IStatechartEvent _equipmentClickedEvent = new StatechartEvent("Equipment Clicked Event");
@@ -138,15 +140,22 @@ namespace FirstLight.Game.StateMachines
 			var store = stateFactory.Wait("Store");
 			var friends = stateFactory.Wait("Friends");
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
-			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
+			var customGamesList = stateFactory.State("Custom Games List");
+			var customGameLobby = stateFactory.State("Custom Game Lobby");
 
-			void AddGoToMatchmakingHook(params IStateEvent[] states)
+			void AddMatchmakingHooks(params IStateEvent[] states)
 			{
 				foreach (var state in states)
 				{
 					state.Event(NetworkState.JoinedPlayfabMatchmaking)
 						.OnTransition(() => OpenHomeScreen().Forget())
 						.Target(waitMatchmaking);
+					
+					state.Event(NetworkState.JoinedRoomEvent)
+						.Target(final);
+					
+					state.Event(_customGameJoined)
+						.Target(customGameLobby);
 				}
 			}
 
@@ -176,7 +185,6 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_storeClickedEvent).Target(store);
 			homeMenu.Event(_collectionClickedEvent).Target(collectionMenu);
 			homeMenu.Event(_friendsClickedEvent).Target(friends);
-			homeMenu.Event(NetworkState.JoinedPlayfabMatchmaking).Target(waitMatchmaking);
 
 			settingsMenu.Nest(_settingsMenuState.Setup).Target(homeCheck);
 			collectionMenu.Nest(_collectionMenuState.Setup).Target(homeCheck);
@@ -184,7 +192,17 @@ namespace FirstLight.Game.StateMachines
 			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeCheck);
 			store.WaitingFor(OpenStore).Target(homeCheck);
 			friends.WaitingFor(wait => OpenFriends(wait).Forget()).Target(homeCheck);
-			AddGoToMatchmakingHook(settingsMenu, collectionMenu, battlePass, leaderboard, store, news, friends);
+			AddMatchmakingHooks(
+				settingsMenu,
+				customGamesList, 
+				homeMenu, 
+				chooseGameMode,
+				collectionMenu, 
+				battlePass, 
+				leaderboard, 
+				store, 
+				news, 
+				friends);
 
 			matchmakingChecks.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
 			matchmakingChecks.Transition().Condition(CheckInvalidTeamSize)
@@ -207,20 +225,25 @@ namespace FirstLight.Game.StateMachines
 
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeCheck);
-			chooseGameMode.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
+			chooseGameMode.Event(_customGameButtonClicked).Target(customGamesList);
 
 			enterNameDialog.OnEnter(RequestStartMetaMatchTutorial);
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
-			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(PlayClickedEvent).OnTransition(() =>
-			{
-				OpenHomeScreen().Forget();
-			}).Target(waitMatchmaking);
-			roomJoinCreateMenu.Event(_roomJoinCreateBackClickedEvent).Target(chooseGameMode);
-			roomJoinCreateMenu.Event(_closeClickedEvent).Target(homeCheck);
-			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
-			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
+			customGameLobby.OnEnter(OpenCustomGameLobby);
+			customGameLobby.Event(_roomJoinCreateBackClickedEvent).Target(homeCheck);
+			customGameLobby.Event(_closeClickedEvent).Target(homeCheck);
+			customGameLobby.Event(NetworkState.JoinedRoomEvent).Target(final);
+			customGameLobby.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
+			customGameLobby.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
+			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchLobbyScreenPresenter>(false).Forget());
+			
+			customGamesList.OnEnter(OpenCustomGameList);
+			customGamesList.Event(_roomJoinCreateBackClickedEvent).Target(chooseGameMode);
+			customGamesList.Event(_closeClickedEvent).Target(homeCheck);
+			customGamesList.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
+			customGamesList.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
+			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchListScreenPresenter>(false).Forget());
 		}
 
 		private async UniTaskVoid OpenFriends(IWaitActivity wait)
@@ -256,7 +279,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechartTrigger(_backButtonClicked);
 		}
-
+		
 		private void ShowMatchmaking()
 		{
 			// TODO mihak: Move matchmaking into it's own screen
@@ -265,10 +288,16 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyJoined += OnJoinedCustomGame;
 			_services.MessageBrokerService.Subscribe<ItemConvertedToBlastBuckMessage>(OnItemConvertedToBlastBucks);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_services.MessageBrokerService.Subscribe<NewBattlePassSeasonMessage>(OnBattlePassNewSeason);
 			_services.MessageBrokerService.Subscribe<MainMenuShouldReloadMessage>(MainMenuShouldReloadMessage);
+		}
+
+		private void OnJoinedCustomGame(Lobby l)
+		{
+			_statechartTrigger(_customGameJoined);
 		}
 
 		private void MainMenuShouldReloadMessage(MainMenuShouldReloadMessage msg)
@@ -291,6 +320,7 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyJoined -= OnJoinedCustomGame;
 		}
 
 		private async UniTask PreloadQuantumSettings()
@@ -421,7 +451,7 @@ namespace FirstLight.Game.StateMachines
 			var data = new GameModeScreenPresenter.StateData
 			{
 				GameModeChosen = _ => _statechartTrigger(_gameModeSelectedFinishedEvent),
-				CustomGameChosen = () => _statechartTrigger(_roomJoinCreateClickedEvent),
+				CustomGameChosen = () => _statechartTrigger(_customGameButtonClicked),
 				OnBackClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent),
 			};
 
@@ -481,12 +511,19 @@ namespace FirstLight.Game.StateMachines
 			_services.IAPService.BuyProduct(product);
 		}
 
-		private void OpenRoomJoinCreateMenuUI()
+		private void OpenCustomGameLobby()
+		{
+			_services.UIService.OpenScreen<MatchLobbyScreenPresenter>(new MatchLobbyScreenPresenter.StateData
+			{
+				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),
+			}).Forget();
+		}
+
+		private void OpenCustomGameList()
 		{
 			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
 				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),
-				PlayClicked = () => _statechartTrigger(PlayClickedEvent) // TODO: Change this to change state
 			}).Forget();
 		}
 

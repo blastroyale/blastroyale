@@ -8,12 +8,12 @@ namespace FirstLight.Game.Messages
 	/// <summary>
 	/// Called when lobby is updated ON CLIENT (so after received and proccessed server updates)
 	/// </summary>
-	public struct PartyLobbyUpdatedMessage : IMessage
+	public class PartyLobbyUpdatedMessage : IMessage
 	{
 		public ILobbyChanges Changes;
 	}
 	
-	public struct MatchLobbyUpdatedMessage : IMessage
+	public class MatchLobbyUpdatedMessage : IMessage
 	{
 		public ILobbyChanges Changes;
 	}

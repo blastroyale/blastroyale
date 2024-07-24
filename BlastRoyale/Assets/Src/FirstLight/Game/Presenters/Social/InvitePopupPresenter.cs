@@ -79,7 +79,6 @@ namespace FirstLight.Game.Presenters
 					break;
 				case StateData.InviteType.Match:
 					await _services.FLLobbyService.JoinMatch(Data.LobbyCode);
-					await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

@@ -23,8 +23,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public class StateData
 		{
-			public Action BackClicked; // Fucking disgusting, UP 23 jul 2024
-			public Action PlayClicked;
+			public Action BackClicked; // Fucking disgusting, UP 23 jul 2024, 24 jul too
 		}
 
 		[Q("ListHeaders")] private VisualElement _listHeaders;
@@ -47,7 +46,7 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.ResolveServices();
 
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
-			header.backClicked += Data.BackClicked;
+			header.backClicked = Data.BackClicked; 
 
 			_matchSettings.AttachView(this, out _matchSettingsView);
 			_gamesList.bindItem = BindMatchLobbyItem;
@@ -101,24 +100,14 @@ namespace FirstLight.Game.Presenters
 		private async UniTaskVoid JoinMatch(string lobbyIDOrCode)
 		{
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-			var success = await _services.FLLobbyService.JoinMatch(lobbyIDOrCode);
-			if (success)
-			{
-				await OpenMatchLobby();
-			}
-
+			await _services.FLLobbyService.JoinMatch(lobbyIDOrCode);
 			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 		}
 
 		private async UniTaskVoid CreateMatch(CustomMatchSettings matchSettings)
 		{
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-			var success = await _services.FLLobbyService.CreateMatch(matchSettings);
-			if (success)
-			{
-				await OpenMatchLobby();
-			}
-
+			await _services.FLLobbyService.CreateMatch(matchSettings);
 			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 		}
 
@@ -141,14 +130,6 @@ namespace FirstLight.Game.Presenters
 				PopupPresenter.Close();
 				JoinMatch(lobby.Id).Forget();
 			}).Forget();
-		}
-
-		private async UniTask OpenMatchLobby()
-		{
-			await _services.UIService.OpenScreen<MatchLobbyScreenPresenter>(new MatchLobbyScreenPresenter.StateData
-			{
-				MatchListStateData = Data
-			});
 		}
 	}
 }

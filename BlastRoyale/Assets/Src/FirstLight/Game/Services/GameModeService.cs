@@ -229,7 +229,7 @@ namespace FirstLight.Game.Services
 		private void OnPartyLobbyChanged(PartyLobbyUpdatedMessage m)
 		{
 			var changes = m.Changes;
-			if (changes.LobbyDeleted) return;
+			if (changes == null || changes.LobbyDeleted) return;
 
 			if (changes.Data.Changed && changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCHMAKING_GAMEMODE, out var gameModeConfig))
 			{

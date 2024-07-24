@@ -119,7 +119,7 @@ namespace FirstLight.Game.Presenters
 			Root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_rewardsScroll.horizontalScroller.valueChanged += OnScroll;
-			_screenHeader.backClicked += Data.BackClicked;
+			_screenHeader.backClicked = Data.BackClicked;
 			//_fullScreenClaimButton.clicked += OnClaimClicked;
 			//_claimButton.clicked += OnClaimClicked;
 			_activateButton.clicked += ActivateClicked;

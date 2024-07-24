@@ -162,7 +162,7 @@ namespace FirstLight.Game.Services
 		private void OnPartyLobbyChanged(PartyLobbyUpdatedMessage m)
 		{
 			var changes = m.Changes;
-			if (changes.PlayerJoined.Changed || changes.PlayerLeft.Changed)
+			if (changes == null || changes.PlayerJoined.Changed || changes.PlayerLeft.Changed)
 			{
 				StopMatchmaking();
 				return;

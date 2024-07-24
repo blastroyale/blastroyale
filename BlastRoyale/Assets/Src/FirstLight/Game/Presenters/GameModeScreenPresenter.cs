@@ -61,7 +61,7 @@ namespace FirstLight.Game.Presenters
 			_buttonViews = new List<GameModeSelectionButtonView>();
 			_buttonsSlider = Root.Q<ScrollView>("ButtonsSlider").Required();
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
-			_header.backClicked += Data.OnBackClicked;
+			_header.backClicked = Data.OnBackClicked;
 			_mapDropDown = Root.Q<LocalizedDropDown>("Map").Required();
 			FillMapSelectionList();
 			_mapDropDown.RegisterValueChangedCallback(OnMapSelected);

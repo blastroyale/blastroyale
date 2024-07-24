@@ -23,7 +23,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Triggered when the back button is clicked.
 		/// </summary>
-		public event Action backClicked;
+		public Action backClicked;
 
 		private string titleKey { get; set; }
 		private string subtitleKey { get; set; }

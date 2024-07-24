@@ -81,7 +81,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements()
 		{
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
-			_header.backClicked += OnNextButtonClicked;
+			_header.backClicked = OnNextButtonClicked;
 
 			_nextButton = Root.Q<LocalizedButton>("NextButton").Required();
 			_nextButton.clicked += OnNextButtonClicked;

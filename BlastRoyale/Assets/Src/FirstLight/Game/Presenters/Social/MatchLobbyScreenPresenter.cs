@@ -31,7 +31,7 @@ namespace FirstLight.Game.Presenters
 
 		public class StateData
 		{
-			public MatchListScreenPresenter.StateData MatchListStateData; // Ugly but I don't want to refac state machines
+			public Action BackClicked;
 		}
 
 		[Q("Header")] private ScreenHeaderElement _header;
@@ -44,13 +44,14 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private MatchSettingsView _matchSettingsView;
 
+		private bool _joining;
 		private bool _localPlayerHost;
 
 		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
 
-			_header.backClicked += () => LeaveMatchLobby().Forget();
+			_header.backClicked = () => LeaveMatchLobby().Forget();
 
 			_matchSettings.Required().AttachView(this, out _matchSettingsView);
 
@@ -91,20 +92,20 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLobbyChanged(MatchLobbyUpdatedMessage m)
 		{
-			if (m.Changes.LobbyDeleted)
+			if (m.Changes == null || m.Changes.LobbyDeleted)
 			{
-				if (!_localPlayerHost)
+				if (!_localPlayerHost && !_services.RoomService.InRoom && !_joining)
 				{
 					_services.NotificationService.QueueNotification("Match lobby was closed by the host.");
+					Data?.BackClicked?.Invoke();
 				}
-
-				_services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData).Forget();
 			}
 			else
 			{
 				var changes = m.Changes;
 				RefreshData();
 
+				FLog.Verbose("Received lobby changes version "+changes.Version.Value+ " "+changes.Data.ChangeType);
 				// TODO mihak: This should not be here, move when we refac network service
 				if ((changes.Data.Changed || changes.Data.Added || changes.Data.Removed) &&
 					changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCH_ROOM_NAME, out var value))
@@ -138,15 +139,23 @@ namespace FirstLight.Game.Presenters
 
 		private void OnKickedFromLobby()
 		{
-			_services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData).Forget();
+			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData()
+			{
+				BackClicked = Data.BackClicked
+			}).Forget();
 		}
 
 		private async UniTaskVoid JoinRoom(string room, PlayerJoinRoomProperties playerJoinRoomProperties)
 		{
+			// Local player will create the room
+			if (_services.RoomService.InRoom || _services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost()) return;
+			
+			FLog.Verbose("Joininig room from Custom Lobby");
+			_joining = true;
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			// TODO mihak: This should not be here, move when we refac network service
 			await _services.RoomService.JoinRoomAsync(room, playerJoinRoomProperties);
-			Data.MatchListStateData.PlayClicked();
+			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
 		private void RefreshData()
@@ -230,7 +239,7 @@ namespace FirstLight.Game.Presenters
 					TeamColor = Byte.Parse(colors[localId]),
 					Team = teams[localId]
 				});
-				Data.MatchListStateData.PlayClicked();
+
 				var teamsSerialized = ModelSerializer.Serialize(teams).Value;
 				var colorsSerialized = ModelSerializer.Serialize(colors).Value;
 				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier, teamsSerialized, colorsSerialized);
@@ -246,12 +255,10 @@ namespace FirstLight.Game.Presenters
 		private async UniTaskVoid LeaveMatchLobby()
 		{
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-
 			_services.MessageBrokerService.UnsubscribeAll(this);
-
 			await _services.FLLobbyService.LeaveMatch();
-			await _services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData);
 			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
+			Data.BackClicked();
 		}
 
 		private void OnPlayerClicked(VisualElement source)

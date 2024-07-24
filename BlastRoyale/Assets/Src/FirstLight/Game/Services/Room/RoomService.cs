@@ -66,6 +66,7 @@ namespace FirstLight.Game.Services.RoomService
 		public event Action OnLocalPlayerKicked;
 
 		bool InRoom { get; }
+		bool IsJoiningRoom { get; }
 
 		GameRoom CurrentRoom { get; }
 		GameRoom LastRoom { get; }
@@ -141,7 +142,8 @@ namespace FirstLight.Game.Services.RoomService
 		private readonly ICoroutineService _coroutineService;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly ILeaderboardService _leaderboardService;
-
+		private readonly HashSet<ClientState> _joiningStates = new (new[] {ClientState.Joining, ClientState.Joined, ClientState.JoinedLobby, ClientState.JoiningLobby });
+		public bool IsJoiningRoom => _joiningStates.Contains(_networkService.QuantumClient.State);
 		public GameRoom CurrentRoom { get; private set; }
 		public GameRoom LastRoom { get; private set; }
 

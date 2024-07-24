@@ -78,7 +78,7 @@ namespace FirstLight.Game.Presenters
 			_collectionList.DisableScrollbars();
 
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
-			header.backClicked += Data.OnBackClicked;
+			header.backClicked = Data.OnBackClicked;
 
 			Root.Q<CurrencyDisplayElement>("CSCurrency").SetDisplay(false);
 			Root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView(this, out CurrencyDisplayView _);

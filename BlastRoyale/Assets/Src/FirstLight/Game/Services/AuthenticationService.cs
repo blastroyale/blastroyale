@@ -24,6 +24,7 @@ using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Options;
+using Unity.Services.Lobbies;
 
 namespace FirstLight.Game.Services
 {
@@ -508,7 +509,7 @@ namespace FirstLight.Game.Services
 				.WithMemberProfile(true);
 			tasks.Add(FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask());
 			tasks.Add(AuthenticationService.Instance.GetPlayerNameAsync().AsUniTask()); // We fetch the name (which generates a new one) so it's stored in the cache
-			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
+			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId)); ;
 			await UniTask.WhenAll(tasks);
 			CheckNamesUpdates().Forget();
 			_services.NotificationService.Init();

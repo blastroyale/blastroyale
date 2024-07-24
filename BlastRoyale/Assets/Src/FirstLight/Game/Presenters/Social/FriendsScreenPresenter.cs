@@ -53,7 +53,7 @@ namespace FirstLight.Game.Presenters
 
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
 			header.SetTitle(ScriptLocalization.UITHomeScreen.friends);
-			header.backClicked += Data.OnBackClicked;
+			header.backClicked = Data.OnBackClicked;
 
 			_friendsList = Root.Q<ListView>("FriendsList").Required();
 			_requestsList = Root.Q<ListView>("RequestsList").Required();

@@ -99,7 +99,7 @@ namespace FirstLight.Game.Presenters
 			_squadMembersList = Root.Q<ListView>("SquadList").Required();
 			_header.SetSubtitle("");
 			
-			_header.backClicked += OnCloseClicked;
+			_header.backClicked = OnCloseClicked;
 
 			for (var i = 0; i < size-1; i++)
 			{

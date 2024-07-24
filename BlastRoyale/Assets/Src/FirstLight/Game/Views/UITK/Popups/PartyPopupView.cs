@@ -17,6 +17,7 @@ using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK.Popups
@@ -66,14 +67,22 @@ namespace FirstLight.Game.Views.UITK.Popups
 		public override void OnScreenOpen(bool reload)
 		{
 			RefreshData();
+
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += OnLobbyJoined;
 			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
+		}
+
+		private void OnLobbyJoined(Lobby l)
+		{
+			RefreshData();
 		}
 
 		public override void OnScreenClose()
 		{
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined -= OnLobbyJoined;
 		}
 
 		private void OnPresenceUpdated(IPresenceUpdatedEvent e)
@@ -96,7 +105,6 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private async UniTaskVoid LeaveParty()
 		{
 			await _services.FLLobbyService.LeaveParty();
-			RefreshData();
 		}
 
 		private void OnLobbyChanged(PartyLobbyUpdatedMessage m)

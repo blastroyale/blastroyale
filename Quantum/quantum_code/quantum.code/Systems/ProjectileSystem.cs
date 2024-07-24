@@ -196,7 +196,7 @@ namespace Quantum.Systems
 			else
 			{
 				FP max = weaponConfig.MinAttackAngle;
-				FP angleStep = weaponConfig.MinAttackAngle / weaponConfig.NumberOfShots;
+				FP angleStep = weaponConfig.MinAttackAngle / (weaponConfig.NumberOfShots - 1);
 				FP angle = -max/ FP._2;
 				for (var x = 0; x < weaponConfig.NumberOfShots; x++)
 				{

@@ -1,4 +1,8 @@
 .match-lobby-item {
+
+}
+
+.match-lobby-item__container {
     flex-direction: row;
     background-image: var(--sprite-home__background-roundedelement);
     -unity-background-image-tint-color: rgb(50, 41, 90);
@@ -16,7 +20,7 @@
     border-bottom-right-radius: 16px;
 }
 
-.match-lobby-item > Label {
+.match-lobby-item__container > Label {
     overflow: hidden;
     -unity-text-align: middle-center;
     -unity-text-overflow-position: end;
@@ -24,7 +28,7 @@
     height: 100px;
 }
 
-.match-lobby-item > LocalizedLabel {
+.match-lobby-item__container > LocalizedLabel {
     overflow: hidden;
     -unity-text-align: middle-center;
     -unity-text-overflow-position: end;

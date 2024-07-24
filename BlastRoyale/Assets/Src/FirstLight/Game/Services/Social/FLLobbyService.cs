@@ -12,12 +12,13 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
+using Quantum;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using UnityEngine.Assertions;
+using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.Services
 {
@@ -227,6 +228,7 @@ namespace FirstLight.Game.Services
 
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
+			CurrentMatchCallbacks.KickedFromLobby += OnMatchLobbyKicked;
 
 			((ILobbyServiceSDKConfiguration) LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
 		}
@@ -518,7 +520,7 @@ namespace FirstLight.Game.Services
 
 			var lobbyName = matchOptions.ShowCreatorName
 				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
-				: matchOptions.MapID;
+				: Enum.Parse<GameId>(matchOptions.MapID).GetLocalization() ;
 
 			var data = new Dictionary<string, DataObject>
 			{
@@ -645,6 +647,10 @@ namespace FirstLight.Game.Services
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
+			var lobbyName = settings.ShowCreatorName
+				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
+				: Enum.Parse<GameId>(settings.MapID).GetLocalization() ;
+			
 			var options = new UpdateLobbyOptions
 			{
 				Data = new Dictionary<string, DataObject>
@@ -652,7 +658,8 @@ namespace FirstLight.Game.Services
 					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
 				},
 				IsLocked = locked,
-				MaxPlayers = settings.MaxPlayers
+				MaxPlayers = settings.MaxPlayers,
+				Name = lobbyName
 			};
 
 			try
@@ -865,6 +872,12 @@ namespace FirstLight.Game.Services
 			{
 				Changes = changes
 			});
+		}
+		
+		private void OnMatchLobbyKicked()
+		{
+			_notificationService.QueueNotification("You have been kicked from the lobby.");
+			CurrentMatchLobby = null;
 		}
 
 		private void OnPartyLobbyChanged(ILobbyChanges changes)

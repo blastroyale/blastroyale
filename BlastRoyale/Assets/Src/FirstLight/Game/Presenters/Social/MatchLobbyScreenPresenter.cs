@@ -16,7 +16,6 @@ using I2.Loc;
 using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
-using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 using Player = Unity.Services.Lobbies.Models.Player;
 
@@ -51,19 +50,18 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.ResolveServices();
 
-			var header = _header.Required();
-			header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
-			header.backClicked += () => LeaveMatchLobby().Forget();
+			_header.backClicked += () => LeaveMatchLobby().Forget();
 
 			_matchSettings.Required().AttachView(this, out _matchSettingsView);
 
 			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
-			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends();
+			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_services.MessageBrokerService.Subscribe<MatchLobbyUpdatedMessage>(OnLobbyChanged);
+			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += OnKickedFromLobby;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 
@@ -86,6 +84,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby -= OnKickedFromLobby;
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			return base.OnScreenClose();
 		}
@@ -137,6 +136,11 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private void OnKickedFromLobby()
+		{
+			_services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData).Forget();
+		}
+
 		private async UniTaskVoid JoinRoom(string room, PlayerJoinRoomProperties playerJoinRoomProperties)
 		{
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
@@ -152,6 +156,8 @@ namespace FirstLight.Game.Presenters
 
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 			_playersContainer.Clear();
+
+			_header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
 
 			VisualElement row = null;
 			for (var i = 0; i < matchLobby.MaxPlayers; i++)

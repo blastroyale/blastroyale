@@ -16,7 +16,6 @@ using I2.Loc;
 using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
-using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 using Player = Unity.Services.Lobbies.Models.Player;
 
@@ -51,9 +50,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.ResolveServices();
 
-			var header = _header.Required();
-			header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
-			header.backClicked += () => LeaveMatchLobby().Forget();
+			_header.backClicked += () => LeaveMatchLobby().Forget();
 
 			_matchSettings.Required().AttachView(this, out _matchSettingsView);
 
@@ -159,6 +156,8 @@ namespace FirstLight.Game.Presenters
 
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 			_playersContainer.Clear();
+
+			_header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
 
 			VisualElement row = null;
 			for (var i = 0; i < matchLobby.MaxPlayers; i++)

@@ -647,6 +647,10 @@ namespace FirstLight.Game.Services
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
+			var lobbyName = settings.ShowCreatorName
+				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
+				: Enum.Parse<GameId>(settings.MapID).GetLocalization() ;
+			
 			var options = new UpdateLobbyOptions
 			{
 				Data = new Dictionary<string, DataObject>
@@ -654,7 +658,8 @@ namespace FirstLight.Game.Services
 					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
 				},
 				IsLocked = locked,
-				MaxPlayers = settings.MaxPlayers
+				MaxPlayers = settings.MaxPlayers,
+				Name = lobbyName
 			};
 
 			try

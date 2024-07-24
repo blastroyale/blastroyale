@@ -358,7 +358,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public async UniTask<bool> KickPlayerFromParty(string playerID)
 		{
-			Assert.IsNotNull(CurrentMatchLobby, "Trying to kick player from party but the player is not in one!");
+			Assert.IsNotNull(CurrentPartyLobby, "Trying to kick player from party but the player is not in one!");
 
 			try
 			{

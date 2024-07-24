@@ -55,7 +55,7 @@ namespace FirstLight.Game.Presenters
 			_matchSettings.Required().AttachView(this, out _matchSettingsView);
 
 			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
-			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends();
+			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)

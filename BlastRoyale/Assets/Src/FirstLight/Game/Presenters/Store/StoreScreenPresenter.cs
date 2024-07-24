@@ -276,12 +276,12 @@ namespace FirstLight.Game.Presenters.Store
 
 		private void OpenEnterCreatorCodePopup()
 		{
-			PopupPresenter.OpenEnterCreatorCode(OnCreatorCodeSubmitted);
+			PopupPresenter.OpenEnterCreatorCode(OnCreatorCodeSubmitted).Forget();
 		}
 
 		private void OpenStopSupportingCreatorPopup()
 		{
-			PopupPresenter.OpenGenericConfirm(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_stop_supporting, OnStopSupportingCreatorSubmitted);
+			PopupPresenter.OpenGenericConfirm(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_stop_supporting, OnStopSupportingCreatorSubmitted).Forget();
 		}
 
 		private void OnCreatorCodeSubmitted(string creatorCode)
@@ -290,7 +290,7 @@ namespace FirstLight.Game.Presenters.Store
 
 			if (!IsValidCreatorCode(creatorCodeValue))
 			{
-				PopupPresenter.OpenGenericInfo(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_invalid_code);
+				PopupPresenter.OpenGenericInfo(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_invalid_code).Forget();
 				return;
 			}
 

@@ -81,7 +81,7 @@ namespace FirstLight.Game.Views
 			_rewardContainer = Element.Q<VisualElement>("RewardsContainer").Required();
 			_button.clicked += OnClicked;
 			_infoButton.clicked += () => PopupPresenter.OpenMatchInfo(GameModeInfo, () =>
-				PopupPresenter.Close().ContinueWith(() => Clicked?.Invoke(this)));
+				PopupPresenter.Close().ContinueWith(() => Clicked?.Invoke(this))).Forget();
 		}
 
 		/// <summary>

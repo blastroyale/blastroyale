@@ -2149,6 +2149,7 @@ namespace I2.Loc
 			public static string join_with_code 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/join_with_code"); } }
 			public static string lobby_code 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/lobby_code"); } }
 			public static string map 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/map"); } }
+			public static string match_info 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/match_info"); } }
 			public static string max_players 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/max_players"); } }
 			public static string max_players_desc 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/max_players_desc"); } }
 			public static string mode 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mode"); } }
@@ -4899,6 +4900,7 @@ namespace I2.Loc
 		    public const string join_with_code = "UITCustomGames/join_with_code";
 		    public const string lobby_code = "UITCustomGames/lobby_code";
 		    public const string map = "UITCustomGames/map";
+		    public const string match_info = "UITCustomGames/match_info";
 		    public const string max_players = "UITCustomGames/max_players";
 		    public const string max_players_desc = "UITCustomGames/max_players_desc";
 		    public const string mode = "UITCustomGames/mode";

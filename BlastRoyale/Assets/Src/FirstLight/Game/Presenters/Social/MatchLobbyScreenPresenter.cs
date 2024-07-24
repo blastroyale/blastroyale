@@ -64,6 +64,7 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_services.MessageBrokerService.Subscribe<MatchLobbyUpdatedMessage>(OnLobbyChanged);
+			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += OnKickedFromLobby;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 
@@ -86,6 +87,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby -= OnKickedFromLobby;
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			return base.OnScreenClose();
 		}
@@ -135,6 +137,11 @@ namespace FirstLight.Game.Presenters
 					JoinRoom(room, joinProperties).Forget();
 				}
 			}
+		}
+
+		private void OnKickedFromLobby()
+		{
+			_services.UIService.OpenScreen<MatchListScreenPresenter>(Data.MatchListStateData).Forget();
 		}
 
 		private async UniTaskVoid JoinRoom(string room, PlayerJoinRoomProperties playerJoinRoomProperties)

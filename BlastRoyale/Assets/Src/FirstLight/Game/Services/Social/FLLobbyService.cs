@@ -228,6 +228,7 @@ namespace FirstLight.Game.Services
 
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
+			CurrentMatchCallbacks.KickedFromLobby += OnMatchLobbyKicked;
 
 			((ILobbyServiceSDKConfiguration) LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
 		}
@@ -866,6 +867,12 @@ namespace FirstLight.Game.Services
 			{
 				Changes = changes
 			});
+		}
+		
+		private void OnMatchLobbyKicked()
+		{
+			_notificationService.QueueNotification("You have been kicked from the lobby.");
+			CurrentMatchLobby = null;
 		}
 
 		private void OnPartyLobbyChanged(ILobbyChanges changes)

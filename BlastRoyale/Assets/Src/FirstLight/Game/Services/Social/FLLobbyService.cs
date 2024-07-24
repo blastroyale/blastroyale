@@ -12,12 +12,13 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
+using Quantum;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using UnityEngine.Assertions;
+using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.Services
 {
@@ -518,7 +519,7 @@ namespace FirstLight.Game.Services
 
 			var lobbyName = matchOptions.ShowCreatorName
 				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
-				: matchOptions.MapID;
+				: Enum.Parse<GameId>(matchOptions.MapID).GetLocalization() ;
 
 			var data = new Dictionary<string, DataObject>
 			{

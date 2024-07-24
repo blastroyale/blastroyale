@@ -93,6 +93,8 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !e.newValue);
 			_botDifficultySlider.value = MatchSettings.BotDifficulty = e.newValue ? 1 : 0;
+			
+			RefreshData(true);
 		}
 
 		private void OnMutatorsToggle(ChangeEvent<bool> e)
@@ -105,6 +107,8 @@ namespace FirstLight.Game.Views.UITK
 				MatchSettings.Mutators = Mutator.None;
 				_mutatorsScroller.Clear();
 			}
+			
+			RefreshData(true);
 		}
 
 		private void OnWeaponFilterToggle(ChangeEvent<bool> e)
@@ -117,6 +121,8 @@ namespace FirstLight.Game.Views.UITK
 				MatchSettings.WeaponFilter.Clear();
 				_filterWeaponsScroller.Clear();
 			}
+			
+			RefreshData(true);
 		}
 
 		public void SetMatchSettings(CustomMatchSettings settings, bool editable, bool showSpectators)

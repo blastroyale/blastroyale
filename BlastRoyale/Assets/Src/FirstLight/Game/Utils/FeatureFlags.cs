@@ -139,7 +139,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Forces to stop the game when pausing
 		/// </summary>
-		public static bool PAUSE_FREEZE = true;
+		public static bool PAUSE_DISCONNECT_DIALOG = false;
 
 		/// <summary>
 		/// Enables / disables item durability checks for Non NFTs
@@ -269,7 +269,7 @@ namespace FirstLight.Game.Utils
 
 			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))
 			{
-				PAUSE_FREEZE = pauseFreeze;
+				PAUSE_DISCONNECT_DIALOG = pauseFreeze;
 			}
 
 			if (TrySetFlag("WAIT_REWARD_SYNC", overrideData, out var waitSync))

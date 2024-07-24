@@ -33,6 +33,11 @@ namespace FirstLight.Game.Services
 				Application.runInBackground = false;
 			}
 
+			if (!FeatureFlags.PAUSE_DISCONNECT_DIALOG)
+			{
+				return;
+			}
+
 			_services = services;
 			_services.MessageBrokerService.Subscribe<ApplicationFocusMessage>(OnApplicationFocus);
 			_services.MessageBrokerService.Subscribe<ApplicationPausedMessage>(OnApplicationPause);
@@ -43,10 +48,6 @@ namespace FirstLight.Game.Services
 			if (!_services.AuthenticationService.State.LoggedIn) return;
 			if (_paused) return;
 			_paused = true;
-			if (FeatureFlags.PAUSE_FREEZE)
-			{
-				Time.timeScale = 0;
-			}
 			_pauseTime = DateTime.UtcNow;
 			FLog.Info("Game Paused");
 		}
@@ -64,10 +65,6 @@ namespace FirstLight.Game.Services
 				FLog.Warn("Max pause time elapsed");
 				_services.GenericDialogService.OpenSimpleMessage("Disconnected", "Please Restart", Application.Quit);
 				return;
-			}
-			if (FeatureFlags.PAUSE_FREEZE)
-			{
-				Time.timeScale = 1;
 			}
 			_paused = false;
 			FLog.Info("Game Resumed");

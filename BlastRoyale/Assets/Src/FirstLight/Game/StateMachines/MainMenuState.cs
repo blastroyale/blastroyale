@@ -130,7 +130,7 @@ namespace FirstLight.Game.StateMachines
 			var news = stateFactory.State("News");
 			var collectionMenu = stateFactory.Nest("Collection Menu");
 			var settingsMenu = stateFactory.Nest("Settings Menu");
-			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
+			var matchmakingChecks = stateFactory.Choice("Play Button Clicked Check");
 			var waitMatchmaking = stateFactory.State("Matchmaking Waiting");
 			var chooseGameMode = stateFactory.State("Enter Choose Game Mode");
 			var leaderboard = stateFactory.Wait("Leaderboard");
@@ -165,7 +165,7 @@ namespace FirstLight.Game.StateMachines
 
 			homeMenu.OnEnter(() => OpenHomeScreen().Forget());
 			homeMenu.OnEnter(RequestStartMetaMatchTutorial);
-			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
+			homeMenu.Event(PlayClickedEvent).Target(matchmakingChecks);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(homeCheck);
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialog);
@@ -186,13 +186,13 @@ namespace FirstLight.Game.StateMachines
 			friends.WaitingFor(wait => OpenFriends(wait).Forget()).Target(homeCheck);
 			AddGoToMatchmakingHook(settingsMenu, collectionMenu, battlePass, leaderboard, store, news, friends);
 
-			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
-			playClickedCheck.Transition().Condition(CheckInvalidTeamSize)
+			matchmakingChecks.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
+			matchmakingChecks.Transition().Condition(CheckInvalidTeamSize)
 				.OnTransition(() => _services.GenericDialogService.OpenSimpleMessage("Error", "Invalid party size!")).Target(homeCheck);
-			playClickedCheck.Transition().Condition(IsInRoom).Target(homeCheck);
-			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(() => TogglePartyReadyStatus().Forget())
+			matchmakingChecks.Transition().Condition(IsInRoom).Target(homeCheck);
+			matchmakingChecks.Transition().Condition(CheckIsNotPartyLeader).OnTransition(() => TogglePartyReadyStatus().Forget())
 				.Target(homeCheck);
-			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage)
+			matchmakingChecks.Transition().OnTransition(SendPlayReadyMessage)
 				.Target(waitMatchmaking);
 
 			// Matchmaking
@@ -486,7 +486,7 @@ namespace FirstLight.Game.StateMachines
 			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
 				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),
-				PlayClicked = () => _statechartTrigger(PlayClickedEvent)
+				PlayClicked = () => _statechartTrigger(PlayClickedEvent) // TODO: Change this to change state
 			}).Forget();
 		}
 

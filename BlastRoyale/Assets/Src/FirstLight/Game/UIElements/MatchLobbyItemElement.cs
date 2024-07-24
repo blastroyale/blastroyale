@@ -15,6 +15,7 @@ namespace FirstLight.Game.UIElements
 	public class MatchLobbyItemElement : VisualElement
 	{
 		private const string USS_BLOCK = "match-lobby-item";
+		private const string USS_CONTAINER = USS_BLOCK + "__container";
 		private const string USS_ACTION_BACKGROUND = USS_BLOCK + "__action-background";
 		private const string USS_INFO_BUTTON = USS_BLOCK + "__info-button";
 		private const string USS_ACTION_BUTTON = USS_BLOCK + "__action-button";
@@ -41,37 +42,45 @@ namespace FirstLight.Game.UIElements
 		public MatchLobbyItemElement()
 		{
 			AddToClassList(USS_BLOCK);
-
-			var actionBackground = new VisualElement();
-			Add(actionBackground);
-			actionBackground.AddToClassList(USS_ACTION_BACKGROUND);
-
-			Add(_lobbyNameLabel = new Label("FirstLightReallyLongPotato's game"));
-			_lobbyNameLabel.AddToClassList(USS_NAME);
-			Add(_lobbyModeLabel = new Label("BattleRoyale\nDUOS"));
-			_lobbyModeLabel.AddToClassList(USS_MODE);
+			
+			var container = new VisualElement();
+			Add(container);
+			container.AddToClassList(USS_CONTAINER);
 			{
-				_lobbyModeLabel.Add(_mutatorsCountLabel = new Label("+3") {name = "mutators-count"});
-				_mutatorsCountLabel.AddToClassList(USS_MUTATORS_COUNT);
-			}
-			Add(_lobbyPlayersLabel = new Label("1/30"));
-			_lobbyPlayersLabel.AddToClassList(USS_PLAYERS);
-			{
-				_lobbyPlayersLabel.Add(_friendIcon = new VisualElement() {name = "friend-icon"});
-				_friendIcon.AddToClassList(USS_FRIEND_ICON);
-			}
-			Add(_lobbyRegion = new LocalizedLabel("EU"));
-			_lobbyRegion.AddToClassList(USS_STATUS);
-			Add(_actionButton = new LocalizedButton("ActionButton"));
-			_actionButton.LocalizationKey = ScriptTerms.UITCustomGames.join;
-			_actionButton.AddToClassList("button-long");
-			_actionButton.AddToClassList(USS_ACTION_BUTTON);
-			_actionButton.clicked += () => _onActionClicked.Invoke();
+				var actionBackground = new VisualElement();
+				container.Add(actionBackground);
+				actionBackground.AddToClassList(USS_ACTION_BACKGROUND);
 
-			Add(_infoButton = new ImageButton {name = "info-button"});
-			_infoButton.AddToClassList(USS_INFO_BUTTON);
-			_infoButton.AddToClassList("sprite-home__button-info");
-			_infoButton.clicked += () => _onInfoClicked.Invoke();
+				container.Add(_lobbyNameLabel = new Label("FirstLightReallyLongPotato's game"));
+				_lobbyNameLabel.AddToClassList(USS_NAME);
+				container.Add(_lobbyModeLabel = new Label("BattleRoyale\nDUOS"));
+				_lobbyModeLabel.AddToClassList(USS_MODE);
+				{
+					_lobbyModeLabel.Add(_mutatorsCountLabel = new Label("+3") {name = "mutators-count"});
+					_mutatorsCountLabel.AddToClassList(USS_MUTATORS_COUNT);
+				}
+				container.Add(_lobbyPlayersLabel = new Label("1/30"));
+				_lobbyPlayersLabel.AddToClassList(USS_PLAYERS);
+				{
+					_lobbyPlayersLabel.Add(_friendIcon = new VisualElement() {name = "friend-icon"});
+					_friendIcon.AddToClassList(USS_FRIEND_ICON);
+				}
+				container.Add(_lobbyRegion = new LocalizedLabel("EU"));
+				_lobbyRegion.AddToClassList(USS_STATUS);
+				container.Add(_actionButton = new LocalizedButton("ActionButton"));
+				_actionButton.LocalizationKey = ScriptTerms.UITCustomGames.join;
+				_actionButton.AddToClassList("button-long");
+				_actionButton.AddToClassList(USS_ACTION_BUTTON);
+				_actionButton.clicked += () => _onActionClicked.Invoke();
+
+				container.Add(_infoButton = new ImageButton {name = "info-button"});
+				_infoButton.AddToClassList(USS_INFO_BUTTON);
+				_infoButton.AddToClassList("sprite-home__button-info");
+				_infoButton.clicked += () => _onInfoClicked.Invoke();
+			}
+						
+
+
 		}
 
 		public void SetLobby(Lobby lobby, Action onActionClicked, Action onInfoClicked)

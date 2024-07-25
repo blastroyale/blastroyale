@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
@@ -23,6 +24,8 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class FriendListElement : VisualElement
 	{
+		private static readonly BatchQueue _batchQueue = new ();
+		
 		private const string USS_BLOCK = "friend-list-element";
 		private const string USS_PLAYER_BAR_CONTAINER = USS_BLOCK + "__player-bar-container";
 		private const string USS_AVATAR = USS_BLOCK + "__avatar";
@@ -136,6 +139,7 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
+		private static Dictionary<string, string> _cacheHack = new();
 		private async UniTaskVoid SetAvatarHack(string unityId, string playfabid)
 		{
 			if (unityId == null && playfabid == null)
@@ -143,6 +147,13 @@ namespace FirstLight.Game.UIElements
 				return;
 			}
 			var services = MainInstaller.ResolveServices();
+			
+			if (_cacheHack.TryGetValue(unityId, out var avatarUrl))
+			{
+				services.RemoteTextureService.SetTexture(_avatar, avatarUrl);
+				return;
+			}
+			
 			FLog.Verbose("Setting avatar hack for "+unityId + " playfabid "+playfabid);
 			try
 			{
@@ -152,15 +163,27 @@ namespace FirstLight.Game.UIElements
 					if (playfabid == null) return;
 				}
 				
-				services.ProfileService.GetPlayerPublicProfile(playfabid, profile =>
+				_batchQueue.Add(async () =>
 				{
+					if (this.panel == null || this.parent == null) return;
+					var profile = await services.ProfileService.GetPlayerPublicProfile(playfabid);
+					_cacheHack[unityId] = profile.AvatarUrl;
 					services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
 				});
+				
 			}
 			catch (Exception e)
 			{
 				FLog.Error($"Error setting friend unityid {unityId} avatar", e);
 			}
+		}
+
+		// TODO: Batch for many players, maybe sync in DB
+		public async UniTask FetchAvatarPlayfab(string playfabId)
+		{
+			var services = MainInstaller.ResolveServices();
+			var profile = await services.ProfileService.GetPlayerPublicProfile(playfabId);
+			services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
 		}
 
 		public FriendListElement SetPlayerName(string playerName)

@@ -46,6 +46,7 @@ namespace FirstLight.Game.Services
 
 	public class GameSocialService : IGameSocialService
 	{
+		private BufferedQueue _stateUpdates = new ();
 		private IGameServices _services;
 		public GameSocialService(IGameServices services)
 		{
@@ -60,6 +61,7 @@ namespace FirstLight.Game.Services
 			services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Shop));
 			services.UIService.OnScreenOpened += OnScreenOpened;
 			_services = services;
+			_stateUpdates.OnlyKeepLast = true;
 		}
 
 		private void OnJoinedParty()
@@ -135,12 +137,6 @@ namespace FirstLight.Game.Services
 				if(_services.FLLobbyService.SentPartyInvites.Contains(friend.Member.Id)) return false;
 				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id)) return false;
 			}
-			/*
-			if (_services.FLLobbyService.CurrentPartyLobby == null && _services.FLLobbyService.CurrentMatchLobby == null)
-			{
-				return false;
-			}
-			*/
 			return true;
 		}
 
@@ -151,12 +147,15 @@ namespace FirstLight.Game.Services
 		
 		public void SetCurrentActivity(GameActivities activity)
 		{
-			FLog.Verbose("Setting social activity as "+activity);
-			FriendsService.Instance.SetPresenceAsync(Availability.Online, new FriendActivity
+			_stateUpdates.Add(() =>
 			{
-				CurrentActivity = (int)activity,
-				AvatarUrl = MainInstaller.ResolveData().AppDataProvider.AvatarUrl
-			}).AsUniTask().Forget();
+				FLog.Verbose("Setting social activity as "+activity);
+				FriendsService.Instance.SetPresenceAsync(Availability.Online, new FriendActivity
+				{
+					CurrentActivity = (int)activity,
+					AvatarUrl = MainInstaller.ResolveData().AppDataProvider.AvatarUrl
+				}).AsUniTask().Forget();
+			});
 		}
 	}
 }

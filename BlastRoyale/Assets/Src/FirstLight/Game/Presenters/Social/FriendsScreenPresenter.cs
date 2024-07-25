@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -16,8 +15,8 @@ using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
-using UnityEngine;
 using UnityEngine.UIElements;
+
 
 namespace FirstLight.Game.Presenters
 {
@@ -247,15 +246,20 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenTooltip(VisualElement element, Relationship relationship)
 		{
-			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
+			var buttons = new List<PlayerContextButton>();
+			
+			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
+				() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()));
+
+			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
+				() => RemoveRelationship(relationship).Forget()));
+
+			if (relationship.Type != RelationshipType.Block)
 			{
-				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
-					() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()),
-				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
-					() => RemoveRelationship(relationship).Forget()),
-				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
-					() => BlockPlayer(relationship.Member.Id, false).Forget())
-			});
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
+					() => BlockPlayer(relationship.Member.Id, false).Forget()));
+			}
+			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name.TrimPlayerNameNumbers(), buttons);
 		}
 		
 		private async UniTaskVoid AcceptRequest(Relationship r)
@@ -321,7 +325,14 @@ namespace FirstLight.Game.Presenters
 				await FriendsService.Instance.DeleteRelationshipAsync(relationship.Id).AsUniTask();
 				if (relationship.Type == RelationshipType.Block)
 				{
-					await FriendsService.Instance.DeleteFriendAsync(relationship.Member.Id).AsUniTask();
+					try
+					{
+						await FriendsService.Instance.DeleteFriendAsync(relationship.Member.Id).AsUniTask();
+					}
+					catch (Exception e)
+					{
+						FLog.Verbose("Could not remove friend, likely was not a friend anymore "+e.Message);
+					}
 				}
 				RefreshAll();
 				_services.NotificationService.QueueNotification("#Player Removed#");

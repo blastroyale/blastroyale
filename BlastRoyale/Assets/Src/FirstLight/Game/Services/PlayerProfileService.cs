@@ -1,5 +1,7 @@
 using System;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using UnityEngine;
@@ -19,7 +21,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Query read-only public player profile data
 		/// </summary>
-		void GetPlayerPublicProfile(string playerId, Action<PublicPlayerProfile> onSuccess);
+		UniTask<PublicPlayerProfile> GetPlayerPublicProfile(string playerId);
 	}
 	
 	/// <inheritdoc cref="IPlayerProfileService"/>
@@ -32,16 +34,14 @@ namespace FirstLight.Game.Services
 			_backend = backend;
 		}
 		
-		public void GetPlayerPublicProfile(string playerId, Action<PublicPlayerProfile> onSuccess)
+		public async UniTask<PublicPlayerProfile> GetPlayerPublicProfile(string playerId)
 		{
-			_backend.CallFunction("GetPublicProfile", r =>
-			{
-				var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(r.FunctionResult.ToString());
-				onSuccess(ModelSerializer.DeserializeFromData<PublicPlayerProfile>(serverResult.Result.Data));
-			}, e => { _backend.HandleError(e, null); }, new LogicRequest()
+			var r = await _backend.CallFunctionAsync("GetPublicProfile", new LogicRequest()
 			{
 				Command = playerId
 			});
+			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(r.FunctionResult.ToString());
+			return ModelSerializer.DeserializeFromData<PublicPlayerProfile>(serverResult.Result.Data);
 		}
 	}
 }

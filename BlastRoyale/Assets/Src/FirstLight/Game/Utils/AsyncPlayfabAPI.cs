@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.CloudScriptModels;
 using PlayFab.MultiplayerModels;
 
 namespace FirstLight.Game.Utils
@@ -56,10 +57,18 @@ namespace FirstLight.Game.Utils
 		private static Func<UpdateUserTitleDisplayNameRequest, UniTask<UpdateUserTitleDisplayNameResult>> UpdateUserTitleDisplayNameFunc { get; }
 			= Wrap<UpdateUserTitleDisplayNameRequest, UpdateUserTitleDisplayNameResult>(PlayFabClientAPI.UpdateUserTitleDisplayName);
 
+		private static Func<ExecuteFunctionRequest, UniTask<ExecuteFunctionResult>> ExecuteFunctionFunc { get; }
+			= Wrap<ExecuteFunctionRequest, ExecuteFunctionResult>(PlayFabCloudScriptAPI.ExecuteFunction);
+		
 		/// <inheritdoc cref="PlayFabClientAPI.UpdateUserTitleDisplayName"/>
 		public static UniTask<UpdateUserTitleDisplayNameResult> UpdateUserTitleDisplayName(UpdateUserTitleDisplayNameRequest req)
 		{
 			return UpdateUserTitleDisplayNameFunc(req);
+		}
+		
+		public static UniTask<ExecuteFunctionResult> ExecuteFunction(ExecuteFunctionRequest req)
+		{
+			return ExecuteFunctionFunc(req);
 		}
 
 		/// <inheritdoc cref="PlayFabClientAPI.GetCatalogItems"/>

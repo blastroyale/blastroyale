@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
+using UnityEditor.VersionControl;
 
 namespace FirstLight.Tests.EditorMode
 {
@@ -86,6 +88,11 @@ namespace FirstLight.Tests.EditorMode
 		{
 			FunctionsCalled.Add(functionName);
 			onSuccess?.Invoke(new ExecuteFunctionResult());
+		}
+
+		public UniTask<ExecuteFunctionResult> CallFunctionAsync(string functionName, object parameter = null)
+		{
+			return UniTask.FromResult(new ExecuteFunctionResult());
 		}
 
 		public void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError)

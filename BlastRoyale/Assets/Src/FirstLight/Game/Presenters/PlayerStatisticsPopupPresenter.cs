@@ -157,45 +157,43 @@ namespace FirstLight.Game.Presenters
 
 			FLog.Info("Downloading profile for " + Data.PlayfabID);
 
-			_services.ProfileService.GetPlayerPublicProfile(Data.PlayfabID, (result) =>
+			var result = await _services.ProfileService.GetPlayerPublicProfile(Data.PlayfabID);
+			// TODO: Race condition if you close and quickly reopen the popup
+			if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
+
+			// TODO mihak: Temporary
+			if (IsLocalPlayer)
 			{
-				// TODO: Race condition if you close and quickly reopen the popup
-				if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
+				_nameLabel.text = AuthenticationService.Instance.GetPlayerName();
+			}
+			else
+			{
+				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
+			}
 
-				// TODO mihak: Temporary
-				if (IsLocalPlayer)
-				{
-					_nameLabel.text = AuthenticationService.Instance.GetPlayerName();
-				}
-				else
-				{
-					_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
-				}
+			SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
+			SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
+			SetStatInfo(2, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
+			SetStatInfo(3, result, GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, ScriptLocalization.MainMenu.RankedDamageDone);
+			SetStatInfo(4, result, GameConstants.Stats.RANKED_AIRDROP_OPENED_EVER, ScriptLocalization.MainMenu.RankedAirdropOpened);
+			SetStatInfo(5, result, GameConstants.Stats.RANKED_SUPPLY_CRATES_OPENED_EVER, ScriptLocalization.MainMenu.RankedSupplyCratesOpened);
+			SetStatInfo(6, result, GameConstants.Stats.RANKED_GUNS_COLLECTED_EVER, ScriptLocalization.MainMenu.RankedGunsCollected);
+			SetStatInfo(7, result, GameConstants.Stats.RANKED_PICKUPS_COLLECTED_EVER, ScriptLocalization.MainMenu.RankedPickupsCollected);
 
-				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
-				SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
-				SetStatInfo(2, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
-				SetStatInfo(3, result, GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, ScriptLocalization.MainMenu.RankedDamageDone);
-				SetStatInfo(4, result, GameConstants.Stats.RANKED_AIRDROP_OPENED_EVER, ScriptLocalization.MainMenu.RankedAirdropOpened);
-				SetStatInfo(5, result, GameConstants.Stats.RANKED_SUPPLY_CRATES_OPENED_EVER, ScriptLocalization.MainMenu.RankedSupplyCratesOpened);
-				SetStatInfo(6, result, GameConstants.Stats.RANKED_GUNS_COLLECTED_EVER, ScriptLocalization.MainMenu.RankedGunsCollected);
-				SetStatInfo(7, result, GameConstants.Stats.RANKED_PICKUPS_COLLECTED_EVER, ScriptLocalization.MainMenu.RankedPickupsCollected);
+			_pfpImage.SetAvatar(result.AvatarUrl);
+			if (IsLocalPlayer)
+			{
+				_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
+			}
+			else
+			{
+				var stat = result.Statistics.FirstOrDefault(s => s.Name == GameConstants.Stats.FAME);
+				_pfpImage.SetLevel((uint) stat.Value);
+			}
 
-				_pfpImage.SetAvatar(result.AvatarUrl);
-				if (IsLocalPlayer)
-				{
-					_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
-				}
-				else
-				{
-					var stat = result.Statistics.FirstOrDefault(s => s.Name == GameConstants.Stats.FAME);
-					_pfpImage.SetLevel((uint) stat.Value);
-				}
-
-				_pfpImage.RegisterCallback<MouseDownEvent>(e => OpenLeaderboard(ScriptLocalization.General.Level, GameConstants.Stats.FAME));
-				_content.visible = true;
-				_loadingSpinner.visible = false;
-			});
+			_pfpImage.RegisterCallback<MouseDownEvent>(e => OpenLeaderboard(ScriptLocalization.General.Level, GameConstants.Stats.FAME));
+			_content.visible = true;
+			_loadingSpinner.visible = false;
 		}
 	}
 }

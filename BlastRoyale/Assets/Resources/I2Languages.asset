@@ -23147,11 +23147,13 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Earn Blast Pass points in matches to claim rewards.
+      - 'Earn Blast Pass points in matches, events and
 
+        leaderboards to progress
+        in the Blast Pass.
 
-        The pool of
-        points refreshes over time.'
+        The pool of points for matches refreshes over
+        time.'
       - "\u0417\u0430\u0440\u0430\u0431\u043E\u0442\u0430\u0439\u0442\u0435 \u0431\u0430\u043B\u043B\u044B
         Blast Pass \u0432 \u043C\u0430\u0442\u0447\u0430\u0445, \u0447\u0442\u043E\u0431\u044B
         \u0442\u0440\u0435\u0431\u043E\u0432\u0430\u0442\u044C \u0432\u043E\u0437\u043D\u0430\u0433\u0440\u0430\u0436\u0434\u0435\u043D\u0438\u044F.\n\n\u0411\u0430\u0441\u0441\u0435\u0439\u043D
@@ -29579,7 +29581,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1721826747041
+    Google_LastUpdatedVersion: 1721832653034
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

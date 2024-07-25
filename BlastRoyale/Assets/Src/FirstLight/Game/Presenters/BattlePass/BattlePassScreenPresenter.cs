@@ -54,6 +54,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _columnHolder;
 		private VisualElement _Root;
 		private VisualElement _bppProgressBackground;
+		private VisualElement _bppIcon;
 		private VisualElement _bppProgressFill;
 		private VisualElement _nextLevelRoot;
 		private LocalizedButton _claimButton;
@@ -112,6 +113,8 @@ namespace FirstLight.Game.Presenters
 			_seasonEndsLabel = Root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
 			_lastRewardBaloon = Root.Q("LastRewardBalloon");
 			_lastRewardBaloon.RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
+			_bppIcon = Root.Q("Icon");
+			_bppIcon.RegisterCallback<PointerUpEvent>(e => OnBPPsClicked());
 			_lastRewardSprite = Root.Q("LastRewardSprite");
 			_endGraphicContainer = Root.Q("LastReward").Required();
 			_endGraphicPicture = _endGraphicContainer.Q("RewardPicture").Required();
@@ -130,6 +133,11 @@ namespace FirstLight.Game.Presenters
 			Root.Q("RewardShineYellow").Required().AddRotatingEffect(25, 10);
 			_services.MessageBrokerService.Subscribe<BattlePassPurchasedMessage>(OnBpPurchase);
 			_services.MessageBrokerService.Subscribe<BattlePassLevelPurchasedMessage>(OnBoughtBpLevel);
+		}
+		
+		private void OnBPPsClicked()
+		{
+			_bppIcon.OpenTooltip(Root, ScriptLocalization.Tooltips.ToolTip_BPP_pool);
 		}
 
 		private void OnBoughtBpLevel(BattlePassLevelPurchasedMessage obj)

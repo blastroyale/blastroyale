@@ -351,7 +351,7 @@ namespace FirstLight.Game.Services
 				CurrentPartyLobby = null;
 				
 				// because local player does not receive this
-				MainInstaller.ResolveServices().MessageBrokerService.Publish(new PartyLobbyUpdatedMessage());
+				CurrentMatchCallbacks.TriggerLocalLobbyUpdated(null);
 			}
 			catch (LobbyServiceException e)
 			{
@@ -873,10 +873,7 @@ namespace FirstLight.Game.Services
 				changes.ApplyToLobby(CurrentMatchLobby);
 			}
 
-			MainInstaller.ResolveServices().MessageBrokerService.Publish(new MatchLobbyUpdatedMessage()
-			{
-				Changes = changes
-			});
+			CurrentMatchCallbacks.TriggerLocalLobbyUpdated(changes);
 		}
 		
 		private void OnMatchLobbyKicked()
@@ -896,10 +893,8 @@ namespace FirstLight.Game.Services
 			if (changes.LobbyDeleted)
 			{
 				CurrentPartyLobby = null;
-				MainInstaller.ResolveServices().MessageBrokerService.Publish(new PartyLobbyUpdatedMessage()
-				{
-					Changes = changes
-				});
+				CurrentPartyCallbacks.TriggerLocalLobbyUpdated(changes);
+				
 				return;
 			}
 
@@ -913,10 +908,7 @@ namespace FirstLight.Game.Services
 			}
 
 			changes.ApplyToLobby(CurrentPartyLobby);
-			MainInstaller.ResolveServices().MessageBrokerService.Publish(new PartyLobbyUpdatedMessage()
-			{
-				Changes = changes
-			});
+			CurrentPartyCallbacks.TriggerLocalLobbyUpdated(changes);
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage _)
@@ -957,9 +949,19 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public event Action<Lobby> LobbyJoined;
 
+		/// <summary>
+		/// Called after a lobby update is received and proccessed so the local lobby is up-to-date too
+		/// </summary>
+		public event Action<ILobbyChanges> LocalLobbyUpdated;
+
 		public void TriggerLobbyJoined(Lobby lobby)
 		{
 			LobbyJoined?.Invoke(lobby);
+		}
+
+		public void TriggerLocalLobbyUpdated(ILobbyChanges changes)
+		{
+			LocalLobbyUpdated?.Invoke(changes);
 		}
 	}
 }

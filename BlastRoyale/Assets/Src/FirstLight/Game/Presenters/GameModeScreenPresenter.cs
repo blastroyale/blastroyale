@@ -130,14 +130,14 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_services.GameModeService.SelectedGameMode.Observe(OnGameModeUpdated);
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			return base.OnScreenOpen(reload);
 		}
 
 		protected override UniTask OnScreenClose()
 		{
 			_services.GameModeService.SelectedGameMode.StopObserving(OnGameModeUpdated);
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
 			return base.OnScreenClose();
 		}
 

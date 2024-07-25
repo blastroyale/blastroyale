@@ -16,6 +16,7 @@ using I2.Loc;
 using QuickEye.UIToolkit;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
+using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 using Player = Unity.Services.Lobbies.Models.Player;
 
@@ -61,7 +62,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_services.MessageBrokerService.Subscribe<MatchLobbyUpdatedMessage>(OnLobbyChanged);
+			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += OnKickedFromLobby;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
@@ -85,14 +86,15 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
 			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby -= OnKickedFromLobby;
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			return base.OnScreenClose();
 		}
 
-		private void OnLobbyChanged(MatchLobbyUpdatedMessage m)
+		private void OnLobbyChanged(ILobbyChanges changes)
 		{
-			if (m.Changes == null || m.Changes.LobbyDeleted)
+			if (changes == null || changes.LobbyDeleted)
 			{
 				if (!_localPlayerHost && !_services.RoomService.InRoom && !_joining)
 				{
@@ -102,7 +104,6 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				var changes = m.Changes;
 				RefreshData();
 
 				FLog.Verbose("Received lobby changes version "+changes.Version.Value+ " "+changes.Data.ChangeType);

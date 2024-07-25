@@ -155,13 +155,12 @@ namespace FirstLight.Game.Services
 
 			_lobbyService.CurrentPartyCallbacks.PlayerJoined += _ => StopMatchmaking();
 			_lobbyService.CurrentPartyCallbacks.PlayerLeft += _ => StopMatchmaking();
-			broker.Subscribe<PartyLobbyUpdatedMessage>(OnPartyLobbyChanged);
+			_lobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyChanged;
 			broker.Subscribe<SuccessAuthentication>(OnAuthentication);
 		}
 
-		private void OnPartyLobbyChanged(PartyLobbyUpdatedMessage m)
+		private void OnPartyLobbyChanged(ILobbyChanges changes)
 		{
-			var changes = m.Changes;
 			if (changes == null || changes.PlayerJoined.Changed || changes.PlayerLeft.Changed)
 			{
 				StopMatchmaking();

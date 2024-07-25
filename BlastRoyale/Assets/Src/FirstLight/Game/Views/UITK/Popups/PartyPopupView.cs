@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			RefreshData();
 
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += OnLobbyJoined;
-			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
 		}
 
@@ -82,6 +82,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		{
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined -= OnLobbyJoined;
 		}
 
@@ -107,7 +108,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			await _services.FLLobbyService.LeaveParty();
 		}
 
-		private void OnLobbyChanged(PartyLobbyUpdatedMessage m)
+		private void OnLobbyChanged(ILobbyChanges m)
 		{
 			RefreshData();
 		}

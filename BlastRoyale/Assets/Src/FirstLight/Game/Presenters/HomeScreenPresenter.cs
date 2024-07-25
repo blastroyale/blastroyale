@@ -212,10 +212,10 @@ namespace FirstLight.Game.Presenters
 			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameChanged);
 			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyUpdate;
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
-			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnPartyLobbyUpdate);
 
 			UpdatePlayButton();
 
@@ -224,7 +224,7 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		private void OnPartyLobbyUpdate(PartyLobbyUpdatedMessage m)
+		private void OnPartyLobbyUpdate(ILobbyChanges m)
 		{
 			UpdatePlayButton();
 		}
@@ -236,6 +236,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnPartyLobbyUpdate;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
 
 			return base.OnScreenClose();

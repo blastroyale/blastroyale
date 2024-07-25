@@ -103,7 +103,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services.MatchmakingService.IsMatchmaking.Observe(OnMatchmaking);
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += OnLobbyJoined;
-			_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			Element.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 
 			CleanAllRemote();
@@ -114,6 +114,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnMatchmaking);
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined -= OnLobbyJoined;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
@@ -125,7 +126,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private void OnLobbyChanged(PartyLobbyUpdatedMessage msg)
+		private void OnLobbyChanged(ILobbyChanges msg)
 		{
 			UpdateMembers().Forget();
 		}

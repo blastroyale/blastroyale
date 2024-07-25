@@ -160,8 +160,7 @@ namespace FirstLight.Game.Services
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe(OnGameModeSet);
-			
-			msgBroker.Subscribe<PartyLobbyUpdatedMessage>(OnPartyLobbyChanged);
+			_lobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyChanged;
 			_lobbyService.CurrentPartyCallbacks.LobbyJoined += OnPartyLobbyJoined;
 		}
 
@@ -226,9 +225,8 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private void OnPartyLobbyChanged(PartyLobbyUpdatedMessage m)
+		private void OnPartyLobbyChanged(ILobbyChanges changes)
 		{
-			var changes = m.Changes;
 			if (changes == null || changes.LobbyDeleted) return;
 
 			if (changes.Data.Changed && changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCHMAKING_GAMEMODE, out var gameModeConfig))

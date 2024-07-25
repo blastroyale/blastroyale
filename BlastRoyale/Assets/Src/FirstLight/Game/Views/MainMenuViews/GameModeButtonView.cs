@@ -43,7 +43,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			if (!reload)
 			{
-				_services.MessageBrokerService.Subscribe<PartyLobbyUpdatedMessage>(OnLobbyChanged);
+				_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			}
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 		}
@@ -51,10 +51,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public override void OnScreenClose()
 		{
 			_services.MessageBrokerService.UnsubscribeAll(this);
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
 			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
 		}
 
-		private void OnLobbyChanged(PartyLobbyUpdatedMessage m)
+		private void OnLobbyChanged(ILobbyChanges m)
 		{
 			UpdateGameModeButton();
 		}

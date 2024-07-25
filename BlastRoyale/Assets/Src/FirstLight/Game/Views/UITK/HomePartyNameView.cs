@@ -65,6 +65,7 @@ namespace FirstLight.Game.Views.UITK
 
 		public void UpdatePosition()
 		{
+			if (Element.panel == null) return;
 			Element.SetPositionBasedOnWorldPosition(_worldAnchor.position);
 		}
 

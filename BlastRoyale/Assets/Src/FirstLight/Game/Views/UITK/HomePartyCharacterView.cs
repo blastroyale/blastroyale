@@ -103,10 +103,13 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services.MatchmakingService.IsMatchmaking.Observe(OnMatchmaking);
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += OnLobbyJoined;
-			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLocalLobbyChanged;
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += OnLobbyDeleted;
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
+
 			Element.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 
-			CleanAllRemote();
+			CleanAll();
 			UpdateMembers().Forget();
 		}
 
@@ -114,8 +117,30 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnMatchmaking);
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined -= OnLobbyJoined;
-			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLocalLobbyChanged;
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
+			_services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted -= OnLobbyDeleted;
 			_services.MessageBrokerService.UnsubscribeAll(this);
+		}
+
+		private void OnLobbyDeleted()
+		{
+			UpdateMembers().Forget();
+		}
+
+		private void OnLobbyChanged(ILobbyChanges msg)
+		{
+			UpdateMembers().Forget();
+		}
+
+		private void OnLocalLobbyChanged(ILobbyChanges msg)
+		{
+			UpdateMembers().Forget();
+		}
+
+		private void OnLobbyJoined(Lobby lobby)
+		{
+			UpdateMembers().Forget();
 		}
 
 		private void OnGeometryChanged(GeometryChangedEvent evt)
@@ -124,16 +149,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			{
 				menuPartyMember.NameView.UpdatePosition();
 			}
-		}
-
-		private void OnLobbyChanged(ILobbyChanges msg)
-		{
-			UpdateMembers().Forget();
-		}
-
-		private void OnLobbyJoined(Lobby lobby)
-		{
-			UpdateMembers().Forget();
 		}
 
 		private void OnMatchmaking(bool _, bool _2)
@@ -150,7 +165,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 				if (partyLobby == null)
 				{
-					CleanAllRemote();
+					CleanAll();
 					return;
 				}
 
@@ -243,12 +258,15 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			slot.NameView.Disable();
 		}
 
-		private void CleanAllRemote()
+		private void CleanAll()
 		{
 			foreach (var teamMatePosition in _teamMatePositions)
 			{
 				Clean(teamMatePosition);
 			}
+
+			_localPlayer.NameView?.Disable();
+			_localPlayer.ApplyInitialPosition();
 		}
 
 		public void Clean(MenuPartyMember slot)

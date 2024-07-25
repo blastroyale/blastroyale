@@ -351,7 +351,7 @@ namespace FirstLight.Game.Services
 				CurrentPartyLobby = null;
 				
 				// because local player does not receive this
-				CurrentMatchCallbacks.TriggerLocalLobbyUpdated(null);
+				CurrentPartyCallbacks.TriggerLocalLobbyUpdated(null);
 			}
 			catch (LobbyServiceException e)
 			{

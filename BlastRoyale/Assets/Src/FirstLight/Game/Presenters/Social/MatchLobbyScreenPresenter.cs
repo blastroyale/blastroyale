@@ -139,10 +139,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnKickedFromLobby()
 		{
-			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData()
-			{
-				BackClicked = Data.BackClicked
-			}).Forget();
+			Data.BackClicked();
 		}
 
 		private async UniTaskVoid JoinRoom(string room, PlayerJoinRoomProperties playerJoinRoomProperties)

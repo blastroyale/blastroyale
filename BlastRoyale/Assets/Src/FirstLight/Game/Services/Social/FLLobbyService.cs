@@ -633,7 +633,7 @@ namespace FirstLight.Game.Services
 					await LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId);
 					FLog.Info("Left match lobby successfully!");
 				}
-
+		
 				await _matchLobbyEvents.UnsubscribeAsync();
 				_matchLobbyEvents = null;
 				CurrentMatchLobby = null;

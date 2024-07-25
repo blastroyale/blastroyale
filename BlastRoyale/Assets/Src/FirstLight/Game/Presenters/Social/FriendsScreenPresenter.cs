@@ -194,7 +194,7 @@ namespace FirstLight.Game.Presenters
 			e
 				.SetHeader(header)
 				.SetFromRelationship(relationship)
-				.AddOpenProfileAction(relationship)
+				.SetMoreActions(ve => OpenTooltip(ve, relationship))
 				.TryAddInviteOption(relationship, () =>
 				{
 					_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
@@ -223,7 +223,7 @@ namespace FirstLight.Game.Presenters
 				.SetFromRelationship(relationship)
 				.SetStatus(string.Empty, null)
 				.SetHeader(header)
-				.SetMoreActions(ve => OpenRequestsTooltip(ve, relationship));
+				.SetMoreActions(ve => OpenTooltip(ve, relationship));
 
 			if (!sentRequest)
 			{
@@ -241,33 +241,23 @@ namespace FirstLight.Game.Presenters
 			((FriendListElement) element)
 				.SetFromRelationship(relationship)
 				.SetPlayerName(relationship.Member.Profile.Name)
+				.SetMoreActions(ve => OpenTooltip(ve, relationship))
 				.SetMainAction(ScriptLocalization.UITFriends.unblock, () => UnblockPlayer(relationship).Forget(), true);
 		}
 
-		private void OpenFriendTooltip(VisualElement element, Relationship relationship)
+		private void OpenTooltip(VisualElement element, Relationship relationship)
 		{
 			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
 			{
 				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
 					() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
-					() => RemoveFriend(relationship.Member.Id).Forget()),
+					() => RemoveRelationship(relationship).Forget()),
 				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
 					() => BlockPlayer(relationship.Member.Id, false).Forget())
 			});
 		}
-
-		private void OpenRequestsTooltip(VisualElement element, Relationship relationship)
-		{
-			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name, new[]
-			{
-				new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
-					() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()),
-				new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
-					() => BlockPlayer(relationship.Member.Id, true).Forget()),
-			});
-		}
-
+		
 		private async UniTaskVoid AcceptRequest(Relationship r)
 		{
 			try
@@ -323,22 +313,22 @@ namespace FirstLight.Game.Presenters
 			_addFriendButton.SetEnabled(true);
 			_addFriendIDField.value = string.Empty;
 		}
-
-		private async UniTaskVoid RemoveFriend(string playerID)
+		
+		private async UniTaskVoid RemoveRelationship(Relationship relationship)
 		{
 			try
 			{
-				FLog.Info($"Removing friend: {playerID}");
-				await FriendsService.Instance.DeleteFriendAsync(playerID).AsUniTask();
-				FLog.Info($"Friend removed: {playerID}");
-				RefreshFriends();
-
-				_services.NotificationService.QueueNotification("#Friend removed#");
+				await FriendsService.Instance.DeleteRelationshipAsync(relationship.Id).AsUniTask();
+				if (relationship.Type == RelationshipType.Block)
+				{
+					await FriendsService.Instance.DeleteFriendAsync(relationship.Member.Id).AsUniTask();
+				}
+				RefreshAll();
+				_services.NotificationService.QueueNotification("#Player Removed#");
 			}
 			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error removing friend.", e);
-				_services.NotificationService.QueueNotification($"#Error removing friend ({(int) e.ErrorCode})#");
+				_services.NotificationService.QueueNotification($"#Error removing player ({(int) e.ErrorCode})#");
 			}
 		}
 

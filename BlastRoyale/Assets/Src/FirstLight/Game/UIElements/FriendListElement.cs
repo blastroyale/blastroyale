@@ -229,6 +229,8 @@ namespace FirstLight.Game.UIElements
 			_mainAction = mainAction;
 			return this;
 		}
+		
+		
 
 		public FriendListElement SetMoreActions(Action<VisualElement> moreActionsAction)
 		{

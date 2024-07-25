@@ -277,8 +277,8 @@ namespace FirstLight.Game.Presenters
 			}
 			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error accepting friend request.", e);
-				_services.NotificationService.QueueNotification($"#Error accepting friend request ({(int) e.ErrorCode})#");
+				FLog.Warn("Error accepting friend request.", e);
+				_services.NotificationService.QueueNotification($"#Error accepting friend request, {e.ErrorCode.ToStringSeparatedWords()}#");
 			}
 		}
 
@@ -295,8 +295,8 @@ namespace FirstLight.Game.Presenters
 			}
 			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error declining friend request", e);
-				_services.NotificationService.QueueNotification($"#Error declining friend request ({(int) e.ErrorCode})#");
+				FLog.Warn("Error declining friend request", e);
+				_services.NotificationService.QueueNotification($"#Error declining friend request, {e.ErrorCode.ToStringSeparatedWords()}#");
 			}
 		}
 
@@ -339,7 +339,7 @@ namespace FirstLight.Game.Presenters
 			}
 			catch (FriendsServiceException e)
 			{
-				_services.NotificationService.QueueNotification($"#Error removing player ({(int) e.ErrorCode})#");
+				_services.NotificationService.QueueNotification($"#Error removing player, {e.ErrorCode.ToStringSeparatedWords()}#");
 			}
 		}
 
@@ -362,8 +362,8 @@ namespace FirstLight.Game.Presenters
 			}
 			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error blocking player", e);
-				_services.NotificationService.QueueNotification($"#Error blocking player ({(int) e.ErrorCode})#");
+				FLog.Warn("Error blocking player", e);
+				_services.NotificationService.QueueNotification($"#Error blocking player, {e.ErrorCode.ToStringSeparatedWords()}#");
 			}
 		}
 
@@ -380,8 +380,8 @@ namespace FirstLight.Game.Presenters
 			}
 			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error unblocking player.", e);
-				_services.NotificationService.QueueNotification($"#Error unblocking player ({(int) e.ErrorCode})#");
+				FLog.Warn("Error unblocking player.", e);
+				_services.NotificationService.QueueNotification($"#Error unblocking player, {e.ErrorCode.ToStringSeparatedWords()}#");
 			}
 		}
 	}

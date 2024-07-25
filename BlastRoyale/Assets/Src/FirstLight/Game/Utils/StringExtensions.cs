@@ -11,7 +11,7 @@ namespace Src.FirstLight.Game.Utils
 		/// </summary>
 		public static string CamelCaseToSeparatedWords(this string s)
 		{
-			return Regex.Replace(s, "(\\B[A-Z])", " $1");
+			return Regex.Replace(s, "(\\B[A-Z])", " $1").ToLowerInvariant();
 		}
 	}
 }

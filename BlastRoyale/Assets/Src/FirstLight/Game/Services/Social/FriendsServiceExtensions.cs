@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using Src.FirstLight.Game.Utils;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -58,10 +59,9 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			catch (FriendsServiceException e)
 			{
 				FLog.Error("Error adding friend.", e);
-				services.NotificationService.QueueNotification($"#Error adding friend ({(int) e.ErrorCode})#");
+				services.NotificationService.QueueNotification($"#Error adding friend, {e.ErrorCode.ToString().CamelCaseToSeparatedWords()}#");
 				return false;
 			}
-
 			return true;
 		}
 	}

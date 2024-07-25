@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Src.FirstLight.Game.Utils;
 
 namespace FirstLight.Game.Utils
 {
@@ -43,6 +44,11 @@ namespace FirstLight.Game.Utils
 		public static T FromInt<T>(int value) where T : Enum
 		{
 			return (T)Enum.GetValues(typeof(T)).GetValue(value);
+		}
+
+		public static string ToStringSeparatedWords(this Enum e)
+		{
+			return e.ToString().CamelCaseToSeparatedWords();
 		}
 	}
 }

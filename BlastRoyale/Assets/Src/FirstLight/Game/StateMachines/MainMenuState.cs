@@ -8,7 +8,6 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
@@ -18,13 +17,11 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Statechart;
-using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Object = System.Object;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -231,7 +228,7 @@ namespace FirstLight.Game.StateMachines
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			customGameLobby.OnEnter(OpenCustomGameLobby);
-			customGameLobby.Event(_roomJoinCreateBackClickedEvent).Target(homeCheck);
+			customGameLobby.Event(_roomJoinCreateBackClickedEvent).Target(customGamesList);
 			customGameLobby.Event(_closeClickedEvent).Target(homeCheck);
 			customGameLobby.Event(NetworkState.JoinedRoomEvent).Target(final);
 			customGameLobby.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);

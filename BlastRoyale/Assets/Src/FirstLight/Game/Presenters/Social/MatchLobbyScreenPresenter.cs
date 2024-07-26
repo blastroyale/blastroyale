@@ -94,7 +94,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLobbyChanged(ILobbyChanges changes)
 		{
-			if (changes == null || changes.LobbyDeleted)
+			if (changes == null) return;
+			
+			if (changes.LobbyDeleted)
 			{
 				if (!_localPlayerHost && !_services.RoomService.InRoom && !_joining)
 				{
@@ -218,6 +220,7 @@ namespace FirstLight.Game.Presenters
 
 			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
 
+			// TODO: remove the hack
 			((IInternalGameNetworkService) _services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
 
 			var setup = new MatchRoomSetup
@@ -256,7 +259,6 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			await _services.FLLobbyService.LeaveMatch();
 			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
-			Data.BackClicked();
 		}
 
 		private void OnPlayerClicked(VisualElement source)

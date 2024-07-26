@@ -218,6 +218,7 @@ namespace FirstLight.Game.Services
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly List<string> _sentPartyInvites = new ();
 		private readonly List<string> _sentMatchInvites = new ();
+		private bool _leaving = false;
 
 		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService,
 							  LocalPrefsService localPrefsService)
@@ -233,6 +234,12 @@ namespace FirstLight.Game.Services
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
 			CurrentMatchCallbacks.KickedFromLobby += OnMatchLobbyKicked;
+			CurrentMatchCallbacks.LobbyDeleted += OnMatchDeleted;
+		}
+
+		private void OnMatchDeleted()
+		{
+			CurrentMatchLobby = null;
 		}
 
 		/// <summary>
@@ -328,7 +335,7 @@ namespace FirstLight.Game.Services
 		public async UniTask LeaveParty()
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to leave a party but the player is not in one!");
-
+			
 			try
 			{
 				if (IsPlayerHost(CurrentPartyLobby))
@@ -349,7 +356,7 @@ namespace FirstLight.Game.Services
 				await _partyLobbyEvents.UnsubscribeAsync();
 				_partyLobbyEvents = null;
 				CurrentPartyLobby = null;
-				
+
 				// because local player does not receive this
 				CurrentPartyCallbacks.TriggerLocalLobbyUpdated(null);
 			}
@@ -525,7 +532,7 @@ namespace FirstLight.Game.Services
 
 			var lobbyName = matchOptions.ShowCreatorName
 				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
-				: Enum.Parse<GameId>(matchOptions.MapID).GetLocalization() ;
+				: Enum.Parse<GameId>(matchOptions.MapID).GetLocalization();
 
 			var data = new Dictionary<string, DataObject>
 			{
@@ -617,6 +624,7 @@ namespace FirstLight.Game.Services
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to leave a match but the player is not in one!");
 
+			_leaving = true;
 			try
 			{
 				if (IsPlayerHost(CurrentMatchLobby))
@@ -633,7 +641,7 @@ namespace FirstLight.Game.Services
 					await LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId);
 					FLog.Info("Left match lobby successfully!");
 				}
-		
+
 				await _matchLobbyEvents.UnsubscribeAsync();
 				_matchLobbyEvents = null;
 				CurrentMatchLobby = null;
@@ -642,6 +650,10 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Warn("Error leaving match lobby!", e);
 				_notificationService.QueueNotification($"Could not leave match lobby, {ParseError(e)}");
+			}
+			finally
+			{
+				_leaving = false;
 			}
 		}
 
@@ -877,12 +889,13 @@ namespace FirstLight.Game.Services
 		
 		private void OnMatchLobbyKicked()
 		{
+			if (CurrentMatchLobby == null) return;
+			
 			var service = MainInstaller.ResolveServices().RoomService;
-			if (!service.InRoom && !service.IsJoiningRoom)
+			if (!service.InRoom && !service.IsJoiningRoom && !_leaving)
 			{
 				_notificationService.QueueNotification("You have been kicked from the lobby.");
 			}
-			
 			CurrentMatchLobby = null;
 		}
 
@@ -893,7 +906,6 @@ namespace FirstLight.Game.Services
 			{
 				CurrentPartyLobby = null;
 				CurrentPartyCallbacks.TriggerLocalLobbyUpdated(changes);
-				
 				return;
 			}
 

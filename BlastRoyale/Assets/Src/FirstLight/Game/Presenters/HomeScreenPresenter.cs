@@ -23,6 +23,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
 using Unity.Services.Authentication;
+using Unity.Services.Friends;
 using Unity.Services.Lobbies;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -67,6 +68,7 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _collectionNotification;
 		private VisualElement _settingsNotification;
+		private VisualElement _friendsNotification;
 		private VisualElement _newsNotification;
 		private VisualElement _newsNotificationShine;
 
@@ -112,6 +114,7 @@ namespace FirstLight.Game.Presenters
 
 			_collectionNotification = Root.Q<VisualElement>("CollectionNotification").Required();
 			_settingsNotification = Root.Q<VisualElement>("SettingsNotification").Required();
+			_friendsNotification = Root.Q<VisualElement>("FriendsNotification").Required();
 			_newsNotification = Root.Q<VisualElement>("NewsNotification").Required();
 			_newsNotificationShine = Root.Q("NewsShine").Required();
 			_newsNotificationShine.AddRotatingEffect(40, 10);
@@ -196,6 +199,8 @@ namespace FirstLight.Game.Presenters
 		{
 			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
+			_friendsNotification.SetDisplay(FriendsService.Instance.IncomingFriendRequests.ToList().Count > 0);
+			
 			SetHasNewsNotification(false);
 			_services.NewsService.HasNotSeenNews().ContinueWith(SetHasNewsNotification);
 #if DEVELOPMENT_BUILD && !UNITY_EDITOR

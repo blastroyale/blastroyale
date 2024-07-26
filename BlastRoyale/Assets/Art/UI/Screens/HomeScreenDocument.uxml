@@ -27,18 +27,19 @@
                     </FirstLight.Game.UIElements.LocalizedButton>
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes main-button-margin" style="margin-bottom: 5px;">
                         <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
+                        <ui:VisualElement name="FriendsNotification" class="notification-icon button-with-icon__notification" />
                     </FirstLight.Game.UIElements.LocalizedButton>
                 </ui:VisualElement>
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
-                    <FirstLight.Game.UIElements.AngledContainerElement name="NextEventContainer" class="game-mode-button__next-event-container" picking-mode="Ignore">
+                    <FirstLight.Game.UIElements.AngledContainerElement name="NextEventContainer" picking-mode="Ignore" class="game-mode-button__next-event-container">
                         <ui:VisualElement name="TextContainer" class="game-mode-button__event-text-container">
                             <ui:Label tabindex="-1" text="NEXT EVENT IN" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NextEventLabel" class="game-mode-button__event-text-container__new-event" />
                             <ui:Label name="NextEventCountdown" tabindex="-1" text="4H 21M" parse-escape-sequences="true" display-tooltip-when-elided="true" class="game-mode-button__event-text-container__countdown" />
                         </ui:VisualElement>
-                    </FirstLight.Game.UIElements.AngledContainerElement >
-                    <ui:VisualElement name="NewEventEffects" class="fill-parent game-mode-button__new-event-effects" picking-mode="Ignore">
-                        <ui:VisualElement name="NewEventShine" class="game-mode-button__new-event-shine" picking-mode="Ignore"/>
-                        <ui:VisualElement name="NewEventGlow" class="game-mode-button__new-event-glow" picking-mode="Ignore"/>
+                    </FirstLight.Game.UIElements.AngledContainerElement>
+                    <ui:VisualElement name="NewEventEffects" picking-mode="Ignore" class="fill-parent game-mode-button__new-event-effects">
+                        <ui:VisualElement name="NewEventShine" picking-mode="Ignore" class="game-mode-button__new-event-shine" />
+                        <ui:VisualElement name="NewEventGlow" picking-mode="Ignore" class="game-mode-button__new-event-glow" />
                     </ui:VisualElement>
                     <ui:VisualElement name="GameModeButtonBG" class=" game-mode-button__bg">
                         <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />

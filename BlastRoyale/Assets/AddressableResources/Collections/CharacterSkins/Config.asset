@@ -357,12 +357,12 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 219
       Prefab:
-        m_AssetGUID: 376393d4db8764788893d68d79070500
+        m_AssetGUID: 3d2eaba8e56ef3040baa17aba9682434
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: fc62099136c7a4f0fbb9d807c8133f91
+        m_AssetGUID: 4ac708a43d8257d4585deea4ab69bb4d
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

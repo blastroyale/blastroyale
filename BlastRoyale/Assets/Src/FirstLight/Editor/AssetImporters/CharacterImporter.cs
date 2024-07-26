@@ -9,7 +9,6 @@ using Quantum;
 using Sirenix.Utilities;
 using UnityEditor;
 using UnityEditor.Animations;
-using UnityEditor.AssetImporters;
 using UnityEditor.Compilation;
 using UnityEditor.Presets;
 using UnityEngine;
@@ -22,7 +21,7 @@ namespace FirstLight.Editor.AssetImporters
 	public class CharacterImporter : AssetPostprocessor
 	{
 		private const string CHARACTERS_DIR = "Assets/AddressableResources/Collections/CharacterSkins";
-		private const string ASSET_MANAGER_PATH = "Assets/Asset Manager";
+		private const string IMPORT_PATH = "Assets";
 		private const string CHARACTER_PREFIX = "Char_";
 		private const string CHARACTERS_CONFIG = "Assets/AddressableResources/Collections/CharacterSkins/Config.asset";
 		private const string ANIMATION_CONTROLLER_PATH = CHARACTERS_DIR + "/Shared/character_animator.controller";
@@ -141,7 +140,7 @@ namespace FirstLight.Editor.AssetImporters
 
 			foreach (var assetPath in importedAssets)
 			{
-				if (AssetDatabase.IsValidFolder(assetPath) && assetPath.StartsWith(ASSET_MANAGER_PATH))
+				if (AssetDatabase.IsValidFolder(assetPath) && !assetPath.StartsWith(CHARACTERS_DIR))
 				{
 					// New asset has been imported
 					var directoryName = Path.GetFileName(assetPath)!;
@@ -218,11 +217,12 @@ namespace FirstLight.Editor.AssetImporters
 
 		private static void MoveCharacters()
 		{
-			var folders = AssetDatabase.GetSubFolders(ASSET_MANAGER_PATH);
+			var folders = AssetDatabase.GetSubFolders(IMPORT_PATH);
 
 			foreach (var folder in folders)
 			{
 				var directoryName = Path.GetFileName(folder);
+				if (!directoryName.StartsWith(CHARACTER_PREFIX)) continue;
 				var characterName = directoryName[CHARACTER_PREFIX.Length..];
 
 				if (!directoryName.StartsWith(CHARACTER_PREFIX)) continue;
@@ -230,6 +230,7 @@ namespace FirstLight.Editor.AssetImporters
 				Debug.Log($"Moving character: {directoryName}");
 
 				var destination = Path.Combine(CHARACTERS_DIR, $"{characterName}");
+				AssetDatabase.DeleteAsset(destination);
 				var result = AssetDatabase.MoveAsset(folder, destination);
 				if (!string.IsNullOrEmpty(result))
 				{

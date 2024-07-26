@@ -179,6 +179,17 @@ namespace FirstLight.Game.Presenters
 			});
 		}
 
+		public static bool IsOpen<T>() where T : UIView
+		{
+			var services = MainInstaller.ResolveServices();
+			if (!services.UIService.IsScreenOpen<PopupPresenter>())
+			{
+				return false;
+			}
+			var s = services.UIService.GetScreen<PopupPresenter>();
+			return s.Data.View.GetType() == typeof(T);
+		}
+
 		private void SetupPopup(VisualTreeAsset contentAsset, UIView view)
 		{
 			var content = contentAsset.CloneTree();

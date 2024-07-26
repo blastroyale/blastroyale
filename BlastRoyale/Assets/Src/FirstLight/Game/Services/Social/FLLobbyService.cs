@@ -8,8 +8,10 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.Game.Views.UITK.Popups;
 using FirstLight.SDK.Services;
 using Newtonsoft.Json;
 using Photon.Realtime;
@@ -235,6 +237,7 @@ namespace FirstLight.Game.Services
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
 			CurrentMatchCallbacks.KickedFromLobby += OnMatchLobbyKicked;
 			CurrentMatchCallbacks.LobbyDeleted += OnMatchDeleted;
+			CurrentPartyCallbacks.KickedFromLobby += OnPartyLobbyKicked;
 		}
 
 		private void OnMatchDeleted()
@@ -242,6 +245,7 @@ namespace FirstLight.Game.Services
 			CurrentMatchLobby = null;
 		}
 
+		#region TEAMS
 		/// <summary>
 		/// Creates a new party for the current player with their ID.
 		/// </summary>
@@ -356,9 +360,6 @@ namespace FirstLight.Game.Services
 				await _partyLobbyEvents.UnsubscribeAsync();
 				_partyLobbyEvents = null;
 				CurrentPartyLobby = null;
-
-				// because local player does not receive this
-				CurrentPartyCallbacks.TriggerLocalLobbyUpdated(null);
 			}
 			catch (LobbyServiceException e)
 			{
@@ -492,6 +493,9 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
+		#endregion
+		
+		#region LOBBIES
 		/// <summary>
 		/// Queries for public lobbies.
 		/// </summary>
@@ -845,6 +849,7 @@ namespace FirstLight.Game.Services
 				}
 			}
 		}
+		#endregion
 
 		private Player CreateLocalPlayer()
 		{
@@ -897,6 +902,16 @@ namespace FirstLight.Game.Services
 				_notificationService.QueueNotification("You have been kicked from the lobby.");
 			}
 			CurrentMatchLobby = null;
+		}
+		
+		private void OnPartyLobbyKicked()
+		{
+			CurrentPartyLobby = null;
+			if(!PopupPresenter.IsOpen<PartyPopupView>()) 
+			{
+				_notificationService.QueueNotification($"You left the team");
+			}
+			CurrentPartyCallbacks.TriggerLocalLobbyUpdated(null);
 		}
 
 		private void OnPartyLobbyChanged(ILobbyChanges changes)

@@ -506,11 +506,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: 197108
+          RawValue: 197154
         Y:
           RawValue: 0
         Z:
-          RawValue: -214896
+          RawValue: -254217
       PhysicsMaterial:
         Id:
           Value: 0
@@ -793,11 +793,11 @@ MonoBehaviour:
           RawValue: -65535
       Position:
         X:
-          RawValue: 227089
+          RawValue: 227047
         Y:
           RawValue: 0
         Z:
-          RawValue: -629703
+          RawValue: -594314
       PhysicsMaterial:
         Id:
           Value: 0

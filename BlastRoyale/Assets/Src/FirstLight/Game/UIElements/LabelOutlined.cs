@@ -13,7 +13,6 @@ namespace FirstLight.Game.UIElements
 	{
 		private Label _internalLabel;
 
-		private string textContent;
 		protected string _localizationKey;
 		public override VisualElement contentContainer => outlineHack ? _internalLabel : this;
 
@@ -37,7 +36,6 @@ namespace FirstLight.Game.UIElements
 		}
 #if UNITY_EDITOR
 		private IVisualElementScheduledItem _scheduledEditorUpdate;
-
 #endif
 		protected void Init()
 		{
@@ -83,6 +81,45 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
+		private string _lastResolvedEliptic;
+
+		public void SetTextEllipticEnd(string param)
+		{
+			if (_lastResolvedEliptic == param) return;
+			var index = param.Length;
+
+			while (index > 3)
+			{
+				var ellipsed = param[..index];
+				if (index != param.Length)
+				{
+					ellipsed += "...";
+				}
+
+				var textSize = MeasureTextSize(ellipsed,
+					float.MaxValue, MeasureMode.AtMost, float.MaxValue, MeasureMode.AtMost);
+				if (textSize.x == 0) return;
+				if (textSize.x > contentRect.width)
+				{
+					if (index == param.Length)
+					{
+						index -= 3;
+					}
+					else
+					{
+						index--;
+					}
+				}
+				else
+				{
+					_lastResolvedEliptic = text = ellipsed;
+					return;
+				}
+			}
+
+			text = text;
+		}
+
 		/// <summary>
 		/// Do not call this method constructor, only used for unity internals!
 		/// </summary>
@@ -115,6 +152,10 @@ namespace FirstLight.Game.UIElements
 			_internalLabel.style.alignItems = resolvedStyle.alignItems;
 			_internalLabel.style.alignContent = resolvedStyle.alignContent;
 			_internalLabel.style.justifyContent = resolvedStyle.justifyContent;
+			if (_internalLabel.resolvedStyle.textOverflow == TextOverflow.Ellipsis)
+			{
+				SetTextEllipticEnd(text);
+			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<LabelOutlined, UxmlTraits>

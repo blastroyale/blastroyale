@@ -1,3 +1,4 @@
+using FirstLight.Modules.UIService.Runtime;
 using QuickEye.UIToolkit;
 using UnityEngine.UIElements;
 
@@ -9,12 +10,12 @@ namespace FirstLight.UIService
 		/// The element this view is attached to.
 		/// </summary>
 		public VisualElement Element { get; private set; }
-		
+
 		/// <summary>
 		/// Presenter this view is attached to.
 		/// </summary>
 		public UIPresenter Presenter { get; private set; }
-		
+
 		/// <summary>
 		/// Called once, the first time the presenter screen is opened.
 		/// </summary>
@@ -45,6 +46,7 @@ namespace FirstLight.UIService
 			Element = element;
 			Presenter = presenter;
 			Element.AssignQueryResults(this);
+			Element.AssignQueryViews(Presenter, this);
 			Attached();
 		}
 	}

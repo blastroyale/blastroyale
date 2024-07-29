@@ -49,6 +49,9 @@
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
     --sprite-home__button-addbubble: url('/Assets/Art/UI/Sprites/Home/button-addbubble.png');
+    --sprite-home__button-add-friends: url('/Assets/Art/UI/Sprites/Home/button-add-friends.png');
+    --sprite-home__button-add-friends-disabled: url('/Assets/Art/UI/Sprites/Home/button-add-friends-disabled.png');
+    --sprite-home__button-add-friends-pressed: url('/Assets/Art/UI/Sprites/Home/button-add-friends-pressed.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
     --sprite-home__button-battlepass-claimreward: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward.png');
     --sprite-home__button-battlepass-claimreward-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward-pressed.png');
@@ -299,6 +302,12 @@
     height: 254px;
 }
 
+.sprite-home__background-creatorcode {
+    background-image: var(--sprite-home__background-creatorcode);
+    width: 442px;
+    height: 676px;
+}
+
 .sprite-home__background-difficultygradient {
     background-image: var(--sprite-home__background-difficultygradient);
     width: 587px;
@@ -531,6 +540,22 @@
     background-image: var(--sprite-home__button-addbubble);
     width: 130px;
     height: 114px;
+}
+
+.sprite-home__button-add-friends {
+    background-image: var(--sprite-home__button-add-friends);
+    width: 70px;
+    height: 70px;
+}
+
+.sprite-home__button-add-friends-disabled {
+    background-image: var(--sprite-home__button-add-friends-disabled);
+    width: 83px;
+    height: 83px;
+}
+
+.sprite-home__button-add-friends:active {
+    background-image: var(--sprite-home__button-add-friends-pressed);
 }
 
 .sprite-home__button-battlepass {
@@ -1131,6 +1156,12 @@
     background-image: var(--sprite-home__icon-core-rare);
     width: 280px;
     height: 280px;
+}
+
+.sprite-home__icon-creatorcode {
+    background-image: var(--sprite-home__icon-creatorcode);
+    width: 179px;
+    height: 173px;
 }
 
 .sprite-home__icon-crown {

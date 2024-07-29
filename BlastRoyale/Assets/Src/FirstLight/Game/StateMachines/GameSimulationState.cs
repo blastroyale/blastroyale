@@ -355,6 +355,7 @@ namespace FirstLight.Game.StateMachines
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
+				UnityId = AuthenticationService.Instance.PlayerId,
 				PlayerName = AuthenticationService.Instance.GetPlayerName(),
 				Cosmetics = equippedCosmetics,
 				DeathFlagID = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.GRAVE)!.Id,

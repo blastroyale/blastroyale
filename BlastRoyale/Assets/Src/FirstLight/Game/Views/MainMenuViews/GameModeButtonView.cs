@@ -82,7 +82,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		}
 
 		private bool showSeconds = false;
-		private IValueAnimation _pingAnimation;
+		private Action _pingAnimationCancel;
 		private VisualElement _newEventGlow;
 
 		private void UpdateEvent()
@@ -106,9 +106,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 				if (_services.LocalPrefsService.LastSeenEvent != info.GetKey())
 				{
-					if (_pingAnimation == null)
+					if (_pingAnimationCancel == null)
 					{
-						_pingAnimation = Element.AnimatePing(amount: 1.05f, duration: 200, repeat: true, delay: 1500);
+						_pingAnimationCancel = Element.AnimatePingRepeating(amount: 1.05f, duration: 200, delay: 1500);
 						_newEventShine.AnimatePingOpacity(fromAmount: 0.5f, toAmount: 1f, duration: 1000, repeat: true);
 						_newEventGlow.AnimatePingOpacity(fromAmount: 0.5f, toAmount: 1f, duration: 1000, repeat: true);
 						_newEventShine.AddRotatingEffect(40f, 10);

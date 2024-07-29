@@ -94,7 +94,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 			_claimBubble.SetDisplay(isClaimable);
 			if (isClaimable)
 			{
-				_claimBubble.AnimatePing(1.3f, 500, true);
+				_claimBubble.AnimatePingRepeating(1.3f, 500);
 			}
 
 			if (RewardState == RewardState.Claimed) _button.AddToClassList(UssClaimedButton);

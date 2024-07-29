@@ -7,9 +7,11 @@ using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views;
 using FirstLight.UiService;
 using FirstLight.UIService;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -36,14 +38,14 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[SerializeField] private CharacterList[] _characters;
+		[SerializeField, Required] private VisualTreeAsset _playerNameTemplate;
 
 		private IMatchServices _matchServices;
 		private IGameServices _gameServices;
 
 		private LocalizedButton _nextButton;
-		private VisualElement _nameContainer;
+		private VisualElement _worldPositioning;
 		private int _usedCharactersIndex = 0;
-		private Label[] _nameLabels;
 
 		private void Awake()
 		{
@@ -55,7 +57,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_nextButton = Root.Q<LocalizedButton>("NextButton").Required();
 			_nextButton.clicked += Data.ContinueClicked;
-			_nameContainer = Root.Q<VisualElement>("NameContainer").Required();
+			_worldPositioning = Root.Q<VisualElement>("WorldPositioning").Required();
 		}
 
 		protected override async UniTask OnScreenOpen(bool reload)
@@ -96,20 +98,17 @@ namespace FirstLight.Game.Presenters
 			var slots = _characters[_usedCharactersIndex].Values;
 
 			var tasks = new List<UniTask>();
-			_nameLabels = new Label[slots.Length];
 			for (var i = 0; i < slots.Length; i++)
 			{
 				var player = firstPosition[i];
 				var rankColor =
 					_gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) player.LeaderboardRank);
 
-				var playerNameLabel = new LabelOutlined("PlayerName");
-				playerNameLabel.AddToClassList(UIService.UIService.USS_PLAYER_LABEL);
-				playerNameLabel.style.color = rankColor;
-				playerNameLabel.text = player.GetPlayerName();
-				_nameContainer.Add(playerNameLabel);
-				_nameLabels[i] = playerNameLabel;
-				playerNameLabel.SetPositionBasedOnWorldPosition(slots[i].transform.position);
+				var playerName = _playerNameTemplate.CloneTree();
+				playerName.AttachView<VisualElement, PlayerNameView>(this, out var view);
+				view.SetData(player.GetPlayerName(), player.UnityId, (int) player.Data.PlayerTrophies, rankColor);
+				_worldPositioning.Add(playerName);
+				playerName.SetPositionBasedOnWorldPosition(slots[i].transform.position);
 
 				var playerData = player.Data.Player;
 				if (!playerData.IsValid || !_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(playerData))

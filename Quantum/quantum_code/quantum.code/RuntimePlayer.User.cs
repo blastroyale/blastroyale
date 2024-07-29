@@ -7,6 +7,7 @@ namespace Quantum
 	unsafe partial class RuntimePlayer
 	{
 		public string PlayerId;
+		public string UnityId;
 		public string PlayerName;
 		public GameId[] Cosmetics;
 		public uint PlayerLevel;
@@ -22,6 +23,7 @@ namespace Quantum
 		partial void SerializeUserData(BitStream stream)
 		{
 			stream.Serialize(ref PlayerId);
+			stream.Serialize(ref UnityId); // this makes me saaaaad :cat_crying:
 			stream.Serialize(ref PlayerName);
 			stream.Serialize(ref PlayerLevel);
 			stream.Serialize(ref PlayerTrophies);

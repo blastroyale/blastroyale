@@ -71,18 +71,20 @@
 }
 
 .player-context-menu__player-name {
+    align-self: center;
     -unity-text-align: upper-center;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
     font-size: 36px;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     overflow: hidden;
-    -unity-text-overflow-position: end;
     text-overflow: ellipsis;
+    white-space: nowrap;
     letter-spacing: -2px;
     margin-top: 0;
     padding-top: 0;
     padding-bottom: 12px;
+    width: 98%;
 }
 
 .unity-button.player-context-menu__button {
@@ -101,6 +103,10 @@
 
 .unity-button.player-context-menu__button--red {
     color: rgb(255, 74, 74);
+}
+.unity-button.player-context-menu__button.unity-disabled{
+    color: #312F54;
+    opacity: 1;
 }
 
 .player-context-menu .tooltip-element__content {

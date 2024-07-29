@@ -1,8 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.UIElements;
+using FirstLight.Game.Utils.UCSExtensions;
+using I2.Loc;
 using Photon.Realtime;
+using Unity.Services.Friends;
+using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -33,6 +39,7 @@ namespace FirstLight.Game.Utils
 		public PlayerButtonContextStyle ContextStyle;
 		public string Text;
 		public Action OnClick;
+		public bool Disabled;
 
 		public PlayerContextButton()
 		{
@@ -43,6 +50,20 @@ namespace FirstLight.Game.Utils
 			ContextStyle = contextStyle;
 			Text = text;
 			OnClick = onClick;
+		}
+
+		public static PlayerContextButton Create(string text)
+		{
+			return new PlayerContextButton()
+			{
+				Text = text
+			};
+		}
+
+		public PlayerContextButton Disable()
+		{
+			Disabled = true;
+			return this;
 		}
 	}
 
@@ -69,6 +90,7 @@ namespace FirstLight.Game.Utils
 			{
 				label.style.maxWidth = maxWidth;
 			}
+
 			tooltip.Add(label);
 		}
 
@@ -92,6 +114,11 @@ namespace FirstLight.Game.Utils
 				if (playerContextButton.ContextStyle == PlayerButtonContextStyle.Red)
 				{
 					buttonElement.AddToClassList("player-context-menu__button--red");
+				}
+
+				if (playerContextButton.Disabled)
+				{
+					buttonElement.SetEnabled(false);
 				}
 
 				buttonElement.text = playerContextButton.Text;
@@ -133,7 +160,7 @@ namespace FirstLight.Game.Utils
 
 		private static bool CanFit(Rect root, Vector2 tooltipPosition, Vector2 tooltipSize)
 		{
-			var tooltipRect = new Rect(new Vector2(tooltipPosition.x+root.width-tooltipSize.x, +tooltipPosition.y), tooltipSize);
+			var tooltipRect = new Rect(new Vector2(tooltipPosition.x + root.width - tooltipSize.x, +tooltipPosition.y), tooltipSize);
 			return root.Contains(tooltipRect.min) && root.Contains(tooltipRect.max);
 		}
 

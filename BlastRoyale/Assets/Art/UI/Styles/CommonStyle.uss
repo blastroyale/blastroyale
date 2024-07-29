@@ -72,7 +72,7 @@
 }
 
 .unity-text-field__label {
-    color: rgba(157, 131, 216, 1);
+    color: rgb(157, 131, 216);
     font-size: 36px;
     -unity-text-outline: 1px black;
     text-shadow: black 2px 2px 0;
@@ -136,7 +136,6 @@
     padding: 0;
     scale: 1;
 }
-
 
 .button-with-icon:active {
     scale: 0.9;
@@ -317,12 +316,12 @@
     font-size: 42px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 5px;
-    -unity-text-outline-color: #3A0D79;
+    -unity-text-outline-color: rgb(58, 13, 121);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding: 0 0 7px;
     -unity-text-align: middle-center;
     margin: 0;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     overflow: visible;
     align-items: stretch;
     justify-content: center;
@@ -374,7 +373,7 @@
 }
 
 .button-long--red {
-    -unity-text-outline-color: #6A0B0B;
+    -unity-text-outline-color: rgb(106, 11, 11);
     background-image: var(--sprite-home__button-long-red);
 }
 
@@ -692,10 +691,14 @@
     border-width: 0;
 }
 
-.unity-scroll-view__vertical-scroller > .unity-scroller__slider,
+.unity-scroll-view__vertical-scroller > .unity-scroller__slider {
+    border-radius: 3px;
+    background-color: rgb(28, 25, 48);
+}
+
 .unity-scroll-view__horizontal-scroller > .unity-scroller__slider {
     border-radius: 3px;
-    background-color: #1C1930;
+    background-color: rgb(28, 25, 48);
 }
 
 .unity-scroll-view__horizontal-scroller > .unity-scroller__slider {
@@ -718,35 +721,6 @@
 
 .unity-scroll-view__vertical-scroller > .unity-scroller__slider > .unity-slider__input {
     background-color: initial;
-}
-
-.player-name {
-    position: absolute;
-    top: 0;
-    left: -200px;
-    height: 0;
-    padding: 0;
-    -unity-text-align: upper-center;
-    flex-direction: row;
-    align-items: center;
-    transition-property: opacity;
-    transition-duration: 0.3s;
-    overflow: visible;
-    align-self: flex-start;
-    white-space: nowrap;
-    font-size: 54px;
-    text-shadow: 5px 5px 0 rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 4px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    width: 400px;
-}
-
-.player-name--small {
-    font-size: 46px;
-    -unity-font-style: normal;
-    -unity-text-outline-width: 1px;
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }
 
 .full-width {
@@ -821,6 +795,7 @@
     padding-right: 55px;
     padding-left: 55px;
 }
+
 .generic-popup__content__glow {
     position: absolute;
     left: -80%;
@@ -842,7 +817,7 @@
 }
 
 .generic-popup--no-padding .generic-popup__content {
-    padding: 0px;
+    padding: 0;
     padding-bottom: 24px;
     padding-right: 10px;
     padding-left: 10px;
@@ -864,7 +839,7 @@
     align-items: center;
     width: 100px;
     height: 80px;
-    right: 0px;
+    right: 0;
     align-self: center;
 }
 
@@ -926,13 +901,12 @@
 }
 
 .unity-toggle__input:checked:disabled {
-    background-color: rgba(32, 29, 59, 1);
+    background-color: rgb(32, 29, 59);
 }
 
 .unity-toggle__input:disabled .unity-toggle__checkmark {
-    background-color: rgba(132, 117, 166, 1);
+    background-color: rgb(132, 117, 166);
 }
-
 
 .internal-label {
     position: relative;
@@ -942,7 +916,6 @@
     padding: 0;
 }
 
-
 .game-label {
     font-size: 42px;
     color: rgb(255, 255, 255);
@@ -950,14 +923,12 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-align: middle-center;
-
 }
 
 .game-label--small {
     font-size: 32px;
     -unity-text-outline-width: 2px;
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
-
 }
 
 .game-label--large {
@@ -966,3 +937,74 @@
     text-shadow: 3px 5px 0 rgb(0, 0, 0);
 }
 
+.world-positioning-root {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.player-name__container {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 400px;
+    left: -200px;
+    height: 108px;
+    align-items: center;
+    justify-content: center
+}
+
+.player-name__add-friend-button {
+    flex-grow: 0;
+    background-image: var(--sprite-home__button-add-friends);
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    position: absolute;
+    top: -68px;
+    left: 310px;
+}
+
+.player-name__add-friend-button:active {
+    background-image: var(--sprite-home__button-add-friends-pressed);
+}
+
+.player-name__add-friend-button:disabled {
+    background-image: var(--sprite-home__button-add-friends-disabled);
+    opacity: 1;
+}
+
+.player-name__label {
+    -unity-text-align: upper-center;
+    flex-direction: row;
+    align-items: center;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    overflow: visible;
+    font-size: 54px;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+}
+
+.player-name__trophies_label {
+    margin-left: 48px;
+    color: rgb(253, 183, 0);
+    padding-top: 18px;
+    font-size: 48px;
+}
+
+.player-name__label--small {
+    font-size: 46px;
+    -unity-font-style: normal;
+    -unity-text-outline-width: 1px;
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+}

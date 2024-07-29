@@ -34,6 +34,10 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
+    width: 240px;
+    white-space: nowrap;
+    -unity-text-align: middle-center;
+    text-overflow: ellipsis;
 }
 
 .player-name-container__ready-status {

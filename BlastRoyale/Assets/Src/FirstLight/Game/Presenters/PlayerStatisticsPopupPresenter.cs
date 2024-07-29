@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
@@ -11,6 +12,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Models;
 using FirstLight.UIService;
+using FirstLightServerSDK.Modules;
 using I2.Loc;
 using PlayFab;
 using Unity.Services.Authentication;
@@ -27,6 +29,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public class StateData
 		{
+			public string BotName;
 			public string PlayfabID;
 			public string UnityID;
 			public Action OnEditNameClicked;
@@ -66,6 +69,19 @@ namespace FirstLight.Game.Presenters
 			await services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new StateData
 			{
 				UnityID = unityID,
+			});
+		}
+
+		/// <summary>
+		/// Opens the screen and loads the player statistics for the given Unity ID
+		/// </summary>
+		public static async UniTask OpenBot(string botName)
+		{
+			var services = MainInstaller.ResolveServices();
+
+			await services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new StateData
+			{
+				BotName = botName,
 			});
 		}
 
@@ -145,19 +161,46 @@ namespace FirstLight.Game.Presenters
 			}).Forget();
 		}
 
+		private PublicPlayerProfile GetProfileForBot(string botName)
+		{
+			var rng = new Random(botName.GetDeterministicHashCode());
+			return new PublicPlayerProfile()
+			{
+				Name = botName,
+				Statistics = new List<Statistic>()
+				{
+					new () {Name = GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, Value = rng.Next(3, 8)},
+					new () {Name = GameConstants.Stats.RANKED_GAMES_WON_EVER, Value = rng.Next(0, 3)},
+					new () {Name = GameConstants.Stats.RANKED_KILLS_EVER, Value = rng.Next(0, 15)},
+					new () {Name = GameConstants.Stats.RANKED_DAMAGE_DONE_EVER, Value = rng.Next(0, 500)},
+					new () {Name = GameConstants.Stats.RANKED_AIRDROP_OPENED_EVER, Value = rng.Next(0, 3)},
+					new () {Name = GameConstants.Stats.RANKED_SUPPLY_CRATES_OPENED_EVER, Value = rng.Next(1, 8)},
+					new () {Name = GameConstants.Stats.RANKED_GUNS_COLLECTED_EVER, Value = rng.Next(5, 10)},
+					new () {Name = GameConstants.Stats.RANKED_PICKUPS_COLLECTED_EVER, Value = rng.Next(3, 15)},
+					new () {Name = GameConstants.Stats.FAME, Value = rng.Next(1, 6)},
+				}
+			};
+		}
+
 		private async UniTaskVoid SetupPopup()
 		{
 			_content.visible = false;
 			_loadingSpinner.visible = true;
 
-			// If PlayfabID is null we fetch it from CloudSave.
-			Data.PlayfabID ??= await CloudSaveService.Instance.LoadPlayfabID(Data.UnityID);
+			PublicPlayerProfile result;
+			if (Data.UnityID != null)
+			{
+				// If PlayfabID is null we fetch it from CloudSave.
+				Data.PlayfabID ??= await CloudSaveService.Instance.LoadPlayfabID(Data.UnityID);
+				if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
+				FLog.Info("Downloading profile for " + Data.PlayfabID);
+				result = await _services.ProfileService.GetPlayerPublicProfile(Data.PlayfabID);
+			}
+			else
+			{
+				result = GetProfileForBot(Data.BotName);
+			}
 
-			if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
-
-			FLog.Info("Downloading profile for " + Data.PlayfabID);
-
-			var result = await _services.ProfileService.GetPlayerPublicProfile(Data.PlayfabID);
 			// TODO: Race condition if you close and quickly reopen the popup
 			if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
 
@@ -168,7 +211,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
+				_nameLabel.text = Data.UnityID == null ? result.Name : result.Name.Remove(result.Name.Length - 5);
 			}
 
 			SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);

@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Best.HTTP.Shared.PlatformSupport.IL2CPP;
@@ -8,6 +8,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using I2.Loc;
 using Quantum;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
@@ -25,7 +26,7 @@ namespace FirstLight.Game.Services
 		In_Blast_Pass,
 		In_Friends_Screen,
 	}
-	
+
 	[DataContract, Preserve]
 	public class FriendActivity
 	{
@@ -34,6 +35,7 @@ namespace FirstLight.Game.Services
 
 		[Preserve, DataMember(Name = "avatar", IsRequired = true, EmitDefaultValue = true)]
 		public string AvatarUrl { get; set; }
+
 		public string Status => CurrentActivityEnum.ToString().Replace(@"_", " ");
 		public GameActivities CurrentActivityEnum => ((GameActivities) CurrentActivity);
 	}
@@ -42,12 +44,19 @@ namespace FirstLight.Game.Services
 	{
 		bool CanInvite(Relationship friend);
 		void SetCurrentActivity(GameActivities activity);
+
+		UniTask FakeInviteBot(string botName);
+		bool IsBotInvited(string botName);
+		List<PlayerContextButton> AddDefaultPlayerOptions(string playerName, string unityId, List<PlayerContextButton> buttons = null);
 	}
 
 	public class GameSocialService : IGameSocialService
 	{
 		private BufferedQueue _stateUpdates = new ();
 		private IGameServices _services;
+		private HashSet<string> _fakeBotRequests = new ();
+		private HashSet<string> _fakeBlocks = new ();
+
 		public GameSocialService(IGameServices services)
 		{
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += _ => OnJoinedParty();
@@ -83,7 +92,8 @@ namespace FirstLight.Game.Services
 
 		private bool IsCustomGame => _services.RoomService.CurrentRoom?.Properties?.SimulationMatchConfig?.Value?.MatchType == MatchType.Custom;
 
-		private bool IsInMenu  {
+		private bool IsInMenu
+		{
 			get
 			{
 				var services = MainInstaller.ResolveServices();
@@ -91,7 +101,7 @@ namespace FirstLight.Game.Services
 					services.FLLobbyService.CurrentMatchLobby == null;
 			}
 		}
-		
+
 		private void DecideBasedOnScreen()
 		{
 			var services = MainInstaller.ResolveServices();
@@ -99,24 +109,29 @@ namespace FirstLight.Game.Services
 			if (service.IsScreenOpen<BattlePassScreenPresenter>())
 			{
 				SetCurrentActivity(GameActivities.In_Blast_Pass);
-			} else if (service.IsScreenOpen<CollectionScreenPresenter>())
+			}
+			else if (service.IsScreenOpen<CollectionScreenPresenter>())
 			{
 				SetCurrentActivity(GameActivities.In_Collection);
-			} else if (service.IsScreenOpen<FriendsScreenPresenter>())
+			}
+			else if (service.IsScreenOpen<FriendsScreenPresenter>())
 			{
 				SetCurrentActivity(GameActivities.In_Friends_Screen);
-			} else if (service.IsScreenOpen<PreGameLoadingScreenPresenter>())
+			}
+			else if (service.IsScreenOpen<PreGameLoadingScreenPresenter>())
 			{
 				SetCurrentActivity(GameActivities.In_a_Match);
-			} else if (service.IsScreenOpen<MatchLobbyScreenPresenter>())
+			}
+			else if (service.IsScreenOpen<MatchLobbyScreenPresenter>())
 			{
 				SetCurrentActivity(GameActivities.In_Game_Lobby);
-			} else if (service.IsScreenOpen<HomeScreenPresenter>() && !services.RoomService.InRoom && services.FLLobbyService.CurrentMatchLobby == null)
+			}
+			else if (service.IsScreenOpen<HomeScreenPresenter>() && !services.RoomService.InRoom && services.FLLobbyService.CurrentMatchLobby == null)
 			{
 				SetCurrentActivity(GameActivities.In_Main_Menu);
 			}
 		}
-		
+
 		public bool CanInvite(Relationship friend)
 		{
 			if (!friend.IsOnline()) return false;
@@ -128,15 +143,18 @@ namespace FirstLight.Game.Services
 			{
 				return false;
 			}
+
 			if (_services.FLLobbyService.CurrentMatchLobby != null && _services.FLLobbyService.SentMatchInvites.Contains(friend.Member.Id))
 			{
 				return false;
 			}
+
 			if (_services.FLLobbyService.CurrentPartyLobby != null)
 			{
-				if(_services.FLLobbyService.SentPartyInvites.Contains(friend.Member.Id)) return false;
+				if (_services.FLLobbyService.SentPartyInvites.Contains(friend.Member.Id)) return false;
 				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id)) return false;
 			}
+
 			return true;
 		}
 
@@ -144,18 +162,103 @@ namespace FirstLight.Game.Services
 		{
 			DecideBasedOnScreen();
 		}
-		
+
 		public void SetCurrentActivity(GameActivities activity)
 		{
 			_stateUpdates.Add(() =>
 			{
-				FLog.Verbose("Setting social activity as "+activity);
+				FLog.Verbose("Setting social activity as " + activity);
 				FriendsService.Instance.SetPresenceAsync(Availability.Online, new FriendActivity
 				{
-					CurrentActivity = (int)activity,
+					CurrentActivity = (int) activity,
 					AvatarUrl = MainInstaller.ResolveData().AppDataProvider.AvatarUrl
 				}).AsUniTask().Forget();
 			});
+		}
+
+		public async UniTask FakeInviteBot(string botName)
+		{
+			_fakeBotRequests.Add(botName);
+			await UniTask.Delay(124);
+			_services.NotificationService.QueueNotification("Friend request sent");
+		}
+
+		public bool IsBotInvited(string botName)
+		{
+			return _fakeBotRequests.Contains(botName);
+		}
+
+		private void AddForBots(string playerName, List<PlayerContextButton> buttons)
+		{
+			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
+				() => PlayerStatisticsPopupPresenter.OpenBot(playerName).Forget()));
+
+			if (_fakeBlocks.Contains(playerName))
+			{
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Unblock",
+					() =>
+					{
+						_fakeBlocks.Remove(playerName);
+						_services.NotificationService.QueueNotification("#Player unblocked#");
+
+					}));
+			}
+			else
+			{
+				if (!IsBotInvited(playerName))
+				{
+					buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Send friend request",
+						() => this.FakeInviteBot(playerName).Forget()));
+				}
+				else
+				{
+					buttons.Add(PlayerContextButton.Create("Request sent").Disable());
+				}
+
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Block",
+					() =>
+					{
+						_fakeBlocks.Add(playerName);
+						_services.NotificationService.QueueNotification("#Player blocked#");
+					}));
+			}
+		}
+
+		public List<PlayerContextButton> AddDefaultPlayerOptions(string playerName, string unityId, List<PlayerContextButton> buttons)
+		{
+			if (buttons == null) buttons = new List<PlayerContextButton>();
+			if (unityId == null) // bot
+			{
+				AddForBots(playerName, buttons);
+				return buttons;
+			}
+
+			var relationship = FriendsService.Instance.GetRelationShipById(unityId);
+			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
+				() => PlayerStatisticsPopupPresenter.Open(unityId).Forget()));
+
+			if (relationship is {Type: RelationshipType.Block})
+			{
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Unblock",
+					() => FriendsService.Instance.UnblockHandled(relationship).Forget()));
+			}
+			else
+			{
+				if (relationship == null)
+				{
+					buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Send friend request",
+						() => FriendsService.Instance.AddFriendHandled(unityId).Forget()));
+				}
+				else if (relationship.Type == RelationshipType.FriendRequest)
+				{
+					buttons.Add(PlayerContextButton.Create("Request sent").Disable());
+				}
+
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Block",
+					() => FriendsService.Instance.BlockHandled(unityId, false).Forget()));
+			}
+
+			return buttons;
 		}
 	}
 }

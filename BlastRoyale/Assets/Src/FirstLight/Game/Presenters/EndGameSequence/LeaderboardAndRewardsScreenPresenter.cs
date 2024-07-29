@@ -14,6 +14,7 @@ using FirstLight.Game.Views;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -31,6 +32,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private BaseCharacterMonoComponent _character;
 		[SerializeField] private CinemachineVirtualCamera _camera;
 		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
+		[SerializeField, Required] private VisualTreeAsset _playerNameTemplate;
 
 		public class StateData
 		{
@@ -46,7 +48,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _leaderboardPanel;
 		private ScrollView _leaderboardScrollView;
 		private Label _fameTitle;
-		private Label _playerName;
+		private VisualElement _worldPositioning;
 		private VisualElement _rewardsPanel;
 		private VisualElement _trophies;
 		private VisualElement _bpp;
@@ -68,18 +70,18 @@ namespace FirstLight.Game.Presenters
 			_collectionService = _gameServices.CollectionService;
 		}
 
-		protected override UniTask OnScreenOpen(bool reload)
+		protected override async UniTask OnScreenOpen(bool reload)
 		{
-			UpdatePlayerName();
-			UpdateCharacter();
 			UpdateLeaderboard();
 			UpdateRewards();
 			ShowLeaderboards();
-			return base.OnScreenOpen(reload);
+			await UpdateCharacter();
+			await base.OnScreenOpen(reload);
 		}
 
 		protected override void QueryElements()
 		{
+			_worldPositioning = Root.Q<VisualElement>("WorldPositioning");
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked = OnNextButtonClicked;
 
@@ -151,7 +153,7 @@ namespace FirstLight.Game.Presenters
 				_levelView.Element.SetVisibility(false);
 				return;
 			}
-			
+
 			var rewards = ProcessRewards();
 
 			// Trophies
@@ -276,9 +278,6 @@ namespace FirstLight.Game.Presenters
 				? _matchServices.MatchEndDataService.Leader
 				: _matchServices.MatchEndDataService.LocalPlayer;
 
-			_playerName = new LabelOutlined("PlayerName");
-			_playerName.AddToClassList(UIService.UIService.USS_PLAYER_LABEL);
-			Root.Add(_playerName);
 			if (playerRef == PlayerRef.None)
 			{
 				return;
@@ -300,12 +299,15 @@ namespace FirstLight.Game.Presenters
 
 			var rankColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) localPlayerData.QuantumPlayerMatchData.LeaderboardRank);
 			var playerName = localPlayerData.QuantumPlayerMatchData.GetPlayerName();
-			_playerName.text = playerPrefix + playerName;
+			var playerNameEl = _playerNameTemplate.CloneTree();
+			playerNameEl.AttachView<VisualElement, PlayerNameView>(this, out var view);
+			_worldPositioning.Add(playerNameEl);
+			view.SetLocal(playerPrefix + playerName, rankColor);
 			_fameTitle.text = playerName;
 			_fameTitle.style.color = rankColor;
-			_playerName.ListenOnce<GeometryChangedEvent>(() =>
+			playerNameEl.ListenOnce<GeometryChangedEvent>(() =>
 			{
-				_playerName.SetPositionBasedOnWorldPosition(_character.Anchor);
+				playerNameEl.SetPositionBasedOnWorldPosition(_character.Anchor);
 			});
 		}
 
@@ -321,7 +323,18 @@ namespace FirstLight.Game.Presenters
 
 				var leaderboardEntry = _leaderboardEntryAsset.Instantiate();
 				leaderboardEntry.AttachView(this, out LeaderboardEntryView leaderboardEntryView);
-				leaderboardEntryView.SetData((int) playerEntry.PlayerRank, playerEntry.GetPlayerName(), (int) playerEntry.Data.PlayersKilledCount, (int) playerEntry.Data.PlayerTrophies, _matchServices.MatchEndDataService.LocalPlayer == playerEntry.Data.Player, null, borderColor);
+				var isLocal = _matchServices.MatchEndDataService.LocalPlayer == playerEntry.Data.Player;
+				leaderboardEntryView.SetData((int) playerEntry.PlayerRank, playerEntry.GetPlayerName(), (int) playerEntry.Data.PlayersKilledCount, (int) playerEntry.Data.PlayerTrophies, isLocal, null, borderColor);
+				if (!isLocal)
+				{
+					leaderboardEntryView.SetOptions((el) =>
+					{
+						TooltipUtils.OpenPlayerContextOptions(el,
+							Root,
+							playerEntry.GetPlayerName(),
+							_gameServices.GameSocialService.AddDefaultPlayerOptions(playerEntry.GetPlayerName(), playerEntry.UnityId));
+					});
+				}
 
 				var playersCosmetics = _matchServices.MatchEndDataService.PlayerMatchData[playerEntry.Data.Player].Cosmetics;
 				ResolveLeaderboardEntryPlayerAvatar(playersCosmetics, leaderboardEntryView);
@@ -358,7 +371,7 @@ namespace FirstLight.Game.Presenters
 			return dictionary;
 		}
 
-		private async void UpdateCharacter()
+		private async UniTask UpdateCharacter()
 		{
 			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
 				? _matchServices.MatchEndDataService.Leader
@@ -379,7 +392,7 @@ namespace FirstLight.Game.Presenters
 
 			var skinId = _gameServices.CollectionService.GetCosmeticForGroup(playerData.Cosmetics, GameIdGroup.PlayerSkin);
 			await _character.UpdateSkin(skinId, false);
-			_playerName.SetPositionBasedOnWorldPosition(_character.Anchor);
+			UpdatePlayerName();
 		}
 	}
 }

@@ -124,8 +124,8 @@
 
 .sprite-shared__icon-bpp-xp {
     background-image: var(--sprite-shared__icon-bpp-xp);
-    width: 160px;
-    height: 160px;
+    width: 131px;
+    height: 131px;
 }
 
 .sprite-shared__icon-bug {

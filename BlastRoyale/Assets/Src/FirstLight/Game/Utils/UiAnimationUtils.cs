@@ -20,46 +20,57 @@ namespace FirstLight.Game.Utils
 {
 	public static class UiAnimationUtils
 	{
-		/// <summary>
-		/// Animates the scale up and then back down to 1
-		/// </summary>
-		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150, bool repeat = false, long delay = 0)
+		public static ValueAnimation<float> AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150, int delay = 0)
 		{
-			var toScale = element.experimental.animation.Scale(amount, duration);
-			ValueAnimation<float> backToOne = null;
-			toScale.OnCompleted(() =>
+			var easing = new Func<float, float>(Easing.Linear);
+			var totalTime = (duration * 2) + delay;
+			return element.experimental.animation.Start(0f, totalTime, totalTime, (el, f) =>
 			{
-				if (backToOne == null)
+				var extraScale = amount - 1;
+				if (f <= duration) // growing
 				{
-					backToOne = element.experimental.animation.Scale(1f, duration);
-					if (repeat)
-					{
-						backToOne.KeepAlive();
-						backToOne.OnCompleted(() =>
-						{
-							if (delay > 0)
-							{
-								element.schedule.Execute(() =>
-								{
-									toScale.Start();
-								}).ExecuteLater(delay);
-								return;
-							}
-
-							toScale.Start();
-						});
-					}
+					var pct = easing(f / duration);
+					var size = 1 + extraScale * pct;
+					el.transform.scale = new Vector3(size, size, size);
+					return;
 				}
 
-				backToOne.Start();
+				if (f <= duration * 2) // shrinking
+				{
+					var pct = 1 - easing((f - duration) / duration);
+					var size = 1 + extraScale * pct;
+					el.transform.scale = new Vector3(size, size, size);
+					return;
+				}
 			});
-			if (repeat)
-			{
-				toScale.KeepAlive();
-			}
+		}
 
-			toScale.Start();
-			return toScale;
+		/// <summary>
+		/// Animates the scale up and then back down to 1
+		/// <returns>Cancel callback</returns>
+		/// </summary>
+		public static Action AnimatePingRepeating(this VisualElement element, float amount = 1.4f, int duration = 150, int delay = 0)
+		{
+			var cancelled = false;
+			var anim = AnimatePing(element, amount, duration, delay);
+
+			anim.KeepAlive();
+			anim.OnCompleted(() =>
+			{
+				if (cancelled)
+				{
+					anim.Recycle();
+					return;
+				}
+				anim.Start();
+			});
+			return () =>
+			{
+				if (cancelled) return;
+				cancelled = true;
+				element.transform.scale = Vector3.one;
+				anim.Stop();
+			};
 		}
 
 		/// <summary>
@@ -138,6 +149,7 @@ namespace FirstLight.Game.Utils
 					finishCallback?.Invoke(element);
 					return;
 				}
+
 				element.text = $"{prefix}{timeLeft.Display(showSeconds: true, showDays: false).ToLowerInvariant()}";
 			}).Every(1000);
 		}

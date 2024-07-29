@@ -276,6 +276,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static void SetPositionBasedOnWorldPosition(this VisualElement element, Vector3 worldPosition)
 		{
+			element.style.position = Position.Absolute;
 			element.transform.position = WorldPositionToPanel(element.panel, worldPosition);
 		}
 

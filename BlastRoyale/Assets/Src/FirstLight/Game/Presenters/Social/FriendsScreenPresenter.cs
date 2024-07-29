@@ -17,7 +17,6 @@ using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
 using UnityEngine.UIElements;
 
-
 namespace FirstLight.Game.Presenters
 {
 	public class FriendsScreenPresenter : UIPresenterData<FriendsScreenPresenter.StateData>
@@ -83,20 +82,20 @@ namespace FirstLight.Game.Presenters
 		{
 			RefreshAll();
 		}
-		
+
 		private void OnRelationshipDeleted(IRelationshipDeletedEvent e)
 		{
 			RefreshAll();
 		}
-		
+
 		private void OnPresenceUpdate(IPresenceUpdatedEvent e)
 		{
 			RefreshAll();
 		}
-		
+
 		private void OnMessageReceived(IMessageReceivedEvent e)
 		{
-			FLog.Info("Message from "+e.UserId);
+			FLog.Info("Message from " + e.UserId);
 		}
 
 		protected override UniTask OnScreenClose()
@@ -112,7 +111,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_yourIDField.value = AuthenticationService.Instance.PlayerId;
 			RefreshAll();
-			
+
 			// TODO mihak: Temporary, we just always refresh all lists
 			FriendsService.Instance.RelationshipDeleted += OnRelationshipDeleted;
 			FriendsService.Instance.RelationshipAdded += OnRelationshipAdded;
@@ -247,7 +246,7 @@ namespace FirstLight.Game.Presenters
 		private void OpenTooltip(VisualElement element, Relationship relationship)
 		{
 			var buttons = new List<PlayerContextButton>();
-			
+
 			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
 				() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()));
 
@@ -259,9 +258,10 @@ namespace FirstLight.Game.Presenters
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
 					() => BlockPlayer(relationship.Member.Id, false).Forget()));
 			}
+
 			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name.TrimPlayerNameNumbers(), buttons);
 		}
-		
+
 		private async UniTaskVoid AcceptRequest(Relationship r)
 		{
 			try
@@ -317,7 +317,7 @@ namespace FirstLight.Game.Presenters
 			_addFriendButton.SetEnabled(true);
 			_addFriendIDField.value = string.Empty;
 		}
-		
+
 		private async UniTaskVoid RemoveRelationship(Relationship relationship)
 		{
 			try
@@ -331,9 +331,10 @@ namespace FirstLight.Game.Presenters
 					}
 					catch (Exception e)
 					{
-						FLog.Verbose("Could not remove friend, likely was not a friend anymore "+e.Message);
+						FLog.Verbose("Could not remove friend, likely was not a friend anymore " + e.Message);
 					}
 				}
+
 				RefreshAll();
 				_services.NotificationService.QueueNotification("#Player Removed#");
 			}
@@ -345,44 +346,14 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid BlockPlayer(string playerID, bool isRequest)
 		{
-			try
-			{
-				FLog.Info($"Blocking player: {playerID}");
-
-				if (isRequest)
-				{
-					await FriendsService.Instance.DeleteIncomingFriendRequestAsync(playerID);
-				}
-
-				await FriendsService.Instance.AddBlockAsync(playerID).AsUniTask();
-				FLog.Info($"Player blocked: {playerID}");
-				RefreshAll();
-
-				_services.NotificationService.QueueNotification("#Player blocked#");
-			}
-			catch (FriendsServiceException e)
-			{
-				FLog.Warn("Error blocking player", e);
-				_services.NotificationService.QueueNotification($"#Error blocking player, {e.ErrorCode.ToStringSeparatedWords()}#");
-			}
+			await FriendsService.Instance.BlockHandled(playerID, isRequest);
+			RefreshAll();
 		}
 
 		private async UniTaskVoid UnblockPlayer(Relationship r)
 		{
-			try
-			{
-				FLog.Info($"Unblocking player: {r.Member.Id}");
-				await FriendsService.Instance.DeleteBlockAsync(r.Member.Id).AsUniTask();
-				FLog.Info($"Player unblocked: {r.Member.Id}");
-				RefreshAll(); // Figure out if needed
-
-				_services.NotificationService.QueueNotification("#Player unblocked#");
-			}
-			catch (FriendsServiceException e)
-			{
-				FLog.Warn("Error unblocking player.", e);
-				_services.NotificationService.QueueNotification($"#Error unblocking player, {e.ErrorCode.ToStringSeparatedWords()}#");
-			}
+			await FriendsService.Instance.UnblockHandled(r);
+			RefreshAll();
 		}
 	}
 }

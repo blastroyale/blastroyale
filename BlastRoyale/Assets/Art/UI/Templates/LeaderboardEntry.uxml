@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" FLG="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/LeaderboardEntryStyle.uss?fileID=7433441132597879392&amp;guid=5d72e69472c1d40efa26647baed3630a&amp;type=3#LeaderboardEntryStyle" />
-    <ui:VisualElement name="LeaderboardEntryPositioner" class="leaderboard-entry-positioner">
+    <ui:VisualElement name="LeaderboardEntryPositioner" class="leaderboard-entry-positioner" style="flex-direction: row; align-items: center; justify-content: flex-end;">
         <ui:VisualElement name="LocalPlayerHighlight" class="leaderboard-entry-positioner__highlight" />
-        <ui:VisualElement name="LeaderboardEntryParent" class="leaderboard-entry">
+        <ui:VisualElement name="MainContainer" class="leaderboard-entry" style="margin-right: 0;">
             <ui:VisualElement name="PfpFrameColor" class="leaderboard-entry__pfp pfp-bg" style="display: none;" />
             <ui:VisualElement name="PFP" class="leaderboard-entry__pfp">
                 <ui:VisualElement name="PFPImage" class="leaderboard-entry__pfp-image" />
@@ -18,5 +18,8 @@
                 <ui:Label text="1400" name="TrophiesAmount" class="leaderboard-entry__trophies-amount" />
             </ui:VisualElement>
         </ui:VisualElement>
+        <FirstLight.Game.UIElements.AngledContainerElement name="ExtraOptions" class="add-friend-button" style="display: flex;" >
+           <ui:Label text="..." class="add-friend-button__dots" />
+        </FirstLight.Game.UIElements.AngledContainerElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using FirstLight.Modules.UIService.Runtime;
 using QuickEye.UIToolkit;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -61,6 +62,7 @@ namespace FirstLight.UIService
 			{
 				Root = _document.rootVisualElement.Q(UIService.ID_ROOT);
 				Root.AssignQueryResults(this);
+				Root.AssignQueryViews(this, this);
 				QueryElements();
 
 				if (reload)

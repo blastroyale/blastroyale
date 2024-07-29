@@ -168,6 +168,7 @@ MonoBehaviour:
     - {fileID: 4880920319273044187}
     - {fileID: 7853203781828837506}
     - {fileID: 7488879185994845485}
+  _playerNameTemplate: {fileID: 9197481963319205126, guid: 12f945a3724c66742a881285b2b16800, type: 3}
 --- !u!114 &3274073835039566590
 MonoBehaviour:
   m_ObjectHideFlags: 0

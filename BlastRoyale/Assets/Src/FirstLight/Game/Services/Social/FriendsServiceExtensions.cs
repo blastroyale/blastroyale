@@ -34,11 +34,19 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		}
 
 		/// <summary>
+		/// Finds a relationship in your friends list by player ID.
+		/// </summary>
+		public static Relationship GetRelationShipById(this IFriendsService friendsService, string playerID)
+		{
+			return friendsService.Relationships.FirstOrDefault(r => r.Member.Id == playerID);
+		}
+
+		/// <summary>
 		/// Adds a friend by player id and handles notifications / errors.
 		/// </summary>
 		public static async UniTask<bool> AddFriendHandled(this IFriendsService friendsService, string playerIDOrName)
 		{
-			var services = MainInstaller.ResolveServices();
+			var services = MainInstaller.ResolveServices(); // If a helper need to resolve services then it should be a service itself
 
 			try
 			{
@@ -62,7 +70,61 @@ namespace FirstLight.Game.Utils.UCSExtensions
 				services.NotificationService.QueueNotification($"#Error adding friend, {e.ErrorCode.ToString().CamelCaseToSeparatedWords()}#");
 				return false;
 			}
+
 			return true;
+		}
+
+		public static async UniTask<bool> BlockHandled(this IFriendsService friendsService, string playerID, bool isRequest)
+		{
+			var services = MainInstaller.ResolveServices(); // If a helper need to resolve services then it should be a service itself
+
+			try
+			{
+				FLog.Info($"Blocking player: {playerID}");
+
+				if (isRequest)
+				{
+					await friendsService.DeleteIncomingFriendRequestAsync(playerID);
+				}
+
+				var hasOutgoing = friendsService.OutgoingFriendRequests.Any(rl => rl.Id == playerID);
+				if (hasOutgoing)
+				{
+					await friendsService.DeleteOutgoingFriendRequestAsync(playerID);
+				}
+
+				await friendsService.AddBlockAsync(playerID).AsUniTask();
+				FLog.Info($"Player blocked: {playerID}");
+
+				services.NotificationService.QueueNotification("#Player blocked#");
+				return true;
+			}
+			catch (FriendsServiceException e)
+			{
+				FLog.Warn("Error blocking player", e);
+				services.NotificationService.QueueNotification($"#Error blocking player, {e.ErrorCode.ToStringSeparatedWords()}#");
+				return false;
+			}
+		}
+
+		public static async UniTask<bool> UnblockHandled(this IFriendsService friendsService, Relationship r)
+		{
+			var services = MainInstaller.ResolveServices(); // If a helper need to resolve services then it should be a service itself
+
+			try
+			{
+				FLog.Info($"Unblocking player: {r.Member.Id}");
+				await friendsService.DeleteBlockAsync(r.Member.Id).AsUniTask();
+				FLog.Info($"Player unblocked: {r.Member.Id}");
+				services.NotificationService.QueueNotification("#Player unblocked#");
+				return true;
+			}
+			catch (FriendsServiceException e)
+			{
+				FLog.Warn("Error unblocking player.", e);
+				services.NotificationService.QueueNotification($"#Error unblocking player, {e.ErrorCode.ToStringSeparatedWords()}#");
+				return false;
+			}
 		}
 	}
 }

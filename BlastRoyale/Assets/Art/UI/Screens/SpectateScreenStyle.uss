@@ -85,9 +85,11 @@
 }
 
 .player-holder__arrow {
-    width: 110px;
+    width: 96px;
+    height: 96px;
     align-items: center;
     justify-content: center;
+    align-self: center;
 }
 
 .player-holder__arrow--right {
@@ -154,4 +156,58 @@
 }
 
 .screen-header--no-back {
+}
+
+.add-friend-button {
+    position: absolute;
+    width: 275px;
+    height: 64px;
+    left: auto;
+    right: 0;
+    flex-direction: row;
+    background-image: var(--sprite-shared__highlight-leaderboard-localplayer);
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0.52);
+    justify-content: center;
+    align-items: center;
+}
+.add-friend-button.unity-disabled{
+   opacity: 1;
+}
+
+.add-friend-button__icon {
+    flex-grow: 0;
+    flex-shrink: 1;
+    width: 50px;
+    height: 50px;
+    background-image: var(--sprite-home__button-add-friends);
+}
+
+.add-friend-button:active .add-friend-button__icon {
+    background-image: var(--sprite-home__button-add-friends-pressed);
+}
+
+.add-friend-button:disabled .add-friend-button__icon {
+    background-image: var(--sprite-home__button-add-friends-disabled);
+}
+
+
+.add-friend-button__label {
+    font-size: 33px;
+    margin-right: 21px;
+}
+
+.add-friend-button--friend {
+    display: none;
+}
+
+.add-friend-button--blocked {
+    display: none;
+}
+
+
+.player-holder__friend-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: 12px;
+    background-image: var(--sprite-home__icon-match-friend);
 }

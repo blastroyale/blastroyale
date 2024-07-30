@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Utils;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Notifications;
 
@@ -41,11 +42,12 @@ namespace FirstLight.Game.Services
 			// We skip inviting to party if the player already has an invite open
 			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
 
-			// TODO mihak: Only allow this if the player is in main menu
+			
 
 			switch (message.MessageType)
 			{
 				case FriendMessage.FriendMessageType.PartyInvite:
+					if (MainInstaller.ResolveServices().MatchmakingService.IsMatchmaking.Value) return;
 					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
 					{
 						Type = InvitePopupPresenter.StateData.InviteType.Party,

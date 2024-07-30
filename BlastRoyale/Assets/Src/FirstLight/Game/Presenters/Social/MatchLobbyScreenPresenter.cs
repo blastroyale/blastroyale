@@ -266,8 +266,6 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayerClicked(VisualElement source)
 		{
 			var player = (Player) source.userData;
-			var isFriend = FriendsService.Instance.GetFriendByID(player.Id) != null;
-
 			var buttons = new List<PlayerContextButton>
 			{
 				new (PlayerButtonContextStyle.Normal, "Open Profile", () =>
@@ -278,8 +276,8 @@ namespace FirstLight.Game.Presenters
 					}).Forget();
 				})
 			};
-
-			if (!isFriend) // TODO mihak: Also check if the friend request is pending
+			
+			if (_services.GameSocialService.CanAddFriend(player))
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Send friend request",
 					() => FriendsService.Instance.AddFriendHandled(player.Id).Forget()));

@@ -66,7 +66,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			}
 			catch (FriendsServiceException e)
 			{
-				FLog.Error("Error adding friend.", e);
+				FLog.Warn("Error adding friend.", e);
 				services.NotificationService.QueueNotification($"#Error adding friend, {e.ErrorCode.ToString().CamelCaseToSeparatedWords()}#");
 				return false;
 			}

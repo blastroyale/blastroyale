@@ -233,6 +233,7 @@ namespace FirstLight.Game.Services
 
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 
+			CurrentMatchCallbacks.PlayerLeft += OnMatchPlayerLeft;
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
 			CurrentMatchCallbacks.KickedFromLobby += OnMatchLobbyKicked;
@@ -240,6 +241,12 @@ namespace FirstLight.Game.Services
 			CurrentMatchCallbacks.LobbyDeleted += OnMatchDeleted;
 			CurrentPartyCallbacks.LobbyDeleted += OnPartyDeleted;
 		}
+
+		private void OnMatchPlayerLeft(List<int> players)
+		{
+			
+		}
+		
 
 		private void OnMatchDeleted()
 		{

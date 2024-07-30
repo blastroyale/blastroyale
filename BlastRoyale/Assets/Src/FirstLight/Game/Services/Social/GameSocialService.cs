@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Quantum;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
+using Unity.Services.Lobbies.Models;
 
 namespace FirstLight.Game.Services
 {
@@ -48,6 +49,7 @@ namespace FirstLight.Game.Services
 	public interface IGameSocialService
 	{
 		bool CanInvite(Relationship friend);
+		bool CanAddFriend(Player friend);
 		void SetCurrentActivity(GameActivities activity);
 
 		UniTask FakeInviteBot(string botName);
@@ -143,6 +145,13 @@ namespace FirstLight.Game.Services
 			{
 				SetCurrentActivity(GameActivities.In_Main_Menu);
 			}
+		}
+
+		public bool CanAddFriend(Player player)
+		{
+			var isFriend = FriendsService.Instance.GetFriendByID(player.Id) != null;
+			var isPending = FriendsService.Instance.OutgoingFriendRequests.Any(r => r.Member.Id == player.Id);
+			return !isFriend && !isPending;
 		}
 
 		public bool CanInvite(Relationship friend)

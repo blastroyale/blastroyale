@@ -236,13 +236,20 @@ namespace FirstLight.Game.Services
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
 			CurrentMatchCallbacks.KickedFromLobby += OnMatchLobbyKicked;
-			CurrentMatchCallbacks.LobbyDeleted += OnMatchDeleted;
 			CurrentPartyCallbacks.KickedFromLobby += OnPartyLobbyKicked;
+			CurrentMatchCallbacks.LobbyDeleted += OnMatchDeleted;
+			CurrentPartyCallbacks.LobbyDeleted += OnPartyDeleted;
 		}
 
 		private void OnMatchDeleted()
 		{
+			_sentMatchInvites.Clear();
 			CurrentMatchLobby = null;
+		}
+		
+		private void OnPartyDeleted()
+		{
+			_sentMatchInvites.Clear();
 		}
 
 		#region TEAMS
@@ -901,6 +908,7 @@ namespace FirstLight.Game.Services
 			{
 				_notificationService.QueueNotification("You have been kicked from the lobby.");
 			}
+			_sentMatchInvites.Clear();
 			CurrentMatchLobby = null;
 		}
 		
@@ -911,6 +919,7 @@ namespace FirstLight.Game.Services
 			{
 				_notificationService.QueueNotification($"You left the team");
 			}
+			_sentPartyInvites.Clear();
 			CurrentPartyCallbacks.TriggerLocalLobbyUpdated(null);
 		}
 

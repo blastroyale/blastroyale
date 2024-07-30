@@ -38,10 +38,12 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.ResolveServices();
 
+			var popup = Root.Q<GenericPopupElement>("Popup").Required();
 			_sender = Root.Q<FriendListElement>("Sender").Required();
 			_contentLabel = Root.Q<Label>("ContentLabel").Required();
 			Root.Q<LocalizedButton>("AcceptButton").Required().clicked += () => AcceptInvite().Forget();
 			Root.Q<LocalizedButton>("DeclineButton").Required().clicked += () => DeclineInvite().Forget();
+			popup.CloseClicked += () => DeclineInvite().Forget();
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)

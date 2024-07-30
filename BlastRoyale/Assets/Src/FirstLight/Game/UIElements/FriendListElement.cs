@@ -183,7 +183,7 @@ namespace FirstLight.Game.UIElements
 			}
 			catch (Exception e)
 			{
-				FLog.Error($"Error setting friend unityid {unityId} avatar", e);
+				FLog.Warn($"Error setting friend unityid {unityId} avatar", e);
 			}
 		}
 

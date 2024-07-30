@@ -293,7 +293,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error creating lobby!", e);
-				_notificationService.QueueNotification($"Could not create party, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not create party, {e.ParseError()}");
 			}
 		}
 
@@ -321,7 +321,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error joining party!", e);
-				_notificationService.QueueNotification($"Could not join party {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not join party {e.ParseError()}");
 			}
 		}
 
@@ -378,7 +378,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error leaving party!", e);
-				_notificationService.QueueNotification($"Could not leave party, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not leave party, {e.ParseError()}");
 			}
 		}
 
@@ -398,7 +398,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error kicking player!", e);
-				_notificationService.QueueNotification($"Could not kick player, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not kick player, {e.ParseError()}");
 				return false;
 			}
 
@@ -435,7 +435,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error setting ready status!", e);
-				_notificationService.QueueNotification($"Could not set ready status, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not set ready status, {e.ParseError()}");
 			}
 		}
 
@@ -466,7 +466,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error updating party matchmaking ticket!", e);
-				_notificationService.QueueNotification($"Could not start party matchmaking, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not start party matchmaking, {e.ParseError()}");
 
 				return false;
 			}
@@ -500,7 +500,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error updating party matchmaking queue!", e);
-				_notificationService.QueueNotification($"Could not update party game mode, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not update party game mode, {e.ParseError()}");
 				return false;
 			}
 
@@ -535,7 +535,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error fetching match lobbies!", e);
-				_notificationService.QueueNotification($"Could not fetch games, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not fetch games, {e.ParseError()}");
 			}
 
 			return null;
@@ -579,7 +579,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error creating lobby!", e);
-				_notificationService.QueueNotification($"Error creating match, {ParseError(e)}");
+				_notificationService.QueueNotification($"Error creating match, {e.ParseError()}");
 				return false;
 			}
 
@@ -607,7 +607,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error joining match!", e);
-				_notificationService.QueueNotification($"Could not join match, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not join match, {e.ParseError()}");
 				return false;
 			}
 
@@ -667,7 +667,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error leaving match lobby!", e);
-				_notificationService.QueueNotification($"Could not leave match lobby, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not leave match lobby, {e.ParseError()}");
 			}
 			finally
 			{
@@ -706,7 +706,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error updating match settings!", e);
-				_notificationService.QueueNotification($"Could not update match settings, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not update match settings, {e.ParseError()}");
 				return false;
 			}
 
@@ -739,7 +739,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error updating match room!", e);
-				_notificationService.QueueNotification($"Could not update match room, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not update match room, {e.ParseError()}");
 				return false;
 			}
 
@@ -778,7 +778,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error kicking player!", e);
-				_notificationService.QueueNotification($"Could not kick player, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not kick player, {e.ParseError()}");
 				return false;
 			}
 
@@ -812,7 +812,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error setting spectate status!", e);
-				_notificationService.QueueNotification($"Could not set spectate status, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not set spectate status, {e.ParseError()}");
 			}
 		}
 
@@ -834,7 +834,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn($"Error updating {type} host!", e);
-				_notificationService.QueueNotification($"Could not update {type} host, {ParseError(e)}");
+				_notificationService.QueueNotification($"Could not update {type} host, {e.ParseError()}");
 				return null;
 			}
 
@@ -981,11 +981,6 @@ namespace FirstLight.Game.Services
 					LobbyService.Instance.RemovePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId);
 				}
 			}
-		}
-
-		private string ParseError(LobbyServiceException ex)
-		{
-			return ex.Reason.ToString().CamelCaseToSeparatedWords();
 		}
 	}
 

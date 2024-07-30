@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using Quantum;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
+using Unity.Services.Friends.Exceptions;
+using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 
 namespace FirstLight.Game.Utils.UCSExtensions
@@ -146,6 +148,24 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		public static bool IsSpectator(this Player player)
 		{
 			return player.Data[FLLobbyService.KEY_SPECTATOR].Value == "true";
+		}
+
+		public static string ParseError(this FriendsServiceException e)
+		{
+			if (e.ErrorCode == FriendsErrorCode.Unknown)
+			{
+				return string.IsNullOrEmpty(e.Message) ? "list full" : e.Message; // fuck unity
+			}
+			return e.ErrorCode.ToStringSeparatedWords();
+		}
+		
+		public static string ParseError(this LobbyServiceException e)
+		{
+			if (e.Reason == LobbyExceptionReason.UnknownErrorCode)
+			{
+				return string.IsNullOrEmpty(e.Message) ? "lobby error" : e.Message; // fuck unity more
+			}
+			return e.Reason.ToStringSeparatedWords();
 		}
 	}
 }

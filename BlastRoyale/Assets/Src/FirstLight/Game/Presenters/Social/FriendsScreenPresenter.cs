@@ -282,7 +282,7 @@ namespace FirstLight.Game.Presenters
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error accepting friend request.", e);
-				_services.NotificationService.QueueNotification($"#Error accepting friend request, {e.ErrorCode.ToStringSeparatedWords()}#");
+				_services.NotificationService.QueueNotification($"#Error accepting friend request, {e.ParseError()}#");
 			}
 		}
 
@@ -300,7 +300,7 @@ namespace FirstLight.Game.Presenters
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error declining friend request", e);
-				_services.NotificationService.QueueNotification($"#Error declining friend request, {e.ErrorCode.ToStringSeparatedWords()}#");
+				_services.NotificationService.QueueNotification($"#Error declining friend request, {e.ParseError()}#");
 			}
 		}
 
@@ -344,7 +344,7 @@ namespace FirstLight.Game.Presenters
 			}
 			catch (FriendsServiceException e)
 			{
-				_services.NotificationService.QueueNotification($"#Error removing player, {e.ErrorCode.ToStringSeparatedWords()}#");
+				_services.NotificationService.QueueNotification($"#Error removing player, {e.ParseError()}#");
 			}
 		}
 

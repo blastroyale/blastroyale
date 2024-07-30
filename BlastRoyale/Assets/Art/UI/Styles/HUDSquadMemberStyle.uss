@@ -39,55 +39,16 @@
     background-color: rgba(250, 49, 49, 0.5);
     position: absolute;
 }
-
-
-.squad-member__team-color {
+.squad-member__avatar{
     position: absolute;
     top: 0;
     left: -8px;
     width: 96px;
     height: 96px;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    border-left-width: 6px;
-    border-right-width: 6px;
-    border-top-width: 6px;
-    border-bottom-width: 6px;
-    align-items: center;
-    justify-content: center;
     margin-right: 18px;
-    
     background-color: rgba(23, 18, 53, 0.39);
-}
-
-.squad-member__pfp {
-    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/Ninja/Icon_Char_Ninja.png?fileID=21300000&guid=759699db299dced46a9c460f5114b6cc&type=3#Icon_Char_Ninja');
-    position: absolute;
-    width: 96px;
-    height: 96px;
-    bottom: -6px;
     
 }
-
-.squad-member__pfp-mask {
-    background-image: url('project://database/Assets/Art/UI/Vectors/avatar-mask-hud.svg?fileID=7388822144124034973&guid=6bafe853b1a3dac4cacac6eb1c7e4c6f&type=3#avatar-mask-hud');
-    position: absolute;
-    width: 90px;
-    height: 120px;
-    align-items: center;
-    overflow: hidden;
-    bottom: 0;
-    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
-    justify-content: flex-end;
-}
-
-
 .squad-member__dead-cross {
     visibility: hidden;
     background-image: var(--sprite-match__icon-x-red);

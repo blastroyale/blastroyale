@@ -109,22 +109,22 @@
 }
 
 .load-status-holder__location-label {
-    font-size: 50px;
-    -unity-text-outline-width: 2px;
+    font-size: 54px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(16, 10, 63);
-    text-shadow: 3px 3px 0 rgb(16, 10, 63);
+    text-shadow: 4px 5px 0 rgb(16, 10, 63);
     color: rgb(214, 76, 123);
-    -unity-font-style: bold;
+    -unity-font-style: normal;
     margin-top: -20px;
-    letter-spacing: -4px;
+    letter-spacing: 0;
 }
 
 .load-status-holder__player-label {
-    font-size: 68px;
-    -unity-text-outline-width: 2px;
+    font-size: 54px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(16, 10, 63);
-    text-shadow: 3px 3px 0 rgb(16, 10, 63);
-    letter-spacing: -3px;
+    text-shadow: 4px 5px 0 rgb(16, 10, 63);
+    letter-spacing: 0;
 }
 
 .dropzone {
@@ -170,13 +170,13 @@
 }
 
 .map__title {
-    font-size: 48px;
+    font-size: 54px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(108, 8, 40);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(103, 23, 39);
     text-shadow: 5px 5px 0 rgb(108, 8, 40);
-    -unity-font-style: bold;
-    letter-spacing: -4px;
+    -unity-font-style: normal;
+    letter-spacing: 0;
     rotate: -8deg;
     bottom: 4px;
 }
@@ -197,21 +197,34 @@
 .map-marker {
     justify-content: center;
     align-items: center;
-    bottom: 65px;
     flex-direction: row;
-    bottom: 0;
-    top: -37px;
+}
+
+.map-marker__anchor {
+    flex-grow: 1;
+    position: absolute;
+    height: 49px;
+    width: 400px;
+    left: -160px;
+    flex-direction: row;
+    justify-content: center;
+    top: -55px;
+    transition-property: top, left;
+    transition-duration: 0.1s;
+}
+
+.map-marker--left .map-marker__anchor {
+    top: 10px;
+    left: -408px;
+    justify-content: flex-end;
 }
 
 .map-marker__title {
     font-size: 36px;
     justify-content: center;
     align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
     padding-top: 6px;
     padding-bottom: 5px;
-    margin-bottom: 15px;
     position: relative;
     bottom: auto;
     background-color: rgb(248, 208, 48);
@@ -219,49 +232,45 @@
     border-bottom-left-radius: 7px;
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
+    width: auto;
+    flex-shrink: 1;
+    min-width: 88px;
+    flex-grow: 0;
+    flex-direction: row;
+    height: 49px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .map-marker__icon {
     background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-mapmarker-small.png?fileID=21300000&guid=f5d0e86da28c9d74f8830073c4b1b945&type=3#icon-mapmarker-small");
     width: 82px;
     height: 74px;
-    margin-right: -41px;
-}
-
-.squad-member {
-    font-size: 32px;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
+    top: -30px;
 }
 
 .squad-container {
     position: absolute;
+    top: 248px;
     left: 81px;
-    bottom: 186px;
     width: 524px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    margin-bottom: 28px;
+    height: 528px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     background-color: rgba(19, 142, 211, 0.4);
     overflow: visible;
-    top: 248px;
 }
 
 .squad-container__title {
     display: flex;
     background-color: rgba(16, 12, 34, 0);
     color: rgb(248, 199, 46);
-    -unity-text-outline-width: 1px;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    letter-spacing: 0;
+    -unity-text-outline-width: 3px;
+    text-shadow: 3px 4px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
-    top: -30px;
+    top: -20px;
     position: absolute;
     left: 0;
     right: 0;
@@ -279,56 +288,62 @@
 }
 
 .squad-container__list {
-    position: absolute;
-    left: 25px;
-    top: 59px;
-    bottom: 0;
-    right: 25px;
+    flex-direction: column;
+    align-content: flex-start;
+    position: relative;
+    padding-top: 42px;
+    padding-left: 42px;
+    height: 100%;
 }
 
-.squad-container__roomcode {
-    font-size: 32px;
-    background-color: rgb(196, 194, 220);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding-left: 8px;
-    padding-right: 8px;
-    color: rgb(16, 12, 34);
+.squad-container__list .unity-scroll-view__content-viewport {
+    overflow: visible;
 }
 
-.squad-container__header {
+.squad-container__list .unity-scroll-view__content-container {
+    overflow: visible;
+}
+.squad-container__list .unity-list-view__item {
+    margin-bottom: 20px;
+}
+
+.squad-member {
     flex-direction: row;
-    height: 59px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    background-color: rgb(16, 12, 34);
-    padding-left: 5px;
-    padding-right: 2px;
     align-items: center;
+    margin-bottom: 10px;
+    padding-right: 20px;
+}
+
+.squad-member__playername-label {
+    margin-left: 15px;
+    flex-grow: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 5px 0 rgb(0, 0, 0);
+    width: 340px;
 }
 
 .map-marker-party {
-    width: 40px;
-    height: 40px;
-    background-color: rgb(0, 172, 255);
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-left-width: 4px;
-    border-right-width: 4px;
-    border-top-width: 4px;
-    border-bottom-width: 4px;
-    visibility: hidden;
-    position: absolute;
+    width: 72px;
+    height: 72px;
+    border-width: 10px;
+    transition-property: translate;
+    transition-duration: 0.33s;
+    transition-timing-function: ease-in-out;
+}
+
+.map-marker-party .in-game-avatar__pfp-mask {
+    width: 111%;
+    height: 137%;
+}
+
+.map-marker-party .in-game-avatar__pfp {
+    width: 128%;
+    height: 96%;
 }
 
 .party-markers {
@@ -360,62 +375,6 @@
     align-self: center;
 }
 
-.squad-member__team-color {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 96px;
-    height: 96px;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    border-left-width: 6px;
-    border-right-width: 6px;
-    border-top-width: 6px;
-    border-bottom-width: 6px;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(23, 18, 53, 0);
-}
-
-.squad-member__pfp {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    left: 0;
-}
-
-.squad-member__pfp-mask {
-    width: 90px;
-    height: 90px;
-    overflow: hidden;
-    border-top-width: 5px;
-    border-right-width: 5px;
-    border-bottom-width: 5px;
-    border-left-width: 5px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-}
-
-.squad-row {
-    flex-direction: row;
-    margin-top: 40px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 40px;
-}
 
 .map-holder {
     position: absolute;
@@ -458,25 +417,4 @@
     -unity-background-scale-mode: scale-to-fit;
     display: flex;
     background-color: rgba(0, 0, 0, 0);
-}
-
-.map-marker__root {
-    flex-direction: row;
-    align-self: center;
-    position: absolute;
-    right: 0;
-    align-items: center;
-}
-
-.squad-member__playername-label {
-    margin-left: 15px;
-    flex-grow: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    color: rgb(255, 255, 255);
-    font-size: 36px;
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }

@@ -152,6 +152,7 @@ namespace FirstLight.Game.Presenters
 			
 			FLog.Verbose("Joininig room from Custom Lobby");
 			_joining = true;
+			_services.MessageBrokerService.Publish(new JoinedCustomMatch());
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			// TODO mihak: This should not be here, move when we refac network service
 			await _services.RoomService.JoinRoomAsync(room, playerJoinRoomProperties);
@@ -217,6 +218,7 @@ namespace FirstLight.Game.Presenters
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			var matchSettings = _matchSettingsView.MatchSettings;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			_services.MessageBrokerService.Publish(new JoinedCustomMatch());
 
 			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
 

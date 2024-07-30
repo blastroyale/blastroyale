@@ -7,35 +7,59 @@ using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {
-	public struct MainMenuShouldReloadMessage : IMessage { }
-	public struct MainMenuLoadedMessage : IMessage { }
-	public struct MainMenuOpenedMessage : IMessage { }
-	public struct ShopScreenOpenedMessage : IMessage { }
-	public struct OnViewingRewardsFinished : IMessage { }
+	public struct MainMenuShouldReloadMessage : IMessage
+	{
+	}
+
+	public struct MainMenuLoadedMessage : IMessage
+	{
+	}
+
+	public struct MainMenuOpenedMessage : IMessage
+	{
+	}
+
+	public struct ShopScreenOpenedMessage : IMessage
+	{
+	}
+
+	public struct OnViewingRewardsFinished : IMessage
+	{
+	}
+
 	public struct EquippedItemMessage : IMessage
 	{
 		public UniqueId ItemID;
 	}
-	public struct RoomLeaveClickedMessage : IMessage { }
 
-	public struct JoinRoomMessage : IMessage { }
-
-	public struct LocalPlayerClickedPlayMessage : IMessage { }
-	public struct MatchmakingCancelMessage : IMessage { }
-	
-	public struct PlayCreateRoomClickedMessage : IMessage
+	public struct RoomLeaveClickedMessage : IMessage
 	{
-		public string RoomName;
-		public QuantumGameModeConfig GameModeConfig;
-		public QuantumMapConfig MapConfig;
-		public CustomMatchSettings CustomGameOptions;
-		public bool JoinIfExists;
+	}
+
+	public struct JoinRoomMessage : IMessage
+	{
+	}
+
+	public struct LocalPlayerClickedPlayMessage : IMessage
+	{
+	}
+
+	public struct MatchmakingCancelMessage : IMessage
+	{
 	}
 
 	public struct ReinitializeMenuViewsMessage : IMessage
 	{
-		
 	}
-	
-	public struct MapDropPointSelectedMessage : IMessage { }
+
+	/// <summary>
+	///  This should be temporary, its a workaround to reset joinsource, because presenters are handling join room logic
+	/// </summary>
+	public struct JoinedCustomMatch : IMessage
+	{
+	}
+
+	public struct MapDropPointSelectedMessage : IMessage
+	{
+	}
 }

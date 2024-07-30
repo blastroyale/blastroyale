@@ -102,7 +102,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<LocalPlayerClickedPlayMessage>(OnPlayerClickedPlay);
 			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
-			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
+			_services.MessageBrokerService.Subscribe<JoinedCustomMatch>(OnJoinedCustomMatch);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
@@ -199,6 +199,11 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(JoinedPlayfabMatchmaking);
 		}
 
+		private void OnJoinedCustomMatch(JoinedCustomMatch obj)
+		{
+			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
+		}
+
 		private void OnMatchmakingCancelled()
 		{
 			_statechartTrigger(CanceledMatchmakingEvent);
@@ -212,16 +217,6 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose("Using playfab matchmaking!");
 			_networkService.LastUsedSetup.Value = setup;
 			_services.MatchmakingService.JoinMatchmaking(setup);
-		}
-
-		private void JoinRoom(string roomName, bool resetLastDcLocation = true)
-		{
-			if (!_networkService.QuantumClient.InRoom && resetLastDcLocation)
-			{
-				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-			}
-
-			_services.RoomService.JoinRoom(roomName);
 		}
 
 		private void LockRoom()
@@ -316,7 +311,7 @@ namespace FirstLight.Game.StateMachines
 			var room = _services.RoomService.CurrentRoom;
 			if (_networkService.JoinSource.Value == JoinRoomSource.FirstJoin)
 			{
-				var isSpectator = _services.FLLobbyService.CurrentMatchLobby != null &&_services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.IsLocal()).IsSpectator();
+				var isSpectator = _services.FLLobbyService.CurrentMatchLobby != null && _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.IsLocal()).IsSpectator();
 
 				if (!isSpectator && _services.RoomService.CurrentRoom.GetRealPlayerAmount() >
 					_services.RoomService.CurrentRoom.GetRealPlayerCapacity())
@@ -553,37 +548,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)
 		{
 			_services.MatchmakingService.LeaveMatchmaking();
-		}
-
-		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
-		{
-			var gameModeId = msg.GameModeConfig.Id;
-			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
-
-			var setup = new MatchRoomSetup
-			{
-				SimulationConfig = new SimulationMatchConfig
-				{
-					MapId = (int) msg.MapConfig.Map,
-					GameModeID = gameModeId,
-					MatchType = MatchType.Custom,
-					Mutators = msg.CustomGameOptions.Mutators,
-					MaxPlayersOverwrite = msg.CustomGameOptions.MaxPlayers,
-					BotOverwriteDifficulty = msg.CustomGameOptions.BotDifficulty,
-					TeamSize = (uint) msg.CustomGameOptions.SquadSize,
-					WeaponsSelectionOverwrite = msg.CustomGameOptions.WeaponFilter.ToArray()
-				},
-				RoomIdentifier = msg.RoomName,
-			};
-			var offlineMatch = msg.MapConfig.IsTestMap;
-			if (msg.JoinIfExists)
-			{
-				_services.RoomService.JoinOrCreateRoom(setup);
-			}
-			else
-			{
-				_services.RoomService.CreateRoom(setup, offlineMatch);
-			}
 		}
 
 		private void OnApplicationQuitMessage(ApplicationQuitMessage data)

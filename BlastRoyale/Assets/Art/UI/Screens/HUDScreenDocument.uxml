@@ -89,11 +89,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="BottomCenterContainer" picking-mode="Ignore" class="bottom-center-container">
                 <ui:VisualElement name="LocalPlayerInfo" class="local-player-info customizable-hud">
-                    <ui:VisualElement name="TeamColor" class="local-player-info__team-color">
-                        <ui:VisualElement name="AvatarMask" class="local-player-info__pfp-mask">
-                            <ui:VisualElement name="PlayerAvatar" class="local-player-info_pfp" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
+                    <FirstLight.Game.UIElements.InGamePlayerAvatar name="Avatar" class="local-player-info__avatar in-game-avatar--no-border" />
                     <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="PLAYER NAME" parse-escape-sequences="true" name="LocalPlayerName" class="local-player-info__name" />
                     <FirstLight.Game.UIElements.PlayerHealthShieldElement name="LocalPlayerHealthShield" class="player-health-shield--local" />
                     <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="KNOCKED OUT" parse-escape-sequences="true" name="KnockedOutLabel" class="local-player-info__knocked-out" />

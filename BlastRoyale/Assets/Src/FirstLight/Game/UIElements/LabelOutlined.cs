@@ -14,6 +14,7 @@ namespace FirstLight.Game.UIElements
 		private Label _internalLabel;
 
 		protected string _localizationKey;
+
 		public override VisualElement contentContainer => outlineHack ? _internalLabel : this;
 
 		protected bool outlineHack { get; set; }
@@ -62,6 +63,10 @@ namespace FirstLight.Game.UIElements
 				this.RegisterValueChangedCallback(valueChange =>
 				{
 					_internalLabel.text = valueChange.newValue;
+					if (resolvedStyle.textOverflow == TextOverflow.Ellipsis)
+					{
+						SetTextEllipticEnd(valueChange.newValue);
+					}
 				});
 				Sync();
 

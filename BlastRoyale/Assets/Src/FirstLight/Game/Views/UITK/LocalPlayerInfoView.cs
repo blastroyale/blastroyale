@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.Collection;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -17,28 +15,21 @@ namespace FirstLight.Game.Views.UITK
 	public class LocalPlayerInfoView : UIView
 	{
 		private PlayerHealthShieldElement _healthShield;
-		private VisualElement _teamColor;
-		private VisualElement _pfp;
+		private InGamePlayerAvatar _pfp;
 		private Label _name;
 
 		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
 		private IGameDataProvider _dataProvider;
-		private ICollectionService _collectionService;
-		private HashSet<EventKey> _localPlayerEvents = new ();
-		
-		
 
 		protected override void Attached()
 		{
 			_gameServices = MainInstaller.ResolveServices();
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_dataProvider = MainInstaller.ResolveData();
-			_collectionService = _gameServices.CollectionService;
 
 			_healthShield = Element.Q<PlayerHealthShieldElement>("LocalPlayerHealthShield").Required();
-			_teamColor = Element.Q("TeamColor").Required();
-			_pfp = Element.Q("PlayerAvatar").Required();
+			_pfp = Element.Q<InGamePlayerAvatar>("Avatar").Required();
 			_name = Element.Q<Label>("LocalPlayerName").Required();
 		}
 
@@ -108,7 +99,7 @@ namespace FirstLight.Game.Views.UITK
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
 			_healthShield.UpdateShield(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
-		
+
 		private void OnHealthChangedVerified(EventOnHealthChangedVerified callback)
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
@@ -117,6 +108,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateTeamColor()
 		{
+			_pfp.RemoveBorder();
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 
 			if (TeamSystem.GetTeamMemberEntities(QuantumRunner.Default.VerifiedFrame(), playerEntity).Length < 1)
@@ -127,15 +119,7 @@ namespace FirstLight.Game.Views.UITK
 			var teamColor = _gameServices.TeamService.GetTeamMemberColor(playerEntity);
 			if (teamColor.HasValue)
 			{
-				_teamColor.style.borderTopColor = teamColor.Value;
-				_teamColor.style.borderBottomColor = teamColor.Value;
-				_teamColor.style.borderLeftColor = teamColor.Value;
-				_teamColor.style.borderRightColor = teamColor.Value;
-				
-				_teamColor.style.borderTopWidth = GameConstants.Visuals.TEAMMATE_BORDER_RADIUS;
-				_teamColor.style.borderBottomWidth = GameConstants.Visuals.TEAMMATE_BORDER_RADIUS;
-				_teamColor.style.borderLeftWidth = GameConstants.Visuals.TEAMMATE_BORDER_RADIUS;
-				_teamColor.style.borderRightWidth = GameConstants.Visuals.TEAMMATE_BORDER_RADIUS;
+				_pfp.SetTeamColor(teamColor);
 			}
 		}
 
@@ -143,7 +127,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var itemData = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS);
 			var sprite = await _gameServices.CollectionService.LoadCollectionItemSprite(itemData);
-			_pfp.style.backgroundImage = new StyleBackground(sprite);
+			_pfp.SetSprite(sprite);
 		}
 	}
 }

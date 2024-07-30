@@ -1202,24 +1202,23 @@
 }
 
 .unity-collection-view__item--alternative-background {
-    background-color: rgb(188, 188, 188);
+  
 }
 
 .unity-collection-view__item:hover:enabled {
-    background-color: rgb(178, 178, 178);
+
 }
 
 .unity-collection-view__reorderable-item:hover:enabled {
-    background-color: rgb(178, 178, 178);
+
 }
 
 .unity-collection-view__item--selected {
-    background-color: rgb(174, 174, 174);
+ 
 }
 
 .unity-collection-view__item--selected:hover:enabled {
-    background-color: rgb(58, 114, 176);
-    color: rgb(255, 255, 255);
+   
 }
 
 .unity-collection-view:focus:enabled .unity-collection-view__item--selected {
@@ -1725,7 +1724,7 @@
 }
 
 .unity-list-view__item:hover {
-    background-color: rgb(178, 178, 178);
+   
 }
 
 .unity-list-view__item--selected {

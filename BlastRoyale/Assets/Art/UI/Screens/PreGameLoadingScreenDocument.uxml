@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/PreGameLoadingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#PreGameLoadingScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/PreGameLoadingScreenStyle.uss?fileID=7433441132597879392&amp;guid=cc27fa43785c44a09ad6c2f05cdf1311&amp;type=3#PreGameLoadingScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/ScreenHeaderStyle.uss?fileID=7433441132597879392&amp;guid=656beac25a9f4146b77bab8d9c8c8699&amp;type=3#ScreenHeaderStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
         <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sine-wave-pos-min-x="-65" sine-wave-pos-x-frequency="1" sine-wave-pos-y-frequency="-1" sine-wave-pos-min-y="-35" sine-wave-pos-max-x="65" sine-wave-pos-max-y="35" sine-wave-pos-x-offset="0" sine-wave-pos-y-offset="0.75" class="clouds" />
@@ -8,8 +8,8 @@
             <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
                 <FirstLight.Game.UIElements.AnimatedImageElement name="LoadIcon" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner" />
                 <ui:VisualElement name="Labels" class="load-status-holder__labels">
-                    <FirstLight.Game.UIElements.LabelOutlined name="LoadStatusLabel" text="5/30" class="DO_NOT_USE_font-style-h2 load-status-holder__player-label" />
-                    <FirstLight.Game.UIElements.LabelOutlined name="LocationLabel" text="LOCATION" class="DO_NOT_USE_font-style-h2 load-status-holder__location-label" />
+                    <FirstLight.Game.UIElements.LabelOutlined name="LoadStatusLabel" text="PREPARE FOR LANDING!" class="DO_NOT_USE_font-style-h2 load-status-holder__player-label" />
+                    <FirstLight.Game.UIElements.LabelOutlined name="LocationLabel" text="NOOB ISLAND" class="DO_NOT_USE_font-style-h2 load-status-holder__location-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Label name="DebugPlayerCount" text="30/30" class="DO_NOT_USE_font-style-h2 debug-player-count" />
@@ -19,14 +19,13 @@
                         <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" />
                     </ui:VisualElement>
                     <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">
-                        <ui:VisualElement name="MarkerPoint0" class="map-marker-party" />
-                        <ui:VisualElement name="MarkerPoint1" class="map-marker-party" />
-                        <ui:VisualElement name="MarkerPoint2" class="map-marker-party" />
+                        <FirstLight.Game.UIElements.InGamePlayerAvatar class="map-marker-party" style="translate: -154px 6px;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
-                        <ui:VisualElement picking-mode="Ignore" name="VisualElement" class="map-marker__root">
-                            <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" />
-                            <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" />
+                    <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker" style="translate: 7px 0;">
+                        <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon">
+                            <ui:VisualElement name="Anchor" class="map-marker__anchor">
+                                <ui:Label name="MapMarkerTitle" picking-mode="Ignore" text="HUGEEE LOCATIOn" class="map-marker__title" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="MapTitleBg" picking-mode="Ignore" class="map__title-bg">
@@ -36,8 +35,13 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="SquadContainer" class="squad-container">
-                <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/youre_team" class="squad-container__title" />
-                <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="90" class="squad-container__list" style="display: flex;" />
+                <FirstLight.Game.UIElements.LocalizedLabel name="Title" localization-key="UITHomeScreen/youre_team" class="squad-container__title" />
+                <ui:VisualElement name="TeamMembersList" class="squad-container__list" style="">
+                    <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement" class="in-game-avatar--thick" />
+                    <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement" />
+                    <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement" />
+                    <FirstLight.Game.UIElements.PlayerMemberElement name="PlayerMemberElement" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:Label name="DebugMasterClient" text="MASTER" class="debug-master-client" />
         </FirstLight.Game.UIElements.SafeAreaElement>

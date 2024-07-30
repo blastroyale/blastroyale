@@ -15,6 +15,7 @@
 @import url("/Assets/Art/UI/Styles/SliderIntWithButtons.uss");
 @import url("/Assets/Art/UI/Screens/DropdownStyle.uss");
 @import url("/Assets/Art/UI/Styles/Scroller.uss");
+@import url("/Assets/Art/UI/Styles/InGamePlayerAvatar.uss");
 
 
 

@@ -230,6 +230,10 @@ namespace FirstLight.Game.Presenters
 					() => DeclineRequest(relationship).Forget()
 				);
 			}
+			else
+			{
+				playerElement.SetAcceptDecline(null, null);
+			}
 		}
 
 		private void OnBlockedBindItem(VisualElement element, int index)

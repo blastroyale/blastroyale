@@ -69,7 +69,11 @@ namespace FirstLight.Game.Services
 			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += DecideBasedOnScreen;
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += _ => OnJoinedParty();
 			services.MatchmakingService.OnGameMatched += _ => CancelAllInvites();
-			services.MatchmakingService.OnMatchmakingJoined += _ => SetCurrentActivity(GameActivities.In_Matchmaking);
+			services.MatchmakingService.OnMatchmakingJoined += _ => 
+			{
+				CancelAllInvites();
+				SetCurrentActivity(GameActivities.In_Matchmaking);
+			};
 			services.MatchmakingService.OnMatchmakingCancelled += DecideBasedOnScreen;
 			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => DecideBasedOnScreen());
 			services.MessageBrokerService.Subscribe<JoinRoomMessage>(_ => SetCurrentActivity(

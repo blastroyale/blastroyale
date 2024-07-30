@@ -153,7 +153,10 @@ namespace FirstLight.Game.UIElements
 
 			if (_cacheHack.TryGetValue(unityId, out var avatarUrl))
 			{
-				services.RemoteTextureService.SetTexture(_avatar, avatarUrl);
+				if(avatarUrl != null) 
+				{
+					services.RemoteTextureService.SetTexture(_avatar, avatarUrl);
+				}
 				return;
 			}
 
@@ -171,6 +174,10 @@ namespace FirstLight.Game.UIElements
 					if (this.panel == null || this.parent == null) return;
 					var profile = await services.ProfileService.GetPlayerPublicProfile(playfabid);
 					_cacheHack[unityId] = profile.AvatarUrl;
+					if (_cacheHack[unityId]  == null)
+					{
+						return;
+					}
 					services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
 				});
 			}

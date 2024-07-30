@@ -40,8 +40,8 @@ namespace FirstLight.Game.Presenters
 
 			_sender = Root.Q<FriendListElement>("Sender").Required();
 			_contentLabel = Root.Q<Label>("ContentLabel").Required();
-			Root.Q<Button>("AcceptButton").Required().clicked += () => AcceptInvite().Forget();
-			Root.Q<Button>("DeclineButton").Required().clicked += () => DeclineInvite().Forget();
+			Root.Q<LocalizedButton>("AcceptButton").Required().clicked += () => AcceptInvite().Forget();
+			Root.Q<LocalizedButton>("DeclineButton").Required().clicked += () => DeclineInvite().Forget();
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)

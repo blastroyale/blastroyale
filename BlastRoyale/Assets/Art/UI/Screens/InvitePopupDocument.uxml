@@ -6,8 +6,8 @@
             <ui:Label tabindex="-1" text="LongPlayerName#332 has invited you&#10;to their party!" name="ContentLabel" class="description" />
             <FirstLight.Game.UIElements.FriendListElement name="Sender" class="sender" />
             <ui:VisualElement name="HoriznotalGroup" class="team-invite__horizontal-group">
-                <ui:Button text="DECLINE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DeclineButton" class="button-long button-long--red" />
-                <ui:Button text="ACCEPT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AcceptButton" class="button-long button-long--green" />
+                <FirstLight.Game.UIElements.LocalizedButton text="DECLINE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DeclineButton" class="button-long button-long--red" />
+                <FirstLight.Game.UIElements.LocalizedButton text="ACCEPT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AcceptButton" class="button-long button-long--green" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.GenericPopupElement>
     </ui:VisualElement>

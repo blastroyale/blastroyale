@@ -30,9 +30,9 @@
     font-size: 48px;
     -unity-text-align: upper-center;
     color: rgb(255, 199, 0);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
 }
 
 .thumbnail {
@@ -47,7 +47,7 @@
 .left-container-label {
     font-size: 32px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-align: upper-center;
@@ -189,7 +189,7 @@
 .summary-title {
     font-size: 32px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     margin-bottom: 11px;
@@ -236,8 +236,8 @@
 .horizontal-label-list__container__label {
     font-size: 36px;
     color: white;
-    -unity-text-outline: black 2px;
-    text-shadow: black 2px 2px;
+    -unity-text-outline: black 3px;
+    text-shadow: black 3px 3px;
 }
 
 .horizontal-label-list__scroll {

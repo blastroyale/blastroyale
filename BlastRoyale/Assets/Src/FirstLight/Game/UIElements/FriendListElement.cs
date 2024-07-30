@@ -25,7 +25,7 @@ namespace FirstLight.Game.UIElements
 	public class FriendListElement : VisualElement
 	{
 		private static readonly BatchQueue _batchQueue = new ();
-		
+
 		private const string USS_BLOCK = "friend-list-element";
 		private const string USS_PLAYER_BAR_CONTAINER = USS_BLOCK + "__player-bar-container";
 		private const string USS_AVATAR = USS_BLOCK + "__avatar";
@@ -55,12 +55,12 @@ namespace FirstLight.Game.UIElements
 		private Action<VisualElement> _moreActionsAction;
 		private Action _acceptAction;
 		private Action _declineAction;
-		
+
 		public FriendListElement()
 		{
 			AddToClassList(USS_BLOCK);
 
-			Add(_header = new Label("ONLINE (2)"));
+			Add(_header = new LabelOutlined("Header") {text = "ONLINE (2)"});
 			_header.AddToClassList(USS_HEADER);
 
 			var background = new VisualElement {name = "background"};
@@ -82,10 +82,10 @@ namespace FirstLight.Game.UIElements
 						_onlineIndicator.AddToClassList(USS_ONLINE_INDICATOR);
 					}
 
-					playerBarContainer.Add(_nameAndTrophiesLabel = new Label(name) {name = "name-and-trophies"});
+					playerBarContainer.Add(_nameAndTrophiesLabel = new LabelOutlined("name-and-trophies") {name = name});
 					_nameAndTrophiesLabel.AddToClassList(USS_NAME_AND_TROPHIES);
 
-					playerBarContainer.Add(_statusLabel = new Label("In Main Menu") {name = "activity"});
+					playerBarContainer.Add(_statusLabel = new LabelOutlined(name="activity") {name = "In Main Menu"});
 					_statusLabel.AddToClassList(USS_ACTIVITY);
 
 					playerBarContainer.Add(_mainActionButton = new LocalizedButton("main-action-button") {name = "UITFriends/invite"});
@@ -136,25 +136,28 @@ namespace FirstLight.Game.UIElements
 			{
 				SetAvatarHack(relationship.Member.Id, null).Forget();
 			}
+
 			return this;
 		}
 
-		private static Dictionary<string, string> _cacheHack = new();
+		private static Dictionary<string, string> _cacheHack = new ();
+
 		private async UniTaskVoid SetAvatarHack(string unityId, string playfabid)
 		{
 			if (unityId == null && playfabid == null)
 			{
 				return;
 			}
+
 			var services = MainInstaller.ResolveServices();
-			
+
 			if (_cacheHack.TryGetValue(unityId, out var avatarUrl))
 			{
 				services.RemoteTextureService.SetTexture(_avatar, avatarUrl);
 				return;
 			}
-			
-			FLog.Verbose("Setting avatar hack for "+unityId + " playfabid "+playfabid);
+
+			FLog.Verbose("Setting avatar hack for " + unityId + " playfabid " + playfabid);
 			try
 			{
 				if (playfabid == null)
@@ -162,7 +165,7 @@ namespace FirstLight.Game.UIElements
 					playfabid = await CloudSaveService.Instance.LoadPlayfabID(unityId);
 					if (playfabid == null) return;
 				}
-				
+
 				_batchQueue.Add(async () =>
 				{
 					if (this.panel == null || this.parent == null) return;
@@ -170,7 +173,6 @@ namespace FirstLight.Game.UIElements
 					_cacheHack[unityId] = profile.AvatarUrl;
 					services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
 				});
-				
 			}
 			catch (Exception e)
 			{
@@ -229,14 +231,15 @@ namespace FirstLight.Game.UIElements
 		{
 			var services = MainInstaller.ResolveServices();
 			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
-			if(showInvite)
-				return SetMainAction(ScriptLocalization.UITFriends.invite,  () =>
+			if (showInvite)
+				return SetMainAction(ScriptLocalization.UITFriends.invite, () =>
 				{
 					services.FLLobbyService.CreateParty().ContinueWith(callback);
 				}, false);
-			return SetMainAction("", null, false);;
+			return SetMainAction("", null, false);
+			;
 		}
-		
+
 		public FriendListElement AddOpenProfileAction(Relationship friend)
 		{
 			return SetMoreActions(_ => PlayerStatisticsPopupPresenter.Open(friend.Member.Id).Forget());
@@ -252,8 +255,6 @@ namespace FirstLight.Game.UIElements
 			_mainAction = mainAction;
 			return this;
 		}
-		
-		
 
 		public FriendListElement SetMoreActions(Action<VisualElement> moreActionsAction)
 		{
@@ -268,6 +269,7 @@ namespace FirstLight.Game.UIElements
 			{
 				MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_avatar, avatarUrl);
 			}
+
 			_avatar.SetVisibility(avatarUrl != null);
 			return this;
 		}

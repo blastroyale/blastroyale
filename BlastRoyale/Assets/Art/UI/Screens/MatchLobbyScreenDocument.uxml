@@ -20,7 +20,7 @@
                 </ui:ScrollView>
                 <ui:VisualElement class="bottom-bar" style="padding-right: 37px;">
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/invite_friends" name="InviteFriendsButton" class="button-long" />
-                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITCustomGames/lobby_code" show-copy-button="true" name="LobbyCode" value="ABC8ET" class="lobby-code" />
+                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITCustomGames/lobby_code" show-copy-button="true" name="LobbyCode" value="ABC8ET" readonly="true" class="lobby-code" />
                     <ui:VisualElement style="flex-grow: 1;" />
                     <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="12/42" name="PlayersAmountLabel" class="player-count" />
                 </ui:VisualElement>

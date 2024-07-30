@@ -7,7 +7,7 @@
 }
 
 .players-container__row {
-    flex-direction: row;
+    flex-direction: row-reverse;
     flex-grow: 1;
 }
 
@@ -56,6 +56,15 @@
     background-image: var(--sprite-home__icon-crown-2);
     width: 56px;
     height: 46px;
+}
+
+.match-lobby-player__link {
+    position: absolute;
+    right: -42px;
+    top: 24px;
+    width: 61px;
+    height: 34px;
+    background-image: var(--sprite-home__icon-link);
 }
 
 .match-lobby-player__plus {

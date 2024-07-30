@@ -31,7 +31,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// </summary>
 		public static CustomMatchSettings GetMatchSettings(this Lobby lobby)
 		{
-			return JsonConvert.DeserializeObject<CustomMatchSettings>(lobby.Data[FLLobbyService.KEY_MATCH_SETTINGS].Value);
+			return JsonConvert.DeserializeObject<CustomMatchSettings>(lobby.Data[FLLobbyService.KEY_LOBBY_MATCH_SETTINGS].Value);
 		}
 
 		/// <summary>
@@ -41,7 +41,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// <returns></returns>
 		public static string GetMatchRegion(this Lobby lobby)
 		{
-			return lobby.Data[FLLobbyService.KEY_REGION].Value;
+			return lobby.Data[FLLobbyService.KEY_LOBBY_MATCH_REGION].Value;
 		}
 
 		/// <summary>
@@ -156,16 +156,50 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			{
 				return string.IsNullOrEmpty(e.Message) ? "list full" : e.Message; // fuck unity
 			}
+
 			return e.ErrorCode.ToStringSeparatedWords();
 		}
-		
+
 		public static string ParseError(this LobbyServiceException e)
 		{
 			if (e.Reason == LobbyExceptionReason.UnknownErrorCode)
 			{
 				return string.IsNullOrEmpty(e.Message) ? "lobby error" : e.Message; // fuck unity more
 			}
+
 			return e.Reason.ToStringSeparatedWords();
+		}
+
+		/// <summary>
+		/// Gets the player positions from the lobby data. The index is the position,
+		/// an empty string means the position is empty.
+		/// </summary>
+		/// <param name="lobby"></param>
+		/// <returns></returns>
+		public static string[] GetPlayerPositions(this Lobby lobby)
+		{
+			var data = lobby.Data[FLLobbyService.KEY_LOBBY_MATCH_PLAYER_POSITIONS].Value;
+			return data.Split(",");
+		}
+
+		/// <summary>
+		/// Gets the index / position of a specific player, or -1 if it can't find it.
+		/// </summary>
+		public static int GetPlayerPosition(this Lobby lobby, Player player)
+		{
+			var positions = lobby.GetPlayerPositions();
+
+			var playerPosition = -1;
+			for (var i = 0; i < positions.Length; i++)
+			{
+				if (positions[i] == player.Id)
+				{
+					playerPosition = i;
+					break;
+				}
+			}
+
+			return playerPosition;
 		}
 	}
 }

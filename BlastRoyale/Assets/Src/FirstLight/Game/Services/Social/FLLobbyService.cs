@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
@@ -14,7 +13,6 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK.Popups;
 using FirstLight.SDK.Services;
 using Newtonsoft.Json;
-using Photon.Realtime;
 using PlayFab;
 using Quantum;
 using Src.FirstLight.Game.Utils;
@@ -133,7 +131,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates the data / locked state of the current match lobby.
 		/// </summary>
-		UniTask<bool> SetMatchRoom(string roomName, string teamOverwrites, string colorOverwrites);
+		UniTask<bool> SetMatchRoom(string roomName);
 
 		/// <summary>
 		/// Sets the match host to the given player ID.
@@ -154,6 +152,12 @@ namespace FirstLight.Game.Services
 		/// Toggles the spectator status for the current player in the match lobby.
 		/// </summary>
 		UniTask SetMatchSpectator(bool spectating);
+
+		/// <summary>
+		/// Requests a specific position in the match lobby. The request has to be handled
+		/// by the host before it is valid and updated in the positions array.
+		/// </summary>
+		UniTask SetMatchPositionRequest(int teamID);
 	}
 
 	/// <summary>
@@ -172,15 +176,14 @@ namespace FirstLight.Game.Services
 		public const string KEY_READY = "ready";
 		public const string KEY_PLAYFAB_ID = "playfab_id";
 		public const string KEY_SPECTATOR = "spectator";
-		public const string KEY_TEAM_ID = "team_id";
+		public const string KEY_POSITION_REQUEST = "position_request";
 		public const string KEY_MATCHMAKING_TICKET = "matchmaking_ticket";
 		public const string KEY_MATCHMAKING_GAMEMODE = "matchmaking_gamemode";
 
-		public const string KEY_MATCH_SETTINGS = "match_settings";
-		public const string KEY_MATCH_ROOM_NAME = "room_name";
-		public const string KEY_OVERWRITE_TEAMS = "overwrite_teams";
-		public const string KEY_OVERWRITE_COLORS = "overwrite_colors";
-		public const string KEY_REGION = "region"; // S1
+		public const string KEY_LOBBY_MATCH_PLAYER_POSITIONS = "player_positions";
+		public const string KEY_LOBBY_MATCH_SETTINGS = "match_settings";
+		public const string KEY_LOBBY_MATCH_ROOM_NAME = "room_name";
+		public const string KEY_LOBBY_MATCH_REGION = "region"; // S1
 
 		/// <summary>
 		/// The party the player is currently in.
@@ -244,25 +247,21 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchPlayerLeft(List<int> players)
 		{
-			
 		}
-		
 
 		private void OnMatchDeleted()
 		{
 			_sentMatchInvites.Clear();
 			CurrentMatchLobby = null;
 		}
-		
+
 		private void OnPartyDeleted()
 		{
 			_sentMatchInvites.Clear();
 		}
 
 		#region TEAMS
-		/// <summary>
-		/// Creates a new party for the current player with their ID.
-		/// </summary>
+
 		public async UniTask CreateParty()
 		{
 			if (CurrentPartyLobby != null) return;
@@ -297,9 +296,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		/// <summary>
-		/// Joins a party with the given code.
-		/// </summary>
 		public async UniTask JoinParty(string code)
 		{
 			Assert.IsNull(CurrentPartyLobby, "Trying to join a party but the player is already in one!");
@@ -325,9 +321,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		/// <summary>
-		/// Invites a friend to the current party.
-		/// </summary>
 		public async UniTask InviteToParty(string playerID)
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to invite a friend to a party but the player is not in one!");
@@ -347,13 +340,10 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		/// <summary>
-		/// Leaves the current party.
-		/// </summary>
 		public async UniTask LeaveParty()
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to leave a party but the player is not in one!");
-			
+
 			try
 			{
 				if (IsPlayerHost(CurrentPartyLobby))
@@ -382,9 +372,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		/// <summary>
-		/// Sets the party host to the given player ID.
-		/// </summary>
 		public async UniTask<bool> KickPlayerFromParty(string playerID)
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to kick player from party but the player is not in one!");
@@ -405,9 +392,6 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		/// <summary>
-		/// Toggles the ready status of the player in the current party.
-		/// </summary>
 		public async UniTask TogglePartyReady()
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to toggle party ready status but the player is not in one!");
@@ -439,9 +423,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		/// <summary>
-		/// Updates the matchmaking ticket for the current party.
-		/// </summary>
 		public async UniTask<bool> UpdatePartyMatchmakingTicket(JoinedMatchmaking ticket)
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to update party matchmaking ticket but the player is not in one!");
@@ -474,9 +455,6 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		/// <summary>
-		/// Updates the matchmaking ticket for the current party.
-		/// </summary>
 		public async UniTask<bool> UpdatePartyMatchmakingGameMode(string modeID)
 		{
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to update party matchmaking queue but the player is not in one!");
@@ -508,11 +486,9 @@ namespace FirstLight.Game.Services
 		}
 
 		#endregion
-		
+
 		#region LOBBIES
-		/// <summary>
-		/// Queries for public lobbies.
-		/// </summary>
+
 		public async UniTask<List<Lobby>> GetPublicMatches(bool allRegions = false)
 		{
 			var options = new QueryLobbiesOptions
@@ -541,9 +517,6 @@ namespace FirstLight.Game.Services
 			return null;
 		}
 
-		/// <summary>
-		/// Creates a new public game lobby.
-		/// </summary>
 		public async UniTask<bool> CreateMatch(CustomMatchSettings matchOptions)
 		{
 			Assert.IsNull(CurrentMatchLobby, "Trying to create a match but the player is already in one!");
@@ -552,13 +525,17 @@ namespace FirstLight.Game.Services
 				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
 				: Enum.Parse<GameId>(matchOptions.MapID).GetLocalization();
 
+			var positions = new string[matchOptions.MaxPlayers];
+			positions[0] = AuthenticationService.Instance.PlayerId;
+
 			var data = new Dictionary<string, DataObject>
 			{
-				{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(matchOptions))},
+				{KEY_LOBBY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(matchOptions))},
 				{
-					KEY_REGION,
+					KEY_LOBBY_MATCH_REGION,
 					new DataObject(DataObject.VisibilityOptions.Public, _localPrefsService.ServerRegion.Value, DataObject.IndexOptions.S1)
-				}
+				},
+				{KEY_LOBBY_MATCH_PLAYER_POSITIONS, new DataObject(DataObject.VisibilityOptions.Member, string.Join(',', positions))}
 			};
 			var options = new CreateLobbyOptions
 			{
@@ -586,9 +563,6 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		/// <summary>
-		/// Joins a match lobby by id or code.
-		/// </summary>
 		public async UniTask<bool> JoinMatch(string lobbyIDOrCode)
 		{
 			Assert.IsNull(CurrentMatchLobby, "Trying to join a match but the player is already in one!");
@@ -614,9 +588,6 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		/// <summary>
-		/// Invites a friend to the current party.
-		/// </summary>
 		public async UniTask InviteToMatch(string playerID)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to invite a friend to a party but the player is not in one!");
@@ -635,9 +606,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		/// <summary>
-		/// Leaves the current match labby.
-		/// </summary>
 		public async UniTask LeaveMatch()
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to leave a match but the player is not in one!");
@@ -675,22 +643,19 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		/// <summary>
-		/// Updates the data / locked state of the current match lobby.
-		/// </summary>
 		public async UniTask<bool> UpdateMatchLobby(CustomMatchSettings settings, bool locked = false)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
 			var lobbyName = settings.ShowCreatorName
 				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
-				: Enum.Parse<GameId>(settings.MapID).GetLocalization() ;
-			
+				: Enum.Parse<GameId>(settings.MapID).GetLocalization();
+
 			var options = new UpdateLobbyOptions
 			{
 				Data = new Dictionary<string, DataObject>
 				{
-					{KEY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
+					{KEY_LOBBY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
 				},
 				IsLocked = locked,
 				MaxPlayers = settings.MaxPlayers,
@@ -713,10 +678,7 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		/// <summary>
-		/// Updates the data / locked state of the current match lobby.
-		/// </summary>
-		public async UniTask<bool> SetMatchRoom(string roomName, string teamOverwrites, string colorOverwrites)
+		public async UniTask<bool> SetMatchRoom(string roomName)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
@@ -724,9 +686,7 @@ namespace FirstLight.Game.Services
 			{
 				Data = new Dictionary<string, DataObject>
 				{
-					{KEY_MATCH_ROOM_NAME, new DataObject(DataObject.VisibilityOptions.Member, roomName)},
-					{KEY_OVERWRITE_TEAMS, new DataObject(DataObject.VisibilityOptions.Member, teamOverwrites)},
-					{KEY_OVERWRITE_COLORS, new DataObject(DataObject.VisibilityOptions.Member, colorOverwrites)}
+					{KEY_LOBBY_MATCH_ROOM_NAME, new DataObject(DataObject.VisibilityOptions.Member, roomName)},
 				}
 			};
 
@@ -746,25 +706,16 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		/// <summary>
-		/// Sets the match host to the given player ID.
-		/// </summary>
 		public async UniTask<bool> UpdateMatchHost(string playerID)
 		{
 			return (CurrentMatchLobby = await UpdateHost(playerID, CurrentMatchLobby, "match")) != null;
 		}
 
-		/// <summary>
-		/// Sets the party host to the given player ID.
-		/// </summary>
 		public async UniTask<bool> UpdatePartyHost(string playerID)
 		{
 			return (CurrentPartyLobby = await UpdateHost(playerID, CurrentPartyLobby, "party")) != null;
 		}
 
-		/// <summary>
-		/// Sets the party host to the given player ID.
-		/// </summary>
 		public async UniTask<bool> KickPlayerFromMatch(string playerID)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to kick player from match but the player is not in one!");
@@ -785,9 +736,6 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		/// <summary>
-		/// Toggles the spectator status for the current player in the match lobby.
-		/// </summary>
 		public async UniTask SetMatchSpectator(bool spectating)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to toggle spectator status but the player is not in a match!");
@@ -814,6 +762,62 @@ namespace FirstLight.Game.Services
 				FLog.Warn("Error setting spectate status!", e);
 				_notificationService.QueueNotification($"Could not set spectate status, {e.ParseError()}");
 			}
+		}
+
+		public async UniTask SetMatchPositionRequest(int teamID)
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to match team request but the player is not in a match!");
+
+			var options = new UpdatePlayerOptions
+			{
+				Data = new Dictionary<string, PlayerDataObject>
+				{
+					{
+						KEY_POSITION_REQUEST, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, teamID.ToString())
+					}
+				}
+			};
+
+			try
+			{
+				FLog.Info($"Setting team id request to: {teamID}");
+				CurrentMatchLobby =
+					await LobbyService.Instance.UpdatePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId, options);
+				FLog.Info("Team id request set successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error setting team id request!", e);
+				_notificationService.QueueNotification($"Could not change teams, {e.ParseError()}");
+			}
+		}
+
+		private async UniTask<bool> SetMatchPlayerIndexes(string[] indexes)
+		{
+			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
+
+			var options = new UpdateLobbyOptions
+			{
+				Data = new Dictionary<string, DataObject>
+				{
+					{KEY_LOBBY_MATCH_PLAYER_POSITIONS, new DataObject(DataObject.VisibilityOptions.Member, string.Join(',', indexes))},
+				}
+			};
+
+			try
+			{
+				FLog.Info($"Updating player indexes for lobby: {CurrentMatchLobby.Id}");
+				CurrentMatchLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentMatchLobby.Id, options);
+				FLog.Info("Player indexes updated successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error updating match room!", e);
+				_notificationService.QueueNotification($"Could not update match room, {e.ParseError()}");
+				return false;
+			}
+
+			return true;
 		}
 
 		private async UniTask<Lobby> UpdateHost(string playerID, Lobby lobby, string type)
@@ -862,7 +866,9 @@ namespace FirstLight.Game.Services
 					LobbyService.Instance.SendHeartbeatPingAsync(CurrentMatchLobby.Id).AsUniTask().Forget();
 				}
 			}
+			// ReSharper disable once FunctionNeverReturns
 		}
+
 		#endregion
 
 		private Player CreateLocalPlayer()
@@ -893,7 +899,6 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchLobbyChanged(ILobbyChanges changes)
 		{
-			FLog.Verbose("Match lobby updated " + changes.Version.Value);
 			if (changes.LobbyDeleted)
 			{
 				CurrentMatchLobby = null;
@@ -901,31 +906,107 @@ namespace FirstLight.Game.Services
 			else
 			{
 				changes.ApplyToLobby(CurrentMatchLobby);
+
+				if (CurrentMatchLobby.IsLocalPlayerHost())
+				{
+					HandlePlayerPositions(changes).Forget();
+				}
 			}
 
 			CurrentMatchCallbacks.TriggerLocalLobbyUpdated(changes);
 		}
-		
+
+		private async UniTaskVoid HandlePlayerPositions(ILobbyChanges changes)
+		{
+			var positionsChanged = false;
+			var positions = CurrentMatchLobby.GetPlayerPositions();
+
+			if (changes.PlayerJoined.Changed)
+			{
+				foreach (var lpj in changes.PlayerJoined.Value)
+				{
+					var pid = lpj.Player.Id;
+					for (var i = 0; i < positions.Length; i++)
+					{
+						if (string.IsNullOrEmpty(positions[i]))
+						{
+							FLog.Verbose($"Adding player({pid}) to position {i}");
+							positions[i] = pid;
+							positionsChanged = true;
+							break;
+						}
+					}
+				}
+			}
+
+			if (changes.PlayerLeft.Changed)
+			{
+				for (var i = 0; i < positions.Length; i++)
+				{
+					var pos = positions[i];
+					if (!string.IsNullOrEmpty(pos) && CurrentMatchLobby.Players.All(p => p.Id != positions[i]))
+					{
+						FLog.Verbose($"Clearing position {i}");
+						positions[i] = string.Empty;
+						positionsChanged = true;
+					}
+				}
+			}
+
+			if (changes.PlayerData.Changed)
+			{
+				foreach (var (key, value) in changes.PlayerData.Value)
+				{
+					if (!value.ChangedData.Changed || !value.ChangedData.Value.TryGetValue(KEY_POSITION_REQUEST, out var requestValue)) continue;
+
+					// Player requested a team change
+					var player = CurrentMatchLobby.Players[value.PlayerIndex];
+					var teamIDRequest = int.Parse(requestValue.Value.Value);
+
+					var currentPosition = Array.IndexOf(positions, player.Id);
+
+					if (currentPosition >= 0)
+					{
+						positions[currentPosition] = positions[teamIDRequest];
+					}
+
+					positions[teamIDRequest] = player.Id;
+					positionsChanged = true;
+				}
+			}
+
+			if (positionsChanged)
+			{
+				// This wait gives a chance for joining players to subscribe to events,
+				// didn't find a better way of fixing the race condition where this would
+				// finish before players subscribed, so they missed the update.
+				await UniTask.WaitForSeconds(0.5f);
+				await SetMatchPlayerIndexes(positions);
+			}
+		}
+
 		private void OnMatchLobbyKicked()
 		{
 			if (CurrentMatchLobby == null) return;
-			
+
 			var service = MainInstaller.ResolveServices().RoomService;
 			if (!service.InRoom && !service.IsJoiningRoom && !_leaving)
 			{
 				_notificationService.QueueNotification("You have been kicked from the lobby.");
 			}
+
 			_sentMatchInvites.Clear();
 			CurrentMatchLobby = null;
 		}
-		
+
 		private void OnPartyLobbyKicked()
 		{
 			CurrentPartyLobby = null;
-			if(!PopupPresenter.IsOpen<PartyPopupView>()) 
+			if (!PopupPresenter.IsOpen<PartyPopupView>())
 			{
 				_notificationService.QueueNotification($"You left the team");
 			}
+
 			_sentPartyInvites.Clear();
 			CurrentPartyCallbacks.TriggerLocalLobbyUpdated(null);
 		}

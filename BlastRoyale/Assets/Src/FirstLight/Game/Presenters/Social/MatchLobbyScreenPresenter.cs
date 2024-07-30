@@ -14,9 +14,12 @@ using FirstLight.Server.SDK.Modules;
 using FirstLight.UIService;
 using I2.Loc;
 using QuickEye.UIToolkit;
+using Sirenix.OdinInspector;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Player = Unity.Services.Lobbies.Models.Player;
 
@@ -95,7 +98,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLobbyChanged(ILobbyChanges changes)
 		{
 			if (changes == null) return;
-			
+
 			if (changes.LobbyDeleted)
 			{
 				if (!_localPlayerHost && !_services.RoomService.InRoom && !_joining)
@@ -108,31 +111,19 @@ namespace FirstLight.Game.Presenters
 			{
 				RefreshData();
 
-				FLog.Verbose("Received lobby changes version "+changes.Version.Value+ " "+changes.Data.ChangeType);
+				FLog.Verbose("Received lobby changes version " + changes.Version.Value + " " + changes.Data.ChangeType);
 				// TODO mihak: This should not be here, move when we refac network service
 				if ((changes.Data.Changed || changes.Data.Added || changes.Data.Removed) &&
-					changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCH_ROOM_NAME, out var value))
+					changes.Data.Value.TryGetValue(FLLobbyService.KEY_LOBBY_MATCH_ROOM_NAME, out var value))
 				{
 					var joinProperties = new PlayerJoinRoomProperties();
-					if (changes.Data.Value.TryGetValue(FLLobbyService.KEY_OVERWRITE_TEAMS, out var teamsSerialized)
-						&& !string.IsNullOrEmpty(teamsSerialized.Value.Value))
-					{
-						var dict = ModelSerializer.Deserialize<Dictionary<string, string>>(teamsSerialized.Value.Value);
-						if (dict.TryGetValue(AuthenticationService.Instance.PlayerId, out var teamValue))
-						{
-							joinProperties.Team = teamValue;
-						}
-					}
 
-					if (changes.Data.Value.TryGetValue(FLLobbyService.KEY_OVERWRITE_COLORS, out var colorsSerialized)
-						&& !string.IsNullOrEmpty(colorsSerialized.Value.Value))
-					{
-						var dict = ModelSerializer.Deserialize<Dictionary<string, string>>(colorsSerialized.Value.Value);
-						if (dict.TryGetValue(AuthenticationService.Instance.PlayerId, out var colorValue))
-						{
-							joinProperties.TeamColor = byte.Parse(colorValue);
-						}
-					}
+					var squadSize = _services.FLLobbyService.CurrentMatchLobby.GetMatchSettings().SquadSize;
+					var localPlayer = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
+					var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
+
+					joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
+					joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
 
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
@@ -149,7 +140,7 @@ namespace FirstLight.Game.Presenters
 		{
 			// Local player will create the room
 			if (_services.RoomService.InRoom || _services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost()) return;
-			
+
 			FLog.Verbose("Joininig room from Custom Lobby");
 			_joining = true;
 			_services.MessageBrokerService.Publish(new JoinedCustomMatch());
@@ -159,6 +150,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
+		[Button]
 		private void RefreshData()
 		{
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
@@ -169,8 +161,16 @@ namespace FirstLight.Game.Presenters
 
 			_header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
 
+			var matchSettings = matchLobby.GetMatchSettings();
+			_matchSettingsView.SetMainAction(_localPlayerHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
+			_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
+			_matchSettingsView.SetSpectators(spectators);
+
 			VisualElement row = null;
-			for (var i = 0; i < matchLobby.MaxPlayers; i++)
+
+			var spots = new List<MatchLobbyPlayerElement>();
+
+			for (int i = 0; i < matchLobby.MaxPlayers; i++)
 			{
 				if (i % PLAYERS_PER_ROW == 0)
 				{
@@ -178,38 +178,29 @@ namespace FirstLight.Game.Presenters
 					row.AddToClassList(USS_ROW);
 				}
 
-				if (i < matchLobby.Players.Count)
-				{
-					var player = matchLobby.Players[i];
-
-					if (player.IsSpectator())
-					{
-						spectators.Add(player);
-						row!.Add(new MatchLobbyPlayerElement(null, false, false));
-						continue;
-					}
-
-					var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
-					var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
-					var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal);
-
-					row!.Add(playerElement);
-
-					if (!isLocal)
-					{
-						playerElement.userData = player;
-						playerElement.clicked += () => OnPlayerClicked(playerElement);
-					}
-				}
-				else
-				{
-					row!.Add(new MatchLobbyPlayerElement(null, false, false));
-				}
+				var link = matchSettings.SquadSize > 1 && i % matchSettings.SquadSize < matchSettings.SquadSize - 1;
+				var playerElement = new MatchLobbyPlayerElement(null, false, false, link);
+				var i1 = i;
+				playerElement.clicked += () => OnSpotClicked(playerElement, i1);
+				row!.Insert(0, playerElement);
+				spots.Add(playerElement);
 			}
 
-			_matchSettingsView.SetMainAction(_localPlayerHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
-			_matchSettingsView.SetMatchSettings(matchLobby.GetMatchSettings(), matchLobby.IsLocalPlayerHost(), true);
-			_matchSettingsView.SetSpectators(spectators);
+			var orderedPlayers = matchLobby.GetPlayerPositions();
+
+			for (var i = 0; i < orderedPlayers.Length; i++)
+			{
+				var id = orderedPlayers[i];
+				if (id == null) continue;
+
+				var player = matchLobby.Players.FirstOrDefault(p => p.Id == id);
+
+				if (player == null) continue;
+
+				spots[i].SetData(player.GetPlayerName(), player.Id == matchLobby.HostId, player.Id == AuthenticationService.Instance.PlayerId);
+				spots[i].userData = player;
+			}
+
 			_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";
 		}
 
@@ -230,22 +221,20 @@ namespace FirstLight.Game.Presenters
 				SimulationConfig = matchSettings.ToSimulationMatchConfig(),
 				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
 			};
-			// TODO: ADD AUTO BALANCE OFF
-			var teams = new Dictionary<string, string>();
-			teams = _services.TeamService.AutomaticDistributeTeams(matchLobby.Players.Select(p => p.Id), matchSettings.SquadSize);
-			var colors = _services.TeamService.DistributeColors(teams);
+
+			var squadSize = _services.FLLobbyService.CurrentMatchLobby.GetMatchSettings().SquadSize;
+			var localPlayer = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
+			var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
+
 			try
 			{
-				var localId = AuthenticationService.Instance.PlayerId;
 				await _services.RoomService.CreateRoomAsync(setup, new PlayerJoinRoomProperties()
 				{
-					TeamColor = Byte.Parse(colors[localId]),
-					Team = teams[localId]
+					TeamColor = (byte) (localPlayerPosition % squadSize),
+					Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString()
 				});
 
-				var teamsSerialized = ModelSerializer.Serialize(teams).Value;
-				var colorsSerialized = ModelSerializer.Serialize(colors).Value;
-				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier, teamsSerialized, colorsSerialized);
+				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
 				await _services.FLLobbyService.LeaveMatch();
 			}
 			catch (Exception e)
@@ -263,9 +252,14 @@ namespace FirstLight.Game.Presenters
 			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 		}
 
-		private void OnPlayerClicked(VisualElement source)
+		private void OnSpotClicked(VisualElement source, int index)
 		{
-			var player = (Player) source.userData;
+			if (source.userData is not Player player)
+			{
+				_services.FLLobbyService.SetMatchPositionRequest(index).Forget();
+				return;
+			}
+
 			var buttons = new List<PlayerContextButton>
 			{
 				new (PlayerButtonContextStyle.Normal, "Open Profile", () =>
@@ -276,12 +270,15 @@ namespace FirstLight.Game.Presenters
 					}).Forget();
 				})
 			};
-			
+
 			if (_services.GameSocialService.CanAddFriend(player))
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Send friend request",
 					() => FriendsService.Instance.AddFriendHandled(player.Id).Forget()));
 			}
+
+			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Swap Places",
+				() => _services.FLLobbyService.SetMatchPositionRequest(index).Forget()));
 
 			if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
 			{

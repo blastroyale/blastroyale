@@ -9,6 +9,8 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
+using JetBrains.Annotations;
+using Newtonsoft.Json;
 using Quantum;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
@@ -36,6 +38,9 @@ namespace FirstLight.Game.Services
 		[Preserve, DataMember(Name = "avatar", IsRequired = true, EmitDefaultValue = true)]
 		public string AvatarUrl { get; set; }
 
+		[Preserve, DataMember(Name = "team", IsRequired = false, EmitDefaultValue = true), CanBeNull]
+		public string TeamId { get; set; }
+
 		public string Status => CurrentActivityEnum.ToString().Replace(@"_", " ");
 		public GameActivities CurrentActivityEnum => ((GameActivities) CurrentActivity);
 	}
@@ -56,9 +61,12 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		private HashSet<string> _fakeBotRequests = new ();
 		private HashSet<string> _fakeBlocks = new ();
-
+		private FriendActivity _playerActivity = new ();
+		
 		public GameSocialService(IGameServices services)
 		{
+			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += DecideBasedOnScreen;
+			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += DecideBasedOnScreen;
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += _ => OnJoinedParty();
 			services.MatchmakingService.OnGameMatched += _ => CancelAllInvites();
 			services.MatchmakingService.OnMatchmakingJoined += _ => SetCurrentActivity(GameActivities.In_Matchmaking);
@@ -80,8 +88,9 @@ namespace FirstLight.Game.Services
 			{
 				mm.LeaveMatchmaking();
 			}
+			DecideBasedOnScreen();
 		}
-
+		
 		private void CancelAllInvites()
 		{
 			if (_services.UIService.IsScreenOpen<InvitePopupPresenter>())
@@ -144,6 +153,11 @@ namespace FirstLight.Game.Services
 				return false;
 			}
 
+			if (!string.IsNullOrEmpty(activity.TeamId))
+			{
+				return false;
+			}
+
 			if (_services.FLLobbyService.CurrentMatchLobby != null && _services.FLLobbyService.SentMatchInvites.Contains(friend.Member.Id))
 			{
 				return false;
@@ -167,12 +181,11 @@ namespace FirstLight.Game.Services
 		{
 			_stateUpdates.Add(() =>
 			{
-				FLog.Verbose("Setting social activity as " + activity);
-				FriendsService.Instance.SetPresenceAsync(Availability.Online, new FriendActivity
-				{
-					CurrentActivity = (int) activity,
-					AvatarUrl = MainInstaller.ResolveData().AppDataProvider.AvatarUrl
-				}).AsUniTask().Forget();
+				_playerActivity.CurrentActivity = (int) activity;
+				_playerActivity.AvatarUrl = MainInstaller.ResolveData().AppDataProvider.AvatarUrl;
+				_playerActivity.TeamId = _services.FLLobbyService.CurrentPartyLobby?.Id;
+				FLog.Verbose("Setting social activity as " + JsonConvert.SerializeObject(_playerActivity));
+				FriendsService.Instance.SetPresenceAsync(Availability.Online,_playerActivity ).AsUniTask().Forget();
 			});
 		}
 

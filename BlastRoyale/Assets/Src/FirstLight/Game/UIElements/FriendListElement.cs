@@ -187,14 +187,6 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		// TODO: Batch for many players, maybe sync in DB
-		public async UniTask FetchAvatarPlayfab(string playfabId)
-		{
-			var services = MainInstaller.ResolveServices();
-			var profile = await services.ProfileService.GetPlayerPublicProfile(playfabId);
-			services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
-		}
-
 		public FriendListElement SetPlayerName(string playerName)
 		{
 			_nameAndTrophiesLabel.text = playerName?.TrimPlayerNameNumbers();

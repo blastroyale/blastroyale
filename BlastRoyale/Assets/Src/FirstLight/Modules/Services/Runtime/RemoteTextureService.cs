@@ -104,7 +104,7 @@ namespace FirstLight.Game.Services
 			FLog.Info($"Requested texture: {url}");
 
 			var handle = _handle++;
-			var downloadRequest = LoadImage(GetImageUri(url), callback, error, handle, cache);
+			var downloadRequest = LoadImage(url, callback, error, handle, cache);
 			var coroutine = _coroutineService.StartCoroutine(downloadRequest);
 			_requests.Add(handle, coroutine);
 
@@ -164,11 +164,11 @@ namespace FirstLight.Game.Services
 			_cachedTextures.Clear();
 		}
 
-		private IEnumerator LoadImage(string uri, Action<Texture2D> callback, Action error, int handle, bool cacheOnDisk = true)
+		private IEnumerator LoadImage(string uri, Action<Texture2D> callback, Action error, int handle, bool cacheOnDisk = true, bool useCache = true)
 		{
 			FLog.Verbose($"Loading texture URI: {uri}");
-
-			var request = UnityWebRequestTexture.GetTexture(uri);
+			var cachedUri = useCache ? GetImageUri(uri) : uri;
+			var request = UnityWebRequestTexture.GetTexture(cachedUri);
 			yield return request.SendWebRequest();
 
 			if (_requests.ContainsKey(handle))
@@ -180,17 +180,30 @@ namespace FirstLight.Game.Services
 				yield return null;
 			}
 
+			// Filt not present in cache anymore
+			if (cachedUri.StartsWith(FILE_URI_PREFIX) && request.responseCode == 404)
+			{
+				lock (_cachedTextures)
+				{
+					_cachedTextures.Remove(GetHashString(uri));
+				}
+
+				FLog.Info("File is not cached anymore: " + cachedUri);
+				yield return LoadImage(uri, callback, error, handle, cacheOnDisk, false);
+				yield break;
+			}
+
 			if (request.result != UnityWebRequest.Result.Success)
 			{
-				FLog.Error($"Error loading texture from {uri}: {request.error}");
+				FLog.Error($"Error loading texture from {cachedUri}: {request.error}");
 				error?.Invoke();
 			}
 			else
 			{
 				var tex = ((DownloadHandlerTexture) request.downloadHandler).texture;
-				if (uri.StartsWith(FILE_URI_PREFIX))
+				if (cachedUri.StartsWith(FILE_URI_PREFIX))
 				{
-					FLog.Verbose($"Loaded texture URI from cache: {uri}");
+					FLog.Info($"Loaded texture URI from cache: {cachedUri}");
 					callback(tex);
 				}
 				else if (cacheOnDisk)
@@ -202,17 +215,18 @@ namespace FirstLight.Game.Services
 
 		private void CacheTexture(Texture2D tex, byte[] data, string uri, Action<Texture2D> callback)
 		{
+			var hash = GetHashString(uri);
 			_threadService.Enqueue(() =>
 			{
 				lock (_cachedTextures)
 				{
-					var hash = GetHashString(uri);
 					File.WriteAllBytes(Path.Combine(TEXTURES_FOLDER, hash), data);
 
 					_cachedTextures.Add(hash);
 
 					while (_cachedTextures.Count > TEXTURES_TO_KEEP)
 					{
+						FLog.Info("Removing cached texture " + _cachedTextures[0] + " because we have " + _cachedTextures.Count);
 						File.Delete(Path.Combine(TEXTURES_FOLDER, _cachedTextures[0]));
 						_cachedTextures.RemoveAt(0);
 					}
@@ -222,10 +236,13 @@ namespace FirstLight.Game.Services
 				}
 			}, _ =>
 			{
-				PlayerPrefs.SetString(TEXTURE_HASHES_KEY, string.Join(';', _cachedTextures.ToArray()));
-				PlayerPrefs.Save();
+				lock (_cachedTextures)
+				{
+					PlayerPrefs.SetString(TEXTURE_HASHES_KEY, string.Join(';', _cachedTextures.ToArray()));
+				}
 
-				FLog.Verbose($"Cached texture URI: {uri}");
+				PlayerPrefs.Save();
+				FLog.Info($"Cached texture URI: {uri} with hash " + hash);
 
 				callback(tex);
 			}, ex =>

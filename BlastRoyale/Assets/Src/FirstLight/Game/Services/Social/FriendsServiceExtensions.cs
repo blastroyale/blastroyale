@@ -3,6 +3,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using Src.FirstLight.Game.Utils;
+using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -44,23 +45,24 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// <summary>
 		/// Adds a friend by player id and handles notifications / errors.
 		/// </summary>
-		public static async UniTask<bool> AddFriendHandled(this IFriendsService friendsService, string playerIDOrName)
+		public static async UniTask<bool> AddFriendHandled(this IFriendsService friendsService, string playerID)
 		{
 			var services = MainInstaller.ResolveServices(); // If a helper need to resolve services then it should be a service itself
 
 			try
 			{
-				FLog.Info($"Sending friend request: {playerIDOrName}");
-				if (playerIDOrName.Contains('#'))
+				FLog.Info($"Sending friend request: {playerID}");
+
+				var playfabId = await CloudSaveService.Instance.LoadPlayfabID(playerID);
+				if (playfabId == null)
 				{
-					await friendsService.AddFriendByNameAsync(playerIDOrName).AsUniTask();
-				}
-				else
-				{
-					await friendsService.AddFriendAsync(playerIDOrName).AsUniTask();
+					services.NotificationService.QueueNotification("Player not found");
+					return false;
 				}
 
-				FLog.Info($"Friend request sent: {playerIDOrName}");
+				await friendsService.AddFriendAsync(playerID).AsUniTask();
+
+				FLog.Info($"Friend request sent: {playerID}");
 
 				services.NotificationService.QueueNotification("Friend request sent");
 			}

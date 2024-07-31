@@ -47,6 +47,11 @@ namespace FirstLight.Tests.EditorMode
 			throw new System.NotImplementedException();
 		}
 
+		public UniTask ToggleMatchReady()
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public UniTask<bool> UpdatePartyMatchmakingTicket(JoinedMatchmaking ticket)
 		{
 			throw new System.NotImplementedException();
@@ -117,7 +122,7 @@ namespace FirstLight.Tests.EditorMode
 			throw new System.NotImplementedException();
 		}
 
-		public UniTask SetMatchPositionRequest(int teamID)
+		public UniTask SetMatchPositionRequest(int position)
 		{
 			throw new System.NotImplementedException();
 		}

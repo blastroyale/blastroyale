@@ -10,7 +10,6 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
-using FirstLight.Server.SDK.Modules;
 using FirstLight.UIService;
 using I2.Loc;
 using QuickEye.UIToolkit;
@@ -18,7 +17,6 @@ using Sirenix.OdinInspector;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Lobbies;
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Player = Unity.Services.Lobbies.Models.Player;
@@ -155,14 +153,24 @@ namespace FirstLight.Game.Presenters
 		{
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			var spectators = new List<Player>();
+			var matchSettings = matchLobby.GetMatchSettings();
 
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 			_playersContainer.Clear();
 
 			_header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
 
-			var matchSettings = matchLobby.GetMatchSettings();
-			_matchSettingsView.SetMainAction(_localPlayerHost ? ScriptTerms.UITCustomGames.start_match : null, () => StartMatch().Forget());
+			if (_localPlayerHost)
+			{
+				_matchSettingsView.SetMainAction(ScriptTerms.UITCustomGames.start_match, () => StartMatch().Forget());
+			}
+			else
+			{
+				var localPlayer = matchLobby.GetPlayerByID(AuthenticationService.Instance.PlayerId);
+				_matchSettingsView.SetMainAction(localPlayer.IsReady() ? ScriptTerms.UITHomeScreen.youre_ready : ScriptTerms.UITHomeScreen.ready,
+					() => ReadyUp().Forget());
+			}
+
 			_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
 			_matchSettingsView.SetSpectators(spectators);
 
@@ -179,7 +187,7 @@ namespace FirstLight.Game.Presenters
 				}
 
 				var link = matchSettings.SquadSize > 1 && i % matchSettings.SquadSize < matchSettings.SquadSize - 1;
-				var playerElement = new MatchLobbyPlayerElement(null, false, false, link);
+				var playerElement = new MatchLobbyPlayerElement(null, false, false, link, false);
 				var i1 = i;
 				playerElement.clicked += () => OnSpotClicked(playerElement, i1);
 				row!.Insert(0, playerElement);
@@ -197,7 +205,10 @@ namespace FirstLight.Game.Presenters
 
 				if (player == null) continue;
 
-				spots[i].SetData(player.GetPlayerName(), player.Id == matchLobby.HostId, player.Id == AuthenticationService.Instance.PlayerId);
+				spots[i].SetData(player.GetPlayerName(),
+					player.Id == matchLobby.HostId,
+					player.Id == AuthenticationService.Instance.PlayerId,
+					player.IsReady());
 				spots[i].userData = player;
 			}
 
@@ -222,9 +233,9 @@ namespace FirstLight.Game.Presenters
 				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
 			};
 
-			var squadSize = _services.FLLobbyService.CurrentMatchLobby.GetMatchSettings().SquadSize;
-			var localPlayer = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
-			var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
+			var squadSize = matchLobby.GetMatchSettings().SquadSize;
+			var localPlayer = matchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
+			var localPlayerPosition = matchLobby.GetPlayerPosition(localPlayer);
 
 			try
 			{
@@ -242,6 +253,11 @@ namespace FirstLight.Game.Presenters
 				FLog.Error("Could not create quantum room", e);
 				LeaveMatchLobby().Forget();
 			}
+		}
+
+		private async UniTaskVoid ReadyUp()
+		{
+			await _services.FLLobbyService.ToggleMatchReady();
 		}
 
 		private async UniTaskVoid LeaveMatchLobby()
@@ -277,8 +293,11 @@ namespace FirstLight.Game.Presenters
 					() => FriendsService.Instance.AddFriendHandled(player.Id).Forget()));
 			}
 
-			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Swap Places",
-				() => _services.FLLobbyService.SetMatchPositionRequest(index).Forget()));
+			if (!player.IsReady() && !player.IsLocal())
+			{
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Swap Places",
+					() => _services.FLLobbyService.SetMatchPositionRequest(index).Forget()));
+			}
 
 			if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
 			{

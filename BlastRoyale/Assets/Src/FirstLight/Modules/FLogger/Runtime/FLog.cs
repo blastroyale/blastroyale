@@ -146,14 +146,6 @@ namespace FirstLight.FLogger
 		[HideInCallstack]
 		public static void Verbose(object o) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, o.ToString()));
 
-		/// <summary>
-		/// Verbose log that will only de-serialize the object if the log level is verbose.
-		/// Will Serialize via JSON
-		/// </summary>
-		[Conditional("LOG_LEVEL_VERBOSE")]
-		[HideInCallstack]
-		public static void VerboseToJson(object o) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, JsonUtility.ToJson(o, true)));
-
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		public static void Spank() => WriteToAll(FLogLevel.Verbose, "Slap!!!");

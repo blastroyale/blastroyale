@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
@@ -228,6 +229,8 @@ namespace FirstLight.Game.Services
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly List<string> _sentPartyInvites = new ();
 		private readonly List<string> _sentMatchInvites = new ();
+		private readonly SemaphoreSlim _updatePositionsSemaphore = new (1, 1);
+		private int _updatePositionsVersion = 0;
 		private bool _leaving = false;
 
 		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService,
@@ -940,6 +943,19 @@ namespace FirstLight.Game.Services
 
 		private async UniTaskVoid HandlePlayerPositions(ILobbyChanges changes)
 		{
+			FLog.Verbose("Waiting for position semaphore");
+			await _updatePositionsSemaphore.WaitAsync();
+			FLog.Verbose("Finished waiting for position semaphore");
+
+			if (changes.Version.Value <= _updatePositionsVersion)
+			{
+				FLog.Verbose($"Skipping HandlePlayerPositions Version: {changes.Version.Value}");
+				_updatePositionsSemaphore.Release();
+				return;
+			}
+
+			_updatePositionsVersion = changes.Version.Value;
+
 			var positionsChanged = false;
 			var positions = CurrentMatchLobby.GetPlayerPositions();
 
@@ -1003,8 +1019,12 @@ namespace FirstLight.Game.Services
 				// didn't find a better way of fixing the race condition where this would
 				// finish before players subscribed, so they missed the update.
 				await UniTask.WaitForSeconds(0.5f);
-				await SetMatchPlayerIndexes(positions);
+				var task = SetMatchPlayerIndexes(positions);
+				await task;
 			}
+
+			FLog.Verbose("Releasing position semaphore");
+			_updatePositionsSemaphore.Release();
 		}
 
 		private void OnMatchLobbyKicked()

@@ -67,8 +67,9 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_services = MainInstaller.ResolveServices();
 
-			_mainActionButton.clicked += () => MainActionClicked.Invoke();
+			_gameInfoContainer = Element.Q("GameInfo").Q("unity-content-container").Required();
 
+			_mainActionButton.clicked += () => MainActionClicked.Invoke();
 			_modeButton.clicked += OnGameModeClicked;
 			_teamSizeButton.clicked += OnTeamSizeClicked;
 			_mapButton.clicked += OnMapClicked;
@@ -93,7 +94,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !e.newValue);
 			_botDifficultySlider.value = MatchSettings.BotDifficulty = e.newValue ? 1 : 0;
-			
+
 			RefreshData(true);
 		}
 
@@ -107,7 +108,7 @@ namespace FirstLight.Game.Views.UITK
 				MatchSettings.Mutators = Mutator.None;
 				_mutatorsScroller.Clear();
 			}
-			
+
 			RefreshData(true);
 		}
 
@@ -121,14 +122,20 @@ namespace FirstLight.Game.Views.UITK
 				MatchSettings.WeaponFilter.Clear();
 				_filterWeaponsScroller.Clear();
 			}
-			
+
 			RefreshData(true);
 		}
 
 		public void SetMatchSettings(CustomMatchSettings settings, bool editable, bool showSpectators)
 		{
 			MatchSettings = settings;
-			_gameInfoContainer.SetEnabled(editable);
+			
+			// If we make the container not enabled scroll view will not work
+			foreach (var visualElement in _gameInfoContainer.Children())
+			{
+				visualElement.SetEnabled(editable);
+			}
+
 			_bigTitle.SetVisibility(!showSpectators);
 			_tabsContainer.SetVisibility(showSpectators);
 			RefreshData(false);
@@ -142,7 +149,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
 				var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
-				var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal, false);
+				var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal, false, false);
 
 				_spectatorsScrollView.Add(playerElement);
 

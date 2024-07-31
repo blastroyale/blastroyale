@@ -6,16 +6,16 @@
             <ui:VisualElement name="LeftContainer" class="left-container">
                 <ui:ScrollView name="PlayersScrollview" horizontal-scroller-visibility="Hidden" class="players-container">
                     <ui:VisualElement class="players-container__row">
-                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
-                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
-                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
-                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement class="match-lobby-player--local match-lobby-player--host" />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement class="match-lobby-player--empty" />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement class="match-lobby-player--host" />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement class="match-lobby-player--local" />
                     </ui:VisualElement>
                     <ui:VisualElement class="players-container__row">
                         <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
-                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
-                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
-                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement class="match-lobby-player--ready match-lobby-player--local" />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement class="match-lobby-player--ready match-lobby-player--host" />
+                        <FirstLight.Game.UIElements.MatchLobbyPlayerElement class="match-lobby-player--ready" />
                     </ui:VisualElement>
                 </ui:ScrollView>
                 <ui:VisualElement class="bottom-bar" style="padding-right: 37px;">

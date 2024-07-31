@@ -70,17 +70,6 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		}
 
 		/// <summary>
-		/// Returns the number of trophies the player has.
-		/// </summary>
-		/// <param name="player"></param>
-		/// <returns></returns>
-		public static int GetPlayerTrophies(this Player player)
-		{
-			// TODO mihak
-			return 0;
-		}
-
-		/// <summary>
 		/// Checks if the player is a friend of the local player.
 		/// </summary>
 		public static bool IsFriend(this Player player)
@@ -200,6 +189,12 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			}
 
 			return playerPosition;
+		}
+
+		
+		public static Player GetPlayerByID(this Lobby lobby, string playerID)
+		{
+			return lobby.Players.FirstOrDefault(p => p.Id == playerID);
 		}
 	}
 }

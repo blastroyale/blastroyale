@@ -89,6 +89,11 @@ namespace FirstLight.Game.Services
 		UniTask TogglePartyReady();
 
 		/// <summary>
+		/// Toggles the ready status of the player in the current match.
+		/// </summary>
+		UniTask ToggleMatchReady();
+
+		/// <summary>
 		/// Updates the matchmaking ticket for the current party.
 		/// </summary>
 		UniTask<bool> UpdatePartyMatchmakingTicket(JoinedMatchmaking ticket);
@@ -157,7 +162,7 @@ namespace FirstLight.Game.Services
 		/// Requests a specific position in the match lobby. The request has to be handled
 		/// by the host before it is valid and updated in the positions array.
 		/// </summary>
-		UniTask SetMatchPositionRequest(int teamID);
+		UniTask SetMatchPositionRequest(int position);
 	}
 
 	/// <summary>
@@ -392,35 +397,9 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		public async UniTask TogglePartyReady()
+		public UniTask TogglePartyReady()
 		{
-			Assert.IsNotNull(CurrentPartyLobby, "Trying to toggle party ready status but the player is not in one!");
-
-			var currentStatus = CurrentPartyLobby.Players.First(p => p.IsLocal()).IsReady();
-
-			var options = new UpdatePlayerOptions
-			{
-				Data = new Dictionary<string, PlayerDataObject>
-				{
-					{
-						KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, (!currentStatus).ToString().ToLowerInvariant())
-					}
-				}
-			};
-
-			try
-			{
-				FLog.Info($"Setting lobby ready status to: {!currentStatus}");
-				CurrentPartyLobby =
-					await LobbyService.Instance.UpdatePlayerAsync(CurrentPartyLobby.Id, AuthenticationService.Instance.PlayerId, options);
-
-				FLog.Info("Lobby status set successfully!");
-			}
-			catch (LobbyServiceException e)
-			{
-				FLog.Warn("Error setting ready status!", e);
-				_notificationService.QueueNotification($"Could not set ready status, {e.ParseError()}");
-			}
+			return ToggleReady(CurrentPartyLobby);
 		}
 
 		public async UniTask<bool> UpdatePartyMatchmakingTicket(JoinedMatchmaking ticket)
@@ -706,6 +685,11 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
+		public UniTask ToggleMatchReady()
+		{
+			return ToggleReady(CurrentMatchLobby);
+		}
+
 		public async UniTask<bool> UpdateMatchHost(string playerID)
 		{
 			return (CurrentMatchLobby = await UpdateHost(playerID, CurrentMatchLobby, "match")) != null;
@@ -764,23 +748,30 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public async UniTask SetMatchPositionRequest(int teamID)
+		public async UniTask SetMatchPositionRequest(int position)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to match team request but the player is not in a match!");
+
+			// If the player at the destination position is ready, do nothing
+			var positionPlayerId = CurrentMatchLobby.GetPlayerPositions()[position];
+			if (!string.IsNullOrEmpty(positionPlayerId) && CurrentMatchLobby.Players.Any(p => p.Id == positionPlayerId && p.IsReady()))
+			{
+				return;
+			}
 
 			var options = new UpdatePlayerOptions
 			{
 				Data = new Dictionary<string, PlayerDataObject>
 				{
 					{
-						KEY_POSITION_REQUEST, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, teamID.ToString())
+						KEY_POSITION_REQUEST, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, position.ToString())
 					}
 				}
 			};
 
 			try
 			{
-				FLog.Info($"Setting team id request to: {teamID}");
+				FLog.Info($"Setting team id request to: {position}");
 				CurrentMatchLobby =
 					await LobbyService.Instance.UpdatePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId, options);
 				FLog.Info("Team id request set successfully!");
@@ -818,6 +809,37 @@ namespace FirstLight.Game.Services
 			}
 
 			return true;
+		}
+
+		public async UniTask ToggleReady(Lobby lobby)
+		{
+			Assert.IsNotNull(lobby, "Trying to toggle ready status but the player is not in a lobby!");
+
+			var currentStatus = lobby.Players.First(p => p.IsLocal()).IsReady();
+
+			var options = new UpdatePlayerOptions
+			{
+				Data = new Dictionary<string, PlayerDataObject>
+				{
+					{
+						KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, (!currentStatus).ToString().ToLowerInvariant())
+					}
+				}
+			};
+
+			try
+			{
+				FLog.Info($"Setting lobby ready status to: {!currentStatus}");
+				CurrentPartyLobby =
+					await LobbyService.Instance.UpdatePlayerAsync(lobby.Id, AuthenticationService.Instance.PlayerId, options);
+
+				FLog.Info("Lobby status set successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error setting ready status!", e);
+				_notificationService.QueueNotification($"Could not set ready status, {e.ParseError()}");
+			}
 		}
 
 		private async UniTask<Lobby> UpdateHost(string playerID, Lobby lobby, string type)

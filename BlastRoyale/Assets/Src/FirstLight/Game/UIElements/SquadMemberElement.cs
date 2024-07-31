@@ -59,7 +59,7 @@ namespace FirstLight.Game.UIElements
 
 			container.Add(_playerAvatar = new InGamePlayerAvatar() {name = "avatar"});
 			_playerAvatar.AddToClassList(USS_AVATAR);
-			container.Add(_name = new LabelOutlined(name) {text = "PLAYER NAME"});
+			container.Add(_name = new LabelOutlined("PLAYER NAME") {name = "player-name"});
 			_name.AddToClassList(USS_NAME);
 
 			container.Add(_healthShield = new PlayerHealthShieldElement {name = "health-shield"});

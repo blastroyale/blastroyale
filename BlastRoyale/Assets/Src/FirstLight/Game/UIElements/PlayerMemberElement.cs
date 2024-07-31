@@ -27,7 +27,7 @@ namespace FirstLight.Game.UIElements
 			Add(_pfp = new InGamePlayerAvatar() {name = "ProfilePicture"});
 			_pfp.AddToClassList(USS_PFP);
 
-			Add(_textLabel = new LabelOutlined("PlayerName") {text = "PlayernameVeryLongYEAH"});
+			Add(_textLabel = new LabelOutlined("PlayernameVeryLongYEAH") {name = "PlayerName"});
 			_textLabel.AddToClassList(USS_LABEL);
 		}
 

@@ -7,7 +7,7 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// A button that has it's text set from a I2 Localization key.
 	/// </summary>
-	public class LocalizedButton : LabelOutlined
+	public class LocalizedButton : LocalizedLabel
 	{
 		private Clickable m_Clickable;
 
@@ -51,7 +51,7 @@ namespace FirstLight.Game.UIElements
 			tabIndex = 0;
 		}
 
-		public LocalizedButton(string elementName, Action action = null) : base(elementName)
+		public LocalizedButton(string localizationKey = null, Action action = null) : base(localizationKey)
 		{
 			AddToClassList("localized-button");
 			clickable = new Clickable(action);

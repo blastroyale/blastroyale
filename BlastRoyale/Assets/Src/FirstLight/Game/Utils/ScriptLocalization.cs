@@ -2311,7 +2311,12 @@ namespace I2.Loc
 			public static string invite 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/invite"); } }
 			public static string offline 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/offline"); } }
 			public static string online 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/online"); } }
-			public static string open_profile 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/open_profile"); } }
+			public static string option_block 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/option_block"); } }
+			public static string option_cancel_invite 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/option_cancel_invite"); } }
+			public static string option_open_profile 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/option_open_profile"); } }
+			public static string option_request_sent 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/option_request_sent"); } }
+			public static string option_send_request 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/option_send_request"); } }
+			public static string option_unblock 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/option_unblock"); } }
 			public static string received 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/received"); } }
 			public static string remove_friend 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/remove_friend"); } }
 			public static string requests_empty 		{ get{ return LocalizationManager.GetTranslation ("UITFriends/requests_empty"); } }
@@ -2663,8 +2668,9 @@ namespace I2.Loc
 			public static string error_PartyNotFound 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_PartyNotFound"); } }
 			public static string error_PartyUsingOtherServer 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_PartyUsingOtherServer"); } }
 			public static string error_Unknown 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_Unknown"); } }
-			public static string kick 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/kick"); } }
 			public static string kicked 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/kicked"); } }
+			public static string option_kick 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/option_kick"); } }
+			public static string option_promote 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/option_promote"); } }
 			public static string timeout 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/timeout"); } }
 		}
 
@@ -5062,7 +5068,12 @@ namespace I2.Loc
 		    public const string invite = "UITFriends/invite";
 		    public const string offline = "UITFriends/offline";
 		    public const string online = "UITFriends/online";
-		    public const string open_profile = "UITFriends/open_profile";
+		    public const string option_block = "UITFriends/option_block";
+		    public const string option_cancel_invite = "UITFriends/option_cancel_invite";
+		    public const string option_open_profile = "UITFriends/option_open_profile";
+		    public const string option_request_sent = "UITFriends/option_request_sent";
+		    public const string option_send_request = "UITFriends/option_send_request";
+		    public const string option_unblock = "UITFriends/option_unblock";
 		    public const string received = "UITFriends/received";
 		    public const string remove_friend = "UITFriends/remove_friend";
 		    public const string requests_empty = "UITFriends/requests_empty";
@@ -5414,8 +5425,9 @@ namespace I2.Loc
 		    public const string error_PartyNotFound = "UITSquads/error_PartyNotFound";
 		    public const string error_PartyUsingOtherServer = "UITSquads/error_PartyUsingOtherServer";
 		    public const string error_Unknown = "UITSquads/error_Unknown";
-		    public const string kick = "UITSquads/kick";
 		    public const string kicked = "UITSquads/kicked";
+		    public const string option_kick = "UITSquads/option_kick";
+		    public const string option_promote = "UITSquads/option_promote";
 		    public const string timeout = "UITSquads/timeout";
 		}
 

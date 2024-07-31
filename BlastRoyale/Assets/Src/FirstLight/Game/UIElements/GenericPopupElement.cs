@@ -42,7 +42,7 @@ namespace FirstLight.Game.UIElements
 			Add(_header = new VisualElement {name = "header"});
 			_header.AddToClassList(USS_HEADER);
 			{
-				_header.Add(_title = new LabelOutlined("title") {text = "Title"});
+				_header.Add(_title = new LabelOutlined("Title") {name = "title"});
 				_title.AddToClassList(USS_TITLE);
 				_header.Add(_closeButton = new ImageButton {name = "close-button-container"});
 				_closeButton.AddToClassList(USS_CLOSE_BUTTON_CONTAINER);

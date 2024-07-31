@@ -36,8 +36,8 @@ namespace FirstLight.Game.Presenters
 		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel__local-player-fixed";
 		private const string UssLeaderboardEntry = "leaderboard-entry";
 		private const string UssLeaderboardButton = "leaderboard-button";
-		private const string UssLeaderboardButtonHighlight = UssLeaderboardButton+"--highlight";
-		private const string UssLeaderboardButtonIndicator = UssLeaderboardButton+"__indicator";
+		private const string UssLeaderboardButtonHighlight = UssLeaderboardButton + "--highlight";
+		private const string UssLeaderboardButtonIndicator = UssLeaderboardButton + "__indicator";
 		private const string NoDisplayNameReplacement = "Unamed00000";
 
 		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
@@ -63,22 +63,22 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private GameLeaderboard _viewingBoard;
 		private int _viewingSeason;
-		private Dictionary<GameLeaderboard, LocalizedButton> _buttons = new();
+		private Dictionary<GameLeaderboard, LocalizedButton> _buttons = new ();
 		private ListView _leaderboardListView;
 		private VisualElement _localPlayerVisualElement;
 		private VisualElement _viewingIndicator;
 
 		private int _localPlayerPos = -1;
 
-		private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new();
-		private readonly List<PlayerLeaderboardEntry> _playfabLeaderboardEntries = new();
+		private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new ();
+		private readonly List<PlayerLeaderboardEntry> _playfabLeaderboardEntries = new ();
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
-		
+
 		protected override void QueryElements()
 		{
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
@@ -131,6 +131,7 @@ namespace FirstLight.Game.Presenters
 				SetupButtons();
 				DisplayLeaderboard(_services.LeaderboardService.Leaderboards.First());
 			}
+
 			return base.OnScreenOpen(reload);
 		}
 
@@ -138,26 +139,28 @@ namespace FirstLight.Game.Presenters
 		{
 			foreach (var leaderboard in _services.LeaderboardService.Leaderboards)
 			{
-				var button = new LocalizedButton("");
+				var button = new LocalizedButton(action: () => DisplayLeaderboard(leaderboard))
+				{
+					text = leaderboard.Name
+				};
 				button.AddToClassList("button-long");
 				button.AddToClassList("button-long--large-font");
 				button.AddToClassList(UssLeaderboardButton);
-				
+
 				_buttons[leaderboard] = button;
-				button.text = leaderboard.Name;
-				button.clicked += () => DisplayLeaderboard(leaderboard);
 				_leaderboardOptions.Add(button);
 			}
 		}
 
 		private void DisplayLeaderboard(GameLeaderboard board)
 		{
-			foreach(var b in _buttons.Values) b.RemoveFromClassList(UssLeaderboardButtonHighlight);
+			foreach (var b in _buttons.Values) b.RemoveFromClassList(UssLeaderboardButtonHighlight);
 			if (_buttons.TryGetValue(board, out var button))
 			{
 				button.Add(_viewingIndicator);
 				button.AddToClassList(UssLeaderboardButtonHighlight);
 			}
+
 			_localPlayerPos = -1;
 			_leaderboardListView.Clear();
 			_leaderboardListView.RefreshItems();
@@ -187,26 +190,27 @@ namespace FirstLight.Game.Presenters
 			var leaderboardEntry = _playfabLeaderboardEntries[index];
 
 			var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId;
-			
+
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
 			var borderColor = _services.LeaderboardService.GetRankColor(_viewingBoard, leaderboardEntry.Position + 1);
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1, leaderboardEntry.DisplayName[..^5], -1, leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.PlayFabId, borderColor);
 			leaderboardEntryView.SetLeaderboardEntryPFPUrl(leaderboardEntry.Profile.AvatarUrl);
-			
+
 			leaderboardEntryView.SetIcon(GetIconClass());
 		}
 
 		private SeasonConfig GetViewingSeasonConfig()
 		{
-			return _services.LeaderboardService.GetConfigs().GetConfig(_viewingBoard).GetSeason(_viewingSeason);;
+			return _services.LeaderboardService.GetConfigs().GetConfig(_viewingBoard).GetSeason(_viewingSeason);
+			;
 		}
 
 		private bool HasSeasonConfig()
 		{
 			return _services.LeaderboardService.GetConfigs().ContainsKey(_viewingBoard.MetricName);
 		}
-		
+
 		/// <summary>
 		/// Fills the right side of the screen (LeaderboardDescription)
 		/// Has seasonal information read from a mix of playfab and configs
@@ -218,28 +222,29 @@ namespace FirstLight.Game.Presenters
 				_descriptionContainer.SetVisibility(false);
 				return;
 			}
+
 			DateTime endTime = DateTime.UtcNow;
 			var seasonConfig = GetViewingSeasonConfig();
 			var hasRewards = !string.IsNullOrEmpty(seasonConfig.Rewards); // TODO: Read from playfab prize tables
-			
+
 			_leaderboardDescription.text = seasonConfig.Desc;
 			_leaderboardTitle.text = board.Name;
-			
+
 			if (hasRewards)
 			{
 				_rewardsText.text = seasonConfig.Rewards;
 				_rewardsTitle.text = seasonConfig.RewardsTitle;
 			}
-			
+
 			_rewardsWidget.SetDisplay(hasRewards);
 			_rewardsTitle.SetVisibility(hasRewards);
-			
+
 			_descriptionContainer.SetVisibility(true);
 			if (board == _services.LeaderboardService.Leaderboards.First())
 			{
 				_headerIcon.SetVisibility(true);
 			}
-			
+
 			if (!string.IsNullOrEmpty(seasonConfig.ManualEndTime))
 			{
 				endTime = DateTime.ParseExact(seasonConfig.ManualEndTime, "dd/MM/yyyy", CultureInfo.InvariantCulture);
@@ -256,13 +261,13 @@ namespace FirstLight.Game.Presenters
 			{
 				endTime = result.NextReset.Value;
 			}
-			
+
 			_endsInContainer.SetDisplay(true);
 			_endsInContainer.SetVisibility(true);
-			var daysTillReset = (int)Math.Ceiling((endTime - DateTime.UtcNow).TotalDays);
+			var daysTillReset = (int) Math.Ceiling((endTime - DateTime.UtcNow).TotalDays);
 			_endsIn.text = $"Ends in {daysTillReset} days";
 		}
-		
+
 		private void OnLeaderboardTopRanksReceived(GameLeaderboard board, GetLeaderboardResult result)
 		{
 			var resultPos = result.Leaderboard.Count < _services.LeaderboardService.MaxEntries
@@ -294,32 +299,31 @@ namespace FirstLight.Game.Presenters
 				StartCoroutine(RepositionScrollToLocalPlayer());
 				return;
 			}
-			
+
 			_services.LeaderboardService.GetNeighborRankLeaderboard(board.MetricName,
 				OnLeaderboardNeighborRanksReceived);
 		}
 
 		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
 		{
-
 			var newEntry = _leaderboardEntryAsset.Instantiate();
 			newEntry.AttachView(this, out LeaderboardEntryView view);
 			var leaderboardEntry = result.Leaderboard[0];
 
 			int trophies = leaderboardEntry.StatValue == 0 ? DefaultTrophies : leaderboardEntry.StatValue;
-			
+
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
 				trophies, true, leaderboardEntry.PlayFabId, Color.white);
 			view.SetLeaderboardEntryPFPUrl(_dataProvider.AppDataProvider.AvatarUrl);
-			
+
 			view.SetIcon(GetIconClass());
-			
+
 			newEntry.AddToClassList(UssLeaderboardEntryGlobal);
 			newEntry.AddToClassList(UssLeaderboardEntryPositionerHighlight);
-	
+
 			_leaderboardPanel.AddToClassList(UssLeaderboardPanelLocalPlayerFixed);
 
 			_fixedLocalPlayerHolder.Clear();
@@ -327,13 +331,14 @@ namespace FirstLight.Game.Presenters
 			_leaderboardListView.SetVisibility(true);
 			_loadingSpinner.SetDisplay(false);
 		}
-		
+
 		public string GetIconClass()
 		{
 			if (HasSeasonConfig())
 			{
 				return GetViewingSeasonConfig().Icon;
 			}
+
 			return null;
 		}
 
@@ -343,7 +348,7 @@ namespace FirstLight.Game.Presenters
 
 			float height = _leaderboardListView.layout.height;
 			float elemHeight = _leaderboardListView.fixedItemHeight;
-			int elementsOnScreen = (int)(height / elemHeight);
+			int elementsOnScreen = (int) (height / elemHeight);
 
 			int indexToScrollTo = (_localPlayerPos + elementsOnScreen / 2) - 1;
 
@@ -355,6 +360,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_leaderboardListView.ScrollToItem(indexToScrollTo);
 			}
+
 			_loadingSpinner.SetDisplay(false);
 			_leaderboardListView.SetVisibility(true);
 		}

@@ -24,8 +24,8 @@ namespace FirstLight.Game.UIElements
 			get => _localizationKey;
 			set
 			{
+				if (string.IsNullOrWhiteSpace(value)) return;
 				_localizationKey = value;
-				if (string.IsNullOrWhiteSpace(_localizationKey)) return;
 				if (!LocalizationManager.TryGetTranslation(_localizationKey, out var translation))
 				{
 					translation = _localizationKey;
@@ -133,10 +133,10 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public LabelOutlined(string elementName, bool outlineHack = true)
+		public LabelOutlined(string text, bool outlineHack = true)
 		{
 			this.outlineHack = outlineHack;
-			name = elementName;
+			this.text = text;
 			Init();
 		}
 

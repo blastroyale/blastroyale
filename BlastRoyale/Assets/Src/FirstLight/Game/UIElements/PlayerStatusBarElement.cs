@@ -53,7 +53,7 @@ namespace FirstLight.Game.UIElements
 
 			AddToClassList(USS_BLOCK);
 
-			Add(_notificationLabel = new LabelOutlined("notification-label") {name = "MAX"});
+			Add(_notificationLabel = new LabelOutlined("MAX") {name = "notification-label"});
 			_notificationLabel.AddToClassList(USS_NOTIFICATION);
 			_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
 
@@ -72,7 +72,7 @@ namespace FirstLight.Game.UIElements
 				for (int i = 0; i < DAMAGE_NUMBER_MAX_POOL_SIZE; i++)
 				{
 					// Create damage label
-					var damageNumber = new LabelOutlined("damage-number") {text = "0"};
+					var damageNumber = new LabelOutlined("0") {name = "damage-number"};
 					damageHolder.Add(damageNumber);
 					damageNumber.AddToClassList(USS_DAMAGE_NUMBER);
 					damageNumber.userData = i; // Save index to userData

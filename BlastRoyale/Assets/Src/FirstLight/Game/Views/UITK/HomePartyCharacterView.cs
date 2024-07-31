@@ -278,45 +278,10 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private void OpenPlayerOptions(MenuPartyMember slot, Player partyMember)
 		{
-			var isLocalPlayerLeader = _services.FLLobbyService.CurrentPartyLobby?.IsLocalPlayerHost() ?? false;
-			var playerContextButtons = new List<PlayerContextButton>();
-			playerContextButtons.Add(new PlayerContextButton
+			_services.GameSocialService.OpenPlayerOptions(slot.NameView.PlayerNameLabel, Element, slot.PlayerId, partyMember.GetPlayerName(), new PlayerContextSettings()
 			{
-				Text = "Open profile",
-				OnClick = () =>
-				{
-					var data = new PlayerStatisticsPopupPresenter.StateData
-					{
-						UnityID = partyMember.Id
-					};
-					_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(data).Forget();
-				}
+				ShowTeamOptions = true
 			});
-
-			if (isLocalPlayerLeader)
-			{
-				playerContextButtons.AddRange(new[]
-				{
-					new PlayerContextButton
-					{
-						Text = "Promote to leader",
-						OnClick = () => PromotePartyMember(slot.PlayerId).Forget()
-					},
-					new ()
-					{
-						ContextStyle = PlayerButtonContextStyle.Red,
-						Text = LocalizationManager.GetTranslation(ScriptTerms.UITSquads.kick),
-						OnClick = () => KickPartyMember(slot.PlayerId).Forget()
-					},
-				});
-			}
-
-			var displayName = partyMember.GetPlayerName();
-			// TODO Add support for trophies
-			// var trophies = partyMember.GetPlayerTrophies();
-			// displayName += $"\n{trophies} <sprite name=\"TrophyIcon\">";
-
-			TooltipUtils.OpenPlayerContextOptions(slot.NameView.PlayerNameLabel, Element, displayName, playerContextButtons, TooltipPosition.Top);
 		}
 
 		private async UniTaskVoid KickPartyMember(string playerID)

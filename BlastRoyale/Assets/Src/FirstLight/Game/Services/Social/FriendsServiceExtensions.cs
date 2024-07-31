@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
@@ -24,6 +25,14 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			if (presence == null) return false;
 
 			return presence.Availability == Availability.Online;
+		}
+
+		/// <summary>
+		/// Check if the invite is outgoing 
+		/// </summary>
+		public static bool IsOutgoingInvite(this Relationship r)
+		{
+			return r.Member.Role == MemberRole.Target;
 		}
 
 		/// <summary>
@@ -76,7 +85,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			return true;
 		}
 
-		public static async UniTask<bool> BlockHandled(this IFriendsService friendsService, string playerID, bool isRequest)
+		public static async UniTask<bool> BlockHandled(this IFriendsService friendsService, string playerID)
 		{
 			var services = MainInstaller.ResolveServices(); // If a helper need to resolve services then it should be a service itself
 
@@ -84,20 +93,23 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			{
 				FLog.Info($"Blocking player: {playerID}");
 
-				if (isRequest)
+				var tasks = new List<UniTask>();
+
+				var currentInvite = friendsService.Relationships.FirstOrDefault(rl => rl.Type == RelationshipType.FriendRequest && rl.Member.Id == playerID);
+				if (currentInvite != null)
 				{
-					await friendsService.DeleteIncomingFriendRequestAsync(playerID);
+					tasks.Add(friendsService.DeleteRelationshipAsync(currentInvite.Id).AsUniTask());
 				}
 
-				var hasOutgoing = friendsService.OutgoingFriendRequests.Any(rl => rl.Id == playerID);
-				if (hasOutgoing)
+				var friendRelationship = friendsService.GetFriendByID(playerID);
+				if (friendRelationship != null)
 				{
-					await friendsService.DeleteOutgoingFriendRequestAsync(playerID);
+					tasks.Add(friendsService.DeleteRelationshipAsync(friendRelationship.Id).AsUniTask());
 				}
 
-				await friendsService.AddBlockAsync(playerID).AsUniTask();
+				tasks.Add(friendsService.AddBlockAsync(playerID).AsUniTask());
+				await UniTask.WhenAll(tasks);
 				FLog.Info($"Player blocked: {playerID}");
-
 				services.NotificationService.QueueNotification("#Player blocked#");
 				return true;
 			}
@@ -125,6 +137,35 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			{
 				FLog.Warn("Error unblocking player.", e);
 				services.NotificationService.QueueNotification($"#Error unblocking player, {e.ErrorCode.ToStringSeparatedWords()}#");
+				return false;
+			}
+		}
+
+		public static async UniTask<bool> RemoveRelationshipHandled(this IFriendsService friendsService, Relationship relationship)
+		{
+			var services = MainInstaller.ResolveServices(); // If a helper need to resolve services then it should be a service itself
+
+			try
+			{
+				await friendsService.DeleteRelationshipAsync(relationship.Id).AsUniTask();
+				if (relationship.Type == RelationshipType.Block)
+				{
+					try
+					{
+						await friendsService.DeleteFriendAsync(relationship.Member.Id).AsUniTask();
+					}
+					catch (Exception e)
+					{
+						FLog.Verbose("Could not remove friend, likely was not a friend anymore " + e.Message);
+					}
+				}
+
+				services.NotificationService.QueueNotification("#Player Removed#");
+				return true;
+			}
+			catch (FriendsServiceException e)
+			{
+				services.NotificationService.QueueNotification($"#Error removing player, {e.ErrorCode.ToStringSeparatedWords()}#");
 				return false;
 			}
 		}

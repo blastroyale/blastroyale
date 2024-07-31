@@ -42,7 +42,7 @@ namespace FirstLight.Game.UIElements
 		public MatchLobbyItemElement()
 		{
 			AddToClassList(USS_BLOCK);
-			
+
 			var container = new VisualElement();
 			Add(container);
 			container.AddToClassList(USS_CONTAINER);
@@ -67,8 +67,7 @@ namespace FirstLight.Game.UIElements
 				}
 				container.Add(_lobbyRegion = new LocalizedLabel("EU"));
 				_lobbyRegion.AddToClassList(USS_STATUS);
-				container.Add(_actionButton = new LocalizedButton("ActionButton"));
-				_actionButton.LocalizationKey = ScriptTerms.UITCustomGames.join;
+				container.Add(_actionButton = new LocalizedButton(ScriptTerms.UITCustomGames.join) {name = "ActionButton"});
 				_actionButton.AddToClassList("button-long");
 				_actionButton.AddToClassList(USS_ACTION_BUTTON);
 				_actionButton.clicked += () => _onActionClicked.Invoke();
@@ -78,9 +77,6 @@ namespace FirstLight.Game.UIElements
 				_infoButton.AddToClassList("sprite-home__button-info");
 				_infoButton.clicked += () => _onInfoClicked.Invoke();
 			}
-						
-
-
 		}
 
 		public void SetLobby(Lobby lobby, Action onActionClicked, Action onInfoClicked)

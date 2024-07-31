@@ -31,7 +31,8 @@ namespace FirstLight.Game.Utils
 	public enum PlayerButtonContextStyle
 	{
 		Normal,
-		Red
+		Red,
+		Gold,
 	}
 
 	public class PlayerContextButton
@@ -115,6 +116,10 @@ namespace FirstLight.Game.Utils
 				{
 					buttonElement.AddToClassList("player-context-menu__button--red");
 				}
+				else if (playerContextButton.ContextStyle == PlayerButtonContextStyle.Gold)
+				{
+					buttonElement.AddToClassList("player-context-menu__button--gold");
+				}
 
 				if (playerContextButton.Disabled)
 				{
@@ -186,6 +191,15 @@ namespace FirstLight.Game.Utils
 				var tooltipRect = ev.newRect;
 
 				var pos = Vector2.zero;
+				if (position != TooltipPosition.Auto)
+				{
+					pos = CalculatePosition(rootBound, sourceRect, tooltipRect, position, offet);
+					if (!CanFit(rootBound, pos, tooltipRect.size))
+					{
+						position = TooltipPosition.Auto;
+					}
+				}
+
 				if (position == TooltipPosition.Auto)
 				{
 					foreach (var value in Enum.GetValues(typeof(TooltipPosition)).Cast<TooltipPosition>())
@@ -197,10 +211,6 @@ namespace FirstLight.Game.Utils
 						pos = tempPos;
 						break;
 					}
-				}
-				else
-				{
-					pos = CalculatePosition(rootBound, sourceRect, tooltipRect, position, offet);
 				}
 
 				tooltip.transform.position = pos;

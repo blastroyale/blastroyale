@@ -22,7 +22,7 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// Displays a relationship in the friends screen (friend / request / blocked)
 	/// </summary>
-	public class FriendListElement : VisualElement
+	public class FriendListElement : ImageButton
 	{
 		private static readonly BatchQueue _batchQueue = new ();
 
@@ -60,7 +60,7 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(USS_BLOCK);
 
-			Add(_header = new LabelOutlined("Header") {text = "ONLINE (2)"});
+			Add(_header = new LabelOutlined("ONLINE (2)") {name = "Header"});
 			_header.AddToClassList(USS_HEADER);
 
 			var background = new VisualElement {name = "background"};
@@ -82,13 +82,13 @@ namespace FirstLight.Game.UIElements
 						_onlineIndicator.AddToClassList(USS_ONLINE_INDICATOR);
 					}
 
-					playerBarContainer.Add(_nameAndTrophiesLabel = new LabelOutlined("name-and-trophies") {name = name});
+					playerBarContainer.Add(_nameAndTrophiesLabel = new LabelOutlined("PLAYER NAME") {name = "name-and-trophies"});
 					_nameAndTrophiesLabel.AddToClassList(USS_NAME_AND_TROPHIES);
 
-					playerBarContainer.Add(_statusLabel = new LabelOutlined(name="activity") {name = "In Main Menu"});
+					playerBarContainer.Add(_statusLabel = new LabelOutlined("In Main Menu") {name = "activity"});
 					_statusLabel.AddToClassList(USS_ACTIVITY);
 
-					playerBarContainer.Add(_mainActionButton = new LocalizedButton("main-action-button") {name = "UITFriends/invite"});
+					playerBarContainer.Add(_mainActionButton = new LocalizedButton(ScriptTerms.UITFriends.invite) {name = "main-action-button"});
 					_mainActionButton.AddToClassList(USS_MAIN_ACTION_BUTTON);
 					_mainActionButton.AddToClassList("button-long");
 					_mainActionButton.AddToClassList("button-long--yellow");
@@ -99,10 +99,10 @@ namespace FirstLight.Game.UIElements
 				background.Add(_acceptDeclineContainer = new VisualElement {name = "accept-decline-container"});
 				_acceptDeclineContainer.AddToClassList(USS_ACCEPT_DECLINE_CONTAINER);
 				{
-					_acceptDeclineContainer.Add(_acceptButton = new LocalizedButton("accept-button") {LocalizationKey = "UITFriends/accept"});
+					_acceptDeclineContainer.Add(_acceptButton = new LocalizedButton(ScriptTerms.UITFriends.accept) {LocalizationKey ="accept-button"});
 					_acceptButton.AddToClassList("button-long");
 					_acceptButton.AddToClassList("button-long--green");
-					_acceptDeclineContainer.Add(_declineButton = new LocalizedButton("decline-button") {LocalizationKey = "UITFriends/decline"});
+					_acceptDeclineContainer.Add(_declineButton = new LocalizedButton(ScriptTerms.UITFriends.decline) {LocalizationKey = "decline-button"});
 					_declineButton.AddToClassList("button-long");
 					_declineButton.AddToClassList("button-long--red");
 				}
@@ -267,6 +267,12 @@ namespace FirstLight.Game.UIElements
 		{
 			_moreActionsButton.SetDisplay(moreActionsAction != null);
 			_moreActionsAction = moreActionsAction;
+			return this;
+		}
+
+		public FriendListElement SetElementClickAction(Action<VisualElement> action)
+		{
+			clicked += () => action(this);
 			return this;
 		}
 

@@ -113,8 +113,8 @@ namespace FirstLight.Game.Presenters
 			RefreshAll();
 
 			// TODO mihak: Temporary, we just always refresh all lists
-			FriendsService.Instance.RelationshipDeleted += OnRelationshipDeleted;
-			FriendsService.Instance.RelationshipAdded += OnRelationshipAdded;
+			FriendsService.Instance.RelationshipDeleted += OnRelationshipDeleted; // not called with local changes
+			FriendsService.Instance.RelationshipAdded += OnRelationshipAdded; // not called with local changes
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdate;
 			FriendsService.Instance.MessageReceived += OnMessageReceived;
 			return base.OnScreenOpen(reload);
@@ -186,8 +186,6 @@ namespace FirstLight.Game.Presenters
 				header = string.Format(online ? ScriptLocalization.UITFriends.online : ScriptLocalization.UITFriends.offline, count);
 			}
 
-			var showPartyInvite = relationship.IsOnline() && _services.FLLobbyService.CurrentPartyLobby != null &&
-				!_services.FLLobbyService.SentPartyInvites.Contains(relationship.Member.Id);
 			var e = ((FriendListElement) element);
 			e
 				.SetHeader(header)
@@ -202,18 +200,18 @@ namespace FirstLight.Game.Presenters
 		private void OnRequestsBindItem(VisualElement element, int index)
 		{
 			var relationship = _requests[index];
-			var sentRequest = relationship.Member.Role == MemberRole.Target; // If we sent this request or received it
+			var sentRequest = relationship.IsOutgoingInvite(); // If we sent this request or received it
 
 			string header = null;
 
-			if (index == 0 || (_requests[index - 1].Member.Role == MemberRole.Target) != sentRequest)
+			if (index == 0 || (_requests[index - 1].IsOutgoingInvite()) != sentRequest)
 			{
 				var count = sentRequest
-					? _requests.Count(r => r.Member.Role == MemberRole.Target)
-					: _requests.Count(r => r.Member.Role != MemberRole.Target);
+					? _requests.Count(r => r.IsOutgoingInvite())
+					: _requests.Count(r => !r.IsOutgoingInvite());
 
 				header = string.Format(
-					relationship.Member.Role == MemberRole.Target ? ScriptLocalization.UITFriends.sent : ScriptLocalization.UITFriends.received,
+					relationship.IsOutgoingInvite() ? ScriptLocalization.UITFriends.sent : ScriptLocalization.UITFriends.received,
 					count);
 			}
 
@@ -244,26 +242,17 @@ namespace FirstLight.Game.Presenters
 				.SetFromRelationship(relationship)
 				.SetPlayerName(relationship.Member.Profile.Name)
 				.SetMoreActions(ve => OpenTooltip(ve, relationship))
-				.SetMainAction(ScriptLocalization.UITFriends.unblock, () => UnblockPlayer(relationship).Forget(), true);
+				.SetMainAction(ScriptLocalization.UITFriends.unblock, () => FriendsService.Instance.UnblockHandled(relationship).ContinueWith(_ => RefreshAll()).Forget(), true);
 		}
 
 		private void OpenTooltip(VisualElement element, Relationship relationship)
 		{
-			var buttons = new List<PlayerContextButton>();
-
-			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
-				() => PlayerStatisticsPopupPresenter.Open(relationship.Member.Id).Forget()));
-
-			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
-				() => RemoveRelationship(relationship).Forget()));
-
-			if (relationship.Type != RelationshipType.Block)
+			_services.GameSocialService.OpenPlayerOptions(element, Root, relationship.Member.Id, relationship.Member.Profile.Name.TrimPlayerNameNumbers(), new PlayerContextSettings
 			{
-				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
-					() => BlockPlayer(relationship.Member.Id, false).Forget()));
-			}
-
-			TooltipUtils.OpenPlayerContextOptions(element, Root, relationship.Member.Profile.Name.TrimPlayerNameNumbers(), buttons);
+				ShowRemoveFriend = true,
+				ShowBlock = true,
+				OnRelationShipChange = RefreshAll
+			});
 		}
 
 		private async UniTaskVoid AcceptRequest(Relationship r)
@@ -320,44 +309,6 @@ namespace FirstLight.Game.Presenters
 
 			_addFriendButton.SetEnabled(true);
 			_addFriendIDField.value = string.Empty;
-		}
-
-		private async UniTaskVoid RemoveRelationship(Relationship relationship)
-		{
-			try
-			{
-				await FriendsService.Instance.DeleteRelationshipAsync(relationship.Id).AsUniTask();
-				if (relationship.Type == RelationshipType.Block)
-				{
-					try
-					{
-						await FriendsService.Instance.DeleteFriendAsync(relationship.Member.Id).AsUniTask();
-					}
-					catch (Exception e)
-					{
-						FLog.Verbose("Could not remove friend, likely was not a friend anymore " + e.Message);
-					}
-				}
-
-				RefreshAll();
-				_services.NotificationService.QueueNotification("#Player Removed#");
-			}
-			catch (FriendsServiceException e)
-			{
-				_services.NotificationService.QueueNotification($"#Error removing player, {e.ParseError()}#");
-			}
-		}
-
-		private async UniTaskVoid BlockPlayer(string playerID, bool isRequest)
-		{
-			await FriendsService.Instance.BlockHandled(playerID, isRequest);
-			RefreshAll();
-		}
-
-		private async UniTaskVoid UnblockPlayer(Relationship r)
-		{
-			await FriendsService.Instance.UnblockHandled(r);
-			RefreshAll();
 		}
 	}
 }

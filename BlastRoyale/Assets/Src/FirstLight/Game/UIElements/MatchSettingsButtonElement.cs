@@ -36,10 +36,10 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(USS_BLOCK);
 
-			Add(_title = new LabelOutlined("title") {text = "MODE"});
+			Add(_title = new LabelOutlined("MODE") {name = "title"});
 			_title.AddToClassList(USS_TITLE);
 
-			Add(_value = new LabelOutlined("value") {text = "BATTLE ROYALE"});
+			Add(_value = new LabelOutlined("BATTLE ROYALE") {name = "value"});
 			_value.AddToClassList(USS_VALUE);
 
 			var editIcon = new VisualElement {name = "edit-icon"};

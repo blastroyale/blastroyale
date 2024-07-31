@@ -1,9 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -148,7 +145,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 				foreach (var partyMember in partyLobby.Players!)
 				{
 					if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
-					var e = new FriendListElement().SetFromParty(partyMember);
+					var e = new FriendListElement().SetFromParty(partyMember).SetElementClickAction((el) =>
+					{
+						_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
+						{
+							ShowTeamOptions = true
+						});
+					});
 					_yourTeamContainer.Add(e);
 				}
 			}
@@ -158,7 +161,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			own.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers());
 			own.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl);
 			_yourTeamContainer.Add(own);
-			
+
 			_friendsOnlineList.itemsSource = _friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToList();
 			_friendsHeader.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
 		}

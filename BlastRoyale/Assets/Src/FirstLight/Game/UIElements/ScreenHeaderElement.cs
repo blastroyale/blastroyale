@@ -51,10 +51,10 @@ namespace FirstLight.Game.UIElements
 			_back.AddToClassList(UIService.UIService.SFX_CLICK_BACKWARDS);
 			_back.clicked += () => backClicked?.Invoke();
 
-			safeAreaContainer.Add(_title = new LabelOutlined("title"));
+			safeAreaContainer.Add(_title = new LabelOutlined("Title") {name = "title"});
 			_title.AddToClassList(USS_TITLE);
 
-			safeAreaContainer.Add(_subTitle = new LabelOutlined("subtitle"));
+			safeAreaContainer.Add(_subTitle = new LabelOutlined("Subtitle") {name = "subtitle"});
 			_subTitle.AddToClassList(USS_SUB_TITLE);
 
 			var centerContent = new VisualElement {name = "separator", pickingMode = PickingMode.Ignore};

@@ -104,6 +104,11 @@
 .unity-button.player-context-menu__button--red {
     color: rgb(255, 74, 74);
 }
+
+.unity-button.player-context-menu__button--gold {
+    color: #F8C72E;
+}
+
 .unity-button.player-context-menu__button.unity-disabled{
     color: #312F54;
     opacity: 1;

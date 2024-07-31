@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,6 +15,7 @@ using Newtonsoft.Json;
 using Quantum;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
+using UnityEngine.UIElements;
 using Unity.Services.Lobbies.Models;
 
 namespace FirstLight.Game.Services
@@ -46,6 +48,14 @@ namespace FirstLight.Game.Services
 		public GameActivities CurrentActivityEnum => ((GameActivities) CurrentActivity);
 	}
 
+	public class PlayerContextSettings
+	{
+		public bool ShowTeamOptions = false;
+		public bool ShowRemoveFriend = false;
+		public bool ShowBlock = false;
+		public Action OnRelationShipChange;
+	}
+
 	public interface IGameSocialService
 	{
 		bool CanInvite(Relationship friend);
@@ -54,7 +64,7 @@ namespace FirstLight.Game.Services
 
 		UniTask FakeInviteBot(string botName);
 		bool IsBotInvited(string botName);
-		List<PlayerContextButton> AddDefaultPlayerOptions(string playerName, string unityId, List<PlayerContextButton> buttons = null);
+		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName, PlayerContextSettings settings = null);
 	}
 
 	public class GameSocialService : IGameSocialService
@@ -62,7 +72,6 @@ namespace FirstLight.Game.Services
 		private BufferedQueue _stateUpdates = new ();
 		private IGameServices _services;
 		private HashSet<string> _fakeBotRequests = new ();
-		private HashSet<string> _fakeBlocks = new ();
 		private FriendActivity _playerActivity = new ();
 		
 		public GameSocialService(IGameServices services)
@@ -216,75 +225,111 @@ namespace FirstLight.Game.Services
 
 		private void AddForBots(string playerName, List<PlayerContextButton> buttons)
 		{
-			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
+			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_open_profile,
 				() => PlayerStatisticsPopupPresenter.OpenBot(playerName).Forget()));
 
-			if (_fakeBlocks.Contains(playerName))
+			if (!IsBotInvited(playerName))
 			{
-				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Unblock",
-					() =>
-					{
-						_fakeBlocks.Remove(playerName);
-						_services.NotificationService.QueueNotification("#Player unblocked#");
-
-					}));
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
+					() => FakeInviteBot(playerName).Forget()));
 			}
 			else
 			{
-				if (!IsBotInvited(playerName))
-				{
-					buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Send friend request",
-						() => this.FakeInviteBot(playerName).Forget()));
-				}
-				else
-				{
-					buttons.Add(PlayerContextButton.Create("Request sent").Disable());
-				}
-
-				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Block",
-					() =>
-					{
-						_fakeBlocks.Add(playerName);
-						_services.NotificationService.QueueNotification("#Player blocked#");
-					}));
+				buttons.Add(PlayerContextButton.Create(ScriptLocalization.UITFriends.option_request_sent).Disable());
 			}
 		}
 
-		public List<PlayerContextButton> AddDefaultPlayerOptions(string playerName, string unityId, List<PlayerContextButton> buttons)
+		private void AddDefaultPlayerOptions(string playerName, string unityId, List<PlayerContextButton> buttons, PlayerContextSettings settings)
 		{
 			if (buttons == null) buttons = new List<PlayerContextButton>();
 			if (unityId == null) // bot
 			{
 				AddForBots(playerName, buttons);
-				return buttons;
+				return;
 			}
 
 			var relationship = FriendsService.Instance.GetRelationShipById(unityId);
-			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Open profile",
+			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_open_profile,
 				() => PlayerStatisticsPopupPresenter.Open(unityId).Forget()));
 
+			// Blocked
 			if (relationship is {Type: RelationshipType.Block})
 			{
-				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Unblock",
-					() => FriendsService.Instance.UnblockHandled(relationship).Forget()));
+				if (settings.ShowBlock)
+				{
+					buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.option_unblock,
+						() => FriendsService.Instance.UnblockHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
+				}
+
+				return;
 			}
-			else
+
+			if (relationship == null || relationship.Type == RelationshipType.FriendRequest && !relationship.IsOutgoingInvite())
 			{
-				if (relationship == null)
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
+					() => FriendsService.Instance.AddFriendHandled(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
+			}
+			else if (relationship.Type == RelationshipType.FriendRequest && relationship.IsOutgoingInvite())
+			{
+				if (settings.ShowRemoveFriend)
 				{
-					buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Send friend request",
-						() => FriendsService.Instance.AddFriendHandled(unityId).Forget()));
+					buttons.Add(new PlayerContextButton(
+						PlayerButtonContextStyle.Red,
+						ScriptLocalization.UITFriends.option_cancel_invite,
+						() => FriendsService.Instance.RemoveRelationshipHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()
+					));
 				}
-				else if (relationship.Type == RelationshipType.FriendRequest)
+				else
 				{
-					buttons.Add(PlayerContextButton.Create("Request sent").Disable());
+					buttons.Add(PlayerContextButton.Create(ScriptLocalization.UITFriends.option_request_sent).Disable());
 				}
-
-				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Block",
-					() => FriendsService.Instance.BlockHandled(unityId, false).Forget()));
+			}
+			else if (relationship.Type == RelationshipType.Friend && settings.ShowRemoveFriend)
+			{
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
+					() => FriendsService.Instance.RemoveRelationshipHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
 			}
 
-			return buttons;
+			if (settings.ShowBlock)
+			{
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
+					() => FriendsService.Instance.BlockHandled(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
+			}
+		}
+
+		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName, PlayerContextSettings settings = null)
+		{
+			if (settings == null) settings = new PlayerContextSettings();
+			var isLocalPlayerLeader = _services.FLLobbyService.CurrentPartyLobby?.IsLocalPlayerHost() ?? false;
+			var playerContextButtons = new List<PlayerContextButton>();
+
+			if (isLocalPlayerLeader && settings.ShowTeamOptions)
+			{
+				playerContextButtons.Add(new PlayerContextButton
+				{
+					Text = ScriptLocalization.UITSquads.option_promote,
+					ContextStyle = PlayerButtonContextStyle.Gold,
+					OnClick = UniTask.Action(async () => await _services.FLLobbyService.UpdatePartyHost(unityId))
+				});
+			}
+
+			AddDefaultPlayerOptions(playerName, unityId, playerContextButtons, settings);
+			if (isLocalPlayerLeader && settings.ShowTeamOptions)
+			{
+				playerContextButtons.Add(new PlayerContextButton
+					{
+						ContextStyle = PlayerButtonContextStyle.Red,
+						Text = ScriptLocalization.UITSquads.option_kick,
+						OnClick = UniTask.Action(async () => await _services.FLLobbyService.KickPlayerFromParty(unityId))
+					}
+				);
+			}
+
+			var displayName = playerName;
+			// TODO Add support for trophies
+			// var trophies = partyMember.GetPlayerTrophies();
+			// displayName += $"\n{trophies} <sprite name=\"TrophyIcon\">";
+			TooltipUtils.OpenPlayerContextOptions(element, root, displayName, playerContextButtons, TooltipPosition.Top);
 		}
 	}
 }

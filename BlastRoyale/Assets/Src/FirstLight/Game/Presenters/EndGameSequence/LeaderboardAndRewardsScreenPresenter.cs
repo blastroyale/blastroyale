@@ -329,10 +329,7 @@ namespace FirstLight.Game.Presenters
 				{
 					leaderboardEntryView.SetOptions((el) =>
 					{
-						TooltipUtils.OpenPlayerContextOptions(el,
-							Root,
-							playerEntry.GetPlayerName(),
-							_gameServices.GameSocialService.AddDefaultPlayerOptions(playerEntry.GetPlayerName(), playerEntry.UnityId));
+						_gameServices.GameSocialService.OpenPlayerOptions(el, Root, playerEntry.UnityId, playerEntry.GetPlayerName());
 					});
 				}
 

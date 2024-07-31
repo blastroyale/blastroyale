@@ -116,5 +116,10 @@ namespace FirstLight.Tests.EditorMode
 		{
 			throw new System.NotImplementedException();
 		}
+
+		public UniTask SetMatchPositionRequest(int teamID)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

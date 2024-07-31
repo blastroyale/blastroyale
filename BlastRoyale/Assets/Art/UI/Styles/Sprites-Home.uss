@@ -178,6 +178,7 @@
     --sprite-home__icon-instagram: url('/Assets/Art/UI/Sprites/Home/icon-instagram.png');
     --sprite-home__icon-jetpack: url('/Assets/Art/UI/Sprites/Home/icon-jetpack.png');
     --sprite-home__icon-leaderboards: url('/Assets/Art/UI/Sprites/Home/icon-leaderboards.png');
+    --sprite-home__icon-link: url('/Assets/Art/UI/Sprites/Home/icon-link.png');
     --sprite-home__icon-mapmarker: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker.png');
     --sprite-home__icon-mapmarker-small: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker-small.png');
     --sprite-home__icon-marketplace: url('/Assets/Art/UI/Sprites/Home/icon-marketplace.png');
@@ -1264,6 +1265,12 @@
     background-image: var(--sprite-home__icon-leaderboards);
     width: 128px;
     height: 85px;
+}
+
+.sprite-home__icon-link {
+    background-image: var(--sprite-home__icon-link);
+    width: 61px;
+    height: 34px;
 }
 
 .sprite-home__icon-mapmarker {

@@ -142,7 +142,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
 				var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
-				var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal);
+				var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal, false);
 
 				_spectatorsScrollView.Add(playerElement);
 

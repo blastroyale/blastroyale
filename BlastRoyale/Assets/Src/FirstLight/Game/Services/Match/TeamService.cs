@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Utils.UCSExtensions;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -46,9 +44,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// Checks if the entity is from the same team as the spectated player
 		/// </summary>
 		public bool IsSameTeamAsSpectator(EntityRef entity);
-
-		Dictionary<string, string> DistributeColors(Dictionary<string, string> teams);
-		Dictionary<string, string> AutomaticDistributeTeams(IEnumerable<string> select, uint teamSize);
 	}
 
 	/// <summary>
@@ -103,38 +98,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			var room = _roomService.CurrentRoom;
 			return room.GetPlayerProperties(player).TeamId.Value;
-		}
-
-		public Dictionary<string, string> AutomaticDistributeTeams(IEnumerable<string> players, uint teamSize)
-		{
-			var randomized = players.Randomize();
-
-			var playerTeam = new Dictionary<string, string>();
-			foreach (var player in randomized)
-			{
-				playerTeam[player + ""] = "t_" + player;
-			}
-
-			return TeamDistribution.Distribute(playerTeam, teamSize);
-		}
-
-		public Dictionary<string, string> DistributeColors(Dictionary<string, string> playerTeams)
-		{
-			var lastUsedColorByTeam = new Dictionary<string, byte>();
-			var colorByPlayer = new Dictionary<string, string>();
-			foreach (var (playerId, playerTeam) in playerTeams)
-			{
-				byte usedColor = 0;
-				if (lastUsedColorByTeam.TryGetValue(playerTeam, out var lastColor))
-				{
-					usedColor = (byte) (lastColor + 1);
-				}
-
-				lastUsedColorByTeam[playerTeam] = usedColor;
-				colorByPlayer[playerId] = usedColor.ToString();
-			}
-
-			return colorByPlayer;
 		}
 	}
 }

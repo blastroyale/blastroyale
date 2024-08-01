@@ -26,6 +26,7 @@ namespace FirstLight.Game.Data
 				MatchType = MatchType.Custom,
 				Mutators = Mutators,
 				MaxPlayersOverwrite = MaxPlayers,
+				HasBots = BotDifficulty > 0,
 				BotOverwriteDifficulty = BotDifficulty,
 				TeamSize = SquadSize,
 				WeaponsSelectionOverwrite = WeaponFilter.ToArray()

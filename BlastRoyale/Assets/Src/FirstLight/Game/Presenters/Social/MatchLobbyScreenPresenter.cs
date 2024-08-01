@@ -217,6 +217,12 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid StartMatch()
 		{
+			if (_matchSettingsView.MatchSettings.BotDifficulty <= 0 && _services.FLLobbyService.CurrentMatchLobby.Players.Count <= 1)
+			{
+				PopupPresenter.OpenGenericInfo(ScriptTerms.UITCustomGames.custom_game, ScriptLocalization.UITCustomGames.no_players_bots).Forget();
+				return;
+			}
+
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			var matchSettings = _matchSettingsView.MatchSettings;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;

@@ -29623,6 +29623,117 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITFriends/option_block
+      TermType: 0
+      Description: 
+      Languages:
+      - Block
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITFriends/option_unblock
+      TermType: 0
+      Description: 
+      Languages:
+      - Unblock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITFriends/option_send_request
+      TermType: 0
+      Description: 
+      Languages:
+      - Send friend request
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITFriends/option_request_sent
+      TermType: 0
+      Description: 
+      Languages:
+      - Request sent
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITFriends/option_cancel_invite
+      TermType: 0
+      Description: 
+      Languages:
+      - Cancel invite
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITFriends/option_open_profile
+      TermType: 0
+      Description: 
+      Languages:
+      - Open profile
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/option_kick
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick from team
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/option_promote
+      TermType: 0
+      Description: 
+      Languages:
+      - Promote to leader
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/no_players_bots
+      TermType: 0
+      Description: 
+      Languages:
+      - "Hey! Playing alone isn't fun!\nWait for other players to join your game
+        or invite them! \n\nYou can also allow bots to join your game as well!"
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/custom_game
+      TermType: 0
+      Description: 
+      Languages:
+      - Custom Game
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

@@ -2137,6 +2137,7 @@ namespace I2.Loc
 			public static string browse_games 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/browse_games"); } }
 			public static string create_game 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/create_game"); } }
 			public static string create_lobby 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/create_lobby"); } }
+			public static string custom_game 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/custom_game"); } }
 			public static string enter_room_code 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/enter_room_code"); } }
 			public static string filter_weapons 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/filter_weapons"); } }
 			public static string friends_playing 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/friends_playing"); } }
@@ -2173,6 +2174,7 @@ namespace I2.Loc
 			public static string name 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/name"); } }
 			public static string no_lobbies 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/no_lobbies"); } }
 			public static string no_matches 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/no_matches"); } }
+			public static string no_players_bots 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/no_players_bots"); } }
 			public static string players 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/players"); } }
 			public static string private_room 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/private_room"); } }
 			public static string region 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/region"); } }
@@ -4894,6 +4896,7 @@ namespace I2.Loc
 		    public const string browse_games = "UITCustomGames/browse_games";
 		    public const string create_game = "UITCustomGames/create_game";
 		    public const string create_lobby = "UITCustomGames/create_lobby";
+			public const string custom_game = "UITCustomGames/custom_game";
 		    public const string enter_room_code = "UITCustomGames/enter_room_code";
 		    public const string filter_weapons = "UITCustomGames/filter_weapons";
 		    public const string friends_playing = "UITCustomGames/friends_playing";
@@ -4930,6 +4933,7 @@ namespace I2.Loc
 		    public const string name = "UITCustomGames/name";
 		    public const string no_lobbies = "UITCustomGames/no_lobbies";
 		    public const string no_matches = "UITCustomGames/no_matches";
+			public const string no_players_bots = "UITCustomGames/no_players_bots";
 		    public const string players = "UITCustomGames/players";
 		    public const string private_room = "UITCustomGames/private_room";
 		    public const string region = "UITCustomGames/region";

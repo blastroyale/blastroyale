@@ -282,38 +282,31 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var buttons = new List<PlayerContextButton>
+			if (player.IsLocal())
 			{
-				new (PlayerButtonContextStyle.Normal, "Open Profile", () =>
-				{
-					_services.UIService.OpenScreen<PlayerStatisticsPopupPresenter>(new PlayerStatisticsPopupPresenter.StateData
-					{
-						UnityID = player.Id
-					}).Forget();
-				})
-			};
-
-			if (_services.GameSocialService.CanAddFriend(player))
-			{
-				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Send friend request",
-					() => FriendsService.Instance.AddFriendHandled(player.Id).Forget()));
+				 source.OpenTooltip(Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+				 return;
 			}
+			var buttons = new List<PlayerContextButton>();
 
 			if (!player.IsReady() && !player.IsLocal())
 			{
-				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Swap Places",
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITCustomGames.option_swap,
 					() => _services.FLLobbyService.SetMatchPositionRequest(index).Forget()));
 			}
 
 			if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
 			{
-				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, "Promote to room owner",
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Gold, ScriptLocalization.UITCustomGames.option_promote,
 					() => PromotePlayerToHost(player.Id).Forget()));
-				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, "Kick",
+				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITCustomGames.option_kick,
 					() => KickPlayer(player.Id).Forget()));
 			}
 
-			TooltipUtils.OpenPlayerContextOptions(source, Root, player.GetPlayerName(), buttons);
+			_services.GameSocialService.OpenPlayerOptions(source, Root, player.Id, player.GetPlayerName(), new PlayerContextSettings()
+			{
+				ExtraButtons = buttons,
+			});
 		}
 
 		private async UniTaskVoid KickPlayer(string playerID)

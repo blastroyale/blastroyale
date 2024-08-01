@@ -54,6 +54,7 @@ namespace FirstLight.Game.Services
 		public bool ShowRemoveFriend = false;
 		public bool ShowBlock = false;
 		public Action OnRelationShipChange;
+		public IEnumerable<PlayerContextButton> ExtraButtons;
 	}
 
 	public interface IGameSocialService
@@ -73,14 +74,14 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		private HashSet<string> _fakeBotRequests = new ();
 		private FriendActivity _playerActivity = new ();
-		
+
 		public GameSocialService(IGameServices services)
 		{
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += DecideBasedOnScreen;
 			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += DecideBasedOnScreen;
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += _ => OnJoinedParty();
 			services.MatchmakingService.OnGameMatched += _ => CancelAllInvites();
-			services.MatchmakingService.OnMatchmakingJoined += _ => 
+			services.MatchmakingService.OnMatchmakingJoined += _ =>
 			{
 				CancelAllInvites();
 				SetCurrentActivity(GameActivities.In_Matchmaking);
@@ -103,9 +104,10 @@ namespace FirstLight.Game.Services
 			{
 				mm.LeaveMatchmaking();
 			}
+
 			DecideBasedOnScreen();
 		}
-		
+
 		private void CancelAllInvites()
 		{
 			if (_services.UIService.IsScreenOpen<InvitePopupPresenter>())
@@ -207,7 +209,7 @@ namespace FirstLight.Game.Services
 				_playerActivity.AvatarUrl = MainInstaller.ResolveData().AppDataProvider.AvatarUrl;
 				_playerActivity.TeamId = _services.FLLobbyService.CurrentPartyLobby?.Id;
 				FLog.Verbose("Setting social activity as " + JsonConvert.SerializeObject(_playerActivity));
-				FriendsService.Instance.SetPresenceAsync(Availability.Online,_playerActivity ).AsUniTask().Forget();
+				FriendsService.Instance.SetPresenceAsync(Availability.Online, _playerActivity).AsUniTask().Forget();
 			});
 		}
 
@@ -239,7 +241,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private void AddDefaultPlayerOptions(string playerName, string unityId, List<PlayerContextButton> buttons, PlayerContextSettings settings)
+		private void AddOpenProfileAndFriendsOptions(string playerName, string unityId, List<PlayerContextButton> buttons, PlayerContextSettings settings)
 		{
 			if (buttons == null) buttons = new List<PlayerContextButton>();
 			if (unityId == null) // bot
@@ -313,7 +315,7 @@ namespace FirstLight.Game.Services
 				});
 			}
 
-			AddDefaultPlayerOptions(playerName, unityId, playerContextButtons, settings);
+			AddOpenProfileAndFriendsOptions(playerName, unityId, playerContextButtons, settings);
 			if (isLocalPlayerLeader && settings.ShowTeamOptions)
 			{
 				playerContextButtons.Add(new PlayerContextButton
@@ -323,6 +325,11 @@ namespace FirstLight.Game.Services
 						OnClick = UniTask.Action(async () => await _services.FLLobbyService.KickPlayerFromParty(unityId))
 					}
 				);
+			}
+
+			if (settings.ExtraButtons != null)
+			{
+				playerContextButtons.AddRange(settings.ExtraButtons);
 			}
 
 			var displayName = playerName;

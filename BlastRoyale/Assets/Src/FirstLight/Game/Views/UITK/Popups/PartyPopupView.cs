@@ -160,8 +160,11 @@ namespace FirstLight.Game.Views.UITK.Popups
 			var own = new FriendListElement();
 			own.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers());
 			own.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl);
+			own.SetElementClickAction(el =>
+			{
+				el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+			});
 			_yourTeamContainer.Add(own);
-
 			_friendsOnlineList.itemsSource = _friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToList();
 			_friendsHeader.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
 		}

@@ -108,12 +108,11 @@ namespace FirstLight.Game.Presenters.Store
 			SetupCreatorsCodeSupport();
 		}
 
-		private LocalizedButton CreateCategoryButton(string categoryName, VisualElement categoryElement)
+		private ButtonOutlined CreateCategoryButton(string categoryName, VisualElement categoryElement)
 		{
-			var categoryButton = new LocalizedButton(action: () => SelectCategory(categoryElement))
+			var categoryButton = new ButtonOutlined(categoryName, () => SelectCategory(categoryElement))
 			{
 				name = "CategoryButton",
-				text = categoryName
 			};
 			categoryButton.AddToClassList(USS_CATEGORY_BUTTON);
 			return categoryButton;

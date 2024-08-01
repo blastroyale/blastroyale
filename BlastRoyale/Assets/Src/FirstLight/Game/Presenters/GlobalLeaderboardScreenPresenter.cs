@@ -63,7 +63,7 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private GameLeaderboard _viewingBoard;
 		private int _viewingSeason;
-		private Dictionary<GameLeaderboard, LocalizedButton> _buttons = new ();
+		private Dictionary<GameLeaderboard, ButtonOutlined> _buttons = new ();
 		private ListView _leaderboardListView;
 		private VisualElement _localPlayerVisualElement;
 		private VisualElement _viewingIndicator;
@@ -139,10 +139,7 @@ namespace FirstLight.Game.Presenters
 		{
 			foreach (var leaderboard in _services.LeaderboardService.Leaderboards)
 			{
-				var button = new LocalizedButton(action: () => DisplayLeaderboard(leaderboard))
-				{
-					text = leaderboard.Name
-				};
+				var button = new ButtonOutlined(leaderboard.Name, () => DisplayLeaderboard(leaderboard));
 				button.AddToClassList("button-long");
 				button.AddToClassList("button-long--large-font");
 				button.AddToClassList(UssLeaderboardButton);

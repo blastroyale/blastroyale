@@ -99,10 +99,10 @@ namespace FirstLight.Game.UIElements
 				background.Add(_acceptDeclineContainer = new VisualElement {name = "accept-decline-container"});
 				_acceptDeclineContainer.AddToClassList(USS_ACCEPT_DECLINE_CONTAINER);
 				{
-					_acceptDeclineContainer.Add(_acceptButton = new LocalizedButton(ScriptTerms.UITFriends.accept) {LocalizationKey ="accept-button"});
+					_acceptDeclineContainer.Add(_acceptButton = new LocalizedButton(ScriptTerms.UITFriends.accept) {name = "accept-button"});
 					_acceptButton.AddToClassList("button-long");
 					_acceptButton.AddToClassList("button-long--green");
-					_acceptDeclineContainer.Add(_declineButton = new LocalizedButton(ScriptTerms.UITFriends.decline) {LocalizationKey = "decline-button"});
+					_acceptDeclineContainer.Add(_declineButton = new LocalizedButton(ScriptTerms.UITFriends.decline) {name = "decline-button"});
 					_declineButton.AddToClassList("button-long");
 					_declineButton.AddToClassList("button-long--red");
 				}
@@ -153,10 +153,11 @@ namespace FirstLight.Game.UIElements
 
 			if (_cacheHack.TryGetValue(unityId, out var avatarUrl))
 			{
-				if(avatarUrl != null) 
+				if (avatarUrl != null)
 				{
 					services.RemoteTextureService.SetTexture(_avatar, avatarUrl);
 				}
+
 				return;
 			}
 
@@ -174,10 +175,11 @@ namespace FirstLight.Game.UIElements
 					if (this.panel == null || this.parent == null) return;
 					var profile = await services.ProfileService.GetPlayerPublicProfile(playfabid);
 					_cacheHack[unityId] = profile.AvatarUrl;
-					if (_cacheHack[unityId]  == null)
+					if (_cacheHack[unityId] == null)
 					{
 						return;
 					}
+
 					services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
 				});
 			}

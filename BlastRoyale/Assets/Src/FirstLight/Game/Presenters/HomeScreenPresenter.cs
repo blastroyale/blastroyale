@@ -407,7 +407,7 @@ namespace FirstLight.Game.Presenters
 			_playButton.SetEnabled(buttonEnabled);
 			_playButton.RemoveModifiers();
 			if (!string.IsNullOrEmpty(buttonClass)) _playButton.AddToClassList(buttonClass);
-			_playButton.Localize(translationKey);
+			_playButton.LocalizationKey = translationKey;
 		}
 
 		public void ShowMatchmaking(bool show)

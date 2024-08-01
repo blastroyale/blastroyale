@@ -10,7 +10,7 @@
     -unity-font-definition: var(--font-italic);
 }
 
-.localized-button {
+.button-outlined {
     border-radius: 0;
     -unity-text-align: middle-center;
     flex: 0 0 auto;

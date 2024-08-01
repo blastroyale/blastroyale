@@ -156,7 +156,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_eventTimer.SetTimer(() => _entryInfo.Duration.GetEndsAtDateTime(), "ENDS IN ");
 			_eventTitle.text = _entryInfo.Entry.Visual.TitleTranslationKey.GetText();
 			_summary.text = _entryInfo.Entry.Visual.LongDescriptionTranslationKey.GetText();
-			_actionButton.Localize("UITGameModeSelection/select_event");
+			_actionButton.LocalizationKey = ScriptTerms.UITGameModeSelection.select_event;
 			_actionButton.AddToClassList("button-long--green");
 			CheckCustomImage();
 			_rewardList.Clear();

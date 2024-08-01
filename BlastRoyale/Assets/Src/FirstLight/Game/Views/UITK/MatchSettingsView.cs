@@ -129,7 +129,7 @@ namespace FirstLight.Game.Views.UITK
 		public void SetMatchSettings(CustomMatchSettings settings, bool editable, bool showSpectators)
 		{
 			MatchSettings = settings;
-			
+
 			// If we make the container not enabled scroll view will not work
 			foreach (var visualElement in _gameInfoContainer.Children())
 			{
@@ -230,7 +230,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 
 			_mainActionButton.SetDisplay(true);
-			_mainActionButton.Localize(labelKey);
+			_mainActionButton.LocalizationKey = labelKey;
 			MainActionClicked = action;
 		}
 

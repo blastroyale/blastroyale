@@ -1,5 +1,6 @@
 using System;
-using UnityEngine.SocialPlatforms;
+using I2.Loc;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -7,67 +8,54 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// A button that has it's text set from a I2 Localization key.
 	/// </summary>
-	public class LocalizedButton : LocalizedLabel
+	public sealed class LocalizedButton : ButtonOutlined
 	{
-		private Clickable m_Clickable;
+		private string _localizationKey;
 
-		public Clickable clickable
+		public string LocalizationKey
 		{
-			get => m_Clickable;
+			get => _localizationKey;
 			set
 			{
-				if (m_Clickable != null && m_Clickable.target == this)
-					this.RemoveManipulator(m_Clickable);
-				m_Clickable = value;
-				if (m_Clickable == null)
-					return;
-				this.AddManipulator(m_Clickable);
-			}
-		}
+				_localizationKey = value;
+				if (string.IsNullOrWhiteSpace(_localizationKey)) return;
+				if (!LocalizationManager.TryGetTranslation(_localizationKey, out var translation))
+				{
+					translation = _localizationKey;
+					Debug.LogWarning($"Could not find translation for key {_localizationKey} in element " + name);
+				}
 
-		public event Action clicked
-		{
-			add
-			{
-				if (m_Clickable == null)
-					clickable = new Clickable(value);
-				else
-					m_Clickable.clicked += value;
-			}
-			remove
-			{
-				if (m_Clickable == null)
-					return;
-				m_Clickable.clicked -= value;
+				text = translation;
 			}
 		}
 
 		[Obsolete("Do not use default constructor")]
 		public LocalizedButton()
 		{
-			AddToClassList("localized-button");
-			clickable = new Clickable((Action) null);
-			focusable = true;
-			tabIndex = 0;
 		}
 
-		public LocalizedButton(string localizationKey = null, Action action = null) : base(localizationKey)
+		public LocalizedButton(string localizationKey = null, Action action = null) : base(localizationKey, action)
 		{
-			AddToClassList("localized-button");
-			clickable = new Clickable(action);
-			focusable = true;
-			tabIndex = 0;
+			LocalizationKey = localizationKey;
 		}
 
 		public new class UxmlFactory : UxmlFactory<LocalizedButton, UxmlTraits>
 		{
 		}
 
-		public new class UxmlTraits : LabelOutlined.UxmlTraits
+		public new class UxmlTraits : ButtonOutlined.UxmlTraits
 		{
+			UxmlStringAttributeDescription _localizationKeyAttribute = new ()
+			{
+				name = "localization-key",
+				use = UxmlAttributeDescription.Use.Optional
+			};
+
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
+				var labelOutlined = (LocalizedButton) ve;
+				labelOutlined.LocalizationKey = _localizationKeyAttribute.GetValueFromBag(bag, cc);
 			}
 		}
 	}

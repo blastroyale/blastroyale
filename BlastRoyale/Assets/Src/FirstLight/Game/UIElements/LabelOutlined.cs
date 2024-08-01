@@ -13,28 +13,10 @@ namespace FirstLight.Game.UIElements
 	{
 		private Label _internalLabel;
 
-		protected string _localizationKey;
-
 		public override VisualElement contentContainer => outlineHack ? _internalLabel : this;
 
 		protected bool outlineHack { get; set; }
 
-		public string LocalizationKey
-		{
-			get => _localizationKey;
-			set
-			{
-				if (string.IsNullOrWhiteSpace(value)) return;
-				_localizationKey = value;
-				if (!LocalizationManager.TryGetTranslation(_localizationKey, out var translation))
-				{
-					translation = _localizationKey;
-					Debug.LogWarning($"Could not find translation for key {_localizationKey} in element " + name);
-				}
-
-				text = translation;
-			}
-		}
 #if UNITY_EDITOR
 		private IVisualElementScheduledItem _scheduledEditorUpdate;
 #endif
@@ -70,12 +52,15 @@ namespace FirstLight.Game.UIElements
 				});
 				Sync();
 
-				RegisterCallback<GeometryChangedEvent>((ev) =>
+				_internalLabel.RegisterCallback<AttachToPanelEvent>((_) =>
+				{
+					Sync();
+				});
+				RegisterCallback<GeometryChangedEvent>((_) =>
 				{
 					Sync();
 				});
 #if UNITY_EDITOR
-
 				_scheduledEditorUpdate?.Pause();
 				_scheduledEditorUpdate = schedule.Execute(() =>
 				{
@@ -140,14 +125,6 @@ namespace FirstLight.Game.UIElements
 			Init();
 		}
 
-		/// <summary>
-		/// Sets the text to the localized string from <paramref name="key"/>.
-		/// </summary>
-		public void Localize(string key)
-		{
-			LocalizationKey = key;
-		}
-
 		private void Sync()
 		{
 			_internalLabel.text = text;
@@ -169,12 +146,6 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlTraits : TextElement.UxmlTraits
 		{
-			UxmlStringAttributeDescription _localizationKeyAttribute = new ()
-			{
-				name = "localization-key",
-				use = UxmlAttributeDescription.Use.Optional
-			};
-
 			UxmlBoolAttributeDescription _outlineHack = new ()
 			{
 				name = "outline-hack",
@@ -187,7 +158,6 @@ namespace FirstLight.Game.UIElements
 				base.Init(ve, bag, cc);
 				var labelOutlined = (LabelOutlined) ve;
 				labelOutlined.outlineHack = _outlineHack.GetValueFromBag(bag, cc);
-				labelOutlined.Localize(_localizationKeyAttribute.GetValueFromBag(bag, cc));
 				labelOutlined.Init();
 			}
 		}

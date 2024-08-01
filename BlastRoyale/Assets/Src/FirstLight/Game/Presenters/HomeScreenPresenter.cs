@@ -24,6 +24,7 @@ using PlayFab.ClientModels;
 using Quantum;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
+using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -71,7 +72,9 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _friendsNotification;
 		private VisualElement _newsNotification;
 		private VisualElement _newsNotificationShine;
+		private VisualElement _onlineFriendsNotification;
 
+		private Label _onlineFriendLabel;
 		private Label _outOfSyncWarningLabel;
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
@@ -109,12 +112,14 @@ namespace FirstLight.Game.Presenters
 
 			_playerNameLabel = Root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = Root.Q<Label>("TrophiesAmount").Required();
+			_onlineFriendLabel = Root.Q<Label>("OnlineFriendsCount").Required();
 
 			_avatar = Root.Q<PlayerAvatarElement>("Avatar").Required();
 
 			_collectionNotification = Root.Q<VisualElement>("CollectionNotification").Required();
 			_settingsNotification = Root.Q<VisualElement>("SettingsNotification").Required();
 			_friendsNotification = Root.Q<VisualElement>("FriendsNotification").Required();
+			_onlineFriendsNotification = Root.Q<VisualElement>("OnlineFriendsNotification").Required();
 			_newsNotification = Root.Q<VisualElement>("NewsNotification").Required();
 			_newsNotificationShine = Root.Q("NewsShine").Required();
 			_newsNotificationShine.AddRotatingEffect(40, 10);
@@ -200,7 +205,7 @@ namespace FirstLight.Game.Presenters
 			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
 			_friendsNotification.SetDisplay(FriendsService.Instance.IncomingFriendRequests.ToList().Count > 0);
-			
+
 			SetHasNewsNotification(false);
 			_services.NewsService.HasNotSeenNews().ContinueWith(SetHasNewsNotification);
 #if DEVELOPMENT_BUILD && !UNITY_EDITOR
@@ -209,7 +214,8 @@ namespace FirstLight.Game.Presenters
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
 			_betaLabel.SetDisplay(RemoteConfigs.Instance.ShowBetaLabel);
-
+			
+			RefreshOnlineFriends();
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
 
@@ -221,7 +227,8 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
-
+			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
+			
 			UpdatePlayButton();
 
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
@@ -229,11 +236,30 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
+		private void RefreshOnlineFriends()
+		{
+			var onlineFriendsCount = FriendsService.Instance.Friends.Count(f => f.IsOnline());
+			var hasPlayerOnline = onlineFriendsCount > 0;
+			
+			_onlineFriendsNotification.SetDisplay(hasPlayerOnline);
+			if (hasPlayerOnline)
+			{
+				_onlineFriendLabel.text = onlineFriendsCount.ToString();	
+			}
+
+			
+		}
+
 		private void OnPartyLobbyUpdate(ILobbyChanges m)
 		{
 			UpdatePlayButton();
 		}
 
+		private void OnPresenceUpdated(IPresenceUpdatedEvent e)
+		{
+			RefreshOnlineFriends();
+		}
+		
 		protected override UniTask OnScreenClose()
 		{
 			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
@@ -243,6 +269,7 @@ namespace FirstLight.Game.Presenters
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnPartyLobbyUpdate;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
+			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
 
 			return base.OnScreenClose();
 		}

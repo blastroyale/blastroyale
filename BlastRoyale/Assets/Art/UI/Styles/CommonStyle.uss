@@ -304,6 +304,20 @@
     height: 45px;
 }
 
+.circle-background {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    justify-content: center;
+    padding: 2px;
+    font-size: 28px;
+}
+
+.circle-background--green {
+    background-color: rgb(121, 237, 56);
+    color: rgb(43, 80, 21);
+}
+
 .button-long {
     background-image: var(--sprite-home__button-long-purple);
     width: 306px;

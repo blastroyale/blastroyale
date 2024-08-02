@@ -354,7 +354,7 @@ namespace FirstLight.Game.Services
 
 			try
 			{
-				if (IsPlayerHost(CurrentPartyLobby))
+				if (IsLocalPlayerHost(CurrentPartyLobby))
 				{
 					// Delete the lobby if the player is the host
 					FLog.Info($"Deleting party: {CurrentPartyLobby.Id}");
@@ -400,9 +400,9 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		public UniTask TogglePartyReady()
+		public async UniTask TogglePartyReady()
 		{
-			return ToggleReady(CurrentPartyLobby);
+			CurrentPartyLobby = await ToggleReady(CurrentPartyLobby);
 		}
 
 		public async UniTask<bool> UpdatePartyMatchmakingTicket(JoinedMatchmaking ticket)
@@ -595,7 +595,7 @@ namespace FirstLight.Game.Services
 			_leaving = true;
 			try
 			{
-				if (IsPlayerHost(CurrentMatchLobby))
+				if (IsLocalPlayerHost(CurrentMatchLobby))
 				{
 					// Delete the lobby if the player is the host
 					FLog.Info($"Deleting match lobby: {CurrentMatchLobby.Id}");
@@ -688,9 +688,9 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		public UniTask ToggleMatchReady()
+		public async UniTask ToggleMatchReady()
 		{
-			return ToggleReady(CurrentMatchLobby);
+			CurrentMatchLobby = await ToggleReady(CurrentMatchLobby);
 		}
 
 		public async UniTask<bool> UpdateMatchHost(string playerID)
@@ -814,7 +814,7 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		public async UniTask ToggleReady(Lobby lobby)
+		public async UniTask<Lobby> ToggleReady(Lobby lobby)
 		{
 			Assert.IsNotNull(lobby, "Trying to toggle ready status but the player is not in a lobby!");
 
@@ -833,16 +833,15 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Setting lobby ready status to: {!currentStatus}");
-				CurrentPartyLobby =
-					await LobbyService.Instance.UpdatePlayerAsync(lobby.Id, AuthenticationService.Instance.PlayerId, options);
-
-				FLog.Info("Lobby status set successfully!");
+				return await LobbyService.Instance.UpdatePlayerAsync(lobby.Id, AuthenticationService.Instance.PlayerId, options);
 			}
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error setting ready status!", e);
 				_notificationService.QueueNotification($"Could not set ready status, {e.ParseError()}");
 			}
+
+			return null;
 		}
 
 		private async UniTask<Lobby> UpdateHost(string playerID, Lobby lobby, string type)
@@ -879,13 +878,13 @@ namespace FirstLight.Game.Services
 				await UniTask.WaitForSeconds(TICK_DELAY);
 
 				// Lobbies have to be sent a heartbeat request by the host at least every 30 seconds
-				if (CurrentPartyLobby != null && IsPlayerHost(CurrentPartyLobby))
+				if (CurrentPartyLobby != null && IsLocalPlayerHost(CurrentPartyLobby))
 				{
 					FLog.Verbose($"Sending party lobby heartbeat to {CurrentPartyLobby.Id}");
 					LobbyService.Instance.SendHeartbeatPingAsync(CurrentPartyLobby.Id).AsUniTask().Forget();
 				}
 
-				if (CurrentMatchLobby != null && IsPlayerHost(CurrentMatchLobby))
+				if (CurrentMatchLobby != null && IsLocalPlayerHost(CurrentMatchLobby))
 				{
 					FLog.Verbose($"Sending game lobby heartbeat to {CurrentMatchLobby.Id}");
 					LobbyService.Instance.SendHeartbeatPingAsync(CurrentMatchLobby.Id).AsUniTask().Forget();
@@ -917,7 +916,7 @@ namespace FirstLight.Game.Services
 			);
 		}
 
-		private static bool IsPlayerHost(Lobby lobby)
+		private static bool IsLocalPlayerHost(Lobby lobby)
 		{
 			return lobby.HostId == AuthenticationService.Instance.PlayerId;
 		}

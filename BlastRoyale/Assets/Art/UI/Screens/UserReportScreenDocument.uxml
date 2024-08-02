@@ -13,7 +13,7 @@
                     <ui:Label text="Screenshot" class="screenshot-label" />
                     <ui:VisualElement name="Screenshot" class="screenshot" />
                     <ui:ProgressBar value="0.5" title="Sending..." high-value="1" name="ProgressBar" class="unity-progress-bar" />
-                    <ui:Button text="SEND" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SendButton" class="send-button" />
+                    <FirstLight.Game.UIElements.ButtonOutlined text="SEND" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SendButton" class="send-button" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="ExitButton" class="exit-button">

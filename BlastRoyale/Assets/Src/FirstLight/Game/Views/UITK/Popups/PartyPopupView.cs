@@ -35,6 +35,8 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("FriendsOnline")] private Label _friendsHeader;
 		[Q("YourTeamContainer")] private VisualElement _yourTeamContainer;
 		[Q("FriendsOnlineList")] private ListView _friendsOnlineList;
+		[Q("FriendsContainer")] private VisualElement _friendsContainer;
+		[Q("NoFriendsLabel")] private VisualElement _noFriendsLabel;
 
 		[Q("CopyCodeButton")] private LocalizedButton _copyCodeButton;
 
@@ -182,6 +184,8 @@ namespace FirstLight.Game.Views.UITK.Popups
 				_yourTeamHeader.Add(new VisualElement().AddClass("gap-hack"));
 			}
 
+			_noFriendsLabel.SetDisplay(friends.Count == 0);
+			_friendsContainer.SetDisplay(friends.Count > 0);
 			_friendsOnlineList.itemsSource = _friends = friends.Values.ToList();
 			_friendsHeader.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
 		}

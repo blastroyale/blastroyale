@@ -139,6 +139,6 @@
 
 .sidebar {
     width: 441px;
-    padding-top: 65px;
+    padding-top: 49px;
     align-items: center;
 }

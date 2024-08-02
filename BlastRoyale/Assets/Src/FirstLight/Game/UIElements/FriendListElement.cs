@@ -27,6 +27,8 @@ namespace FirstLight.Game.UIElements
 		private static readonly BatchQueue _batchQueue = new ();
 
 		private const string USS_BLOCK = "friend-list-element";
+		private const string USS_LOCAL_MODIFIER = USS_BLOCK + "--local";
+		private const string USS_CROWN = USS_BLOCK + "__crown";
 		private const string USS_PLAYER_BAR_CONTAINER = USS_BLOCK + "__player-bar-container";
 		private const string USS_AVATAR = USS_BLOCK + "__avatar";
 		private const string USS_ONLINE_INDICATOR = USS_BLOCK + "__online-indicator";
@@ -38,9 +40,11 @@ namespace FirstLight.Game.UIElements
 		private const string USS_MORE_ACTIONS_BUTTON = USS_BLOCK + "__more-actions-button";
 		private const string USS_ACCEPT_DECLINE_CONTAINER = USS_BLOCK + "__accept-decline-container";
 		private const string USS_BACKGROUND = USS_BLOCK + "__background";
+		private const string USS_BACKGROUND_MASK = USS_BLOCK + "__background-mask";
 		private const string USS_BACKGROUND_PATTERN = USS_BLOCK + "__background-pattern";
 
 		private readonly VisualElement _avatar;
+		private readonly VisualElement _crown;
 		private readonly VisualElement _onlineIndicator;
 		private readonly Label _nameAndTrophiesLabel;
 		private readonly Label _statusLabel;
@@ -67,12 +71,17 @@ namespace FirstLight.Game.UIElements
 			Add(background);
 			background.AddToClassList(USS_BACKGROUND);
 			{
-				var backgroundPattern = new VisualElement {name = "background-pattern"};
-				background.Add(backgroundPattern);
-				backgroundPattern.AddToClassList(USS_BACKGROUND_PATTERN);
-
+				background.Add(_crown = new VisualElement() {name = "crown"}.AddClass(USS_CROWN).SetDisplay(false));
+				var backgroundMask = new VisualElement() {name = "background-mask"}.AddClass(USS_BACKGROUND_MASK);
+				background.Add(backgroundMask);
+				{
+					var backgroundPattern = new VisualElement {name = "background-pattern"};
+					backgroundPattern.AddToClassList(USS_BACKGROUND_PATTERN);
+					backgroundMask.Add(backgroundPattern);
+				}
 				var playerBarContainer = new VisualElement {name = "player-bar-container"};
 				background.Add(playerBarContainer);
+
 				playerBarContainer.AddToClassList(USS_PLAYER_BAR_CONTAINER);
 				{
 					playerBarContainer.Add(_avatar = new VisualElement {name = "avatar"});
@@ -82,7 +91,7 @@ namespace FirstLight.Game.UIElements
 						_onlineIndicator.AddToClassList(USS_ONLINE_INDICATOR);
 					}
 
-					playerBarContainer.Add(_nameAndTrophiesLabel = new LabelOutlined("PLAYER NAME") {name = "name-and-trophies"});
+					playerBarContainer.Add(_nameAndTrophiesLabel = new LabelOutlined("Longplayername1244") {name = "name-and-trophies"});
 					_nameAndTrophiesLabel.AddToClassList(USS_NAME_AND_TROPHIES);
 
 					playerBarContainer.Add(_statusLabel = new LabelOutlined("In Main Menu") {name = "activity"});
@@ -119,6 +128,17 @@ namespace FirstLight.Game.UIElements
 		{
 			SetPlayerName(partyPlayer.GetPlayerName());
 			SetAvatarHack(partyPlayer.Id, null).Forget();
+			return this;
+		}
+
+		public FriendListElement SetLocal()
+		{
+			return this.AddClass(USS_LOCAL_MODIFIER);
+		}
+
+		public FriendListElement AddCrown()
+		{
+			_crown.SetDisplay(true);
 			return this;
 		}
 

@@ -20,6 +20,7 @@
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
+                <ui:VisualElement name="GapHack" class="gap-hack"/>
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="FRIENDS ONLINE (0)" name="FriendsOnline" class="category-title" />
             <ui:ListView name="FriendsOnlineList" virtualization-method="DynamicHeight" class="container-online-friends" />

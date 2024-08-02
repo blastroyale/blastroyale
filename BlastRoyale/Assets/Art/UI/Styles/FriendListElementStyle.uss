@@ -5,15 +5,37 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .friend-list-element__background {
     background-image: var(--sprite-home__background-friends-player);
-    overflow: hidden;
+    -unity-background-image-tint-color: #302c58;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-right: 24px;
     padding-left: 24px;
+    justify-content: space-around;
+}
+
+.friend-list-element__crown {
+    position: absolute;
+    width: 56px;
+    height: 46px;
+    background-image: var(--sprite-home__icon-crown-2);
+    right: -7px;
+    top: -24px;
+}
+
+.friend-list-element__background-mask {
+    overflow: hidden;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 4px;
+    bottom: 6px;
+    opacity: 0.5;
+    border-radius: 18px;
 }
 
 .friend-list-element__background-pattern {
@@ -48,7 +70,7 @@
     text-shadow: 3px 4px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    overflow: hidden;
+    overflow: visible;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
     padding-top: 0;

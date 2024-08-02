@@ -137,7 +137,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 			_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, 4);
 			_yourTeamContainer.Clear();
-
+			var friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToDictionary(r => r.Member.Id, r => r);
 			if (inParty)
 			{
 				_teamCodeLabel.text = _services.FLLobbyService.CurrentPartyLobby.LobbyCode;
@@ -145,6 +145,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 				foreach (var partyMember in partyLobby.Players!)
 				{
 					if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
+					friends.Remove(partyMember.Id);
 					var e = new FriendListElement().SetFromParty(partyMember).SetElementClickAction((el) =>
 					{
 						_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
@@ -152,20 +153,36 @@ namespace FirstLight.Game.Views.UITK.Popups
 							ShowTeamOptions = true
 						});
 					});
+					if (partyLobby.HostId == partyMember.Id)
+					{
+						e.AddCrown();
+					}
+
 					_yourTeamContainer.Add(e);
 				}
 			}
 
 			// We always show the local player
-			var own = new FriendListElement();
-			own.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers());
-			own.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl);
-			own.SetElementClickAction(el =>
+			var own = new FriendListElement()
+				.SetLocal()
+				.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
+				.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl)
+				.SetElementClickAction(el =>
+				{
+					el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+				});
+			if (!inParty || partyLobby.HostId == AuthenticationService.Instance.PlayerId)
 			{
-				el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
-			});
+				own.AddCrown();
+			}
+
 			_yourTeamContainer.Add(own);
-			_friendsOnlineList.itemsSource = _friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToList();
+			if (inParty && partyLobby.Players.Count > 3)
+			{
+				_yourTeamHeader.Add(new VisualElement().AddClass("gap-hack"));
+			}
+
+			_friendsOnlineList.itemsSource = _friends = friends.Values.ToList();
 			_friendsHeader.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
 		}
 

@@ -415,10 +415,11 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Sets the Display style property of an element.
 		/// </summary>
-		public static void SetDisplay(this VisualElement element, bool active)
+		public static VisualElement SetDisplay(this VisualElement element, bool active)
 		{
 			// Enabling the class means that the element will become hidden
 			element.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
+			return element;
 		}
 
 		/// <summary>

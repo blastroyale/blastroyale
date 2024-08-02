@@ -71,7 +71,7 @@ namespace FirstLight.Game.Utils
 		{
 			return element.worldBound.Overlaps(root.worldBound);
 		}
-		
+
 		/// <summary>
 		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
 		/// TODO: There has to be a better way to do this, without using the camera
@@ -326,6 +326,12 @@ namespace FirstLight.Game.Utils
 			};
 			te.SelectAll();
 			te.Copy();
+		}
+
+		public static T AddClass<T>(this T visualElement, string @class) where T : VisualElement
+		{
+			visualElement.AddToClassList(@class);
+			return visualElement;
 		}
 	}
 }

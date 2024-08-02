@@ -7,24 +7,34 @@
     -unity-text-outline: black 4px;
 }
 
-.main-container {
+.gap-hack {
+    height: 128px;
     flex-grow: 1;
+}
+
+.main-container {
+    flex-grow: 0;
+    flex-shrink: 0;
     margin-left: 39px;
+    width: 1232px;
 }
 
 .container-your-team {
-    border-radius: 30px;
-    background-color: rgb(22, 20, 38);
-    min-height: 162px;
-    max-height: 340px;
-    padding: 28px;
+    padding: 21px;
+    padding-left: 28px;
+    padding-right: 28px;
+    border-radius: 18px;
+    flex-shrink: 1;
+    flex-grow: 0;
+    background-color: #40A91C;
     flex-direction: row;
     flex-wrap: wrap-reverse;
-    margin-bottom: 27px;
+    justify-content: flex-start;
+    margin-bottom: 20px;
 }
 
 .container-online-friends {
-    border-radius: 30px;
+    border-radius: 18px;
     padding: 28px;
     background-color: rgb(22, 20, 38);
     flex-grow: 1;
@@ -37,7 +47,7 @@
 }
 
 .party-joined .container-your-team {
-    background-color: rgb(64, 169, 28);
+    background-color: #40A91C;
 }
 
 .party-joined #CreatePartyButton {
@@ -70,14 +80,61 @@
     width: 465px;
 }
 
-.container-your-team > .friend-list-element {
-    width: 380px;
+.container-your-team .friend-list-element {
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.container-your-team .friend-list-element__name-and-trophies {
+    font-size: 30px;
+}
+
+.container-your-team .friend-list-element__avatar {
+    height: 90px;
+    width: 90px;
+    margin-right: 20px;
+    align-self: center;
+}
+
+.container-your-team .friend-list-element__activity {
+    display: none;
+}
+
+.container-your-team .friend-list-element__background {
+    -unity-background-image-tint-color: #9FDA40;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 8px;
+    width: 379px;
+    height: 114px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin-right: 13px;
+}
+
+.container-your-team .friend-list-element--local .friend-list-element__background {
+    -unity-background-image-tint-color: rgb(255, 199, 0);
+
+}
+
+.container-your-team .friend-list-element__background-pattern {
+    left: -38px;
+    top: -90px;
+    position: absolute;
+    width: 237px;
+    height: 298px;
+    background-image: var(--sprite-kit__pattern-dots);
+    -unity-background-scale-mode: scale-and-crop;
+    scale: 1 1;
+    -unity-background-image-tint-color: rgb(29, 61, 100);
+    opacity: 0.25;
 }
 
 .content {
     flex-direction: row;
     height: 825px;
-    width: 1678px;
+    width: auto;
+    align-self: flex-start;
 }
 
 .sidebar {

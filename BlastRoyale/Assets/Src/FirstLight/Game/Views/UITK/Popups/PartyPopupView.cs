@@ -38,7 +38,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("FriendsContainer")] private VisualElement _friendsContainer;
 		[Q("NoFriendsLabel")] private VisualElement _noFriendsLabel;
 
-		[Q("CopyCodeButton")] private LocalizedButton _copyCodeButton;
+		[Q("CopyCodeButton")] private ImageButton _copyCodeButton;
 
 		private IGameServices _services;
 

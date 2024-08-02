@@ -3,15 +3,16 @@
     <Style src="project://database/Assets/Art/UI/Templates/Popups/PartyPopupStyle.uss?fileID=7433441132597879392&amp;guid=b21c5cef5e25b40df84326e95bae7540&amp;type=3#PartyPopupStyle" />
     <ui:VisualElement name="Content" class="content">
         <ui:VisualElement name="Sidebar" class="sidebar">
-            <ui:VisualElement name="CodeContainer" class="container-code" style="display: flex;">
+            <ui:VisualElement name="CodeContainer" class="container-code">
                 <ui:Label tabindex="-1" text="Your team code" parse-escape-sequences="true" display-tooltip-when-elided="true" name="YourCodeLabel" class="container-code_your-code" />
                 <ui:Label text="E2G5" name="TeamCode" class="container-code_your-actual-code" />
-                <FirstLight.Game.UIElements.ImageButton name="CopyCodeButton" localization-key="UITParty/copy_party_code" class="button-long" >
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITParty/copy_party_code" />
+                <FirstLight.Game.UIElements.ImageButton name="CopyCodeButton" localization-key="UITParty/copy_party_code" class="button-long copy-code-button">
+                    <ui:VisualElement name="Icon" class="copy-code-button__icon" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITParty/copy_party_code" name="Label" />
                 </FirstLight.Game.UIElements.ImageButton>
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/create_party" name="CreatePartyButton" class="button-long button-long--yellow" style="align-self: center;" />
-            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/join_party" name="JoinPartyButton" class="button-long" style="align-self: center;" />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/create_party" name="CreatePartyButton" class="button-long button-long--yellow" style="margin-bottom:15px;"  />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/join_party" name="JoinPartyButton" class="button-long"  />
             <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/leave_party" name="LeavePartyButton" class="button-long button-long--red" />
         </ui:VisualElement>

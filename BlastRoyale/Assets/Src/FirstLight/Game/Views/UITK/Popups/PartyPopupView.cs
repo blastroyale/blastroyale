@@ -32,6 +32,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		[Q("TeamCode")] private Label _teamCodeLabel;
 		[Q("YourTeamLabel")] private Label _yourTeamHeader;
+		[Q("GameModeLabel")] private Label _gamemodeHeader;
 		[Q("FriendsOnlineLabel")] private Label _friendsOnlineLabel;
 		[Q("YourTeamContainer")] private VisualElement _yourTeamContainer;
 		[Q("FriendsOnlineList")] private ListView _friendsOnlineList;
@@ -64,7 +65,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		public override void OnScreenOpen(bool reload)
 		{
 			RefreshData();
-
+			_services.GameModeService.SelectedGameMode.InvokeObserve(RefreshGameMode);
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += OnLobbyJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
@@ -128,6 +129,11 @@ namespace FirstLight.Game.Views.UITK.Popups
 					_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
 				}));
 			_elements[relationship.Member.Id] = e;
+		}
+
+		private void RefreshGameMode(GameModeInfo _, GameModeInfo modeInfo)
+		{
+			_gamemodeHeader.text = modeInfo.Entry.Visual.TitleTranslationKey.GetText();
 		}
 
 		private void RefreshData()

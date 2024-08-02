@@ -93,7 +93,7 @@ namespace FirstLight.Game.Views.UITK
 		private void OnAllowBotsToggle(ChangeEvent<bool> e)
 		{
 			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !e.newValue);
-			_botDifficultySlider.value = MatchSettings.BotDifficulty = e.newValue ? 1 : 0;
+			_botDifficultySlider.value = MatchSettings.BotDifficulty = e.newValue ? 5 : 0;
 
 			RefreshData(true);
 		}

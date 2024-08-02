@@ -50,6 +50,14 @@
     background-color: #40A91C;
 }
 
+#CreatePartyButton {
+    margin-bottom: 15px;
+}
+
+#GameModeLabel {
+    color: rgb(248, 199, 46);
+}
+
 .party-joined #CreatePartyButton {
     display: none;
 }

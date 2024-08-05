@@ -43,15 +43,12 @@ namespace FirstLight.Game.Presenters
 
 		private List<Lobby> _lobbies;
 		
-		private BufferedQueue _requestBuffer = new ();
+		private AsyncBufferedQueue _requestBuffer = new (TimeSpan.FromSeconds(1), true);
 
 		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
-
-			_requestBuffer.BufferTime = TimeSpan.FromSeconds(1);
-			_requestBuffer.OnlyKeepLast = true;
-
+			
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked = Data.BackClicked; 
 
@@ -62,18 +59,18 @@ namespace FirstLight.Game.Presenters
 			_joinWithCodeButton.clicked += OnJoinWithCodeClicked;
 			_refreshButton.clicked += () =>
 			{
-				_requestBuffer.Add(() => RefreshLobbies().Forget());
+				_requestBuffer.Add(RefreshLobbies);
 			};
 
 			_allRegionsToggle.RegisterValueChangedCallback(value =>
 			{
-				_requestBuffer.Add(() => RefreshLobbies().Forget());
+				_requestBuffer.Add(RefreshLobbies);
 			});
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_requestBuffer.Add(() => RefreshLobbies().Forget());
+			_requestBuffer.Add(RefreshLobbies);
 
 			_matchSettingsView.SetMatchSettings(_services.LocalPrefsService.LastCustomMatchSettings, true, false);
 			_matchSettingsView.SetMainAction(ScriptTerms.UITCustomGames.create_lobby, () => CreateMatch(_matchSettingsView.MatchSettings).Forget());

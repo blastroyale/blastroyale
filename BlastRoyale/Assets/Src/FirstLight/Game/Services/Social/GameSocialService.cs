@@ -55,6 +55,7 @@ namespace FirstLight.Game.Services
 		public bool ShowBlock = false;
 		public Action OnRelationShipChange;
 		public IEnumerable<PlayerContextButton> ExtraButtons;
+		public TooltipPosition Position = TooltipPosition.Auto;
 	}
 
 	public interface IGameSocialService
@@ -336,7 +337,7 @@ namespace FirstLight.Game.Services
 			// TODO Add support for trophies
 			// var trophies = partyMember.GetPlayerTrophies();
 			// displayName += $"\n{trophies} <sprite name=\"TrophyIcon\">";
-			TooltipUtils.OpenPlayerContextOptions(element, root, displayName, playerContextButtons, TooltipPosition.Top);
+			TooltipUtils.OpenPlayerContextOptions(element, root, displayName, playerContextButtons, settings.Position);
 		}
 	}
 }

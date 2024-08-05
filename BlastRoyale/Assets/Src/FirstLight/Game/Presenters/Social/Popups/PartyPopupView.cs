@@ -187,7 +187,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_yourTeamContainer.Add(own);
 			if (inParty && partyLobby.Players.Count > 3)
 			{
-				_yourTeamHeader.Add(new VisualElement().AddClass("gap-hack"));
+				_yourTeamContainer.Add(new VisualElement().AddClass("gap-hack"));
 			}
 
 			_noFriendsLabel.SetDisplay(friends.Count == 0);

@@ -280,7 +280,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services.GameSocialService.OpenPlayerOptions(slot.NameView.PlayerNameLabel, Element, slot.PlayerId, partyMember.GetPlayerName(), new PlayerContextSettings()
 			{
-				ShowTeamOptions = true
+				ShowTeamOptions = true,
+				Position = TooltipPosition.Top
 			});
 		}
 

@@ -177,6 +177,7 @@ namespace FirstLight.Game.Utils
 												TooltipPosition position = TooltipPosition.Auto)
 
 		{
+			var originalPosition = position;
 			var blocker = new VisualElement();
 			root.Add(blocker);
 			blocker.AddToClassList("tooltip-holder");
@@ -218,7 +219,7 @@ namespace FirstLight.Game.Utils
 				tooltip.MarkDirtyRepaint();
 				if (trigerred) return;
 				trigerred = true;
-				if (position == TooltipPosition.Top)
+				if (originalPosition == TooltipPosition.Top)
 				{
 					var originalHeight = tooltip.contentRect.height;
 					tooltip.experimental.animation.Start(0, 1, 200, (ve, val) =>

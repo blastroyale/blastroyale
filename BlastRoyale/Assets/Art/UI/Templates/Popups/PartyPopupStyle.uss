@@ -16,7 +16,7 @@
     flex-grow: 0;
     flex-shrink: 0;
     margin-left: 39px;
-    width: 1232px;
+    width: 1235px;
 }
 
 .container-your-team {

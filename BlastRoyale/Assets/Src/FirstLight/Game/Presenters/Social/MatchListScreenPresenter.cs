@@ -77,7 +77,7 @@ namespace FirstLight.Game.Presenters
 
 			_gamesList.itemsSource = null;
 			_gamesList.RefreshItems();
-			_lobbies = await _services.FLLobbyService.GetPublicMatches(_allRegionsToggle.value);
+			_lobbies = await _services.FLLobbyService.GetPublicMatches(_allRegionsToggle.value).AttachExternalCancellation(GetCancellationTokenOnClose());
 			if (gameObject == null) return;
 			_gamesList.itemsSource = _lobbies;
 			_gamesList.RefreshItems();

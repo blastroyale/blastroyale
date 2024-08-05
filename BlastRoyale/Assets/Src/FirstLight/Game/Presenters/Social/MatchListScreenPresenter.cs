@@ -47,6 +47,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.ResolveServices();
 
+			_requestBuffer.BufferTime = TimeSpan.FromSeconds(1);
 			_requestBuffer.OnlyKeepLast = true;
 
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();

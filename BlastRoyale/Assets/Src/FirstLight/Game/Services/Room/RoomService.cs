@@ -337,7 +337,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		private void OnConnectedToMaster()
 		{
-			ResetLocalPlayerProperties();
+			ResetLocalPlayerProperties(); 
 		}
 
 		public void OnPlayerEnteredRoom(Player newPlayer)
@@ -584,6 +584,13 @@ namespace FirstLight.Game.Services.RoomService
 
 		private void ResetLocalPlayerProperties(PlayerJoinRoomProperties properties = null)
 		{
+			FLog.Verbose("Setting local player properties");
+			// reconnection edge case where 
+			if (_networkService.QuantumClient.State == ClientState.Joining)
+			{
+				FLog.Warn("Skipped property reset, client was still joining");
+				return;
+			}
 			_networkService.QuantumClient.NickName = AuthenticationService.Instance.GetPlayerName();
 			var preloadIds = new List<GameId>();
 

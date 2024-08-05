@@ -85,7 +85,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void KnockoutPlayer()
 		{
 			_view.GetComponentInChildren<MatchCharacterViewMonoComponent>()?.HideAllEquipment();
-			_skin.TriggerKnockOut();
+			_skin?.TriggerKnockOut(); // TODO: Triggering when skin was not yet loaded on reconnection
 			EnableRevivingFX(false);
 		}
 

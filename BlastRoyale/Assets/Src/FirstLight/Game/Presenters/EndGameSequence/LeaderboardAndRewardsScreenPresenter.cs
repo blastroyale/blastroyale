@@ -146,6 +146,12 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateRewards()
 		{
+			// TODO: Fix for reconnection
+			if (_matchServices.MatchEndDataService.CachedRewards == null)
+			{
+				FLog.Warn("For some reason CachedRewards was null");
+				return;
+			}
 			if (_matchServices.MatchEndDataService.JoinedAsSpectator)
 			{
 				_trophiesView.Element.SetVisibility(false);
@@ -352,7 +358,7 @@ namespace FirstLight.Game.Presenters
 		private Dictionary<GameId, int> ProcessRewards()
 		{
 			var dictionary = new Dictionary<GameId, int>();
-			var rewards = _matchServices.MatchEndDataService.CachedRewards.ReceivedInCommand;
+			var rewards = _matchServices.MatchEndDataService.CachedRewards?.ReceivedInCommand ?? new (); // TODO: Nullref on reconnection
 			for (var i = 0; i < rewards.Count; i++)
 			{
 				var id = rewards[i].Id;

@@ -227,7 +227,10 @@ namespace FirstLight.Game.StateMachines
 
 			if (f == null) return false;
 
-			var players = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
+			// Reconnection edge case on the end of the game where the component was destroyed already
+			if (!f.Unsafe.TryGetPointerSingleton<GameContainer>(out var container)) return false;
+			
+			var players = container->PlayersData;
 
 			for (var x = 0; x < players.Length; x++)
 			{

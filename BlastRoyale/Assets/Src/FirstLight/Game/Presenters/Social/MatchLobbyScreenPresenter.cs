@@ -277,7 +277,8 @@ namespace FirstLight.Game.Presenters
 				await _services.RoomService.CreateRoomAsync(setup, new PlayerJoinRoomProperties()
 				{
 					TeamColor = (byte) (localPlayerPosition % squadSize),
-					Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString()
+					Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString(),
+					Spectator = localPlayer.IsSpectator()
 				});
 
 				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);

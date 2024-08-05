@@ -186,7 +186,8 @@ namespace FirstLight.Game.Presenters
 
 				var spots = new List<MatchLobbyPlayerElement>();
 
-				// TODO: This only needs to be done when the max of players changesfor (int i = 0; i < matchLobby.MaxPlayers; i++)
+				// TODO: This only needs to be done when the max of players changes
+				for (int i = 0; i < matchLobby.MaxPlayers; i++)
 				{
 					if (i % PLAYERS_PER_ROW == 0)
 					{

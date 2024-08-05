@@ -141,7 +141,7 @@ namespace FirstLight.Game.Views.UITK
 			RefreshData(false);
 		}
 
-		public void SetSpectators(List<Player> spectators)
+		public void SetSpectators(IEnumerable<Player> spectators)
 		{
 			_spectatorsScrollView.Clear();
 

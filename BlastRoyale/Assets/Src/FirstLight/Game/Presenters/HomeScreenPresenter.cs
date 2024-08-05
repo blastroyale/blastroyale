@@ -26,6 +26,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -224,6 +225,7 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameChanged);
 			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyUpdate;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnPartyJoined;
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
@@ -234,6 +236,11 @@ namespace FirstLight.Game.Presenters
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
 
 			return base.OnScreenOpen(reload);
+		}
+
+		private void OnPartyJoined(Lobby l)
+		{
+			UpdatePlayButton();
 		}
 
 		private void RefreshOnlineFriends()
@@ -268,6 +275,7 @@ namespace FirstLight.Game.Presenters
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnPartyLobbyUpdate;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined -= OnPartyJoined;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
 

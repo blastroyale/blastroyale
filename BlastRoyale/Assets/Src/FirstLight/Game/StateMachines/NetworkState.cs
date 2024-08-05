@@ -323,10 +323,6 @@ namespace FirstLight.Game.StateMachines
 				{
 					room.LocalPlayerProperties.Spectator.Value = false;
 				}
-				else
-				{
-					room.LocalPlayerProperties.Spectator.Value = isSpectator;
-				}
 
 				if (_networkService.QuantumRunnerConfigs.IsOfflineMode ||
 					_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)

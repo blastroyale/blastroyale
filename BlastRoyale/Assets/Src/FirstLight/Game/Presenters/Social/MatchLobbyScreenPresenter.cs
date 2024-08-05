@@ -122,6 +122,7 @@ namespace FirstLight.Game.Presenters
 
 					joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
 					joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
+					joinProperties.Spectator = localPlayer.IsSpectator();
 
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
@@ -152,7 +153,6 @@ namespace FirstLight.Game.Presenters
 		private void RefreshData()
 		{
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
-			var spectators = new List<Player>();
 			var matchSettings = matchLobby.GetMatchSettings();
 
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
@@ -172,12 +172,13 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
-			_matchSettingsView.SetSpectators(spectators);
+			_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator()));
 
 			VisualElement row = null;
 
 			var spots = new List<MatchLobbyPlayerElement>();
 
+			// TODO: This only needs to be done when the max of players changes
 			for (int i = 0; i < matchLobby.MaxPlayers; i++)
 			{
 				if (i % PLAYERS_PER_ROW == 0)
@@ -204,6 +205,7 @@ namespace FirstLight.Game.Presenters
 				var player = matchLobby.Players.FirstOrDefault(p => p.Id == id);
 
 				if (player == null) continue;
+				if (player.IsSpectator()) continue;
 
 				spots[i].SetData(player.GetPlayerName(),
 					player.Id == matchLobby.HostId,
@@ -284,9 +286,10 @@ namespace FirstLight.Game.Presenters
 
 			if (player.IsLocal())
 			{
-				 source.OpenTooltip(Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
-				 return;
+				source.OpenTooltip(Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+				return;
 			}
+
 			var buttons = new List<PlayerContextButton>();
 
 			if (!player.IsReady() && !player.IsLocal())

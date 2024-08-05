@@ -21,7 +21,7 @@ namespace FirstLight.Game.Utils
 			public const string ZENDESK_SUPPORT_FORM = "https://firstlightgames.zendesk.com/hc/en-gb/requests/new";
 
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
-			public const string YOUTUBE_LINK = "https://www.youtube.com/c/BlastRoyale22";
+			public const string YOUTUBE_LINK = "https://www.youtube.com/@BlastRoyaleGame/?sub_confirmation=1";
 			public const string INSTAGRAM_LINK = "https://www.instagram.com/blastroyale";
 			public const string TIKTOK_LINK = "https://www.tiktok.com/@blastroyale";
 

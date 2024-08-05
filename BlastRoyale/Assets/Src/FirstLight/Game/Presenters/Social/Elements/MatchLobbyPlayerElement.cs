@@ -53,6 +53,8 @@ namespace FirstLight.Game.UIElements
 			SetData(playerName, host, local, ready);
 		}
 
+		public string GetCurrentPlayerName() => _nameLabel.text;
+
 		public void SetData(string playerName, bool host, bool local, bool ready)
 		{
 			_nameLabel.text = playerName;

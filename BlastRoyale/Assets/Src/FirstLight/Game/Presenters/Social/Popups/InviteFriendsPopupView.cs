@@ -52,7 +52,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 					_invitedFriends.Add(relationship.Member.Id);
 					_services.FLLobbyService.InviteToMatch(relationship.Member.Id).Forget();
 					_friendsList.RefreshItem(index);
-				});
+				}, false);
 		}
 	}
 }

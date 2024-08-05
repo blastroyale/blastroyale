@@ -70,7 +70,7 @@ namespace FirstLight.Game.Services
 
 	public class GameSocialService : IGameSocialService
 	{
-		private BufferedQueue _stateUpdates = new ();
+		private BufferedQueue _stateUpdates = new (TimeSpan.FromSeconds(3), true);
 		private IGameServices _services;
 		private HashSet<string> _fakeBotRequests = new ();
 		private FriendActivity _playerActivity = new ();
@@ -94,7 +94,6 @@ namespace FirstLight.Game.Services
 			services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Shop));
 			services.UIService.OnScreenOpened += OnScreenOpened;
 			_services = services;
-			_stateUpdates.OnlyKeepLast = true;
 		}
 
 		private void OnJoinedParty()
@@ -198,6 +197,7 @@ namespace FirstLight.Game.Services
 
 		private void OnScreenOpened(string name, string layer)
 		{
+			if (name.Contains("Popup") || name.Contains("Notification")) return;
 			DecideBasedOnScreen();
 		}
 

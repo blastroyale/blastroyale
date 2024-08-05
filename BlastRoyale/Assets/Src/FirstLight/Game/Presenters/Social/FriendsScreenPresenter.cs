@@ -44,6 +44,9 @@ namespace FirstLight.Game.Presenters
 		private List<Relationship> _friends;
 		private List<Relationship> _blocked;
 		private List<Relationship> _requests;
+		private BufferedQueue _friendsRefresh = new (TimeSpan.FromSeconds(0.1), true);
+		private BufferedQueue _requestsRefresh = new (TimeSpan.FromSeconds(0.1), true);
+		private BufferedQueue _blockedRefresh = new (TimeSpan.FromSeconds(0.1), true);
 
 		protected override void QueryElements()
 		{
@@ -133,39 +136,48 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshFriends()
 		{
-			_friends = FriendsService.Instance.Friends.ToList();
-			// Sort by last seen so online friends are at the top
-			_friends.Sort((a, b) => b.IsOnline().CompareTo(a.IsOnline()));
-			_friendsList.itemsSource = _friends;
-			_friendsList.RefreshItems();
+			_friendsRefresh.Add(() =>
+			{
+				_friends = FriendsService.Instance.Friends.ToList();
+				// Sort by last seen so online friends are at the top
+				_friends.Sort((a, b) => b.IsOnline().CompareTo(a.IsOnline()));
+				_friendsList.itemsSource = _friends;
+				_friendsList.RefreshItems();
 
-			_friendsList.SetDisplay(_friends.Count > 0);
-			_friendsEmptyContainer.SetDisplay(_friends.Count == 0);
+				_friendsList.SetDisplay(_friends.Count > 0);
+				_friendsEmptyContainer.SetDisplay(_friends.Count == 0);
+			});
 		}
 
 		private void RefreshRequests()
 		{
-			var incomingRequests = FriendsService.Instance.IncomingFriendRequests.ToList();
-			var outgoingRequests = FriendsService.Instance.OutgoingFriendRequests.ToList();
-			_requests = incomingRequests.Concat(outgoingRequests).ToList();
-			_requestsList.itemsSource = _requests;
-			_requestsList.RefreshItems();
+			_requestsRefresh.Add(() =>
+			{
+				var incomingRequests = FriendsService.Instance.IncomingFriendRequests.ToList();
+				var outgoingRequests = FriendsService.Instance.OutgoingFriendRequests.ToList();
+				_requests = incomingRequests.Concat(outgoingRequests).ToList();
+				_requestsList.itemsSource = _requests;
+				_requestsList.RefreshItems();
 
-			_requestsCount.SetVisibility(incomingRequests.Count > 0);
-			_requestsCount.text = incomingRequests.Count.ToString();
+				_requestsCount.SetVisibility(incomingRequests.Count > 0);
+				_requestsCount.text = incomingRequests.Count.ToString();
 
-			_requestsList.SetDisplay(_requests.Count > 0);
-			_requestsEmptyContainer.SetDisplay(_requests.Count == 0);
+				_requestsList.SetDisplay(_requests.Count > 0);
+				_requestsEmptyContainer.SetDisplay(_requests.Count == 0);
+			});
 		}
 
 		private void RefreshBlocked()
 		{
-			_blocked = FriendsService.Instance.Blocks.ToList();
-			_blockedList.itemsSource = _blocked;
-			_blockedList.RefreshItems();
+			_blockedRefresh.Add(() =>
+			{
+				_blocked = FriendsService.Instance.Blocks.ToList();
+				_blockedList.itemsSource = _blocked;
+				_blockedList.RefreshItems();
 
-			_blockedList.SetDisplay(_blocked.Count > 0);
-			_blockedEmptyContainer.SetDisplay(_blocked.Count == 0);
+				_blockedList.SetDisplay(_blocked.Count > 0);
+				_blockedEmptyContainer.SetDisplay(_blocked.Count == 0);
+			});
 		}
 
 		private VisualElement OnMakeListItem()

@@ -7,23 +7,16 @@ using FirstLight.FLogger;
 namespace FirstLight.Game.Utils
 {
 	/// <summary>
-	/// Simple async batching mechanism
+	/// Simple queue that executes items in a fifo order
 	/// </summary>
-	public class BatchQueue
+	public class FifoQueue
 	{
-		public int BatchSize { get; set; } = 3;
 		private Queue<Func<UniTask>> _queue = new ();
 		private UniTask _task;
 		private int _running = 0;
-
-		public BatchQueue(int size)
-		{
-			BatchSize = size;
-		}
-		
 		public void Add(Func<UniTask> item)
 		{
-			if (_running < BatchSize)
+			if (_running < 1)
 			{
 				Run(item);
 			}

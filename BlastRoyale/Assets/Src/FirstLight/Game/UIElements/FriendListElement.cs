@@ -24,7 +24,7 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class FriendListElement : ImageButton
 	{
-		private static readonly BatchQueue _batchQueue = new ();
+		private static readonly BatchQueue _batchQueue = new (2);
 
 		private const string USS_BLOCK = "friend-list-element";
 		private const string USS_LOCAL_MODIFIER = USS_BLOCK + "--local";
@@ -177,7 +177,6 @@ namespace FirstLight.Game.UIElements
 				{
 					services.RemoteTextureService.SetTexture(_avatar, avatarUrl);
 				}
-
 				return;
 			}
 
@@ -248,14 +247,21 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		public FriendListElement TryAddInviteOption(Relationship friend, Action callback)
+		public FriendListElement TryAddInviteOption(Relationship friend, Action callback, bool createParty = true)
 		{
 			var services = MainInstaller.ResolveServices();
 			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
 			if (showInvite)
 				return SetMainAction(ScriptLocalization.UITFriends.invite, () =>
 				{
-					services.FLLobbyService.CreateParty().ContinueWith(callback);
+					if (createParty)
+					{
+						services.FLLobbyService.CreateParty().ContinueWith(callback).Forget();
+					}
+					else
+					{
+						callback();
+					}
 				}, false);
 			return SetMainAction("", null, false);
 			;

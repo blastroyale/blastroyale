@@ -8,9 +8,11 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
+using FirstLight.Game.Views.UITK.Popups;
 using FirstLight.UIService;
 using I2.Loc;
 using QuickEye.UIToolkit;
+using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine.UIElements;
 
@@ -68,8 +70,20 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
+		protected override UniTask OnScreenClose()
+		{
+			if (PopupPresenter.IsOpen<MatchInfoPopupView>())
+			{
+				PopupPresenter.Close();
+			}
+			return base.OnScreenClose();
+		}
+
 		private async UniTask RefreshLobbies()
 		{
+			// if in game room no need to refresh lobbies
+			if (_services.RoomService.InRoom) return;
+			
 			_listHeaders.SetVisibility(false);
 			_loader.SetDisplay(true);
 			_noLobbiesLabel.SetDisplay(false);
@@ -78,6 +92,7 @@ namespace FirstLight.Game.Presenters
 			_gamesList.itemsSource = null;
 			_gamesList.RefreshItems();
 			_lobbies = await _services.FLLobbyService.GetPublicMatches(_allRegionsToggle.value).AttachExternalCancellation(GetCancellationTokenOnClose());
+			
 			if (gameObject == null) return;
 			_gamesList.itemsSource = _lobbies;
 			_gamesList.RefreshItems();

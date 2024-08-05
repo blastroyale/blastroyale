@@ -1,10 +1,5 @@
 using System;
-using System.Runtime.CompilerServices;
-using FirstLight.Game.Utils;
-using I2.Loc;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -44,6 +39,8 @@ namespace FirstLight.Game.UIElements
 
 				this.RegisterValueChangedCallback(valueChange =>
 				{
+					if (valueChange.target != _internalLabel) return;
+					
 					_internalLabel.text = valueChange.newValue;
 					if (resolvedStyle.textOverflow == TextOverflow.Ellipsis)
 					{

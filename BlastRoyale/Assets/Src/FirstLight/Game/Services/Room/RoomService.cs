@@ -29,6 +29,7 @@ namespace FirstLight.Game.Services.RoomService
 	{
 		public string Team;
 		public byte TeamColor;
+		public bool Spectator;
 	}
 
 	public interface IRoomService
@@ -592,7 +593,7 @@ namespace FirstLight.Game.Services.RoomService
 			var props = new PlayerProperties
 			{
 				Loadout = {Value = preloadIds},
-				Spectator = {Value = false},
+				Spectator = {Value = properties?.Spectator ?? false},
 				CoreLoaded = {Value = false},
 				TeamId = {Value = properties?.Team},
 				Rank = {Value = _leaderboardService.CurrentRankedEntry.Position},

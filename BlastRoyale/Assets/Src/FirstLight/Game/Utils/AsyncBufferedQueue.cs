@@ -9,7 +9,7 @@ namespace FirstLight.Game.Utils
 	/// <summary>
 	/// Simple async Buffered Queue to buffer/stagger actions
 	/// </summary>
-	public class BufferedQueue
+	public class AsyncBufferedQueue
 	{
 		/// <summary>
 		/// Minimum amount of time between updates
@@ -21,18 +21,17 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public bool OnlyKeepLast;
 
-		public BufferedQueue(TimeSpan time, bool onlyLast = false)
+		public AsyncBufferedQueue(TimeSpan time, bool onlyLast = false)
 		{
-			BufferTime = time;
 			OnlyKeepLast = onlyLast;
+			BufferTime = time;
 		}
 		
-		private Queue<Action> _queue = new ();
+		private Queue<Func<UniTask>> _queue = new ();
 		private UniTask _task;
 		
-		public void Add(Action item)
+		public void Add(Func<UniTask> item)
 		{
-			FLog.Verbose("Added queue item "+item.Method.Name+" "+OnlyKeepLast);
 			if (OnlyKeepLast)
 			{
 				_queue.Clear();
@@ -48,8 +47,7 @@ namespace FirstLight.Game.Utils
 		{
 			while (_queue.TryDequeue(out var item))
 			{
-				FLog.Verbose("Ticking queue item "+item.Method.Name);
-				item();
+				await item();
 				await UniTask.Delay(BufferTime);
 			}
 		}

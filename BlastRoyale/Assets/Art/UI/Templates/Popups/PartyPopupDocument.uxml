@@ -6,24 +6,33 @@
             <ui:VisualElement name="CodeContainer" class="container-code">
                 <ui:Label tabindex="-1" text="Your team code" parse-escape-sequences="true" display-tooltip-when-elided="true" name="YourCodeLabel" class="container-code_your-code" />
                 <ui:Label text="E2G5" name="TeamCode" class="container-code_your-actual-code" />
-                <FirstLight.Game.UIElements.LocalizedButton name="CopyCodeButton" localization-key="UITParty/copy_party_code" class="button-long" />
+                <FirstLight.Game.UIElements.ImageButton name="CopyCodeButton" localization-key="UITParty/copy_party_code" class="button-long copy-code-button">
+                    <ui:VisualElement name="Icon" class="copy-code-button__icon" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITParty/copy_party_code" name="Label" />
+                </FirstLight.Game.UIElements.ImageButton>
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/create_party" name="CreatePartyButton" class="button-long button-long--yellow" style="align-self: center;" />
-            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/join_party" name="JoinPartyButton" class="button-long" style="align-self: center;" />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/create_party" name="CreatePartyButton" class="button-long button-long--yellow" />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/join_party" name="JoinPartyButton" class="button-long" />
             <ui:VisualElement name="Spacer" style="flex-grow: 1;" />
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITParty/leave_party" name="LeavePartyButton" class="button-long button-long--red" />
         </ui:VisualElement>
         <ui:VisualElement name="MainContent" class="main-container">
-            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="YOUR PARTY (0)" name="YourTeamLabel" class="category-title" />
+            <ui:VisualElement name="TeamGameModeContainer" style="flex-grow: 0; flex-direction: row; justify-content: space-between; align-items: center; align-self: auto;">
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="YOUR PARTY (0)" name="YourTeamLabel" class="category-title" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="BATTLE ROYALE QUADS" name="GameModeLabel" class="category-title" />
+            </ui:VisualElement>
             <ui:VisualElement name="YourTeamContainer" class="container-your-team">
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
-                <ui:VisualElement name="GapHack" class="gap-hack"/>
+                <ui:VisualElement name="GapHack" class="gap-hack" />
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="FRIENDS ONLINE (0)" name="FriendsOnline" class="category-title" />
-            <ui:ListView name="FriendsOnlineList" virtualization-method="DynamicHeight" class="container-online-friends" />
+            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="FRIENDS ONLINE (0)" name="FriendsOnlineLabel" class="category-title" />
+            <ui:VisualElement name="FriendsOnlineContainer" class="container-online-friends" style="flex-grow: 1;">
+                <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITParty/no_online_friends" name="NoFriendsLabel" class="game-label" style="margin-top: 40px; height: 100%;" />
+                <ui:ListView name="FriendsOnlineList" virtualization-method="DynamicHeight" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

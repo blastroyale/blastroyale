@@ -100,7 +100,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Animates the opacity from <paramref name="fromAmount"/> up to <paramref name="toAmount"/> and back to <paramref name="fromAmount"/>;
 		/// </summary>
-		public static IValueAnimation AnimatePingOpacity(this VisualElement element, float fromAmount = 0f, float toAmount = 1f, int duration = 150, bool repeat = false)
+		public static IValueAnimation AnimatePingOpacity(this VisualElement element, float fromAmount = 0f, float toAmount = 1f, int duration = 150, bool repeat = false, bool rewind = true)
 		{
 			var from = new StyleValues
 			{
@@ -114,6 +114,8 @@ namespace FirstLight.Game.Utils
 
 			var anim = element.experimental.animation.Start(from, to, duration).OnCompleted(() =>
 			{
+				if (!rewind) return;
+				
 				element.experimental.animation.Start(to, from, duration).OnCompleted(() =>
 				{
 					if (repeat)

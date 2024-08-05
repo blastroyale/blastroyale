@@ -122,7 +122,17 @@ namespace FirstLight.Tests.EditorMode
 			throw new System.NotImplementedException();
 		}
 
-		public UniTask SetMatchPositionRequest(int position)
+		public void SetMatchPositionRequest(int position)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public UniTask<bool> SetMatchProperty(string name, string value)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public UniTask<bool> SetMatchPlayerProperty(string name, string value, bool silent = true)
 		{
 			throw new System.NotImplementedException();
 		}

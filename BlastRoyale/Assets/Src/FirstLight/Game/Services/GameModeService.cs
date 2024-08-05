@@ -161,7 +161,7 @@ namespace FirstLight.Game.Services
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe(OnGameModeSet);
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyChanged;
-			_lobbyService.CurrentPartyCallbacks.LobbyJoined += OnPartyLobbyJoined;
+			_lobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnPartyLocalLobbyJoined;
 		}
 
 		public void Init(GameModeRotationConfig config = default)
@@ -216,7 +216,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private void OnPartyLobbyJoined(Lobby lobby)
+		private void OnPartyLocalLobbyJoined(Lobby lobby)
 		{
 			if (!lobby.IsLocalPlayerHost())
 			{

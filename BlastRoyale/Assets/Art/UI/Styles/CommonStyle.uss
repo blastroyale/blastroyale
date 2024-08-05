@@ -778,8 +778,6 @@
 
 .generic-popup__header {
     background-image: var(--sprite-home__background-popup-header);
-    margin-left: 9px;
-    margin-right: 9px;
     height: 100px;
     justify-content: center;
 }

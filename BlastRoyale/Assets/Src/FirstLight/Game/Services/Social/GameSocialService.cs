@@ -55,6 +55,7 @@ namespace FirstLight.Game.Services
 		public bool ShowBlock = false;
 		public Action OnRelationShipChange;
 		public IEnumerable<PlayerContextButton> ExtraButtons;
+		public TooltipPosition Position = TooltipPosition.Auto;
 	}
 
 	public interface IGameSocialService
@@ -70,7 +71,7 @@ namespace FirstLight.Game.Services
 
 	public class GameSocialService : IGameSocialService
 	{
-		private BufferedQueue _stateUpdates = new ();
+		private BufferedQueue _stateUpdates = new (TimeSpan.FromSeconds(3), true);
 		private IGameServices _services;
 		private HashSet<string> _fakeBotRequests = new ();
 		private FriendActivity _playerActivity = new ();
@@ -79,7 +80,7 @@ namespace FirstLight.Game.Services
 		{
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += DecideBasedOnScreen;
 			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += DecideBasedOnScreen;
-			services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += _ => OnJoinedParty();
+			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += _ => OnJoinedParty();
 			services.MatchmakingService.OnGameMatched += _ => CancelAllInvites();
 			services.MatchmakingService.OnMatchmakingJoined += _ =>
 			{
@@ -94,7 +95,6 @@ namespace FirstLight.Game.Services
 			services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Shop));
 			services.UIService.OnScreenOpened += OnScreenOpened;
 			_services = services;
-			_stateUpdates.OnlyKeepLast = true;
 		}
 
 		private void OnJoinedParty()
@@ -198,6 +198,7 @@ namespace FirstLight.Game.Services
 
 		private void OnScreenOpened(string name, string layer)
 		{
+			if (name.Contains("Popup") || name.Contains("Notification")) return;
 			DecideBasedOnScreen();
 		}
 
@@ -309,7 +310,7 @@ namespace FirstLight.Game.Services
 			{
 				playerContextButtons.Add(new PlayerContextButton
 				{
-					Text = ScriptLocalization.UITSquads.option_promote,
+					Text = ScriptLocalization.UITParty.option_promote,
 					ContextStyle = PlayerButtonContextStyle.Gold,
 					OnClick = UniTask.Action(async () => await _services.FLLobbyService.UpdatePartyHost(unityId))
 				});
@@ -321,7 +322,7 @@ namespace FirstLight.Game.Services
 				playerContextButtons.Add(new PlayerContextButton
 					{
 						ContextStyle = PlayerButtonContextStyle.Red,
-						Text = ScriptLocalization.UITSquads.option_kick,
+						Text = ScriptLocalization.UITParty.option_kick,
 						OnClick = UniTask.Action(async () => await _services.FLLobbyService.KickPlayerFromParty(unityId))
 					}
 				);
@@ -336,7 +337,7 @@ namespace FirstLight.Game.Services
 			// TODO Add support for trophies
 			// var trophies = partyMember.GetPlayerTrophies();
 			// displayName += $"\n{trophies} <sprite name=\"TrophyIcon\">";
-			TooltipUtils.OpenPlayerContextOptions(element, root, displayName, playerContextButtons, TooltipPosition.Top);
+			TooltipUtils.OpenPlayerContextOptions(element, root, displayName, playerContextButtons, settings.Position);
 		}
 	}
 }

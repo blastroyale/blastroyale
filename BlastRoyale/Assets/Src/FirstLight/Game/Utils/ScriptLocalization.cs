@@ -2536,7 +2536,11 @@ namespace I2.Loc
 			public static string invite_description 		{ get{ return LocalizationManager.GetTranslation ("UITParty/invite_description"); } }
 			public static string join_party 		{ get{ return LocalizationManager.GetTranslation ("UITParty/join_party"); } }
 			public static string leave_party 		{ get{ return LocalizationManager.GetTranslation ("UITParty/leave_party"); } }
+			public static string notification_invite_sent 		{ get{ return LocalizationManager.GetTranslation ("UITParty/notification_invite_sent"); } }
+			public static string notification_left_party 		{ get{ return LocalizationManager.GetTranslation ("UITParty/notification_left_party"); } }
 			public static string online_friends 		{ get{ return LocalizationManager.GetTranslation ("UITParty/online_friends"); } }
+			public static string option_kick 		{ get{ return LocalizationManager.GetTranslation ("UITParty/option_kick"); } }
+			public static string option_promote 		{ get{ return LocalizationManager.GetTranslation ("UITParty/option_promote"); } }
 			public static string party_invite 		{ get{ return LocalizationManager.GetTranslation ("UITParty/party_invite"); } }
 			public static string your_party 		{ get{ return LocalizationManager.GetTranslation ("UITParty/your_party"); } }
 		}
@@ -2654,6 +2658,7 @@ namespace I2.Loc
 			public static string casual 		{ get{ return LocalizationManager.GetTranslation ("UITShared/casual"); } }
 			public static string claim 		{ get{ return LocalizationManager.GetTranslation ("UITShared/claim"); } }
 			public static string close 		{ get{ return LocalizationManager.GetTranslation ("UITShared/close"); } }
+			public static string code_copied 		{ get{ return LocalizationManager.GetTranslation ("UITShared/code_copied"); } }
 			public static string coming_soon 		{ get{ return LocalizationManager.GetTranslation ("UITShared/coming_soon"); } }
 			public static string confirm 		{ get{ return LocalizationManager.GetTranslation ("UITShared/confirm"); } }
 			public static string confirmation 		{ get{ return LocalizationManager.GetTranslation ("UITShared/confirmation"); } }
@@ -2689,25 +2694,6 @@ namespace I2.Loc
 			public static string camera_3 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/camera_3"); } }
 			public static string defeated_you 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/defeated_you"); } }
 			public static string spectating 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/spectating"); } }
-		}
-
-		public static class UITSquads
-		{
-			public static string error_AlreadyInParty 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_AlreadyInParty"); } }
-			public static string error_BannedFromParty 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_BannedFromParty"); } }
-			public static string error_ConnectionError 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_ConnectionError"); } }
-			public static string error_DifferentGameVersion 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_DifferentGameVersion"); } }
-			public static string error_MemberNotFound 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_MemberNotFound"); } }
-			public static string error_NoParty 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_NoParty"); } }
-			public static string error_NoPermission 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_NoPermission"); } }
-			public static string error_PartyFull 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_PartyFull"); } }
-			public static string error_PartyNotFound 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_PartyNotFound"); } }
-			public static string error_PartyUsingOtherServer 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_PartyUsingOtherServer"); } }
-			public static string error_Unknown 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_Unknown"); } }
-			public static string kicked 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/kicked"); } }
-			public static string option_kick 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/option_kick"); } }
-			public static string option_promote 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/option_promote"); } }
-			public static string timeout 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/timeout"); } }
 		}
 
 		public static class UITStore
@@ -5329,7 +5315,11 @@ namespace I2.Loc
 		    public const string invite_description = "UITParty/invite_description";
 		    public const string join_party = "UITParty/join_party";
 		    public const string leave_party = "UITParty/leave_party";
+		    public const string notification_invite_sent = "UITParty/notification_invite_sent";
+		    public const string notification_left_party = "UITParty/notification_left_party";
 		    public const string online_friends = "UITParty/online_friends";
+		    public const string option_kick = "UITParty/option_kick";
+		    public const string option_promote = "UITParty/option_promote";
 		    public const string party_invite = "UITParty/party_invite";
 		    public const string your_party = "UITParty/your_party";
 		}
@@ -5447,6 +5437,7 @@ namespace I2.Loc
 		    public const string casual = "UITShared/casual";
 		    public const string claim = "UITShared/claim";
 		    public const string close = "UITShared/close";
+		    public const string code_copied = "UITShared/code_copied";
 		    public const string coming_soon = "UITShared/coming_soon";
 		    public const string confirm = "UITShared/confirm";
 		    public const string confirmation = "UITShared/confirmation";
@@ -5482,25 +5473,6 @@ namespace I2.Loc
 		    public const string camera_3 = "UITSpectate/camera_3";
 		    public const string defeated_you = "UITSpectate/defeated_you";
 		    public const string spectating = "UITSpectate/spectating";
-		}
-
-		public static class UITSquads
-		{
-		    public const string error_AlreadyInParty = "UITSquads/error_AlreadyInParty";
-		    public const string error_BannedFromParty = "UITSquads/error_BannedFromParty";
-		    public const string error_ConnectionError = "UITSquads/error_ConnectionError";
-		    public const string error_DifferentGameVersion = "UITSquads/error_DifferentGameVersion";
-		    public const string error_MemberNotFound = "UITSquads/error_MemberNotFound";
-		    public const string error_NoParty = "UITSquads/error_NoParty";
-		    public const string error_NoPermission = "UITSquads/error_NoPermission";
-		    public const string error_PartyFull = "UITSquads/error_PartyFull";
-		    public const string error_PartyNotFound = "UITSquads/error_PartyNotFound";
-		    public const string error_PartyUsingOtherServer = "UITSquads/error_PartyUsingOtherServer";
-		    public const string error_Unknown = "UITSquads/error_Unknown";
-		    public const string kicked = "UITSquads/kicked";
-		    public const string option_kick = "UITSquads/option_kick";
-		    public const string option_promote = "UITSquads/option_promote";
-		    public const string timeout = "UITSquads/timeout";
 		}
 
 		public static class UITStore

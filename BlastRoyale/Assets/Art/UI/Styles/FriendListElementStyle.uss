@@ -24,7 +24,7 @@
     height: 46px;
     background-image: var(--sprite-home__icon-crown-2);
     right: -7px;
-    top: -24px;
+    top: -14px;
 }
 
 .friend-list-element__background-mask {

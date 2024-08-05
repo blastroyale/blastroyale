@@ -73,6 +73,7 @@ namespace FirstLight.Game.Views.UITK
 			_modeButton.clicked += OnGameModeClicked;
 			_teamSizeButton.clicked += OnTeamSizeClicked;
 			_mapButton.clicked += OnMapClicked;
+			
 			_maxPlayersButton.clicked += OnMaxPlayersClicked;
 			_mutatorsButton.clicked += OnMutatorsClicked;
 			_filterWeaponsButton.clicked += OnWeaponFilterClicked;
@@ -141,7 +142,7 @@ namespace FirstLight.Game.Views.UITK
 			RefreshData(false);
 		}
 
-		public void SetSpectators(List<Player> spectators)
+		public void SetSpectators(IEnumerable<Player> spectators)
 		{
 			_spectatorsScrollView.Clear();
 
@@ -240,6 +241,7 @@ namespace FirstLight.Game.Views.UITK
 			_teamSizeButton.SetValue(MatchSettings.SquadSize.ToString());
 			_mapButton.SetValue(Enum.Parse<GameId>(MatchSettings.MapID).GetLocalization());
 			_maxPlayersButton.SetValue(MatchSettings.MaxPlayers.ToString());
+			_maxPlayersButton.SetEnabled(_services.FLLobbyService.CurrentMatchLobby == null);
 			_privateRoomToggle.value = MatchSettings.PrivateRoom;
 			_showCreatorNameToggle.value = MatchSettings.ShowCreatorName;
 

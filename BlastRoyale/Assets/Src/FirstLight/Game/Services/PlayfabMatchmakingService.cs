@@ -113,8 +113,7 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IMatchmakingService"/>
 	public class PlayfabMatchmakingService : IMatchmakingService
 	{
-		private const string LOBBY_TICKET_PROPERTY = "mm_match";
-		private BufferedQueue _requestBuffer = new ();
+		private BufferedQueue _requestBuffer = new (TimeSpan.FromSeconds(1));
 	
 		private readonly IGameDataProvider _dataProvider;
 
@@ -158,7 +157,6 @@ namespace FirstLight.Game.Services
 			_lobbyService.CurrentPartyCallbacks.PlayerLeft += _ => StopMatchmaking();
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyChanged;
 			broker.Subscribe<SuccessAuthentication>(OnAuthentication);
-			_requestBuffer.BufferTime = TimeSpan.FromSeconds(1);
 		}
 
 		private void OnPartyLobbyChanged(ILobbyChanges changes)
@@ -192,7 +190,10 @@ namespace FirstLight.Game.Services
 		private void StopMatchmaking()
 		{
 			FLog.Info("StopMatchmaking invoked");
-			LeaveMatchmaking();
+			if (MainInstaller.ResolveServices().MatchmakingService.IsMatchmaking.Value)
+			{
+				LeaveMatchmaking();
+			}
 		}
 
 		private void OnAuthentication(SuccessAuthentication _)

@@ -102,7 +102,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		public override void OnScreenOpen(bool reload)
 		{
 			_services.MatchmakingService.IsMatchmaking.Observe(OnMatchmaking);
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined += OnLobbyJoined;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnLocalLobbyJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLocalLobbyChanged;
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += OnLobbyDeleted;
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged += OnLobbyChanged;
@@ -116,7 +116,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		public override void OnScreenClose()
 		{
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnMatchmaking);
-			_services.FLLobbyService.CurrentPartyCallbacks.LobbyJoined -= OnLobbyJoined;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined -= OnLocalLobbyJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLocalLobbyChanged;
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyChanged -= OnLobbyChanged;
 			_services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted -= OnLobbyDeleted;
@@ -138,7 +138,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			UpdateMembers().Forget();
 		}
 
-		private void OnLobbyJoined(Lobby lobby)
+		private void OnLocalLobbyJoined(Lobby lobby)
 		{
 			UpdateMembers().Forget();
 		}
@@ -280,7 +280,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services.GameSocialService.OpenPlayerOptions(slot.NameView.PlayerNameLabel, Element, slot.PlayerId, partyMember.GetPlayerName(), new PlayerContextSettings()
 			{
-				ShowTeamOptions = true
+				ShowTeamOptions = true,
+				Position = TooltipPosition.Top
 			});
 		}
 

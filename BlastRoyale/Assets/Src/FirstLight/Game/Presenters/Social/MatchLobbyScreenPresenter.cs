@@ -6,6 +6,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.RoomService;
+using FirstLight.Game.Services.Social;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -31,6 +32,8 @@ namespace FirstLight.Game.Presenters
 		private const int PLAYERS_PER_ROW = 4;
 		private const string USS_ROW = "players-container__row";
 
+		private BufferedQueue _updateBuffer = new (TimeSpan.FromSeconds(0.01), true);
+		private LobbyGridData _lastGridNapshot;
 		public class StateData
 		{
 			public Action BackClicked;
@@ -45,7 +48,7 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 		private MatchSettingsView _matchSettingsView;
-
+		
 		private bool _joining;
 		private bool _localPlayerHost;
 
@@ -122,6 +125,7 @@ namespace FirstLight.Game.Presenters
 
 					joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
 					joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
+					joinProperties.Spectator = localPlayer.IsSpectator();
 
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
@@ -151,68 +155,84 @@ namespace FirstLight.Game.Presenters
 		[Button]
 		private void RefreshData()
 		{
-			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
-			var spectators = new List<Player>();
-			var matchSettings = matchLobby.GetMatchSettings();
-
-			_localPlayerHost = matchLobby.IsLocalPlayerHost();
-			_playersContainer.Clear();
-
-			_header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
-
-			if (_localPlayerHost)
+			_updateBuffer.Add(() =>
 			{
-				_matchSettingsView.SetMainAction(ScriptTerms.UITCustomGames.start_match, () => StartMatch().Forget());
-			}
-			else
-			{
-				var localPlayer = matchLobby.GetPlayerByID(AuthenticationService.Instance.PlayerId);
-				_matchSettingsView.SetMainAction(localPlayer.IsReady() ? ScriptTerms.UITHomeScreen.youre_ready : ScriptTerms.UITHomeScreen.ready,
-					() => ReadyUp().Forget());
-			}
+				
+				var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+				var  matchSettings = matchLobby.GetMatchSettings();
+				var grid = matchLobby.GetPlayerGrid();
 
-			_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
-			_matchSettingsView.SetSpectators(spectators);
+				_localPlayerHost = matchLobby.IsLocalPlayerHost();
 
-			VisualElement row = null;
+				_playersContainer.Clear();
+				
+				_header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
 
-			var spots = new List<MatchLobbyPlayerElement>();
-
-			for (int i = 0; i < matchLobby.MaxPlayers; i++)
-			{
-				if (i % PLAYERS_PER_ROW == 0)
+				if (_localPlayerHost)
 				{
-					_playersContainer.Add(row = new VisualElement());
-					row.AddToClassList(USS_ROW);
+					_matchSettingsView.SetMainAction(ScriptTerms.UITCustomGames.start_match, () => StartMatch().Forget());
+				}
+				else
+				{
+					var localPlayer = matchLobby.GetPlayerByID(AuthenticationService.Instance.PlayerId);
+					_matchSettingsView.SetMainAction(localPlayer.IsReady() ? ScriptTerms.UITHomeScreen.youre_ready : ScriptTerms.UITHomeScreen.ready,
+						() => ReadyUp().Forget());
 				}
 
-				var link = matchSettings.SquadSize > 1 && i % matchSettings.SquadSize < matchSettings.SquadSize - 1;
-				var playerElement = new MatchLobbyPlayerElement(null, false, false, link, false);
-				var i1 = i;
-				playerElement.clicked += () => OnSpotClicked(playerElement, i1);
-				row!.Insert(0, playerElement);
-				spots.Add(playerElement);
-			}
+				_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
+				_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator()));
 
-			var orderedPlayers = matchLobby.GetPlayerPositions();
+				VisualElement row = null;
 
-			for (var i = 0; i < orderedPlayers.Length; i++)
-			{
-				var id = orderedPlayers[i];
-				if (id == null) continue;
+				var spots = new List<MatchLobbyPlayerElement>();
 
-				var player = matchLobby.Players.FirstOrDefault(p => p.Id == id);
+				// TODO: This only needs to be done when the max of players changes
+				for (int i = 0; i < matchLobby.MaxPlayers; i++)
+				{
+					if (i % PLAYERS_PER_ROW == 0)
+					{
+						_playersContainer.Add(row = new VisualElement());
+						row.AddToClassList(USS_ROW);
+					}
 
-				if (player == null) continue;
+					var link = matchSettings.SquadSize > 1 && i % matchSettings.SquadSize < matchSettings.SquadSize - 1;
+					var playerElement = new MatchLobbyPlayerElement(null, false, false, link, false);
+					var i1 = i;
+					playerElement.clicked += () => OnSpotClicked(playerElement, i1);
+					row!.Insert(0, playerElement);
+					spots.Add(playerElement);
+				}
 
-				spots[i].SetData(player.GetPlayerName(),
-					player.Id == matchLobby.HostId,
-					player.Id == AuthenticationService.Instance.PlayerId,
-					player.IsReady());
-				spots[i].userData = player;
-			}
+				var orderedPlayers = grid.PositionArray;
 
-			_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";
+				for (var i = 0; i < orderedPlayers.Count; i++)
+				{
+					var id = orderedPlayers[i];
+					if (id == null) continue;
+
+					var player = matchLobby.Players.FirstOrDefault(p => p.Id == id);
+
+					if (player == null) continue;
+				if (player.IsSpectator()) continue;
+
+					spots[i].SetData(player.GetPlayerName(),
+						player.Id == matchLobby.HostId,
+						player.Id == AuthenticationService.Instance.PlayerId,
+						player.IsReady());
+					spots[i].userData = player;
+					
+					if (_lastGridNapshot != null)
+					{
+						var lastPosition = _lastGridNapshot.GetPosition(player.Id);
+						if (lastPosition != i)
+						{
+							spots[i].AnimatePing(1.1f);
+						}
+					}
+				}
+				_lastGridNapshot = grid;
+				_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";
+			});
 		}
 
 		private async UniTaskVoid StartMatch()
@@ -221,6 +241,15 @@ namespace FirstLight.Game.Presenters
 			{
 				PopupPresenter.OpenGenericInfo(ScriptTerms.UITCustomGames.custom_game, ScriptLocalization.UITCustomGames.no_players_bots).Forget();
 				return;
+			}
+
+			foreach (var p in _services.FLLobbyService.CurrentMatchLobby.Players)
+			{
+				if (!p.IsLocal() && !p.IsSpectator() && !p.IsReady())
+				{
+					_services.NotificationService.QueueNotification("Not all players are ready");
+					return;
+				}
 			}
 
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
@@ -278,21 +307,22 @@ namespace FirstLight.Game.Presenters
 		{
 			if (source.userData is not Player player)
 			{
-				_services.FLLobbyService.SetMatchPositionRequest(index).Forget();
+				_services.FLLobbyService.SetMatchPositionRequest(index);
 				return;
 			}
 
 			if (player.IsLocal())
 			{
-				 source.OpenTooltip(Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
-				 return;
+				source.OpenTooltip(Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+				return;
 			}
+
 			var buttons = new List<PlayerContextButton>();
 
 			if (!player.IsReady() && !player.IsLocal())
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITCustomGames.option_swap,
-					() => _services.FLLobbyService.SetMatchPositionRequest(index).Forget()));
+					() => _services.FLLobbyService.SetMatchPositionRequest(index)));
 			}
 
 			if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())

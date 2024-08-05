@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Social;
 using Newtonsoft.Json;
 using Quantum;
 using Unity.Services.Authentication;
@@ -94,7 +97,14 @@ namespace FirstLight.Game.Utils.UCSExtensions
 				.Where(p => !p.IsLocal()) // Host doesn't need to be ready
 				.All(IsReady);
 		}
+		
 
+		public static string GetProperty(this Player player, string name)
+		{
+			player.Data.TryGetValue(name, out var v);
+			return v?.Value;
+		}
+		
 		/// <summary>
 		/// Checks if the player has set themselves ready.
 		/// </summary>
@@ -160,15 +170,11 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		}
 
 		/// <summary>
-		/// Gets the player positions from the lobby data. The index is the position,
-		/// an empty string means the position is empty.
+		/// Gets the player grid state of the lobby
 		/// </summary>
-		/// <param name="lobby"></param>
-		/// <returns></returns>
-		public static string[] GetPlayerPositions(this Lobby lobby)
+		public static LobbyGridData GetPlayerGrid(this Lobby lobby)
 		{
-			var data = lobby.Data[FLLobbyService.KEY_LOBBY_MATCH_PLAYER_POSITIONS].Value;
-			return data.Split(",");
+			return new LobbyGridData(lobby.Data[FLLobbyService.KEY_LOBBY_MATCH_PLAYER_POSITIONS].Value);
 		}
 
 		/// <summary>
@@ -176,21 +182,8 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// </summary>
 		public static int GetPlayerPosition(this Lobby lobby, Player player)
 		{
-			var positions = lobby.GetPlayerPositions();
-
-			var playerPosition = -1;
-			for (var i = 0; i < positions.Length; i++)
-			{
-				if (positions[i] == player.Id)
-				{
-					playerPosition = i;
-					break;
-				}
-			}
-
-			return playerPosition;
+			return lobby.GetPlayerGrid().GetPosition(player.Id);
 		}
-
 		
 		public static Player GetPlayerByID(this Lobby lobby, string playerID)
 		{

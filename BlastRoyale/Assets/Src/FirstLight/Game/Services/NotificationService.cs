@@ -41,9 +41,7 @@ namespace FirstLight.Game.Services
 
 			// We skip inviting to party if the player already has an invite open
 			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
-
 			
-
 			switch (message.MessageType)
 			{
 				case FriendMessage.FriendMessageType.PartyInvite:

@@ -46,6 +46,7 @@ namespace FirstLight.Game.Presenters
 		private LocalizedButton _nextButton;
 		private VisualElement _worldPositioning;
 		private int _usedCharactersIndex = 0;
+		private Dictionary<int, VisualElement> _playerNames = new ();
 
 		private void Awake()
 		{
@@ -58,6 +59,16 @@ namespace FirstLight.Game.Presenters
 			_nextButton = Root.Q<LocalizedButton>("NextButton").Required();
 			_nextButton.clicked += Data.ContinueClicked;
 			_worldPositioning = Root.Q<VisualElement>("WorldPositioning").Required();
+			_worldPositioning.RegisterCallback<GeometryChangedEvent>(ev =>
+			{
+				if (_usedCharactersIndex == 0) return;
+				var slots = _characters[_usedCharactersIndex].Values;
+
+				foreach (var (slot, label) in _playerNames)
+				{
+					label.SetPositionBasedOnWorldPosition(slots[slot].transform.position);
+				}
+			});
 		}
 
 		protected override async UniTask OnScreenOpen(bool reload)
@@ -109,7 +120,7 @@ namespace FirstLight.Game.Presenters
 				view.SetData(player.GetPlayerName(), player.UnityId, (int) player.Data.PlayerTrophies, rankColor);
 				_worldPositioning.Add(playerName);
 				playerName.SetPositionBasedOnWorldPosition(slots[i].transform.position);
-
+				_playerNames.Add(i, playerName);
 				var playerData = player.Data.Player;
 				if (!playerData.IsValid || !_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(playerData))
 				{

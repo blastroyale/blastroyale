@@ -167,11 +167,6 @@ namespace FirstLight.Game.Services
 		void SetMatchPositionRequest(int position);
 
 		/// <summary>
-		/// Enables or disables randomizing teams in a match.
-		/// </summary>
-		UniTask SetMatchRandomizeTeams(bool enable);
-
-		/// <summary>
 		/// Sets match property.
 		/// </summary>
 		UniTask<bool> SetMatchProperty(string name, string value);
@@ -203,7 +198,6 @@ namespace FirstLight.Game.Services
 		public const string KEY_MATCHMAKING_TICKET = "matchmaking_ticket";
 		public const string KEY_MATCHMAKING_GAMEMODE = "matchmaking_gamemode";
 
-		public const string KEY_LOBBY_RANDOMIZE_TEAMS = "rng_teams";
 		public const string KEY_LOBBY_MATCH_PLAYER_POSITIONS = "player_positions";
 		public const string KEY_LOBBY_MATCH_SETTINGS = "match_settings";
 		public const string KEY_LOBBY_MATCH_ROOM_NAME = "room_name";
@@ -250,7 +244,7 @@ namespace FirstLight.Game.Services
 		private readonly LobbyGrid _grid = new ();
 		private readonly AsyncBufferedQueue _matchUpdateQueue = new (TimeSpan.FromSeconds(1), true);
 
-		private bool _leaving = false;
+		private bool _leaving;
 
 		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService,
 							  LocalPrefsService localPrefsService)
@@ -593,7 +587,6 @@ namespace FirstLight.Game.Services
 					KEY_LOBBY_MATCH_REGION,
 					new DataObject(DataObject.VisibilityOptions.Public, _localPrefsService.ServerRegion.Value, DataObject.IndexOptions.S1)
 				},
-				{KEY_LOBBY_RANDOMIZE_TEAMS, new DataObject(DataObject.VisibilityOptions.Member, "false")},
 				{KEY_LOBBY_MATCH_PLAYER_POSITIONS, new DataObject(DataObject.VisibilityOptions.Member, string.Join(',', positions))}
 			};
 			var options = new CreateLobbyOptions
@@ -736,11 +729,6 @@ namespace FirstLight.Game.Services
 				}
 			});
 			return UniTask.FromResult(false);
-		}
-
-		public UniTask SetMatchRandomizeTeams(bool enable)
-		{
-			return SetMatchProperty(KEY_LOBBY_RANDOMIZE_TEAMS, enable.ToString().ToLowerInvariant());
 		}
 
 		public async UniTask<bool> SetMatchRoom(string roomName)

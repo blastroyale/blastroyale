@@ -104,14 +104,6 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			player.Data.TryGetValue(name, out var v);
 			return v?.Value;
 		}
-
-		/// <summary>
-		/// Checks if randomize teams is turned on.
-		/// </summary>
-		public static bool IsRandomizeTeams(this Lobby lobby)
-		{
-			return lobby.Data[FLLobbyService.KEY_LOBBY_RANDOMIZE_TEAMS].Value == "true";
-		}
 		
 		/// <summary>
 		/// Checks if the player has set themselves ready.

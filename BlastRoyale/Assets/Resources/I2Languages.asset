@@ -29766,6 +29766,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/randomize_teams
+      TermType: 0
+      Description: 
+      Languages:
+      - RANDOMIZE TEAMS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITParty/copy_party_code
       TermType: 0
       Description: 
@@ -29880,7 +29891,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Invite have been sent
+      - Invite has been sent
       - 
       - 
       - 
@@ -29933,7 +29944,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1722611535151
+    Google_LastUpdatedVersion: 1722881554706
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

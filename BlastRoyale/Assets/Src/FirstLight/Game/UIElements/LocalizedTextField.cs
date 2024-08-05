@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace FirstLight.Game.UIElements
 	{
 		private string labelLocalizationKey { get; set; }
 		private bool showCopyButton { get; set; }
+		public event Action OnCopied;
 
 		private ImageButton _copyButton;
 
@@ -46,7 +48,11 @@ namespace FirstLight.Game.UIElements
 				Add(_copyButton);
 				_copyButton.AddToClassList("unity-text-field__copy-button");
 				
-				_copyButton.clicked += () => UIUtils.SaveToClipboard(value);
+				_copyButton.clicked += () =>
+				{
+					UIUtils.SaveToClipboard(value);
+					OnCopied?.Invoke();
+				};
 			}
 			else if (!enable && _copyButton != null)
 			{

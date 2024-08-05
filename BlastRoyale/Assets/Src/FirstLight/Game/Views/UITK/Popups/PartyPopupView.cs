@@ -32,11 +32,12 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		[Q("TeamCode")] private Label _teamCodeLabel;
 		[Q("YourTeamLabel")] private Label _yourTeamHeader;
-		[Q("FriendsOnline")] private Label _friendsHeader;
+		[Q("GameModeLabel")] private Label _gamemodeHeader;
+		[Q("FriendsOnlineLabel")] private Label _friendsOnlineLabel;
 		[Q("YourTeamContainer")] private VisualElement _yourTeamContainer;
 		[Q("FriendsOnlineList")] private ListView _friendsOnlineList;
-
-		[Q("CopyCodeButton")] private LocalizedButton _copyCodeButton;
+		[Q("NoFriendsLabel")] private VisualElement _noFriendsLabel;
+		[Q("CopyCodeButton")] private ImageButton _copyCodeButton;
 
 		private IGameServices _services;
 
@@ -54,7 +55,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 					.ContinueWith(() => PopupPresenter.OpenJoinWithCode(code => JoinParty(code).ContinueWith(PopupPresenter.Close).ContinueWith(PopupPresenter.OpenParty).Forget()))
 					.Forget();
 			};
-			_leaveTeamButton.clicked += () => LeaveParty().Forget();
+			_leaveTeamButton.clicked += UniTask.Action(LeaveParty);
 
 			_copyCodeButton.clicked += OnCopyCodeClicked;
 			_friendsOnlineList.makeItem = OnMakeFriendsItem;
@@ -64,7 +65,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		public override void OnScreenOpen(bool reload)
 		{
 			RefreshData();
-
+			_services.GameModeService.SelectedGameMode.InvokeObserve(RefreshGameMode);
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnLocalLobbyJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
@@ -103,6 +104,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private async UniTaskVoid LeaveParty()
 		{
 			await _services.FLLobbyService.LeaveParty();
+			_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_left_party);
 		}
 
 		private void OnLobbyChanged(ILobbyChanges m)
@@ -121,11 +123,17 @@ namespace FirstLight.Game.Views.UITK.Popups
 			var e = ((FriendListElement) element);
 			e.SetFromRelationship(relationship)
 				.AddOpenProfileAction(relationship)
-				.TryAddInviteOption(relationship, () =>
+				.TryAddInviteOption(relationship, UniTask.Action(async () =>
 				{
-					_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
-				});
+					await _services.FLLobbyService.InviteToParty(relationship.Member.Id);
+					_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
+				}));
 			_elements[relationship.Member.Id] = e;
+		}
+
+		private void RefreshGameMode(GameModeInfo _, GameModeInfo modeInfo)
+		{
+			_gamemodeHeader.text = modeInfo.Entry.Visual.TitleTranslationKey.GetText();
 		}
 
 		private void RefreshData()
@@ -182,12 +190,14 @@ namespace FirstLight.Game.Views.UITK.Popups
 				_yourTeamHeader.Add(new VisualElement().AddClass("gap-hack"));
 			}
 
+			_noFriendsLabel.SetDisplay(friends.Count == 0);
 			_friendsOnlineList.itemsSource = _friends = friends.Values.ToList();
-			_friendsHeader.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
+			_friendsOnlineLabel.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
 		}
 
 		private void OnCopyCodeClicked()
 		{
+			_services.NotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			UIUtils.SaveToClipboard(_services.FLLobbyService.CurrentPartyLobby.LobbyCode);
 		}
 	}

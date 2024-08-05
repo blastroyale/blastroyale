@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _requestsEmptyContainer;
 		private VisualElement _blockedEmptyContainer;
 
-		private TextField _yourIDField;
+		private LocalizedTextField _yourIDField;
 		private TextField _addFriendIDField;
 		private LocalizedButton _addFriendButton;
 		private Label _requestsCount;
@@ -61,7 +61,11 @@ namespace FirstLight.Game.Presenters
 			_requestsEmptyContainer = Root.Q<VisualElement>("RequestsEmptyContainer").Required();
 			_blockedEmptyContainer = Root.Q<VisualElement>("BlockedEmptyContainer").Required();
 
-			_yourIDField = Root.Q<TextField>("YourID").Required();
+			_yourIDField = Root.Q<LocalizedTextField>("YourID").Required();
+			_yourIDField.OnCopied += () =>
+			{
+				_services.NotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
+			};
 			_addFriendIDField = Root.Q<TextField>("AddFriendID").Required();
 			_addFriendButton = Root.Q<LocalizedButton>("AddFriendButton").Required();
 			_requestsCount = Root.Q<Label>("RequestsCount").Required();

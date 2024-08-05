@@ -14,6 +14,7 @@
     border-color: rgb(132, 117, 166);
     border-width: 1.65px;
     background-image: var(--sprite-home__background-friends-player);
+    -unity-background-image-tint-color: #302c58;
     background-size: 400px;
     background-position-x: -200px;
     background-position-y: -120px;
@@ -46,6 +47,7 @@
     padding-left: 20px;
     padding-right: 20px;
     background-image: var(--sprite-home__background-friends-player);
+    -unity-background-image-tint-color: #302c58;
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;

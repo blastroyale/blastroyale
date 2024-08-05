@@ -2,6 +2,7 @@
     width: 591px;
     height: 258px;
     background-image: var(--sprite-home__background-friends-player);
+    -unity-background-image-tint-color: #302c58;
     flex-direction: row;
     align-items: center;
     padding-left: 25px;

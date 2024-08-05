@@ -309,7 +309,7 @@ namespace FirstLight.Game.Services
 			{
 				playerContextButtons.Add(new PlayerContextButton
 				{
-					Text = ScriptLocalization.UITSquads.option_promote,
+					Text = ScriptLocalization.UITParty.option_promote,
 					ContextStyle = PlayerButtonContextStyle.Gold,
 					OnClick = UniTask.Action(async () => await _services.FLLobbyService.UpdatePartyHost(unityId))
 				});
@@ -321,7 +321,7 @@ namespace FirstLight.Game.Services
 				playerContextButtons.Add(new PlayerContextButton
 					{
 						ContextStyle = PlayerButtonContextStyle.Red,
-						Text = ScriptLocalization.UITSquads.option_kick,
+						Text = ScriptLocalization.UITParty.option_kick,
 						OnClick = UniTask.Action(async () => await _services.FLLobbyService.KickPlayerFromParty(unityId))
 					}
 				);

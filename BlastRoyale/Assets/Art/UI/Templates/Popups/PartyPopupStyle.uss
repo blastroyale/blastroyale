@@ -26,7 +26,7 @@
     border-radius: 18px;
     flex-shrink: 1;
     flex-grow: 0;
-    background-color: #40A91C;
+    background-color: rgb(22, 20, 38);
     flex-direction: row;
     flex-wrap: wrap-reverse;
     justify-content: flex-start;
@@ -48,6 +48,14 @@
 
 .party-joined .container-your-team {
     background-color: #40A91C;
+}
+
+#CreatePartyButton {
+    margin-bottom: 15px;
+}
+
+#GameModeLabel {
+    color: rgb(248, 199, 46);
 }
 
 .party-joined #CreatePartyButton {
@@ -77,7 +85,11 @@
     align-items: center;
     justify-content: center;
     display: none;
-    width: 465px;
+    width: 100%;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+    border-bottom-left-radius: 14px;
 }
 
 .container-your-team .friend-list-element {
@@ -138,7 +150,31 @@
 }
 
 .sidebar {
-    width: 441px;
-    padding-top: 65px;
+    width: 512px;
+    flex-shrink: 0;
+    padding-top: 49px;
     align-items: center;
+}
+
+.sidebar .button-long {
+    width: 366px;
+    height: 100px;
+    font-size: 38px;
+}
+
+.copy-code-button {
+    flex-direction: row;
+    font-size: 38px;
+    justify-content: center;
+    align-items: center;
+}
+
+.copy-code-button__icon {
+    flex-grow: 0;
+    background-image: var(--sprite-shared__copy-icon);
+    -unity-background-scale-mode: scale-to-fit;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    margin-right: 15px;
 }

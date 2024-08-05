@@ -167,10 +167,15 @@ namespace FirstLight.Game.Services
 		void SetMatchPositionRequest(int position);
 
 		/// <summary>
+		/// Enables or disables randomizing teams in a match.
+		/// </summary>
+		UniTask SetMatchRandomizeTeams(bool enable);
+
+		/// <summary>
 		/// Sets match property.
 		/// </summary>
 		UniTask<bool> SetMatchProperty(string name, string value);
-		
+
 		/// <summary>
 		/// Sets match player property.
 		/// Can only set for current players
@@ -181,7 +186,7 @@ namespace FirstLight.Game.Services
 	/// <summary>
 	/// Handles all lobby-related operations (parties, custom matches).
 	/// </summary>
-	public partial class FLLobbyService : IFLLobbyService
+	public class FLLobbyService : IFLLobbyService
 	{
 		private const string PARTY_LOBBY_NAME = "party_{0}";
 		private const string MATCH_LOBBY_NAME = "{0}'s game";
@@ -198,6 +203,7 @@ namespace FirstLight.Game.Services
 		public const string KEY_MATCHMAKING_TICKET = "matchmaking_ticket";
 		public const string KEY_MATCHMAKING_GAMEMODE = "matchmaking_gamemode";
 
+		public const string KEY_LOBBY_RANDOMIZE_TEAMS = "rng_teams";
 		public const string KEY_LOBBY_MATCH_PLAYER_POSITIONS = "player_positions";
 		public const string KEY_LOBBY_MATCH_SETTINGS = "match_settings";
 		public const string KEY_LOBBY_MATCH_ROOM_NAME = "room_name";
@@ -243,7 +249,7 @@ namespace FirstLight.Game.Services
 		private readonly List<string> _sentMatchInvites = new ();
 		private readonly LobbyGrid _grid = new ();
 		private readonly AsyncBufferedQueue _matchUpdateQueue = new (TimeSpan.FromSeconds(1), true);
-			
+
 		private bool _leaving = false;
 
 		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService,
@@ -256,8 +262,7 @@ namespace FirstLight.Game.Services
 			Tick().Forget();
 
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
-			
-			
+
 			CurrentMatchCallbacks.PlayerJoined += OnMatchPlayerJoined;
 			CurrentMatchCallbacks.PlayerLeft += OnMatchPlayerLeft;
 			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
@@ -272,7 +277,7 @@ namespace FirstLight.Game.Services
 		{
 			_grid.EnqueueGridSync(CurrentMatchLobby);
 		}
-		
+
 		private void OnMatchPlayerJoined(List<LobbyPlayerJoined> players)
 		{
 			_grid.EnqueueGridSync(CurrentMatchLobby);
@@ -427,16 +432,14 @@ namespace FirstLight.Game.Services
 			CurrentPartyLobby = await ToggleReady(CurrentPartyLobby);
 		}
 
-		public async UniTask<bool> UpdatePartyMatchmakingTicket(JoinedMatchmaking ticket)
+		public UniTask<bool> UpdatePartyMatchmakingTicket(JoinedMatchmaking ticket)
 		{
-			Assert.IsNotNull(CurrentPartyLobby, "Trying to update party matchmaking ticket but the player is not in one!");
-			return await SetMatchProperty(KEY_MATCHMAKING_TICKET, ticket == null ? null : JsonConvert.SerializeObject(ticket));
+			return SetPartyProperty(KEY_MATCHMAKING_TICKET, ticket == null ? null : JsonConvert.SerializeObject(ticket));
 		}
 
-		public async UniTask<bool> UpdatePartyMatchmakingGameMode(string modeID)
+		public UniTask<bool> UpdatePartyMatchmakingGameMode(string modeID)
 		{
-			Assert.IsNotNull(CurrentPartyLobby, "Trying to update party matchmaking queue but the player is not in one!");
-			return await SetMatchProperty(KEY_MATCHMAKING_GAMEMODE, modeID);
+			return SetPartyProperty(KEY_MATCHMAKING_TICKET, modeID);
 		}
 
 		#endregion
@@ -461,11 +464,13 @@ namespace FirstLight.Game.Services
 				_notificationService.QueueNotification($"Could not update host, {e.ParseError()}");
 				return null;
 			}
+
 			return CurrentMatchLobby;
 		}
-		
+
 		public async UniTask<bool> SetMatchProperty(string name, string value)
 		{
+			Assert.IsNotNull(CurrentMatchLobby, "Not in match!");
 			var options = new UpdateLobbyOptions
 			{
 				Data = new Dictionary<string, DataObject>
@@ -475,7 +480,7 @@ namespace FirstLight.Game.Services
 			};
 			try
 			{
-				FLog.Info($"Updating lobby: {CurrentMatchLobby.Id}");
+				FLog.Info($"Updating lobby: {CurrentMatchLobby.Id}, {name}:{value}");
 				CurrentMatchLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentMatchLobby.Id, options);
 				FLog.Info("Lobby updated successfully!");
 			}
@@ -488,7 +493,33 @@ namespace FirstLight.Game.Services
 
 			return true;
 		}
-		
+
+		private async UniTask<bool> SetPartyProperty(string name, string value)
+		{
+			Assert.IsNotNull(CurrentPartyLobby, "Not in a party!");
+			var options = new UpdateLobbyOptions
+			{
+				Data = new Dictionary<string, DataObject>
+				{
+					{name, new DataObject(DataObject.VisibilityOptions.Member, value)},
+				}
+			};
+			try
+			{
+				FLog.Info($"Updating lobby: {CurrentPartyLobby.Id}, {name}:{value}");
+				CurrentPartyLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentPartyLobby.Id, options);
+				FLog.Info("Lobby updated successfully!");
+			}
+			catch (LobbyServiceException e)
+			{
+				FLog.Warn("Error updating lobby!", e);
+				_notificationService.QueueNotification($"Could not update lobby, {e.ParseError()}");
+				return false;
+			}
+
+			return true;
+		}
+
 		public async UniTask<bool> SetMatchPlayerProperty(string name, string value, bool silent = true)
 		{
 			var options = new UpdatePlayerOptions()
@@ -501,7 +532,8 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Updating lobby: {CurrentMatchLobby.Id} player {AuthenticationService.Instance.PlayerId}");
-				CurrentMatchLobby = await LobbyService.Instance.UpdatePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId, options);
+				CurrentMatchLobby =
+					await LobbyService.Instance.UpdatePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId, options);
 				FLog.Info("Lobby player updated successfully!");
 			}
 			catch (LobbyServiceException e)
@@ -511,10 +543,10 @@ namespace FirstLight.Game.Services
 				_notificationService.QueueNotification($"Could not update player, {e.ParseError()}");
 				return false;
 			}
+
 			return true;
 		}
 
-		
 		public async UniTask<List<Lobby>> GetPublicMatches(bool allRegions = false)
 		{
 			var options = new QueryLobbiesOptions
@@ -539,6 +571,7 @@ namespace FirstLight.Game.Services
 				FLog.Warn("Error fetching match lobbies!", e);
 				_notificationService.QueueNotification($"Could not fetch games, {e.ParseError()}");
 			}
+
 			return null;
 		}
 
@@ -560,6 +593,7 @@ namespace FirstLight.Game.Services
 					KEY_LOBBY_MATCH_REGION,
 					new DataObject(DataObject.VisibilityOptions.Public, _localPrefsService.ServerRegion.Value, DataObject.IndexOptions.S1)
 				},
+				{KEY_LOBBY_RANDOMIZE_TEAMS, new DataObject(DataObject.VisibilityOptions.Member, "false")},
 				{KEY_LOBBY_MATCH_PLAYER_POSITIONS, new DataObject(DataObject.VisibilityOptions.Member, string.Join(',', positions))}
 			};
 			var options = new CreateLobbyOptions
@@ -610,6 +644,7 @@ namespace FirstLight.Game.Services
 				_notificationService.QueueNotification($"Could not join match, {e.ParseError()}");
 				return false;
 			}
+
 			return true;
 		}
 
@@ -703,6 +738,11 @@ namespace FirstLight.Game.Services
 			return UniTask.FromResult(false);
 		}
 
+		public UniTask SetMatchRandomizeTeams(bool enable)
+		{
+			return SetMatchProperty(KEY_LOBBY_RANDOMIZE_TEAMS, enable.ToString().ToLowerInvariant());
+		}
+
 		public async UniTask<bool> SetMatchRoom(string roomName)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
@@ -740,7 +780,7 @@ namespace FirstLight.Game.Services
 		{
 			return (CurrentMatchLobby = await SetHost(playerID)) != null;
 		}
-		
+
 		public async UniTask<bool> UpdatePartyHost(string playerID)
 		{
 			return (CurrentPartyLobby = await SetHost(playerID)) != null;
@@ -838,7 +878,7 @@ namespace FirstLight.Game.Services
 				await UniTask.WaitForSeconds(TICK_DELAY);
 
 				if (MainInstaller.ResolveServices().RoomService.InRoom) return;
-				
+
 				// Lobbies have to be sent a heartbeat request by the host at least every 30 seconds
 				if (CurrentPartyLobby != null && IsLocalPlayerHost(CurrentPartyLobby))
 				{
@@ -886,15 +926,16 @@ namespace FirstLight.Game.Services
 		private void OnMatchLobbyChanged(ILobbyChanges changes)
 		{
 			if (CurrentMatchLobby == null) return;
-			
+
 			if (changes.LobbyDeleted)
 			{
 				CurrentMatchLobby = null;
 			}
-			else 
+			else
 			{
 				changes.ApplyToLobby(CurrentMatchLobby);
 			}
+
 			CurrentMatchCallbacks.TriggerLocalLobbyUpdated(changes);
 			if (CurrentMatchLobby != null)
 			{
@@ -902,10 +943,11 @@ namespace FirstLight.Game.Services
 				{
 					_grid.EnqueueGridSync(CurrentMatchLobby);
 				}
+
 				_grid.HandleLobbyUpdates(CurrentMatchLobby, changes).Forget();
 			}
 		}
-		
+
 		private void OnMatchLobbyKicked()
 		{
 			if (CurrentMatchLobby == null) return;

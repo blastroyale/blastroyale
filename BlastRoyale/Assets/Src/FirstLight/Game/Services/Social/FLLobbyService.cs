@@ -1111,7 +1111,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Event called when a new lobby is created.
 		/// </summary>
-		public event Action<Lobby> LobbyJoined;
+		public event Action<Lobby> LocalLobbyJoined;
 
 		/// <summary>
 		/// Called after a lobby update is received and proccessed so the local lobby is up-to-date too
@@ -1120,7 +1120,7 @@ namespace FirstLight.Game.Services
 
 		public void TriggerLobbyJoined(Lobby lobby)
 		{
-			LobbyJoined?.Invoke(lobby);
+			LocalLobbyJoined?.Invoke(lobby);
 		}
 
 		public void TriggerLocalLobbyUpdated(ILobbyChanges changes)

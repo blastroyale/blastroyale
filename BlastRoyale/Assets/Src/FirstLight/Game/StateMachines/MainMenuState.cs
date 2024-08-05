@@ -285,7 +285,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.FLLobbyService.CurrentMatchCallbacks.LobbyJoined += OnJoinedCustomGame;
+			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyJoined += OnJoinedCustomGame;
 			_services.MessageBrokerService.Subscribe<ItemConvertedToBlastBuckMessage>(OnItemConvertedToBlastBucks);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_services.MessageBrokerService.Subscribe<NewBattlePassSeasonMessage>(OnBattlePassNewSeason);
@@ -317,7 +317,7 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services.FLLobbyService.CurrentMatchCallbacks.LobbyJoined -= OnJoinedCustomGame;
+			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyJoined -= OnJoinedCustomGame;
 		}
 
 		private async UniTask PreloadQuantumSettings()

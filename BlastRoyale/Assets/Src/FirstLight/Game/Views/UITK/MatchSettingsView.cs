@@ -42,6 +42,7 @@ namespace FirstLight.Game.Views.UITK
 		[Q("FilterWeaponsToggle")] private LocalizedToggle _filterWeaponsToggle;
 		[Q("FilterWeaponsScroller")] private ScrollView _filterWeaponsScroller;
 		[Q("FilterWeaponsButton")] private ImageButton _filterWeaponsButton;
+		[Q("RandomizeTeams")] private LocalizedToggle _randomizeTeamsToggle;
 		[Q("AllowBotsToggle")] private LocalizedToggle _allowBotsToggle;
 		[Q("BotDifficultySlider")] private SliderInt _botDifficultySlider;
 
@@ -73,7 +74,7 @@ namespace FirstLight.Game.Views.UITK
 			_modeButton.clicked += OnGameModeClicked;
 			_teamSizeButton.clicked += OnTeamSizeClicked;
 			_mapButton.clicked += OnMapClicked;
-			
+
 			_maxPlayersButton.clicked += OnMaxPlayersClicked;
 			_mutatorsButton.clicked += OnMutatorsClicked;
 			_filterWeaponsButton.clicked += OnWeaponFilterClicked;
@@ -81,6 +82,7 @@ namespace FirstLight.Game.Views.UITK
 			_mutatorsToggle.RegisterValueChangedCallback(OnMutatorsToggle);
 			_filterWeaponsToggle.RegisterValueChangedCallback(OnWeaponFilterToggle);
 			_allowBotsToggle.RegisterValueChangedCallback(OnAllowBotsToggle);
+			_randomizeTeamsToggle.RegisterValueChangedCallback(OnRandomizeTeamsToggle);
 			_privateRoomToggle.RegisterValueChangedCallback(v => MatchSettings.PrivateRoom = v.newValue);
 			_showCreatorNameToggle.RegisterValueChangedCallback(v => MatchSettings.ShowCreatorName = v.newValue);
 			_spectatorToggle.RegisterValueChangedCallback(v => SpectatorChanged(v.newValue).Forget());
@@ -89,6 +91,12 @@ namespace FirstLight.Game.Views.UITK
 				arg.MatchSettings.BotDifficulty = _botDifficultySlider.value;
 				arg.RefreshData(true);
 			}, this);
+		}
+
+		private void OnRandomizeTeamsToggle(ChangeEvent<bool> evt)
+		{
+			MatchSettings.RandomizeTeams = evt.newValue;
+			RefreshData(true);
 		}
 
 		private void OnAllowBotsToggle(ChangeEvent<bool> e)
@@ -244,6 +252,7 @@ namespace FirstLight.Game.Views.UITK
 			_maxPlayersButton.SetEnabled(_services.FLLobbyService.CurrentMatchLobby == null);
 			_privateRoomToggle.value = MatchSettings.PrivateRoom;
 			_showCreatorNameToggle.value = MatchSettings.ShowCreatorName;
+			_randomizeTeamsToggle.value = MatchSettings.RandomizeTeams;
 
 			_mutatorsScroller.Clear();
 			var mutators = MatchSettings.Mutators.GetSetFlags();

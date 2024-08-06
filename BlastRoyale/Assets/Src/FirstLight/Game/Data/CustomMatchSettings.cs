@@ -16,6 +16,7 @@ namespace FirstLight.Game.Data
 		public List<string> WeaponFilter = new ();
 		public bool PrivateRoom = false;
 		public bool ShowCreatorName = true;
+		public bool RandomizeTeams = false;
 
 		public SimulationMatchConfig ToSimulationMatchConfig()
 		{

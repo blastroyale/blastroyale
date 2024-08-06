@@ -438,7 +438,7 @@ namespace FirstLight.Game.Services
 
 		public UniTask<bool> UpdatePartyMatchmakingGameMode(string modeID)
 		{
-			return SetPartyProperty(KEY_MATCHMAKING_TICKET, modeID);
+			return SetPartyProperty(KEY_MATCHMAKING_GAMEMODE, modeID);
 		}
 
 		#endregion

@@ -191,7 +191,7 @@ namespace FirstLight.Game.Services
 		private const string PARTY_LOBBY_NAME = "party_{0}";
 		private const string MATCH_LOBBY_NAME = "{0}'s game";
 		private const int MAX_PARTY_SIZE = 4;
-		private const float TICK_DELAY = 15f;
+		private const float TICK_DELAY = 5f;
 
 		public const string KEY_SKIN_ID = "skin_id";
 		public const string KEY_MELEE_ID = "melee_id";

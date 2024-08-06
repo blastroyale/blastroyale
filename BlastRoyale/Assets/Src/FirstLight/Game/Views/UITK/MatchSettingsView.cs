@@ -86,10 +86,10 @@ namespace FirstLight.Game.Views.UITK
 			_privateRoomToggle.RegisterValueChangedCallback(v => MatchSettings.PrivateRoom = v.newValue);
 			_showCreatorNameToggle.RegisterValueChangedCallback(v => MatchSettings.ShowCreatorName = v.newValue);
 			_spectatorToggle.RegisterValueChangedCallback(v => SpectatorChanged(v.newValue).Forget());
-			_botDifficultySlider.RegisterValueChangedCallback(OnBotDifficultySlider);
+			_botDifficultySlider.RegisterValueChangedCallback(OnBotDifficultyValueChanged);
 		}
 
-		private void OnBotDifficultySlider(ChangeEvent<int> evt)
+		private void OnBotDifficultyValueChanged(ChangeEvent<int> evt)
 		{
 			MatchSettings.BotDifficulty = evt.newValue;
 			RefreshData(true, false);

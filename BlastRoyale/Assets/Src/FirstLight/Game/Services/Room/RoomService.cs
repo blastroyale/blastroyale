@@ -210,7 +210,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// <returns></returns>
 		public bool JoinRoom(string roomName, PlayerJoinRoomProperties playerProperties = null)
 		{
-			FLog.Info($"JoinRoom: {InRoom}");
+			FLog.Info($"JoinRoom: Room:{roomName} InRoom?{InRoom}");
 
 			if (InRoom) return false;
 

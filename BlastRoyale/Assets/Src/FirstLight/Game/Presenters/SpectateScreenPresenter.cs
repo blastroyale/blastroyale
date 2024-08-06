@@ -64,7 +64,7 @@ namespace FirstLight.Game.Presenters
 			_statusBarsView.ForceOverheadUI();
 			_statusBarsView.InitAll();
 
-			_header.backClicked = Data.OnLeaveClicked;
+			_header.SetButtonsVisibility(false);
 
 			_leaveButton.clicked += Data.OnLeaveClicked;
 			_arrowLeft.clicked += OnPreviousPlayerClicked;

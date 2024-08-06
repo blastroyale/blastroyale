@@ -39,7 +39,9 @@ namespace FirstLight.Game.UIElements
 
 				this.RegisterValueChangedCallback(valueChange =>
 				{
-					if (valueChange.target != _internalLabel) return;
+					if (valueChange.target != _internalLabel.parent) return;
+					
+
 					
 					_internalLabel.text = valueChange.newValue;
 					if (resolvedStyle.textOverflow == TextOverflow.Ellipsis)

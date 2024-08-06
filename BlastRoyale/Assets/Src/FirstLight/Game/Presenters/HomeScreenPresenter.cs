@@ -248,13 +248,9 @@ namespace FirstLight.Game.Presenters
 			var onlineFriendsCount = FriendsService.Instance.Friends.Count(f => f.IsOnline());
 			var hasPlayerOnline = onlineFriendsCount > 0;
 			
-			_onlineFriendsNotification.SetDisplay(hasPlayerOnline);
-			if (hasPlayerOnline)
-			{
-				_onlineFriendLabel.text = onlineFriendsCount.ToString();	
-			}
-
 			
+			_onlineFriendsNotification.SetDisplay( onlineFriendsCount > 0);
+			_onlineFriendLabel.text = onlineFriendsCount.ToString();	
 		}
 
 		private void OnPartyLobbyUpdate(ILobbyChanges m)

@@ -85,8 +85,8 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private async UniTaskVoid LoadWeaponPicture(GameId weapon, MatchSettingsSelectionElement element)
 		{
 			var mapImage = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weapon);
+			await UniTask.NextFrame();
 			if (element.panel == null) return;
-			FLog.Info("PACO", "WeaponLoaded");
 			element.SetImage(mapImage);
 		}
 	}

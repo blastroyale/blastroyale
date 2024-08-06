@@ -7,7 +7,7 @@
                 <ui:VisualElement name="TopPart" class="event-container__top">
                     <FirstLight.Game.UIElements.LabelOutlined text="BATTLE ROYALE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EventTitle" class="title" />
                     <ui:Label name="EventTimer" text="ENDS IN 23h 24m 34s" class="event-ends-label" />
-                    <ui:VisualElement name="Thumbnail" class="event-thumbnail">
+                    <ui:VisualElement name="EventThumbnail" class="event-thumbnail">
                         <ui:VisualElement class="event-thumbnail__mask">
                             <ui:VisualElement name="EventImage" class="event-thumbnail__image" />
                         </ui:VisualElement>
@@ -27,7 +27,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="CustomGameContainer" class="custom-game-container">
                 <FirstLight.Game.UIElements.LabelOutlined text="BATTLE ROYALE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="title" />
-                <ui:VisualElement name="Thumbnail" class="thumbnail sprite-home__icon-match-solos" />
+                <ui:VisualElement name="CustomThumbnail" class="thumbnail sprite-home__icon-match-solos" />
                 <ui:VisualElement style="flex-grow: 1;" />
                 <FirstLight.Game.UIElements.LocalizedLabel name="FriendsTitle" localization-key="UITCustomGames/friends_playing" class="left-container-label" />
                 <ui:VisualElement name="FriendsContainerList" class="friends-playing-list-container">

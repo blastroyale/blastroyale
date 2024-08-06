@@ -83,7 +83,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_worldPositioning = Root.Q<VisualElement>("WorldPositioning");
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
-			_header.backClicked = OnNextButtonClicked;
+			_header.SetButtonsVisibility(false);
 
 			_nextButton = Root.Q<LocalizedButton>("NextButton").Required();
 			_nextButton.clicked += OnNextButtonClicked;

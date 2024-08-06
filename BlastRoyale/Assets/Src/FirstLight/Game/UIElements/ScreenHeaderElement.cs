@@ -94,7 +94,7 @@ namespace FirstLight.Game.UIElements
 				_subTitle.text = subtitle;
 			}
 		}
-
+		
 		public new class UxmlFactory : UxmlFactory<ScreenHeaderElement, UxmlTraits>
 		{
 		}

@@ -33,7 +33,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		[Q("EventTitle")] private Label _eventTitle;
 		[Q("EventTimer")] private Label _eventTimer;
-		[Q("Thumbnail")] private VisualElement _thumbnail;
+		[Q("EventThumbnail")] private VisualElement _eventThumbnail;
 		[Q("EventImage")] private VisualElement _eventImage;
 		[Q("FriendsTitle")] private LocalizedLabel _friendsTitle;
 		[Q("FriendsContainerList")] private VisualElement _friendsContainer;
@@ -48,7 +48,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("MutatorsScroll")] private ScrollView _mutatorsScroll;
 		[Q("AllowedWeaponsContainer")] private VisualElement _allowedWeaponsContainer;
 		[Q("AllowedWeaponsScroll")] private ScrollView _allowedWeapons;
-
+		[Q("CustomThumbnail")] private VisualElement _customThumbnail;
 		public MatchInfoPopupView(GameModeInfo info, Action selectAction)
 		{
 			_clickAction = selectAction;
@@ -197,24 +197,27 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		private void SetupCustom()
 		{
+			_summary.SetDisplay(false);
+			
 			_friendsTitle.SetVisibility(_friendsPlaying.Count > 0);
 			_friendsContainer.Clear();
+			
 			foreach (var friend in _friendsPlaying)
 			{
 				_friendsContainer.Add(new Label(friend));
 			}
 
-			_thumbnail.RemoveSpriteClasses();
+			_customThumbnail.RemoveSpriteClasses();
 			switch (_matchSettings.TeamSize)
 			{
 				case 1:
-					_thumbnail.AddToClassList("sprite-home__icon-match-solos");
+					_customThumbnail.AddToClassList("sprite-home__icon-match-solos");
 					break;
 				case 2:
-					_thumbnail.AddToClassList("sprite-home__icon-match-duos");
+					_customThumbnail.AddToClassList("sprite-home__icon-match-duos");
 					break;
 				case 4:
-					_thumbnail.AddToClassList("sprite-home__icon-match-quads");
+					_customThumbnail.AddToClassList("sprite-home__icon-match-quads");
 					break;
 				default:
 					throw new NotSupportedException("Unsupported squad size");

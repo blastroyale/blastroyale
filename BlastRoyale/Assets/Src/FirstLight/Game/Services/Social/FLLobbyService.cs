@@ -176,6 +176,11 @@ namespace FirstLight.Game.Services
 		/// Can only set for current players
 		/// </summary>
 		UniTask<bool> SetMatchPlayerProperty(string name, string value, bool silent = true);
+
+		/// <summary>
+		/// Checks if the player is in a party
+		/// </summary>
+		bool IsInParty();
 	}
 
 	/// <summary>
@@ -537,6 +542,8 @@ namespace FirstLight.Game.Services
 
 			return true;
 		}
+
+		public bool IsInParty() => CurrentPartyLobby != null;
 
 		public async UniTask<List<Lobby>> GetPublicMatches(bool allRegions = false)
 		{

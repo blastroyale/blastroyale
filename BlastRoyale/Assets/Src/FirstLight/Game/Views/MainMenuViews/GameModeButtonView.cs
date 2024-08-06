@@ -14,6 +14,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 {
 	public class GameModeButtonView : UIView
 	{
+		public const string USS_EVENT = "game-mode-button--event";
+		
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
 		private VisualElement _gameModeIcon;
@@ -87,6 +89,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void UpdateEvent()
 		{
+			if (_services.FLLobbyService.IsInParty())
+			{
+				CancelEventEffects();
+				return;
+			}
+			
 			if (_services.GameModeService.TryGetNextEvent(out var info))
 			{
 				var now = DateTime.UtcNow;
@@ -113,12 +121,21 @@ namespace FirstLight.Game.Views.MainMenuViews
 						_newEventGlow.AnimatePingOpacity(fromAmount: 0.5f, toAmount: 1f, duration: 1000, repeat: true);
 						_newEventShine.AddRotatingEffect(40f, 10);
 					}
-
-					Element.AddToClassList("game-mode-button--event");
+					Element.AddToClassList(USS_EVENT);
 				}
 			}
 
 			_nextEventContainer.SetDisplay(false);
+		}
+
+		private void CancelEventEffects()
+		{
+			if (_pingAnimationCancel != null)
+			{
+				_pingAnimationCancel();
+				_pingAnimationCancel = null;
+			}
+			Element?.RemoveFromClassList(USS_EVENT);
 		}
 	}
 }

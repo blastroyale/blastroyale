@@ -136,5 +136,10 @@ namespace FirstLight.Tests.EditorMode
 		{
 			throw new System.NotImplementedException();
 		}
+
+		public bool IsInParty()
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

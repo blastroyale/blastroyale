@@ -440,7 +440,7 @@ namespace FirstLight.Game.Services
 
 		#region LOBBIES
 
-		public async UniTask<Lobby> SetHost(string playerID)
+		public async UniTask<Lobby> SetHost(Lobby lobby, string playerID)
 		{
 			var options = new UpdateLobbyOptions
 			{
@@ -449,8 +449,7 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Updating host to: {playerID}");
-				CurrentMatchLobby = await LobbyService.Instance.UpdateLobbyAsync(CurrentMatchLobby.Id, options);
-				FLog.Info($"host updated successfully!");
+				return await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options);
 			}
 			catch (LobbyServiceException e)
 			{
@@ -458,8 +457,6 @@ namespace FirstLight.Game.Services
 				_notificationService.QueueNotification($"Could not update host, {e.ParseError()}");
 				return null;
 			}
-
-			return CurrentMatchLobby;
 		}
 
 		public async UniTask<bool> SetMatchProperty(string name, string value)
@@ -766,12 +763,12 @@ namespace FirstLight.Game.Services
 
 		public async UniTask<bool> UpdateMatchHost(string playerID)
 		{
-			return (CurrentMatchLobby = await SetHost(playerID)) != null;
+			return (CurrentMatchLobby = await SetHost(CurrentMatchLobby, playerID)) != null;
 		}
 
 		public async UniTask<bool> UpdatePartyHost(string playerID)
 		{
-			return (CurrentPartyLobby = await SetHost(playerID)) != null;
+			return (CurrentPartyLobby = await SetHost(CurrentPartyLobby, playerID)) != null;
 		}
 
 		public async UniTask<bool> KickPlayerFromMatch(string playerID)

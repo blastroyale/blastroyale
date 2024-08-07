@@ -135,7 +135,7 @@ namespace FirstLight.Game.Services
 				return null;
 			}
 
-			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
+			var mixerGroupId = mixerGroupOverride ?? _mixerSfx3dGroupId;
 			
 			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, clipData, mixerGroupId);
 			var updatedInitData = sourceInitData;

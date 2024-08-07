@@ -255,9 +255,14 @@ namespace FirstLight.Game.Presenters
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			var matchSettings = _matchSettingsView.MatchSettings;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			var matchGrid = matchLobby.GetPlayerGrid();
+			matchGrid.ShuffleStack();
+
 			_services.MessageBrokerService.Publish(new JoinedCustomMatch());
 
-			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
+			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, matchGrid, true);
+
+			matchSettings = _matchSettingsView.MatchSettings;
 
 			// TODO: remove the hack
 			((IInternalGameNetworkService) _services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
@@ -268,7 +273,7 @@ namespace FirstLight.Game.Presenters
 				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
 			};
 
-			var squadSize = matchLobby.GetMatchSettings().SquadSize;
+			var squadSize = matchSettings.SquadSize;
 			var localPlayer = matchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
 			var localPlayerPosition = matchLobby.GetPlayerPosition(localPlayer);
 
@@ -312,6 +317,7 @@ namespace FirstLight.Game.Presenters
 				{
 					_services.FLLobbyService.SetMatchPositionRequest(index);
 				}
+
 				return;
 			}
 

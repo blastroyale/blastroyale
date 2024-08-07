@@ -137,7 +137,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates the data / locked state of the current match lobby.
 		/// </summary>
-		UniTask<bool> UpdateMatchLobby(CustomMatchSettings settings, bool locked = false);
+		UniTask<bool> UpdateMatchLobby(CustomMatchSettings settings, LobbyGridData grid = null, bool locked = false);
 
 		/// <summary>
 		/// Updates the data / locked state of the current match lobby.
@@ -727,7 +727,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public UniTask<bool> UpdateMatchLobby(CustomMatchSettings settings, bool locked = false)
+		public UniTask<bool> UpdateMatchLobby(CustomMatchSettings settings, LobbyGridData gridData, bool locked = false)
 		{
 			_matchUpdateQueue.Add(async () =>
 			{
@@ -747,6 +747,12 @@ namespace FirstLight.Game.Services
 					MaxPlayers = settings.MaxPlayers,
 					Name = lobbyName
 				};
+				if (gridData != null)
+				{
+					options.Data[KEY_LOBBY_MATCH_PLAYER_POSITIONS] =
+						new DataObject(DataObject.VisibilityOptions.Member, gridData.ToString());
+				}
+
 				try
 				{
 					FLog.Info($"Updating match settings for lobby: {CurrentMatchLobby.Id}");

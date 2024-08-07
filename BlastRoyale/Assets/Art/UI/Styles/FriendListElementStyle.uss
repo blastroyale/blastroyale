@@ -125,11 +125,8 @@
     font-size: 32px;
     width: 214px;
     height: 69px;
-    color: rgb(255, 255, 255);
     margin-right: 30px;
-    text-shadow: 3px 3px 0 rgb(156, 36, 12);
     -unity-text-outline-width: 6px;
-    -unity-text-outline-color: rgb(156, 36, 12);
     margin-bottom: 0;
     display: none;
 }

@@ -88,7 +88,8 @@ namespace FirstLight.Game.Presenters
 					throw new ArgumentOutOfRangeException();
 			}
 
-			await _services.UIService.CloseScreen<InvitePopupPresenter>();
+			if (_services.UIService.IsScreenOpen<InvitePopupPresenter>())
+				await _services.UIService.CloseScreen<InvitePopupPresenter>();
 		}
 
 		private async UniTaskVoid DeclineInvite()

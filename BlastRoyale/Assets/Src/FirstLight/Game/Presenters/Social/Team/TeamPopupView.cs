@@ -131,7 +131,6 @@ namespace FirstLight.Game.Presenters.Social.Team
 			var relationship = _friends[index];
 			var e = ((FriendListElement) element);
 			e.SetFromRelationship(relationship)
-				.AddOpenProfileAction(relationship)
 				.TryAddInviteOption(relationship, () =>
 				{
 					_services.FLLobbyService.InviteToParty(relationship).ContinueWith(() =>
@@ -159,25 +158,26 @@ namespace FirstLight.Game.Presenters.Social.Team
 				_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, 4);
 				_yourTeamContainer.Clear();
 				var friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToDictionary(r => r.Member.Id, r => r);
+				var friendsCount = friends.Count;
 				if (inParty)
 				{
 					_teamCodeLabel.text = _services.FLLobbyService.CurrentPartyLobby.LobbyCode;
 
-					foreach (var partyMember in partyLobby.Players!)
+				foreach (var partyMember in partyLobby.Players!)
+				{
+					if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
+					friends.Remove(partyMember.Id);
+					var e = new FriendListElement().SetFromParty(partyMember).SetElementClickAction((el) =>
 					{
-						if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
-						friends.Remove(partyMember.Id);
-						var e = new FriendListElement().SetFromParty(partyMember).SetElementClickAction((el) =>
+						_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
 						{
-							_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
-							{
-								ShowTeamOptions = true
-							});
+							ShowTeamOptions = true
 						});
-						if (partyLobby.HostId == partyMember.Id)
-						{
-							e.AddCrown();
-						}
+					});
+					if (partyLobby.HostId == partyMember.Id)
+					{
+						e.AddCrown();
+					}
 
 						_yourTeamContainer.Add(e);
 					}
@@ -201,7 +201,6 @@ namespace FirstLight.Game.Presenters.Social.Team
 				_yourTeamContainer.Add(own);
 				foreach (var sentPartyInvite in _services.FLLobbyService.SentPartyInvites)
 				{
-					friends.Remove(sentPartyInvite.PlayerId);
 					if (_yourTeamContainer.childCount >= 6) continue;
 					_yourTeamContainer.Add(new PendingInviteElement()
 						.SetPlayerName(sentPartyInvite.PlayerName.TrimPlayerNameNumbers())
@@ -220,7 +219,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 
 				_noFriendsLabel.SetDisplay(friends.Count == 0);
 				_friendsOnlineList.itemsSource = _friends = friends.Values.ToList();
-				_friendsOnlineLabel.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
+				_friendsOnlineLabel.text = string.Format(ScriptLocalization.UITParty.online_friends, friendsCount);
 			});
 		}
 

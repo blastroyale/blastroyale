@@ -36,8 +36,13 @@ namespace FirstLight.Game.UIElements
 				textContainer.Add(_title = new LocalizedLabel(titleKey) {name = "title"});
 				_title.AddToClassList(USS_TITLE);
 
-				textContainer.Add(_subtitle = new LocalizedLabel(subtitleKey) {name = "subtitle"});
-				_subtitle.AddToClassList(USS_SUBTITLE);
+				if (!string.IsNullOrEmpty(subtitleKey))
+				{
+					textContainer.Add(_subtitle = new LocalizedLabel(subtitleKey) {name = "subtitle"});
+					_subtitle.AddToClassList(USS_SUBTITLE);	
+				}
+
+				
 			}
 
 			Add(_image = new VisualElement {name = "image"});

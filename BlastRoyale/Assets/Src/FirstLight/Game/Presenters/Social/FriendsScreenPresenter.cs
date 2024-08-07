@@ -111,6 +111,7 @@ namespace FirstLight.Game.Presenters
 			FriendsService.Instance.RelationshipAdded -= OnRelationshipAdded;
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdate;
 			FriendsService.Instance.MessageReceived -= OnMessageReceived;
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= RefreshFriends; 
 			return base.OnScreenClose();
 		}
 
@@ -124,8 +125,10 @@ namespace FirstLight.Game.Presenters
 			FriendsService.Instance.RelationshipAdded += OnRelationshipAdded; // not called with local changes
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdate;
 			FriendsService.Instance.MessageReceived += OnMessageReceived;
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated += RefreshFriends; 
 			return base.OnScreenOpen(reload);
 		}
+
 
 		private void RefreshAll()
 		{

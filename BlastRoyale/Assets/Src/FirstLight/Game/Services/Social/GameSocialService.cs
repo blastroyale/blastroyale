@@ -188,9 +188,10 @@ namespace FirstLight.Game.Services
 				return false;
 			}
 
+			if (_services.FLLobbyService.SentPartyInvites.Any(sent => sent.PlayerId == friend.Member.Id)) return false;
+			
 			if (_services.FLLobbyService.CurrentPartyLobby != null)
 			{
-				if (_services.FLLobbyService.SentPartyInvites.Any(sent => sent.PlayerId == friend.Member.Id)) return false;
 				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id)) return false;
 			}
 

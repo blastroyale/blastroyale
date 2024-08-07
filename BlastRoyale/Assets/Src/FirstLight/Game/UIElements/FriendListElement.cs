@@ -307,10 +307,17 @@ namespace FirstLight.Game.UIElements
 		public FriendListElement TryAddInviteOption(Relationship friend, Action callback)
 		{
 			var services = MainInstaller.ResolveServices();
+
+			if (!friend.IsOnline())
+			{
+				return SetMainAction(null, null, false);
+			}
+
 			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
 			if (showInvite)
 				return SetMainAction(ScriptLocalization.UITFriends.invite, callback, false);
-			return SetMainAction("", null, false);
+			
+			return SetMainAction(ScriptLocalization.UITFriends.invite, null, false).DisableMainActionButton();
 		}
 
 		public FriendListElement AddOpenProfileAction(Relationship friend)
@@ -320,12 +327,19 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetMainAction(string label, Action mainAction, bool negative)
 		{
-			_mainActionButton.SetDisplay(!string.IsNullOrEmpty(label) && mainAction != null);
+			_mainActionButton.SetEnabled(true);
+			_mainActionButton.SetDisplay(!string.IsNullOrEmpty(label));
 			_mainActionButton.EnableInClassList("button-long--red", negative);
 			_mainActionButton.EnableInClassList("button-long--yellow", !negative);
-
+			
 			_mainActionButton.text = label;
 			_mainAction = mainAction;
+			return this;
+		}
+
+		public FriendListElement DisableMainActionButton()
+		{
+			_mainActionButton.SetEnabled(false);
 			return this;
 		}
 

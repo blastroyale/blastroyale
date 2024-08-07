@@ -206,15 +206,11 @@ namespace FirstLight.Game.Presenters
 			e
 				.SetHeader(header)
 				.SetFromRelationship(relationship)
-				.SetMoreActions(ve => OpenTooltip(ve, relationship));
-			
-			if ((_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) < GameConstants.Data.MAX_PARTY_SIZE)
-			{
-				e.TryAddInviteOption(relationship, () =>
+				.SetMoreActions(ve => OpenTooltip(ve, relationship))
+				.TryAddInviteOption(relationship, () =>
 				{
 					_services.FLLobbyService.InviteToParty(relationship).Forget();
 				});
-			}
 		}
 
 		private void OnRequestsBindItem(VisualElement element, int index)

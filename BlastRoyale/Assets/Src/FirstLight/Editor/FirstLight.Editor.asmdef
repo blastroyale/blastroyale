@@ -29,7 +29,8 @@
         "UniTask",
         "StompyRobot.SRDebugger.Editor",
         "Unity.Services.PushNotifications",
-        "Unity.AssetManager.Editor"
+        "Unity.AssetManager.Editor",
+        "Unity.VectorGraphics.Editor"
     ],
     "includePlatforms": [
         "Editor"

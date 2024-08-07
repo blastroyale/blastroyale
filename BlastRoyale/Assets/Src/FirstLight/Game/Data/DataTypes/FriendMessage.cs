@@ -34,6 +34,15 @@ namespace FirstLight.Game.Data.DataTypes
 			};
 		}
 
+		public static FriendMessage CreateCancelPartyInvite(string partyLobbyID)
+		{
+			return new FriendMessage
+			{
+				MessageType = FriendMessageType.CancelPartyInvite,
+				LobbyID = partyLobbyID
+			};
+		}
+
 		public static FriendMessage CreateMatchInvite(string matchLobbyID)
 		{
 			return new FriendMessage
@@ -45,8 +54,9 @@ namespace FirstLight.Game.Data.DataTypes
 
 		public enum FriendMessageType
 		{
+			CancelPartyInvite,
 			PartyInvite,
-			MatchInvite
+			MatchInvite,
 		}
 	}
 }

@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using PlayFab.MultiplayerModels;
+using Unity.Services.Friends.Models;
 using Unity.Services.Lobbies.Models;
 using Lobby = Unity.Services.Lobbies.Models.Lobby;
 
@@ -10,8 +11,12 @@ namespace FirstLight.Tests.EditorMode
 {
 	public class StubFLLobbyService : IFLLobbyService
 	{
+		private IReadOnlyList<PartyInvite> _sentPartyInvites;
 		public Lobby CurrentPartyLobby { get; }
 		public FLLobbyEventCallbacks CurrentPartyCallbacks => new ();
+
+		IReadOnlyList<PartyInvite> IFLLobbyService.SentPartyInvites => _sentPartyInvites;
+
 		public IReadOnlyList<string> SentPartyInvites { get; }
 		public Lobby CurrentMatchLobby { get; }
 		public FLLobbyEventCallbacks CurrentMatchCallbacks => new ();
@@ -23,6 +28,21 @@ namespace FirstLight.Tests.EditorMode
 		}
 
 		public UniTask JoinParty(string code)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public UniTask InviteToParty(Relationship relationship, bool createPartyIfNotExists = true)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public UniTask InviteToParty(Relationship relationship)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public UniTask CancelPartyInvite(PartyInvite partyInvite)
 		{
 			throw new System.NotImplementedException();
 		}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -15,15 +16,14 @@ using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace FirstLight.Game.Views.UITK.Popups
+namespace FirstLight.Game.Presenters.Social.Team
 {
 	/// <summary>
 	/// Allows the user to create or join a party and invite friends.
 	/// </summary>
-	public class PartyPopupView : UIView
+	public class TeamPopupView : UIView
 	{
 		private const string USS_PARTY_JOINED = "party-joined";
 
@@ -44,6 +44,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		private List<Relationship> _friends;
 		private Dictionary<string, FriendListElement> _elements = new ();
+		private BufferedQueue _updateQueue = new (TimeSpan.FromSeconds(0.1), true);
 
 		protected override void Attached()
 		{
@@ -69,7 +70,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_services.GameModeService.SelectedGameMode.InvokeObserve(RefreshGameMode);
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnLocalLobbyJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated += OnInvitesUpdated;
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
+		}
+
+		private void OnInvitesUpdated()
+		{
+			RefreshData();
 		}
 
 		private void OnLocalLobbyJoined(Lobby l)
@@ -83,6 +90,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined -= OnLocalLobbyJoined;
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= OnInvitesUpdated;
 		}
 
 		private void OnPresenceUpdated(IPresenceUpdatedEvent e)
@@ -123,17 +131,14 @@ namespace FirstLight.Game.Views.UITK.Popups
 			var relationship = _friends[index];
 			var e = ((FriendListElement) element);
 			e.SetFromRelationship(relationship)
-				.AddOpenProfileAction(relationship);
-
-			if ((_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) < GameConstants.Data.MAX_PARTY_SIZE)
-			{
-				e.TryAddInviteOption(relationship, UniTask.Action(async () =>
+				.AddOpenProfileAction(relationship)
+				.TryAddInviteOption(relationship, () =>
 				{
-					await _services.FLLobbyService.InviteToParty(relationship.Member.Id);
-					_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
-				}));
-			}
-
+					_services.FLLobbyService.InviteToParty(relationship).ContinueWith(() =>
+					{
+						_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
+					});
+				});
 			_elements[relationship.Member.Id] = e;
 		}
 
@@ -144,61 +149,79 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		private void RefreshData()
 		{
-			var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
-			var inParty = partyLobby != null;
-
-			Element.EnableInClassList(USS_PARTY_JOINED, inParty);
-
-			_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, GameConstants.Data.MAX_PARTY_SIZE);
-			_yourTeamContainer.Clear();
-			var friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToDictionary(r => r.Member.Id, r => r);
-			if (inParty)
+			_updateQueue.Add(() =>
 			{
-				_teamCodeLabel.text = _services.FLLobbyService.CurrentPartyLobby.LobbyCode;
+				var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
+				var inParty = partyLobby != null;
 
-				foreach (var partyMember in partyLobby.Players!)
+				Element.EnableInClassList(USS_PARTY_JOINED, inParty);
+
+				_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, 4);
+				_yourTeamContainer.Clear();
+				var friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToDictionary(r => r.Member.Id, r => r);
+				if (inParty)
 				{
-					if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
-					friends.Remove(partyMember.Id);
-					var e = new FriendListElement().SetFromParty(partyMember).SetElementClickAction((el) =>
+					_teamCodeLabel.text = _services.FLLobbyService.CurrentPartyLobby.LobbyCode;
+
+					foreach (var partyMember in partyLobby.Players!)
 					{
-						_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
+						if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
+						friends.Remove(partyMember.Id);
+						var e = new FriendListElement().SetFromParty(partyMember).SetElementClickAction((el) =>
 						{
-							ShowTeamOptions = true
+							_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
+							{
+								ShowTeamOptions = true
+							});
 						});
-					});
-					if (partyLobby.HostId == partyMember.Id)
-					{
-						e.AddCrown();
+						if (partyLobby.HostId == partyMember.Id)
+						{
+							e.AddCrown();
+						}
+
+						_yourTeamContainer.Add(e);
 					}
-
-					_yourTeamContainer.Add(e);
 				}
-			}
 
-			// We always show the local player
-			var own = new FriendListElement()
-				.SetLocal()
-				.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
-				.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl)
-				.SetElementClickAction(el =>
+				var data = MainInstaller.ResolveData();
+				// We always show the local player
+				var own = new FriendListElement()
+					.SetLocal()
+					.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers(), (int) data.PlayerDataProvider.Trophies.Value)
+					.SetAvatar(data.AppDataProvider.AvatarUrl)
+					.SetElementClickAction(el =>
+					{
+						el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+					});
+				if (!inParty || partyLobby.HostId == AuthenticationService.Instance.PlayerId)
 				{
-					el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
-				});
-			if (!inParty || partyLobby.HostId == AuthenticationService.Instance.PlayerId)
-			{
-				own.AddCrown();
-			}
+					own.AddCrown();
+				}
 
-			_yourTeamContainer.Add(own);
-			if (inParty && partyLobby.Players.Count > 3)
-			{
-				_yourTeamContainer.Add(new VisualElement().AddClass("gap-hack"));
-			}
+				_yourTeamContainer.Add(own);
+				foreach (var sentPartyInvite in _services.FLLobbyService.SentPartyInvites)
+				{
+					friends.Remove(sentPartyInvite.PlayerId);
+					if (_yourTeamContainer.childCount >= 6) continue;
+					_yourTeamContainer.Add(new PendingInviteElement()
+						.SetPlayerName(sentPartyInvite.PlayerName.TrimPlayerNameNumbers())
+						.OnCancel(() =>
+						{
+							_services.FLLobbyService.CancelPartyInvite(sentPartyInvite).Forget();
+							RefreshData();
+						})
+					);
+				}
 
-			_noFriendsLabel.SetDisplay(friends.Count == 0);
-			_friendsOnlineList.itemsSource = _friends = friends.Values.ToList();
-			_friendsOnlineLabel.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
+				if (inParty && partyLobby.Players.Count > 3)
+				{
+					_yourTeamContainer.Add(new VisualElement().AddClass("gap-hack"));
+				}
+
+				_noFriendsLabel.SetDisplay(friends.Count == 0);
+				_friendsOnlineList.itemsSource = _friends = friends.Values.ToList();
+				_friendsOnlineLabel.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
+			});
 		}
 
 		private void OnCopyCodeClicked()

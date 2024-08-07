@@ -1,20 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
-using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
-using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 using Unity.Services.Lobbies.Models;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -28,12 +24,14 @@ namespace FirstLight.Game.UIElements
 
 		private const string USS_BLOCK = "friend-list-element";
 		private const string USS_LOCAL_MODIFIER = USS_BLOCK + "--local";
+		private const string USS_OFFLINE_MODIFIER = USS_BLOCK + "--offline";
 		private const string USS_CROWN = USS_BLOCK + "__crown";
 		private const string USS_PLAYER_BAR_CONTAINER = USS_BLOCK + "__player-bar-container";
 		private const string USS_AVATAR = USS_BLOCK + "__avatar";
 		private const string USS_ONLINE_INDICATOR = USS_BLOCK + "__online-indicator";
 		private const string USS_ONLINE_INDICATOR_ONLINE = USS_ONLINE_INDICATOR + "--online";
 		private const string USS_HEADER = USS_BLOCK + "__header";
+		private const string USS_TEXT_CONTAINER = USS_BLOCK + "__text-container";
 		private const string USS_NAME_AND_TROPHIES = USS_BLOCK + "__name-and-trophies";
 		private const string USS_ACTIVITY = USS_BLOCK + "__activity";
 		private const string USS_MAIN_ACTION_BUTTON = USS_BLOCK + "__main-action-button";
@@ -42,11 +40,13 @@ namespace FirstLight.Game.UIElements
 		private const string USS_BACKGROUND = USS_BLOCK + "__background";
 		private const string USS_BACKGROUND_MASK = USS_BLOCK + "__background-mask";
 		private const string USS_BACKGROUND_PATTERN = USS_BLOCK + "__background-pattern";
+		private const string USS_BACKGROUND_PATTERN_RIGHT = USS_BLOCK + "__background-pattern--right";
 
-		private readonly VisualElement _avatar;
+		private readonly RemoteAvatarElement _avatar;
 		private readonly VisualElement _crown;
 		private readonly VisualElement _onlineIndicator;
-		private readonly Label _nameAndTrophiesLabel;
+		private readonly Label _nameLabel;
+		private readonly Label _trophiesLabel;
 		private readonly Label _statusLabel;
 		private readonly LocalizedButton _mainActionButton;
 		private readonly ImageButton _moreActionsButton;
@@ -59,6 +59,7 @@ namespace FirstLight.Game.UIElements
 		private Action<VisualElement> _moreActionsAction;
 		private Action _acceptAction;
 		private Action _declineAction;
+		private string _lastAvatarUrl;
 
 		public FriendListElement()
 		{
@@ -75,24 +76,29 @@ namespace FirstLight.Game.UIElements
 				var backgroundMask = new VisualElement() {name = "background-mask"}.AddClass(USS_BACKGROUND_MASK);
 				background.Add(backgroundMask);
 				{
-					var backgroundPattern = new VisualElement {name = "background-pattern"};
-					backgroundPattern.AddToClassList(USS_BACKGROUND_PATTERN);
-					backgroundMask.Add(backgroundPattern);
+					backgroundMask.Add(new VisualElement {name = "background-pattern-left"}.AddClass(USS_BACKGROUND_PATTERN));
+					backgroundMask.Add(new VisualElement {name = "background-pattern-right"}.AddClass(USS_BACKGROUND_PATTERN).AddClass(USS_BACKGROUND_PATTERN_RIGHT));
 				}
 				var playerBarContainer = new VisualElement {name = "player-bar-container"};
 				background.Add(playerBarContainer);
 
 				playerBarContainer.AddToClassList(USS_PLAYER_BAR_CONTAINER);
 				{
-					playerBarContainer.Add(_avatar = new VisualElement {name = "avatar"});
+					playerBarContainer.Add(_avatar = new RemoteAvatarElement() {name = "avatar"});
 					_avatar.AddToClassList(USS_AVATAR);
 					{
 						_avatar.Add(_onlineIndicator = new VisualElement {name = "online-indicator"});
 						_onlineIndicator.AddToClassList(USS_ONLINE_INDICATOR);
 					}
 
-					playerBarContainer.Add(_nameAndTrophiesLabel = new LabelOutlined("Longplayername1244") {name = "name-and-trophies"});
-					_nameAndTrophiesLabel.AddToClassList(USS_NAME_AND_TROPHIES);
+					var textContainer = new VisualElement() {name = "text-container"}.AddClass(USS_TEXT_CONTAINER);
+					{
+						textContainer.Add(_nameLabel = new LabelOutlined("Longplayername12442222") {name = "name-label"}
+							.AddClass(USS_NAME_AND_TROPHIES));
+						textContainer.Add(_trophiesLabel = new LabelOutlined("<color=#FFC700>123123</color>" + " <sprite name=\"Ammoicon\">") {name = "trophies-label"}
+							.AddClass(USS_NAME_AND_TROPHIES));
+					}
+					playerBarContainer.Add(textContainer);
 
 					playerBarContainer.Add(_statusLabel = new LabelOutlined("In Main Menu") {name = "activity"});
 					_statusLabel.AddToClassList(USS_ACTIVITY);
@@ -121,13 +127,20 @@ namespace FirstLight.Game.UIElements
 			_moreActionsButton.clicked += () => _moreActionsAction?.Invoke(_moreActionsButton);
 			_acceptButton.clicked += () => _acceptAction?.Invoke();
 			_declineButton.clicked += () => _declineAction?.Invoke();
-			SetStatus(null, true);
+			SetStatus(null, true, null);
 		}
 
 		public FriendListElement SetFromParty(Player partyPlayer)
 		{
-			SetPlayerName(partyPlayer.GetPlayerName());
-			SetAvatarHack(partyPlayer.Id, null).Forget();
+			var stringTrophies = partyPlayer.GetProperty(FLLobbyService.KEY_TROHPIES);
+			int.TryParse(stringTrophies, out var trophies);
+
+			FillElementsFromHack(new CacheHackData()
+			{
+				AvatarUrl = partyPlayer.GetProperty(FLLobbyService.KEY_AVATAR_URL),
+				Trophies = trophies,
+				PlayerName = partyPlayer.GetPlayerName(),
+			});
 			return this;
 		}
 
@@ -144,62 +157,86 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetFromRelationship(Relationship relationship)
 		{
+			var services = MainInstaller.ResolveServices();
 			var activity = relationship.Member?.Presence?.GetActivity<FriendActivity>();
 			SetPlayerName(relationship.Member?.Profile.Name);
-			SetStatus(activity?.Status, relationship.IsOnline());
-			_avatar.SetDisplay(true);
-			if (!string.IsNullOrEmpty(activity?.AvatarUrl))
+
+			if (activity?.Region != null && activity?.Region != services.LocalPrefsService.ServerRegion?.Value)
 			{
-				MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_avatar, activity.AvatarUrl);
+				SetStatus("Region " + activity.Region.GetPhotonRegionTranslation(), relationship.IsOnline(), null);
 			}
 			else
 			{
-				SetAvatarHack(relationship.Member.Id, null).Forget();
+				SetStatus(activity?.Status, relationship.IsOnline(), relationship.Member?.Presence?.LastSeen);
+			}
+
+			_avatar.SetDisplay(true);
+			if (!string.IsNullOrEmpty(activity?.AvatarUrl))
+			{
+				FillElementsFromHack(new CacheHackData()
+				{
+					Trophies = activity.Trophies,
+					AvatarUrl = activity.AvatarUrl,
+					PlayerName = relationship.Member?.Profile.Name
+				});
+			}
+			else
+			{
+				SetDataHack(relationship).Forget();
 			}
 
 			return this;
 		}
 
-		private static Dictionary<string, string> _cacheHack = new ();
-
-		private async UniTaskVoid SetAvatarHack(string unityId, string playfabid)
+		private class CacheHackData
 		{
-			if (unityId == null && playfabid == null)
-			{
-				return;
-			}
+			public string AvatarUrl;
+			public int Trophies;
+			public string PlayerName;
+		}
 
+		private static Dictionary<string, CacheHackData> _cacheHack = new ();
+
+		private void FillElementsFromHack(CacheHackData hack)
+		{
+			SetAvatar(hack.AvatarUrl);
+			SetPlayerName(hack.PlayerName, hack.Trophies);
+		}
+
+		private async UniTaskVoid SetDataHack(Relationship relationship)
+		{
 			var services = MainInstaller.ResolveServices();
-
-			if (_cacheHack.TryGetValue(unityId, out var avatarUrl))
+			var unityId = relationship.Member.Id;
+			if (_cacheHack.TryGetValue(unityId, out var hackData))
 			{
-				if (avatarUrl != null)
-				{
-					services.RemoteTextureService.SetTexture(_avatar, avatarUrl);
-				}
+				FillElementsFromHack(hackData);
 				return;
 			}
 
-			FLog.Verbose("Setting avatar hack for " + unityId + " playfabid " + playfabid);
+			FLog.Verbose("Setting avatar hack for " + unityId + " playfabid ");
 			try
 			{
-				if (playfabid == null)
-				{
-					playfabid = await CloudSaveService.Instance.LoadPlayfabID(unityId);
-					if (playfabid == null) return;
-				}
+				var playfabid = await CloudSaveService.Instance.LoadPlayfabID(unityId);
+				if (playfabid == null) return;
 
 				_batchQueue.Add(async () =>
 				{
 					if (this.panel == null || this.parent == null) return;
 					var profile = await services.ProfileService.GetPlayerPublicProfile(playfabid);
-					_cacheHack[unityId] = profile.AvatarUrl;
-					if (_cacheHack[unityId] == null)
+					_cacheHack[unityId] = new CacheHackData()
+					{
+						AvatarUrl = profile.AvatarUrl,
+						Trophies = profile.Statistics.Where(st => st.Name == GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME)
+							.Select(s => s.Value)
+							.FirstOrDefault(),
+						PlayerName = relationship.Member.Profile?.Name?.TrimPlayerNameNumbers()
+					};
+					if (_cacheHack[unityId].AvatarUrl == null)
 					{
 						return;
 					}
 
-					services.RemoteTextureService.SetTexture(_avatar, profile.AvatarUrl);
+					FillElementsFromHack(_cacheHack[unityId]);
 				});
 			}
 			catch (Exception e)
@@ -208,9 +245,18 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
+		public FriendListElement SetPlayerName(string playerName, int trophies)
+		{
+			_trophiesLabel.SetDisplay(true);
+			_nameLabel.text = playerName?.TrimPlayerNameNumbers();
+			_trophiesLabel.text = $"<color=#FFC700>{trophies}</color> <size=+2px><sprite name=\"TrophyIcon\"></size>";
+			return this;
+		}
+
 		public FriendListElement SetPlayerName(string playerName)
 		{
-			_nameAndTrophiesLabel.text = playerName?.TrimPlayerNameNumbers();
+			_trophiesLabel.SetDisplay(false);
+			_nameLabel.text = playerName?.TrimPlayerNameNumbers();
 			return this;
 		}
 
@@ -221,21 +267,32 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		public FriendListElement SetStatus(string activity, bool? online)
+		public FriendListElement SetStatus(string activity, bool? online, DateTime? presenceLastSeen)
 		{
 			_statusLabel.SetVisibility(!string.IsNullOrEmpty(activity));
 			_statusLabel.text = activity;
-
-			if (online.HasValue)
+			var isOnline = online ?? false;
+			EnableInClassList(USS_OFFLINE_MODIFIER, !isOnline);
+			_onlineIndicator.SetDisplay(true);
+			_onlineIndicator.EnableInClassList(USS_ONLINE_INDICATOR_ONLINE, isOnline);
+			if (!isOnline && presenceLastSeen.HasValue)
 			{
-				_onlineIndicator.SetDisplay(true);
-				_onlineIndicator.EnableInClassList(USS_ONLINE_INDICATOR_ONLINE, online.Value);
-			}
-			else
-			{
-				_onlineIndicator.SetDisplay(false);
+				_statusLabel.SetVisibility(true);
+				_statusLabel.text = "Last seen\n" + (DateTime.UtcNow - presenceLastSeen.Value).Display(showSeconds: false).ToLowerInvariant() + " ago";
 			}
 
+			return this;
+		}
+
+		public FriendListElement DisableStatusCircle()
+		{
+			_onlineIndicator.SetDisplay(false);
+			return this;
+		}
+
+		public FriendListElement DisableActivity()
+		{
+			_statusLabel.SetDisplay(false);
 			return this;
 		}
 
@@ -247,24 +304,13 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		public FriendListElement TryAddInviteOption(Relationship friend, Action callback, bool createParty = true)
+		public FriendListElement TryAddInviteOption(Relationship friend, Action callback)
 		{
 			var services = MainInstaller.ResolveServices();
 			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
 			if (showInvite)
-				return SetMainAction(ScriptLocalization.UITFriends.invite, () =>
-				{
-					if (createParty)
-					{
-						services.FLLobbyService.CreateParty().ContinueWith(callback).Forget();
-					}
-					else
-					{
-						callback();
-					}
-				}, false);
+				return SetMainAction(ScriptLocalization.UITFriends.invite, callback, false);
 			return SetMainAction("", null, false);
-			;
 		}
 
 		public FriendListElement AddOpenProfileAction(Relationship friend)
@@ -298,9 +344,16 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetAvatar(string avatarUrl)
 		{
+			if (avatarUrl == _lastAvatarUrl)
+			{
+				return this;
+			}
+
 			if (avatarUrl != null)
 			{
-				MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_avatar, avatarUrl);
+				_lastAvatarUrl = avatarUrl;
+				var task = MainInstaller.ResolveServices().RemoteTextureService.RequestTexture(avatarUrl);
+				_avatar.SetAvatar(task).Forget();
 			}
 
 			_avatar.SetVisibility(avatarUrl != null);

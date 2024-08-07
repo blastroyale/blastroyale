@@ -6,6 +6,6 @@
         <ui:VisualElement name="ReadyStatus" class="player-name-container__ready-status">
             <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="Ready" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="Label" class="player-name-container__ready-status__label" />
         </ui:VisualElement>
-        <FirstLight.Game.UIElements.DotsLoadingElement name="NotReadyStatus" dot-size="10" class="player-name-container__not-ready-status" />
+        <FirstLight.Game.UIElements.DotsLoadingElement name="NotReadyStatus" class="player-name-container__not-ready-status" />
     </ui:VisualElement>
 </ui:UXML>

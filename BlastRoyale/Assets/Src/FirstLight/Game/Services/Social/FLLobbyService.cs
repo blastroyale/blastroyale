@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
@@ -9,18 +8,18 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Presenters.Social.Team;
 using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
-using FirstLight.Game.Views.UITK.Popups;
 using FirstLight.SDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using Quantum;
-using Src.FirstLight.Game.Utils;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
+using Unity.Services.Friends.Models;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Assert = UnityEngine.Assertions.Assert;
@@ -43,7 +42,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// The IDs of the players we sent invites to (only persists for the current session).
 		/// </summary>
-		IReadOnlyList<string> SentPartyInvites { get; }
+		IReadOnlyList<PartyInvite> SentPartyInvites { get; }
 
 		/// <summary>
 		/// The custom game the player is currently in.
@@ -73,7 +72,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Invites a friend to the current party.
 		/// </summary>
-		UniTask InviteToParty(string playerID);
+		UniTask InviteToParty(Relationship relationship, bool createPartyIfNotExists = true);
+
+		/// <summary>
+		/// Cancel a party invite
+		/// </summary>
+		UniTask CancelPartyInvite(PartyInvite partyInvite);
 
 		/// <summary>
 		/// Leaves the current party.
@@ -183,6 +187,12 @@ namespace FirstLight.Game.Services
 		bool IsInParty();
 	}
 
+	public class PartyInvite
+	{
+		public string PlayerId;
+		public string PlayerName;
+	}
+
 	/// <summary>
 	/// Handles all lobby-related operations (parties, custom matches).
 	/// </summary>
@@ -195,9 +205,11 @@ namespace FirstLight.Game.Services
 
 		public const string KEY_SKIN_ID = "skin_id";
 		public const string KEY_MELEE_ID = "melee_id";
+		public const string KEY_TROHPIES = "trophies";
 		public const string KEY_PLAYER_NAME = "player_name";
 		public const string KEY_READY = "ready";
 		public const string KEY_PLAYFAB_ID = "playfab_id";
+		public const string KEY_AVATAR_URL = "avatar_url";
 		public const string KEY_SPECTATOR = "spectator";
 		public const string KEY_POSITION_REQUEST = "position_request";
 		public const string KEY_MATCHMAKING_TICKET = "matchmaking_ticket";
@@ -221,7 +233,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// The IDs of the players we sent invites to (only persists for the current session).
 		/// </summary>
-		public IReadOnlyList<string> SentPartyInvites => _sentPartyInvites;
+		public IReadOnlyList<PartyInvite> SentPartyInvites => _sentPartyInvites.Values.ToList();
 
 		/// <summary>
 		/// The custom game the player is currently in.
@@ -244,7 +256,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameDataProvider _dataProvider;
 		private readonly NotificationService _notificationService;
 		private readonly LocalPrefsService _localPrefsService;
-		private readonly List<string> _sentPartyInvites = new ();
+		private readonly Dictionary<string, PartyInvite> _sentPartyInvites = new ();
 		private readonly List<string> _sentMatchInvites = new ();
 		private readonly LobbyGrid _grid = new ();
 		private readonly AsyncBufferedQueue _matchUpdateQueue = new (TimeSpan.FromSeconds(1), true);
@@ -290,7 +302,7 @@ namespace FirstLight.Game.Services
 
 		private void OnPartyDeleted()
 		{
-			_sentMatchInvites.Clear();
+			_sentPartyInvites.Clear();
 		}
 
 		#region TEAMS
@@ -355,14 +367,21 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public async UniTask InviteToParty(string playerID)
+		public async UniTask InviteToParty(Relationship relationship, bool createIfNotExists)
 		{
+			var playerID = relationship.Member.Id;
+			_sentPartyInvites[playerID] = new PartyInvite()
+			{
+				PlayerName = relationship.Member?.Profile?.Name,
+				PlayerId = playerID
+			};
+			CurrentPartyCallbacks.TriggerOnInvitesUpdated();
+			if (createIfNotExists)
+				await CreateParty();
 			Assert.IsNotNull(CurrentPartyLobby, "Trying to invite a friend to a party but the player is not in one!");
-
 			try
 			{
 				FLog.Info($"Sending party invite to {playerID}");
-				_sentPartyInvites.Add(playerID);
 				await FriendsService.Instance.MessageAsync(playerID, FriendMessage.CreatePartyInvite(CurrentPartyLobby.LobbyCode));
 				FLog.Info("Party invite sent successfully!");
 			}
@@ -371,7 +390,15 @@ namespace FirstLight.Game.Services
 				FLog.Warn("Error sending party invite!", e);
 				_notificationService.QueueNotification($"Could not send party invite: {e.ErrorCode.ToStringSeparatedWords()}");
 				_sentPartyInvites.Remove(playerID);
+				CurrentPartyCallbacks.TriggerOnInvitesUpdated();
 			}
+		}
+
+		public async UniTask CancelPartyInvite(PartyInvite partyInvite)
+		{
+			_sentPartyInvites.Remove(partyInvite.PlayerId);
+			CurrentPartyCallbacks.TriggerOnInvitesUpdated();
+			await FriendsService.Instance.MessageAsync(partyInvite.PlayerId, FriendMessage.CreateCancelPartyInvite(CurrentPartyLobby.LobbyCode));
 		}
 
 		public async UniTask LeaveParty()
@@ -908,13 +935,16 @@ namespace FirstLight.Game.Services
 				id: AuthenticationService.Instance.PlayerId,
 				data: new Dictionary<string, PlayerDataObject>
 				{
+					// Reminder: there is a 10 key limit and 2KB size here
 					// TODO mihak: Need to figure out how to get the name from profile but it's always null
 					{KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, AuthenticationService.Instance.PlayerName)},
 					{KEY_SKIN_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, skinID.ToString())},
 					{KEY_MELEE_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, meleeID.ToString())},
 					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")},
 					{KEY_PLAYFAB_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayFabSettings.staticPlayer.EntityId)},
-					{KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")}
+					{KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")},
+					{KEY_TROHPIES, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.PlayerDataProvider.Trophies.Value.ToString())},
+					{KEY_AVATAR_URL, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.AppDataProvider.AvatarUrl)}
 				},
 				profile: new PlayerProfile(AuthenticationService.Instance.PlayerName)
 			);
@@ -967,7 +997,7 @@ namespace FirstLight.Game.Services
 		private void OnPartyLobbyKicked()
 		{
 			CurrentPartyLobby = null;
-			if (!PopupPresenter.IsOpen<PartyPopupView>())
+			if (!PopupPresenter.IsOpen<TeamPopupView>())
 			{
 				_notificationService.QueueNotification($"You left the team");
 			}
@@ -992,6 +1022,7 @@ namespace FirstLight.Game.Services
 				foreach (var playerJoined in changes.PlayerJoined.Value)
 				{
 					_sentPartyInvites.Remove(playerJoined.Player.Id);
+					CurrentPartyCallbacks.TriggerOnInvitesUpdated();
 				}
 			}
 
@@ -1041,6 +1072,13 @@ namespace FirstLight.Game.Services
 		/// Called after a lobby update is received and proccessed so the local lobby is up-to-date too
 		/// </summary>
 		public event Action<ILobbyChanges> LocalLobbyUpdated;
+
+		public event Action OnInvitesUpdated;
+
+		public void TriggerOnInvitesUpdated()
+		{
+			OnInvitesUpdated?.Invoke();
+		}
 
 		public void TriggerLobbyJoined(Lobby lobby)
 		{

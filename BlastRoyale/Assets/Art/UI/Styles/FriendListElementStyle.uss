@@ -8,15 +8,23 @@
     flex-shrink: 0;
 }
 
+
 .friend-list-element__background {
     background-image: var(--sprite-home__background-friends-player);
-    -unity-background-image-tint-color: #302c58;
+    -unity-background-image-tint-color: #32295A;
     padding-top: 15px;
     padding-bottom: 15px;
-    padding-right: 24px;
-    padding-left: 24px;
+    padding-right: 67px;
+    padding-left: 52px;
     justify-content: space-around;
+    transition-property: -unity-background-image-tint-color;
+    transition-duration: 0.33s;
 }
+
+.friend-list-element--offline .friend-list-element__background {
+    -unity-background-image-tint-color: #232137;
+}
+
 
 .friend-list-element__crown {
     position: absolute;
@@ -31,40 +39,52 @@
     overflow: hidden;
     position: absolute;
     top: 3px;
-    left: 3px;
-    right: 4px;
-    bottom: 6px;
-    opacity: 0.5;
+    left: 4px;
+    right: 5px;
+    bottom: 8px;
     border-radius: 18px;
 }
 
 .friend-list-element__background-pattern {
-    background-image: var(--sprite-home__pattern-friends-dots);
+    left: -38px;
+    top: -90px;
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 230px;
+    width: 237px;
+    height: 298px;
+    background-image: var(--sprite-kit__pattern-dots);
+    -unity-background-scale-mode: scale-and-crop;
+    -unity-background-image-tint-color: #303c78;
+    transition-property: -unity-background-image-tint-color;
+    transition-duration: 0.33s;
+}
+.friend-list-element--offline .friend-list-element__background-pattern {
+    -unity-background-image-tint-color: #242c4a;
+}
+
+.friend-list-element__background-pattern--right {
+    left: auto;
+    right: -38px;
+    top: -90px;
+    scale: -1 1;
 }
 
 .friend-list-element__avatar {
     width: 112px;
-    align-self: stretch;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    background-color: rgb(215, 56, 68);
-    border-width: 1px;
-    border-color: black;
-    background-image: var(--sprite-shared__avatar-default);
-    -unity-background-scale-mode: scale-to-fit;
     height: 112px;
     margin-right: 27px;
 }
 
+.friend-list-element__text-container {
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: center;
+    align-content: center;
+}
+
 .friend-list-element__name-and-trophies {
     -unity-text-align: middle-left;
+    padding-top: 1px;
+    padding-bottom: 1px;
     color: rgb(255, 255, 255);
     font-size: 36px;
     text-shadow: 3px 4px 0 rgb(0, 0, 0);
@@ -73,16 +93,14 @@
     overflow: visible;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
-    padding-top: 0;
     padding-right: 0;
-    padding-bottom: 0;
     padding-left: 0;
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
     margin-left: 0;
-    flex-grow: 1;
-    width: 1px;
+    flex-grow: 0;
+    width: auto;
     white-space: nowrap;
 }
 
@@ -94,7 +112,7 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 2px 4px 0 rgb(0, 0, 0);
     margin-top: 0;
-    margin-right: 29px;
+    margin-right: 51px;
     margin-bottom: 0;
     margin-left: 0;
     padding-top: 0;
@@ -153,6 +171,8 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+    transition-property: background-color;
+    transition-duration: 0.33s;
 }
 
 .friend-list-element__online-indicator--online {
@@ -182,3 +202,4 @@
     font-size: 72px;
     -unity-text-align: upper-center;
 }
+

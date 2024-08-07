@@ -421,7 +421,7 @@ namespace FirstLight.Editor.EditorTools
 		}
 
 		[MenuItem("FLG/Generators/Generate Sprite USS")]
-		private static void GenerateSpriteUss()
+		public static void GenerateSpriteUss()
 		{
 			const string STYLES_FOLDER = "Assets/Art/UI/Styles/";
 

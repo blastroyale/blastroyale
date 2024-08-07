@@ -140,7 +140,7 @@ namespace FirstLight.Game.Utils
 			public const float SFX_3D_SPATIAL_BLEND = 1f;
 
 			public const float SFX_3D_MIN_DISTANCE = 0.5f;
-			public const float SFX_3D_MAX_DISTANCE = 16f;
+			public const float SFX_3D_MAX_DISTANCE = 32f;
 
 			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
 			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;

@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Social;
 using PlayFab.MultiplayerModels;
 using Unity.Services.Friends.Models;
 using Unity.Services.Lobbies.Models;
@@ -103,6 +104,11 @@ namespace FirstLight.Tests.EditorMode
 		}
 
 		public UniTask LeaveMatch()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public UniTask<bool> UpdateMatchLobby(CustomMatchSettings settings, LobbyGridData grid = null, bool locked = false)
 		{
 			throw new System.NotImplementedException();
 		}

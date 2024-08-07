@@ -43,6 +43,9 @@ namespace FirstLight.Game.Services
 
 		[Preserve, DataMember(Name = "team", IsRequired = false, EmitDefaultValue = true), CanBeNull]
 		public string TeamId { get; set; }
+		
+		[Preserve, DataMember(Name = "region", IsRequired = false, EmitDefaultValue = true), CanBeNull]
+		public string Region { get; set; }
 
 		public string Status => CurrentActivityEnum.ToString().Replace(@"_", " ");
 		public GameActivities CurrentActivityEnum => ((GameActivities) CurrentActivity);
@@ -118,16 +121,6 @@ namespace FirstLight.Game.Services
 
 		private bool IsCustomGame => _services.RoomService.CurrentRoom?.Properties?.SimulationMatchConfig?.Value?.MatchType == MatchType.Custom;
 
-		private bool IsInMenu
-		{
-			get
-			{
-				var services = MainInstaller.ResolveServices();
-				return services.UIService.IsScreenOpen<HomeScreenPresenter>() && !services.RoomService.InRoom &&
-					services.FLLobbyService.CurrentMatchLobby == null;
-			}
-		}
-
 		private void DecideBasedOnScreen()
 		{
 			var services = MainInstaller.ResolveServices();
@@ -177,6 +170,11 @@ namespace FirstLight.Game.Services
 				return false;
 			}
 
+			if (activity.Region != _services.LocalPrefsService.ServerRegion.Value)
+			{
+				return false;
+			}
+
 			if (!string.IsNullOrEmpty(activity.TeamId))
 			{
 				return false;
@@ -209,6 +207,7 @@ namespace FirstLight.Game.Services
 				_playerActivity.CurrentActivity = (int) activity;
 				_playerActivity.AvatarUrl = MainInstaller.ResolveData().AppDataProvider.AvatarUrl;
 				_playerActivity.TeamId = _services.FLLobbyService.CurrentPartyLobby?.Id;
+				_playerActivity.Region = _services.LocalPrefsService.ServerRegion.Value;
 				FLog.Verbose("Setting social activity as " + JsonConvert.SerializeObject(_playerActivity));
 				FriendsService.Instance.SetPresenceAsync(Availability.Online, _playerActivity).AsUniTask().Forget();
 			});

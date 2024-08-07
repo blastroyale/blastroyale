@@ -144,13 +144,24 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetFromRelationship(Relationship relationship)
 		{
+			var services = MainInstaller.ResolveServices();
 			var activity = relationship.Member?.Presence?.GetActivity<FriendActivity>();
 			SetPlayerName(relationship.Member?.Profile.Name);
-			SetStatus(activity?.Status, relationship.IsOnline());
+
+			if (activity?.Region != null && activity?.Region != services.LocalPrefsService.ServerRegion?.Value)
+			{
+				SetStatus("Region "+activity.Region.GetPhotonRegionTranslation(), relationship.IsOnline());
+			}
+			else
+			{
+				SetStatus(activity?.Status, relationship.IsOnline());
+			}
+			
+			
 			_avatar.SetDisplay(true);
 			if (!string.IsNullOrEmpty(activity?.AvatarUrl))
 			{
-				MainInstaller.ResolveServices().RemoteTextureService.SetTexture(_avatar, activity.AvatarUrl);
+				services.RemoteTextureService.SetTexture(_avatar, activity.AvatarUrl);
 			}
 			else
 			{

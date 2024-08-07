@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		private List<Relationship> _friends;
 		private Dictionary<string, FriendListElement> _elements = new ();
-
+		private BufferedQueue _updateQueue = new (TimeSpan.FromSeconds(0.1), true);
 		protected override void Attached()
 		{
 			_services = MainInstaller.ResolveServices();
@@ -138,61 +139,64 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		private void RefreshData()
 		{
-			var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
-			var inParty = partyLobby != null;
-
-			Element.EnableInClassList(USS_PARTY_JOINED, inParty);
-
-			_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, 4);
-			_yourTeamContainer.Clear();
-			var friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToDictionary(r => r.Member.Id, r => r);
-			if (inParty)
+			_updateQueue.Add(() =>
 			{
-				_teamCodeLabel.text = _services.FLLobbyService.CurrentPartyLobby.LobbyCode;
+				var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
+				var inParty = partyLobby != null;
 
-				foreach (var partyMember in partyLobby.Players!)
+				Element.EnableInClassList(USS_PARTY_JOINED, inParty);
+
+				_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, 4);
+				_yourTeamContainer.Clear();
+				var friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToDictionary(r => r.Member.Id, r => r);
+				if (inParty)
 				{
-					if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
-					friends.Remove(partyMember.Id);
-					var e = new FriendListElement().SetFromParty(partyMember).SetElementClickAction((el) =>
+					_teamCodeLabel.text = _services.FLLobbyService.CurrentPartyLobby.LobbyCode;
+
+					foreach (var partyMember in partyLobby.Players!)
 					{
-						_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
+						if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
+						friends.Remove(partyMember.Id);
+						var e = new FriendListElement().SetFromParty(partyMember).SetElementClickAction((el) =>
 						{
-							ShowTeamOptions = true
+							_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
+							{
+								ShowTeamOptions = true
+							});
 						});
-					});
-					if (partyLobby.HostId == partyMember.Id)
-					{
-						e.AddCrown();
+						if (partyLobby.HostId == partyMember.Id)
+						{
+							e.AddCrown();
+						}
+
+						_yourTeamContainer.Add(e);
 					}
-
-					_yourTeamContainer.Add(e);
 				}
-			}
 
-			// We always show the local player
-			var own = new FriendListElement()
-				.SetLocal()
-				.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
-				.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl)
-				.SetElementClickAction(el =>
+				// We always show the local player
+				var own = new FriendListElement()
+					.SetLocal()
+					.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
+					.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl)
+					.SetElementClickAction(el =>
+					{
+						el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+					});
+				if (!inParty || partyLobby.HostId == AuthenticationService.Instance.PlayerId)
 				{
-					el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
-				});
-			if (!inParty || partyLobby.HostId == AuthenticationService.Instance.PlayerId)
-			{
-				own.AddCrown();
-			}
+					own.AddCrown();
+				}
 
-			_yourTeamContainer.Add(own);
-			if (inParty && partyLobby.Players.Count > 3)
-			{
-				_yourTeamContainer.Add(new VisualElement().AddClass("gap-hack"));
-			}
+				_yourTeamContainer.Add(own);
+				if (inParty && partyLobby.Players.Count > 3)
+				{
+					_yourTeamContainer.Add(new VisualElement().AddClass("gap-hack"));
+				}
 
-			_noFriendsLabel.SetDisplay(friends.Count == 0);
-			_friendsOnlineList.itemsSource = _friends = friends.Values.ToList();
-			_friendsOnlineLabel.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
+				_noFriendsLabel.SetDisplay(friends.Count == 0);
+				_friendsOnlineList.itemsSource = _friends = friends.Values.ToList();
+				_friendsOnlineLabel.text = string.Format(ScriptLocalization.UITParty.online_friends, _friends.Count);
+			});
 		}
 
 		private void OnCopyCodeClicked()

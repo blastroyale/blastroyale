@@ -62,10 +62,12 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
+      AimDelayTime:
+        RawValue: 32768
     - Id: 87
       FiringMode: 0
       WeaponType: 3
-      MaxAmmo: 700
+      MaxAmmo: 500
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -80,7 +82,7 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 36045
+        RawValue: 52428
       TapCooldown:
         RawValue: 3932
       AttackCooldown:
@@ -88,13 +90,13 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 3716
       AttackHitSpeed:
-        RawValue: 1310720
+        RawValue: 2293760
       MinAttackAngle: 15
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
-      CanHitSameTarget: 1
+        RawValue: 622592
+      CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -104,10 +106,12 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 1
+      AimDelayTime:
+        RawValue: 58982
     - Id: 91
       FiringMode: 0
       WeaponType: 2
-      MaxAmmo: 700
+      MaxAmmo: 713
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -124,19 +128,19 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 58982
       TapCooldown:
-        RawValue: 8520
+        RawValue: 6553
       AttackCooldown:
-        RawValue: 8520
+        RawValue: 6553
       PowerToDamageRatio:
-        RawValue: 2077
+        RawValue: 2686
       AttackHitSpeed:
-        RawValue: 1310720
+        RawValue: 1966080
       MinAttackAngle: 15
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 393216
-      CanHitSameTarget: 1
+        RawValue: 425984
+      CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -146,10 +150,12 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
+      AimDelayTime:
+        RawValue: 22937
     - Id: 90
       FiringMode: 0
       WeaponType: 2
-      MaxAmmo: 150
+      MaxAmmo: 120
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -164,20 +170,20 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 52429
+        RawValue: 58982
       TapCooldown:
-        RawValue: 72090
+        RawValue: 72089
       AttackCooldown:
-        RawValue: 72090
+        RawValue: 72089
       PowerToDamageRatio:
-        RawValue: 9503
+        RawValue: 7274
       AttackHitSpeed:
-        RawValue: 1638400
-      MinAttackAngle: 40
-      NumberOfShots: 3
-      NumberOfBursts: 2
+        RawValue: 2621440
+      MinAttackAngle: 26
+      NumberOfShots: 5
+      NumberOfBursts: 1
       AttackRange:
-        RawValue: 262144
+        RawValue: 294912
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -188,10 +194,12 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
+      AimDelayTime:
+        RawValue: 32768
     - Id: 92
       FiringMode: 0
       WeaponType: 2
-      MaxAmmo: 370
+      MaxAmmo: 309
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -206,21 +214,21 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 52429
+        RawValue: 55705
       TapCooldown:
-        RawValue: 11141
+        RawValue: 19660
       AttackCooldown:
-        RawValue: 11141
+        RawValue: 19660
       PowerToDamageRatio:
-        RawValue: 3998
+        RawValue: 5963
       AttackHitSpeed:
-        RawValue: 1441792
-      MinAttackAngle: 2
+        RawValue: 2293760
+      MinAttackAngle: 1
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 507904
-      CanHitSameTarget: 1
+      CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -230,10 +238,12 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
+      AimDelayTime:
+        RawValue: 32768
     - Id: 94
       FiringMode: 0
-      WeaponType: 5
-      MaxAmmo: 80
+      WeaponType: 2
+      MaxAmmo: 77
       BulletPrototype:
         Id:
           Value: 1613285068775141220
@@ -244,38 +254,40 @@ MonoBehaviour:
         Id:
           Value: 382184530423860433
       HitType: 0
-      MagazineSize: -1
+      MagazineSize: 4
       ReloadTime:
-        RawValue: 0
+        RawValue: 131072
       AimingMovementSpeed:
-        RawValue: 39322
+        RawValue: 55705
       TapCooldown:
-        RawValue: 111411
+        RawValue: 39321
       AttackCooldown:
-        RawValue: 111411
+        RawValue: 39321
       PowerToDamageRatio:
-        RawValue: 14483
+        RawValue: 9895
       AttackHitSpeed:
-        RawValue: 491520
-      MinAttackAngle: 5
+        RawValue: 655360
+      MinAttackAngle: 0
       NumberOfShots: 1
-      NumberOfBursts: 2
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 589824
       CanHitSameTarget: 1
       SplashRadius:
-        RawValue: 81920
+        RawValue: 75366
       SplashDamageRatio:
-        RawValue: 4456448
+        RawValue: 6553600
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 1
+      AimDelayTime:
+        RawValue: 39321
     - Id: 88
       FiringMode: 0
       WeaponType: 2
-      MaxAmmo: 400
+      MaxAmmo: 124
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -286,25 +298,25 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 9
+      MagazineSize: 10
       ReloadTime:
-        RawValue: 32768
+        RawValue: 81920
       AimingMovementSpeed:
-        RawValue: 55706
+        RawValue: 62259
       TapCooldown:
-        RawValue: 16384
+        RawValue: 15073
       AttackCooldown:
-        RawValue: 16384
+        RawValue: 15073
       PowerToDamageRatio:
-        RawValue: 4653
+        RawValue: 6619
       AttackHitSpeed:
-        RawValue: 1310720
-      MinAttackAngle: 0
+        RawValue: 1966080
+      MinAttackAngle: 6
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 393216
-      CanHitSameTarget: 1
+        RawValue: 458752
+      CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -314,10 +326,12 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 0
+      AimDelayTime:
+        RawValue: 19660
     - Id: 93
       FiringMode: 0
       WeaponType: 4
-      MaxAmmo: 100
+      MaxAmmo: 105
       BulletPrototype:
         Id:
           Value: 148021496798672150
@@ -332,21 +346,21 @@ MonoBehaviour:
       ReloadTime:
         RawValue: 0
       AimingMovementSpeed:
-        RawValue: 36045
+        RawValue: 52428
       TapCooldown:
-        RawValue: 65536
+        RawValue: 72089
       AttackCooldown:
-        RawValue: 65536
+        RawValue: 72089
       PowerToDamageRatio:
-        RawValue: 16450
+        RawValue: 9896
       AttackHitSpeed:
-        RawValue: 1638400
+        RawValue: 2621440
       MinAttackAngle: 0
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 589824
-      CanHitSameTarget: 1
+        RawValue: 655360
+      CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -356,3 +370,5 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       UseRangedCam: 1
+      AimDelayTime:
+        RawValue: 45875

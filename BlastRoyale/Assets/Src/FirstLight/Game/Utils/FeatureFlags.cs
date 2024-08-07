@@ -62,10 +62,10 @@ namespace FirstLight.Game.Utils
 		public bool ForceAuthError = false;
 
 		/// <summary>
-		/// Force authentication connection error
+		/// Disables unity to run in background
 		/// </summary>
-		[Description("Dev QOL/Disable Pause Behaviour")]
-		public bool DisablePauseBehaviour = false;
+		[Description("Dev QOL/Disable Run in Background")]
+		public bool DisableRunInBackground = false;
 
 		/// <summary>
 		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.

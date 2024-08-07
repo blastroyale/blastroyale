@@ -412,7 +412,7 @@ namespace FirstLight.Game.Services
 
 			FeatureFlags.ParseFlags(titleData);
 			FeatureFlags.ParseLocalFeatureFlags();
-			_services.MessageBrokerService.Publish(new FeatureFlagsChanged());
+			_services.MessageBrokerService.Publish(new FeatureFlagsReceived());
 
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;

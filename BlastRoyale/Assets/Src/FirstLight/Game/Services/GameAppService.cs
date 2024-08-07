@@ -21,24 +21,26 @@ namespace FirstLight.Game.Services
 	{
 		private IGameServices _services;
 		private static readonly TimeSpan _maxPauseTime = TimeSpan.FromMinutes(5);
-		private static readonly TimeSpan _heartBeatTest = TimeSpan.FromSeconds(5);
-		private static readonly TimeSpan _heartBeat = TimeSpan.FromSeconds(30);
 		private DateTime _pauseTime;
 		private bool _paused;
 
 		public GameAppService(IGameServices services)
 		{
-			if (!FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour)
-			{
-				Application.runInBackground = false;
-			}
+			_services = services;
+			_services.MessageBrokerService.Subscribe<FeatureFlagsReceived>(OnFeatureFlags);
+		}
+
+		private void OnFeatureFlags(FeatureFlagsReceived e)
+		{
+			Application.runInBackground = !FeatureFlags.GetLocalConfiguration().DisableRunInBackground;
 
 			if (!FeatureFlags.PAUSE_DISCONNECT_DIALOG)
 			{
+				FLog.Verbose("Pause behaviour disabled");
 				return;
 			}
-
-			_services = services;
+			
+			FLog.Verbose("Pause behaviour enabled");
 			_services.MessageBrokerService.Subscribe<ApplicationFocusMessage>(OnApplicationFocus);
 			_services.MessageBrokerService.Subscribe<ApplicationPausedMessage>(OnApplicationPause);
 		}
@@ -77,7 +79,7 @@ namespace FirstLight.Game.Services
 				FLog.Info($"Game Paused Update: {paused} {state.GetCurrentStateDebug()}");
 			}
 
-			if (FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour)
+			if (FeatureFlags.GetLocalConfiguration().DisableRunInBackground)
 			{
 				return;
 			}

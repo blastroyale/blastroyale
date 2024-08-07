@@ -281,6 +281,12 @@ namespace FirstLight.Game.Presenters
 					Spectator = localPlayer.IsSpectator()
 				});
 
+				var started = await UniTaskUtils.WaitUntilTimeout(CanStartGame, TimeSpan.FromSeconds(5));
+				if (!started)
+				{
+					_services.NotificationService.QueueNotification("Error starting match");
+					return;
+				}
 				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
 				await _services.FLLobbyService.LeaveMatch();
 			}
@@ -289,6 +295,11 @@ namespace FirstLight.Game.Presenters
 				FLog.Error("Could not create quantum room", e);
 				LeaveMatchLobby().Forget();
 			}
+		}
+
+		private bool CanStartGame()
+		{
+			return _services.RoomService.InRoom;
 		}
 
 		private async UniTaskVoid ReadyUp()

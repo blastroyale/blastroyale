@@ -766,6 +766,9 @@ namespace FirstLight.Game.Services
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
+			FLog.Info("Setting lobby game room: "+roomName);
+			_matchUpdateQueue.Clear();
+			
 			var options = new UpdateLobbyOptions
 			{
 				Data = new Dictionary<string, DataObject>

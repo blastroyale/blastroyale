@@ -29,6 +29,8 @@ namespace FirstLight.Game.Utils
 		
 		private Queue<Func<UniTask>> _queue = new ();
 		private UniTask _task;
+
+		public void Clear() => _queue.Clear();
 		
 		public void Add(Func<UniTask> item)
 		{

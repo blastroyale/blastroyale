@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
@@ -20,6 +21,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private EntityRef _localPlayerEntity;
 		private EntityView _playerView;
 		private QuantumWeaponConfig _weaponConfig;
+		private AudioWeaponConfig _weaponAudioConfig;
 		private IndicatorVfxId _shootIndicatorId;
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
 		private readonly IIndicator[] _specialIndicators = new IIndicator[Constants.MAX_SPECIALS];
@@ -204,6 +206,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
+			_weaponAudioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) weaponId);
 			ShootIndicator?.SetVisualState(false);
 			_weaponAim.gameObject.SetActive(false);
 			if (_weaponConfig.IsMeleeWeapon)
@@ -298,6 +301,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// Melee weapon doesn't use a damage indicator
 			if (!_weaponConfig.IsMeleeWeapon)
 			{
+				// Handling wind up and down sounds here; e.g. Minigun
+				if (_weaponAudioConfig.WeaponShotWindUpId != AudioId.None)//(_weaponConfig.Id == GameId.ApoMinigun)
+				{
+					if (shooting & !_weaponAim.gameObject.activeSelf)
+					{
+						_services.AudioFxService.PlayClip2D(_weaponAudioConfig.WeaponShotWindUpId, GameConstants.Audio.MIXER_GROUP_SFX_3D_ID);
+					}
+					else if (!shooting & _weaponAim.gameObject.activeSelf)
+					{
+						_services.AudioFxService.PlayClip2D(_weaponAudioConfig.WeaponShotWindDownId, GameConstants.Audio.MIXER_GROUP_SFX_3D_ID);
+					}
+				}
+				
 				_weaponAim.gameObject.SetActive(shooting);
 				if (shooting)
 				{

@@ -18,12 +18,12 @@ using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine.UIElements;
 
-namespace FirstLight.Game.Views.UITK.Popups
+namespace FirstLight.Game.Presenters.Social.Team
 {
 	/// <summary>
 	/// Allows the user to create or join a party and invite friends.
 	/// </summary>
-	public class PartyPopupView : UIView
+	public class TeamPopupView : UIView
 	{
 		private const string USS_PARTY_JOINED = "party-joined";
 
@@ -45,6 +45,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private List<Relationship> _friends;
 		private Dictionary<string, FriendListElement> _elements = new ();
 		private BufferedQueue _updateQueue = new (TimeSpan.FromSeconds(0.1), true);
+
 		protected override void Attached()
 		{
 			_services = MainInstaller.ResolveServices();
@@ -69,7 +70,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_services.GameModeService.SelectedGameMode.InvokeObserve(RefreshGameMode);
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnLocalLobbyJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated += OnInvitesUpdated;
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
+		}
+
+		private void OnInvitesUpdated()
+		{
+			RefreshData();
 		}
 
 		private void OnLocalLobbyJoined(Lobby l)
@@ -83,6 +90,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined -= OnLocalLobbyJoined;
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= OnInvitesUpdated;
 		}
 
 		private void OnPresenceUpdated(IPresenceUpdatedEvent e)
@@ -124,11 +132,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 			var e = ((FriendListElement) element);
 			e.SetFromRelationship(relationship)
 				.AddOpenProfileAction(relationship)
-				.TryAddInviteOption(relationship, UniTask.Action(async () =>
+				.TryAddInviteOption(relationship, () =>
 				{
-					await _services.FLLobbyService.InviteToParty(relationship.Member.Id);
-					_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
-				}));
+					_services.FLLobbyService.InviteToParty(relationship).ContinueWith(() =>
+					{
+						_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
+					});
+				});
 			_elements[relationship.Member.Id] = e;
 		}
 
@@ -173,11 +183,12 @@ namespace FirstLight.Game.Views.UITK.Popups
 					}
 				}
 
+				var data = MainInstaller.ResolveData();
 				// We always show the local player
 				var own = new FriendListElement()
 					.SetLocal()
-					.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
-					.SetAvatar(MainInstaller.ResolveData().AppDataProvider.AvatarUrl)
+					.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers(), (int) data.PlayerDataProvider.Trophies.Value)
+					.SetAvatar(data.AppDataProvider.AvatarUrl)
 					.SetElementClickAction(el =>
 					{
 						el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
@@ -188,6 +199,20 @@ namespace FirstLight.Game.Views.UITK.Popups
 				}
 
 				_yourTeamContainer.Add(own);
+				foreach (var sentPartyInvite in _services.FLLobbyService.SentPartyInvites)
+				{
+					friends.Remove(sentPartyInvite.PlayerId);
+					if (_yourTeamContainer.childCount >= 6) continue;
+					_yourTeamContainer.Add(new PendingInviteElement()
+						.SetPlayerName(sentPartyInvite.PlayerName.TrimPlayerNameNumbers())
+						.OnCancel(() =>
+						{
+							_services.FLLobbyService.CancelPartyInvite(sentPartyInvite).Forget();
+							RefreshData();
+						})
+					);
+				}
+
 				if (inParty && partyLobby.Players.Count > 3)
 				{
 					_yourTeamContainer.Add(new VisualElement().AddClass("gap-hack"));

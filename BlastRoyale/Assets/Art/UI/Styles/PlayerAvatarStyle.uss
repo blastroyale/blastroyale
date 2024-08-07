@@ -5,46 +5,6 @@
 .player-avatar__avatar {
     width: 160px;
     height: 160px;
-    background-color: rgb(214, 74, 123);
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-}
-
-.player-avatar--nft > .player-avatar__avatar {
-    background-color: initial;
-    background-image: var(--sprite-home__background-avatar-nft);
-}
-
-.player-avatar__mask {
-    flex-grow: 1;
-    overflow: hidden;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.player-avatar--nft .player-avatar__mask {
-    background-image: url('project://database/Assets/Art/UI/Vectors/ProfileBgShapeNft.svg?fileID=7388822144124034973&guid=383af2f3fddfd49a28a8e090f2857a24&type=3#ProfileBgShapeNft');
-}
-
-.player-avatar__pfp {
-    flex-grow: 1;
-    -unity-background-scale-mode: scale-to-fit;
-    background-image: var(--sprite-shared__avatar-default);
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-}
-
-.player-avatar--nft .player-avatar__pfp {
-    border-top-left-radius: initial;
-    border-bottom-left-radius: initial;
-    border-top-right-radius: initial;
-    border-bottom-right-radius: initial;
 }
 
 .player-avatar__fame-lvl {

@@ -11,11 +11,13 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.UITK;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using QuickEye.UIToolkit;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -255,7 +257,7 @@ namespace FirstLight.Game.Utils
 			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
 			var spriteTask = gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 
-			element.LoadFromTask(spriteTask).Forget();
+			element.LoadFromTask(spriteTask);
 		}
 
 		/// <summary>
@@ -328,10 +330,21 @@ namespace FirstLight.Game.Utils
 			te.Copy();
 		}
 
-		public static T AddClass<T>(this T visualElement, string @class) where T : VisualElement
+		public static T AddClass<T>(this T visualElement, params string[] classes) where T : VisualElement
 		{
-			visualElement.AddToClassList(@class);
+			foreach (var @class in classes)
+			{
+				visualElement.AddToClassList(@class);
+			}
+
 			return visualElement;
+		}
+
+		public static void LoadTemplateAndBind(this VisualElement visualElement, string path)
+		{
+			var tree = Resources.Load<VisualTreeAsset>(path);
+			tree.CloneTree(visualElement);
+			visualElement.AssignElementResults(visualElement);
 		}
 	}
 }

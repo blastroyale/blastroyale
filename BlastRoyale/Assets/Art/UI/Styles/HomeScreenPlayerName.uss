@@ -74,4 +74,5 @@
 
 .player-name-container__not-ready-status {
     margin-top: 5px;
+    --dot-size: 10;
 }

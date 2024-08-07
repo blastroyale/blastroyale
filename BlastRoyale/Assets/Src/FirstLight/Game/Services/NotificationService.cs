@@ -39,9 +39,22 @@ namespace FirstLight.Game.Services
 		{
 			var message = e.GetAs<FriendMessage>();
 
+			if (message.MessageType == FriendMessage.FriendMessageType.CancelPartyInvite)
+			{
+				if (_uiService.IsScreenOpen<InvitePopupPresenter>())
+				{
+					var screen = _uiService.GetScreen<InvitePopupPresenter>();
+					if (screen.LobbyCode == message.LobbyID)
+					{
+						_uiService.CloseScreen<InvitePopupPresenter>().Forget();
+						return;
+					}
+				}
+			}
+
 			// We skip inviting to party if the player already has an invite open
 			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
-			
+
 			switch (message.MessageType)
 			{
 				case FriendMessage.FriendMessageType.PartyInvite:
@@ -61,6 +74,8 @@ namespace FirstLight.Game.Services
 						SenderID = e.UserId,
 						LobbyCode = message.LobbyID
 					}).Forget();
+					break;
+				case FriendMessage.FriendMessageType.CancelPartyInvite:
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

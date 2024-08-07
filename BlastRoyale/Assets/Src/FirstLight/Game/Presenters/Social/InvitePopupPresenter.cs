@@ -33,6 +33,7 @@ namespace FirstLight.Game.Presenters
 
 		private Label _contentLabel;
 		private FriendListElement _sender;
+		public string LobbyCode => Data.LobbyCode;
 
 		protected override void QueryElements()
 		{
@@ -56,7 +57,8 @@ namespace FirstLight.Game.Presenters
 			
 			var sender = FriendsService.Instance.GetFriendByID(Data.SenderID);
 			var senderName = sender.Member.Profile.Name.TrimPlayerNameNumbers();
-			_sender.SetPlayerName(senderName);
+			_sender.SetFromRelationship(sender)
+				.DisableActivity();
 			switch (Data.Type)
 			{
 				case StateData.InviteType.Party:

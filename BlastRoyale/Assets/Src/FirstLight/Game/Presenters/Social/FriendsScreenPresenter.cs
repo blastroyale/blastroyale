@@ -209,7 +209,7 @@ namespace FirstLight.Game.Presenters
 				.SetMoreActions(ve => OpenTooltip(ve, relationship))
 				.TryAddInviteOption(relationship, () =>
 				{
-					_services.FLLobbyService.InviteToParty(relationship.Member.Id).Forget();
+					_services.FLLobbyService.InviteToParty(relationship).Forget();
 				});
 		}
 
@@ -233,7 +233,7 @@ namespace FirstLight.Game.Presenters
 
 			var playerElement = ((FriendListElement) element)
 				.SetFromRelationship(relationship)
-				.SetStatus(string.Empty, null)
+				.DisableStatusCircle()
 				.SetHeader(header)
 				.SetMoreActions(ve => OpenTooltip(ve, relationship));
 

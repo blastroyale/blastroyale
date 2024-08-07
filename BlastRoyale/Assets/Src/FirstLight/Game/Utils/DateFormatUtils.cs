@@ -16,7 +16,7 @@ namespace FirstLight.Game.Utils
 			}
 
 			var hours = (int) Math.Floor(timeSpan.TotalHours);
-			if (showHours)
+			if (showHours && hours > 0)
 			{
 				timeSpan -= TimeSpan.FromHours(hours);
 				sb.Append($"{hours}{(shortFormat ? "H" : "Hour" + (hours == 1 ? "s" : ""))} ");

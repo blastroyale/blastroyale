@@ -9,7 +9,7 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class AnimatedImageElement : VisualElement
 	{
-		private float rotationsPerSecond { get; set; }
+		public float rotationsPerSecond { get; set; }
 		private float randPosMinX { get; set; }
 		private float randPosMinY { get; set; }
 		private float randPosMaxX { get; set; }

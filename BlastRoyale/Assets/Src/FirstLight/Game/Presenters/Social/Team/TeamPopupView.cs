@@ -131,14 +131,18 @@ namespace FirstLight.Game.Presenters.Social.Team
 			var relationship = _friends[index];
 			var e = ((FriendListElement) element);
 			e.SetFromRelationship(relationship)
-				.AddOpenProfileAction(relationship)
-				.TryAddInviteOption(relationship, () =>
+				.AddOpenProfileAction(relationship);
+
+			if ((_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) < GameConstants.Data.MAX_PARTY_SIZE)
+			{
+				e.TryAddInviteOption(relationship, () =>
 				{
 					_services.FLLobbyService.InviteToParty(relationship).ContinueWith(() =>
 					{
 						_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
 					});
 				});
+			}
 			_elements[relationship.Member.Id] = e;
 		}
 

@@ -193,6 +193,7 @@ namespace FirstLight.Game.Services
 			if (_services.FLLobbyService.CurrentPartyLobby != null)
 			{
 				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id)) return false;
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= _services.FLLobbyService.CurrentPartyLobby.MaxPlayers) return false;
 			}
 
 			return true;

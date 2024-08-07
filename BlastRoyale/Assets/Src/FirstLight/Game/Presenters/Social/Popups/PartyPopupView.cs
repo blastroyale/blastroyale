@@ -15,6 +15,7 @@ using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK.Popups
@@ -122,12 +123,17 @@ namespace FirstLight.Game.Views.UITK.Popups
 			var relationship = _friends[index];
 			var e = ((FriendListElement) element);
 			e.SetFromRelationship(relationship)
-				.AddOpenProfileAction(relationship)
-				.TryAddInviteOption(relationship, UniTask.Action(async () =>
+				.AddOpenProfileAction(relationship);
+
+			if ((_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) < GameConstants.Data.MAX_PARTY_SIZE)
+			{
+				e.TryAddInviteOption(relationship, UniTask.Action(async () =>
 				{
 					await _services.FLLobbyService.InviteToParty(relationship.Member.Id);
 					_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
 				}));
+			}
+
 			_elements[relationship.Member.Id] = e;
 		}
 
@@ -143,7 +149,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 			Element.EnableInClassList(USS_PARTY_JOINED, inParty);
 
-			_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, 4);
+			_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, GameConstants.Data.MAX_PARTY_SIZE);
 			_yourTeamContainer.Clear();
 			var friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToDictionary(r => r.Member.Id, r => r);
 			if (inParty)

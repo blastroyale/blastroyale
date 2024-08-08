@@ -89,19 +89,19 @@
     flex-direction: row;
     align-items: center;
     padding-left: 16px;
-    padding-right: 5px;
+    padding-right: 16px;
     padding-top: 8px;
     padding-bottom: 8px;
     height: 87px;
 }
 
 .horizontal-scroll-picker .unity-scroll-view__content-container {
-    padding-right: 20px;
+    padding-right: 0;
     padding-top: 0;
 }
 
-.horizontal-scroll-picker:disabled .unity-scroll-view__content-container {
-    padding-right: 0;
+.horizontal-scroll-picker .unity-scroll-view__content-and-vertical-scroll-container{
+    
 }
 
 .horizontal-scroll-picker__container LocalizedLabel {

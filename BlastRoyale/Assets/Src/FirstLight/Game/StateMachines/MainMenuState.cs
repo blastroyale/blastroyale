@@ -48,7 +48,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
 		private readonly IStatechartEvent _storeClickedEvent = new StatechartEvent("Store Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateBackClickedEvent = new StatechartEvent("Room Join Create Back Button Clicked Event");
-		private readonly IStatechartEvent _closeClickedEvent = new StatechartEvent("Close Button Clicked Event");
 		private readonly IStatechartEvent _friendsClickedEvent = new StatechartEvent("Friends Button Clicked Event");
 
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
@@ -229,7 +228,6 @@ namespace FirstLight.Game.StateMachines
 
 			customGameLobby.OnEnter(OpenCustomGameLobby);
 			customGameLobby.Event(_roomJoinCreateBackClickedEvent).Target(customGamesList);
-			customGameLobby.Event(_closeClickedEvent).Target(homeCheck);
 			customGameLobby.Event(NetworkState.JoinedRoomEvent).Target(final);
 			customGameLobby.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGameLobby.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
@@ -237,7 +235,6 @@ namespace FirstLight.Game.StateMachines
 			
 			customGamesList.OnEnter(OpenCustomGameList);
 			customGamesList.Event(_roomJoinCreateBackClickedEvent).Target(chooseGameMode);
-			customGamesList.Event(_closeClickedEvent).Target(homeCheck);
 			customGamesList.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchListScreenPresenter>(false).Forget());

@@ -32,7 +32,7 @@ namespace FirstLight.Game.Presenters
 		private const int PLAYERS_PER_ROW = 4;
 		private const string USS_ROW = "players-container__row";
 
-		private readonly BufferedQueue _updateBuffer = new (TimeSpan.FromSeconds(0.01), true);
+		private readonly BufferedQueue _updateBuffer = new (TimeSpan.FromSeconds(0.02), true);
 		private LobbyGridData _lastGridSnapshot;
 
 		public class StateData
@@ -63,8 +63,20 @@ namespace FirstLight.Game.Presenters
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 		}
 
+		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
+		{
+			RefreshData();
+		}
+
+		private void OnPlayerLeft(List<int> quitters)
+		{
+			RefreshData();
+		}
+
 		protected override UniTask OnScreenOpen(bool reload)
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.PlayerLeft += OnPlayerLeft;
+			_services.FLLobbyService.CurrentMatchCallbacks.PlayerJoined += OnPlayerJoined;
 			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += OnKickedFromLobby;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
@@ -89,6 +101,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.PlayerLeft -= OnPlayerLeft;
+			_services.FLLobbyService.CurrentMatchCallbacks.PlayerJoined -= OnPlayerJoined;
 			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
 			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby -= OnKickedFromLobby;
 			_services.MessageBrokerService.UnsubscribeAll(this);

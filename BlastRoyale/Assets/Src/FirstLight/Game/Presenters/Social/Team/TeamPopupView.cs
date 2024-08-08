@@ -44,7 +44,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 
 		private List<Relationship> _friends;
 		private Dictionary<string, FriendListElement> _elements = new ();
-		private BufferedQueue _updateQueue = new (TimeSpan.FromSeconds(0.1), true);
+		private BufferedQueue _updateQueue = new (TimeSpan.FromSeconds(0.02), true);
 
 		protected override void Attached()
 		{
@@ -68,18 +68,25 @@ namespace FirstLight.Game.Presenters.Social.Team
 		{
 			RefreshData();
 			_services.GameModeService.SelectedGameMode.InvokeObserve(RefreshGameMode);
-			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnLocalLobbyJoined;
+			_services.FLLobbyService.CurrentPartyCallbacks.PlayerLeft += OnPlayerLeft;
+			_services.FLLobbyService.CurrentPartyCallbacks.PlayerJoined += OnPlayerJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated += OnInvitesUpdated;
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
 		}
-
-		private void OnInvitesUpdated()
+		
+		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
 		{
 			RefreshData();
 		}
 
-		private void OnLocalLobbyJoined(Lobby l)
+		private void OnPlayerLeft(List<int> quitters)
+		{
+			RefreshData();
+		}
+
+
+		private void OnInvitesUpdated()
 		{
 			RefreshData();
 		}
@@ -89,7 +96,8 @@ namespace FirstLight.Game.Presenters.Social.Team
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
-			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined -= OnLocalLobbyJoined;
+			_services.FLLobbyService.CurrentPartyCallbacks.PlayerLeft += OnPlayerLeft;
+			_services.FLLobbyService.CurrentPartyCallbacks.PlayerJoined += OnPlayerJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= OnInvitesUpdated;
 		}
 

@@ -630,7 +630,8 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Creating new match lobby with name: {lobbyName}");
-				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, matchOptions.MaxPlayers, options);
+				var maxPlayers = matchOptions.MaxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = lobby;
 				CurrentMatchCallbacks.TriggerLobbyJoined(lobby);
@@ -744,7 +745,6 @@ namespace FirstLight.Game.Services
 						{KEY_LOBBY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
 					},
 					IsLocked = locked,
-					MaxPlayers = settings.MaxPlayers,
 					Name = lobbyName
 				};
 				if (gridData != null)

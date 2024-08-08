@@ -178,7 +178,7 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
-				_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator()));
+				_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator() || matchLobby.GetPlayerPosition(p) == -1));
 
 				VisualElement row = null;
 
@@ -242,10 +242,14 @@ namespace FirstLight.Game.Presenters
 				PopupPresenter.OpenGenericInfo(ScriptTerms.UITCustomGames.custom_game, ScriptLocalization.UITCustomGames.no_players_bots).Forget();
 				return;
 			}
+			
+			var matchSettings = _matchSettingsView.MatchSettings;
+			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			var matchGrid = matchLobby.GetPlayerGrid();
 
 			foreach (var p in _services.FLLobbyService.CurrentMatchLobby.Players)
 			{
-				if (!p.IsLocal() && !p.IsSpectator() && !p.IsReady())
+				if (!p.IsLocal() && !(p.IsSpectator() || matchGrid.GetPosition(p.Id) == -1) && !p.IsReady())
 				{
 					_services.NotificationService.QueueNotification("Not all players are ready");
 					return;
@@ -253,9 +257,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-			var matchSettings = _matchSettingsView.MatchSettings;
-			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
-			var matchGrid = matchLobby.GetPlayerGrid();
 			matchGrid.ShuffleStack();
 
 			_services.MessageBrokerService.Publish(new JoinedCustomMatch());

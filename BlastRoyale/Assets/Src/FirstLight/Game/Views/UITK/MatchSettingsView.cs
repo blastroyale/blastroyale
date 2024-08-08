@@ -153,7 +153,7 @@ namespace FirstLight.Game.Views.UITK
 			_modeButton.SetEnabled(editable);
 			_teamSizeButton.SetEnabled(editable);
 			_mapButton.SetEnabled(editable);
-			_maxPlayersButton.SetEnabled(editable);
+			_maxPlayersButton.SetEnabled(editable && _services.FLLobbyService.CurrentMatchLobby == null);
 			_mutatorsToggle.SetEnabled(editable);
 			_mutatorsButton.SetDisplay(editable);
 			_filterWeaponsToggle.SetEnabled(editable);

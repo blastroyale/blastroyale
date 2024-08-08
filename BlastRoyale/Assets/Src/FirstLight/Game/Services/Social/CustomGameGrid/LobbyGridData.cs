@@ -28,7 +28,11 @@ namespace FirstLight.Game.Services.Social
 		{
 			foreach (var p in players)
 			{
-				Place(GetEmptySlot(), p);
+				var emptySlot = GetEmptySlot();
+				if (emptySlot >= 0)
+				{
+					Place(GetEmptySlot(), p);
+				}
 			}
 		}
 

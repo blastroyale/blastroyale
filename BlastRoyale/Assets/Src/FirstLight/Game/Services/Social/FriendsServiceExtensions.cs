@@ -8,6 +8,7 @@ using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
+using UnityEditor.PackageManager;
 
 namespace FirstLight.Game.Utils.UCSExtensions
 {
@@ -92,9 +93,11 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			try
 			{
 				FLog.Info($"Blocking player: {playerID}");
-
+				
+				await friendsService.AddBlockAsync(playerID).AsUniTask();
+				
 				var tasks = new List<UniTask>();
-
+				
 				var currentInvite = friendsService.Relationships.FirstOrDefault(rl => rl.Type == RelationshipType.FriendRequest && rl.Member.Id == playerID);
 				if (currentInvite != null)
 				{
@@ -106,9 +109,9 @@ namespace FirstLight.Game.Utils.UCSExtensions
 				{
 					tasks.Add(friendsService.DeleteRelationshipAsync(friendRelationship.Id).AsUniTask());
 				}
-
-				tasks.Add(friendsService.AddBlockAsync(playerID).AsUniTask());
+				
 				await UniTask.WhenAll(tasks);
+				
 				FLog.Info($"Player blocked: {playerID}");
 				services.NotificationService.QueueNotification("#Player blocked#");
 				return true;
@@ -116,7 +119,8 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error blocking player", e);
-				services.NotificationService.QueueNotification($"#Error blocking player, {e.ErrorCode.ToStringSeparatedWords()}#");
+				
+				services.NotificationService.QueueNotification($"#Error blocking player, {e.ParseError()}#");
 				return false;
 			}
 		}
@@ -136,7 +140,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error unblocking player.", e);
-				services.NotificationService.QueueNotification($"#Error unblocking player, {e.ErrorCode.ToStringSeparatedWords()}#");
+				services.NotificationService.QueueNotification($"#Error unblocking player, {e.ParseError()}#");
 				return false;
 			}
 		}

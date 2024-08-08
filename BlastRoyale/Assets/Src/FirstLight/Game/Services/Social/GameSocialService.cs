@@ -302,7 +302,11 @@ namespace FirstLight.Game.Services
 			if (settings.ShowBlock)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.block,
-					() => FriendsService.Instance.BlockHandled(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
+					() => FriendsService.Instance.BlockHandled(unityId).ContinueWith(_ =>
+					{
+						FLog.Info($"BlockHandled ContinueWith bool {_}");
+						settings.OnRelationShipChange?.Invoke();
+					}).Forget()));
 			}
 		}
 

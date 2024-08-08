@@ -100,9 +100,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -189,9 +191,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -281,6 +285,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -370,6 +375,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -447,6 +453,7 @@ MonoBehaviour:
             _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -524,6 +531,7 @@ MonoBehaviour:
             _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -601,6 +609,7 @@ MonoBehaviour:
             _text: Coins and BPPs for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -678,6 +687,7 @@ MonoBehaviour:
             _text: Coins and BPPs for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -764,9 +774,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -853,9 +865,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -945,6 +959,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1034,6 +1049,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1108,9 +1124,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1185,9 +1203,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1265,6 +1285,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1342,6 +1363,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1428,9 +1450,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1517,9 +1541,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1609,6 +1635,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1698,6 +1725,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1775,6 +1803,7 @@ MonoBehaviour:
             _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1852,6 +1881,7 @@ MonoBehaviour:
             _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -1929,6 +1959,7 @@ MonoBehaviour:
             _text: Coins and BPPs for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -2006,6 +2037,7 @@ MonoBehaviour:
             _text: Coins and BPPs for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -2091,9 +2123,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -2179,9 +2213,11 @@ MonoBehaviour:
           LongDescriptionTranslationKey:
             _useLocalization: 0
             _localizationTerm: 
-            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match placement
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -2270,6 +2306,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -2358,6 +2395,7 @@ MonoBehaviour:
             _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -2434,6 +2472,7 @@ MonoBehaviour:
             _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -2510,6 +2549,7 @@ MonoBehaviour:
             _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -2586,6 +2626,7 @@ MonoBehaviour:
             _text: Coins and BPPs for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
           OverwriteImageURL: 
       - TimedEntry: 1
         TimedGameModeEntries:
@@ -2662,6 +2703,7 @@ MonoBehaviour:
             _text: Coins and BPPs for kills; +100% BPPs for match placement
           CardModifier: event
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
           OverwriteImageURL: 
     - Entries:
       - TimedEntry: 0
@@ -2729,6 +2771,7 @@ MonoBehaviour:
             _text: 
           CardModifier: solo
           IconSpriteClass: sprite-shared__icon-gamemode-solo
+          ImageModifier: 
           OverwriteImageURL: 
     - Entries:
       - TimedEntry: 0
@@ -2796,6 +2839,7 @@ MonoBehaviour:
             _text: 
           CardModifier: duos
           IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: 
           OverwriteImageURL: 
     - Entries:
       - TimedEntry: 0
@@ -2863,4 +2907,5 @@ MonoBehaviour:
             _text: 
           CardModifier: quads
           IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: 
           OverwriteImageURL: 

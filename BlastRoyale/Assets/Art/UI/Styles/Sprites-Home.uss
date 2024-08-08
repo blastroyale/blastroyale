@@ -128,7 +128,9 @@
     --sprite-home__gamemode-coming-soon: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-coming-soon.png');
     --sprite-home__gamemode-custom-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-custom-characters.png');
     --sprite-home__gamemode-duos-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-duos-characters.png');
-    --sprite-home__gamemode-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-event-characters.png');
+    --sprite-home__gamemode-solo-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-solo-event-characters.png');
+    --sprite-home__gamemode-duos-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-duos-event-characters.png');
+    --sprite-home__gamemode-quads-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-quads-event-characters.png');
     --sprite-home__gamemode-quads-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-quads-characters.png');
     --sprite-home__gamemode-solo-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-solo-characters.png');
     --sprite-home__glider-divinci: url('/Assets/Art/UI/Sprites/Home/glider-divinci.png');
@@ -976,10 +978,22 @@
     height: 456px;
 }
 
-.sprite-home__gamemode-event-characters {
-    background-image: var(--sprite-home__gamemode-event-characters);
+.sprite-home__gamemode-solo-event-characters {
+    background-image: var(--sprite-home__gamemode-solo-event-characters);
+    width: 448px;
+    height: 669px;
+}
+
+.sprite-home__gamemode-duos-event-characters {
+    background-image: var(--sprite-home__gamemode-duos-event-characters);
     width: 436px;
     height: 531px;
+}
+
+.sprite-home__gamemode-quads-event-characters {
+    background-image: var(--sprite-home__gamemode-quads-event-characters);
+    width: 448px;
+    height: 669px;
 }
 
 .sprite-home__gamemode-quads-characters {

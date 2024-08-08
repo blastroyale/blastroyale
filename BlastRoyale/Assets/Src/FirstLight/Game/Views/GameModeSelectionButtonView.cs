@@ -125,7 +125,14 @@ namespace FirstLight.Game.Views
 			UpdateTitleAndDescription();
 			UpdateDisabledStatus();
 			UpdateRewards();
+			
+			if (!string.IsNullOrWhiteSpace(GameModeInfo.Entry.Visual.ImageModifier))
+			{
+				_button.AddToClassList($"{USS_BASE}--{GameModeInfo.Entry.Visual.CardModifier}--{GameModeInfo.Entry.Visual.ImageModifier}");
+			}
+			
 			CheckCustomImage();
+			
 			if (gameModeInfo.IsFixed)
 			{
 				return;

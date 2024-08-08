@@ -5,6 +5,7 @@ using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
 using Quantum;
 using Unity.Services.Lobbies.Models;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -88,9 +89,11 @@ namespace FirstLight.Game.UIElements
 			_lobbyNameLabel.text = lobby.Name;
 
 			var matchSettings = lobby.GetMatchSettings();
+			var maxPlayers = lobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+			var totalAdjustedPlayers = Mathf.Min(lobby.Players.Count, maxPlayers);
 
 			_lobbyModeLabel.text = $"{matchSettings.GameModeID}\n{LocalizationUtils.GetTranslationForTeamSize(matchSettings.SquadSize)}";
-			_lobbyPlayersLabel.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
+			_lobbyPlayersLabel.text = $"{totalAdjustedPlayers}/{maxPlayers}";
 			_lobbyRegion.text = lobby.GetMatchRegion().GetPhotonRegionTranslation();
 			_mutatorsCountLabel.SetVisibility(matchSettings.Mutators != Mutator.None);
 			_mutatorsCountLabel.text = $"+{matchSettings.Mutators.CountSetFlags()}";

@@ -153,6 +153,10 @@
     display: none;
 }
 
+#RandomizeTeams {
+    display: none;
+}
+
 #FilterWeaponsToggle {
     display: none;
 }

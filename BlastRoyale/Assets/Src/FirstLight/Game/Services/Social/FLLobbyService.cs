@@ -623,14 +623,15 @@ namespace FirstLight.Game.Services
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = matchOptions.PrivateRoom,
-				Player = CreateLocalPlayer(),
+				Player = CreateLocalPlayer(true),
 				Data = data
 			};
 
 			try
 			{
 				FLog.Info($"Creating new match lobby with name: {lobbyName}");
-				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, matchOptions.MaxPlayers, options);
+				var maxPlayers = matchOptions.MaxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+				var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = lobby;
 				CurrentMatchCallbacks.TriggerLobbyJoined(lobby);
@@ -744,7 +745,6 @@ namespace FirstLight.Game.Services
 						{KEY_LOBBY_MATCH_SETTINGS, new DataObject(DataObject.VisibilityOptions.Public, JsonConvert.SerializeObject(settings))}
 					},
 					IsLocked = locked,
-					MaxPlayers = settings.MaxPlayers,
 					Name = lobbyName
 				};
 				if (gridData != null)
@@ -935,7 +935,7 @@ namespace FirstLight.Game.Services
 
 		#endregion
 
-		private Player CreateLocalPlayer()
+		private Player CreateLocalPlayer(bool ready = false)
 		{
 			var skinID = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS).Id;
 			var meleeID = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.MELEE_SKINS).Id;
@@ -949,7 +949,7 @@ namespace FirstLight.Game.Services
 					{KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, AuthenticationService.Instance.PlayerName)},
 					{KEY_SKIN_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, skinID.ToString())},
 					{KEY_MELEE_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, meleeID.ToString())},
-					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")},
+					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, ready.ToString().ToLowerInvariant())},
 					{KEY_PLAYFAB_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayFabSettings.staticPlayer.EntityId)},
 					{KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")},
 					{KEY_TROHPIES, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.PlayerDataProvider.Trophies.Value.ToString())},

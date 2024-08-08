@@ -124,7 +124,7 @@ namespace FirstLight.Game.Presenters
 
 					joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
 					joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
-					joinProperties.Spectator = localPlayer.IsSpectator();
+					joinProperties.Spectator = localPlayer.IsSpectator() || localPlayerPosition < 0;
 
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
@@ -185,7 +185,7 @@ namespace FirstLight.Game.Presenters
 				var spots = new List<MatchLobbyPlayerElement>();
 
 				// TODO: This only needs to be done when the max of players changes
-				for (int i = 0; i < matchLobby.MaxPlayers; i++)
+				for (int i = 0; i < matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS; i++)
 				{
 					if (i % PLAYERS_PER_ROW == 0)
 					{
@@ -231,7 +231,7 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_lastGridSnapshot = grid;
-				_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";
+				_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS}";
 			});
 		}
 
@@ -292,6 +292,7 @@ namespace FirstLight.Game.Presenters
 					_services.NotificationService.QueueNotification("Error starting match");
 					return;
 				}
+
 				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
 				await _services.FLLobbyService.LeaveMatch();
 			}

@@ -670,8 +670,8 @@
 
 .sprite-home__button-generic-popup-close {
     background-image: var(--sprite-home__button-generic-popup-close);
-    width: 101px;
-    height: 101px;
+    width: 93px;
+    height: 93px;
 }
 
 .sprite-home__button-grey {

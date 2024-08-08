@@ -8,7 +8,6 @@ using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
-using UnityEditor.PackageManager;
 
 namespace FirstLight.Game.Utils.UCSExtensions
 {

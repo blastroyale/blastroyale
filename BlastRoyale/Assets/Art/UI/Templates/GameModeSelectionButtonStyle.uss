@@ -293,11 +293,30 @@
 
 
 .game-mode-card--event .game-mode-card__character {
-    background-image: var(--sprite-home__gamemode-event-characters);
+}
+
+.game-mode-card--event--solo .game-mode-card__character {
+    background-image: var(--sprite-home__gamemode-solo-event-characters);
+    height: 569px;
+    width: 380px;
+    top: -111px;
+    left: 70px;
+}
+
+.game-mode-card--event--duos .game-mode-card__character {
+    background-image: var(--sprite-home__gamemode-duos-event-characters);
     height: 533px;
     width: 450px;
     top: -78px;
     left: 27px;
+}
+
+.game-mode-card--event--quads .game-mode-card__character {
+    background-image: var(--sprite-home__gamemode-quads-event-characters);
+    height: 614px;
+    top: -158px;
+    width: 537px;
+    left: -3px;
 }
 
 .game-mode-card--event-custom-image.game-mode-card--event .game-mode-card__character {

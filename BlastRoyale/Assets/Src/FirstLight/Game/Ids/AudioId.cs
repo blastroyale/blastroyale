@@ -237,7 +237,9 @@ namespace FirstLight.Game.Ids
 		HealthPickupLocal,
 		ShieldPickupLocal,
 		LargeShieldPickupLocal,
-		NoobPickupLocal
+		NoobPickupLocal,
+		WeaponPickupLocal,
+		GearPickupLocal,
 	}
 	
 	/// <summary>

@@ -746,11 +746,11 @@ namespace FirstLight.Game.StateMachines
 
 			if (collectableId.IsInGroup(GameIdGroup.Weapon))
 			{
-				audio = AudioId.WeaponPickup;
+				audio = isLocal ? AudioId.WeaponPickupLocal : AudioId.WeaponPickup;
 			}
 			else if (collectableId.IsInGroup(GameIdGroup.Special))
 			{
-				audio = AudioId.GearPickup;
+				audio = isLocal ? AudioId.GearPickupLocal : AudioId.GearPickup;
 			}
 			else
 			{

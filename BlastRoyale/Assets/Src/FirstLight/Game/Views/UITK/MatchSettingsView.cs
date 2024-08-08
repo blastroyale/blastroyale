@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Presenters;
@@ -178,12 +179,17 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnMapClicked()
 		{
+			var options = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>()
+				.Where(cfg => cfg.Id == MatchSettings.GameModeID)
+				.SelectMany(cfg => cfg.AllowedMaps)
+				.Distinct();
+
 			PopupPresenter.OpenSelectMap(mapId =>
 			{
 				MatchSettings.MapID = mapId;
 				RefreshData(true);
 				PopupPresenter.Close().Forget();
-			}, MatchSettings.GameModeID, MatchSettings.MapID).Forget();
+			}, options, MatchSettings.MapID, false).Forget();
 		}
 
 		private void OnMaxPlayersClicked()
@@ -262,7 +268,7 @@ namespace FirstLight.Game.Views.UITK
 			_privateRoomToggle.value = MatchSettings.PrivateRoom;
 			_showCreatorNameToggle.value = MatchSettings.ShowCreatorName;
 			_randomizeTeamsToggle.value = MatchSettings.RandomizeTeams;
-			
+
 			_mutatorsScroller.Clear();
 			var mutators = MatchSettings.Mutators.GetSetFlags();
 			_mutatorsToggle.value = mutators.Length > 0 || _mutatorsTurnedOn;
@@ -270,14 +276,14 @@ namespace FirstLight.Game.Views.UITK
 			_botDifficultySlider.value = MatchSettings.BotDifficulty;
 			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !_allowBotsToggle.value);
 			_mutatorsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !_mutatorsToggle.value);
-			
+
 			foreach (var mutator in mutators)
 			{
 				var mutatorLabel = new LocalizedLabel(mutator.GetLocalizationKey());
 
 				_mutatorsScroller.Add(mutatorLabel);
 			}
-			
+
 			_filterWeaponsScroller.Clear();
 			var weaponFilter = MatchSettings.WeaponFilter;
 			_filterWeaponsToggle.value = weaponFilter.Count > 0 || _weaponFilterTurnedOn;

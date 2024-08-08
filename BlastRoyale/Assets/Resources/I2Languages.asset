@@ -12762,6 +12762,204 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarMidasfull
+      TermType: 0
+      Description: 
+      Languages:
+      - WATCHING YOU
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMidasfullDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 11
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarHazmatfull
+      TermType: 0
+      Description: 
+      Languages:
+      - HAZARDOUS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarHazmatfullDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 11
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSkeletonfull
+      TermType: 0
+      Description: 
+      Languages:
+      - DARING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSkeletonfullDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 11
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarWitchhat
+      TermType: 0
+      Description: 
+      Languages:
+      - WITCH HAT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarWitchhatDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 11
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPumpkin
+      TermType: 0
+      Description: 
+      Languages:
+      - PUMPKIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPumpkinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 11
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarAuraarmed
+      TermType: 0
+      Description: 
+      Languages:
+      - GUNPOINT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarAuraarmedDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 11
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNflarmed
+      TermType: 0
+      Description: 
+      Languages:
+      - READY TO PLAY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarNflarmedDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPilotarmed
+      TermType: 0
+      Description: 
+      Languages:
+      - BEHIND ENEMY LINES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPilotarmedDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarWitch
+      TermType: 0
+      Description: 
+      Languages:
+      - WITCHCRAFT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarWitchDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BLSTDescription
       TermType: 0
       Description: 
@@ -15144,6 +15342,28 @@ MonoBehaviour:
       Description: 
       Languages:
       - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDoctorStaff
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAGUEBEARER STAFF
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDoctorStaffDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any Plague Doctor with this item to unlock
       - 
       - 
       - 
@@ -17718,6 +17938,28 @@ MonoBehaviour:
       - WEAPON
       - "\u041E\u0420\u0423\u0416\u0418\u0415"
       - ARMA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Any
+      TermType: 0
+      Description: 
+      Languages:
+      - ANY MAP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AnyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Play on any of the available maps.
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -29944,7 +30186,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1722881554706
+    Google_LastUpdatedVersion: 1723126266748
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

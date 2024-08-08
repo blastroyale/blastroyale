@@ -105,9 +105,9 @@ namespace FirstLight.Game.Presenters
 			return OpenPopup(new SelectNumberPopupView(onConfirm, subtitleKey, min, max, currentValue), titleKey);
 		}
 
-		public static UniTaskVoid OpenSelectMap(Action<string> onMapSelected, string gameModeID, string currentMapID)
+		public static UniTaskVoid OpenSelectMap(Action<string> onMapSelected, IEnumerable<GameId> mapIDs, string currentMapID, bool showAny)
 		{
-			return OpenPopup(new SelectMapPopupView(onMapSelected, gameModeID, currentMapID), ScriptTerms.UITCustomGames.select_map);
+			return OpenPopup(new SelectMapPopupView(onMapSelected, mapIDs, currentMapID, showAny), ScriptTerms.UITCustomGames.select_map);
 		}
 
 		public static UniTaskVoid OpenSelectSquadSize(Action<int> onSquadSizeSelected, uint currentSize)

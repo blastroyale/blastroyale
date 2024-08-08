@@ -192,9 +192,13 @@ namespace FirstLight.Game.Presenters
 			{
 				// If PlayfabID is null we fetch it from CloudSave.
 				Data.PlayfabID ??= await CloudSaveService.Instance.LoadPlayfabID(Data.UnityID);
+			}
+
+			if (Data.PlayfabID != null)
+			{
 				if (!_services.UIService.IsScreenOpen<PlayerStatisticsPopupPresenter>()) return;
-				FLog.Info("Downloading profile for " + Data.PlayfabID);
 				result = await _services.ProfileService.GetPlayerPublicProfile(Data.PlayfabID);
+				FLog.Info("Downloading profile for " + Data.PlayfabID);
 			}
 			else
 			{

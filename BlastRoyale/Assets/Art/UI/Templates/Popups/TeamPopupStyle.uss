@@ -8,6 +8,7 @@
 }
 
 .gap-hack {
+    flex-shrink: 1;
     height: 128px;
     flex-grow: 1;
 }
@@ -16,7 +17,7 @@
     flex-grow: 0;
     flex-shrink: 0;
     margin-left: 39px;
-    width: 1235px;
+    width: 1244px;
 }
 
 .container-your-team {
@@ -31,6 +32,8 @@
     flex-wrap: wrap-reverse;
     justify-content: flex-start;
     margin-bottom: 20px;
+    transition-property: background-color;
+    transition-duration: 0.33s;
 }
 
 .container-online-friends {
@@ -38,6 +41,10 @@
     padding: 28px;
     background-color: rgb(22, 20, 38);
     flex-grow: 1;
+}
+
+.container-online-friends .friend-list-element {
+    padding-bottom: 10px;
 }
 
 .category-content--green {
@@ -114,7 +121,8 @@
 
 .container-your-team .friend-list-element__background {
     -unity-background-image-tint-color: #9FDA40;
-    padding-right: 20px;
+    padding-right: 30px;
+    padding-left: 24px;
     padding-top: 5px;
     padding-bottom: 8px;
     width: 379px;
@@ -130,16 +138,16 @@
 }
 
 .container-your-team .friend-list-element__background-pattern {
-    left: -38px;
-    top: -90px;
-    position: absolute;
-    width: 237px;
-    height: 298px;
-    background-image: var(--sprite-kit__pattern-dots);
-    -unity-background-scale-mode: scale-and-crop;
-    scale: 1 1;
-    -unity-background-image-tint-color: rgb(29, 61, 100);
-    opacity: 0.25;
+    -unity-background-image-tint-color: #83c364;
+
+}
+
+.friend-list-element--local .friend-list-element__background-pattern {
+    -unity-background-image-tint-color: #d9b93b;
+}
+
+.container-your-team .friend-list-element__background-pattern--right {
+    display: none;
 }
 
 .content {
@@ -177,4 +185,97 @@
     height: 36px;
     flex-shrink: 0;
     margin-right: 15px;
+}
+
+.pending {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.pending__background {
+    flex-grow: 0;
+    width: 379px;
+    height: 114px;
+    display: flex;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/background-pending-party-invite.png?fileID=21300000&guid=3bc3ad1e198a6444988135065ef91d04&type=3#background-pending-party-invite");
+    align-self: auto;
+    align-items: flex-start;
+    padding: 25px;
+    margin-right: 13px;
+    -unity-background-image-tint-color: #9FDA40;
+    transition-property: -unity-background-image-tint-color, opacity;
+    transition-delay: 0s, 2.5s;
+    transition-duration: 0.5s, 0.5s;
+}
+
+.pending--declined .pending__background {
+    -unity-background-image-tint-color: #D14142;
+    opacity: 0;
+}
+
+.pending__line {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-self: auto;
+    align-items: center;
+    transition-property: color;
+    transition-duration: 0.5s;
+}
+
+.pending__status {
+    color: rgb(64, 169, 28);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.pending--declined .pending__status {
+    color: red;
+}
+
+.pending__loading {
+    height: 19px;
+    margin-left: 18px;
+    --dots-size: 13;
+    --secondary-color: rgb(255, 255, 255);
+    --color: rgb(37, 39, 46);
+}
+
+.pending--declined .pending__loading {
+    display: none;
+}
+
+.pending__player-name {
+    font-size: 30px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 9px;
+}
+
+.pending__cancel-button {
+    flex-grow: 1;
+    background-image: var(--sprite-home__button-small-red);
+    width: 69px;
+    height: 69px;
+    position: absolute;
+    right: 16px;
+    -unity-background-scale-mode: scale-to-fit;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+.pending--declined .pending__cancel-button {
+    display: none;
+}
+
+.pending__cancel-button:active {
+    background-image: var(--sprite-home__button-small-red-pressed);
+    padding-bottom: 0;
+}
+
+.pending__cross {
+    align-self: center;
+    flex-grow: 0;
+    width: 38px;
+    height: 38px;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/cross-x-button.png?fileID=2800000&guid=53234120a841abc45b32975822cf14e7&type=3#cross-x-button");
+    -unity-background-scale-mode: scale-to-fit;
 }

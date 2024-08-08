@@ -47,7 +47,9 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _worldPositioning;
 		private int _usedCharactersIndex = 0;
 		private Dictionary<int, VisualElement> _playerNames = new ();
-
+		
+		private ScreenHeaderElement _header;
+		
 		private void Awake()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
@@ -56,6 +58,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
+			_header = Root.Q<ScreenHeaderElement>("Header").Required();
+			_header.SetButtonsVisibility(false);
 			_nextButton = Root.Q<LocalizedButton>("NextButton").Required();
 			_nextButton.clicked += Data.ContinueClicked;
 			_worldPositioning = Root.Q<VisualElement>("WorldPositioning").Required();

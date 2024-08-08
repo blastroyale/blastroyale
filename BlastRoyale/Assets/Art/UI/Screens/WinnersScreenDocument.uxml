@@ -5,6 +5,6 @@
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="WorldPositioning" picking-mode="Ignore" class="world-positioning-root" />
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITWinners/winners" subtitle-key="UITHomeScreen/gamemode_BattleRoyale" class="screen-header--no-navigation" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITWinners/winners" subtitle-key="UITHomeScreen/gamemode_BattleRoyale" name="Header" class="screen-header--no-navigation" />
     </ui:VisualElement>
 </ui:UXML>

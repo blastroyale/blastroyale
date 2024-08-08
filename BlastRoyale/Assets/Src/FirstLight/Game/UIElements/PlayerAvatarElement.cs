@@ -36,25 +36,14 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _star4;
 		private readonly VisualElement _star5;
 		private readonly VisualElement _pfp;
-		private readonly VisualElement _avatarHolder;
-
-		private int _avatarRequestHandle;
+		private readonly RemoteAvatarElement _avatarHolder;
 
 		public PlayerAvatarElement()
 		{
 			AddToClassList(USS_BLOCK);
 
-			Add(_avatarHolder = new VisualElement {name = "avatar"});
+			Add(_avatarHolder = new RemoteAvatarElement() {name = "avatar"});
 			_avatarHolder.AddToClassList(USS_AVATAR);
-			{
-				var mask = new VisualElement {name = "mask"};
-				_avatarHolder.Add(mask);
-				mask.AddToClassList(USS_MASK);
-				{
-					mask.Add(_pfp = new VisualElement {name = "pfp"});
-					_pfp.AddToClassList(USS_PFP);
-				}
-			}
 
 			Add(_fameLvl = new Label("") {name = "fame-lvl"});
 			_fameLvl.AddToClassList(USS_FAME_LVL);
@@ -88,50 +77,23 @@ namespace FirstLight.Game.UIElements
 		public void SetLevel(uint level)
 		{
 			_fameLvl.text = level.ToString();
-			
+
 			// We use current stars (bronze to diamond) up to Fame Level 100 which is about 2 years of playing casually
 			var visibleStars = level < 100 ? Mathf.FloorToInt((((level - 1) % 25) / 5f) + 1) : 5;
 			var colorLevel = level < 100 ? Mathf.FloorToInt((level - 1) / 25f) : 3;
-			
+
 			SetVisibleStars((uint) visibleStars);
 			SetStarsColorLevel((uint) colorLevel);
 		}
 
-		public async UniTask LoadFromTask(UniTask<Sprite> loadSpriteTask)
+		public void LoadFromTask(UniTask<Sprite> loadSpriteTask)
 		{
-			_avatarHolder.SetVisibility(false);
-			AddToClassList(USS_AVATAR_NFT);
-			var sprite = await loadSpriteTask;
-			if (panel == null) return;
-			_pfp.style.backgroundImage = new StyleBackground(sprite);
-			_avatarHolder.SetVisibility(true);
+			_avatarHolder.SetAvatar(loadSpriteTask.ContinueWith(sprite => sprite.texture)).Forget();
 		}
 
 		public void SetAvatar(string url)
 		{
-			var services = MainInstaller.ResolveServices();
-			services.RemoteTextureService.CancelRequest(_avatarRequestHandle);
-
-			if (string.IsNullOrEmpty(url)) return;
-
-			_avatarHolder.SetVisibility(false);
-			AddToClassList(USS_AVATAR_NFT);
-			_avatarRequestHandle = services.RemoteTextureService.RequestTexture(
-				url,
-				tex =>
-				{
-					if (panel == null) return;
-					_avatarHolder.SetVisibility(true);
-					_pfp.style.backgroundImage = new StyleBackground(tex);
-					_avatarHolder.usageHints = UsageHints.MaskContainer;
-
-				},
-				() =>
-				{
-					if (panel == null) return;
-					_avatarHolder.RemoveFromClassList(USS_AVATAR_NFT);
-					_pfp.SetVisibility(true);
-				});
+			_avatarHolder.SetAvatar(url).Forget();
 		}
 
 		public void SetVisibleStars(uint visibleStars)

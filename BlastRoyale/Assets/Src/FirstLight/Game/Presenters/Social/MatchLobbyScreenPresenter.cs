@@ -32,7 +32,7 @@ namespace FirstLight.Game.Presenters
 		private const int PLAYERS_PER_ROW = 4;
 		private const string USS_ROW = "players-container__row";
 
-		private readonly BufferedQueue _updateBuffer = new (TimeSpan.FromSeconds(0.01), true);
+		private readonly BufferedQueue _updateBuffer = new (TimeSpan.FromSeconds(0.02), true);
 		private LobbyGridData _lastGridSnapshot;
 
 		public class StateData
@@ -63,8 +63,20 @@ namespace FirstLight.Game.Presenters
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 		}
 
+		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
+		{
+			RefreshData();
+		}
+
+		private void OnPlayerLeft(List<int> quitters)
+		{
+			RefreshData();
+		}
+
 		protected override UniTask OnScreenOpen(bool reload)
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.PlayerLeft += OnPlayerLeft;
+			_services.FLLobbyService.CurrentMatchCallbacks.PlayerJoined += OnPlayerJoined;
 			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += OnKickedFromLobby;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
@@ -89,6 +101,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
+			_services.FLLobbyService.CurrentMatchCallbacks.PlayerLeft -= OnPlayerLeft;
+			_services.FLLobbyService.CurrentMatchCallbacks.PlayerJoined -= OnPlayerJoined;
 			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyUpdated -= OnLobbyChanged;
 			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby -= OnKickedFromLobby;
 			_services.MessageBrokerService.UnsubscribeAll(this);
@@ -124,7 +138,7 @@ namespace FirstLight.Game.Presenters
 
 					joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
 					joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
-					joinProperties.Spectator = localPlayer.IsSpectator();
+					joinProperties.Spectator = localPlayer.IsSpectator() || localPlayerPosition < 0;
 
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
@@ -178,14 +192,14 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
-				_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator()));
+				_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator() || matchLobby.GetPlayerPosition(p) == -1));
 
 				VisualElement row = null;
 
 				var spots = new List<MatchLobbyPlayerElement>();
 
 				// TODO: This only needs to be done when the max of players changes
-				for (int i = 0; i < matchLobby.MaxPlayers; i++)
+				for (int i = 0; i < matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS; i++)
 				{
 					if (i % PLAYERS_PER_ROW == 0)
 					{
@@ -231,7 +245,7 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_lastGridSnapshot = grid;
-				_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers}";
+				_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS}";
 			});
 		}
 
@@ -242,10 +256,14 @@ namespace FirstLight.Game.Presenters
 				PopupPresenter.OpenGenericInfo(ScriptTerms.UITCustomGames.custom_game, ScriptLocalization.UITCustomGames.no_players_bots).Forget();
 				return;
 			}
+			
+			var matchSettings = _matchSettingsView.MatchSettings;
+			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			var matchGrid = matchLobby.GetPlayerGrid();
 
 			foreach (var p in _services.FLLobbyService.CurrentMatchLobby.Players)
 			{
-				if (!p.IsLocal() && !p.IsSpectator() && !p.IsReady())
+				if (!p.IsLocal() && !(p.IsSpectator() || matchGrid.GetPosition(p.Id) == -1) && !p.IsReady())
 				{
 					_services.NotificationService.QueueNotification("Not all players are ready");
 					return;
@@ -253,11 +271,13 @@ namespace FirstLight.Game.Presenters
 			}
 
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-			var matchSettings = _matchSettingsView.MatchSettings;
-			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			matchGrid.ShuffleStack();
+
 			_services.MessageBrokerService.Publish(new JoinedCustomMatch());
 
-			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, true);
+			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, matchGrid, true);
+
+			matchSettings = _matchSettingsView.MatchSettings;
 
 			// TODO: remove the hack
 			((IInternalGameNetworkService) _services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
@@ -268,7 +288,7 @@ namespace FirstLight.Game.Presenters
 				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
 			};
 
-			var squadSize = matchLobby.GetMatchSettings().SquadSize;
+			var squadSize = matchSettings.SquadSize;
 			var localPlayer = matchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
 			var localPlayerPosition = matchLobby.GetPlayerPosition(localPlayer);
 
@@ -281,6 +301,13 @@ namespace FirstLight.Game.Presenters
 					Spectator = localPlayer.IsSpectator()
 				});
 
+				var started = await UniTaskUtils.WaitUntilTimeout(CanStartGame, TimeSpan.FromSeconds(5));
+				if (!started)
+				{
+					_services.NotificationService.QueueNotification("Error starting match");
+					return;
+				}
+
 				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
 				await _services.FLLobbyService.LeaveMatch();
 			}
@@ -289,6 +316,11 @@ namespace FirstLight.Game.Presenters
 				FLog.Error("Could not create quantum room", e);
 				LeaveMatchLobby().Forget();
 			}
+		}
+
+		private bool CanStartGame()
+		{
+			return _services.RoomService.InRoom;
 		}
 
 		private async UniTaskVoid ReadyUp()
@@ -312,6 +344,7 @@ namespace FirstLight.Game.Presenters
 				{
 					_services.FLLobbyService.SetMatchPositionRequest(index);
 				}
+
 				return;
 			}
 

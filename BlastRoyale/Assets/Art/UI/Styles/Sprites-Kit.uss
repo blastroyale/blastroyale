@@ -1,6 +1,13 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-kit__avatar-default: url('/Assets/Art/UI/Sprites/Kit/avatar-default.png');
     --sprite-kit__pattern-dots: url('/Assets/Art/UI/Sprites/Kit/pattern-dots.png');
+}
+
+.sprite-kit__avatar-default {
+    background-image: var(--sprite-kit__avatar-default);
+    width: 125px;
+    height: 125px;
 }
 
 .sprite-kit__pattern-dots {

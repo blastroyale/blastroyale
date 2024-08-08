@@ -62,6 +62,7 @@ namespace FirstLight.Game.Utils
 					anim.Recycle();
 					return;
 				}
+
 				anim.Start();
 			});
 			return () =>

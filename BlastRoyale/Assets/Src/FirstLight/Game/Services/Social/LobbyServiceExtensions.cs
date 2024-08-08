@@ -93,18 +93,19 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// </summary>
 		public static bool IsEveryoneReady(this Lobby lobby)
 		{
+			var grid = lobby.Data.ContainsKey(FLLobbyService.KEY_LOBBY_MATCH_PLAYER_POSITIONS) ? lobby.GetPlayerGrid() : null;
 			return lobby.Players
-				.Where(p => !p.IsLocal()) // Host doesn't need to be ready
+				.Where(p => !p.IsLocal())
+				.Where(p => grid == null || grid.GetPosition(p.Id) != -1) // Host and people not on grid (forced spectators) don't need to be ready
 				.All(IsReady);
 		}
-		
 
 		public static string GetProperty(this Player player, string name)
 		{
 			player.Data.TryGetValue(name, out var v);
 			return v?.Value;
 		}
-		
+
 		/// <summary>
 		/// Checks if the player has set themselves ready.
 		/// </summary>
@@ -184,7 +185,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		{
 			return lobby.GetPlayerGrid().GetPosition(player.Id);
 		}
-		
+
 		public static Player GetPlayerByID(this Lobby lobby, string playerID)
 		{
 			return lobby.Players.FirstOrDefault(p => p.Id == playerID);

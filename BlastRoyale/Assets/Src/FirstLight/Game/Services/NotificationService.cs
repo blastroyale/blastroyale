@@ -39,13 +39,30 @@ namespace FirstLight.Game.Services
 		{
 			var message = e.GetAs<FriendMessage>();
 
+			if (message.MessageType == FriendMessage.FriendMessageType.CancelPartyInvite)
+			{
+				if (_uiService.IsScreenOpen<InvitePopupPresenter>())
+				{
+					var screen = _uiService.GetScreen<InvitePopupPresenter>();
+					if (screen.LobbyCode == message.LobbyID)
+					{
+						_uiService.CloseScreen<InvitePopupPresenter>().Forget();
+						return;
+					}
+				}
+			}
+
 			// We skip inviting to party if the player already has an invite open
 			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
-			
+			var services = MainInstaller.ResolveServices();
 			switch (message.MessageType)
 			{
 				case FriendMessage.FriendMessageType.PartyInvite:
-					if (MainInstaller.ResolveServices().MatchmakingService.IsMatchmaking.Value) return;
+					if (!services.GameSocialService.GetCurrentPlayerActivity().CanReceivePartyInvite())
+					{
+						services.FLLobbyService.CurrentPartyCallbacks.TriggerInviteDeclined(e.UserId);
+						return;
+					}
 					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
 					{
 						Type = InvitePopupPresenter.StateData.InviteType.Party,
@@ -53,14 +70,18 @@ namespace FirstLight.Game.Services
 						LobbyCode = message.LobbyID
 					}).Forget();
 					break;
+				case FriendMessage.FriendMessageType.DeclinePartyInvite:
+					services.FLLobbyService.CurrentPartyCallbacks.TriggerInviteDeclined(e.UserId);
+					break;
 				case FriendMessage.FriendMessageType.MatchInvite:
-					// TODO mihak: Open match invite popup, not party one
 					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
 					{
 						Type = InvitePopupPresenter.StateData.InviteType.Match,
 						SenderID = e.UserId,
 						LobbyCode = message.LobbyID
 					}).Forget();
+					break;
+				case FriendMessage.FriendMessageType.CancelPartyInvite:
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

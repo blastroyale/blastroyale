@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -33,6 +34,7 @@ namespace FirstLight.Game.Presenters
 
 		private Label _contentLabel;
 		private FriendListElement _sender;
+		public string LobbyCode => Data.LobbyCode;
 
 		protected override void QueryElements()
 		{
@@ -53,10 +55,11 @@ namespace FirstLight.Game.Presenters
 				// TODO: Deep link support
 				return base.OnScreenOpen(reload);
 			}
-			
+
 			var sender = FriendsService.Instance.GetFriendByID(Data.SenderID);
 			var senderName = sender.Member.Profile.Name.TrimPlayerNameNumbers();
-			_sender.SetPlayerName(senderName);
+			_sender.SetFromRelationship(sender)
+				.DisableActivity();
 			switch (Data.Type)
 			{
 				case StateData.InviteType.Party:
@@ -86,11 +89,13 @@ namespace FirstLight.Game.Presenters
 					throw new ArgumentOutOfRangeException();
 			}
 
-			await _services.UIService.CloseScreen<InvitePopupPresenter>();
+			if (_services.UIService.IsScreenOpen<InvitePopupPresenter>())
+				await _services.UIService.CloseScreen<InvitePopupPresenter>();
 		}
 
 		private async UniTaskVoid DeclineInvite()
 		{
+			FriendsService.Instance.MessageAsync(Data.SenderID, FriendMessage.CreateDeclinePartyInvite(Data.LobbyCode)).AsUniTask().Forget();
 			await _services.UIService.CloseScreen<InvitePopupPresenter>();
 		}
 	}

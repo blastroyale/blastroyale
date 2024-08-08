@@ -25,16 +25,17 @@
                         <FirstLight.Game.UIElements.MatchSettingsButtonElement numerical="true" name="MaxPlayersButton" title-localization-key="UITCustomGames/max_players" />
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/mutators" name="MutatorsToggle" />
-                    <ui:VisualElement name="Mutators" class="horizontal-scroll-picker">
+                    <ui:VisualElement name="Mutators" class="horizontal-scroll-picker dont-disable horizontal-scroll-picker--hidden">
                         <ui:VisualElement name="MutatorsTopContainer" class="horizontal-scroll-picker__top-container">
-                            <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="MutatorsScroller" class="horizontal-scroll-picker__container">
+                            <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="MutatorsScroller" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" class="horizontal-scroll-picker__container">
+                                <FirstLight.Game.UIElements.LocalizedLabel localization-key="HEALTHY AIR" name="Mutator1" />
                                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="HEALTHY AIR" name="Mutator1" />
                             </ui:ScrollView>
                             <FirstLight.Game.UIElements.ImageButton name="MutatorsButton" class="horizontal-scroll-picker__add-button" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/filter_weapons" name="FilterWeaponsToggle" />
-                    <ui:VisualElement name="FilterWeapons" class="horizontal-scroll-picker">
+                    <ui:VisualElement name="FilterWeapons" class="horizontal-scroll-picker horizontal-scroll-picker--hidden">
                         <ui:VisualElement name="FilterWeaponsTopContainer" class="horizontal-scroll-picker__top-container">
                             <ui:ScrollView mode="Horizontal" touch-scroll-type="Clamped" name="FilterWeaponsScroller" class="horizontal-scroll-picker__container">
                                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="ALL" name="All" />

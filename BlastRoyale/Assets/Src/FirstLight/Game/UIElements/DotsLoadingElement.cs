@@ -8,11 +8,9 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class DotsLoadingElement : VisualElement
 	{
-		public int DotSize
-		{
-			get => _dotSize;
-			set => _dotSize = value;
-		}
+		private static readonly CustomStyleProperty<Color> S_Color = new ("--color");
+		private static readonly CustomStyleProperty<Color> S_SecondaryColor = new ("--secondary-color");
+		private static readonly CustomStyleProperty<int> S_DotSize = new ("--dot-size");
 
 		private VisualElement[] _dots;
 		private Color _color = new Color(0.04f, 0.21f, 0.6f);
@@ -25,6 +23,27 @@ namespace FirstLight.Game.UIElements
 
 		public DotsLoadingElement()
 		{
+			RegisterCallback<CustomStyleResolvedEvent>(OnResolvedStyle);
+			Start();
+		}
+
+		private void OnResolvedStyle(CustomStyleResolvedEvent evt)
+		{
+			if (evt.customStyle.TryGetValue(S_Color, out var primaryColor))
+			{
+				_color = primaryColor;
+			}
+
+			if (evt.customStyle.TryGetValue(S_SecondaryColor, out var secondaryColor))
+			{
+				_filledColor = secondaryColor;
+			}
+
+			if (evt.customStyle.TryGetValue(S_DotSize, out var dotSize))
+			{
+				_dotSize = dotSize;
+			}
+
 			Start();
 		}
 
@@ -78,26 +97,8 @@ namespace FirstLight.Game.UIElements
 			}).Every(_speed).StartingIn(_speed);
 		}
 
-
 		public new class UxmlFactory : UxmlFactory<DotsLoadingElement, UxmlTraits>
 		{
-		}
-
-		public new class UxmlTraits : VisualElement.UxmlTraits
-		{
-			UxmlIntAttributeDescription _sizeAttribute = new ()
-			{
-				name = "dot-size",
-				use = UxmlAttributeDescription.Use.Required,
-				defaultValue = 10
-			};
-
-			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-			{
-				base.Init(ve, bag, cc);
-				((DotsLoadingElement) ve).DotSize = _sizeAttribute.GetValueFromBag(bag, cc);
-				((DotsLoadingElement) ve).Start();
-			}
 		}
 	}
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Data;
+using FirstLight.Game.Presenters.Social.Team;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -68,7 +68,7 @@ namespace FirstLight.Game.Presenters
 				case SelectMutatorsPopupView view:
 					SetupPopup(_selectMutatorsDocument, view);
 					break;
-				case PartyPopupView view:
+				case TeamPopupView view:
 					SetupPopup(_partyDocument, view);
 					break;
 				case MatchInfoPopupView view:
@@ -127,7 +127,7 @@ namespace FirstLight.Game.Presenters
 
 		public static UniTaskVoid OpenParty()
 		{
-			return OpenPopup(new PartyPopupView(), ScriptTerms.UITHomeScreen.party);
+			return OpenPopup(new TeamPopupView(), ScriptTerms.UITHomeScreen.party);
 		}
 
 		public static UniTaskVoid OpenMatchInfo(SimulationMatchConfig matchSettings, List<string> friendsPlaying, Action selectAction)

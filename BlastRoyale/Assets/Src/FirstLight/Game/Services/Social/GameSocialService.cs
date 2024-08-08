@@ -22,14 +22,20 @@ namespace FirstLight.Game.Services
 {
 	public enum GameActivities
 	{
-		In_Main_Menu,
-		In_Game_Lobby,
-		In_a_Match,
-		In_Matchmaking,
-		In_Shop,
-		In_Collection,
-		In_Blast_Pass,
-		In_Friends_Screen,
+		In_team,
+		In_main_menu,
+		In_game_lobby,
+		In_matchmaking,
+		In_match,
+		Spectating
+	}
+
+	public static class GameActivitiesExtensions
+	{
+		public static bool CanReceivePartyInvite(this GameActivities activities)
+		{
+			return activities == GameActivities.In_main_menu;
+		}
 	}
 
 	[DataContract, Preserve]
@@ -43,9 +49,12 @@ namespace FirstLight.Game.Services
 
 		[Preserve, DataMember(Name = "team", IsRequired = false, EmitDefaultValue = true), CanBeNull]
 		public string TeamId { get; set; }
-		
+
 		[Preserve, DataMember(Name = "region", IsRequired = false, EmitDefaultValue = true), CanBeNull]
 		public string Region { get; set; }
+
+		[Preserve, DataMember(Name = "trophies", IsRequired = false, EmitDefaultValue = true)]
+		public int Trophies { get; set; }
 
 		public string Status => CurrentActivityEnum.ToString().Replace(@"_", " ");
 		public GameActivities CurrentActivityEnum => ((GameActivities) CurrentActivity);
@@ -66,7 +75,7 @@ namespace FirstLight.Game.Services
 		bool CanInvite(Relationship friend);
 		bool CanAddFriend(Player friend);
 		void SetCurrentActivity(GameActivities activity);
-
+		public GameActivities GetCurrentPlayerActivity();
 		UniTask FakeInviteBot(string botName);
 		bool IsBotInvited(string botName);
 		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName, PlayerContextSettings settings = null);
@@ -81,22 +90,34 @@ namespace FirstLight.Game.Services
 
 		public GameSocialService(IGameServices services)
 		{
-			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += DecideBasedOnScreen;
-			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += DecideBasedOnScreen;
+			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += UpdateCurrentPlayerActivity;
+			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += _ => OnJoinedParty();
+
+			services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyJoined += _ => UpdateCurrentPlayerActivity();
+			services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
+			services.FLLobbyService.CurrentMatchCallbacks.LobbyDeleted += UpdateCurrentPlayerActivity;
+			services.FLLobbyService.CurrentMatchCallbacks.PlayerLeft += (_) => UpdateCurrentPlayerActivity();
+
 			services.MatchmakingService.OnGameMatched += _ => CancelAllInvites();
+			services.MatchmakingService.IsMatchmaking.Observe((_, _) =>
+			{
+				UpdateCurrentPlayerActivity();
+			});
 			services.MatchmakingService.OnMatchmakingJoined += _ =>
 			{
 				CancelAllInvites();
-				SetCurrentActivity(GameActivities.In_Matchmaking);
 			};
-			services.MatchmakingService.OnMatchmakingCancelled += DecideBasedOnScreen;
-			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => DecideBasedOnScreen());
-			services.MessageBrokerService.Subscribe<JoinRoomMessage>(_ => SetCurrentActivity(
-				IsCustomGame ? GameActivities.In_Game_Lobby : GameActivities.In_a_Match));
-			services.MessageBrokerService.Subscribe<MatchStartedMessage>(_ => SetCurrentActivity(GameActivities.In_a_Match));
-			services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(_ => SetCurrentActivity(GameActivities.In_Shop));
-			services.UIService.OnScreenOpened += OnScreenOpened;
+			services.RoomService.OnJoinedRoom += UpdateCurrentPlayerActivity;
+			services.RoomService.OnLeaveRoom += UpdateCurrentPlayerActivity;
+			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => UpdateCurrentPlayerActivity());
+			services.UIService.OnScreenOpened += (screen, _) =>
+			{
+				if (nameof(SpectateScreenPresenter).Contains(screen) || nameof(HomeScreenPresenter).Contains(screen))
+				{
+					UpdateCurrentPlayerActivity();
+				}
+			};
 			_services = services;
 		}
 
@@ -108,7 +129,7 @@ namespace FirstLight.Game.Services
 				mm.LeaveMatchmaking();
 			}
 
-			DecideBasedOnScreen();
+			UpdateCurrentPlayerActivity();
 		}
 
 		private void CancelAllInvites()
@@ -119,36 +140,44 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private bool IsCustomGame => _services.RoomService.CurrentRoom?.Properties?.SimulationMatchConfig?.Value?.MatchType == MatchType.Custom;
-
-		private void DecideBasedOnScreen()
+		private void UpdateCurrentPlayerActivity()
 		{
-			var services = MainInstaller.ResolveServices();
-			var service = MainInstaller.ResolveServices().UIService;
-			if (service.IsScreenOpen<BattlePassScreenPresenter>())
+			SetCurrentActivity(GetCurrentPlayerActivity());
+		}
+
+		public GameActivities GetCurrentPlayerActivity()
+		{
+			if (_services.RoomService.InRoom)
 			{
-				SetCurrentActivity(GameActivities.In_Blast_Pass);
+				var spectating = _services.UIService.IsScreenOpen<SpectateScreenPresenter>();
+				return spectating ? GameActivities.Spectating : GameActivities.In_match;
 			}
-			else if (service.IsScreenOpen<CollectionScreenPresenter>())
+
+			if (_services.RoomService.IsJoiningRoom
+				|| _services.UIService.IsScreenOpen<LeaderboardAndRewardsScreenPresenter>()
+				|| _services.UIService.IsScreenOpen<WinnersScreenPresenter>()
+				|| _services.UIService.IsScreenOpen<WinnerScreenPresenter>()
+			   )
 			{
-				SetCurrentActivity(GameActivities.In_Collection);
+				return GameActivities.In_match;
 			}
-			else if (service.IsScreenOpen<FriendsScreenPresenter>())
+
+			if (_services.MatchmakingService.IsMatchmaking.Value)
 			{
-				SetCurrentActivity(GameActivities.In_Friends_Screen);
+				return GameActivities.In_matchmaking;
 			}
-			else if (service.IsScreenOpen<PreGameLoadingScreenPresenter>())
+
+			if (_services.FLLobbyService.IsInMatchLobby())
 			{
-				SetCurrentActivity(GameActivities.In_a_Match);
+				return GameActivities.In_game_lobby;
 			}
-			else if (service.IsScreenOpen<MatchLobbyScreenPresenter>())
+
+			if (_services.FLLobbyService.IsInPartyLobby())
 			{
-				SetCurrentActivity(GameActivities.In_Game_Lobby);
+				return GameActivities.In_team;
 			}
-			else if (service.IsScreenOpen<HomeScreenPresenter>() && !services.RoomService.InRoom && services.FLLobbyService.CurrentMatchLobby == null)
-			{
-				SetCurrentActivity(GameActivities.In_Main_Menu);
-			}
+
+			return GameActivities.In_main_menu;
 		}
 
 		public bool CanAddFriend(Player player)
@@ -165,7 +194,7 @@ namespace FirstLight.Game.Services
 			var activity = friend.Member?.Presence?.GetActivity<FriendActivity>();
 			if (activity == null) return false;
 
-			if (activity.CurrentActivityEnum == GameActivities.In_a_Match || activity.CurrentActivityEnum == GameActivities.In_Matchmaking)
+			if (!activity.CurrentActivityEnum.CanReceivePartyInvite())
 			{
 				return false;
 			}
@@ -185,29 +214,27 @@ namespace FirstLight.Game.Services
 				return false;
 			}
 
+			if (_services.FLLobbyService.SentPartyInvites.Any(sent => sent.PlayerId == friend.Member.Id)) return false;
+
 			if (_services.FLLobbyService.CurrentPartyLobby != null)
 			{
-				if (_services.FLLobbyService.SentPartyInvites.Contains(friend.Member.Id)) return false;
 				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id)) return false;
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= _services.FLLobbyService.CurrentPartyLobby.MaxPlayers) return false;
 			}
 
 			return true;
-		}
-
-		private void OnScreenOpened(string name, string layer)
-		{
-			if (name.Contains("Popup") || name.Contains("Notification")) return;
-			DecideBasedOnScreen();
 		}
 
 		public void SetCurrentActivity(GameActivities activity)
 		{
 			_stateUpdates.Add(() =>
 			{
+				var data = MainInstaller.ResolveData();
 				_playerActivity.CurrentActivity = (int) activity;
-				_playerActivity.AvatarUrl = MainInstaller.ResolveData().AppDataProvider.AvatarUrl;
+				_playerActivity.AvatarUrl = data.AppDataProvider.AvatarUrl;
 				_playerActivity.TeamId = _services.FLLobbyService.CurrentPartyLobby?.Id;
 				_playerActivity.Region = _services.LocalPrefsService.ServerRegion.Value;
+				_playerActivity.Trophies = (int) data.PlayerDataProvider.Trophies.Value;
 				FLog.Verbose("Setting social activity as " + JsonConvert.SerializeObject(_playerActivity));
 				FriendsService.Instance.SetPresenceAsync(Availability.Online, _playerActivity).AsUniTask().Forget();
 			});

@@ -23,7 +23,7 @@ namespace FirstLight.Game.Messages
 		public IConfigsProvider OldConfig;
 	}
 
-	public struct FeatureFlagsChanged : IMessage
+	public struct FeatureFlagsReceived : IMessage
 	{
 	}
 }

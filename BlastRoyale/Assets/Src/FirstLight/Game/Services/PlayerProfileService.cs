@@ -38,7 +38,7 @@ namespace FirstLight.Game.Services
 		{
 			var r = await _backend.CallFunctionAsync("GetPublicProfile", new LogicRequest()
 			{
-				Command = playerId
+				Command = playerId,
 			});
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(r.FunctionResult.ToString());
 			return ModelSerializer.DeserializeFromData<PublicPlayerProfile>(serverResult.Result.Data);

@@ -42,7 +42,7 @@ namespace FirstLight.Game.Services.Social
 		
 		public void EnqueueGridSync(Lobby lobby)
 		{
-			if (!lobby.IsLocalPlayerHost()) return;
+			if (lobby == null || !lobby.IsLocalPlayerHost()) return;
 			
 			_gridUpdates.Add(async () =>
 			{

@@ -346,25 +346,6 @@
     background-image: var(--sprite-home__button-long-purple-pressed);
 }
 
-.button-long:disabled {
-    background-color: rgba(0, 0, 0, 0);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
-    -unity-text-outline-color: rgb(0, 0, 0);
-    color: rgb(146, 140, 159);
-    background-image: var(--sprite-home__button-long-disabled);
-    -unity-text-align: middle-center;
-    padding-bottom: 0;
-}
-
-.button-long:disabled.button-long:active {
-    background-color: rgba(0, 0, 0, 0);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
-    -unity-text-outline-color: rgb(0, 0, 0);
-    color: rgb(146, 140, 159);
-    background-image: var(--sprite-home__button-long-disabled);
-    -unity-text-align: middle-center;
-    padding-bottom: 0;
-}
 
 .button-long--small-font {
     font-size: 32px;
@@ -403,6 +384,26 @@
 
 .button-long--green:active {
     background-image: var(--sprite-home__button-long-green-pressed);
+}
+
+.button-long:disabled {
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    color: rgb(146, 140, 159);
+    background-image: var(--sprite-home__button-long-disabled);
+    -unity-text-align: middle-center;
+    
+    opacity: 1;
+}
+
+.button-long:disabled.button-long:active {
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    color: rgb(146, 140, 159);
+    background-image: var(--sprite-home__button-long-disabled);
+    -unity-text-align: middle-center;
 }
 
 .button-long--price {
@@ -836,11 +837,10 @@
 }
 
 .generic-popup__close-button {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background-image: var(--sprite-home__icon-close-white);
-    right: 35px;
+    position: relative;
+    width: 85px;
+    height: 85px;
+    background-image: var(--sprite-home__button-generic-popup-close);
     align-self: center;
 }
 
@@ -850,8 +850,9 @@
     align-content: center;
     align-items: center;
     width: 100px;
-    height: 80px;
-    right: 0;
+    height: 100%;
+    right: 15px;
+    padding-top: 5px;
     align-self: center;
 }
 
@@ -1019,4 +1020,42 @@
     -unity-font-style: normal;
     -unity-text-outline-width: 1px;
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
+}
+
+
+.remote-avatar {
+    width: 128px;
+    height: 128px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+.remote-avatar__image {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    border-color: black;
+    border-width: 2px;
+}
+
+.remote-avatar__placeholder {
+    background-image: var(--sprite-kit__avatar-default);
+}
+
+.remote-avatar--fast-loaded {
+    transition-duration: 0s;
+    transition-property: none;
+}
+
+.remote-avatar__spinner {
+    align-self: center;
+    width: 40%;
+    height: 40%;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
 }

@@ -141,15 +141,23 @@ namespace FirstLight.Game.Views.UITK
 		{
 			MatchSettings = settings;
 
-			// If we make the container not enabled scroll view will not work
-			foreach (var visualElement in _gameInfoContainer.Children())
-			{
-				visualElement.SetEnabled(editable);
-			}
+			SetEditable(editable);
 
 			_bigTitle.SetVisibility(!showSpectators);
 			_tabsContainer.SetVisibility(showSpectators);
 			RefreshData(false);
+		}
+
+		private void SetEditable(bool editable)
+		{
+			_modeButton.SetEnabled(editable);
+			_teamSizeButton.SetEnabled(editable);
+			_mapButton.SetEnabled(editable);
+			_maxPlayersButton.SetEnabled(editable && _services.FLLobbyService.CurrentMatchLobby == null);
+			_mutatorsToggle.SetEnabled(editable);
+			_mutatorsButton.SetDisplay(editable);
+			_filterWeaponsToggle.SetEnabled(editable);
+			_filterWeaponsButton.SetDisplay(editable);
 		}
 
 		public void SetSpectators(IEnumerable<Player> spectators)
@@ -251,7 +259,6 @@ namespace FirstLight.Game.Views.UITK
 			_teamSizeButton.SetValue(MatchSettings.SquadSize.ToString());
 			_mapButton.SetValue(Enum.Parse<GameId>(MatchSettings.MapID).GetLocalization());
 			_maxPlayersButton.SetValue(MatchSettings.MaxPlayers.ToString());
-			_maxPlayersButton.SetEnabled(_services.FLLobbyService.CurrentMatchLobby == null);
 			_privateRoomToggle.value = MatchSettings.PrivateRoom;
 			_showCreatorNameToggle.value = MatchSettings.ShowCreatorName;
 			_randomizeTeamsToggle.value = MatchSettings.RandomizeTeams;

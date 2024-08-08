@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Styles/FriendListElementStyle.uss?fileID=7433441132597879392&amp;guid=225ed0ca899d471084bae92a2bb08119&amp;type=3#FriendListElementStyle" />
-    <Style src="project://database/Assets/Art/UI/Templates/Popups/PartyPopupStyle.uss?fileID=7433441132597879392&amp;guid=b21c5cef5e25b40df84326e95bae7540&amp;type=3#PartyPopupStyle" />
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/TeamPopupStyle.uss?fileID=7433441132597879392&amp;guid=b21c5cef5e25b40df84326e95bae7540&amp;type=3#TeamPopupStyle" />
     <ui:VisualElement name="Content" class="content">
         <ui:VisualElement name="Sidebar" class="sidebar">
             <ui:VisualElement name="CodeContainer" class="container-code">
@@ -24,8 +24,9 @@
             <ui:VisualElement name="YourTeamContainer" class="container-your-team">
                 <FirstLight.Game.UIElements.FriendListElement />
                 <FirstLight.Game.UIElements.FriendListElement />
-                <FirstLight.Game.UIElements.FriendListElement />
-                <FirstLight.Game.UIElements.FriendListElement />
+                <FirstLight.Game.UIElements.FriendListElement/>
+                <FirstLight.Game.UIElements.FriendListElement class="friend-list-element--local" />
+                <FirstLight.Game.Presenters.Social.Team.PendingInviteElement/>
                 <ui:VisualElement name="GapHack" class="gap-hack" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="FRIENDS ONLINE (0)" name="FriendsOnlineLabel" class="category-title" />

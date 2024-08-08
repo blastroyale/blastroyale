@@ -75,11 +75,27 @@ namespace FirstLight.Game.Utils
 			if (map == (int) GameId.Any)
 			{
 				return services.GameModeService.ValidMatchmakingMaps.Max(
-					(id) => services.ConfigsProvider.GetConfig<QuantumMapConfig>((int)id).MaxPlayers);
+					(id) => services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) id).MaxPlayers);
 			}
 
 			var mapConfig = services.ConfigsProvider.GetConfig<QuantumMapConfig>(map);
 			return mapConfig.MaxPlayers;
+		}
+
+		public static unsafe bool IsLocalPlayerSpectating()
+		{
+			if (QuantumRunner.Default.IsDefinedAndRunning()) return false;
+			var game = QuantumRunner.Default?.Game;
+			if (game == null) return false;
+			var f = game.Frames.Verified;
+			if (game.GetLocalPlayerRef() == PlayerRef.None)
+			{
+				return true;
+			}
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+			var playersData = gameContainer->PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayerRef()];
+			return !localPlayer.Entity.IsAlive(f);
 		}
 	}
 }

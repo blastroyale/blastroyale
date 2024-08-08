@@ -40,9 +40,7 @@ namespace FirstLight.Game.UIElements
 				this.RegisterValueChangedCallback(valueChange =>
 				{
 					if (valueChange.target != _internalLabel.parent) return;
-					
 
-					
 					_internalLabel.text = valueChange.newValue;
 					if (resolvedStyle.textOverflow == TextOverflow.Ellipsis)
 					{
@@ -71,10 +69,12 @@ namespace FirstLight.Game.UIElements
 		}
 
 		private string _lastResolvedEliptic;
+		private float _lastResolvedSize;
 
 		public void SetTextEllipticEnd(string param)
 		{
-			if (_lastResolvedEliptic == param) return;
+			if (_lastResolvedEliptic == param && _lastResolvedSize == contentRect.width) return;
+			_lastResolvedSize = contentRect.width;
 			var index = param.Length;
 
 			while (index > 3)

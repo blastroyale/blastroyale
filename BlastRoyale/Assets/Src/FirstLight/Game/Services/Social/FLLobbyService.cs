@@ -184,7 +184,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Checks if the player is in a party
 		/// </summary>
-		bool IsInParty();
+		bool IsInPartyLobby();
+
+		/// <summary>
+		/// Checks if the player is in lobby
+		/// </summary>
+		bool IsInMatchLobby();
 	}
 
 	public class PartyInvite
@@ -282,6 +287,13 @@ namespace FirstLight.Game.Services
 			CurrentPartyCallbacks.KickedFromLobby += OnPartyLobbyKicked;
 			CurrentMatchCallbacks.LobbyDeleted += OnMatchDeleted;
 			CurrentPartyCallbacks.LobbyDeleted += OnPartyDeleted;
+			CurrentPartyCallbacks.OnDeclinedInvite += OnDeclinedInvite;
+		}
+
+		private void OnDeclinedInvite(string playerId)
+		{
+			_sentPartyInvites.Remove(playerId);
+			CurrentPartyCallbacks.TriggerOnInvitesUpdated(FLLobbyEventCallbacks.InviteUpdateType.Declined);
 		}
 
 		private void OnMatchPlayerLeft(List<int> playerIds)
@@ -570,7 +582,8 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		public bool IsInParty() => CurrentPartyLobby != null;
+		public bool IsInPartyLobby() => CurrentPartyLobby != null;
+		public bool IsInMatchLobby() => CurrentMatchLobby != null;
 
 		public async UniTask<List<Lobby>> GetPublicMatches(bool allRegions = false)
 		{
@@ -904,6 +917,7 @@ namespace FirstLight.Game.Services
 			{
 				return intt;
 			}
+
 			return TICK_DELAY;
 		}
 
@@ -1072,6 +1086,12 @@ namespace FirstLight.Game.Services
 
 	public class FLLobbyEventCallbacks : LobbyEventCallbacks
 	{
+		public enum InviteUpdateType
+		{
+			Declined,
+			Other,
+		}
+
 		/// <summary>
 		/// Event called when a new lobby is created.
 		/// </summary>
@@ -1082,11 +1102,21 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public event Action<ILobbyChanges> LocalLobbyUpdated;
 
-		public event Action OnInvitesUpdated;
+		public event Action<InviteUpdateType> OnInvitesUpdated;
 
-		public void TriggerOnInvitesUpdated()
+		/// <summary>
+		/// Doesn't support match invites ATM
+		/// </summary>
+		public event Action<string> OnDeclinedInvite;
+
+		public void TriggerInviteDeclined(string unityId)
 		{
-			OnInvitesUpdated?.Invoke();
+			OnDeclinedInvite?.Invoke(unityId);
+		}
+
+		public void TriggerOnInvitesUpdated(InviteUpdateType updateType = InviteUpdateType.Other)
+		{
+			OnInvitesUpdated?.Invoke(updateType);
 		}
 
 		public void TriggerLobbyJoined(Lobby lobby)

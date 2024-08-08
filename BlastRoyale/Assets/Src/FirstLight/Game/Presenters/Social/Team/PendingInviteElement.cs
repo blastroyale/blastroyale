@@ -1,4 +1,5 @@
 ﻿using System;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using QuickEye.UIToolkit;
@@ -14,16 +15,21 @@ namespace FirstLight.Game.Presenters.Social.Team
 	public class PendingInviteElement : VisualElement
 	{
 		[Q] private Label _playerName;
+		[Q] private Label _status;
 		[Q] private ImageButton _cancelButton;
+
+		public PartyInvite Invite { get; private set; }
+		public bool IsDeleting { get; private set; }
 
 		public PendingInviteElement()
 		{
 			this.LoadTemplateAndBind("TemplatePendingInvite");
 		}
 
-		public PendingInviteElement SetPlayerName(string playerName)
+		public PendingInviteElement SetPlayerInvite(PartyInvite invite)
 		{
-			_playerName.text = playerName;
+			Invite = invite;
+			_playerName.text = invite.PlayerName.TrimPlayerNameNumbers();
 			return this;
 		}
 
@@ -31,6 +37,19 @@ namespace FirstLight.Game.Presenters.Social.Team
 		{
 			_cancelButton.clicked += action;
 			return this;
+		}
+
+		public void Decline(Action onDeleted)
+		{
+			AddToClassList("pending--declined");
+			_status.text = "Declined";
+			IsDeleting = true;
+			schedule.Execute(() =>
+			{
+				this.SetDisplay(false);
+				IsDeleting = false;
+				onDeleted?.Invoke();
+			}).ExecuteLater(3000);
 		}
 
 		public new class UxmlFactory : UxmlFactory<PendingInviteElement, UxmlTraits>

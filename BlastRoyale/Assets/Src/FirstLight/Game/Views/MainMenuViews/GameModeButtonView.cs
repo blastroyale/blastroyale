@@ -89,7 +89,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void UpdateEvent()
 		{
-			if (_services.FLLobbyService.IsInParty())
+			if (_services.FLLobbyService.IsInPartyLobby())
 			{
 				CancelEventEffects();
 				return;

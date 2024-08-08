@@ -40,6 +40,9 @@ namespace FirstLight.Game.Presenters.Social.Team
 		[Q("NoFriendsLabel")] private VisualElement _noFriendsLabel;
 		[Q("CopyCodeButton")] private ImageButton _copyCodeButton;
 
+		private FriendListElement _localPlayer;
+		private VisualElement _gapHack;
+
 		private IGameServices _services;
 
 		private List<Relationship> _friends;
@@ -66,28 +69,27 @@ namespace FirstLight.Game.Presenters.Social.Team
 
 		public override void OnScreenOpen(bool reload)
 		{
-			RefreshData();
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnLocalLobbyJoined;
 			_services.GameModeService.SelectedGameMode.InvokeObserve(RefreshGameMode);
 			_services.FLLobbyService.CurrentPartyCallbacks.PlayerLeft += OnPlayerLeft;
 			_services.FLLobbyService.CurrentPartyCallbacks.PlayerJoined += OnPlayerJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated += OnInvitesUpdated;
+			_services.FLLobbyService.CurrentPartyCallbacks.OnDeclinedInvite += OnDeclinedInvite;
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
-		}
-		
-		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
-		{
-			RefreshData();
-		}
-
-		private void OnPlayerLeft(List<int> quitters)
-		{
-			RefreshData();
-		}
-
-
-		private void OnInvitesUpdated()
-		{
+			var data = MainInstaller.ResolveData();
+			_yourTeamContainer.Clear();
+			// We always show the local player
+			_localPlayer = new FriendListElement()
+				.SetLocal()
+				.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers(), (int) data.PlayerDataProvider.Trophies.Value)
+				.SetAvatar(data.AppDataProvider.AvatarUrl)
+				.SetElementClickAction(el =>
+				{
+					el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+				});
+			_gapHack = new VisualElement().AddClass("gap-hack");
+			_yourTeamContainer.Add(_localPlayer);
 			RefreshData();
 		}
 
@@ -99,6 +101,40 @@ namespace FirstLight.Game.Presenters.Social.Team
 			_services.FLLobbyService.CurrentPartyCallbacks.PlayerLeft += OnPlayerLeft;
 			_services.FLLobbyService.CurrentPartyCallbacks.PlayerJoined += OnPlayerJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= OnInvitesUpdated;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined -= OnLocalLobbyJoined;
+			_services.FLLobbyService.CurrentPartyCallbacks.OnDeclinedInvite -= OnDeclinedInvite;
+
+		}
+
+		private void OnLocalLobbyJoined(Lobby l)
+		{
+			RefreshData();
+		}
+
+		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
+		{
+			RefreshData();
+		}
+
+		private void OnPlayerLeft(List<int> quitters)
+		{
+			RefreshData();
+		}
+
+		private void OnDeclinedInvite(string userId)
+		{
+			var elements = _yourTeamContainer.Query().OfType<PendingInviteElement>().Where(el => el.Invite.PlayerId == userId).ToList();
+			foreach (var pendingInviteElement in elements)
+			{
+				pendingInviteElement.Decline(RefreshData);
+			}
+		}
+
+		private void OnInvitesUpdated(FLLobbyEventCallbacks.InviteUpdateType type)
+		{
+			// If we refresh the elements with this call there is no chance of playing the declined animation
+			if (type == FLLobbyEventCallbacks.InviteUpdateType.Declined) return;
+			RefreshData();
 		}
 
 		private void OnPresenceUpdated(IPresenceUpdatedEvent e)
@@ -164,69 +200,94 @@ namespace FirstLight.Game.Presenters.Social.Team
 				Element.EnableInClassList(USS_PARTY_JOINED, inParty);
 
 				_yourTeamHeader.text = string.Format(ScriptLocalization.UITParty.your_party, partyLobby?.Players?.Count ?? 0, 4);
-				_yourTeamContainer.Clear();
+
 				var friends = FriendsService.Instance.Friends.Where(r => r.IsOnline()).ToDictionary(r => r.Member.Id, r => r);
 				var friendsCount = friends.Count;
+				var elements = _yourTeamContainer
+					.Query()
+					.OfType<FriendListElement>()
+					.Where(el => el != _localPlayer)
+					.ToList();
+				_localPlayer.SetCrown(!inParty || partyLobby.HostId == AuthenticationService.Instance.PlayerId);
 				if (inParty)
 				{
 					_teamCodeLabel.text = _services.FLLobbyService.CurrentPartyLobby.LobbyCode;
-
-				foreach (var partyMember in partyLobby.Players!)
-				{
-					if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
-					friends.Remove(partyMember.Id);
-					var e = new FriendListElement().SetFromParty(partyMember).SetElementClickAction((el) =>
+					foreach (var partyMember in partyLobby.Players!)
 					{
-						_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
+						if (partyMember.Id == AuthenticationService.Instance.PlayerId) continue;
+						friends.Remove(partyMember.Id);
+						var currentElement = elements.FirstOrDefault(el => el.UserId == partyMember.Id);
+						if (currentElement == null)
 						{
-							ShowTeamOptions = true
+							currentElement = new FriendListElement();
+							_yourTeamContainer.Add(currentElement);
+						}
+						else
+						{
+							elements.Remove(currentElement);
+						}
+
+						currentElement.SetFromParty(partyMember).SetElementClickAction((el) =>
+						{
+							_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
+							{
+								ShowTeamOptions = true
+							});
 						});
-					});
-					if (partyLobby.HostId == partyMember.Id)
-					{
-						e.AddCrown();
+						currentElement.SetCrown(partyLobby.HostId == partyMember.Id);
 					}
 
-						_yourTeamContainer.Add(e);
-					}
-				}
+					foreach (var friendListElement in elements) _yourTeamContainer.Remove(friendListElement);
+					var pendingElements = _yourTeamContainer.Query().OfType<PendingInviteElement>().ToList();
 
-				var data = MainInstaller.ResolveData();
-				// We always show the local player
-				var own = new FriendListElement()
-					.SetLocal()
-					.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers(), (int) data.PlayerDataProvider.Trophies.Value)
-					.SetAvatar(data.AppDataProvider.AvatarUrl)
-					.SetElementClickAction(el =>
+					foreach (var sentPartyInvite in _services.FLLobbyService.SentPartyInvites)
 					{
-						el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
-					});
-				if (!inParty || partyLobby.HostId == AuthenticationService.Instance.PlayerId)
-				{
-					own.AddCrown();
-				}
-
-				_yourTeamContainer.Add(own);
-				foreach (var sentPartyInvite in _services.FLLobbyService.SentPartyInvites)
-				{
-					if (_yourTeamContainer.childCount >= 6) continue;
-					_yourTeamContainer.Add(new PendingInviteElement()
-						.SetPlayerName(sentPartyInvite.PlayerName.TrimPlayerNameNumbers())
-						.OnCancel(() =>
+						var element = pendingElements.FirstOrDefault(e => e.Invite.PlayerId == sentPartyInvite.PlayerId);
+						pendingElements.Remove(element);
+						if (_yourTeamContainer.childCount >= 6 && element != null) continue;
+						if (element == null)
 						{
-							_services.FLLobbyService.CancelPartyInvite(sentPartyInvite).Forget();
-							RefreshData();
-						})
-					);
+							_yourTeamContainer.Add(new PendingInviteElement()
+								.SetPlayerInvite(sentPartyInvite)
+								.OnCancel(() =>
+								{
+									_services.FLLobbyService.CancelPartyInvite(sentPartyInvite).Forget();
+									RefreshData();
+								})
+							);
+						}
+					}
+
+					foreach (var pendingInviteElement in pendingElements)
+					{
+						if (pendingInviteElement.IsDeleting)
+						{
+							continue;
+						}
+
+						_yourTeamContainer.Remove(pendingInviteElement);
+					}
+				}
+				else
+				{
+					_yourTeamContainer.Clear();
+					_yourTeamContainer.Add(_localPlayer);
 				}
 
-				if (inParty && partyLobby.Players.Count > 3)
+				if (_yourTeamContainer.childCount > 3)
 				{
-					_yourTeamContainer.Add(new VisualElement().AddClass("gap-hack"));
+					if (!_gapHack.IsAttached())
+					{
+						_yourTeamContainer.Add(_gapHack);
+					}
+				}
+				else
+				{
+					_gapHack.RemoveFromHierarchy();
 				}
 
 				_noFriendsLabel.SetDisplay(friends.Count == 0);
-				_friendsOnlineList.itemsSource = _friends = friends.Values.ToList();
+				_friendsOnlineList.itemsSource = _friends = friends.Values.OrderBy(a => _services.GameSocialService.CanInvite(a) ? 0 : 1).ToList();
 				_friendsOnlineLabel.text = string.Format(ScriptLocalization.UITParty.online_friends, friendsCount);
 			});
 		}

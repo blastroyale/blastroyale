@@ -79,12 +79,17 @@ namespace FirstLight.Game.UIElements
 			catch (Exception ex)
 			{
 				FLog.Warn("Failed to load avatar ", ex);
-				// If can't download the texture leave just the place holder
-				if (_loader != null)
-				{
-					Remove(_loader);
-					_loader = null;
-				}
+				SetFailedState();
+			}
+		}
+
+		public void SetFailedState()
+		{
+			SetLoading();
+			if (_loader != null)
+			{
+				Remove(_loader);
+				_loader = null;
 			}
 		}
 

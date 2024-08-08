@@ -39,11 +39,15 @@ namespace FirstLight.Modules.UIService.Runtime
 				{
 					fieldName = char.ToUpperInvariant(fieldName[1]) + fieldName[2..];
 				}
+				
 
 				var queryResult = string.IsNullOrEmpty(att.Name) && att.Classes == null
 					? root.Q(fieldName)
 					: root.Q(att.Name, att.Classes);
-
+				if (queryResult == null)
+				{
+					throw new Exception("Couldn't find element with name " + fieldName);
+				}
 				setMemberValue(target, queryResult);
 			}
 		}

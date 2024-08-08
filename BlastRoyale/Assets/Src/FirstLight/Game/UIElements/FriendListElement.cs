@@ -11,6 +11,7 @@ using I2.Loc;
 using Unity.Services.CloudSave;
 using Unity.Services.Friends.Models;
 using Unity.Services.Lobbies.Models;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -60,6 +61,9 @@ namespace FirstLight.Game.UIElements
 		private Action _acceptAction;
 		private Action _declineAction;
 		private string _lastAvatarUrl;
+		private string _userId;
+
+		public string UserId => _userId;
 
 		public FriendListElement()
 		{
@@ -132,6 +136,8 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetFromParty(Player partyPlayer)
 		{
+			_userId = partyPlayer.Id;
+
 			var stringTrophies = partyPlayer.GetProperty(FLLobbyService.KEY_TROHPIES);
 			int.TryParse(stringTrophies, out var trophies);
 
@@ -149,14 +155,15 @@ namespace FirstLight.Game.UIElements
 			return this.AddClass(USS_LOCAL_MODIFIER);
 		}
 
-		public FriendListElement AddCrown()
+		public FriendListElement SetCrown(bool value)
 		{
-			_crown.SetDisplay(true);
+			_crown.SetDisplay(value);
 			return this;
 		}
 
 		public FriendListElement SetFromRelationship(Relationship relationship)
 		{
+			_userId = relationship.Member.Id;
 			var services = MainInstaller.ResolveServices();
 			var activity = relationship.Member?.Presence?.GetActivity<FriendActivity>();
 			SetPlayerName(relationship.Member?.Profile.Name);
@@ -217,7 +224,11 @@ namespace FirstLight.Game.UIElements
 			try
 			{
 				var playfabid = await CloudSaveService.Instance.LoadPlayfabID(unityId);
-				if (playfabid == null) return;
+				if (playfabid == null)
+				{
+					_avatar.SetFailedState();
+					return;
+				}
 
 				_batchQueue.Add(async () =>
 				{
@@ -233,6 +244,7 @@ namespace FirstLight.Game.UIElements
 					};
 					if (_cacheHack[unityId].AvatarUrl == null)
 					{
+						_avatar.SetFailedState();
 						return;
 					}
 
@@ -278,7 +290,19 @@ namespace FirstLight.Game.UIElements
 			if (!isOnline && presenceLastSeen.HasValue)
 			{
 				_statusLabel.SetVisibility(true);
-				_statusLabel.text = "Last seen\n" + (DateTime.UtcNow - presenceLastSeen.Value).Display(showSeconds: false).ToLowerInvariant() + " ago";
+				var difference = (DateTime.UtcNow - presenceLastSeen.Value);
+				if (difference.TotalMilliseconds > 0)
+				{
+					var lastSeen = (DateTime.UtcNow - presenceLastSeen.Value)
+						.Display(showSeconds: false, onlyMostRelevant: true, shortFormat: false)
+						.ToLowerInvariant() + " ago";
+					_statusLabel.SetDisplay(true);
+					_statusLabel.text = $"Last seen\n{lastSeen}";
+				}
+				else
+				{
+					_statusLabel.SetDisplay(false);
+				}
 			}
 
 			return this;
@@ -316,7 +340,7 @@ namespace FirstLight.Game.UIElements
 			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
 			if (showInvite)
 				return SetMainAction(ScriptLocalization.UITFriends.invite, callback, false);
-			
+
 			return SetMainAction(ScriptLocalization.UITFriends.invite, null, false).DisableMainActionButton();
 		}
 
@@ -331,7 +355,7 @@ namespace FirstLight.Game.UIElements
 			_mainActionButton.SetDisplay(!string.IsNullOrEmpty(label));
 			_mainActionButton.EnableInClassList("button-long--red", negative);
 			_mainActionButton.EnableInClassList("button-long--yellow", !negative);
-			
+
 			_mainActionButton.text = label;
 			_mainAction = mainAction;
 			return this;
@@ -352,6 +376,7 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetElementClickAction(Action<VisualElement> action)
 		{
+			clickable = null;
 			clicked += () => action(this);
 			return this;
 		}

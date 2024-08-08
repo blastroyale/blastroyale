@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Templates/Popups/TeamPopupStyle.uss?fileID=7433441132597879392&amp;guid=b21c5cef5e25b40df84326e95bae7540&amp;type=3#TeamPopupStyle" />
     <ui:VisualElement name="Background" class="pending__background">
         <ui:VisualElement name="Line" class="pending__line">
-            <FirstLight.Game.UIElements.LocalizedLabel name="Inviting" text="INVITING" class="game-label game-label--small pending__inviting" />
+            <FirstLight.Game.UIElements.LocalizedLabel name="Status" text="INVITING" class="game-label game-label--small pending__status" />
             <FirstLight.Game.UIElements.DotsLoadingElement name="Loading" class="pending__loading" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.LabelOutlined text="BADASDDASASDASDASDASDASDSAD" name="PlayerName" outline-hack="true" class="game-label game-label--small pending__player-name" style="width: 258px; white-space: nowrap; text-overflow: ellipsis; -unity-text-align: middle-left; flex-direction: row; align-self: flex-start; flex-shrink: 0;" />

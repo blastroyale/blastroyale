@@ -111,9 +111,10 @@ namespace FirstLight.Game.Presenters
 			FriendsService.Instance.RelationshipAdded -= OnRelationshipAdded;
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdate;
 			FriendsService.Instance.MessageReceived -= OnMessageReceived;
-			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= RefreshFriends; 
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= OnInvitesUpdated; 
 			return base.OnScreenClose();
 		}
+		
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
@@ -125,7 +126,7 @@ namespace FirstLight.Game.Presenters
 			FriendsService.Instance.RelationshipAdded += OnRelationshipAdded; // not called with local changes
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdate;
 			FriendsService.Instance.MessageReceived += OnMessageReceived;
-			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated += RefreshFriends; 
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated += OnInvitesUpdated; 
 			return base.OnScreenOpen(reload);
 		}
 
@@ -135,6 +136,10 @@ namespace FirstLight.Game.Presenters
 			RefreshFriends();
 			RefreshRequests();
 			RefreshBlocked();
+		}
+		private void OnInvitesUpdated(FLLobbyEventCallbacks.InviteUpdateType _)
+		{
+			RefreshFriends();
 		}
 
 		private void RefreshFriends()

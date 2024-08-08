@@ -8,6 +8,7 @@
 }
 
 .gap-hack {
+    flex-shrink: 1;
     height: 128px;
     flex-grow: 1;
 }
@@ -16,7 +17,7 @@
     flex-grow: 0;
     flex-shrink: 0;
     margin-left: 39px;
-    width: 1235px;
+    width: 1244px;
 }
 
 .container-your-team {
@@ -31,6 +32,8 @@
     flex-wrap: wrap-reverse;
     justify-content: flex-start;
     margin-bottom: 20px;
+    transition-property: background-color;
+    transition-duration: 0.33s;
 }
 
 .container-online-friends {
@@ -38,6 +41,10 @@
     padding: 28px;
     background-color: rgb(22, 20, 38);
     flex-grow: 1;
+}
+
+.container-online-friends .friend-list-element {
+    padding-bottom: 10px;
 }
 
 .category-content--green {
@@ -195,6 +202,15 @@
     align-items: flex-start;
     padding: 25px;
     margin-right: 13px;
+    -unity-background-image-tint-color: #9FDA40;
+    transition-property: -unity-background-image-tint-color, opacity;
+    transition-delay: 0s, 2.5s;
+    transition-duration: 0.5s, 0.5s;
+}
+
+.pending--declined .pending__background {
+    -unity-background-image-tint-color: #D14142;
+    opacity: 0;
 }
 
 .pending__line {
@@ -203,11 +219,17 @@
     justify-content: center;
     align-self: auto;
     align-items: center;
+    transition-property: color;
+    transition-duration: 0.5s;
 }
 
-.pending__inviting {
+.pending__status {
     color: rgb(64, 169, 28);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.pending--declined .pending__status {
+    color: red;
 }
 
 .pending__loading {
@@ -216,6 +238,10 @@
     --dots-size: 13;
     --secondary-color: rgb(255, 255, 255);
     --color: rgb(37, 39, 46);
+}
+
+.pending--declined .pending__loading {
+    display: none;
 }
 
 .pending__player-name {
@@ -234,6 +260,10 @@
     -unity-background-scale-mode: scale-to-fit;
     justify-content: center;
     padding-bottom: 10px;
+}
+
+.pending--declined .pending__cancel-button {
+    display: none;
 }
 
 .pending__cancel-button:active {

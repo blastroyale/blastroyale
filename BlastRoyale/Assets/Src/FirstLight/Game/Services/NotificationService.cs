@@ -54,11 +54,15 @@ namespace FirstLight.Game.Services
 
 			// We skip inviting to party if the player already has an invite open
 			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
-
+			var services = MainInstaller.ResolveServices();
 			switch (message.MessageType)
 			{
 				case FriendMessage.FriendMessageType.PartyInvite:
-					if (MainInstaller.ResolveServices().MatchmakingService.IsMatchmaking.Value) return;
+					if (!services.GameSocialService.GetCurrentPlayerActivity().CanReceivePartyInvite())
+					{
+						services.FLLobbyService.CurrentPartyCallbacks.TriggerInviteDeclined(e.UserId);
+						return;
+					}
 					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
 					{
 						Type = InvitePopupPresenter.StateData.InviteType.Party,
@@ -66,8 +70,10 @@ namespace FirstLight.Game.Services
 						LobbyCode = message.LobbyID
 					}).Forget();
 					break;
+				case FriendMessage.FriendMessageType.DeclinePartyInvite:
+					services.FLLobbyService.CurrentPartyCallbacks.TriggerInviteDeclined(e.UserId);
+					break;
 				case FriendMessage.FriendMessageType.MatchInvite:
-					// TODO mihak: Open match invite popup, not party one
 					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
 					{
 						Type = InvitePopupPresenter.StateData.InviteType.Match,

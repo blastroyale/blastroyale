@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -54,7 +55,7 @@ namespace FirstLight.Game.Presenters
 				// TODO: Deep link support
 				return base.OnScreenOpen(reload);
 			}
-			
+
 			var sender = FriendsService.Instance.GetFriendByID(Data.SenderID);
 			var senderName = sender.Member.Profile.Name.TrimPlayerNameNumbers();
 			_sender.SetFromRelationship(sender)
@@ -94,6 +95,7 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid DeclineInvite()
 		{
+			FriendsService.Instance.MessageAsync(Data.SenderID, FriendMessage.CreateDeclinePartyInvite(Data.LobbyCode)).AsUniTask().Forget();
 			await _services.UIService.CloseScreen<InvitePopupPresenter>();
 		}
 	}

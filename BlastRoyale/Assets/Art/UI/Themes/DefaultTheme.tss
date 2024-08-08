@@ -1222,8 +1222,6 @@
 }
 
 .unity-collection-view:focus:enabled .unity-collection-view__item--selected {
-    background-color: rgb(58, 114, 176);
-    color: rgb(255, 255, 255);
 }
 
 .unity-collection-view {

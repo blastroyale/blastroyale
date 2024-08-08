@@ -55,6 +55,7 @@ namespace FirstLight.Game.Services.RoomService
 		event Action OnMasterChanged;
 
 		event Action OnJoinedRoom;
+		event Action OnLeaveRoom;
 
 		/// <summary>
 		/// Yo
@@ -143,7 +144,7 @@ namespace FirstLight.Game.Services.RoomService
 		private readonly ICoroutineService _coroutineService;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly ILeaderboardService _leaderboardService;
-		private readonly HashSet<ClientState> _joiningStates = new (new[] {ClientState.Joining, ClientState.Joined, ClientState.JoinedLobby, ClientState.JoiningLobby });
+		private readonly HashSet<ClientState> _joiningStates = new (new[] {ClientState.Joining, ClientState.Joined, ClientState.JoinedLobby, ClientState.JoiningLobby});
 		public bool IsJoiningRoom => _joiningStates.Contains(_networkService.QuantumClient.State);
 		public GameRoom CurrentRoom { get; private set; }
 		public GameRoom LastRoom { get; private set; }
@@ -159,6 +160,7 @@ namespace FirstLight.Game.Services.RoomService
 		public event Action OnMatchStarted;
 		public event Action OnMasterChanged;
 		public event Action OnJoinedRoom;
+		public event Action OnLeaveRoom;
 		public event Action OnPlayerPropertiesUpdated;
 		public event Action OnLocalPlayerKicked;
 
@@ -337,7 +339,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		private void OnConnectedToMaster()
 		{
-			ResetLocalPlayerProperties(); 
+			ResetLocalPlayerProperties();
 		}
 
 		public void OnPlayerEnteredRoom(Player newPlayer)
@@ -537,6 +539,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			FLog.Verbose("Left room");
 			CurrentRoom = null;
+			OnLeaveRoom?.Invoke();
 		}
 
 		public void OnMasterClientSwitched(Player newMasterClient)
@@ -591,6 +594,7 @@ namespace FirstLight.Game.Services.RoomService
 				FLog.Warn("Skipped property reset, client was still joining");
 				return;
 			}
+
 			_networkService.QuantumClient.NickName = AuthenticationService.Instance.GetPlayerName();
 			var preloadIds = new List<GameId>();
 

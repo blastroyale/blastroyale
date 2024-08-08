@@ -163,7 +163,12 @@ namespace FirstLight.Tests.EditorMode
 			throw new System.NotImplementedException();
 		}
 
-		public bool IsInParty()
+		public bool IsInPartyLobby()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public bool IsInMatchLobby()
 		{
 			throw new System.NotImplementedException();
 		}

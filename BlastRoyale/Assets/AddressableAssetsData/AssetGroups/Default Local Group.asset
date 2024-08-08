@@ -73,11 +73,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 63d6b329b3bdf0e4d85a7007440de5eb
-    m_Address: Sprites/Specials/InvisibilityAimAreaStatus.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1c02f793964ff49eab93c941b5a9c290
     m_Address: AdventureAssets/Footprint/FootprintDot.prefab
     m_ReadOnly: 0

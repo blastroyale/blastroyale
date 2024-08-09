@@ -55,8 +55,9 @@ namespace FirstLight.Game.Messages
 	/// <summary>
 	///  This should be temporary, its a workaround to reset joinsource, because presenters are handling join room logic
 	/// </summary>
-	public struct JoinedCustomMatch : IMessage
+	public struct StartedCustomMatch : IMessage
 	{
+		public CustomMatchSettings Settings;
 	}
 
 	public struct MapDropPointSelectedMessage : IMessage

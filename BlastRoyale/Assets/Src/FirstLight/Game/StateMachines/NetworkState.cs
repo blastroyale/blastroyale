@@ -102,7 +102,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<LocalPlayerClickedPlayMessage>(OnPlayerClickedPlay);
 			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
-			_services.MessageBrokerService.Subscribe<JoinedCustomMatch>(OnJoinedCustomMatch);
+			_services.MessageBrokerService.Subscribe<StartedCustomMatch>(OnJoinedCustomMatch);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
@@ -199,7 +199,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(JoinedPlayfabMatchmaking);
 		}
 
-		private void OnJoinedCustomMatch(JoinedCustomMatch obj)
+		private void OnJoinedCustomMatch(StartedCustomMatch obj)
 		{
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 		}

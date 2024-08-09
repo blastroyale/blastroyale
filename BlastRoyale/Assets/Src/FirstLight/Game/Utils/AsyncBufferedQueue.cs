@@ -29,11 +29,16 @@ namespace FirstLight.Game.Utils
 		
 		private Queue<Func<UniTask>> _queue = new ();
 		private UniTask _task;
+		private bool _locked;
 
 		public void Clear() => _queue.Clear();
 		
 		public void Add(Func<UniTask> item)
 		{
+			if (_locked)
+			{
+				return;
+			}
 			if (OnlyKeepLast)
 			{
 				_queue.Clear();
@@ -42,6 +47,31 @@ namespace FirstLight.Game.Utils
 			if (_task.Status != UniTaskStatus.Pending)
 			{
 				_task = Task();
+			}
+		}
+
+		/// <summary>
+		/// Will run all pending tasks and block the async loop while it happens
+		/// </summary>
+		public async UniTask Dispose()
+		{
+			try
+			{
+				_locked = true;
+				if (_task.Status != UniTaskStatus.Pending)
+				{
+					FLog.Verbose("Running remaining queue items");
+					await Task();
+				}
+				else
+				{
+					FLog.Verbose("Awaiting existing query");
+					await UniTask.WaitUntil(() => _task.Status != UniTaskStatus.Pending);
+				}
+			}
+			finally
+			{
+				_locked = false;
 			}
 		}
 

@@ -9,6 +9,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Presenters.Social.Team;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -22,6 +23,7 @@ using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using UnityEngine;
 using Assert = UnityEngine.Assertions.Assert;
 using Player = Unity.Services.Lobbies.Models.Player;
 
@@ -277,6 +279,7 @@ namespace FirstLight.Game.Services
 
 			Tick().Forget();
 
+			messageBrokerService.Subscribe<StartedCustomMatch>(e => OnStartedCustomGame(e).Forget());
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 
 			CurrentMatchCallbacks.PlayerJoined += OnMatchPlayerJoined;
@@ -305,6 +308,59 @@ namespace FirstLight.Game.Services
 		{
 			_grid.EnqueueGridSync(CurrentMatchLobby);
 		}
+
+		private async UniTaskVoid OnStartedCustomGame(StartedCustomMatch msg)
+		{
+			FLog.Info("Starting Custom Game");
+			var matchSettings = msg.Settings;
+			var matchLobby = CurrentMatchLobby;
+			await _matchUpdateQueue.Dispose();
+			var matchGrid = matchLobby.GetPlayerGrid();
+			matchGrid.ShuffleStack();
+			await UpdateMatchLobby(matchSettings, matchGrid, true);
+
+			var services = MainInstaller.ResolveServices();
+			
+			// TODO: remove the hack
+			((IInternalGameNetworkService) services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
+			var setup = new MatchRoomSetup
+			{
+				SimulationConfig = matchSettings.ToSimulationMatchConfig(),
+				RoomIdentifier = services.FLLobbyService.CurrentMatchLobby.Id,
+			};
+			var squadSize = matchSettings.SquadSize;
+			var localPlayer = matchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
+			var localPlayerPosition = matchLobby.GetPlayerPosition(localPlayer);
+			try
+			{
+				await services.RoomService.CreateRoomAsync(setup, new PlayerJoinRoomProperties()
+				{
+					TeamColor = (byte) (localPlayerPosition % squadSize),
+					Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString(),
+					Spectator = localPlayer.IsSpectator()
+				});
+
+				var started = await UniTaskUtils.WaitUntilTimeout(CanStartGame, TimeSpan.FromSeconds(5));
+				if (!started)
+				{
+					services.NotificationService.QueueNotification("Error starting match");
+					return;
+				}
+				await services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
+				await services.FLLobbyService.LeaveMatch();
+			}
+			catch (Exception e)
+			{
+				FLog.Error("Could not create quantum room", e);
+				LeaveMatch().Forget();
+			}
+		}
+		
+		private bool CanStartGame()
+		{
+			return MainInstaller.ResolveServices().RoomService.InRoom;
+		}
+
 
 		private void OnMatchDeleted()
 		{
@@ -786,8 +842,7 @@ namespace FirstLight.Game.Services
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
 			FLog.Info("Setting lobby game room: "+roomName);
-			_matchUpdateQueue.Clear();
-			
+	
 			var options = new UpdateLobbyOptions
 			{
 				Data = new Dictionary<string, DataObject>

@@ -12,7 +12,6 @@ using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityUIButton = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters.Store
 {
@@ -69,7 +68,7 @@ namespace FirstLight.Game.Presenters.Store
 		private VisualElement _root;
 		private Label _price;
 		private ImageButton _infoButton;
-		private UnityUIButton _background;
+		private UnityEngine.UIElements.Button _background;
 		private VisualElement _ownedStamp;
 		private VisualElement _infoIcon;
 		private VisualElement _ownedOverlay;
@@ -78,7 +77,7 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			var treeAsset = Resources.Load<VisualTreeAsset>("StoreGameProductElement");
 			treeAsset.CloneTree(this);
-			_background = this.Q<UnityUIButton>("ProductWidgetWrapper").Required();
+			_background = this.Q<UnityEngine.UIElements.Button>("ProductWidgetWrapper").Required();
 			_background.clicked += () => OnClicked?.Invoke(_product);
 			_name = this.Q<Label>("ProductName").Required();
 			_icon = this.Q("ProductImage").Required();

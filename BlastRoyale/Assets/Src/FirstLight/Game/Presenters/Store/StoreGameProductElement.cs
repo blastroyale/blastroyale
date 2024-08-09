@@ -79,7 +79,7 @@ namespace FirstLight.Game.Presenters.Store
 			var treeAsset = Resources.Load<VisualTreeAsset>("StoreGameProductElement");
 			treeAsset.CloneTree(this);
 			_background = this.Q<ImageButton>("ProductWidgetWrapper").Required();
-			// _background.clicked += () => OnClicked?.Invoke(_product);
+			_background.clicked += () => OnClicked?.Invoke(_product);
 			_name = this.Q<Label>("ProductName").Required();
 			_icon = this.Q("ProductImage").Required();
 			_icon.AddToClassList(USS_SPRITE_CURRENCIES_BLASTBUCK);

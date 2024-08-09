@@ -12,6 +12,7 @@ using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Threading.Tasks;
 
 namespace FirstLight.Game.Presenters.Store
 {
@@ -68,7 +69,7 @@ namespace FirstLight.Game.Presenters.Store
 		private VisualElement _root;
 		private Label _price;
 		private ImageButton _infoButton;
-		private UnityEngine.UIElements.Button _background;
+		private ImageButton _background;
 		private VisualElement _ownedStamp;
 		private VisualElement _infoIcon;
 		private VisualElement _ownedOverlay;
@@ -77,8 +78,8 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			var treeAsset = Resources.Load<VisualTreeAsset>("StoreGameProductElement");
 			treeAsset.CloneTree(this);
-			_background = this.Q<UnityEngine.UIElements.Button>("ProductWidgetWrapper").Required();
-			_background.clicked += () => OnClicked?.Invoke(_product);
+			_background = this.Q<ImageButton>("ProductWidgetWrapper").Required();
+			// _background.clicked += () => OnClicked?.Invoke(_product);
 			_name = this.Q<Label>("ProductName").Required();
 			_icon = this.Q("ProductImage").Required();
 			_icon.AddToClassList(USS_SPRITE_CURRENCIES_BLASTBUCK);
@@ -89,12 +90,33 @@ namespace FirstLight.Game.Presenters.Store
 			_infoIcon = this.Q("InformationIcon").Required();
 			_ownedOverlay = this.Q("OwnedOverlay").Required();
 			_infoButton.clicked += OnClickInfo;
+
+       		_background.RegisterCallback<PointerDownEvent>(ev => ScaleDown(), TrickleDown.TrickleDown);
+       		_background.RegisterCallback<PointerUpEvent>(ev => ScaleUp());
+       		_background.RegisterCallback<PointerLeaveEvent>(ev => ScaleUp());
 		}
 
 		private void OnClickInfo()
 		{
 			var desc = _product.PlayfabProductConfig.StoreItemData.Description;
 			_infoButton.OpenTooltip(_root, desc);
+		}
+
+		private void ScaleDown()
+		{
+			_background.style.scale = new Scale(new Vector3(0.9f, 0.9f, 1));
+		}
+
+		private async void ScaleUp()
+		{
+			_background.style.scale = new Scale(new Vector3(1.1f, 1.1f, 1));
+			await Task.Delay(300);  // Wait for 300 milliseconds
+			ResetScale();
+		}
+
+		private void ResetScale()
+		{
+			_background.style.scale = new Scale(new Vector3(1.0f, 1.0f, 1));
 		}
 
 		public void SetData(GameProduct product, ProductFlags flags, VisualElement rootDocument)

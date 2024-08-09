@@ -4,11 +4,7 @@
     overflow: visible;
     display: flex;
     flex-grow: 0;
-    transition: all 0.2s;
-}
-
-.product-widget-wrapper:active {
-    scale: 0.91;
+    transition: all 0.3s;
 }
 
 .product-widget {

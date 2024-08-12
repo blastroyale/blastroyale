@@ -20,7 +20,7 @@
     -unity-text-align: upper-center;
     font-size: 36px;
     -unity-font-style: normal;
-    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&amp;guid=b745807711bab4fc0891193a62f7419f&amp;type=2#Stawix-Bold-Static");
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
     bottom: 5%;
     color: white;
 }
@@ -46,14 +46,11 @@
 }
 
 .map-selector {
-    width: 645px;
-    flex-direction: row-reverse;
-    right: 257px;
+    right: 55px;
     position: absolute;
-    margin-top: 24px;
+    top: 28px;
 }
 
 .map-selector .unity-base-field__label {
     margin-left: 31px;
 }
-

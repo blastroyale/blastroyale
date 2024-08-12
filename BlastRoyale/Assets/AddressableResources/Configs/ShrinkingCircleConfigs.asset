@@ -1578,7 +1578,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 1638400
       ShrinkingSizeK:
-        RawValue: 45875
+        RawValue: 49152
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
@@ -1603,7 +1603,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 983040
       ShrinkingSizeK:
-        RawValue: 39322
+        RawValue: 45875
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
@@ -1628,7 +1628,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 655360
       ShrinkingSizeK:
-        RawValue: 32768
+        RawValue: 45875
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
@@ -1653,7 +1653,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 655360
       ShrinkingSizeK:
-        RawValue: 32768
+        RawValue: 45875
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:

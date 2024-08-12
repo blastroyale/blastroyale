@@ -110,7 +110,7 @@ namespace FirstLight.Game.Presenters.Store
 		private async void ScaleUp()
 		{
 			_background.style.scale = new Scale(new Vector3(1.1f, 1.1f, 1));
-			await Task.Delay(300);  // Wait for 300 milliseconds
+			await Task.Delay(150);
 			ResetScale();
 		}
 

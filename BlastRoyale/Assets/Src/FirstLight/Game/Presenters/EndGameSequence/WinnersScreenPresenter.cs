@@ -10,6 +10,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
 using FirstLight.UIService;
+using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -77,9 +78,31 @@ namespace FirstLight.Game.Presenters
 
 		protected override async UniTask OnScreenOpen(bool reload)
 		{
+			SetHeaderGameModeInfo();
+			
 			await UpdateCharacters();
 
 			AnimateCharacters().Forget();
+		}
+
+		private void SetHeaderGameModeInfo()
+		{
+			var gameMode = _gameServices.GameModeService.SelectedGameMode.Value.Entry;
+
+			switch (gameMode.TeamSize)
+			{
+				case 1:
+					_header.SetSubtitle(ScriptLocalization.UITGameModeSelection.br_solo_title);
+					break;
+				case 2:
+					_header.SetSubtitle(ScriptLocalization.UITGameModeSelection.br_duos_title);
+					break;
+				case 4:
+					_header.SetSubtitle(ScriptLocalization.UITGameModeSelection.br_quads_title);
+					break;
+				default:
+					return;
+			}
 		}
 
 		private async UniTaskVoid AnimateCharacters()

@@ -78,6 +78,9 @@
     visibility: hidden;
 }
 
+.screen-header__no-button {
+    margin-left: -150px;
+}
 
 .screen-header__back:active {
     background-image: var(--sprite-home__header-back-pressed);

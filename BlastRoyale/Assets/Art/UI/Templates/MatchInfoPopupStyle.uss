@@ -95,12 +95,29 @@
 }
 
 .event-thumbnail__image {
-    background-image: var(--sprite-home__gamemode-event-characters);
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+}
+
+.event-thumbnail__image--solo {
+    background-image: var(--sprite-home__gamemode-solo-event-characters);
+    translate: -48% -64%;
+    width: 569px;
+    height: 380px;
+}
+
+.event-thumbnail__image--duos {
+    background-image: var(--sprite-home__gamemode-duos-event-characters);
     translate: -50% -56%;
     width: 240px;
     height: 292px;
-    -unity-background-scale-mode: scale-to-fit;
-    position: absolute;
+}
+
+.event-thumbnail__image--quads {
+    background-image: var(--sprite-home__gamemode-quads-event-characters);
+    translate: -48% -67%;
+    width: 437px;
+    height: 383px;
 }
 
 .event-container--custom-image .event-thumbnail__image {

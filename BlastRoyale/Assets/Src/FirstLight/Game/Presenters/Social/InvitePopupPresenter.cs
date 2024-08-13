@@ -80,6 +80,10 @@ namespace FirstLight.Game.Presenters
 			switch (Data.Type)
 			{
 				case StateData.InviteType.Party:
+					if (_services.FLLobbyService.IsInPartyLobby())
+					{
+						await _services.FLLobbyService.LeaveParty();
+					}
 					await _services.FLLobbyService.JoinParty(Data.LobbyCode);
 					break;
 				case StateData.InviteType.Match:

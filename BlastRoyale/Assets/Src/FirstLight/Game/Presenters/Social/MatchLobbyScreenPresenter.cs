@@ -131,15 +131,17 @@ namespace FirstLight.Game.Presenters
 					changes.Data.Value.TryGetValue(FLLobbyService.KEY_LOBBY_MATCH_ROOM_NAME, out var value))
 				{
 					var joinProperties = new PlayerJoinRoomProperties();
-
+					
 					var squadSize = _services.FLLobbyService.CurrentMatchLobby.GetMatchSettings().SquadSize;
 					var localPlayer = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
-					var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
-
-					joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
-					joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
-					joinProperties.Spectator = localPlayer.IsSpectator() || localPlayerPosition < 0;
-
+	
+					if (!localPlayer.IsSpectator())
+					{
+						var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
+						joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
+						joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
+					}
+					joinProperties.Spectator = localPlayer.IsSpectator();
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
 				}
@@ -158,7 +160,7 @@ namespace FirstLight.Game.Presenters
 
 			FLog.Verbose("Joininig room from Custom Lobby");
 			_joining = true;
-			_services.MessageBrokerService.Publish(new JoinedCustomMatch());
+			_services.MessageBrokerService.Publish(new StartedCustomMatch());
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			// TODO mihak: This should not be here, move when we refac network service
 			await _services.RoomService.JoinRoomAsync(room, playerJoinRoomProperties);
@@ -270,59 +272,15 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
+			// TODO: user flow should not be handled here but in state machines
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-			matchGrid.ShuffleStack();
-
-			_services.MessageBrokerService.Publish(new JoinedCustomMatch());
-
-			await _services.FLLobbyService.UpdateMatchLobby(matchSettings, matchGrid, true);
-
-			matchSettings = _matchSettingsView.MatchSettings;
-
-			// TODO: remove the hack
-			((IInternalGameNetworkService) _services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
-
-			var setup = new MatchRoomSetup
+			
+			_services.MessageBrokerService.Publish(new StartedCustomMatch()
 			{
-				SimulationConfig = matchSettings.ToSimulationMatchConfig(),
-				RoomIdentifier = _services.FLLobbyService.CurrentMatchLobby.Id,
-			};
-
-			var squadSize = matchSettings.SquadSize;
-			var localPlayer = matchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
-			var localPlayerPosition = matchLobby.GetPlayerPosition(localPlayer);
-
-			try
-			{
-				await _services.RoomService.CreateRoomAsync(setup, new PlayerJoinRoomProperties()
-				{
-					TeamColor = (byte) (localPlayerPosition % squadSize),
-					Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString(),
-					Spectator = localPlayer.IsSpectator()
-				});
-
-				var started = await UniTaskUtils.WaitUntilTimeout(CanStartGame, TimeSpan.FromSeconds(5));
-				if (!started)
-				{
-					_services.NotificationService.QueueNotification("Error starting match");
-					return;
-				}
-
-				await _services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
-				await _services.FLLobbyService.LeaveMatch();
-			}
-			catch (Exception e)
-			{
-				FLog.Error("Could not create quantum room", e);
-				LeaveMatchLobby().Forget();
-			}
+				Settings = _matchSettingsView.MatchSettings
+			});
 		}
-
-		private bool CanStartGame()
-		{
-			return _services.RoomService.InRoom;
-		}
-
+		
 		private async UniTaskVoid ReadyUp()
 		{
 			await _services.FLLobbyService.ToggleMatchReady();

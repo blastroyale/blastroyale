@@ -68,7 +68,7 @@
     justify-content: flex-end;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     display: flex;
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/header.png?fileID=21300000&guid=2eb3dec7717e891448c766eef3c6ebc9&type=3#header');
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/header.png?fileID=21300000&guid=2eb3dec7717e891448c766eef3c6ebc9&type=3#header");
     -unity-background-scale-mode: scale-and-crop;
 }
 
@@ -149,7 +149,7 @@
 }
 
 .bpp-bar__progress {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png?fileID=21300000&guid=557657056a3d9b44dbbbb666ec2fc9d9&type=3#progress-battlepass-rewards-bpp');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png?fileID=21300000&guid=557657056a3d9b44dbbbb666ec2fc9d9&type=3#progress-battlepass-rewards-bpp");
     height: 85%;
     flex-grow: 0.5;
 }
@@ -177,7 +177,7 @@
 
 .bpp-bar__arrow {
     flex-grow: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/arrow.png?fileID=21300000&guid=9701a4b122d774f5abadb31755ff50ee&type=3#arrow');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/arrow.png?fileID=21300000&guid=9701a4b122d774f5abadb31755ff50ee&type=3#arrow");
     width: 52px;
     height: 52px;
     -unity-background-scale-mode: scale-to-fit;
@@ -253,7 +253,7 @@
     height: 100%;
     width: 425px;
     overflow: visible;
-    background-image: url('project://database/Assets/Art/UI/Vectors/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
+    background-image: url("project://database/Assets/Art/UI/Vectors/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask");
     -unity-background-image-tint-color: rgb(0, 0, 0);
     position: absolute;
     left: 0;
@@ -263,14 +263,14 @@
     position: absolute;
     height: 100%;
     overflow: hidden;
-    background-image: url('project://database/Assets/Art/UI/Vectors/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
+    background-image: url("project://database/Assets/Art/UI/Vectors/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask");
     width: 425px;
     left: -3px;
     align-items: center;
 }
 
 .season-image__bp-image {
-    background-image: url('project://database/Assets/Art/UI/Textures/battlepass-season1.png?fileID=2800000&guid=842bcd9fd00c89e4092f70a552d59200&type=3#battlepass-season1');
+    background-image: url("project://database/Assets/Art/UI/Textures/battlepass-season1.png?fileID=2800000&guid=842bcd9fd00c89e4092f70a552d59200&type=3#battlepass-season1");
     height: 1221px;
     width: 791px;
     -unity-background-image-tint-color: rgb(255, 255, 255);
@@ -778,7 +778,7 @@
 
 .last-reward-sprite {
     flex-grow: 1;
-    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/PunkMale/Icon_Char_PunkMale.png?fileID=21300000&guid=01aa15896d13cf540a04a81d603fa54e&type=3#Icon_Char_PunkMale');
+    background-image: url("project://database/Assets/AddressableResources/Collections/CharacterSkins/PunkMale/Icon_Char_PunkMale.png?fileID=21300000&guid=dbee6ab2350c1124f8dc503251413108&type=3#Icon_Char_PunkMale");
     -unity-background-scale-mode: scale-and-crop;
     position: absolute;
     top: -19px;
@@ -789,7 +789,7 @@
 
 .reward-shine-yellow {
     flex-grow: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-star.png?fileID=21300000&guid=9abc186c83592ff419ca692f8c9f531b&type=3#icon-star');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Match/icon-star.png?fileID=21300000&guid=9abc186c83592ff419ca692f8c9f531b&type=3#icon-star");
     height: 58px;
     width: 65px;
     position: absolute;
@@ -800,7 +800,7 @@
 
 .reward-shine-blue {
     flex-grow: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-star.png?fileID=21300000&guid=9abc186c83592ff419ca692f8c9f531b&type=3#icon-star');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Match/icon-star.png?fileID=21300000&guid=9abc186c83592ff419ca692f8c9f531b&type=3#icon-star");
     height: 58px;
     width: 65px;
     position: absolute;
@@ -864,7 +864,7 @@
 
 .last-reward-picture__background {
     width: 800px;
-    background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
+    background-image: url("project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation");
     -unity-background-image-tint-color: rgb(75, 216, 214);
     position: absolute;
     right: -500px;
@@ -874,7 +874,7 @@
 }
 
 .last-reward-picture__background-yellow {
-    background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
+    background-image: url("project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation");
     -unity-background-image-tint-color: rgb(255, 199, 0);
     right: -38px;
     position: absolute;
@@ -883,7 +883,7 @@
 }
 
 .last-reward-picture__background-pink {
-    background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
+    background-image: url("project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation");
     -unity-background-image-tint-color: rgb(216, 75, 121);
     position: absolute;
     height: 100%;
@@ -893,20 +893,20 @@
 
 .last-reward-picture__reward-picture {
     position: relative;
-    width: 552px;
-    height: 714px;
+    width: 425px;
+    height: 611px;
     align-self: center;
     -unity-background-scale-mode: scale-to-fit;
     right: 267px;
-    top: -69px;
+    top: -110px;
 }
 
 .last-reward-picture__cloud-background {
-    width: 500px;
-    height: 236px;
+    width: 497px;
+    height: 219px;
     background-image: var(--sprite-home__cloud-exclusive-reward);
     position: absolute;
-    bottom: -184px;
+    bottom: -159px;
 }
 
 .last-reward-picture__cloud-reward-name {

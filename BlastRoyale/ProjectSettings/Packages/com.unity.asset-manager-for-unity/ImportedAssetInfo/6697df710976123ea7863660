@@ -4,8 +4,12 @@
     },
     "FileInfos": [
         {
-            "Guid": "02a73580f3fc41d42ba614e91bdab62c",
-            "OriginalPath": "Melee_Mic_Drop.fbx"
+            "Guid": "579fe87a20c0445638426c81cd4f78fd",
+            "OriginalPath": "Icon_Melee_MicDrop.png"
+        },
+        {
+            "Guid": "cf19bcef40a6d420e9bb1373a0cb6f99",
+            "OriginalPath": "Melee_MicDrop.fbx"
         }
     ],
     "references": {
@@ -19,59 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df710976123ea7863660\\\",\\\"assetVersion\\\":\\\"f2aad899-ca7d-48eb-8732-d143802791c5\\\"}\",\"data\":{\"assetId\":\"6697df710976123ea7863660\",\"assetVersion\":\"f2aad899-ca7d-48eb-8732-d143802791c5\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.548Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:52.034Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy84NGVkOGZkMC1lNGY3LTQ2MzMtOTMwNC1kMmMxNjNlZjdmZDYvMTlkZWFjMmJiNWU1MTA5MjBmYzM4MTMyZjFlNTBmNWQvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=YAR%2BTdo1KxW85Yfj3006U9vFeQo99%2BxlgRo62bZM%2BxA%3D\",\"files\":[{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:58.103Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:52.926Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/df4a844f-5a56-41cc-9510-6abeceef2e40/34e77673aa081312f9c2d48f9a08c54c/Melee_Mic_Drop.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=ve5qjhdp0Jrd11rv37aSutoJ0lQXWxpVohOFuHwnR88%3D\",\"filePath\":\"Melee_Mic_Drop.fbx\",\"fileSize\":43500,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:52.655Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:52.655Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/704561e6-6b88-40af-b3c3-649c64dab534/bb68b331cf851641dc8032800e7cbe29/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=b47DCfZbI%2Fe7P5aetF8Etvv8fJiSg59Xu6QOVe2fU5U%3D\",\"filePath\":\"metadata.json\",\"fileSize\":521,\"userChecksum\":\"34ce4a28ba898da9e7835b7a01eede77\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:18.118Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:18.334Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/b0552d5d-ba39-49b7-8593-d9be21f2bf8a/d13b37f14eb0326273bdbd3e0ddf2240/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=6kA4PlWy7XRG7nPPMlL8XXaCbkeYNklTKQfj0psxQLA%3D\",\"filePath\":\"preview.glb\",\"fileSize\":100052,\"userChecksum\":\"952511166083f96e9f074af05a8c11cb\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:18.124Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:18.124Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/b0552d5d-ba39-49b7-8593-d9be21f2bf8a/e74821aa74096fee1cb379505ac088cc/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=clbYsZjc15V55CMfjK6NhRsZE%2BQ196vIEgqdBzNTGDE%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:15:50.967Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:51.254Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/84ed8fd0-e4f7-4633-9304-d2c163ef7fd6/50db5292cca8dfb46adc93af85354ff0/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=4RpxX%2BHBiQ6FR%2FRknnuG6sToZCjX2DAx3T45WlUiOl4%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":180602,\"userChecksum\":\"73976721c8ac75427a25d5aff84d78bc\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:15:50.973Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:51.493Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/84ed8fd0-e4f7-4633-9304-d2c163ef7fd6/6ab3faa87f858fa6d2d4bbc4b9e974a6/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=ZafXDsvGLUB1g2jZ2QTmVVCwr9HHE23CdFHDxyZeM%2FA%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":196834,\"userChecksum\":\"3ee7900954689769d1acfa0b55ffc550\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:15:50.979Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:51.74Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/84ed8fd0-e4f7-4633-9304-d2c163ef7fd6/19deac2bb5e510920fc38132f1e50f5d/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=cCL6jHx8%2FnyOFm8GYs%2Be8%2BKe4j9rgKWuGQzKvF5Oohs%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":160817,\"userChecksum\":\"ede3a48ad61e815f1b0be92991d13d51\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:15:50.984Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:51.984Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/84ed8fd0-e4f7-4633-9304-d2c163ef7fd6/b6071b3720897ca95597e4bf3ff14944/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=cNw6VVGVMyIWoxRx7m80gREDSj2XEZkgbc%2FoBKTN9Zg%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":176826,\"userChecksum\":\"932da3f7adb1551e9df1278bf3123b27\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"df4a844f-5a56-41cc-9510-6abeceef2e40\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.553Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:12:59.982Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"4548db1c-9d8e-47fc-a134-000085cafaac\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.56Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:51.989Z\",\"filesOrder\":[\"preview.glb\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"84ed8fd0-e4f7-4633-9304-d2c163ef7fd6\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:00.18Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:50.99Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"b0552d5d-ba39-49b7-8593-d9be21f2bf8a\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:01.527Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:18.131Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"704561e6-6b88-40af-b3c3-649c64dab534\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:01.874Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:52.661Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_Mic_Drop\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
-                    "m_AssetComparisonResult": 1,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy84NGVkOGZkMC1lNGY3LTQ2MzMtOTMwNC1kMmMxNjNlZjdmZDYvMTlkZWFjMmJiNWU1MTA5MjBmYzM4MTMyZjFlNTBmNWQvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=YAR%2BTdo1KxW85Yfj3006U9vFeQo99%2BxlgRo62bZM%2BxA%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        }
-                    ],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1002
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Melee_Mic_Drop.fbx",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 43500,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df710976123ea7863660\\\",\\\"assetVersion\\\":\\\"f2aad899-ca7d-48eb-8732-d143802791c5\\\"}\",\"data\":{\"assetId\":\"6697df710976123ea7863660\",\"assetVersion\":\"f2aad899-ca7d-48eb-8732-d143802791c5\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[\"Pending\"],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.548Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:52.034Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Melee_Mic_Drop\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
-                    "m_AssetComparisonResult": 0,
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df710976123ea7863660\\\",\\\"assetVersion\\\":\\\"53cecd87-5166-4637-8f51-1c95fca166c3\\\"}\",\"data\":{\"assetId\":\"6697df710976123ea7863660\",\"assetVersion\":\"53cecd87-5166-4637-8f51-1c95fca166c3\",\"isFrozen\":true,\"versionNumber\":9,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":8,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T14:11:37.551Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T14:11:55.73Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_MicDrop.png\",\"name\":\"Melee_MicDrop\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 1,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
                     "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1002
-                        }
-                    ]
+                    "m_Versions": []
                 }
             }
         ]

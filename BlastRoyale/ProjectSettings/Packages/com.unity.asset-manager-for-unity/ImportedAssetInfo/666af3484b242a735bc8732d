@@ -4,12 +4,12 @@
     },
     "FileInfos": [
         {
-            "Guid": "561658d9b657e41d5a9269f80a7cea96",
+            "Guid": "766d4cd9ec7a64ba09b8afa6b4ca4bf6",
             "OriginalPath": "Melee_Katana.fbx"
         },
         {
-            "Guid": "1bc2cd5abdd9b4d2896b85c7950b4d7d",
-            "OriginalPath": "Melee_Katana.png"
+            "Guid": "b9f3614b781854b54ba384b775756ab9",
+            "OriginalPath": "Icon_Melee_Katana.png"
         }
     ],
     "references": {
@@ -25,9 +25,9 @@
                 "data": {
                     "m_PrimaryExtension": ".fbx",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"87865251-1e43-4f06-be2c-1894406afd3e\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"87865251-1e43-4f06-be2c-1894406afd3e\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-06-13T13:26:15.49Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:32.23Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Melee_Katana.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9kMjg5YWRkMi01OWI0LTRkMmEtOTBiMS0yNjkwMGM5OGU4NzUvMTAyNTVjODY0NDA0NjQ5MWRlMzY3ZDVkN2QyNmQzZDAvTWVsZWVfS2F0YW5hLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:26:25Z&ske=2024-06-16T13:26:25Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T13:26:25Z&sr=b&sp=r&sig=v3xbR%2B%2FZtiYF739FwWKSzJoWpdrLrBhKT9xzOQsJb3E%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:34.353Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:25:51.321Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/d289add2-59b4-4d2a-90b1-26900c98e875/ef8913faad1290a2e86042d9c9691517/Melee_Katana.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:34:34Z&ske=2024-06-13T13:44:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:44:34Z&sr=b&sp=r&sig=V7k%2FQzYTU%2B%2F%2FF%2BwTEqNJxFhq%2BQSdPnYH21wYXw1HpTk%3D\",\"filePath\":\"Melee_Katana.fbx\",\"fileSize\":25292,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:34.655Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:24.416Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/d289add2-59b4-4d2a-90b1-26900c98e875/10255c8644046491de367d5d7d26d3d0/Melee_Katana.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:34:34Z&ske=2024-06-13T13:44:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:44:34Z&sr=b&sp=r&sig=GDI7TRVEhZC9Ci%2BcVaxzFodCtwJITlG9Ug3dKyIi9rk%3D\",\"filePath\":\"Melee_Katana.png\",\"fileSize\":53189,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:50.831Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:25:50.831Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/196a99ec-a171-46d3-b151-5ff7e0bc0363/a93efb3eb6381d167f1c8eb9559f3382/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:34:34Z&ske=2024-06-13T13:44:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:44:34Z&sr=b&sp=r&sig=Y9ddwCHUQZCZzV5d7%2F5yHy4NeNqUth9%2FD5eIo9kvmb4%3D\",\"filePath\":\"metadata.json\",\"fileSize\":520,\"userChecksum\":\"c54e510ff4108ee2b9fca42bca769e68\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:51.005Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:25:51.221Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/234fd3f5-a747-4c30-939b-d89f4fc9b0de/1f4418e9738bb3c979e5ba16c969f7fc/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:34:34Z&ske=2024-06-13T13:44:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:44:34Z&sr=b&sp=r&sig=0t3nPn7ptpx%2FETFuiBAG8J6L9BKe4xlpVxY%2BP5B5DPM%3D\",\"filePath\":\"preview.glb\",\"fileSize\":11220,\"userChecksum\":\"698736e3bf70abac3861bf5d0a9bf35b\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:51.015Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:25:51.015Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/234fd3f5-a747-4c30-939b-d89f4fc9b0de/76a06a5da16fd3c81c95ebad24f7cbf8/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:34:34Z&ske=2024-06-13T13:44:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:44:34Z&sr=b&sp=r&sig=j0YWzKVZ9lFfEUEuAQWgmjl3T%2BvQKf6KEuCFz9z62GE%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:59.873Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:00.218Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/4977573a-e636-485b-a012-ddb064db7c0e/6a7d197ca576a6fb34e5557e92f3e996/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:34:34Z&ske=2024-06-13T13:44:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:44:34Z&sr=b&sp=r&sig=sSeD8D%2FBYBae3yURRzkbqUpR1KCskb2Ce6E6YlhbAtY%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":52514,\"userChecksum\":\"69654a2e3b2e9a78a3a2764bdcb973a3\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:59.88Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:00.442Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/4977573a-e636-485b-a012-ddb064db7c0e/e5763aaa393be0c153e8afbc4d3b4f98/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:34:34Z&ske=2024-06-13T13:44:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:44:34Z&sr=b&sp=r&sig=Bfi%2BEJ8zZK0uwuKGaPySnjYWVhImY0Gtnoj2KUSQFHo%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":51737,\"userChecksum\":\"7c3ee0c469b9394363f3f79a07553fac\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:59.889Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:00.679Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/4977573a-e636-485b-a012-ddb064db7c0e/08c00da73fb0edcfcf4acca88c53799b/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:34:34Z&ske=2024-06-13T13:44:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:44:34Z&sr=b&sp=r&sig=b7c7lzKOXRH2qXCUk%2B1iE43cGqvypQIhBB4IApn7oEk%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":76614,\"userChecksum\":\"afb20218c01cf67fae54f8b754f0ba82\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:59.896Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:00.892Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/4977573a-e636-485b-a012-ddb064db7c0e/9bda8fb6eb0a79da63166bfd974977d8/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:34:34Z&ske=2024-06-13T13:44:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:44:34Z&sr=b&sp=r&sig=iF0skjC5aEPk56Js%2FAgCPpqk0gyG7Hgpe59pydCF9dg%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":52493,\"userChecksum\":\"29bc3e657fe5faf7ed894c6c6a11af84\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"d289add2-59b4-4d2a-90b1-26900c98e875\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:28.506Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:25:37.103Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"18ae3acb-b44a-44ce-b5d3-cc020723cfc2\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:28.513Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:25.658Z\",\"filesOrder\":[\"preview.glb\",\"preview_persFrontLeftTop.png\",\"preview_front.png\",\"preview_left.png\",\"preview_top.png\",\"Melee_Katana.png\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"4977573a-e636-485b-a012-ddb064db7c0e\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:37.248Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:25:59.902Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"234fd3f5-a747-4c30-939b-d89f4fc9b0de\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:37.909Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:25:51.022Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"196a99ec-a171-46d3-b151-5ff7e0bc0363\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:25:38.369Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:25:50.84Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_Katana\",\"tags\":[],\"primaryType\":\"Other\"}}",
-                    "m_AssetComparisonResult": 1,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9kMjg5YWRkMi01OWI0LTRkMmEtOTBiMS0yNjkwMGM5OGU4NzUvMTAyNTVjODY0NDA0NjQ5MWRlMzY3ZDVkN2QyNmQzZDAvTWVsZWVfS2F0YW5hLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:26:25Z&ske=2024-06-16T13:26:25Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T13:26:25Z&sr=b&sp=r&sig=v3xbR%2B%2FZtiYF739FwWKSzJoWpdrLrBhKT9xzOQsJb3E%3D",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"c85c141f-e4e8-4c9f-bf23-77c8dbb9c224\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"c85c141f-e4e8-4c9f-bf23-77c8dbb9c224\",\"isFrozen\":true,\"versionNumber\":7,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":6,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T14:15:12.714Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T14:15:26.258Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Katana.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9kMjg5YWRkMi01OWI0LTRkMmEtOTBiMS0yNjkwMGM5OGU4NzUvMDBjZjk0NTlkNWJmOTU1YWQ0MmFkZTk0ZjQwNTZlZTQvSWNvbl9NZWxlZV9LYXRhbmEucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-08-12T14:15:25Z&ske=2024-08-15T14:15:25Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-15T14:15:25Z&sr=b&sp=r&sig=UccaSmASt5MQYNV15tvI4zqasUGiRp1GAif3dAdb%2B%2Bg%3D\",\"name\":\"Melee_Katana\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9kMjg5YWRkMi01OWI0LTRkMmEtOTBiMS0yNjkwMGM5OGU4NzUvMDBjZjk0NTlkNWJmOTU1YWQ0MmFkZTk0ZjQwNTZlZTQvSWNvbl9NZWxlZV9LYXRhbmEucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-08-12T14:15:25Z&ske=2024-08-15T14:15:25Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-15T14:15:25Z&sr=b&sp=r&sig=UccaSmASt5MQYNV15tvI4zqasUGiRp1GAif3dAdb%2B%2Bg%3D",
                     "m_SourceFiles": [
                         {
                             "rid": 1001
@@ -36,7 +36,33 @@
                             "rid": 1002
                         }
                     ],
-                    "m_UVCSFiles": []
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        },
+                        {
+                            "rid": 1008
+                        },
+                        {
+                            "rid": 1009
+                        },
+                        {
+                            "rid": 1010
+                        }
+                    ]
                 }
             },
             {
@@ -48,9 +74,10 @@
                 },
                 "data": {
                     "m_Path": "Melee_Katana.fbx",
+                    "m_Available": true,
                     "m_Description": "",
                     "m_Tags": [],
-                    "m_FileSize": 25292,
+                    "m_FileSize": 39040,
                     "m_Guid": ""
                 }
             },
@@ -62,11 +89,356 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_Path": "Melee_Katana.png",
+                    "m_Path": "Icon_Melee_Katana.png",
+                    "m_Available": true,
                     "m_Description": "",
                     "m_Tags": [],
                     "m_FileSize": 53189,
                     "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1003,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"c85c141f-e4e8-4c9f-bf23-77c8dbb9c224\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"c85c141f-e4e8-4c9f-bf23-77c8dbb9c224\",\"isFrozen\":true,\"versionNumber\":7,\"paraentAssetVersion\":null,\"parentVersionNumber\":6,\"systemTags\":[],\"labels\":[\"Latest\"],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T14:15:12.714Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T14:15:26.258Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Katana.png\",\"name\":\"Melee_Katana\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        },
+                        {
+                            "rid": 1008
+                        },
+                        {
+                            "rid": 1009
+                        },
+                        {
+                            "rid": 1010
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1004,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"20ad25a2-6beb-4254-b662-24d7b10d3f41\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"20ad25a2-6beb-4254-b662-24d7b10d3f41\",\"isFrozen\":true,\"versionNumber\":6,\"paraentAssetVersion\":null,\"parentVersionNumber\":5,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-08-07T14:34:40.652Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-08-07T14:35:15.958Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Katana.png\",\"name\":\"Melee_Katana\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        },
+                        {
+                            "rid": 1008
+                        },
+                        {
+                            "rid": 1009
+                        },
+                        {
+                            "rid": 1010
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1005,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"e8245170-6d6c-47ed-823b-901c5eec7831\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"e8245170-6d6c-47ed-823b-901c5eec7831\",\"isFrozen\":true,\"versionNumber\":5,\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-08-06T12:13:05.208Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-08-06T12:13:21.781Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Melee_Katana.png\",\"name\":\"Melee_Katana\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        },
+                        {
+                            "rid": 1008
+                        },
+                        {
+                            "rid": 1009
+                        },
+                        {
+                            "rid": 1010
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1006,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"acc7709d-b460-43da-a05b-2460024119cc\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"acc7709d-b460-43da-a05b-2460024119cc\",\"isFrozen\":true,\"versionNumber\":4,\"paraentAssetVersion\":null,\"parentVersionNumber\":3,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-08-05T13:07:04.544Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-08-05T13:07:15.24Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Melee_Katana.png\",\"name\":\"Melee_Katana\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        },
+                        {
+                            "rid": 1008
+                        },
+                        {
+                            "rid": 1009
+                        },
+                        {
+                            "rid": 1010
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1007,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"3ecea153-c08c-4fc0-b578-221835fdaa81\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"3ecea153-c08c-4fc0-b578-221835fdaa81\",\"isFrozen\":true,\"versionNumber\":3,\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-06-18T01:14:33.254Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-18T01:14:47.817Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Melee_Katana.png\",\"name\":\"Melee_Katana\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        },
+                        {
+                            "rid": 1008
+                        },
+                        {
+                            "rid": 1009
+                        },
+                        {
+                            "rid": 1010
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1008,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"87865251-1e43-4f06-be2c-1894406afd3e\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"87865251-1e43-4f06-be2c-1894406afd3e\",\"isFrozen\":true,\"versionNumber\":2,\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-06-13T13:26:15.49Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:32.23Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Melee_Katana.png\",\"name\":\"Melee_Katana\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        },
+                        {
+                            "rid": 1008
+                        },
+                        {
+                            "rid": 1009
+                        },
+                        {
+                            "rid": 1010
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1009,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"0cd6f353-722a-4c56-ad18-d0cf06d1fb21\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"0cd6f353-722a-4c56-ad18-d0cf06d1fb21\",\"isFrozen\":true,\"versionNumber\":1,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\",\"Pending\"],\"status\":\"Draft\",\"created\":\"2024-06-13T13:25:28.5Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:02.86Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Melee_Katana\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        },
+                        {
+                            "rid": 1008
+                        },
+                        {
+                            "rid": 1009
+                        },
+                        {
+                            "rid": 1010
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1010,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af3484b242a735bc8732d\\\",\\\"assetVersion\\\":\\\"c2194874-6863-4691-a7ca-c11df2ffccf6\\\"}\",\"data\":{\"assetId\":\"666af3484b242a735bc8732d\",\"assetVersion\":\"c2194874-6863-4691-a7ca-c11df2ffccf6\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-06-13T13:26:41.679Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:26:41.784Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Melee_Katana.png\",\"name\":\"Melee_Katana\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        },
+                        {
+                            "rid": 1008
+                        },
+                        {
+                            "rid": 1009
+                        },
+                        {
+                            "rid": 1010
+                        }
+                    ]
                 }
             }
         ]

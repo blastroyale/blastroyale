@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "3f3c793bb712548789c84c7137016d6b",
+            "OriginalPath": "Icon_Melee_Broccoli.png"
+        },
+        {
+            "Guid": "df85715c40eb04953ab26a316439d04a",
+            "OriginalPath": "Melee_Broccoli.fbx"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a935b7f655fc227dc28633\\\",\\\"assetVersion\\\":\\\"0c972163-e35a-45ba-b9b8-2c20e34d2e08\\\"}\",\"data\":{\"assetId\":\"66a935b7f655fc227dc28633\",\"assetVersion\":\"0c972163-e35a-45ba-b9b8-2c20e34d2e08\",\"isFrozen\":true,\"versionNumber\":6,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":5,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T14:21:04.038Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T14:21:21.945Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Broccoli.png\",\"name\":\"Melee_Broccoli\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

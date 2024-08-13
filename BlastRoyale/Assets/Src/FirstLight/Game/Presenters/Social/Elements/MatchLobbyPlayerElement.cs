@@ -38,7 +38,7 @@ namespace FirstLight.Game.UIElements
 
 			Add(_crown = new VisualElement {name = "crown"});
 			_crown.AddToClassList(USS_CROWN);
-
+			
 			Add(_plus = new VisualElement {name = "plus"});
 			_plus.AddToClassList(USS_PLUS);
 
@@ -52,7 +52,7 @@ namespace FirstLight.Game.UIElements
 
 			SetData(playerName, host, local, ready);
 		}
-
+		
 		public string GetCurrentPlayerName() => _nameLabel.text;
 
 		public void SetData(string playerName, bool host, bool local, bool ready)

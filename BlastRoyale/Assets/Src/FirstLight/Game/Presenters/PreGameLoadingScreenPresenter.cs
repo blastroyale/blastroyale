@@ -36,7 +36,6 @@ namespace FirstLight.Game.Presenters
 		private const string USS_TEAM_MEMBER_MARKER = "map-marker-party";
 		
 		private const int TIMER_PADDING_MS = 2000;
-		private const int DISABLE_LEAVE_AFTER = 3;
 		private const int MOVE_LOCATION_LEFT = -375;
 
 		public class StateData
@@ -105,8 +104,7 @@ namespace FirstLight.Game.Presenters
 			_teamMembersList.Clear();
 			var partyMarkersContainer = Root.Q<VisualElement>("PartyMarkers");
 			_header.SetSubtitle("");
-
-			_header.backClicked = OnCloseClicked;
+			_header.SetButtonsVisibility(false);
 
 			partyMarkersContainer.Clear();
 			_partyMarkers = new InGamePlayerAvatar[size - 1];
@@ -319,9 +317,7 @@ namespace FirstLight.Game.Presenters
 			_mapAreaConfig = _services.ConfigsProvider.GetConfig<MapAreaConfigs>().GetMapAreaConfig(mapConfig.Map);
 			_locationLabel.text = mapConfig.Map.GetLocalization();
 			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, simulationConfig.TeamSize));
-
-			_header.SetButtonsVisibility(!_services.TutorialService.IsTutorialRunning);
-
+			
 			UpdatePlayerCount();
 			UpdateMasterClient();
 			StartLabelTimerCoroutine();
@@ -471,8 +467,6 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StopCoroutine(_gameStartTimerCoroutine);
 			}
 
-			_header.SetButtonsVisibility(false);
-
 			_loadStatusLabel.text = RejoiningRoom
 				? "Reconnecting to Game!"
 				: // todo translation
@@ -532,11 +526,7 @@ namespace FirstLight.Game.Presenters
 				}
 
 				var timeLeft = CurrentRoom.TimeLeftToGameStart().Add(TimeSpan.FromMilliseconds(-TIMER_PADDING_MS));
-				if (timeLeft.Seconds <= DISABLE_LEAVE_AFTER)
-				{
-					_header.SetButtonsVisibility(false);
-					_services.GenericDialogService.CloseDialog();
-				}
+				
 
 				if (timeLeft.Milliseconds < 0)
 				{
@@ -560,23 +550,6 @@ namespace FirstLight.Game.Presenters
 		public void OnPlayerPropertiesUpdate()
 		{
 			RefreshPartyMarkers();
-		}
-
-		private void OnCloseClicked()
-		{
-			var desc = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.Yes,
-				ButtonOnClick = () =>
-				{
-					_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
-					Data.LeaveRoomClicked();
-				}
-			};
-
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true,
-				confirmButton);
 		}
 	}
 }

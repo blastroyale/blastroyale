@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "9404fc8b144c84de990fd1f1cbdacf86",
+            "OriginalPath": "Melee_Sickle.fbx"
+        },
+        {
+            "Guid": "13bbf96d3691b4ee885b46b869012dd1",
+            "OriginalPath": "Icon_Melee_Sickle.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66abad47f0280b64d6c1d638\\\",\\\"assetVersion\\\":\\\"13290bc3-1f15-41af-ac78-46993c9cfb01\\\"}\",\"data\":{\"assetId\":\"66abad47f0280b64d6c1d638\",\"assetVersion\":\"13290bc3-1f15-41af-ac78-46993c9cfb01\",\"isFrozen\":true,\"versionNumber\":5,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:54:48.285Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:55:05.329Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Sickle.png\",\"name\":\"Melee_Sickle\",\"tags\":[],\"primaryType\":\"2D Asset\"}}",
+                    "m_AssetComparisonResult": 2,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

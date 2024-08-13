@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "0601d65dcf75643bab17824a0629c121",
+            "Guid": "d7637015ee2d041e6ab0b2f28674feda",
             "OriginalPath": "Melee_WalkingStick.fbx"
         },
         {
-            "Guid": "0fe51b91f1abd4b26a31d0567c1c0a29",
+            "Guid": "8dc7d291650eb461ca04263c880ea6e3",
             "OriginalPath": "Icon_Melee_WalkingStick.png"
         }
     ],
@@ -23,50 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
+                    "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af1674b242a735bc87311\\\",\\\"assetVersion\\\":\\\"bb32340e-2c2b-4fef-86f5-98dfcf17b3b0\\\"}\",\"data\":{\"assetId\":\"666af1674b242a735bc87311\",\"assetVersion\":\"bb32340e-2c2b-4fef-86f5-98dfcf17b3b0\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-06-13T13:32:08.82Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:32:22.215Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_WalkingStick.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy85ODkxYmFmYS1mODE1LTQxYTctYTQyZS0yYmZlMDIxODRjNzYvMGQ2MWMxZDMxMTc1NTdkZjcwNzMyOTFlMmU0MmQxMjIvSWNvbl9NZWxlZV9XYWxraW5nU3RpY2sucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:32:17Z&ske=2024-06-16T13:32:17Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T13:32:17Z&sr=b&sp=r&sig=zpSjy9Q3sloIWisbtSqp1QFuPZhR7bUlTrtpjbSkFqw%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:30.851Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:50.714Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9891bafa-f815-41a7-a42e-2bfe02184c76/6dfe8ea22d09ef7973ed04ffac7d446b/Melee_WalkingStick.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=qfnEY145V5lOKHiMe8Xt%2BKQj%2FdCpXKjjZvQVMOID04M%3D\",\"filePath\":\"Melee_WalkingStick.fbx\",\"fileSize\":27324,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:47.807Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:48.049Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9569985c-c34e-44ce-9704-b4a0078f49ff/ddf736d9ffcf9658b8f347c62c173ae1/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=P%2F2st8Q1A5V6hAqfmsODufWfT5fZrT1F6XgxH0VBaxs%3D\",\"filePath\":\"preview.glb\",\"fileSize\":10704,\"userChecksum\":\"58edf577db0fd79fefaf9a7133cdd30f\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:47.812Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:47.812Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9569985c-c34e-44ce-9704-b4a0078f49ff/cad6685ebd07de085b77ead93cef9b7b/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=sL3iOWvUqa0DRfLxCcd24%2BgqlqrsLipd92Mkr4yLpzE%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:50.446Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:50.446Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/56fc37f4-1f02-4a01-8720-36fb749a67f1/0d3b578b4d8f81635b0b578ba3d9bcf6/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=aXdhofv2JZ4kyZKyq%2BoXnQ703cQu52HPC23rBp3wSwE%3D\",\"filePath\":\"metadata.json\",\"fileSize\":524,\"userChecksum\":\"f92c704c3ea37f59e9c117066217e3b1\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:18:09.165Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:09.45Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9bae9c8e-40d3-48a6-8173-3d1dfa2c5975/39b3d253684ec859a3525588a6abf4b7/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=DUje7Pp9f%2BcfV%2FTkHQaGSxgy3QIKakbgaoz66GgFM30%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":74302,\"userChecksum\":\"1fa6e2f881fc2cbc869eb33ae6342cf0\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:18:09.172Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:09.679Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9bae9c8e-40d3-48a6-8173-3d1dfa2c5975/3a7c1069ada0fee763e9a0e80701a78e/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=T7H2vEU%2BP11l2QzVzq%2B1%2F%2FvufoRd5XrJo7KwoRqCswM%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":75513,\"userChecksum\":\"2c35cd857835f550bb1fb22f306c05b8\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:18:09.18Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:09.907Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9bae9c8e-40d3-48a6-8173-3d1dfa2c5975/0d40ecb42099313e3ca044754035047d/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=%2FXbIiCMArQOxV%2BAJoyfX24kyX7F1FRApMIcvEfhduPg%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":92312,\"userChecksum\":\"26db6a8cd4da7aba2dacd918484da828\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:18:09.188Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:10.125Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9bae9c8e-40d3-48a6-8173-3d1dfa2c5975/035dfc8ca98f6ecb9ea144a3a907cc47/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=qzEr%2Fr0Ni7FRn9Z6mW5kjx0Bmes2L8z%2BNXcJCECdWyU%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":84158,\"userChecksum\":\"82c560ce0dbec7c7f83594dcbd50ab3d\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:23:47.451Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:32:16.588Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9891bafa-f815-41a7-a42e-2bfe02184c76/0d61c1d3117557df7073291e2e42d122/Icon_Melee_WalkingStick.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=b%2FQF7uPyBxa2SPW2sOeqtGld1DUjvv7cR5rnW%2BHfQMg%3D\",\"filePath\":\"Icon_Melee_WalkingStick.png\",\"fileSize\":44704,\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"9891bafa-f815-41a7-a42e-2bfe02184c76\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:27.128Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:23:50.079Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"17aaafa2-c41b-420a-a7ec-1461b3d361cf\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:27.135Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:32:16.596Z\",\"filesOrder\":[\"preview.glb\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"9bae9c8e-40d3-48a6-8173-3d1dfa2c5975\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:32.705Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:09.196Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"9569985c-c34e-44ce-9704-b4a0078f49ff\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:33.268Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:47.819Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"56fc37f4-1f02-4a01-8720-36fb749a67f1\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:33.714Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:50.452Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_WalkingStick\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af1674b242a735bc87311\\\",\\\"assetVersion\\\":\\\"11b030d2-27fa-4534-8128-86257fa3c03a\\\"}\",\"data\":{\"assetId\":\"666af1674b242a735bc87311\",\"assetVersion\":\"11b030d2-27fa-4534-8128-86257fa3c03a\",\"isFrozen\":true,\"versionNumber\":5,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:43:25.073Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:43:46.616Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_WalkingStick.png\",\"name\":\"Melee_WalkingStick\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
                     "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy85ODkxYmFmYS1mODE1LTQxYTctYTQyZS0yYmZlMDIxODRjNzYvMGQ2MWMxZDMxMTc1NTdkZjcwNzMyOTFlMmU0MmQxMjIvSWNvbl9NZWxlZV9XYWxraW5nU3RpY2sucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:32:17Z&ske=2024-06-16T13:32:17Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T13:32:17Z&sr=b&sp=r&sig=zpSjy9Q3sloIWisbtSqp1QFuPZhR7bUlTrtpjbSkFqw%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        },
-                        {
-                            "rid": 1002
-                        }
-                    ],
-                    "m_UVCSFiles": []
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Icon_Melee_WalkingStick.png",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 44704,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Melee_WalkingStick.fbx",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 27324,
-                    "m_Guid": ""
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
                 }
             }
         ]

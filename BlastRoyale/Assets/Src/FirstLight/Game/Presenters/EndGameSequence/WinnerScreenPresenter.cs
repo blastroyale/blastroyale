@@ -63,7 +63,7 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
 			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
-
+			
 			if (playerWinner.Data.IsValid)
 			{
 				_playerWinnerEntity = playerWinner.Data.Entity;
@@ -85,6 +85,7 @@ namespace FirstLight.Game.Presenters
 
 				_services.MessageBrokerService.Publish(new WinnerSetCameraMessage {WinnerTrasform = _entityViewTransform});
 			}
+			
 
 			return base.OnScreenOpen(reload);
 		}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
@@ -20,36 +21,35 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("MapScrollView")] private ScrollView _mapScrollView;
 
 		private readonly Action<string> _onMapSelected;
-		private readonly string _gameModeID;
+		private readonly List<GameId> _options;
 		private readonly string _currentMapID;
 
 		private readonly IGameServices _services;
 
-		public SelectMapPopupView(Action<string> onMapSelected, string gameModeID, string currentMapID)
+		public SelectMapPopupView(Action<string> onMapSelected, IEnumerable<GameId> options, string currentMapID, bool addAny)
 		{
 			_onMapSelected = onMapSelected;
-			_gameModeID = gameModeID;
+			_options = options.ToList();
 			_currentMapID = currentMapID;
+
+			if (addAny)
+			{
+				_options.Insert(0, GameId.Any);
+			}
 
 			_services = MainInstaller.ResolveServices();
 		}
 
 		protected override void Attached()
 		{
-			var currentGameMode = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>().First(cfg => cfg.Id == _gameModeID);
-
-			var options = currentGameMode.AllowedMaps
-				.Select(id => _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) id))
-				.Where(cfg => !cfg.IsTestMap || Debug.isDebugBuild);
-
 			var mapScroller = _mapScrollView.Required();
 			mapScroller.Clear();
-			foreach (var mapConfig in options)
+			foreach (var mapConfig in _options)
 			{
-				var element = new MatchSettingsSelectionElement(mapConfig.Map.GetLocalizationKey(), mapConfig.Map.GetDescriptionLocalizationKey());
-				element.clicked += () => _onMapSelected.Invoke(mapConfig.Map.ToString());
+				var element = new MatchSettingsSelectionElement(mapConfig.GetLocalizationKey(), mapConfig.GetDescriptionLocalizationKey());
+				element.clicked += () => _onMapSelected.Invoke(mapConfig.ToString());
 
-				if (_currentMapID == mapConfig.Map.ToString())
+				if (_currentMapID == mapConfig.ToString())
 				{
 					element.AddToClassList("match-settings-selection--selected");
 				}
@@ -59,9 +59,9 @@ namespace FirstLight.Game.Views.UITK.Popups
 			}
 		}
 
-		private async UniTaskVoid LoadMapPicture(QuantumMapConfig mapConfig, MatchSettingsSelectionElement element)
+		private async UniTaskVoid LoadMapPicture(GameId mapID, MatchSettingsSelectionElement element)
 		{
-			var mapImage = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
+			var mapImage = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapID, false);
 			await UniTask.NextFrame(); // Need to wait a frame to make sure the element is attached
 			if (element.panel == null) return;
 			element.SetImage(mapImage);

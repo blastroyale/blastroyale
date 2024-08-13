@@ -146,10 +146,10 @@ namespace FirstLight.Game.StateMachines
 					state.Event(NetworkState.JoinedPlayfabMatchmaking)
 						.OnTransition(() => OpenHomeScreen().Forget())
 						.Target(waitMatchmaking);
-					
+
 					state.Event(NetworkState.JoinedRoomEvent)
 						.Target(final);
-					
+
 					state.Event(_customGameJoined)
 						.Target(customGameLobby);
 				}
@@ -190,14 +190,14 @@ namespace FirstLight.Game.StateMachines
 			friends.WaitingFor(wait => OpenFriends(wait).Forget()).Target(homeCheck);
 			AddMatchmakingHooks(
 				settingsMenu,
-				customGamesList, 
-				homeMenu, 
+				customGamesList,
+				homeMenu,
 				chooseGameMode,
-				collectionMenu, 
-				battlePass, 
-				leaderboard, 
-				store, 
-				news, 
+				collectionMenu,
+				battlePass,
+				leaderboard,
+				store,
+				news,
 				friends);
 
 			matchmakingChecks.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
@@ -232,7 +232,7 @@ namespace FirstLight.Game.StateMachines
 			customGameLobby.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGameLobby.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchLobbyScreenPresenter>(false).Forget());
-			
+
 			customGamesList.OnEnter(OpenCustomGameList);
 			customGamesList.Event(_roomJoinCreateBackClickedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
@@ -273,7 +273,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechartTrigger(_backButtonClicked);
 		}
-		
+
 		private void ShowMatchmaking()
 		{
 			// TODO mihak: Move matchmaking into it's own screen
@@ -515,6 +515,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenCustomGameList()
 		{
+			// Leave party if player has one
+			if (_services.FLLobbyService.IsInPartyLobby())
+				_services.FLLobbyService.LeaveParty().Forget();
+			
 			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
 				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),

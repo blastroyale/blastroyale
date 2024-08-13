@@ -43,4 +43,5 @@
     position: absolute;
     bottom: 60px;
     left: 178px;
+    color: rgb(48, 44, 73);
 }

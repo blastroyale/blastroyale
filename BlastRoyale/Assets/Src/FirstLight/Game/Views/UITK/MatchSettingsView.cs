@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Presenters;
@@ -86,55 +87,53 @@ namespace FirstLight.Game.Views.UITK
 			_privateRoomToggle.RegisterValueChangedCallback(v => MatchSettings.PrivateRoom = v.newValue);
 			_showCreatorNameToggle.RegisterValueChangedCallback(v => MatchSettings.ShowCreatorName = v.newValue);
 			_spectatorToggle.RegisterValueChangedCallback(v => SpectatorChanged(v.newValue).Forget());
-			_botDifficultySlider.RegisterValueChangedCallback(OnBotDifficultyValueChanged);
-		}
-
-		private void OnBotDifficultyValueChanged(ChangeEvent<int> evt)
-		{
-			MatchSettings.BotDifficulty = evt.newValue;
-			RefreshData(true);
+			_botDifficultySlider.Q("unity-drag-container").RegisterCallback<PointerUpEvent, MatchSettingsView>((e, arg) =>
+			{
+				arg.MatchSettings.BotDifficulty = _botDifficultySlider.value;
+				arg.RefreshData(true);
+			}, this);
 		}
 
 		private void OnRandomizeTeamsToggle(ChangeEvent<bool> evt)
 		{
 			MatchSettings.RandomizeTeams = evt.newValue;
-			RefreshData(true);
+			if(evt.newValue != evt.previousValue) RefreshData(true);
 		}
 
-		private void OnAllowBotsToggle(ChangeEvent<bool> e)
+		private void OnAllowBotsToggle(ChangeEvent<bool> evt)
 		{
-			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !e.newValue);
-			_botDifficultySlider.value = MatchSettings.BotDifficulty = e.newValue ? 5 : 0;
+			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !evt.newValue);
+			_botDifficultySlider.SetValueWithoutNotify(MatchSettings.BotDifficulty = evt.newValue ? 5 : 0);
 
-			RefreshData(true);
+			if(evt.newValue != evt.previousValue) RefreshData(true);
 		}
 
-		private void OnMutatorsToggle(ChangeEvent<bool> e)
+		private void OnMutatorsToggle(ChangeEvent<bool> evt)
 		{
-			_mutatorsTurnedOn = e.newValue;
-			_mutatorsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !e.newValue);
+			_mutatorsTurnedOn = evt.newValue;
+			_mutatorsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !evt.newValue);
 
-			if (!e.newValue)
+			if (!evt.newValue)
 			{
 				MatchSettings.Mutators = Mutator.None;
 				_mutatorsScroller.Clear();
 			}
 
-			RefreshData(true);
+			if(evt.newValue != evt.previousValue) RefreshData(true);
 		}
 
-		private void OnWeaponFilterToggle(ChangeEvent<bool> e)
+		private void OnWeaponFilterToggle(ChangeEvent<bool> evt)
 		{
-			_weaponFilterTurnedOn = e.newValue;
-			_filterWeaponsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !e.newValue);
+			_weaponFilterTurnedOn = evt.newValue;
+			_filterWeaponsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !evt.newValue);
 
-			if (!e.newValue)
+			if (!evt.newValue)
 			{
 				MatchSettings.WeaponFilter.Clear();
 				_filterWeaponsScroller.Clear();
 			}
 
-			RefreshData(true);
+			if(evt.newValue != evt.previousValue) RefreshData(true);
 		}
 
 		public void SetMatchSettings(CustomMatchSettings settings, bool editable, bool showSpectators)
@@ -158,6 +157,9 @@ namespace FirstLight.Game.Views.UITK
 			_mutatorsButton.SetDisplay(editable);
 			_filterWeaponsToggle.SetEnabled(editable);
 			_filterWeaponsButton.SetDisplay(editable);
+			_allowBotsToggle.SetEnabled(editable);
+			_botDifficultySlider.SetEnabled(editable);
+			_randomizeTeamsToggle.SetEnabled(editable);
 		}
 
 		public void SetSpectators(IEnumerable<Player> spectators)
@@ -172,18 +174,37 @@ namespace FirstLight.Game.Views.UITK
 
 				_spectatorsScrollView.Add(playerElement);
 
-				// TODO: Implement tooltip
+				playerElement.clicked += () =>
+				{
+					var buttons = new List<PlayerContextButton>();
+					if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
+					{
+						buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITCustomGames.option_kick,
+							() => _services.FLLobbyService.KickPlayerFromMatch(player.Id).Forget()));
+					}
+				
+					_services.GameSocialService.OpenPlayerOptions(playerElement, playerElement, player.Id, player.GetPlayerName(), new PlayerContextSettings()
+					{
+						ExtraButtons = buttons,
+					});
+				};
+			
 			}
 		}
 
 		private void OnMapClicked()
 		{
+			var options = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>()
+				.Where(cfg => cfg.Id == MatchSettings.GameModeID)
+				.SelectMany(cfg => cfg.AllowedMaps)
+				.Distinct();
+
 			PopupPresenter.OpenSelectMap(mapId =>
 			{
 				MatchSettings.MapID = mapId;
 				RefreshData(true);
 				PopupPresenter.Close().Forget();
-			}, MatchSettings.GameModeID, MatchSettings.MapID).Forget();
+			}, options, MatchSettings.MapID, false).Forget();
 		}
 
 		private void OnMaxPlayersClicked()
@@ -259,28 +280,28 @@ namespace FirstLight.Game.Views.UITK
 			_teamSizeButton.SetValue(MatchSettings.SquadSize.ToString());
 			_mapButton.SetValue(Enum.Parse<GameId>(MatchSettings.MapID).GetLocalization());
 			_maxPlayersButton.SetValue(MatchSettings.MaxPlayers.ToString());
-			_privateRoomToggle.value = MatchSettings.PrivateRoom;
-			_showCreatorNameToggle.value = MatchSettings.ShowCreatorName;
-			_randomizeTeamsToggle.value = MatchSettings.RandomizeTeams;
-			
+			_privateRoomToggle.SetValueWithoutNotify(MatchSettings.PrivateRoom);
+			_showCreatorNameToggle.SetValueWithoutNotify(MatchSettings.ShowCreatorName);
+			_randomizeTeamsToggle.SetValueWithoutNotify(MatchSettings.RandomizeTeams);
+
 			_mutatorsScroller.Clear();
 			var mutators = MatchSettings.Mutators.GetSetFlags();
-			_mutatorsToggle.value = mutators.Length > 0 || _mutatorsTurnedOn;
-			_allowBotsToggle.value = MatchSettings.BotDifficulty > 0;
-			_botDifficultySlider.value = MatchSettings.BotDifficulty;
+			_mutatorsToggle.SetValueWithoutNotify(mutators.Length > 0 || _mutatorsTurnedOn);
+			_allowBotsToggle.SetValueWithoutNotify(MatchSettings.BotDifficulty > 0);
+			_botDifficultySlider.SetValueWithoutNotify(MatchSettings.BotDifficulty);
 			_botDifficultySlider.EnableInClassList(BOT_SLIDER_HIDDEN, !_allowBotsToggle.value);
 			_mutatorsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !_mutatorsToggle.value);
-			
+
 			foreach (var mutator in mutators)
 			{
 				var mutatorLabel = new LocalizedLabel(mutator.GetLocalizationKey());
 
 				_mutatorsScroller.Add(mutatorLabel);
 			}
-			
+
 			_filterWeaponsScroller.Clear();
 			var weaponFilter = MatchSettings.WeaponFilter;
-			_filterWeaponsToggle.value = weaponFilter.Count > 0 || _weaponFilterTurnedOn;
+			_filterWeaponsToggle.SetValueWithoutNotify(weaponFilter.Count > 0 || _weaponFilterTurnedOn);
 			_filterWeaponsContainer.EnableInClassList(HORIZONTAL_SCROLL_PICKER_HIDDEN, !_filterWeaponsToggle.value);
 
 			foreach (var weapon in weaponFilter)

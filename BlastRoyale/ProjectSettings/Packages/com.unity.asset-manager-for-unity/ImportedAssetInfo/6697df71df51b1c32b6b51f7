@@ -4,8 +4,12 @@
     },
     "FileInfos": [
         {
-            "Guid": "fbafdd1d452016646ba9660e567884cd",
-            "OriginalPath": "Melee_atom_slicer.fbx"
+            "Guid": "6cc5bb49da73e4d08a3a447fc870809a",
+            "OriginalPath": "Melee_AtomSlicer.fbx"
+        },
+        {
+            "Guid": "120a512b2b91e44df810ff204ff7965d",
+            "OriginalPath": "Icon_Melee_AtomSlicer.png"
         }
     ],
     "references": {
@@ -21,18 +25,33 @@
                 "data": {
                     "m_PrimaryExtension": ".fbx",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51f7\\\",\\\"assetVersion\\\":\\\"7b3bc148-6ee5-495c-95a1-04228db391b9\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51f7\",\"assetVersion\":\"7b3bc148-6ee5-495c-95a1-04228db391b9\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.196Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.667Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8yMGEyMzU0Yi03ZDQ0LTRlOWEtOWE1NC0zMDJkZDE1YWMwZTUvNjg2OGY2N2Q0NmE1ZjU3M2VlNDAwMTNmNGE5NTg4MzgvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=dq1ND8C5PoHXrp2tdQLa73VaJgdIpSFlbyp8SzDfEGs%3D\",\"files\":[{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:53.962Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:54.201Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/6642d600-fb43-4e2d-9b4d-f967c8683bf6/8bd797149b0d859bacbbd683638ed213/Melee_atom_slicer.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=2MDzehk6Es4NQt6X2HS%2FO22wvxrEQMqfTfTI7eba%2F3c%3D\",\"filePath\":\"Melee_atom_slicer.fbx\",\"fileSize\":58348,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:53.35Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.35Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9ea01bbe-c8a5-4ac3-a6c3-e62af5f029c3/0becda91127c0974fecc57a5ca5b119d/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=lMBTjxHUW12n8tw%2FVVqneCtXRB5vj3QrWs3wUQhqKfI%3D\",\"filePath\":\"metadata.json\",\"fileSize\":519,\"userChecksum\":\"596a9b937be459fae7ea64cb61d391a5\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:53.728Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.955Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/bee67f0c-68bb-4477-a88e-ae8c6490d2cc/1fa41365a3569da828a158df8673f3a2/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=L7ANS3tHY5AsJ0REb1vofgj%2FUBYtDzOOjaP7XwUmjas%3D\",\"filePath\":\"preview.glb\",\"fileSize\":130716,\"userChecksum\":\"46a1cc32b7bd7ade05d6516db269de48\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:53.734Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.734Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/bee67f0c-68bb-4477-a88e-ae8c6490d2cc/a6c22c03a3596612eda142d4f45ceff5/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=xa6KYgJUoGQNY38Hckix7DNnZVECw2qdEgRDaM7XJ5c%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:16:54.602Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:54.91Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/20a2354b-7d44-4e9a-9a54-302dd15ac0e5/0f5d25177a3a21552ebe56c54883af25/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=rPhnzkcJ5o0cFzHDuh7vep%2BAbgqiF%2BhVtawkf7t173Q%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":75221,\"userChecksum\":\"163d60269057ba4253b69c2a47264c19\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:16:54.612Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.158Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/20a2354b-7d44-4e9a-9a54-302dd15ac0e5/237777e36e0f4cd8d7e38343e389b5d8/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=fyPUuiLgpaLNtsq%2FmW%2FK9RTWegoiKdJdtQvLbedSMnc%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":101266,\"userChecksum\":\"7162f01a64156a6b82395f5e00a99335\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:16:54.619Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.386Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/20a2354b-7d44-4e9a-9a54-302dd15ac0e5/6868f67d46a5f573ee40013f4a958838/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=MEjNuSDcM5EAyERML7INRPiPlTB2OMVLL9%2F8iSX5ZjA%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":123882,\"userChecksum\":\"fe6c217791b2eb2faa6095bd0e783d72\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:16:54.627Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.626Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/20a2354b-7d44-4e9a-9a54-302dd15ac0e5/d8d5cb0e518f6bcfedc7e2d80e96acdf/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=nQs0HMN5Es3ROuoz2Xchl9uMEPOX9%2Bzej2flqx1ENH4%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":115350,\"userChecksum\":\"f0c6dbbe128d095e45ec0c63694626bf\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"6642d600-fb43-4e2d-9b4d-f967c8683bf6\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.202Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:12:55.833Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"0ea8ab8a-068b-4e07-b411-a482a44965b3\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.207Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.632Z\",\"filesOrder\":[\"preview.glb\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"20a2354b-7d44-4e9a-9a54-302dd15ac0e5\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:56.139Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:54.636Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"bee67f0c-68bb-4477-a88e-ae8c6490d2cc\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:56.835Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.741Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"9ea01bbe-c8a5-4ac3-a6c3-e62af5f029c3\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:57.43Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.358Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_atom_slicer\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
-                    "m_AssetComparisonResult": 1,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8yMGEyMzU0Yi03ZDQ0LTRlOWEtOWE1NC0zMDJkZDE1YWMwZTUvNjg2OGY2N2Q0NmE1ZjU3M2VlNDAwMTNmNGE5NTg4MzgvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=dq1ND8C5PoHXrp2tdQLa73VaJgdIpSFlbyp8SzDfEGs%3D",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51f7\\\",\\\"assetVersion\\\":\\\"ae9929ca-0bdc-4f62-b963-3c028a65161c\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51f7\",\"assetVersion\":\"ae9929ca-0bdc-4f62-b963-3c028a65161c\",\"isFrozen\":true,\"versionNumber\":5,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-07T14:58:57.172Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-08-07T14:59:41.887Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_AtomSlicer.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy82NjQyZDYwMC1mYjQzLTRlMmQtOWI0ZC1mOTY3Yzg2ODNiZjYvYmVkZGVlNmU5NDJmY2NlZjE3OTkwOWNmN2Q2NzJkYmQvSWNvbl9NZWxlZV9BdG9tU2xpY2VyLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-08-07T14:59:33Z&ske=2024-08-10T14:59:33Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-10T14:59:33Z&sr=b&sp=r&sig=jRdXVs2X%2FLFSGayPcECf%2FHC7Mfu5t%2FESlW13qXDkBGs%3D\",\"name\":\"Melee_AtomSlicer\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy82NjQyZDYwMC1mYjQzLTRlMmQtOWI0ZC1mOTY3Yzg2ODNiZjYvYmVkZGVlNmU5NDJmY2NlZjE3OTkwOWNmN2Q2NzJkYmQvSWNvbl9NZWxlZV9BdG9tU2xpY2VyLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-08-07T14:59:33Z&ske=2024-08-10T14:59:33Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-10T14:59:33Z&sr=b&sp=r&sig=jRdXVs2X%2FLFSGayPcECf%2FHC7Mfu5t%2FESlW13qXDkBGs%3D",
                     "m_SourceFiles": [
                         {
                             "rid": 1001
+                        },
+                        {
+                            "rid": 1002
                         }
                     ],
                     "m_UVCSFiles": [],
                     "m_Versions": [
                         {
-                            "rid": 1002
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
                         }
                     ]
                 }
@@ -45,15 +64,32 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_Path": "Melee_atom_slicer.fbx",
+                    "m_Path": "Icon_Melee_AtomSlicer.png",
+                    "m_Available": true,
                     "m_Description": "",
                     "m_Tags": [],
-                    "m_FileSize": 58348,
+                    "m_FileSize": 62727,
                     "m_Guid": ""
                 }
             },
             {
                 "rid": 1002,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Melee_AtomSlicer.fbx",
+                    "m_Available": true,
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 63168,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1003,
                 "type": {
                     "class": "AssetData",
                     "ns": "Unity.AssetManager.Editor",
@@ -62,14 +98,162 @@
                 "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51f7\\\",\\\"assetVersion\\\":\\\"7b3bc148-6ee5-495c-95a1-04228db391b9\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51f7\",\"assetVersion\":\"7b3bc148-6ee5-495c-95a1-04228db391b9\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[\"Pending\"],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.196Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:16:55.667Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Melee_atom_slicer\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51f7\\\",\\\"assetVersion\\\":\\\"ae9929ca-0bdc-4f62-b963-3c028a65161c\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51f7\",\"assetVersion\":\"ae9929ca-0bdc-4f62-b963-3c028a65161c\",\"isFrozen\":true,\"versionNumber\":5,\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[\"Latest\"],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-07T14:58:57.172Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-08-07T14:59:41.887Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_AtomSlicer.png\",\"name\":\"Melee_AtomSlicer\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
                     "m_AssetComparisonResult": 0,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
                     "m_UVCSFiles": [],
                     "m_Versions": [
                         {
-                            "rid": 1002
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1004,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51f7\\\",\\\"assetVersion\\\":\\\"0acebc1f-9432-4359-8dcb-7dc225a11a70\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51f7\",\"assetVersion\":\"0acebc1f-9432-4359-8dcb-7dc225a11a70\",\"isFrozen\":true,\"versionNumber\":4,\"paraentAssetVersion\":null,\"parentVersionNumber\":3,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-08-06T11:52:28.628Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-08-06T11:52:40.17Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Atom-Slicer.png\",\"name\":\"Melee_atom_slicer\",\"description\":\"\",\"tags\":[],\"primaryType\":\"2D Asset\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1005,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51f7\\\",\\\"assetVersion\\\":\\\"59400d98-d018-412c-8255-f733d997c060\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51f7\",\"assetVersion\":\"59400d98-d018-412c-8255-f733d997c060\",\"isFrozen\":true,\"versionNumber\":3,\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-08-06T11:52:12.287Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-08-06T11:52:23.869Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Atom-Slicer.png\",\"name\":\"Melee_atom_slicer\",\"description\":\"\",\"tags\":[],\"primaryType\":\"2D Asset\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1006,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51f7\\\",\\\"assetVersion\\\":\\\"5b0147b5-2bc9-438c-be67-1b6efa5a1cf3\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51f7\",\"assetVersion\":\"5b0147b5-2bc9-438c-be67-1b6efa5a1cf3\",\"isFrozen\":true,\"versionNumber\":2,\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-08-05T12:30:17.482Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-08-05T12:30:25.879Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Atom-Slicer.png\",\"name\":\"Melee_atom_slicer\",\"description\":\"\",\"tags\":[],\"primaryType\":\"2D Asset\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1007,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51f7\\\",\\\"assetVersion\\\":\\\"7b3bc148-6ee5-495c-95a1-04228db391b9\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51f7\",\"assetVersion\":\"7b3bc148-6ee5-495c-95a1-04228db391b9\",\"isFrozen\":true,\"versionNumber\":1,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\",\"Pending\"],\"status\":\"Approved\",\"created\":\"2024-07-17T15:12:49.196Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-30T19:24:26.476Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Atom-Slicer.png\",\"name\":\"Melee_atom_slicer\",\"description\":\"\",\"tags\":[],\"primaryType\":\"2D Asset\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        },
+                        {
+                            "rid": 1005
+                        },
+                        {
+                            "rid": 1006
+                        },
+                        {
+                            "rid": 1007
                         }
                     ]
                 }

@@ -16,6 +16,8 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     top: 255px;
     background-image: var(--sprite-shared__background-notification);
-    width: 932px;
-    -unity-text-align: upper-center;
+    width: 1125px;
+    -unity-text-align: middle-center;
+    height: 90px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.71);
 }

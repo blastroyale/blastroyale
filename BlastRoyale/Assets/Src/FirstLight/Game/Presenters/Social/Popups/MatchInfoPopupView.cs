@@ -158,6 +158,12 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_summary.text = _entryInfo.Entry.Visual.LongDescriptionTranslationKey.GetText();
 			_actionButton.LocalizationKey = ScriptTerms.UITGameModeSelection.select_event;
 			_actionButton.AddToClassList("button-long--green");
+			
+			if (!string.IsNullOrWhiteSpace(_entryInfo.Entry.Visual.ImageModifier))
+			{
+				_eventImage.AddToClassList($"event-thumbnail__image--{_entryInfo.Entry.Visual.ImageModifier}");
+			}
+			
 			CheckCustomImage();
 			_rewardList.Clear();
 			foreach (var mod in _matchSettings.RewardModifiers)

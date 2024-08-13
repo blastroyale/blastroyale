@@ -19,6 +19,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_SUB_TITLE = USS_BLOCK + "__subtitle";
 		private const string USS_BACK = USS_BLOCK + "__back";
 		private const string USS_SEPARATOR = USS_BLOCK + "__separator";
+		private const string USS_NO_BUTTON = USS_BLOCK + "__no-button";
 
 		/// <summary>
 		/// Triggered when the back button is clicked.
@@ -68,6 +69,12 @@ namespace FirstLight.Game.UIElements
 		public void SetButtonsVisibility(bool shouldShow)
 		{
 			EnableInClassList(USS_DISABLE_BUTTONS_MODIFIER, !shouldShow);
+
+			if (!shouldShow)
+			{
+				_title.AddToClassList(USS_NO_BUTTON);
+				_subTitle.AddToClassList(USS_NO_BUTTON);
+			}
 		}
 
 		/// <summary>

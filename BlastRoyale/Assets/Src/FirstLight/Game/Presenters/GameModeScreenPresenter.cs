@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
@@ -43,7 +44,7 @@ namespace FirstLight.Game.Presenters
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
-		private LocalizedDropDown _mapDropDown;
+		private MatchSettingsButtonElement _mapButton;
 		private List<GameId> _mapGameIds;
 
 		private List<GameModeSelectionButtonView> _buttonViews;
@@ -62,9 +63,10 @@ namespace FirstLight.Game.Presenters
 			_buttonsSlider = Root.Q<ScrollView>("ButtonsSlider").Required();
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked = Data.OnBackClicked;
-			_mapDropDown = Root.Q<LocalizedDropDown>("Map").Required();
-			FillMapSelectionList();
-			_mapDropDown.RegisterValueChangedCallback(OnMapSelected);
+			_mapButton = Root.Q<MatchSettingsButtonElement>("MapButton").Required();
+
+			_mapButton.clicked += OnMapButtonClicked;
+			_mapButton.SetValue(_services.GameModeService.SelectedMap.GetLocalization());
 
 			var orderNumber = 1;
 			// Clear the slide from the test values
@@ -115,16 +117,22 @@ namespace FirstLight.Game.Presenters
 			UpdateMapDropdownVisibility();
 		}
 
-		private void UpdateMapDropdownVisibility()
+		private void OnMapButtonClicked()
 		{
-			_mapDropDown.SetDisplay(_services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.MapId == (int) GameId.Any);
+			var validMaps = _services.GameModeService.ValidMatchmakingMaps;
+
+			PopupPresenter.OpenSelectMap(mapId =>
+			{
+				var mapGid = Enum.Parse<GameId>(mapId);
+				_services.GameModeService.SelectedMap = mapGid;
+				_mapButton.SetValue(mapGid.GetLocalization());
+				PopupPresenter.Close().Forget();
+			}, validMaps, _services.GameModeService.SelectedMap.ToString(), true).Forget();
 		}
 
-		private void OnMapSelected(ChangeEvent<string> evt)
+		private void UpdateMapDropdownVisibility()
 		{
-			var index = _mapDropDown.index;
-			var selected = _mapGameIds[index];
-			_services.GameModeService.SelectedMap = selected;
+			_mapButton.SetDisplay(_services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.MapId == (int) GameId.Any);
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -157,8 +165,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_buttonViews[index].SetData(current);
 		}
-		
-		
+
 		private void OnLobbyChanged(ILobbyChanges changes)
 		{
 			foreach (var view in _buttonViews)
@@ -205,36 +212,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			UpdateMapDropdownVisibility();
-		}
-
-		private void FillMapSelectionList()
-		{
-			var menuChoices = new List<string>();
-			_mapGameIds = new List<GameId>();
-			int selectedIndex = 0;
-			int index = 0;
-
-			foreach (var mapId in _services.GameModeService.ValidMatchmakingMaps)
-			{
-				menuChoices.Add(mapId.GetLocalization());
-				_mapGameIds.Add(mapId);
-				if (_services.GameModeService.SelectedMap == mapId)
-				{
-					selectedIndex = index;
-				}
-
-				index++;
-			}
-
-			menuChoices.Add(ScriptLocalization.UITGameModeSelection.random_map);
-			_mapGameIds.Add(GameId.Any);
-			if (_services.GameModeService.SelectedMap == GameId.Any)
-			{
-				selectedIndex = index;
-			}
-
-			_mapDropDown.choices = menuChoices;
-			_mapDropDown.index = selectedIndex;
 		}
 	}
 }

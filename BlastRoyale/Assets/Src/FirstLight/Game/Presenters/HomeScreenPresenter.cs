@@ -105,7 +105,8 @@ namespace FirstLight.Game.Presenters
 					OnEditNameClicked = () =>
 					{
 						Data.OnProfileClicked();
-					}
+					},
+					CanOpenLeaderboards = true
 				};
 
 				OpenStats(data);

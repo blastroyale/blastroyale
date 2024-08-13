@@ -113,32 +113,32 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					switch (collectable.GameId)
 					{
 						case GameId.ModPistol:
-							_itemGameObject.transform.localScale = new Vector3(2f, 2f, 2f);
-							_itemGameObject.transform.position += new Vector3(0f, -0.6f, 0f);
+							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.19f);
 							break;
 						case GameId.ModSniper:
-							_itemGameObject.transform.localScale = new Vector3(2f, 2f, 2f);
-							_itemGameObject.transform.position += new Vector3(0f, -0.6f, 0f);
+							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.07f);
 							break;
 						case GameId.ApoMinigun:
-							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
-							_itemGameObject.transform.position += new Vector3(0f, -0.5f, 0.17f);
+							_itemGameObject.transform.localScale = new Vector3(2.4f, 2.4f, 2.4f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.5f, 0.38f);
 							break;
 						case GameId.ModMachineGun:
-							_itemGameObject.transform.localScale = new Vector3(1.6f, 1.6f, 1.6f);
-							_itemGameObject.transform.position += new Vector3(0f, -0.4f, -0.15f);
+							_itemGameObject.transform.localScale = new Vector3(2f, 2f, 2f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.65f, -0.42f);
 							break;
 						case GameId.ModShotgun:
-							_itemGameObject.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
-							_itemGameObject.transform.position += new Vector3(0f, -0.5f, 0f);
+							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.09f);
 							break;
 						case GameId.ModLauncher:
-							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
-							_itemGameObject.transform.position += new Vector3(0f, -0.7f, 0f);
+							_itemGameObject.transform.localScale = new Vector3(2.3f, 2.3f, 2.5f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.8f, -0.14f);
 							break;
 						case GameId.ModRifle:
-							_itemGameObject.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
-							_itemGameObject.transform.position += new Vector3(0f, -0.5f, 0f);
+							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.75f, -0.23f);
 							break;
 					}
 				}

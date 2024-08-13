@@ -22,8 +22,19 @@ namespace Quantum.Systems
 				!f.Unsafe.TryGetPointer<Stats>(info.Other, out var damaged)) return;
 
 			if (landMine->TriggerableAfter == FP._0 || landMine->TriggerableAfter > f.Time) return;
-			// The owner can't trigger the mine for 2 seconds after placing it
-			if (landMine->Owner == info.Other && landMine->TriggerableAfter + FP._2 > f.Time) return;
+			
+			// The owner can't trigger the landmine
+			if (landMine->Owner == info.Other) return;
+			
+			// Teammates can't trigger the landmine too
+			if (f.Unsafe.TryGetPointer<Targetable>(landMine->Owner, out var ownerTeam)
+				&& f.Unsafe.TryGetPointer<Targetable>(info.Other, out var collidedTeam))
+			{
+				if (ownerTeam->Team == collidedTeam->Team)
+				{
+					return;
+				}
+			}
 
 			// Triggers the mine here and wait a few seconds before exploding
 			TriggerLandMine(f, info.Entity, info.Other, landMine);

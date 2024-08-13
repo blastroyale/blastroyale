@@ -131,15 +131,17 @@ namespace FirstLight.Game.Presenters
 					changes.Data.Value.TryGetValue(FLLobbyService.KEY_LOBBY_MATCH_ROOM_NAME, out var value))
 				{
 					var joinProperties = new PlayerJoinRoomProperties();
-
+					
 					var squadSize = _services.FLLobbyService.CurrentMatchLobby.GetMatchSettings().SquadSize;
 					var localPlayer = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
-					var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
-
-					joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
-					joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
-					joinProperties.Spectator = localPlayer.IsSpectator() || localPlayerPosition < 0;
-
+	
+					if (!localPlayer.IsSpectator())
+					{
+						var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
+						joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
+						joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
+					}
+					joinProperties.Spectator = localPlayer.IsSpectator();
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
 				}

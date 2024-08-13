@@ -149,6 +149,14 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		{
 			return player.Data[FLLobbyService.KEY_SPECTATOR].Value == "true";
 		}
+		
+		/// <summary>
+		/// Gets non spectators and bots
+		/// </summary>
+		public static IReadOnlyList<Player> RealPlayers(this Lobby l)
+		{
+			return l.Players.Where(p => !p.IsSpectator()).ToList();
+		}
 
 		public static string ParseError(this FriendsServiceException e)
 		{

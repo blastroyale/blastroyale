@@ -103,7 +103,6 @@ namespace FirstLight.Game.Presenters.Social.Team
 			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= OnInvitesUpdated;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined -= OnLocalLobbyJoined;
 			_services.FLLobbyService.CurrentPartyCallbacks.OnDeclinedInvite -= OnDeclinedInvite;
-
 		}
 
 		private void OnLocalLobbyJoined(Lobby l)
@@ -287,7 +286,9 @@ namespace FirstLight.Game.Presenters.Social.Team
 				}
 
 				_noFriendsLabel.SetDisplay(friends.Count == 0);
-				_friendsOnlineList.itemsSource = _friends = friends.Values.OrderBy(a => _services.GameSocialService.CanInvite(a) ? 0 : 1).ToList();
+				_friends = friends.Values.ToList();
+				_friends.Sort(FriendsServiceExtensions.FriendDefaultSorter());
+				_friendsOnlineList.itemsSource = _friends;
 				_friendsOnlineLabel.text = string.Format(ScriptLocalization.UITParty.online_friends, friendsCount);
 			});
 		}

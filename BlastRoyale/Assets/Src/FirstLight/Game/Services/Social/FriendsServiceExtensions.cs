@@ -92,11 +92,11 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			try
 			{
 				FLog.Info($"Blocking player: {playerID}");
-				
+
 				await friendsService.AddBlockAsync(playerID).AsUniTask();
-				
+
 				var tasks = new List<UniTask>();
-				
+
 				var currentInvite = friendsService.Relationships.FirstOrDefault(rl => rl.Type == RelationshipType.FriendRequest && rl.Member.Id == playerID);
 				if (currentInvite != null)
 				{
@@ -108,9 +108,9 @@ namespace FirstLight.Game.Utils.UCSExtensions
 				{
 					tasks.Add(friendsService.DeleteRelationshipAsync(friendRelationship.Id).AsUniTask());
 				}
-				
+
 				await UniTask.WhenAll(tasks);
-				
+
 				FLog.Info($"Player blocked: {playerID}");
 				services.NotificationService.QueueNotification("#Player blocked#");
 				return true;
@@ -118,7 +118,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error blocking player", e);
-				
+
 				services.NotificationService.QueueNotification($"#Error blocking player, {e.ParseError()}#");
 				return false;
 			}
@@ -171,6 +171,29 @@ namespace FirstLight.Game.Utils.UCSExtensions
 				services.NotificationService.QueueNotification($"#Error removing player, {e.ErrorCode.ToStringSeparatedWords()}#");
 				return false;
 			}
+		}
+
+		public static Comparison<Relationship> FriendDefaultSorter()
+		{
+			var social = MainInstaller.ResolveServices().GameSocialService;
+			return (a, b) =>
+			{
+				if (a.IsOnline() && b.IsOnline())
+				{
+					if (social.CanInvite(a) && !social.CanInvite(b))
+					{
+						return -1;
+					}
+					return a.Member.Profile.Name.CompareTo(b.Member.Profile.Name);
+				}
+
+				if (a.IsOnline())
+				{
+					return -1;
+				}
+
+				return b.Member.Presence.LastSeen.CompareTo(a.Member.Presence.LastSeen);
+			};
 		}
 	}
 }

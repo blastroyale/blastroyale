@@ -448,8 +448,6 @@ namespace FirstLight.Game.StateMachines
 			var position = entityView.transform.position;
 			_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, position);
 
-			var dropsFx = _services.AudioFxService.PlayClip3D(AudioId.MissileFlyLoop, position);
-
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropComing, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			_services.AudioFxService.PlayClip2D(AudioId.AirdropComing, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 		}
@@ -710,22 +708,11 @@ namespace FirstLight.Game.StateMachines
 					pos = entityView.transform.position;
 					followTransform = entityView.transform;
 					break;
-
-				case SpecialType.Airstrike:
-					audio = AudioId.MissileFlyLoop;
-					pos = callback.HitPosition.ToUnityVector3();
-					break;
 			}
 
 			var audioSource = _services.AudioFxService.PlayClip3D(audio, pos);
 
-			if (audio == AudioId.MissileFlyLoop)
-			{
-				var despawnEvents = new[] {nameof(EventOnHazardLand)};
-
-				_trackedClips.Add(new TrackedAudioClip(audioSource, despawnEvents, callback.Entity));
-			}
-			else if (audio != AudioId.None)
+			if (audio != AudioId.None)
 			{
 				_services.AudioFxService.PlayClip3D(audio, pos);
 			}

@@ -148,7 +148,20 @@ namespace FirstLight.Game.Presenters
 			{
 				_friends = FriendsService.Instance.Friends.ToList();
 				// Sort by last seen so online friends are at the top
-				_friends.Sort((a, b) => b.IsOnline().CompareTo(a.IsOnline()));
+				_friends.Sort(((a, b) =>
+				{
+					if (a.IsOnline() && b.IsOnline())
+					{
+						return a.Member.Profile.Name.CompareTo(b.Member.Profile.Name);
+					}
+
+					if (a.IsOnline())
+					{
+						return -1;
+					}
+
+					return b.Member.Presence.LastSeen.CompareTo(a.Member.Presence.LastSeen);
+				} ));
 				_friendsList.itemsSource = _friends;
 				_friendsList.RefreshItems();
 

@@ -172,5 +172,10 @@ namespace FirstLight.Tests.EditorMode
 		{
 			throw new System.NotImplementedException();
 		}
+
+		public bool HasTeamMembers()
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

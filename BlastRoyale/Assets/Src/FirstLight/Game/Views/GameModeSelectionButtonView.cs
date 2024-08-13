@@ -234,7 +234,7 @@ namespace FirstLight.Game.Views
 
 		public void UpdateDisabledStatus()
 		{
-			if (GameModeInfo.Entry.MatchConfig.MatchType == MatchType.Custom && _lobbyService.CurrentPartyLobby != null)
+			if (GameModeInfo.Entry.MatchConfig.MatchType == MatchType.Custom && _lobbyService.HasTeamMembers())
 			{
 				Disabled = true;
 				return;

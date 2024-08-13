@@ -33,6 +33,7 @@ namespace FirstLight.Game.Presenters
 			public string PlayfabID;
 			public string UnityID;
 			public Action OnEditNameClicked;
+			public bool CanOpenLeaderboards;
 		}
 
 		private IGameServices _services;
@@ -153,6 +154,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenLeaderboard(string leaderboardName, string metric)
 		{
+			if (!Data.CanOpenLeaderboards) return;
 			_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>();
 			_services.UIService.OpenScreen<GlobalLeaderboardScreenPresenter>(new GlobalLeaderboardScreenPresenter.StateData()
 			{

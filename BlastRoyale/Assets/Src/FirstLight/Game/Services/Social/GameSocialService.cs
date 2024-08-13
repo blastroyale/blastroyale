@@ -46,10 +46,7 @@ namespace FirstLight.Game.Services
 
 		[Preserve, DataMember(Name = "avatar", IsRequired = true, EmitDefaultValue = true)]
 		public string AvatarUrl { get; set; }
-
-		[Preserve, DataMember(Name = "team", IsRequired = false, EmitDefaultValue = true), CanBeNull]
-		public string TeamId { get; set; }
-
+		
 		[Preserve, DataMember(Name = "region", IsRequired = false, EmitDefaultValue = true), CanBeNull]
 		public string Region { get; set; }
 
@@ -93,6 +90,7 @@ namespace FirstLight.Game.Services
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += _ => OnJoinedParty();
+			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += _ => UpdateCurrentPlayerActivity();
 
 			services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyJoined += _ => UpdateCurrentPlayerActivity();
 			services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
@@ -113,10 +111,7 @@ namespace FirstLight.Game.Services
 			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => UpdateCurrentPlayerActivity());
 			services.UIService.OnScreenOpened += (screen, _) =>
 			{
-				if (nameof(SpectateScreenPresenter).Contains(screen) || nameof(HomeScreenPresenter).Contains(screen))
-				{
-					UpdateCurrentPlayerActivity();
-				}
+				UpdateCurrentPlayerActivity();
 			};
 			_services = services;
 		}
@@ -153,11 +148,8 @@ namespace FirstLight.Game.Services
 				return spectating ? GameActivities.Spectating : GameActivities.In_match;
 			}
 
-			if (_services.RoomService.IsJoiningRoom
-				|| _services.UIService.IsScreenOpen<LeaderboardAndRewardsScreenPresenter>()
-				|| _services.UIService.IsScreenOpen<WinnersScreenPresenter>()
-				|| _services.UIService.IsScreenOpen<WinnerScreenPresenter>()
-			   )
+			// If this is bindinded player is not in the main menu, dirty ugly hack
+			if (MainInstaller.TryResolve<IMatchServices>(out _ ))
 			{
 				return GameActivities.In_match;
 			}
@@ -172,7 +164,7 @@ namespace FirstLight.Game.Services
 				return GameActivities.In_game_lobby;
 			}
 
-			if (_services.FLLobbyService.IsInPartyLobby())
+			if (_services.FLLobbyService.IsInPartyLobby() && _services.FLLobbyService.HasTeamMembers())
 			{
 				return GameActivities.In_team;
 			}
@@ -202,12 +194,7 @@ namespace FirstLight.Game.Services
 			if (activity.Region != _services.LocalPrefsService.ServerRegion.Value)
 			{
 				return false;
-			}
-
-			if (!string.IsNullOrEmpty(activity.TeamId))
-			{
-				return false;
-			}
+			}	
 
 			if (_services.FLLobbyService.CurrentMatchLobby != null && _services.FLLobbyService.SentMatchInvites.Contains(friend.Member.Id))
 			{
@@ -232,7 +219,6 @@ namespace FirstLight.Game.Services
 				var data = MainInstaller.ResolveData();
 				_playerActivity.CurrentActivity = (int) activity;
 				_playerActivity.AvatarUrl = data.AppDataProvider.AvatarUrl;
-				_playerActivity.TeamId = _services.FLLobbyService.CurrentPartyLobby?.Id;
 				_playerActivity.Region = _services.LocalPrefsService.ServerRegion.Value;
 				_playerActivity.Trophies = (int) data.PlayerDataProvider.Trophies.Value;
 				FLog.Verbose("Setting social activity as " + JsonConvert.SerializeObject(_playerActivity));

@@ -192,6 +192,12 @@ namespace FirstLight.Game.Services
 		/// Checks if the player is in lobby
 		/// </summary>
 		bool IsInMatchLobby();
+
+		/// <summary>
+		/// Return if the player is in a party and has team members
+		/// </summary>
+		/// <returns></returns>
+		bool HasTeamMembers();
 	}
 
 	public class PartyInvite
@@ -320,7 +326,7 @@ namespace FirstLight.Game.Services
 			await UpdateMatchLobby(matchSettings, matchGrid, true);
 
 			var services = MainInstaller.ResolveServices();
-			
+
 			// TODO: remove the hack
 			((IInternalGameNetworkService) services.NetworkService).JoinSource.Value = JoinRoomSource.FirstJoin;
 			var setup = new MatchRoomSetup
@@ -346,6 +352,7 @@ namespace FirstLight.Game.Services
 					services.NotificationService.QueueNotification("Error starting match");
 					return;
 				}
+
 				await services.FLLobbyService.SetMatchRoom(setup.RoomIdentifier);
 				await services.FLLobbyService.LeaveMatch();
 			}
@@ -355,12 +362,11 @@ namespace FirstLight.Game.Services
 				LeaveMatch().Forget();
 			}
 		}
-		
+
 		private bool CanStartGame()
 		{
 			return MainInstaller.ResolveServices().RoomService.InRoom;
 		}
-
 
 		private void OnMatchDeleted()
 		{
@@ -641,6 +647,11 @@ namespace FirstLight.Game.Services
 		public bool IsInPartyLobby() => CurrentPartyLobby != null;
 		public bool IsInMatchLobby() => CurrentMatchLobby != null;
 
+		public bool HasTeamMembers()
+		{
+			return CurrentPartyLobby?.Players.Count > 1;
+		}
+
 		public async UniTask<List<Lobby>> GetPublicMatches(bool allRegions = false)
 		{
 			var options = new QueryLobbiesOptions
@@ -841,8 +852,8 @@ namespace FirstLight.Game.Services
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
-			FLog.Info("Setting lobby game room: "+roomName);
-	
+			FLog.Info("Setting lobby game room: " + roomName);
+
 			var options = new UpdateLobbyOptions
 			{
 				Data = new Dictionary<string, DataObject>

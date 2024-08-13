@@ -193,7 +193,7 @@ namespace FirstLight.Game.Presenters
 			if (Data.UnityID != null)
 			{
 				// If PlayfabID is null we fetch it from CloudSave.
-				Data.PlayfabID ??= await CloudSaveService.Instance.LoadPlayfabID(Data.UnityID);
+				Data.PlayfabID ??= (await CloudSaveService.Instance.LoadPlayerDataAsync(Data.UnityID)).PlayfabID;
 			}
 
 			if (Data.PlayfabID != null)

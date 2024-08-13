@@ -5,6 +5,9 @@ using System.Runtime.Serialization;
 using Best.HTTP.Shared.PlatformSupport.IL2CPP;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
@@ -13,6 +16,7 @@ using I2.Loc;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Quantum;
+using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 using UnityEngine.UIElements;
@@ -87,6 +91,7 @@ namespace FirstLight.Game.Services
 
 		public GameSocialService(IGameServices services)
 		{
+			_services = services;
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += _ => OnJoinedParty();
@@ -113,7 +118,15 @@ namespace FirstLight.Game.Services
 			{
 				UpdateCurrentPlayerActivity();
 			};
-			_services = services;
+			services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnEquippedAvatar);
+		}
+
+		private void OnEquippedAvatar(CollectionItemEquippedMessage msg)
+		{
+			if (msg.Category != CollectionCategories.PROFILE_PICTURE) return;
+			var config = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
+			var url = AvatarHelpers.GetAvatarUrl(msg.EquippedItem, config);
+			CloudSaveService.Instance.SaveAvatarURLAsync(url).Forget();
 		}
 
 		private void OnJoinedParty()

@@ -53,6 +53,13 @@
 .party-joined {
 }
 
+.your-team-label {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.party-joined .your-team-label {
+    opacity: 1;
+}
 .party-joined .container-your-team {
     background-color: #40A91C;
 }

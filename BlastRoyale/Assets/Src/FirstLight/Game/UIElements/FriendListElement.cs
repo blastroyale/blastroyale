@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
@@ -21,8 +22,6 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class FriendListElement : ImageButton
 	{
-		private static readonly BatchQueue _batchQueue = new (2);
-
 		private const string USS_BLOCK = "friend-list-element";
 		private const string USS_LOCAL_MODIFIER = USS_BLOCK + "--local";
 		private const string USS_OFFLINE_MODIFIER = USS_BLOCK + "--offline";
@@ -141,7 +140,7 @@ namespace FirstLight.Game.UIElements
 			var stringTrophies = partyPlayer.GetProperty(FLLobbyService.KEY_TROHPIES);
 			int.TryParse(stringTrophies, out var trophies);
 
-			FillElementsFromHack(new CacheHackData()
+			FillElementsFromHack(new PlayfabUnityBridgeService.CacheHackData()
 			{
 				AvatarUrl = partyPlayer.GetProperty(FLLobbyService.KEY_AVATAR_URL),
 				Trophies = trophies,
@@ -180,7 +179,7 @@ namespace FirstLight.Game.UIElements
 			_avatar.SetDisplay(true);
 			if (!string.IsNullOrEmpty(activity?.AvatarUrl))
 			{
-				FillElementsFromHack(new CacheHackData()
+				FillElementsFromHack(new PlayfabUnityBridgeService.CacheHackData()
 				{
 					Trophies = activity.Trophies,
 					AvatarUrl = activity.AvatarUrl,
@@ -195,16 +194,7 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		private class CacheHackData
-		{
-			public string AvatarUrl;
-			public int Trophies;
-			public string PlayerName;
-		}
-
-		private static Dictionary<string, CacheHackData> _cacheHack = new ();
-
-		private void FillElementsFromHack(CacheHackData hack)
+		private void FillElementsFromHack(PlayfabUnityBridgeService.CacheHackData hack)
 		{
 			SetAvatar(hack.AvatarUrl);
 			SetPlayerName(hack.PlayerName, hack.Trophies);
@@ -214,47 +204,16 @@ namespace FirstLight.Game.UIElements
 		{
 			var services = MainInstaller.ResolveServices();
 			var unityId = relationship.Member.Id;
-			if (_cacheHack.TryGetValue(unityId, out var hackData))
+
+			var data = await services.PlayfabUnityBridgeService.LoadDataForPlayer(unityId, relationship.Member.Profile?.Name?.TrimPlayerNameNumbers());
+			if (panel == null || parent == null) return;
+			if (data == null)
 			{
-				FillElementsFromHack(hackData);
+				_avatar.SetFailedState();
 				return;
 			}
 
-			FLog.Verbose("Setting avatar hack for " + unityId + " playfabid ");
-			try
-			{
-				var playfabid = await CloudSaveService.Instance.LoadPlayfabID(unityId);
-				if (playfabid == null)
-				{
-					_avatar.SetFailedState();
-					return;
-				}
-
-				_batchQueue.Add(async () =>
-				{
-					if (this.panel == null || this.parent == null) return;
-					var profile = await services.ProfileService.GetPlayerPublicProfile(playfabid);
-					_cacheHack[unityId] = new CacheHackData()
-					{
-						AvatarUrl = profile.AvatarUrl,
-						Trophies = profile.Statistics.Where(st => st.Name == GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME)
-							.Select(s => s.Value)
-							.FirstOrDefault(),
-						PlayerName = relationship.Member.Profile?.Name?.TrimPlayerNameNumbers()
-					};
-					if (_cacheHack[unityId].AvatarUrl == null)
-					{
-						_avatar.SetFailedState();
-						return;
-					}
-
-					FillElementsFromHack(_cacheHack[unityId]);
-				});
-			}
-			catch (Exception e)
-			{
-				FLog.Warn($"Error setting friend unityid {unityId} avatar", e);
-			}
+			FillElementsFromHack(data);
 		}
 
 		public FriendListElement SetPlayerName(string playerName, int trophies)

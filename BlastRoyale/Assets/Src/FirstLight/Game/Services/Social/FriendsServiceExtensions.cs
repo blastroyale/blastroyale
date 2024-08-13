@@ -62,8 +62,8 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			{
 				FLog.Info($"Sending friend request: {playerID}");
 
-				var playfabId = await CloudSaveService.Instance.LoadPlayfabID(playerID);
-				if (playfabId == null)
+				var playerData = await CloudSaveService.Instance.LoadPlayerDataAsync(playerID);
+				if (playerData?.PlayfabID == null)
 				{
 					services.NotificationService.QueueNotification("Player not found");
 					return false;
@@ -184,12 +184,22 @@ namespace FirstLight.Game.Utils.UCSExtensions
 					{
 						return -1;
 					}
+					if (!social.CanInvite(a) && social.CanInvite(b))
+					{
+						return 1;
+					}
+
 					return a.Member.Profile.Name.CompareTo(b.Member.Profile.Name);
 				}
 
 				if (a.IsOnline())
 				{
 					return -1;
+				}
+
+				if (b.IsOnline())
+				{
+					return 1;
 				}
 
 				return b.Member.Presence.LastSeen.CompareTo(a.Member.Presence.LastSeen);

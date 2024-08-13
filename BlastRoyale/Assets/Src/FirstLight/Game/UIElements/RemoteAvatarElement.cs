@@ -54,19 +54,7 @@ namespace FirstLight.Game.UIElements
 
 		public async UniTask SetAvatar(UniTask<Texture2D> task)
 		{
-			var delay = UniTask.Delay(100);
-			task = task.Preserve();
-			var index = await UniTask.WhenAny(delay, task);
-			if (index == 1) // Finished loading image before 100 ms so lets skip all the loading visuals
-			{
-				if (!this.IsAttached()) return;
-				CleanLoadingState(true);
-				_realAvatar.AddClass("remote-avatar--fast-loaded");
-			}
-			else
-			{
-				SetLoading();
-			}
+			SetLoading();
 
 			try
 			{

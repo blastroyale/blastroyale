@@ -174,7 +174,21 @@ namespace FirstLight.Game.Views.UITK
 
 				_spectatorsScrollView.Add(playerElement);
 
-				// TODO: Implement tooltip
+				playerElement.clicked += () =>
+				{
+					var buttons = new List<PlayerContextButton>();
+					if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
+					{
+						buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITCustomGames.option_kick,
+							() => _services.FLLobbyService.KickPlayerFromMatch(player.Id).Forget()));
+					}
+				
+					_services.GameSocialService.OpenPlayerOptions(playerElement, playerElement, player.Id, player.GetPlayerName(), new PlayerContextSettings()
+					{
+						ExtraButtons = buttons,
+					});
+				};
+			
 			}
 		}
 

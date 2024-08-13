@@ -257,7 +257,6 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			
-			var matchSettings = _matchSettingsView.MatchSettings;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			var matchGrid = matchLobby.GetPlayerGrid();
 

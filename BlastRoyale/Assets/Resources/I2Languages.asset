@@ -16392,7 +16392,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinNfl
+    - Term: GameIds/PlayerSkinNFL
       TermType: 0
       Description: 
       Languages:
@@ -16403,7 +16403,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinNflDescription
+    - Term: GameIds/PlayerSkinNFLDescription
       TermType: 0
       Description: 
       Languages:
@@ -16436,7 +16436,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkin
+    - Term: GameIds/PlayerSkinWitch
       TermType: 0
       Description: 
       Languages:
@@ -16447,7 +16447,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinDescription
+    - Term: GameIds/PlayerSkinWitchDescription
       TermType: 0
       Description: 
       Languages:
@@ -30144,7 +30144,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You have left the party
+      - You have left the team
       - 
       - 
       - 
@@ -30186,7 +30186,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1723126266748
+    Google_LastUpdatedVersion: 1723204101622
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -321,9 +321,14 @@ namespace FirstLight.Game.Services
 			var matchSettings = msg.Settings;
 			var matchLobby = CurrentMatchLobby;
 			await _matchUpdateQueue.Dispose();
+			
 			var matchGrid = matchLobby.GetPlayerGrid();
-			matchGrid.ShuffleStack();
-			await UpdateMatchLobby(matchSettings, matchGrid, true);
+			
+			if (matchSettings.RandomizeTeams)
+			{
+				matchGrid.ShuffleStack();
+				await UpdateMatchLobby(matchSettings, matchGrid, true);
+			}
 
 			var services = MainInstaller.ResolveServices();
 
@@ -336,15 +341,17 @@ namespace FirstLight.Game.Services
 			};
 			var squadSize = matchSettings.SquadSize;
 			var localPlayer = matchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
-			var localPlayerPosition = matchLobby.GetPlayerPosition(localPlayer);
+			var localPlayerPosition = matchGrid.GetPosition(localPlayer.Id);
 			try
 			{
-				await services.RoomService.CreateRoomAsync(setup, new PlayerJoinRoomProperties()
+				var props = new PlayerJoinRoomProperties()
 				{
 					TeamColor = (byte) (localPlayerPosition % squadSize),
 					Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString(),
 					Spectator = localPlayer.IsSpectator()
-				});
+				};
+				
+				await services.RoomService.CreateRoomAsync(setup, props);
 
 				var started = await UniTaskUtils.WaitUntilTimeout(CanStartGame, TimeSpan.FromSeconds(5));
 				if (!started)

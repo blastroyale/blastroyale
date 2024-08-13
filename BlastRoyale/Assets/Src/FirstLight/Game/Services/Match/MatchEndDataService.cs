@@ -39,6 +39,11 @@ namespace FirstLight.Game.Services
 		QuantumPlayerMatchData LocalPlayerMatchData { get; }
 
 		/// <summary>
+		/// MatchConfigs used during this match.
+		/// </summary>
+		SimulationMatchConfig MatchConfig { get; }
+		
+		/// <summary>
 		/// Player that killed the local player. Will have a value if the player was killed.
 		/// </summary>
 		PlayerRef LocalPlayerKiller { get; }
@@ -113,6 +118,7 @@ namespace FirstLight.Game.Services
 		public bool ShowUIStandingsExtraInfo { get; private set; }
 		public PlayerRef LocalPlayer { get; private set; }
 		public QuantumPlayerMatchData LocalPlayerMatchData { get; private set; }
+		public SimulationMatchConfig MatchConfig { get; private set; }
 		public PlayerRef LocalPlayerKiller { get; private set; }
 		public bool DiedFromRoofDamage { get; private set; }
 		public Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; private set; } = new ();
@@ -205,6 +211,7 @@ namespace FirstLight.Game.Services
 			JoinedAsSpectator = _services.RoomService.IsLocalPlayerSpectator;
 			Leader = leader;
 			PlayerMatchData.Clear();
+			MatchConfig = game.Configurations.Runtime.MatchConfigs;
 			foreach (var quantumPlayerData in QuantumPlayerMatchData)
 			{
 				// This means that the match disconnected before the 

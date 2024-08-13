@@ -147,7 +147,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// </summary>
 		public static bool IsSpectator(this Player player)
 		{
-			return player.Data[FLLobbyService.KEY_SPECTATOR].Value == "true";
+			return player.Data.TryGetValue(FLLobbyService.KEY_SPECTATOR, out var v) && v.Value == "true";
 		}
 		
 		/// <summary>

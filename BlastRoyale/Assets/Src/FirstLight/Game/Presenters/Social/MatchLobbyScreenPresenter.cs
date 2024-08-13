@@ -160,7 +160,7 @@ namespace FirstLight.Game.Presenters
 
 			FLog.Verbose("Joininig room from Custom Lobby");
 			_joining = true;
-			_services.MessageBrokerService.Publish(new StartedCustomMatch());
+			_services.MessageBrokerService.Publish(new JoinedCustomMatch());
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			// TODO mihak: This should not be here, move when we refac network service
 			await _services.RoomService.JoinRoomAsync(room, playerJoinRoomProperties);
@@ -247,13 +247,13 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_lastGridSnapshot = grid;
-				_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS}";
+				_playersAmount.text = $"{matchLobby.RealPlayers().Count}/{matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS}";
 			});
 		}
 
 		private async UniTaskVoid StartMatch()
 		{
-			if (_matchSettingsView.MatchSettings.BotDifficulty <= 0 && _services.FLLobbyService.CurrentMatchLobby.Players.Count <= 1)
+			if (_matchSettingsView.MatchSettings.BotDifficulty <= 0 && _services.FLLobbyService.CurrentMatchLobby.RealPlayers().Count <= 1)
 			{
 				PopupPresenter.OpenGenericInfo(ScriptTerms.UITCustomGames.custom_game, ScriptLocalization.UITCustomGames.no_players_bots).Forget();
 				return;
@@ -313,7 +313,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var buttons = new List<PlayerContextButton>();
-
 			if (!player.IsReady() && !player.IsLocal() && !_matchSettingsView.MatchSettings.RandomizeTeams)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITCustomGames.option_swap,

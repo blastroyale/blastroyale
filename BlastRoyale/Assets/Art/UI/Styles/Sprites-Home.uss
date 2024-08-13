@@ -47,6 +47,7 @@
     --sprite-home__background-tab-friends-selected: url('/Assets/Art/UI/Sprites/Home/background-tab-friends-selected.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
+    --sprite-home__gbones-season-reward: url('/Assets/Art/UI/Sprites/Home/gbones-season-reward.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
     --sprite-home__button-addbubble: url('/Assets/Art/UI/Sprites/Home/button-addbubble.png');
@@ -534,6 +535,12 @@
     background-image: var(--sprite-home__bamboo-season-reward);
     width: 494px;
     height: 760px;
+}
+
+.sprite-home__gbones-season-reward {
+    background-image: var(--sprite-home__gbones-season-reward);
+    width: 510px;
+    height: 719px;
 }
 
 .sprite-home__banner-mapselection {

@@ -231,6 +231,13 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinSwimmer", 217, PlayerSkin, Collection},
 			{"PlayerSkinThief", 218, PlayerSkin, Collection},
 			{"PlayerSkinVR", 219, PlayerSkin, Collection},
+			{"PlayerSkinWitch", 222, PlayerSkin, Collection},
+			{"PlayerSkinHazmat", 230, PlayerSkin, Collection},
+			{"PlayerSkinAura", 231, PlayerSkin, Collection},
+			{"PlayerSkinMidas", 234, PlayerSkin, Collection},
+			{"PlayerSkinNFL", 237, PlayerSkin, Collection},
+			{"PlayerSkinPilot", 241, PlayerSkin, Collection},
+			{"PlayerSkinSkeleton", 242, PlayerSkin, Collection},
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins
@@ -287,6 +294,16 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinSpatula", 227, MeleeSkin, Collection},
 			{"MeleeSkinTrophy", 228, MeleeSkin, Collection},
 			{"MeleeSkinWalkingStick", 229, MeleeSkin, Collection},
+			{"MeleeSkinBroccoli", 232, MeleeSkin, Collection},
+			{"MeleeSkinBone", 233, MeleeSkin, Collection},
+			{"MeleeSkinBroom", 235, MeleeSkin, Collection},
+			{"MeleeSkinLightsaber", 238, MeleeSkin, Collection},
+			{"MeleeSkinScythe", 239, MeleeSkin, Collection},
+			{"MeleeSkinSickle", 240, MeleeSkin, Collection},
+			{"MeleeSkinPickaxe", 243, MeleeSkin, Collection},
+			{"MeleeSkinLollipop", 244, MeleeSkin, Collection},
+			{"MeleeSkinDoctorStaff", 236, MeleeSkin, Collection},
+			// WEAPON GENERATION TOKEN KEEP THIS HERE
 			
 			#endregion
 
@@ -365,7 +382,15 @@ namespace FirstLight.Editor.Ids
 			{"AvatarVr", 518, ProfilePicture, Collection},
 			{"AvatarBall", 519, ProfilePicture, Collection},
 			{"AvatarLincoln", 520, ProfilePicture, Collection},
-
+			{"AvatarMidasfull", 521, ProfilePicture, Collection},
+			{"AvatarHazmatfull", 522, ProfilePicture, Collection},
+			{"AvatarSkeletonfull", 523, ProfilePicture, Collection},
+			{"AvatarWitchhat", 524, ProfilePicture, Collection},
+			{"AvatarPumpkin", 525, ProfilePicture, Collection},
+			{"AvatarAuraarmed", 526, ProfilePicture, Collection},
+			{"AvatarNflarmed", 527, ProfilePicture, Collection},
+			{"AvatarPilotarmed", 528, ProfilePicture, Collection},
+			{"AvatarWitch", 529, ProfilePicture, Collection},
 
 			#endregion
 

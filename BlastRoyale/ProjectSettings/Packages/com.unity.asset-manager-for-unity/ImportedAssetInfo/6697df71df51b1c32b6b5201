@@ -4,8 +4,12 @@
     },
     "FileInfos": [
         {
-            "Guid": "e2e60a72572bf694a993c1a42e7ddc5c",
-            "OriginalPath": "Melee_Spicky_Boy.fbx"
+            "Guid": "1491504dd9aba41ada12463cb704db97",
+            "OriginalPath": "Melee_Cactus.fbx"
+        },
+        {
+            "Guid": "2e939c6b531784fcf8a50904698f589f",
+            "OriginalPath": "Icon_Melee_Cactus.png"
         }
     ],
     "references": {
@@ -19,59 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b5201\\\",\\\"assetVersion\\\":\\\"ed8b33f8-a33d-4482-a367-f8852a1f5e82\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b5201\",\"assetVersion\":\"ed8b33f8-a33d-4482-a367-f8852a1f5e82\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.588Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:52.064Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy82NTQ2NGFmMy04YTRjLTRmNzEtOTVmYy1iNDExMTUzYjZiMDIvMjhmZDNmMTA2MWJiZmYyOGEwNGMxNDRhNThjOGZhOTcvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=mVe1rSSN8gobrC%2BjHLxFapxdX2r%2FmLCyqjqsvIQK7B0%3D\",\"files\":[{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:00.333Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.103Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/e6be8bf6-0a8e-4537-a088-77f604b644ad/036961187c12f77008e5b1450142425f/Melee_Spicky_Boy.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=G%2BnrbTpEp5i5MVUJE6qTb%2FW3JS%2BjDFMEK%2F0jQlb3SXI%3D\",\"filePath\":\"Melee_Spicky_Boy.fbx\",\"fileSize\":80188,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:52.579Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:52.579Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/d2a9f812-978f-4b35-b126-05471534bfb4/af7e076d8765e01f4361c9e435874bb5/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=kRfF1FW5cs8VYJ5foWduqWPy9D8yB64YtzR8QSzAuQ8%3D\",\"filePath\":\"metadata.json\",\"fileSize\":528,\"userChecksum\":\"35f4ceef1bef5de5472667ddd14fbec7\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:24.574Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:24.808Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9e1a4012-3c27-4048-a868-4e7ce8d41438/26c2adc48a7aaa30c0f0a49781eab439/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=dBKSdaj9Zua4TNeGJks0OqVpsr4jXefIhlg7ziu6Qfs%3D\",\"filePath\":\"preview.glb\",\"fileSize\":217348,\"userChecksum\":\"07dcd9492602c77fe63fe30887100d0c\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:24.582Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:24.582Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/9e1a4012-3c27-4048-a868-4e7ce8d41438/4dfe887ddcf95a6576ad3e707c628567/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=wnMKKSX2unAKTcPHJNVn3ibp%2BNquxvWdH0Y%2F%2BKbciUc%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:15:50.991Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:51.3Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/65464af3-8a4c-4f71-95fc-b411153b6b02/3387fa0cd3b768c289d682114750288e/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=2RhTTbU2AnphoqU5ZWuZzNBp5zPiYcvkHIdmFBv2YXI%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":170756,\"userChecksum\":\"150d4a71097e2cbdcc34213affb01542\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:15:50.997Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:51.559Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/65464af3-8a4c-4f71-95fc-b411153b6b02/1c19f10c747ebea1a623dee515e04b25/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=Xih5U0FS6zJfAfpvYNlQGVm5uBY1rAxTLcfwNdhnZI4%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":190509,\"userChecksum\":\"352cdd3fedc8285345cdeff5180972ed\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:15:51.003Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:51.795Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/65464af3-8a4c-4f71-95fc-b411153b6b02/28fd3f1061bbff28a04c144a58c8fa97/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=j2r%2B%2FhZxYNezcFpKichR%2FYuaXOOQM9Ojf%2BQGVVe02PY%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":156413,\"userChecksum\":\"167aeaefe1d2644365eb4e8a3b00a514\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:15:51.015Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:52.02Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/65464af3-8a4c-4f71-95fc-b411153b6b02/e5b6cb9b2eee55d8c10176bad0eeefcb/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:55Z&ske=2024-07-17T17:58:55Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:55Z&sr=b&sp=r&sig=Prfh2GWeOABYXbeWH9%2Frt3BoooRPZRhFkPmeEF5LrqA%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":245269,\"userChecksum\":\"d5fbb10610c2aaf4144272578b4c30d4\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"e6be8bf6-0a8e-4537-a088-77f604b644ad\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.593Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:01.74Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"5b6eb1ee-b63c-4419-86e5-b5eeae8503a1\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.598Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:52.027Z\",\"filesOrder\":[\"preview.glb\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"65464af3-8a4c-4f71-95fc-b411153b6b02\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:01.964Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:51.02Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"9e1a4012-3c27-4048-a868-4e7ce8d41438\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:03.037Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:24.588Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"d2a9f812-978f-4b35-b126-05471534bfb4\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:03.362Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:52.584Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_Spicky_Boy\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
-                    "m_AssetComparisonResult": 1,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy82NTQ2NGFmMy04YTRjLTRmNzEtOTVmYy1iNDExMTUzYjZiMDIvMjhmZDNmMTA2MWJiZmYyOGEwNGMxNDRhNThjOGZhOTcvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=mVe1rSSN8gobrC%2BjHLxFapxdX2r%2FmLCyqjqsvIQK7B0%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        }
-                    ],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1002
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Melee_Spicky_Boy.fbx",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 80188,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b5201\\\",\\\"assetVersion\\\":\\\"ed8b33f8-a33d-4482-a367-f8852a1f5e82\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b5201\",\"assetVersion\":\"ed8b33f8-a33d-4482-a367-f8852a1f5e82\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[\"Pending\"],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.588Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:15:52.064Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Melee_Spicky_Boy\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b5201\\\",\\\"assetVersion\\\":\\\"335e9db6-4818-4d34-b339-e39c2c537cc8\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b5201\",\"assetVersion\":\"335e9db6-4818-4d34-b339-e39c2c537cc8\",\"isFrozen\":true,\"versionNumber\":7,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":6,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-07T16:11:30.76Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-08-07T16:13:12.978Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Cactus.png\",\"name\":\"Melee_Cactus\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
                     "m_AssetComparisonResult": 0,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
                     "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1002
-                        }
-                    ]
+                    "m_Versions": []
                 }
             }
         ]

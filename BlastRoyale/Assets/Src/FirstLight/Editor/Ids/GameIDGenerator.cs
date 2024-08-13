@@ -31,6 +31,19 @@ namespace FirstLight.Editor.Ids
 			File.WriteAllText(path, content);
 			AssetDatabase.ImportAsset(path);
 		}
+		
+		public static void AddNewMeleeGameId(string name, int id)
+		{
+			var path = Path.Combine(Application.dataPath, "Src", "FirstLight", "Editor", "Ids", "Ids.cs");
+			var content = File.ReadAllText(path).Replace(
+				"// WEAPON GENERATION TOKEN KEEP THIS HERE",
+				$"{{\"WeaponSkin{name}\", {id}, WeaponSkin, Collection}},\n\t\t\t// WEAPON GENERATION TOKEN KEEP THIS HERE"
+			);
+
+			File.WriteAllText(path, content);
+			AssetDatabase.ImportAsset(path);
+		}
+
 
 		[MenuItem("FLG/Generators/Next Game Id", priority = 20)]
 		public static void NextId()

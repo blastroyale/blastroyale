@@ -40,7 +40,6 @@ namespace FirstLight.Game.Data
 			{
 				return data;
 			}
-
 			throw new Exception("Season " + season + " not found in player data!");
 		}
 

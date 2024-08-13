@@ -4,8 +4,12 @@
     },
     "FileInfos": [
         {
-            "Guid": "45cf38ed142114d42bb1b53d1955cea3",
-            "OriginalPath": "Melee_Sir_Quacks_Alot.fbx"
+            "Guid": "b874f20db613c4226bba4fb09010c495",
+            "OriginalPath": "Icon_Melee_SirQuacks.png"
+        },
+        {
+            "Guid": "f1b8873a7428c4e3681933add2b1459b",
+            "OriginalPath": "Melee_SirQuacks.fbx"
         }
     ],
     "references": {
@@ -19,59 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51ed\\\",\\\"assetVersion\\\":\\\"41fcb0e1-3d7a-4fb8-afa8-9a847578ee4a\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51ed\",\"assetVersion\":\"41fcb0e1-3d7a-4fb8-afa8-9a847578ee4a\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.165Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:44.796Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9hYmU2MjdkNy0xOTllLTRhMWQtYTczMC0xZTg4NTY5ZmM3MDcvMDI2NWM3OWRmYTM2ZDdmMTQ5MzQ1Y2I0N2FlMmIzMzEvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=BTScb0Gi0Abwout9SDG8ikkdi0YIstCiRwNsgFvwCSs%3D\",\"files\":[{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:53.596Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.925Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/a05639c3-63cf-42d4-b55a-7b1c20f1d521/9157e0108a497be02b539b7eb312fe19/Melee_Sir_Quacks_Alot.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=T8krLirTDvJTW8DK%2FTmO7U6dmWsGWOouJKLzrIQnnOE%3D\",\"filePath\":\"Melee_Sir_Quacks_Alot.fbx\",\"fileSize\":93180,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:53.737Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.737Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/b4fd7e03-ab43-4f2f-82a6-415dec4c0fba/649dc11864ec8ed206d866c6daa89964/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=QS8AM%2BVnt0M1yiP4MCGupkfKzvLkmyE4zrv0wYlR7xo%3D\",\"filePath\":\"metadata.json\",\"fileSize\":524,\"userChecksum\":\"db42215a2c9fcd554c1a325938128e4e\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:54.074Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:54.277Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/88db573a-2929-4903-bca4-716ac082e480/0b231794bc7123f4ab2ef3f3a93bc2c3/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:54Z&ske=2024-07-17T17:58:54Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:54Z&sr=b&sp=r&sig=099FzpIzVITvCsw5eBpG3t6jUNfBXnk7ZloqutCzRHM%3D\",\"filePath\":\"preview.glb\",\"fileSize\":244792,\"userChecksum\":\"f29f65ff99d14f94f8bc8f645ded1657\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:13:54.079Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:54.079Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/88db573a-2929-4903-bca4-716ac082e480/8c221a884f3cd7ef52b3dd20928fd754/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=eYeP5u1DGB42j2sYyYKnWrmrJe1b1ZeIuGxmItmoUtY%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:43.728Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:44.052Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/abe627d7-199e-4a1d-a730-1e88569fc707/44f47dfa21f60be461f14f3a6167ac84/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=03jst02ubM5ywPwz3hU2ccDnQ0PUsay6lNKBTNoyvwQ%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":200954,\"userChecksum\":\"76ee063efa2b86c080c30bec25142bfc\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:43.737Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:44.281Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/abe627d7-199e-4a1d-a730-1e88569fc707/5c67f0d0788058ef53cfb5009bc17caa/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=N4c8RLSKfhEpYZO99oKG6wwp%2B6e6eMzVrq4ymVT7Ll0%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":249943,\"userChecksum\":\"d3f92e91b474e8e60293ffe050b7a135\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:43.745Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:44.528Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/abe627d7-199e-4a1d-a730-1e88569fc707/0265c79dfa36d7f149345cb47ae2b331/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=XRsa8MfzPvdwvF2jng7%2FBIYuliI9LYmwkwIuej%2BYV5c%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":191221,\"userChecksum\":\"28b1ccc0dcba7fd4f27fc8f3835a5367\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:14:43.752Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:44.754Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/abe627d7-199e-4a1d-a730-1e88569fc707/2be1ef970da97ca7e05f0d6bd36074eb/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:48:53Z&ske=2024-07-17T17:58:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-17T17:58:53Z&sr=b&sp=r&sig=mYBq%2FDmzM99pmRiZXUlBehz2hBjWXRam2OXiQ%2BG20d8%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":235261,\"userChecksum\":\"f4ea9672679e1632b7f2cb764fc72a2b\",\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"a05639c3-63cf-42d4-b55a-7b1c20f1d521\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.17Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:12:54.866Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"20e91447-5fb7-4ef3-b1f5-02d1f7b79d3d\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:49.177Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:44.76Z\",\"filesOrder\":[\"preview.glb\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"abe627d7-199e-4a1d-a730-1e88569fc707\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:55.183Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:43.761Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"88db573a-2929-4903-bca4-716ac082e480\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:55.999Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:54.084Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"b4fd7e03-ab43-4f2f-82a6-415dec4c0fba\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"10170938524830\",\"created\":\"2024-07-17T15:12:56.619Z\",\"updatedBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:13:53.744Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_Sir_Quacks_Alot\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
-                    "m_AssetComparisonResult": 1,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9hYmU2MjdkNy0xOTllLTRhMWQtYTczMC0xZTg4NTY5ZmM3MDcvMDI2NWM3OWRmYTM2ZDdmMTQ5MzQ1Y2I0N2FlMmIzMzEvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-17T17:47:13Z&ske=2024-07-20T17:47:13Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-20T17:47:13Z&sr=b&sp=r&sig=BTScb0Gi0Abwout9SDG8ikkdi0YIstCiRwNsgFvwCSs%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        }
-                    ],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1002
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Melee_Sir_Quacks_Alot.fbx",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 93180,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51ed\\\",\\\"assetVersion\\\":\\\"41fcb0e1-3d7a-4fb8-afa8-9a847578ee4a\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51ed\",\"assetVersion\":\"41fcb0e1-3d7a-4fb8-afa8-9a847578ee4a\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[\"Pending\"],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-17T15:12:49.165Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-17T15:14:44.796Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Melee_Sir_Quacks_Alot\",\"description\":\"\",\"tags\":[],\"primaryType\":\"Other\"}}",
-                    "m_AssetComparisonResult": 0,
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51ed\\\",\\\"assetVersion\\\":\\\"0e2b1d99-91ee-42b0-ab48-e46439354d18\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51ed\",\"assetVersion\":\"0e2b1d99-91ee-42b0-ab48-e46439354d18\",\"isFrozen\":true,\"versionNumber\":8,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":7,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:54:19.247Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:54:39.491Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_SirQuacks.png\",\"name\":\"Melee_SirQuacks\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 2,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
                     "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1002
-                        }
-                    ]
+                    "m_Versions": []
                 }
             }
         ]

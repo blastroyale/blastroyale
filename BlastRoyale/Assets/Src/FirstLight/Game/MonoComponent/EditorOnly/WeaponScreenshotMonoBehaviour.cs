@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using FirstLight.Game.Configs.Collection;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -30,12 +31,14 @@ namespace FirstLight.Editor.EditorTools.Skins
 			var id = AddressableConfigLookup.GetConfig(AddressableId.Collections_WeaponSkins_Config);
 			var config = await Addressables.LoadAssetAsync<WeaponSkinsConfigContainer>(id.Address).Task;
 
-			var hammerGroup = config.Config.Groups.Find(a => a.Key == GameIdGroup.MeleeSkin);
+			var hammerGroup = config.Config.MeleeWeapons;
 			var skins = new List<Pair<GameId, GameObject>>();
-			foreach (var e in hammerGroup.Value.Configs)
+			foreach ( var kp in hammerGroup)
 			{
-				if (e.Prefab == null) continue;
-				skins.Add(new Pair<GameId, GameObject>(e.SkinId, await Addressables.LoadAssetAsync<GameObject>(e.Prefab).Task));
+				var key = kp.Key;
+				var value = kp.Value;
+				if (value.Prefab == null) continue;
+				skins.Add(new Pair<GameId, GameObject>(key, await Addressables.LoadAssetAsync<GameObject>(value.Prefab).Task));
 			}
 
 			_skins = skins.GetEnumerator();
@@ -65,12 +68,12 @@ namespace FirstLight.Editor.EditorTools.Skins
 				yield return new WaitForSeconds(0.1f);
 				FocusOn(_camera, obj, 1.1f);
 				var sprite = TakeScreenshot(screenShotFile);
+				
 				_camera.transform.SetPositionAndRotation(_originalCameraPos, _originalCameraRot);
-				var currentEntry = config.Config.Groups.First(g => g.Key == GameIdGroup.MeleeSkin)
-					.Value.Configs.Find(a => a.SkinId == current.Key);
+				var currentEntry = config.Config.MeleeWeapons.Get(current.Key);
 				if (currentEntry.Sprite == null || currentEntry.Sprite.editorAsset == null)
 				{
-					Debug.Log("Setting sprite " + currentEntry.SkinId);
+					Debug.Log("Setting sprite " + current.Key);
 					currentEntry.Sprite = sprite;
 				}
 			}

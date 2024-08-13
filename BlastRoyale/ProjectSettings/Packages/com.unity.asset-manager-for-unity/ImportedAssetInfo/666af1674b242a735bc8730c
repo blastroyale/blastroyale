@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "c55e4bf14619a4f568b51cbdbf9d3603",
+            "Guid": "d0c2f546d2213484ca916cd1830d6a5b",
             "OriginalPath": "Icon_Melee_Axe.png"
         },
         {
-            "Guid": "22dffa483cf264a76ba8200af2368497",
+            "Guid": "9cfa10421ee2d4123a110f0b7f167a81",
             "OriginalPath": "Melee_Axe.fbx"
         }
     ],
@@ -23,50 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
+                    "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af1674b242a735bc8730c\\\",\\\"assetVersion\\\":\\\"58907e2b-09c6-423a-9e55-6287357fe199\\\"}\",\"data\":{\"assetId\":\"666af1674b242a735bc8730c\",\"assetVersion\":\"58907e2b-09c6-423a-9e55-6287357fe199\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-06-13T13:58:46.844Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T14:00:35.032Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Axe.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8zZWM1NzlhNC1lMDg0LTRjNmYtODFmMy1iOThlOTRmNDNiYjUvZTJlMTU3NzNlZDAyYTEwNDNiNDAwYmMzZDg2NDQ3MDEvSWNvbl9NZWxlZV9BeGUucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:00:30Z&ske=2024-06-16T14:00:30Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T14:00:30Z&sr=b&sp=r&sig=xlw0%2FiHZhkBAEJeso%2BJHmuM92JInco9dx7AQNpFEdug%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:47.851Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:47.851Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/2cc8ba44-0c92-4c8d-827b-7e3b93518e94/c9a40554396b673de99363361f4f2577/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:01:26Z&ske=2024-06-13T14:11:26Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T14:11:26Z&sr=b&sp=r&sig=llZO6ac9RYBA5jS9w8ibBGp%2BYOl2MVAFIMJJeOzOVBA%3D\",\"filePath\":\"metadata.json\",\"fileSize\":519,\"userChecksum\":\"72a01c0c409098be1b539aaf66292339\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:48.116Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:48.667Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/872f49ad-41a5-43bf-95e8-5619c8b200be/907ca3ddd57f7d4af9f30cea46b7fe75/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:01:26Z&ske=2024-06-13T14:11:26Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T14:11:26Z&sr=b&sp=r&sig=VIocSCEwB0CSELsNJSH1GUvEoj4FBCpAjwNC4cGy2Z0%3D\",\"filePath\":\"preview.glb\",\"fileSize\":11428,\"userChecksum\":\"f128b1ed5708ec2a9d9645d9909e267e\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:48.123Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:48.123Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/872f49ad-41a5-43bf-95e8-5619c8b200be/7e85c68472e8862046b14529d480d8da/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:01:26Z&ske=2024-06-13T14:11:26Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T14:11:26Z&sr=b&sp=r&sig=hdB3b2DX%2BBRBu8FRc9l8La%2BczbN2EbFFfvKDU4MES8w%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:54.147Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:54.453Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/37d48529-31bf-4231-b632-17520a9a554f/5363fbfc4d7e3c3f5d826b9db7d2d535/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:01:26Z&ske=2024-06-13T14:11:26Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T14:11:26Z&sr=b&sp=r&sig=h4MrA9FLVStvAE1uW7WxF1UvrsgMfv0TdcgsrQNIAP8%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":67201,\"userChecksum\":\"2bbba9c8ccb354443807298d13d27e4e\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:54.155Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:54.676Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/37d48529-31bf-4231-b632-17520a9a554f/25cc457ede157997352fd784ed50b373/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:01:26Z&ske=2024-06-13T14:11:26Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T14:11:26Z&sr=b&sp=r&sig=J9d8BRtCNZTq5v7j3DiOPm2cs%2B71%2BsLzPA%2BEj5dHQ08%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":62902,\"userChecksum\":\"b2a2cb1c7e114546a519302659b75cdd\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:54.164Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:54.911Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/37d48529-31bf-4231-b632-17520a9a554f/325ed4b74a6fc4d8928e12f1c84db69b/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:01:26Z&ske=2024-06-13T14:11:26Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T14:11:26Z&sr=b&sp=r&sig=i7wAS4yulB2P9pvPQuurLp4nYrSy011tZAjHhq7JySM%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":89508,\"userChecksum\":\"2f03449e5f368fbb464268981e8aa177\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:54.171Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:55.125Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/37d48529-31bf-4231-b632-17520a9a554f/c2f2bfeb28192b85e2286fe9d10d29df/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:01:26Z&ske=2024-06-13T14:11:26Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T14:11:26Z&sr=b&sp=r&sig=tMKoQb0hroNMEVNmIkaAbeMqgg36YHwdVJUynQ%2Bt6PA%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":87960,\"userChecksum\":\"59b4b47a033132c18a0172cbf2fc652b\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:59:29.297Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T14:00:29.976Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/3ec579a4-e084-4c6f-81f3-b98e94f43bb5/e2e15773ed02a1043b400bc3d8644701/Icon_Melee_Axe.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:01:26Z&ske=2024-06-13T14:11:26Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T14:11:26Z&sr=b&sp=r&sig=GWWM352ALqr5f%2FwZWzhqOgvqA8lGA9n5dRSEs881rkk%3D\",\"filePath\":\"Icon_Melee_Axe.png\",\"fileSize\":54639,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:59:44.444Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:59:45.94Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/3ec579a4-e084-4c6f-81f3-b98e94f43bb5/3ba3356aa13cc7b259b654bce4af5e55/Melee_Axe.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:01:26Z&ske=2024-06-13T14:11:26Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T14:11:26Z&sr=b&sp=r&sig=Dc3e6YVH3f2UfnwJ4%2FFtGmRheceD%2FoddBK72vFAzW%2F4%3D\",\"filePath\":\"Melee_Axe.fbx\",\"fileSize\":27388,\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"3ec579a4-e084-4c6f-81f3-b98e94f43bb5\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:27.064Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:59:46.045Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"6f7b0d69-3837-4c5f-9252-cc776210b84f\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:27.072Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T14:00:31.658Z\",\"filesOrder\":[\"preview.glb\",\"preview_front.png\",\"preview_left.png\",\"preview_persFrontLeftTop.png\",\"preview_top.png\",\"Icon_Melee_Axe.png\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"37d48529-31bf-4231-b632-17520a9a554f\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:31.214Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:54.179Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"872f49ad-41a5-43bf-95e8-5619c8b200be\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:31.964Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:48.131Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"2cc8ba44-0c92-4c8d-827b-7e3b93518e94\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:32.42Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:47.857Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_Axe\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 1,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy8zZWM1NzlhNC1lMDg0LTRjNmYtODFmMy1iOThlOTRmNDNiYjUvZTJlMTU3NzNlZDAyYTEwNDNiNDAwYmMzZDg2NDQ3MDEvSWNvbl9NZWxlZV9BeGUucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T14:00:30Z&ske=2024-06-16T14:00:30Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T14:00:30Z&sr=b&sp=r&sig=xlw0%2FiHZhkBAEJeso%2BJHmuM92JInco9dx7AQNpFEdug%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        },
-                        {
-                            "rid": 1002
-                        }
-                    ],
-                    "m_UVCSFiles": []
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Icon_Melee_Axe.png",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 54639,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Melee_Axe.fbx",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 27388,
-                    "m_Guid": ""
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af1674b242a735bc8730c\\\",\\\"assetVersion\\\":\\\"a60c941c-7eee-4ca6-9674-4c321fd7dcd6\\\"}\",\"data\":{\"assetId\":\"666af1674b242a735bc8730c\",\"assetVersion\":\"a60c941c-7eee-4ca6-9674-4c321fd7dcd6\",\"isFrozen\":true,\"versionNumber\":6,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":5,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-06T12:14:51.148Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-08-06T12:15:05.841Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Axe.png\",\"name\":\"Melee_Axe\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
                 }
             }
         ]

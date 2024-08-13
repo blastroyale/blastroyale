@@ -1,32 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Collection;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.MonoComponent;
-using FirstLight.Game.MonoComponent.Collections;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.Services.Collection.Handles
 {
 	public class WeaponSkinCollectionHandler : ICollectionGroupHandler
 	{
-		private IConfigsProvider _configsProvider;
-		private IAssetResolverService _assetResolver;
-		private WeaponSkinsConfig Configs => _configsProvider.GetConfig<WeaponSkinsConfig>();
+		private readonly IConfigsProvider _configsProvider;
+		private readonly IAssetResolverService _assetResolver;
 
-		// Optimized structures
-		private HashSet<GameId> _canHandleLookup;
-		private Dictionary<GameId, AssetReferenceSprite> _spriteLookup;
-		private Dictionary<GameId, AssetReferenceGameObject> _prefabLookup;
-		private Dictionary<GameId, WeaponSkinConfigGroup> _groupLookup;
+		private Dictionary<GameId, WeaponSkinConfigEntry> _meleeWeapons;
 
 		public WeaponSkinCollectionHandler(IConfigsProvider configsProvider, IAssetResolverService assetResolver)
 		{
@@ -37,7 +28,7 @@ namespace FirstLight.Game.Services.Collection.Handles
 
 		private void CheckConfigInitialize()
 		{
-			if (_canHandleLookup == null)
+			if (_meleeWeapons == null)
 			{
 				UpdateConfigs();
 			}
@@ -45,50 +36,25 @@ namespace FirstLight.Game.Services.Collection.Handles
 
 		private void UpdateConfigs()
 		{
-			try
-			{
-				_canHandleLookup = Configs.Groups.Select(groups => groups.Value)
-					.Select(group => group.Configs)
-					.SelectMany(x => x)
-					.Select(a => a.SkinId)
-					.ToHashSet();
-
-				_spriteLookup = Configs.Groups.Select(groups => groups.Value)
-					.Select(group => group.Configs)
-					.SelectMany(x => x)
-					.ToDictionary(c => c.SkinId, c => c.Sprite);
-
-				_prefabLookup = Configs.Groups.Select(groups => groups.Value)
-					.Select(group => group.Configs)
-					.SelectMany(x => x)
-					.ToDictionary(c => c.SkinId, c => c.Prefab);
-
-				_groupLookup = Configs.Groups
-					.SelectMany(keyValuePair => keyValuePair.Value.Configs.Select(config => new {Group = keyValuePair.Value, SkinId = config.SkinId}))
-					.ToDictionary(item => item.SkinId, item => item.Group);
-			}
-			catch (Exception ex)
-			{
-				Debug.LogException(ex);
-			}
+			_meleeWeapons = _configsProvider.GetConfig<WeaponSkinsConfig>().MeleeWeapons.AsDictionary();
 		}
 
 		public bool CanHandle(ItemData item)
 		{
 			CheckConfigInitialize();
-			return _canHandleLookup.Contains(item.Id);
+			return _meleeWeapons.ContainsKey(item.Id);
 		}
 
 		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true, CancellationToken cancellationToken = default)
 		{
-			var assetRef = _spriteLookup[item.Id];
+			var assetRef = _meleeWeapons[item.Id].Sprite;
 			return await _assetResolver.LoadAssetByReference<Sprite>(assetRef, true, instantiate, cancellationToken: cancellationToken);
 		}
 
 		public async UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
 			CheckConfigInitialize();
-			var assetRef = _prefabLookup[item.Id];
+			var assetRef = _meleeWeapons[item.Id].Prefab;
 			var obj = await _assetResolver.LoadAssetByReference<GameObject>(assetRef, true, instantiate);
 			if (!instantiate) return obj;
 			// Workaround, somehow the playercharacter monocomponent detaches the first child of the prefab, i tried to fix the code there but i couldn't do it quickly

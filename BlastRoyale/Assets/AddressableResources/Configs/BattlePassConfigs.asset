@@ -59,11 +59,21 @@ MonoBehaviour:
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 01/07/2024
-      EndsAt: 31/08/2024
+      EndsAt: 05/08/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__pattybun-season-reward
       EndGraphicName: PATTY BUN
       Highlighted: 45,1,40:F,90
+    - Number: 11
+      Price: 150
+      BuyLevelPrice: 20
+      DefaultPointsPerLevel: 300
+      StartsAt: 06/08/2024
+      EndsAt: 31/10/2024
+      RemovePaid: 0
+      EndGraphicImageClass: sprite-home__gbones-season-reward
+      EndGraphicName: G BONES
+      Highlighted: 15:F,90:F,70,90
     Levels:
     - RewardId: 2
       PremiumRewardId: 0
@@ -1869,3 +1879,363 @@ MonoBehaviour:
       PremiumRewardId: 96
       PointsForNextLevel: 0
       Season: 10
+    - RewardId: 35
+      PremiumRewardId: 125
+      PointsForNextLevel: 50
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 100
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 200
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 132
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 129
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 137
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 93
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 126
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 90
+      PremiumRewardId: 130
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 138
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 135
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 94
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 91
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 133
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 139
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 136
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 131
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 92
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 134
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 95
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 35
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 70
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 64
+      PremiumRewardId: 89
+      PointsForNextLevel: 0
+      Season: 11
+    - RewardId: 128
+      PremiumRewardId: 127
+      PointsForNextLevel: 0
+      Season: 11

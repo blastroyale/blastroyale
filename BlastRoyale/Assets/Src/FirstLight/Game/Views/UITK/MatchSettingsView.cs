@@ -221,7 +221,7 @@ namespace FirstLight.Game.Views.UITK
 				RefreshData(true);
 				PopupPresenter.Close().Forget();
 				
-			}, ScriptTerms.UITCustomGames.max_players, ScriptTerms.UITCustomGames.max_players_desc, 1, 48, MatchSettings.MaxPlayers).Forget();
+			}, ScriptTerms.UITCustomGames.max_players, ScriptTerms.UITCustomGames.max_players_desc, 2, 48, MatchSettings.MaxPlayers).Forget();
 		}
 
 		private void OnTeamSizeClicked()

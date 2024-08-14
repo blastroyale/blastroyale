@@ -71,8 +71,8 @@
 .product-category {
     flex-grow: 0;
     flex-direction: row;
-    margin-right: 50px;
-    margin-left: 50px;
+    margin-right: 52px;
+    margin-left: 52px;
     flex-wrap: wrap;
     max-width: 1500px;
     background-color: rgba(255, 255, 255, 0);

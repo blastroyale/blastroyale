@@ -153,9 +153,20 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// <summary>
 		/// Gets non spectators and bots
 		/// </summary>
-		public static IReadOnlyList<Player> RealPlayers(this Lobby l)
+		public static IReadOnlyList<Player> PlayersInGrid(this Lobby l)
 		{
 			return l.Players.Where(p => !p.IsSpectator()).ToList();
+		}
+		
+		public static Player LocalPlayer(this Lobby l)
+		{
+			return l.Players.First(p => p.IsLocal());
+		}
+
+		public static bool HasRoomInGrid(this Lobby lobby)
+		{
+			var maxPlayers = lobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+			return lobby.PlayersInGrid().Count < maxPlayers;
 		}
 
 		public static string ParseError(this FriendsServiceException e)

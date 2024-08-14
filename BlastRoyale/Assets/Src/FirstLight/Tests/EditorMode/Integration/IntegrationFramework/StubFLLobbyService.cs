@@ -93,7 +93,7 @@ namespace FirstLight.Tests.EditorMode
 			throw new System.NotImplementedException();
 		}
 
-		public UniTask<bool> JoinMatch(string lobbyIDOrCode)
+		public UniTask<bool> JoinMatch(string lobbyIDOrCode, bool spectate)
 		{
 			throw new System.NotImplementedException();
 		}

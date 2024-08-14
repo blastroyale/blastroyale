@@ -124,7 +124,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Joins a match lobby by id or code.
 		/// </summary>
-		UniTask<bool> JoinMatch(string lobbyIDOrCode);
+		UniTask<bool> JoinMatch(string lobbyIDOrCode, bool spectator);
 
 		/// <summary>
 		/// Invites a friend to the current party.
@@ -663,7 +663,9 @@ namespace FirstLight.Game.Services
 		{
 			var options = new QueryLobbiesOptions
 			{
-				Filters = new List<QueryFilter>()
+				Filters = new List<QueryFilter>(),
+				
+				
 			};
 
 			if (!allRegions)
@@ -734,17 +736,18 @@ namespace FirstLight.Game.Services
 			return true;
 		}
 
-		public async UniTask<bool> JoinMatch(string lobbyIDOrCode)
+		public async UniTask<bool> JoinMatch(string lobbyIDOrCode, bool spectator)
 		{
 			Assert.IsNull(CurrentMatchLobby, "Trying to join a match but the player is already in one!");
 
 			try
 			{
+				var player = CreateLocalPlayer(spectator: spectator);
 				var isLobbyCode = lobbyIDOrCode.Length == 6;
-				FLog.Info($"Joining match with ID/Code: {lobbyIDOrCode}");
+				FLog.Info($"Joining match with ID/Code: {lobbyIDOrCode} spectate: {spectator}");
 				var lobby = isLobbyCode
-					? await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyIDOrCode, new JoinLobbyByCodeOptions {Player = CreateLocalPlayer()})
-					: await LobbyService.Instance.JoinLobbyByIdAsync(lobbyIDOrCode, new JoinLobbyByIdOptions {Player = CreateLocalPlayer()});
+					? await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyIDOrCode, new JoinLobbyByCodeOptions {Player =player})
+					: await LobbyService.Instance.JoinLobbyByIdAsync(lobbyIDOrCode, new JoinLobbyByIdOptions {Player = player});
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = await LobbyService.Instance.GetLobbyAsync(lobby.Id); // to ensure we don't miss events
 				CurrentMatchCallbacks.TriggerLobbyJoined(lobby);
@@ -1022,7 +1025,7 @@ namespace FirstLight.Game.Services
 
 		#endregion
 
-		private Player CreateLocalPlayer(bool ready = false)
+		private Player CreateLocalPlayer(bool ready = false, bool spectator = false)
 		{
 			var skinID = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PLAYER_SKINS).Id;
 			var meleeID = _dataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.MELEE_SKINS).Id;
@@ -1038,7 +1041,7 @@ namespace FirstLight.Game.Services
 					{KEY_MELEE_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, meleeID.ToString())},
 					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, ready.ToString().ToLowerInvariant())},
 					{KEY_PLAYFAB_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayFabSettings.staticPlayer.EntityId)},
-					{KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "false")},
+					{KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, spectator.ToString().ToLowerInvariant())},
 					{KEY_TROHPIES, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.PlayerDataProvider.Trophies.Value.ToString())},
 					{KEY_AVATAR_URL, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.AppDataProvider.AvatarUrl)}
 				},

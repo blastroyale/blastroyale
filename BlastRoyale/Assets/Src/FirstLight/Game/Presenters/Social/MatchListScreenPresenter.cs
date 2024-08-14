@@ -116,14 +116,14 @@ namespace FirstLight.Game.Presenters
 			PopupPresenter.OpenJoinWithCode(code =>
 			{
 				PopupPresenter.Close().Forget();
-				JoinMatch(code).Forget();
+				JoinMatch(code, false).Forget();
 			}).Forget();
 		}
 
-		private async UniTaskVoid JoinMatch(string lobbyIDOrCode)
+		private async UniTaskVoid JoinMatch(string lobbyIDOrCode, bool spectate)
 		{
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-			await _services.FLLobbyService.JoinMatch(lobbyIDOrCode);
+			await _services.FLLobbyService.JoinMatch(lobbyIDOrCode, spectate);
 			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
 		}
 
@@ -137,7 +137,10 @@ namespace FirstLight.Game.Presenters
 		private void BindMatchLobbyItem(VisualElement e, int index)
 		{
 			var lobby = _lobbies[index];
-			((MatchLobbyItemElement) e).SetLobby(lobby, () => JoinMatch(lobby.Id).Forget(), () => OpenMatchInfo(lobby));
+			((MatchLobbyItemElement) e).SetLobby(lobby, () =>
+			{
+				JoinMatch(lobby.Id, !lobby.HasRoomInGrid()).Forget();
+			}, () => OpenMatchInfo(lobby));
 		}
 
 		private static VisualElement MakeMatchLobbyItem()
@@ -151,7 +154,7 @@ namespace FirstLight.Game.Presenters
 			PopupPresenter.OpenMatchInfo(lobby.GetMatchSettings().ToSimulationMatchConfig(), friendsPlaying, () =>
 			{
 				PopupPresenter.Close();
-				JoinMatch(lobby.Id).Forget();
+				JoinMatch(lobby.Id, !lobby.HasRoomInGrid()).Forget();
 			}).Forget();
 		}
 	}

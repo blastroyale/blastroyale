@@ -162,10 +162,15 @@ namespace FirstLight.Game.Views.UITK
 			_randomizeTeamsToggle.SetEnabled(editable);
 		}
 
-		public void SetSpectators(IEnumerable<Player> spectators)
+		public void SetSpectators(List<Player> spectators)
 		{
 			_spectatorsScrollView.Clear();
 
+			if (spectators.Any(s => s.IsLocal()))
+			{
+				_spectatorToggle.SetValueWithoutNotify(true);
+				_spectatorToggle.SetEnabled(_services.FLLobbyService.CurrentMatchLobby.HasRoomInGrid());
+			}
 			foreach (var player in spectators)
 			{
 				var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
@@ -221,7 +226,8 @@ namespace FirstLight.Game.Views.UITK
 				MatchSettings.MaxPlayers = val;
 				RefreshData(true);
 				PopupPresenter.Close().Forget();
-			}, ScriptTerms.UITCustomGames.max_players, ScriptTerms.UITCustomGames.max_players_desc, 2, 48, MatchSettings.MaxPlayers).Forget();
+				
+			}, ScriptTerms.UITCustomGames.max_players, ScriptTerms.UITCustomGames.max_players_desc, 1, 48, MatchSettings.MaxPlayers).Forget();
 		}
 
 		private void OnTeamSizeClicked()

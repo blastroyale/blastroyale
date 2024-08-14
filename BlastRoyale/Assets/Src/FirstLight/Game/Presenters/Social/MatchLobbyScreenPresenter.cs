@@ -18,6 +18,7 @@ using QuickEye.UIToolkit;
 using Sirenix.OdinInspector;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Player = Unity.Services.Lobbies.Models.Player;
@@ -62,9 +63,23 @@ namespace FirstLight.Game.Presenters
 			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 		}
-
+		
 		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
 		{
+			var localPlayerJoined = joiners.Any(j => j.Player.Id == AuthenticationService.Instance.PlayerId);
+			if (localPlayerJoined && _services.FLLobbyService.IsInMatchLobby())
+			{
+				var lobby = _services.FLLobbyService.CurrentMatchLobby;
+				var maxPlayers = lobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+				var localPlayer = lobby.Players.First(p => p.IsLocal());
+				if (lobby.PlayersInGrid().Count >= maxPlayers && !localPlayer.IsSpectator())
+				{
+					FLog.Info("Moving to spectator as lobby is full");
+					_services.FLLobbyService.SetMatchSpectator(true)
+						.ContinueWith(RefreshData)
+						.Forget();
+				}
+			}
 			RefreshData();
 		}
 
@@ -80,6 +95,7 @@ namespace FirstLight.Game.Presenters
 			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += OnKickedFromLobby;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			var localPlayer = matchLobby.Players.First(p => p.IsLocal());
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 
 			_matchSettingsView.SpectatorChanged += async spectating =>
@@ -98,6 +114,8 @@ namespace FirstLight.Game.Presenters
 
 			return base.OnScreenOpen(reload);
 		}
+
+		
 
 		protected override UniTask OnScreenClose()
 		{
@@ -194,8 +212,8 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
-				_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator() || matchLobby.GetPlayerPosition(p) == -1));
-
+				_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator() || matchLobby.GetPlayerPosition(p) == -1).ToList());
+				
 				VisualElement row = null;
 
 				var spots = new List<MatchLobbyPlayerElement>();
@@ -247,15 +265,15 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_lastGridSnapshot = grid;
-				_playersAmount.text = $"{matchLobby.RealPlayers().Count}/{matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS}";
+				_playersAmount.text = $"{matchLobby.PlayersInGrid().Count}/{matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS}";
 			});
 		}
 
 		private async UniTaskVoid StartMatch()
 		{
 			var noBotsOnePlayer = _matchSettingsView.MatchSettings.BotDifficulty <= 0 &&
-				_services.FLLobbyService.CurrentMatchLobby.RealPlayers().Count == 1;
-			var noPlayers = _services.FLLobbyService.CurrentMatchLobby.RealPlayers().Count < 1;
+				_services.FLLobbyService.CurrentMatchLobby.PlayersInGrid().Count == 1;
+			var noPlayers = _services.FLLobbyService.CurrentMatchLobby.PlayersInGrid().Count < 1;
 			if (noBotsOnePlayer || noPlayers)
 			{
 				PopupPresenter.OpenGenericInfo(ScriptTerms.UITCustomGames.custom_game, ScriptLocalization.UITCustomGames.no_players_bots).Forget();

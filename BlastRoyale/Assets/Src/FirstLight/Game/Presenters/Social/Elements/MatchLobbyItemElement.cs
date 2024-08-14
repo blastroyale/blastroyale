@@ -90,7 +90,7 @@ namespace FirstLight.Game.UIElements
 
 			var matchSettings = lobby.GetMatchSettings();
 			var maxPlayers = lobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
-			var totalAdjustedPlayers = Mathf.Min(lobby.RealPlayers().Count, maxPlayers);
+			var totalAdjustedPlayers = Mathf.Min(lobby.PlayersInGrid().Count, maxPlayers);
 			
 			_lobbyModeLabel.text = $"{matchSettings.GameModeID}\n{LocalizationUtils.GetTranslationForTeamSize(matchSettings.SquadSize)}";
 			_lobbyPlayersLabel.text = $"{totalAdjustedPlayers}/{maxPlayers}";

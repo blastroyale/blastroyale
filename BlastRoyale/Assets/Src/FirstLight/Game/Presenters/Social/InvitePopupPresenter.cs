@@ -87,7 +87,7 @@ namespace FirstLight.Game.Presenters
 					await _services.FLLobbyService.JoinParty(Data.LobbyCode);
 					break;
 				case StateData.InviteType.Match:
-					await _services.FLLobbyService.JoinMatch(Data.LobbyCode);
+					await _services.FLLobbyService.JoinMatch(Data.LobbyCode, false);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

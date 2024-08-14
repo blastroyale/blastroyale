@@ -330,19 +330,6 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Can a game room frame be restored from a local snapshot ?
-		/// </summary>
-		public static bool CanBeRestoredWithLocalSnapshot(this Room room)
-		{
-			if (!MainInstaller.TryResolve<IGameServices>(out var _services))
-			{
-				return false;
-			}
-
-			return room.IsOffline;
-		}
-
-		/// <summary>
 		/// Can a local snapshot with current simulation frame be saved locally to be restored later ?
 		/// </summary>
 		public static bool CanBeRestoredWithLocalSnapshot(this FrameSnapshot snapshot)

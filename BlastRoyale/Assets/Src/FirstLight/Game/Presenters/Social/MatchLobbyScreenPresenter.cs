@@ -253,7 +253,10 @@ namespace FirstLight.Game.Presenters
 
 		private async UniTaskVoid StartMatch()
 		{
-			if (_matchSettingsView.MatchSettings.BotDifficulty <= 0 && _services.FLLobbyService.CurrentMatchLobby.RealPlayers().Count <= 1)
+			var noBotsOnePlayer = _matchSettingsView.MatchSettings.BotDifficulty <= 0 &&
+				_services.FLLobbyService.CurrentMatchLobby.RealPlayers().Count == 1;
+			var noPlayers = _services.FLLobbyService.CurrentMatchLobby.RealPlayers().Count < 1;
+			if (noBotsOnePlayer || noPlayers)
 			{
 				PopupPresenter.OpenGenericInfo(ScriptTerms.UITCustomGames.custom_game, ScriptLocalization.UITCustomGames.no_players_bots).Forget();
 				return;

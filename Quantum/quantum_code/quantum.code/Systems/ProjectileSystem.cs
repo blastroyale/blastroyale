@@ -127,7 +127,7 @@ namespace Quantum.Systems
 			f.Events.OnProjectileEndOfLife(projectile->SourceId, position, true,projectile->IsSubProjectile());
 			
 			var spell = Spell.CreateInstant(f, targetHit, projectile->Attacker, projectileEntity, power,
-											projectile->KnockbackAmount, position, isSelfAOE ? 0 : projectile->TeamSource);
+											projectile->KnockbackAmount, position, isSelfAOE ? 0 : projectile->TeamSource, projectile->ShotNumber);
 				
 			if (QuantumHelpers.ProcessHit(f, &spell))
 			{
@@ -191,7 +191,7 @@ namespace Quantum.Systems
 			f.Events.OnPlayerAttack(playerCharacter->Player, e, playerCharacter->CurrentWeapon, weaponConfig, aimingDirection, rangeStat);
 			if (weaponConfig.NumberOfShots == 1 || weaponConfig.IsMeleeWeapon)
 			{
-				CreateProjectile(f, e, rangeStat, aimingDirection, position, weaponConfig);
+				CreateProjectile(f, e, rangeStat, aimingDirection, position, weaponConfig, 0);
 			}
 			else
 			{
@@ -201,13 +201,13 @@ namespace Quantum.Systems
 				for (var x = 0; x < weaponConfig.NumberOfShots; x++)
 				{
 					var burstDirection = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad).XOY;
-					CreateProjectile(f, e, rangeStat, burstDirection.XZ, position, weaponConfig);
+					CreateProjectile(f, e, rangeStat, burstDirection.XZ, position, weaponConfig, (byte)x);
 					angle += angleStep;
 				}
 			}
 		}
 	
-		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, in QuantumWeaponConfig weaponConfig)
+		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, in QuantumWeaponConfig weaponConfig, byte shotNumber)
 		{
 			FP accuracyMod = FP._0;
 			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon && !(weaponConfig.NumberOfShots > 1))
@@ -235,7 +235,8 @@ namespace Quantum.Systems
 				StunDuration = 0,
 				Target = EntityRef.None,
 				Iteration = 0,
-				TeamSource = (byte)f.Unsafe.GetPointer<Targetable>(shooter)->Team
+				TeamSource = (byte)f.Unsafe.GetPointer<Targetable>(shooter)->Team,
+				ShotNumber = shotNumber
 			};
 			
 			var projectileEntity = f.Create(f.FindAsset<EntityPrototype>(weaponConfig.BulletPrototype != null

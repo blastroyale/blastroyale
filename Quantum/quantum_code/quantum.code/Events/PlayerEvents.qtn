@@ -173,6 +173,7 @@ event OnPlayerAttackHit
 	UInt32 TotalDamage;
 	bool isShieldDmg;
 	byte SpellType;
+	byte ShotNumber;
 }
 
 event OnPlayerStopAttack

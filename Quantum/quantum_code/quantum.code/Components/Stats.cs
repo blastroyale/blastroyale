@@ -355,7 +355,7 @@ namespace Quantum
 			if (f.TryGet<PlayerCharacter>(spell->Attacker, out var attacker))
 			{
 				f.Events.OnPlayerAttackHit(attacker.Player, spell->Attacker, attacker.TeamId, spell->Victim,
-					spell->OriginalHitPosition, (uint)totalDamage, previousShield > 0, spell->Id);
+					spell->OriginalHitPosition, (uint)totalDamage, previousShield > 0, spell->Id, spell->ShotNumber);
 			}
 
 			f.Events.OnEntityDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount),

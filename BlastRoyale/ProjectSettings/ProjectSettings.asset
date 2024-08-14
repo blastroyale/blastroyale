@@ -300,15 +300,6 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Icons:
     - m_Textures:
-      m_Width: 324
-      m_Height: 324
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 216
-      m_Height: 216
-      m_Kind: 2
-    - m_Textures:
       - {fileID: 2800000, guid: b5073f3128e9141bdb27bacc02529bad, type: 3}
       m_Width: 192
       m_Height: 192

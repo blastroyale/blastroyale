@@ -34,6 +34,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_TEXT_CONTAINER = USS_BLOCK + "__text-container";
 		private const string USS_NAME_AND_TROPHIES = USS_BLOCK + "__name-and-trophies";
 		private const string USS_ACTIVITY = USS_BLOCK + "__activity";
+		private const string USS_ACTIVITY_IN_TEAM = USS_ACTIVITY + "--in-team";
 		private const string USS_MAIN_ACTION_BUTTON = USS_BLOCK + "__main-action-button";
 		private const string USS_MORE_ACTIONS_BUTTON = USS_BLOCK + "__more-actions-button";
 		private const string USS_ACCEPT_DECLINE_CONTAINER = USS_BLOCK + "__accept-decline-container";
@@ -130,7 +131,7 @@ namespace FirstLight.Game.UIElements
 			_moreActionsButton.clicked += () => _moreActionsAction?.Invoke(_moreActionsButton);
 			_acceptButton.clicked += () => _acceptAction?.Invoke();
 			_declineButton.clicked += () => _declineAction?.Invoke();
-			SetStatus(null, true, null);
+			SetStatus((string) null, true, null);
 		}
 
 		public FriendListElement SetFromParty(Player partyPlayer)
@@ -173,7 +174,7 @@ namespace FirstLight.Game.UIElements
 			}
 			else
 			{
-				SetStatus(activity?.Status, relationship.IsOnline(), relationship.Member?.Presence?.LastSeen);
+				SetStatus(activity, relationship.IsOnline(), relationship.Member?.Presence?.LastSeen);
 			}
 
 			_avatar.SetDisplay(true);
@@ -238,10 +239,22 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
+		public FriendListElement SetStatus(FriendActivity activity, bool? online, DateTime? presenceLastSeen)
+		{
+			SetStatus(activity?.Status, online, presenceLastSeen);
+			if (activity?.CurrentActivityEnum == GameActivities.In_team)
+			{
+				_statusLabel.EnableInClassList(USS_ACTIVITY_IN_TEAM, true);
+			}
+
+			return this;
+		}
+
 		public FriendListElement SetStatus(string activity, bool? online, DateTime? presenceLastSeen)
 		{
 			_statusLabel.SetVisibility(!string.IsNullOrEmpty(activity));
 			_statusLabel.text = activity;
+			_statusLabel.RemoveFromClassList(USS_ACTIVITY_IN_TEAM);
 			var isOnline = online ?? false;
 			EnableInClassList(USS_OFFLINE_MODIFIER, !isOnline);
 			_onlineIndicator.SetDisplay(true);
@@ -287,7 +300,7 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		public FriendListElement TryAddInviteOption(Relationship friend, Action callback)
+		public FriendListElement TryAddInviteOption(VisualElement root, Relationship friend, Action callback)
 		{
 			var services = MainInstaller.ResolveServices();
 
@@ -296,11 +309,14 @@ namespace FirstLight.Game.UIElements
 				return SetMainAction(null, null, false);
 			}
 
-			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
+			string reason = null;
+
+			var showInvite = callback != null && services.GameSocialService.CanInvite(friend, out reason);
 			if (showInvite)
 				return SetMainAction(ScriptLocalization.UITFriends.invite, callback, false);
 
-			return SetMainAction(ScriptLocalization.UITFriends.invite, null, false).DisableMainActionButton();
+			return SetMainAction(ScriptLocalization.UITFriends.invite, null, false)
+				.DisableMainActionButton(root, reason);
 		}
 
 		public FriendListElement AddOpenProfileAction(Relationship friend)
@@ -310,7 +326,7 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetMainAction(string label, Action mainAction, bool negative)
 		{
-			_mainActionButton.SetEnabled(true);
+			_mainActionButton.RemoveFromClassList("button-long--disabled");
 			_mainActionButton.SetDisplay(!string.IsNullOrEmpty(label));
 			_mainActionButton.EnableInClassList("button-long--red", negative);
 			_mainActionButton.EnableInClassList("button-long--yellow", !negative);
@@ -320,9 +336,18 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		public FriendListElement DisableMainActionButton()
+		public FriendListElement DisableMainActionButton(VisualElement root, string reason = null)
 		{
-			_mainActionButton.SetEnabled(false);
+			_mainAction = null;
+			if (reason != null)
+			{
+				_mainAction = () =>
+				{
+					_mainActionButton.OpenLocalizedTooltip(root, "UITFriends/tooltip_disabled_" + reason);
+				};
+			}
+
+			_mainActionButton.AddToClassList("button-long--disabled");
 			return this;
 		}
 

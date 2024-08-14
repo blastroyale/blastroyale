@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
@@ -51,7 +52,7 @@ namespace FirstLight.Game.Services
 				case "match":
 					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
 					{
-						Type = InvitePopupPresenter.StateData.InviteType.Match,
+						Type = FriendMessage.FriendInviteType.Match,
 						SenderID = null,
 						LobbyCode = id
 					}).Forget();
@@ -59,7 +60,7 @@ namespace FirstLight.Game.Services
 				case "party":
 					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
 					{
-						Type = InvitePopupPresenter.StateData.InviteType.Party,
+						Type = FriendMessage.FriendInviteType.Party,
 						SenderID = null,
 						LobbyCode = id
 					}).Forget();

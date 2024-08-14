@@ -15,6 +15,7 @@ using QuickEye.UIToolkit;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
+using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK.Popups
@@ -25,12 +26,11 @@ namespace FirstLight.Game.Views.UITK.Popups
 	public class InviteFriendsPopupView : UIView
 	{
 		[Q("FriendsList")] private ListView _friendsList;
+		[Q("NoFriendsLabel")] private Label _noFriendsLabel;
 
 		private IGameServices _services;
 
 		private List<Relationship> _friends;
-
-		private readonly HashSet<string> _invitedFriends = new ();
 
 		private BufferedQueue _friendsRefresh = new (TimeSpan.FromSeconds(0.1), true);
 
@@ -46,12 +46,26 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		public override void OnScreenOpen(bool reload)
 		{
-			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated; // not called with local changes
+			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
+			_services.FLLobbyService.CurrentMatchCallbacks.OnInvitesUpdated += OnInvitesUpdated;
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged += OnLobbyChanged;
 		}
 
 		public override void OnScreenClose()
 		{
-			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated; // not called with local changes
+			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
+			_services.FLLobbyService.CurrentMatchCallbacks.OnInvitesUpdated -= OnInvitesUpdated;
+			_services.FLLobbyService.CurrentMatchCallbacks.LobbyChanged -= OnLobbyChanged;
+		}
+
+		private void OnLobbyChanged(ILobbyChanges obj)
+		{
+			RefreshFriends();
+		}
+
+		private void OnInvitesUpdated(FLLobbyEventCallbacks.InviteUpdateType _)
+		{
+			RefreshFriends();
 		}
 
 		private void OnPresenceUpdated(IPresenceUpdatedEvent obj)
@@ -65,11 +79,9 @@ namespace FirstLight.Game.Views.UITK.Popups
 			var e = ((FriendListElement) element)
 				.SetFromRelationship(relationship)
 				.AddOpenProfileAction(relationship)
-				.TryAddInviteOption(relationship, () =>
+				.TryAddInviteOption(Presenter.Root, relationship, () =>
 				{
-					_invitedFriends.Add(relationship.Member.Id);
 					_services.FLLobbyService.InviteToMatch(relationship.Member.Id).Forget();
-					_friendsList.RefreshItem(index);
 				});
 		}
 
@@ -84,6 +96,8 @@ namespace FirstLight.Game.Views.UITK.Popups
 				_friends.Sort(FriendsServiceExtensions.FriendDefaultSorter());
 				_friendsList.itemsSource = _friends;
 				_friendsList.RefreshItems();
+				_friendsList.SetDisplay(_friends.Count > 0);
+				_noFriendsLabel.SetDisplay(_friends.Count == 0);
 			});
 		}
 	}

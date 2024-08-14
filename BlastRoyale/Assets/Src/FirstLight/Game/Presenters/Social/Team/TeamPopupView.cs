@@ -174,7 +174,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 			var relationship = _friends[index];
 			var e = ((FriendListElement) element);
 			e.SetFromRelationship(relationship)
-				.TryAddInviteOption(relationship, () =>
+				.TryAddInviteOption(Presenter.Root, relationship, () =>
 				{
 					_services.FLLobbyService.InviteToParty(relationship).ContinueWith(() =>
 					{

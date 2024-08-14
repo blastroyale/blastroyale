@@ -19,15 +19,9 @@ namespace FirstLight.Game.Presenters
 	{
 		public class StateData
 		{
-			public InviteType Type;
+			public FriendMessage.FriendInviteType Type;
 			public string SenderID;
 			public string LobbyCode;
-
-			public enum InviteType
-			{
-				Party,
-				Match
-			}
 		}
 
 		private IGameServices _services;
@@ -62,10 +56,10 @@ namespace FirstLight.Game.Presenters
 				.DisableActivity();
 			switch (Data.Type)
 			{
-				case StateData.InviteType.Party:
+				case FriendMessage.FriendInviteType.Party:
 					_contentLabel.text = $"#{senderName} has invited you\nto join their party!";
 					break;
-				case StateData.InviteType.Match:
+				case FriendMessage.FriendInviteType.Match:
 					_contentLabel.text = $"#{senderName} has invited you\nto join their match!";
 					break;
 				default:
@@ -79,27 +73,28 @@ namespace FirstLight.Game.Presenters
 		{
 			switch (Data.Type)
 			{
-				case StateData.InviteType.Party:
+				case FriendMessage.FriendInviteType.Party:
 					if (_services.FLLobbyService.IsInPartyLobby())
 					{
 						await _services.FLLobbyService.LeaveParty();
 					}
+
 					await _services.FLLobbyService.JoinParty(Data.LobbyCode);
 					break;
-				case StateData.InviteType.Match:
+				case FriendMessage.FriendInviteType.Match:
 					await _services.FLLobbyService.JoinMatch(Data.LobbyCode, false);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 
-			if (_services.UIService.IsScreenOpen<InvitePopupPresenter>())
-				await _services.UIService.CloseScreen<InvitePopupPresenter>();
+			_services.UIService.CloseLayer(UILayer.Popup).Forget();
+			_services.UIService.CloseLayer(UILayer.Notifications).Forget();
 		}
 
 		private async UniTaskVoid DeclineInvite()
 		{
-			FriendsService.Instance.MessageAsync(Data.SenderID, FriendMessage.CreateDeclinePartyInvite(Data.LobbyCode)).AsUniTask().Forget();
+			FriendsService.Instance.MessageAsync(Data.SenderID, FriendMessage.CreateDecline(Data.LobbyCode, Data.Type)).AsUniTask().Forget();
 			await _services.UIService.CloseScreen<InvitePopupPresenter>();
 		}
 	}

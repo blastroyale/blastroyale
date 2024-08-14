@@ -290,21 +290,27 @@ namespace FirstLight.Game.Services
 
 			CurrentMatchCallbacks.PlayerJoined += OnMatchPlayerJoined;
 			CurrentMatchCallbacks.PlayerLeft += OnMatchPlayerLeft;
-			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentMatchCallbacks.LobbyChanged += OnMatchLobbyChanged;
 			CurrentMatchCallbacks.KickedFromLobby += OnMatchLobbyKicked;
-			CurrentPartyCallbacks.KickedFromLobby += OnPartyLobbyKicked;
 			CurrentMatchCallbacks.LobbyDeleted += OnMatchDeleted;
+			CurrentMatchCallbacks.OnDeclinedInvite += OnDeclineMatchInvite;
+			CurrentPartyCallbacks.KickedFromLobby += OnPartyLobbyKicked;
+			CurrentPartyCallbacks.LobbyChanged += OnPartyLobbyChanged;
 			CurrentPartyCallbacks.LobbyDeleted += OnPartyDeleted;
-			CurrentPartyCallbacks.OnDeclinedInvite += OnDeclinedInvite;
+			CurrentPartyCallbacks.OnDeclinedInvite += OnDeclinePartyInvite;
 		}
 
-		private void OnDeclinedInvite(string playerId)
+		private void OnDeclinePartyInvite(string playerId)
 		{
 			_sentPartyInvites.Remove(playerId);
 			CurrentPartyCallbacks.TriggerOnInvitesUpdated(FLLobbyEventCallbacks.InviteUpdateType.Declined);
 		}
 
+		private void OnDeclineMatchInvite(string playerId)
+		{
+			_sentMatchInvites.Remove(playerId);
+			CurrentMatchCallbacks.TriggerOnInvitesUpdated(FLLobbyEventCallbacks.InviteUpdateType.Declined);
+		}
 		private void OnMatchPlayerLeft(List<int> playerIds)
 		{
 			_grid.EnqueueGridSync(CurrentMatchLobby);
@@ -770,12 +776,15 @@ namespace FirstLight.Game.Services
 			try
 			{
 				FLog.Info($"Sending match invite to {playerID}");
-				await FriendsService.Instance.MessageAsync(playerID, FriendMessage.CreateMatchInvite(CurrentMatchLobby.LobbyCode));
 				_sentMatchInvites.Add(playerID);
+				CurrentMatchCallbacks.TriggerOnInvitesUpdated();
+				await FriendsService.Instance.MessageAsync(playerID, FriendMessage.CreateMatchInvite(CurrentMatchLobby.LobbyCode));
 				FLog.Info("Match invite sent successfully!");
 			}
 			catch (FriendsServiceException e)
 			{
+				_sentMatchInvites.Remove(playerID);
+				CurrentMatchCallbacks.TriggerOnInvitesUpdated();
 				FLog.Warn("Error sending match invite!", e);
 				_notificationService.QueueNotification($"Could not send match invite, {e.ErrorCode.ToStringSeparatedWords()}");
 			}
@@ -1090,6 +1099,7 @@ namespace FirstLight.Game.Services
 			}
 
 			_sentMatchInvites.Clear();
+			CurrentMatchCallbacks.TriggerOnInvitesUpdated();
 			CurrentMatchLobby = null;
 		}
 

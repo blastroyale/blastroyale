@@ -19,6 +19,13 @@ namespace FirstLight.Game.Data.DataTypes
 		public FriendMessageType MessageType { get; private set; }
 
 		/// <summary>
+		/// What kind of message is this.
+		/// </summary>
+		[Preserve]
+		[DataMember(Name = "invite_type", IsRequired = false, EmitDefaultValue = true)]
+		public FriendInviteType InviteType { get; private set; }
+
+		/// <summary>
 		/// The ID of the lobby to join.
 		/// </summary>
 		[Preserve]
@@ -29,7 +36,8 @@ namespace FirstLight.Game.Data.DataTypes
 		{
 			return new FriendMessage
 			{
-				MessageType = FriendMessageType.PartyInvite,
+				MessageType = FriendMessageType.Invite,
+				InviteType = FriendInviteType.Party,
 				LobbyID = partyLobbyID
 			};
 		}
@@ -38,17 +46,19 @@ namespace FirstLight.Game.Data.DataTypes
 		{
 			return new FriendMessage
 			{
-				MessageType = FriendMessageType.CancelPartyInvite,
+				MessageType = FriendMessageType.Cancel,
+				InviteType = FriendInviteType.Party,
 				LobbyID = partyLobbyID
 			};
 		}
 
-		public static FriendMessage CreateDeclinePartyInvite(string partyLobbyID)
+		public static FriendMessage CreateDecline(string lobbyId, FriendInviteType type)
 		{
 			return new FriendMessage
 			{
-				MessageType = FriendMessageType.DeclinePartyInvite,
-				LobbyID = partyLobbyID
+				MessageType = FriendMessageType.Decline,
+				InviteType = type,
+				LobbyID = lobbyId
 			};
 		}
 
@@ -56,17 +66,23 @@ namespace FirstLight.Game.Data.DataTypes
 		{
 			return new FriendMessage
 			{
-				MessageType = FriendMessageType.MatchInvite,
+				MessageType = FriendMessageType.Invite,
+				InviteType = FriendInviteType.Match,
 				LobbyID = matchLobbyID
 			};
 		}
 
 		public enum FriendMessageType
 		{
-			CancelPartyInvite,
-			DeclinePartyInvite,
-			PartyInvite,
-			MatchInvite,
+			Cancel,
+			Decline,
+			Invite,
+		}
+
+		public enum FriendInviteType
+		{
+			Party,
+			Match
 		}
 	}
 }

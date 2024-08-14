@@ -37,7 +37,7 @@ namespace FirstLight.Game.Services
 
 	public static class GameActivitiesExtensions
 	{
-		public static bool CanReceivePartyInvite(this GameActivities activities)
+		public static bool CanReceiveInvite(this GameActivities activities)
 		{
 			return activities == GameActivities.In_main_menu;
 		}
@@ -74,7 +74,7 @@ namespace FirstLight.Game.Services
 
 	public interface IGameSocialService
 	{
-		bool CanInvite(Relationship friend);
+		bool CanInvite(Relationship friend, out string reason);
 		bool CanAddFriend(Player friend);
 		void SetCurrentActivity(GameActivities activity);
 		public GameActivities GetCurrentPlayerActivity();
@@ -193,36 +193,60 @@ namespace FirstLight.Game.Services
 			return !isFriend && !isPending;
 		}
 
-		public bool CanInvite(Relationship friend)
+		public bool CanInvite(Relationship friend, out string reason)
 		{
-			if (!friend.IsOnline()) return false;
+			if (!friend.IsOnline())
+			{
+				reason = "player_offline";
+				return false;
+			}
 
 			var activity = friend.Member?.Presence?.GetActivity<FriendActivity>();
-			if (activity == null) return false;
-
-			if (!activity.CurrentActivityEnum.CanReceivePartyInvite())
+			if (activity == null)
 			{
+				reason = "player_offline";
+				return false;
+			}
+
+			if (!activity.CurrentActivityEnum.CanReceiveInvite())
+			{
+				reason = "activity_" + activity.CurrentActivityEnum.ToString().ToLowerInvariant();
 				return false;
 			}
 
 			if (activity.Region != _services.LocalPrefsService.ServerRegion.Value)
 			{
+				reason = "different_region";
 				return false;
 			}
 
 			if (_services.FLLobbyService.CurrentMatchLobby != null && _services.FLLobbyService.SentMatchInvites.Contains(friend.Member.Id))
 			{
+				reason = "already_invited_to_match";
 				return false;
 			}
 
-			if (_services.FLLobbyService.SentPartyInvites.Any(sent => sent.PlayerId == friend.Member.Id)) return false;
+			if (_services.FLLobbyService.SentPartyInvites.Any(sent => sent.PlayerId == friend.Member.Id))
+			{
+				reason = "already_invited_to_team";
+				return false;
+			}
 
 			if (_services.FLLobbyService.CurrentPartyLobby != null)
 			{
-				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id)) return false;
-				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= _services.FLLobbyService.CurrentPartyLobby.MaxPlayers) return false;
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id))
+				{
+					reason = "already_member";
+					return false;
+				}
+
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= _services.FLLobbyService.CurrentPartyLobby.MaxPlayers)
+				{
+					reason = "team_full";
+				}
 			}
 
+			reason = null;
 			return true;
 		}
 

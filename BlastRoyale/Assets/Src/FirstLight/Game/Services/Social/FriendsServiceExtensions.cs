@@ -180,11 +180,12 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			{
 				if (a.IsOnline() && b.IsOnline())
 				{
-					if (social.CanInvite(a) && !social.CanInvite(b))
+					if (social.CanInvite(a, out _) && !social.CanInvite(b, out _))
 					{
 						return -1;
 					}
-					if (!social.CanInvite(a) && social.CanInvite(b))
+
+					if (!social.CanInvite(a, out _) && social.CanInvite(b, out _))
 					{
 						return 1;
 					}

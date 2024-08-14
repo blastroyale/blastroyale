@@ -178,15 +178,9 @@ namespace FirstLight.Game.Views.UITK
 				var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal, false, false);
 
 				_spectatorsScrollView.Add(playerElement);
-				
+
 				playerElement.clicked += () =>
 				{
-					if (player.IsLocal())
-					{
-						playerElement.OpenTooltip(_spectatorsScrollView, ScriptLocalization.UITCustomGames.local_player_tooltip);
-						return;
-					}
-					
 					var buttons = new List<PlayerContextButton>();
 					if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
 					{
@@ -194,7 +188,7 @@ namespace FirstLight.Game.Views.UITK
 							() => _services.FLLobbyService.KickPlayerFromMatch(player.Id).Forget()));
 					}
 				
-					_services.GameSocialService.OpenPlayerOptions(playerElement, _spectatorsScrollView, player.Id, player.GetPlayerName(), new PlayerContextSettings()
+					_services.GameSocialService.OpenPlayerOptions(playerElement, Presenter.Root, player.Id, player.GetPlayerName(), new PlayerContextSettings()
 					{
 						ExtraButtons = buttons,
 					});

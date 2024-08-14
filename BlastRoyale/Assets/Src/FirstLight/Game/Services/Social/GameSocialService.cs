@@ -16,6 +16,7 @@ using I2.Loc;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Quantum;
+using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
@@ -50,7 +51,7 @@ namespace FirstLight.Game.Services
 
 		[Preserve, DataMember(Name = "avatar", IsRequired = true, EmitDefaultValue = true)]
 		public string AvatarUrl { get; set; }
-		
+
 		[Preserve, DataMember(Name = "region", IsRequired = false, EmitDefaultValue = true), CanBeNull]
 		public string Region { get; set; }
 
@@ -162,7 +163,7 @@ namespace FirstLight.Game.Services
 			}
 
 			// If this is bindinded player is not in the main menu, dirty ugly hack
-			if (MainInstaller.TryResolve<IMatchServices>(out _ ))
+			if (MainInstaller.TryResolve<IMatchServices>(out _))
 			{
 				return GameActivities.In_match;
 			}
@@ -207,7 +208,7 @@ namespace FirstLight.Game.Services
 			if (activity.Region != _services.LocalPrefsService.ServerRegion.Value)
 			{
 				return false;
-			}	
+			}
 
 			if (_services.FLLobbyService.CurrentMatchLobby != null && _services.FLLobbyService.SentMatchInvites.Contains(friend.Member.Id))
 			{
@@ -327,6 +328,12 @@ namespace FirstLight.Game.Services
 
 		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName, PlayerContextSettings settings = null)
 		{
+			if (unityId == AuthenticationService.Instance.PlayerId)
+			{
+				element.OpenTooltip(root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+				return;
+			}
+
 			if (settings == null) settings = new PlayerContextSettings();
 			var isLocalPlayerLeader = _services.FLLobbyService.CurrentPartyLobby?.IsLocalPlayerHost() ?? false;
 			var playerContextButtons = new List<PlayerContextButton>();

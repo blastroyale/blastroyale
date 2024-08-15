@@ -289,12 +289,12 @@ namespace FirstLight.Game.Presenters
 				RefreshRequests();
 				RefreshFriends();
 
-				_services.NotificationService.QueueNotification("#Friend request accepted#");
+				_services.NotificationService.QueueNotification("Friend request accepted");
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error accepting friend request.", e);
-				_services.NotificationService.QueueNotification($"#Error accepting friend request, {e.ParseError()}#");
+				_services.NotificationService.QueueNotification($"Error accepting friend request, {e.ParseError()}");
 			}
 		}
 

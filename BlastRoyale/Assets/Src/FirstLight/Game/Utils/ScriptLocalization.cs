@@ -2190,6 +2190,7 @@ namespace I2.Loc
 			public static string create_game 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/create_game"); } }
 			public static string create_lobby 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/create_lobby"); } }
 			public static string custom_game 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/custom_game"); } }
+			public static string custom_game_invite 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/custom_game_invite"); } }
 			public static string enter_room_code 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/enter_room_code"); } }
 			public static string filter_weapons 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/filter_weapons"); } }
 			public static string friends_playing 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/friends_playing"); } }
@@ -4993,6 +4994,7 @@ namespace I2.Loc
 		    public const string create_game = "UITCustomGames/create_game";
 		    public const string create_lobby = "UITCustomGames/create_lobby";
 		    public const string custom_game = "UITCustomGames/custom_game";
+			public const string custom_game_invite = "UITCustomGames/custom_game_invite";
 		    public const string enter_room_code = "UITCustomGames/enter_room_code";
 		    public const string filter_weapons = "UITCustomGames/filter_weapons";
 		    public const string friends_playing = "UITCustomGames/friends_playing";

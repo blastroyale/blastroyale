@@ -6,6 +6,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.UIService;
+using I2.Loc;
 using Unity.Services.Friends;
 using UnityEngine.UIElements;
 
@@ -26,6 +27,7 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 
+		private GenericPopupElement _popupElement;
 		private Label _contentLabel;
 		private FriendListElement _sender;
 		public string LobbyCode => Data.LobbyCode;
@@ -34,12 +36,12 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.ResolveServices();
 
-			var popup = Root.Q<GenericPopupElement>("Popup").Required();
+			_popupElement = Root.Q<GenericPopupElement>("Popup").Required();
 			_sender = Root.Q<FriendListElement>("Sender").Required();
 			_contentLabel = Root.Q<Label>("ContentLabel").Required();
 			Root.Q<LocalizedButton>("AcceptButton").Required().clicked += () => AcceptInvite().Forget();
 			Root.Q<LocalizedButton>("DeclineButton").Required().clicked += () => DeclineInvite().Forget();
-			popup.CloseClicked += () => DeclineInvite().Forget();
+			_popupElement.CloseClicked += () => DeclineInvite().Forget();
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -57,9 +59,11 @@ namespace FirstLight.Game.Presenters
 			switch (Data.Type)
 			{
 				case FriendMessage.FriendInviteType.Party:
+					_popupElement.LocalizeTitle(ScriptTerms.UITParty.party_invite);
 					_contentLabel.text = $"#{senderName} has invited you\nto join their party!";
 					break;
 				case FriendMessage.FriendInviteType.Match:
+					_popupElement.LocalizeTitle(ScriptTerms.UITCustomGames.custom_game_invite);
 					_contentLabel.text = $"#{senderName} has invited you\nto join their match!";
 					break;
 				default:

@@ -746,7 +746,6 @@ namespace FirstLight.Game.Services
 		public async UniTask<bool> JoinMatch(string lobbyIDOrCode, bool spectator)
 		{
 			Assert.IsNull(CurrentMatchLobby, "Trying to join a match but the player is already in one!");
-
 			try
 			{
 				var player = CreateLocalPlayer(spectator: false);
@@ -758,6 +757,14 @@ namespace FirstLight.Game.Services
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = await LobbyService.Instance.GetLobbyAsync(lobby.Id); // to ensure we don't miss events
 				CurrentMatchCallbacks.TriggerLobbyJoined(lobby);
+
+				if(CurrentMatchLobby.GetMatchRegion() != _localPrefsService.ServerRegion.Value)
+				{
+					FLog.Warn("Entered room of another region, leaving");
+					_notificationService.QueueNotification($"Oops it seems you joined a room from another region");
+					await LeaveMatch();
+				}
+				
 				FLog.Info($"Match lobby joined! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
 			}
 			catch (LobbyServiceException e)

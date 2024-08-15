@@ -59,7 +59,7 @@ MonoBehaviour:
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 01/07/2024
-      EndsAt: 05/08/2024
+      EndsAt: 31/08/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__pattybun-season-reward
       EndGraphicName: PATTY BUN
@@ -68,7 +68,7 @@ MonoBehaviour:
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
-      StartsAt: 06/08/2024
+      StartsAt: 01/09/2024
       EndsAt: 31/10/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__gbones-season-reward

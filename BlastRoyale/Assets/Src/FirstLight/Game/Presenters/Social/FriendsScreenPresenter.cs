@@ -307,12 +307,12 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Friend request deleted: {r.Member.Id}");
 				RefreshRequests();
 
-				_services.NotificationService.QueueNotification("#Friend request declined#");
+				_services.NotificationService.QueueNotification("Friend request declined");
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error declining friend request", e);
-				_services.NotificationService.QueueNotification($"#Error declining friend request, {e.ParseError()}#");
+				_services.NotificationService.QueueNotification($"Error declining friend request, {e.ParseError()}");
 			}
 		}
 

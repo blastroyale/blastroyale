@@ -181,7 +181,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnUpdateSimulation(CallbackUpdateView callback)
 		{
-			var f = callback.Game.Frames.Predicted;
+			var f = callback.Game.Frames.Verified;
 			CheckProgressWithCompleteFunction(f);
 		}
 
@@ -430,11 +430,14 @@ namespace FirstLight.Game.StateMachines
 
 
 		private void OnEnterPickupSpecial()
-		{
+		{			
+			if (GetLocalPlayerView() == null) return; // reconnection edge case
+			
 			QuantumRunner.Default.Game.SendCommand(new TutorialSpawnSpecialCommand());
 			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_special, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
-			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_SPECIAL_PICKUP].transform.position, GetLocalPlayerView().transform);
+			var position = GetLocalPlayerView().transform;
+			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_SPECIAL_PICKUP].transform.position, position);
 			_tutorialOverlay.HideGuideHand();
 
 			_currentGameplayProceedData = new GameplayProceedEventData
@@ -445,6 +448,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterKill1BotSpecial()
 		{
+			if (GetLocalPlayerView() == null) return; // reconnection edge case
+			
 			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.use_grenade, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, GetLocalPlayerView().transform);

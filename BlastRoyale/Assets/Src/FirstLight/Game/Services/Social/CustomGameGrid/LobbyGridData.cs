@@ -33,6 +33,10 @@ namespace FirstLight.Game.Services.Social
 				{
 					Place(GetEmptySlot(), p);
 				}
+				else
+				{
+					FLog.Verbose("No room in grid for player "+p);
+				}
 			}
 		}
 

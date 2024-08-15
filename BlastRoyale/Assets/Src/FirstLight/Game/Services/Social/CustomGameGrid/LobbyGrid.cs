@@ -47,6 +47,7 @@ namespace FirstLight.Game.Services.Social
 			_gridUpdates.Add(async () =>
 			{
 				var players = lobby.PlayersInGrid().Select(p => p.Id).ToHashSet();
+
 				var grid = lobby.GetPlayerGrid();
 				var gridHash = grid.PresentPlayers;
 				gridHash.Remove("");

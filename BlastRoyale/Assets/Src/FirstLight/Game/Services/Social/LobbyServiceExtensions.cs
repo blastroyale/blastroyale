@@ -168,6 +168,11 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			var maxPlayers = lobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
 			return lobby.PlayersInGrid().Count < maxPlayers;
 		}
+		
+		public static bool HasRoomInSpectators(this Lobby lobby)
+		{
+			return lobby.Players.Count(p => p.IsSpectator()) < GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+		}
 
 		public static string ParseError(this FriendsServiceException e)
 		{

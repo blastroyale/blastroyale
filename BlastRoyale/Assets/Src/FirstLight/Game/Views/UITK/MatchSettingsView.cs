@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -25,8 +26,11 @@ namespace FirstLight.Game.Views.UITK
 
 		private const string BOT_SLIDER_HIDDEN = "bots-slider--hidden";
 		private const string HORIZONTAL_SCROLL_PICKER_HIDDEN = "horizontal-scroll-picker--hidden";
-
+		
+		private readonly AsyncBufferedQueue _updateQueue = new (TimeSpan.FromSeconds(0.01f), true);
+		
 		[Q("unity-tabs-container")] private VisualElement _tabsContainer;
+		[Q("Tabs")] private TabbedView _tabs;
 		[Q("Title")] private LocalizedLabel _bigTitle;
 		[Q("GameInfo")] private VisualElement _gameInfoContainer;
 
@@ -64,7 +68,8 @@ namespace FirstLight.Game.Views.UITK
 		private int _selectedModeIndex;
 		private bool _mutatorsTurnedOn;
 		private bool _weaponFilterTurnedOn;
-
+		private HashSet<string> _spectatorsBefore = new ();
+			
 		protected override void Attached()
 		{
 			_services = MainInstaller.ResolveServices();
@@ -86,12 +91,35 @@ namespace FirstLight.Game.Views.UITK
 			_randomizeTeamsToggle.RegisterValueChangedCallback(OnRandomizeTeamsToggle);
 			_privateRoomToggle.RegisterValueChangedCallback(v => MatchSettings.PrivateRoom = v.newValue);
 			_showCreatorNameToggle.RegisterValueChangedCallback(v => MatchSettings.ShowCreatorName = v.newValue);
-			_spectatorToggle.RegisterValueChangedCallback(v => SpectatorChanged(v.newValue).Forget());
+			_spectatorToggle.RegisterCallback<PointerDownEvent>(e => OnSpectatorToggleClicked(e).Forget(), TrickleDown.TrickleDown);
+			
 			_botDifficultySlider.Q("unity-drag-container").RegisterCallback<PointerUpEvent, MatchSettingsView>((e, arg) =>
 			{
 				arg.MatchSettings.BotDifficulty = _botDifficultySlider.value;
 				arg.RefreshData(true);
 			}, this);
+		}
+
+		public void ToggleSpectatorTab()
+		{
+			// TODO: Not toggling
+		}
+
+		private async UniTaskVoid OnSpectatorToggleClicked(PointerDownEvent e)
+		{
+			if (!_spectatorToggle.enabledSelf) return;
+			
+			e.PreventDefault();
+			e.StopImmediatePropagation();
+			
+			var wasEnabled = _spectatorToggle.enabledSelf;
+			_spectatorToggle.SetEnabled(false);
+			SpectatorChanged(!_spectatorToggle.value);
+			await UniTask.Delay(TimeSpan.FromSeconds(2));
+			if (wasEnabled && _spectatorToggle?.panel != null)
+			{
+				_spectatorToggle.SetEnabled(true);
+			}
 		}
 
 		private void OnRandomizeTeamsToggle(ChangeEvent<bool> evt)
@@ -164,37 +192,56 @@ namespace FirstLight.Game.Views.UITK
 
 		public void SetSpectators(List<Player> spectators)
 		{
-			_spectatorsScrollView.Clear();
-
-			if (spectators.Any(s => s.IsLocal()))
+			_updateQueue.Add(() =>
 			{
-				_spectatorToggle.SetValueWithoutNotify(true);
-				_spectatorToggle.SetEnabled(_services.FLLobbyService.CurrentMatchLobby.HasRoomInGrid());
-			}
-			foreach (var player in spectators)
-			{
-				var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
-				var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
-				var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal, false, false);
-
-				_spectatorsScrollView.Add(playerElement);
-
-				playerElement.clicked += () =>
-				{
-					var buttons = new List<PlayerContextButton>();
-					if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
-					{
-						buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITCustomGames.option_kick,
-							() => _services.FLLobbyService.KickPlayerFromMatch(player.Id).Forget()));
-					}
-				
-					_services.GameSocialService.OpenPlayerOptions(playerElement, Presenter.Root, player.Id, player.GetPlayerName(), new PlayerContextSettings()
-					{
-						ExtraButtons = buttons,
-					});
-				};
+				var specs = spectators.Select(s => s.Id).ToHashSet();
+				var newSpectators = specs.Except(_spectatorsBefore).ToHashSet();
+		
+				_spectatorsScrollView.Clear();
 			
-			}
+				foreach (var player in spectators)
+				{
+					var isHost = player.Id == _services.FLLobbyService.CurrentMatchLobby.HostId;
+					var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
+					var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal, false, false);
+
+					_spectatorsScrollView.Add(playerElement);
+
+					playerElement.clicked += () =>
+					{
+						var buttons = new List<PlayerContextButton>();
+						if (_services.FLLobbyService.CurrentMatchLobby.IsLocalPlayerHost())
+						{
+							buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITCustomGames.option_kick,
+								() => _services.FLLobbyService.KickPlayerFromMatch(player.Id).Forget()));
+						}
+				
+						_services.GameSocialService.OpenPlayerOptions(playerElement, Presenter.Root, player.Id, player.GetPlayerName(), new PlayerContextSettings()
+						{
+							ExtraButtons = buttons,
+						});
+					};
+					if (newSpectators.Contains(player.Id))
+					{
+						playerElement.AnimatePing(1.1f);
+					}
+				}
+				
+				if (spectators.Any(s => s.IsLocal()))
+				{
+					FLog.Verbose("Local player is spectator");
+					_spectatorToggle.SetValueWithoutNotify(true);
+					_spectatorToggle.SetEnabled(_services.FLLobbyService.CurrentMatchLobby.HasRoomInGrid());
+				}
+				else
+				{
+					FLog.Verbose("Local player is not spectator");
+					_spectatorToggle.SetValueWithoutNotify(false);
+					_spectatorToggle.SetEnabled(_services.FLLobbyService.CurrentMatchLobby.HasRoomInSpectators());
+				}
+				_spectatorsBefore = specs;
+				return UniTask.CompletedTask;
+			});
 		}
 
 		private void OnMapClicked()
@@ -280,7 +327,7 @@ namespace FirstLight.Game.Views.UITK
 			MainActionClicked = action;
 		}
 
-		private void RefreshData(bool newSettings)
+		public void RefreshData(bool newSettings)
 		{
 			_modeButton.SetValue(MatchSettings.GameModeID);
 			_teamSizeButton.SetValue(MatchSettings.SquadSize.ToString());

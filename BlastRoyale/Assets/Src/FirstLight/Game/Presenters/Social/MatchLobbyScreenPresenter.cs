@@ -33,7 +33,7 @@ namespace FirstLight.Game.Presenters
 		private const int PLAYERS_PER_ROW = 4;
 		private const string USS_ROW = "players-container__row";
 
-		private readonly BufferedQueue _updateBuffer = new (TimeSpan.FromSeconds(0.02), true);
+		private readonly AsyncBufferedQueue _updateBuffer = new (TimeSpan.FromSeconds(0.02), true);
 		private LobbyGridData _lastGridSnapshot;
 
 		public class StateData
@@ -66,20 +66,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
 		{
-			var localPlayerJoined = joiners.Any(j => j.Player.Id == AuthenticationService.Instance.PlayerId);
-			if (localPlayerJoined && _services.FLLobbyService.IsInMatchLobby())
-			{
-				var lobby = _services.FLLobbyService.CurrentMatchLobby;
-				var maxPlayers = lobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
-				var localPlayer = lobby.Players.First(p => p.IsLocal());
-				if (lobby.PlayersInGrid().Count >= maxPlayers && !localPlayer.IsSpectator())
-				{
-					FLog.Info("Moving to spectator as lobby is full");
-					_services.FLLobbyService.SetMatchSpectator(true)
-						.ContinueWith(RefreshData)
-						.Forget();
-				}
-			}
 			RefreshData();
 		}
 
@@ -111,6 +97,7 @@ namespace FirstLight.Game.Presenters
 			};
 
 			RefreshData();
+			_updateBuffer.Add(CheckJoiningSpectator);
 
 			return base.OnScreenOpen(reload);
 		}
@@ -185,6 +172,19 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
+		public async UniTask CheckJoiningSpectator()
+		{
+			var lobby = _services.FLLobbyService.CurrentMatchLobby;
+			var localPlayer = lobby.Players.First(p => p.IsLocal());
+			var grid = lobby.GetPlayerGrid();
+			if (!localPlayer.IsSpectator() && !lobby.HasRoomInGrid() && grid.GetPosition(localPlayer.Id) == -1)
+			{
+				FLog.Verbose("Non spectator local player that was not in grid and no room in grid, making spectator");
+				await _services.FLLobbyService.SetMatchSpectator(true);
+				_matchSettingsView.ToggleSpectatorTab();
+			}
+		}
+		
 		[Button]
 		private void RefreshData()
 		{
@@ -212,8 +212,9 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
-				_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator() || matchLobby.GetPlayerPosition(p) == -1).ToList());
-				
+				_matchSettingsView.SetSpectators(_services.FLLobbyService.CurrentMatchLobby.Players.Where(p => p.IsSpectator()).ToList());
+				//await UpdateSpectators();
+	
 				VisualElement row = null;
 
 				var spots = new List<MatchLobbyPlayerElement>();
@@ -235,7 +236,7 @@ namespace FirstLight.Game.Presenters
 					row!.Insert(0, playerElement);
 					spots.Add(playerElement);
 				}
-
+				
 				var orderedPlayers = grid.PositionArray;
 
 				for (var i = 0; i < orderedPlayers.Count; i++)
@@ -266,6 +267,7 @@ namespace FirstLight.Game.Presenters
 
 				_lastGridSnapshot = grid;
 				_playersAmount.text = $"{matchLobby.PlayersInGrid().Count}/{matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS}";
+				return UniTask.CompletedTask;
 			});
 		}
 
@@ -316,6 +318,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSpotClicked(VisualElement source, int index)
 		{
+			var localPlayer = _services.FLLobbyService.CurrentMatchLobby.LocalPlayer();
+		
+			
 			if (source.userData is not Player player)
 			{
 				if (!_matchSettingsView.MatchSettings.RandomizeTeams)

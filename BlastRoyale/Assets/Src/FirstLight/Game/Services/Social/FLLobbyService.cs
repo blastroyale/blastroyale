@@ -164,7 +164,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Toggles the spectator status for the current player in the match lobby.
 		/// </summary>
-		UniTask SetMatchSpectator(bool spectating);
+		UniTask<bool> SetMatchSpectator(bool spectating);
 
 		/// <summary>
 		/// Requests a specific position in the match lobby. The request has to be handled
@@ -265,17 +265,18 @@ namespace FirstLight.Game.Services
 
 		private ILobbyEvents _partyLobbyEvents;
 		private ILobbyEvents _matchLobbyEvents;
-
+	
 		private readonly IGameDataProvider _dataProvider;
 		private readonly NotificationService _notificationService;
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly Dictionary<string, PartyInvite> _sentPartyInvites = new ();
 		private readonly List<string> _sentMatchInvites = new ();
 		private readonly LobbyGrid _grid = new ();
-		private readonly AsyncBufferedQueue _matchUpdateQueue = new (TimeSpan.FromSeconds(1), true);
+		private readonly AsyncBufferedQueue _matchUpdateQueue = new (TimeSpan.FromSeconds(1.2), true);
 
 		private bool _leaving;
 
+		
 		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService,
 							  LocalPrefsService localPrefsService)
 		{
@@ -748,7 +749,7 @@ namespace FirstLight.Game.Services
 
 			try
 			{
-				var player = CreateLocalPlayer(spectator: spectator);
+				var player = CreateLocalPlayer(spectator: false);
 				var isLobbyCode = lobbyIDOrCode.Length == 6;
 				FLog.Info($"Joining match with ID/Code: {lobbyIDOrCode} spectate: {spectator}");
 				var lobby = isLobbyCode
@@ -928,11 +929,10 @@ namespace FirstLight.Game.Services
 				_notificationService.QueueNotification($"Could not kick player, {e.ParseError()}");
 				return false;
 			}
-
 			return true;
 		}
 
-		public async UniTask SetMatchSpectator(bool spectating)
+		public async UniTask<bool> SetMatchSpectator(bool spectating)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to toggle spectator status but the player is not in a match!");
 
@@ -952,16 +952,19 @@ namespace FirstLight.Game.Services
 				CurrentMatchLobby =
 					await LobbyService.Instance.UpdatePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId, options);
 				FLog.Info("Spectate status set successfully!");
+				return true;
 			}
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error setting spectate status!", e);
 				_notificationService.QueueNotification($"Could not set spectate status, {e.ParseError()}");
+				return false;
 			}
 		}
 
 		public void SetMatchPositionRequest(int position)
 		{
+			if (CurrentMatchLobby.LocalPlayer().IsSpectator()) return;
 			_grid.RequestToGoToPosition(CurrentMatchLobby, position);
 		}
 

@@ -49,27 +49,31 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void Start()
 		{
+			CreateDamageZoneMeshData();
+		}
+
+		private void CreateDamageZoneMeshData()
+		{
 			var mesh = _damageZoneTransform.gameObject.AddComponent<MeshFilter>();
 			var meshRenderer = _damageZoneTransform.gameObject.AddComponent<MeshRenderer>();
 			meshRenderer.material = _damageMaterial;
 
 			var cornerPositionSize = 4;
-			var line = _safeAreaCircleLinerRenderer.Line;
-			var linePositionCount = line.positionCount;
+			var linePositionCount = _safeAreaCircleLinerRenderer.Line.positionCount;
 			var totalSize = linePositionCount + cornerPositionSize;
-			Vector3[] linePoints = new Vector3[totalSize];
-			_safeAreaCircleLinerRenderer.Line.GetPositions(linePoints);
+			Vector3[] vertices = new Vector3[totalSize];
+			_safeAreaCircleLinerRenderer.Line.GetPositions(vertices);
 
 			for(var i=0; i<linePositionCount; i++)
 			{
-				(linePoints[i].y, linePoints[i].z) = (linePoints[i].z, linePoints[i].y);
+				(vertices[i].y, vertices[i].z) = (vertices[i].z, vertices[i].y);
 			}
 			
 			// corner points
-			linePoints[totalSize-1] = new Vector3(-1, 0, 1);
-			linePoints[totalSize-2] = new Vector3(-1, 0, -1);
-			linePoints[totalSize-3] = new Vector3(1, 0, -1);
-			linePoints[totalSize-4] = new Vector3(1, 0, 1);
+			vertices[totalSize-1] = new Vector3(-1, 0, 1);
+			vertices[totalSize-2] = new Vector3(-1, 0, -1);
+			vertices[totalSize-3] = new Vector3(1, 0, -1);
+			vertices[totalSize-4] = new Vector3(1, 0, 1);
 			
 			var segmentResolution = linePositionCount / 4;
 
@@ -80,7 +84,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			for (var i = 0; i < totalResolution; i++)
 			{
 				triangles[i * 3] = i;
-				triangles[i * 3 + 1] = ((i + 1) == linePositionCount) ? 0 : i + 1;
+				triangles[i * 3 + 1] = (i + 1 == linePositionCount) ? 0 : i + 1;
 				triangles[i * 3 + 2] = totalSize - (i / segmentResolution) - 1;
 			}
 
@@ -101,7 +105,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			triangles[triangleCount+11] = totalSize-1;
 			
 			_mesh= mesh.mesh;
-			_mesh.vertices = linePoints;
+			_mesh.vertices = vertices;
 			_mesh.triangles = triangles;
 		}
 

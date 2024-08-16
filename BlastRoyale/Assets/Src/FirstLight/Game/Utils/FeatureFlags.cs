@@ -224,11 +224,7 @@ namespace FirstLight.Game.Utils
 		/// client.
 		/// </summary>
 		public static string IMX_ID = null;
-
-		/// <summary>
-		/// Feature flag to toggle noob in the game
-		/// </summary>
-		public static bool ENABLE_NOOB = false;
+		
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -280,11 +276,6 @@ namespace FirstLight.Game.Utils
 			if (TrySetStringFlag("IMX_ID", overrideData, out var imxId))
 			{
 				IMX_ID = imxId;
-			}
-			
-			if (TrySetFlag("ENABLE_NOOB", overrideData, out var enableNoob))
-			{
-				ENABLE_NOOB = enableNoob;
 			}
 		}
 

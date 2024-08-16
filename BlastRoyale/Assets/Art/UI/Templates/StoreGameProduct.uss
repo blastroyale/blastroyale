@@ -266,7 +266,12 @@
     bottom: 20px;
 }
 
-.owned-stamp__bg {
+.owned-stamp--small {
+    left: 65px;
+    bottom: 0px;
+}
+
+.owned-stamp-bg {
     flex-grow: 1;
     width: 169px;
     height: 57px;
@@ -279,7 +284,7 @@
     -unity-background-scale-mode: stretch-to-fill;
 }
 
-.owned-stamp__text {
+.owned-stamp-text {
     align-self: center;
     justify-content: center;
     -unity-text-align: middle-center;
@@ -290,6 +295,10 @@
     flex-grow: 1;
     flex-shrink: 0;
     align-items: center;
+}
+
+.owned-stamp-text--small {
+    font-size: 35px;
 }
 
 .info-button--owned {

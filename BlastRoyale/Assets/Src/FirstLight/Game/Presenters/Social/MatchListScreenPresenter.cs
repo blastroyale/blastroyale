@@ -139,6 +139,11 @@ namespace FirstLight.Game.Presenters
 			var lobby = _lobbies[index];
 			((MatchLobbyItemElement) e).SetLobby(lobby, () =>
 			{
+				if(lobby.GetMatchRegion() != _services.LocalPrefsService.ServerRegion.Value)
+				{
+					_services.NotificationService.QueueNotification("Cannot join match from a different region");
+					return;
+				}
 				JoinMatch(lobby.Id, !lobby.HasRoomInGrid()).Forget();
 			}, () => OpenMatchInfo(lobby));
 		}

@@ -16,8 +16,8 @@
             <ui:VisualElement name="InformationIcon" class="info-button" style="display: flex; visibility: visible;" />
         </FirstLight.Game.UIElements.ImageButton>
         <ui:VisualElement name="OwnedStamp" class="owned-stamp">
-            <ui:VisualElement name="OwnedBg" class="owned-stamp__bg" style="display: none; visibility: hidden;" />
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/you_own_this_item" name="OwnedText" class="owned-stamp__text" />
+            <ui:VisualElement name="OwnedStampBg" class="owned-stamp-bg" style="display: none; visibility: hidden;" />
+            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/you_own_this_item" name="OwnedStampText" class="owned-stamp-text" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

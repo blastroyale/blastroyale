@@ -516,22 +516,6 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			simulationConfig.MatchType = MatchType.Matchmaking;
-
-			if (!FeatureFlags.ENABLE_NOOB)
-			{
-				var removeNoobOverwrites = Enum.GetValues(typeof(DropPlace)).Cast<DropPlace>()
-					.Select(place => new MetaItemDropOverwrite()
-					{
-						Place = place,
-						Id = GameId.NOOB,
-						DropRate = FP._0
-					});
-
-				simulationConfig.MetaItemDropOverwrites = simulationConfig.MetaItemDropOverwrites.Where(drop => drop.Id != GameId.NOOB)
-					.Concat(removeNoobOverwrites)
-					.ToArray();
-			}
-
 			var matchmakingSetup = new MatchRoomSetup()
 			{
 				SimulationConfig = simulationConfig,

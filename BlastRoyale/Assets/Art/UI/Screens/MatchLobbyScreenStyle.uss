@@ -166,3 +166,7 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
 }
+.spectator-spacer{
+    height: 12px;
+    flex-grow: 1;
+}

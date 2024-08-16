@@ -205,6 +205,10 @@ namespace FirstLight.Game.Views.UITK
 					var isLocal = player.Id == AuthenticationService.Instance.PlayerId;
 					var playerElement = new MatchLobbyPlayerElement(player.GetPlayerName(), isHost, isLocal, false, false);
 
+					if (isHost || isLocal)
+					{
+						_spectatorsScrollView.Add(new VisualElement().AddClass("spectator-spacer"));
+					}
 					_spectatorsScrollView.Add(playerElement);
 
 					playerElement.clicked += () =>

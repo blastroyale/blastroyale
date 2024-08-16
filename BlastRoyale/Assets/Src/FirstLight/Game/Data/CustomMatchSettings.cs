@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Utils;
 using Quantum;
 
 namespace FirstLight.Game.Data
@@ -26,7 +27,7 @@ namespace FirstLight.Game.Data
 				GameModeID = GameModeID,
 				MatchType = MatchType.Custom,
 				Mutators = Mutators,
-				MaxPlayersOverwrite = MaxPlayers,
+				MaxPlayersOverwrite = MaxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS,
 				HasBots = BotDifficulty > 0,
 				BotOverwriteDifficulty = BotDifficulty,
 				TeamSize = SquadSize,

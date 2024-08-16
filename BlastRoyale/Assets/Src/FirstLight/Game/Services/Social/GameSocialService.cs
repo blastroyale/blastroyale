@@ -255,7 +255,7 @@ namespace FirstLight.Game.Services
 			{
 				var data = MainInstaller.ResolveData();
 				_playerActivity.CurrentActivity = (int) activity;
-				_playerActivity.AvatarUrl = data.AppDataProvider.AvatarUrl;
+				_playerActivity.AvatarUrl = data.CollectionDataProvider.GetEquippedAvatarUrl();
 				_playerActivity.Region = _services.LocalPrefsService.ServerRegion.Value;
 				_playerActivity.Trophies = (int) data.PlayerDataProvider.Trophies.Value;
 				FLog.Verbose("Setting social activity as " + JsonConvert.SerializeObject(_playerActivity));

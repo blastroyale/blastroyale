@@ -314,7 +314,7 @@ namespace FirstLight.Game.Presenters
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
 				trophies, true, leaderboardEntry.PlayFabId, Color.white);
-			view.SetLeaderboardEntryPFPUrl(_dataProvider.AppDataProvider.AvatarUrl);
+			view.SetLeaderboardEntryPFPUrl(_dataProvider.CollectionDataProvider.GetEquippedAvatarUrl());
 
 			view.SetIcon(GetIconClass());
 

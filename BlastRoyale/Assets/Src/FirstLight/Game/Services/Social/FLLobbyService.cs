@@ -1055,7 +1055,7 @@ namespace FirstLight.Game.Services
 					{KEY_PLAYFAB_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayFabSettings.staticPlayer.EntityId)},
 					{KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, spectator.ToString().ToLowerInvariant())},
 					{KEY_TROHPIES, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.PlayerDataProvider.Trophies.Value.ToString())},
-					{KEY_AVATAR_URL, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.AppDataProvider.AvatarUrl)}
+					{KEY_AVATAR_URL, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.CollectionDataProvider.GetEquippedAvatarUrl())}
 				},
 				profile: new PlayerProfile(AuthenticationService.Instance.PlayerName)
 			);

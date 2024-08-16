@@ -36,11 +36,6 @@ namespace FirstLight.Game.Logic
 		string PlayerId { get; }
 		
 		/// <summary>
-		/// The URL of the player's avatar.
-		/// </summary>
-		string AvatarUrl { get; }
-
-		/// <summary>
 		/// Returns the last ranked map user has selected
 		/// </summary>
 		int LastSelectedRankedMap { get; set; }
@@ -94,8 +89,6 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public CustomGameOptions LastCustomGameOptions => Data.LastCustomGameOptions;
-
-		public string AvatarUrl => Data.AvatarUrl;
 
 		public int LastSelectedRankedMap
 		{

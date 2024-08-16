@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using ExitGames.Client.Photon.StructWrapping;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
@@ -57,6 +59,11 @@ namespace FirstLight.Game.Logic
 		/// Check if player has all the default skins
 		/// </summary>
 		bool HasAllDefaultCollectionItems();
+
+		/// <summary>
+		/// Return the current equipped avatar's url
+		/// </summary>
+		string GetEquippedAvatarUrl();
 	}
 
 	/// <summary>
@@ -130,7 +137,7 @@ namespace FirstLight.Game.Logic
 			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.AvatarBrandmale)},
 			{CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.PlayerSkinBrandMale)},
 		};
-		
+
 		public IReadOnlyDictionary<CollectionCategory, List<ItemData>> DefaultCollectionItems => Logic.DefaultCollectionItems.Items;
 
 		public List<ItemData> GetFullCollection(CollectionCategory group)
@@ -146,7 +153,6 @@ namespace FirstLight.Game.Logic
 
 			return collection;
 		}
-
 
 		public List<ItemData> GetOwnedCollection(CollectionCategory group)
 		{
@@ -179,6 +185,12 @@ namespace FirstLight.Game.Logic
 			return owned.Count > 0 ? owned[0] : null;
 		}
 
+		public string GetEquippedAvatarUrl()
+		{
+			var equipped = GetEquipped(CollectionCategories.PROFILE_PICTURE);
+			var config = GameLogic.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
+			return AvatarHelpers.GetAvatarUrl(equipped, config);
+		}
 
 		public ItemData UnlockCollectionItem(ItemData item)
 		{
@@ -223,7 +235,6 @@ namespace FirstLight.Game.Logic
 		{
 			return item.GetCollectionCategory();
 		}
-
 
 		public List<CollectionCategory> GetCollectionsCategories()
 		{

@@ -63,7 +63,7 @@ namespace FirstLight.Game.Presenters
 			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 		}
-		
+
 		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
 		{
 			RefreshData();
@@ -102,8 +102,6 @@ namespace FirstLight.Game.Presenters
 			return base.OnScreenOpen(reload);
 		}
 
-		
-
 		protected override UniTask OnScreenClose()
 		{
 			_services.FLLobbyService.CurrentMatchCallbacks.PlayerLeft -= OnPlayerLeft;
@@ -139,14 +137,15 @@ namespace FirstLight.Game.Presenters
 					
 					var squadSize = _services.FLLobbyService.CurrentMatchLobby.GetMatchSettings().SquadSize;
 					var localPlayer = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
-	
-					if (!localPlayer.IsSpectator())
+					var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
+
+					var isSpectator = localPlayer.IsSpectator() || localPlayerPosition == -1;
+					if (!isSpectator)
 					{
-						var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
 						joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
 						joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
 					}
-					joinProperties.Spectator = localPlayer.IsSpectator();
+					joinProperties.Spectator = isSpectator;
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
 				}
@@ -184,7 +183,7 @@ namespace FirstLight.Game.Presenters
 				_matchSettingsView.ToggleSpectatorTab();
 			}
 		}
-		
+
 		[Button]
 		private void RefreshData()
 		{
@@ -214,7 +213,7 @@ namespace FirstLight.Game.Presenters
 				_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
 				_matchSettingsView.SetSpectators(_services.FLLobbyService.CurrentMatchLobby.Players.Where(p => p.IsSpectator()).ToList());
 				//await UpdateSpectators();
-	
+
 				VisualElement row = null;
 
 				var spots = new List<MatchLobbyPlayerElement>();
@@ -236,7 +235,7 @@ namespace FirstLight.Game.Presenters
 					row!.Insert(0, playerElement);
 					spots.Add(playerElement);
 				}
-				
+
 				var orderedPlayers = grid.PositionArray;
 
 				for (var i = 0; i < orderedPlayers.Count; i++)
@@ -281,7 +280,7 @@ namespace FirstLight.Game.Presenters
 				PopupPresenter.OpenGenericInfo(ScriptTerms.UITCustomGames.custom_game, ScriptLocalization.UITCustomGames.no_players_bots).Forget();
 				return;
 			}
-			
+
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			var matchGrid = matchLobby.GetPlayerGrid();
 
@@ -296,13 +295,13 @@ namespace FirstLight.Game.Presenters
 
 			// TODO: user flow should not be handled here but in state machines
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-			
+
 			_services.MessageBrokerService.Publish(new StartedCustomMatch()
 			{
 				Settings = _matchSettingsView.MatchSettings
 			});
 		}
-		
+
 		private async UniTaskVoid ReadyUp()
 		{
 			await _services.FLLobbyService.ToggleMatchReady();
@@ -319,8 +318,7 @@ namespace FirstLight.Game.Presenters
 		private void OnSpotClicked(VisualElement source, int index)
 		{
 			var localPlayer = _services.FLLobbyService.CurrentMatchLobby.LocalPlayer();
-		
-			
+
 			if (source.userData is not Player player)
 			{
 				if (!_matchSettingsView.MatchSettings.RandomizeTeams)

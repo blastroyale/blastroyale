@@ -36,7 +36,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("EventThumbnail")] private VisualElement _eventThumbnail;
 		[Q("EventImage")] private VisualElement _eventImage;
 		[Q("FriendsTitle")] private LocalizedLabel _friendsTitle;
-		[Q("FriendsContainerList")] private VisualElement _friendsContainer;
+		[Q("FriendsInMatchScrollView")] private VisualElement _friendsInMatchScrollView;
 		[Q("Summary")] private Label _summary;
 		[Q("GameMode")] private MatchSettingsButtonElement _mode;
 		[Q("MaxPlayers")] private MatchSettingsButtonElement _maxPlayers;
@@ -206,11 +206,11 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_summary.SetDisplay(false);
 			
 			_friendsTitle.SetVisibility(_friendsPlaying.Count > 0);
-			_friendsContainer.Clear();
-			
+			_friendsInMatchScrollView.Clear();
+
 			foreach (var friend in _friendsPlaying)
 			{
-				_friendsContainer.Add(new Label(friend));
+				_friendsInMatchScrollView.Add(new Label(friend));
 			}
 
 			_customThumbnail.RemoveSpriteClasses();

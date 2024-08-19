@@ -4,6 +4,8 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -15,6 +17,7 @@ using FirstLight.UIService;
 using FirstLightServerSDK.Modules;
 using I2.Loc;
 using PlayFab;
+using Quantum;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using UnityEngine.UIElements;
@@ -51,6 +54,19 @@ namespace FirstLight.Game.Presenters
 		private int _pfpRequestHandle = -1;
 
 		private const int StatisticMaxSize = 8;
+
+		private static List<GameId> _botAvatars = new ()
+		{
+			GameId.Avatar1,
+			GameId.Avatar2,
+			GameId.Avatar3,
+			GameId.Avatar4,
+			GameId.Avatar5,
+			GameId.AvatarAssasinmask,
+			GameId.AvatarBurger,
+			GameId.AvatarBrandfemale,
+			GameId.AvatarBrandmale,
+		};
 
 		private bool IsLocalPlayer => Data.PlayfabID == PlayFabSettings.staticPlayer.PlayFabId;
 
@@ -163,12 +179,20 @@ namespace FirstLight.Game.Presenters
 			}).Forget();
 		}
 
+		private string GetAvatarUrlForBot(string botName)
+		{
+			var rng = new Random(botName.GetDeterministicHashCode());
+			var id = _botAvatars[rng.Next(_botAvatars.Count)];
+			return AvatarHelpers.GetAvatarUrl(ItemFactory.Collection(id), _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>());
+		}
+
 		private PublicPlayerProfile GetProfileForBot(string botName)
 		{
 			var rng = new Random(botName.GetDeterministicHashCode());
 			return new PublicPlayerProfile()
 			{
 				Name = botName,
+				AvatarUrl = GetAvatarUrlForBot(botName),
 				Statistics = new List<Statistic>()
 				{
 					new () {Name = GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, Value = rng.Next(3, 8)},
@@ -204,6 +228,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				await UniTask.Delay(UnityEngine.Random.Range(100, 300));
 				result = GetProfileForBot(Data.BotName);
 			}
 

@@ -11127,8 +11127,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - MINIGUN
       - RAMPAGE MINIGUN
-      - "\u041C\u0438\u043D\u0438\u0433\u0443\u043D"
       - Minigun
       - 
       - 
@@ -15385,8 +15385,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - ROCKET LAUNCHER
       - QUADZOOKA
-      - "\u0413\u0420\u0410\u041D\u0410\u0422\u041E\u041C\u0415\u0422"
       - "LAN\xC7ADOR DE GRANADA"
       - 
       - 
@@ -15396,8 +15396,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - SMG
       - STINGER SMG
-      - "\u0414\u0435\u0434\u0430\u043B\u0443\u0441"
       - "D\xE9dalo"
       - 
       - 
@@ -15407,8 +15407,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - PISTOL
       - PATROL PISTOL
-      - "\u041F\u0418\u0421\u0422\u041E\u041B\u0415\u0422"
       - PISTOLA
       - 
       - 
@@ -15418,8 +15418,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - ASSAULT RIFLE
       - COMBAT AR
-      - "\u041A\u0410\u0420\u0410\u0411\u0418\u041D"
       - CARABINA
       - 
       - 
@@ -15429,8 +15429,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - SHOTGUN
       - PUMP SHOTGUN
-      - "\u0414\u0420\u041E\u0411\u041E\u0412\u0418\u041A"
       - ESPINGARDA
       - 
       - 
@@ -15440,8 +15440,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - SNIPER
       - RANGER SNIPER
-      - "\u0421\u043D\u0430\u0439\u043F\u0435\u0440"
       - ATIRADOR DE ELITE
       - 
       - 
@@ -29488,6 +29488,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/custom_game_invite
+      TermType: 0
+      Description: 
+      Languages:
+      - CUSTOM GAME INVITE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCustomGames/enter_room_code
       TermType: 0
       Description: 
@@ -30283,17 +30294,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCustomGames/custom_game_invite
-      TermType: 0
-      Description: 
-      Languages:
-      - CUSTOM GAME INVITE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -30318,7 +30318,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1723643429050
+    Google_LastUpdatedVersion: 1723825543231
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

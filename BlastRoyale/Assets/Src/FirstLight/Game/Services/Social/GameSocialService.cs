@@ -8,6 +8,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes.Helpers;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
@@ -87,12 +88,14 @@ namespace FirstLight.Game.Services
 	{
 		private BufferedQueue _stateUpdates = new (TimeSpan.FromSeconds(3), true);
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 		private HashSet<string> _fakeBotRequests = new ();
 		private FriendActivity _playerActivity = new ();
 
-		public GameSocialService(IGameServices services)
+		public GameSocialService(IGameServices services, IGameDataProvider dataProvider)
 		{
 			_services = services;
+			_dataProvider = dataProvider;
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += _ => OnJoinedParty();
@@ -291,6 +294,9 @@ namespace FirstLight.Game.Services
 			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_open_profile,
 				() => PlayerStatisticsPopupPresenter.OpenBot(playerName).Forget()));
 
+			var canUseFriendSystem = _dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Friends);
+
+			if (!canUseFriendSystem) return;
 			if (!IsBotInvited(playerName))
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
@@ -327,7 +333,9 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			if (relationship == null || relationship.Type == RelationshipType.FriendRequest && !relationship.IsOutgoingInvite())
+			var hasIncomingRequest = relationship != null && relationship.Type == RelationshipType.FriendRequest && !relationship.IsOutgoingInvite();
+			var canUseFriendSystem = _dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Friends);
+			if ((relationship == null || hasIncomingRequest) && canUseFriendSystem)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
 					() => FriendsService.Instance.AddFriendHandled(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));

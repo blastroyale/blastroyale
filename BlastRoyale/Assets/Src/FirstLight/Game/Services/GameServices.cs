@@ -255,7 +255,7 @@ namespace FirstLight.Game.Services
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
-			GameSocialService = new GameSocialService(this);
+			GameSocialService = new GameSocialService(this, gameLogic);
 			PlayfabUnityBridgeService = new PlayfabUnityBridgeService(ProfileService, MessageBrokerService);
 		}
 

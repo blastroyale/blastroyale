@@ -1085,6 +1085,15 @@ namespace FirstLight.Game.Services
 			{
 				changes.ApplyToLobby(CurrentMatchLobby);
 			}
+			// If a player joined check if we sent the invite and remove it
+			if (changes.PlayerJoined.Value != null)
+			{
+				foreach (var playerJoined in changes.PlayerJoined.Value)
+				{
+					_sentMatchInvites.Remove(playerJoined.Player.Id);
+					CurrentMatchCallbacks.TriggerOnInvitesUpdated();
+				}
+			}
 
 			CurrentMatchCallbacks.TriggerLocalLobbyUpdated(changes);
 			if (CurrentMatchLobby != null)

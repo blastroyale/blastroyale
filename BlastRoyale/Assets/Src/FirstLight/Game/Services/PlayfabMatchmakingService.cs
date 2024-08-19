@@ -118,8 +118,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameDataProvider _dataProvider;
 
 		private readonly ICoroutineService _coroutines;
-
-		//private readonly IPartyService _party;
+		
 		private readonly IFLLobbyService _lobbyService;
 		private readonly IGameNetworkService _networkService;
 		private readonly IGameBackendService _backendService;

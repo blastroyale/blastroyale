@@ -242,7 +242,7 @@ namespace FirstLight.Game.Services
 					return false;
 				}
 				
-				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count > 4)
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= 4)
 				{
 					reason = "team_full";
 					return false;

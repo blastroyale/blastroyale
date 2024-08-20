@@ -167,12 +167,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			_vertices[vertexLength - 3] = pt3;
 			_vertices[vertexLength - 4] = pt4;
 			_mesh.vertices = _vertices;
-			_mesh.RecalculateBounds();
+
 			
 			var cachedShrinkingCircleLineTransform = _shrinkingCircleLinerRenderer.transform;
 			var cachedSafeAreaCircleLine = _safeAreaCircleLinerRenderer.transform;
 			
 			var position = new Vector3(center.x, cachedShrinkingCircleLineTransform.position.y, center.y);
+			
+			_mesh.bounds = new Bounds(position, new Vector3(cornerPtSize, 1, cornerPtSize));
 			
 			if (_config == null || _config.Step != circle->Step)
 			{

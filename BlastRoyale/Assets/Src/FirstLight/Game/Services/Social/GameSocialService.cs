@@ -241,18 +241,8 @@ namespace FirstLight.Game.Services
 					reason = "already_member";
 					return false;
 				}
-
-				if (_services.FLLobbyService.CurrentPartyLobby.Data.TryGetValue(FLLobbyService.KEY_MATCHMAKING_GAMEMODE, out var gm))
-				{
-					var gameMode = _services.GameModeService.Slots.FirstOrDefault(a => a.Entry.MatchConfig.ConfigId == gm.Value);
-					if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= gameMode.Entry.TeamSize)
-					{
-						reason = "team_full";
-						return false;
-					}
-				}
 				
-				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= _services.FLLobbyService.CurrentPartyLobby.MaxPlayers)
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count > 4)
 				{
 					reason = "team_full";
 					return false;

@@ -469,13 +469,6 @@ MonoBehaviour:
         Value: 0
       Adjective:
         Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
 --- !u!114 &138992293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2485,13 +2478,6 @@ MonoBehaviour:
         Value: 0
       Adjective:
         Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
 --- !u!114 &312902559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6057,13 +6043,6 @@ MonoBehaviour:
         Value: 0
       Adjective:
         Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
 --- !u!114 &722495025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9620,13 +9599,6 @@ MonoBehaviour:
         Value: 0
       Adjective:
         Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
 --- !u!114 &1114845701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11028,13 +11000,6 @@ MonoBehaviour:
         Value: 0
       Adjective:
         Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
 --- !u!114 &1301638485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11572,13 +11537,6 @@ MonoBehaviour:
         Value: 0
       Adjective:
         Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
 --- !u!114 &1318600228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14988,6 +14946,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 803093299297845899, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: _mapData
+      value: 
+      objectReference: {fileID: 1954784541}
     - target: {fileID: 4858687258718294325, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -15384,13 +15346,6 @@ MonoBehaviour:
         Value: 0
       Adjective:
         Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
 --- !u!114 &1704745924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17481,6 +17436,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
+--- !u!114 &1954784541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2370962622341698669, guid: 6d38dc1f223884f3fac8c4edaad743d1, type: 3}
+  m_PrefabInstance: {fileID: 1954784540}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0413bd8db4f29e3488d92156dc397190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1972260146
 GameObject:
   m_ObjectHideFlags: 0

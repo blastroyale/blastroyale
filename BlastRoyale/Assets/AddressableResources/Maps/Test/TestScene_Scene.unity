@@ -14943,6 +14943,10 @@ PrefabInstance:
       value: ShrinkingCircleSetup
       objectReference: {fileID: 0}
     - target: {fileID: 803093299297845897, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 803093299297845897, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -14952,11 +14956,31 @@ PrefabInstance:
       objectReference: {fileID: 1954784541}
     - target: {fileID: 4858687258718294325, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178133578585440388, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178133578685352594, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682541575006371301, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7682541575006371302, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: _lineWidth
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682541575540226528, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581154453228791798, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

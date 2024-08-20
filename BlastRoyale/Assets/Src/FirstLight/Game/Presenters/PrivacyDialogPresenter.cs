@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using UnityEngine.Networking;
@@ -22,7 +23,7 @@ namespace FirstLight.Game.Presenters
 
 		private Button _privacy;
 		private Button _terms;
-		private Button _confirm;
+		private LocalizedButton _confirm;
 		private IGameServices _services;
 
 
@@ -32,7 +33,7 @@ namespace FirstLight.Game.Presenters
 			_terms = Root.Q<Button>("TermsOfServiceButton");
 			_privacy = Root.Q<Button>("PrivacyButton");
 
-			_confirm = Root.Q<Button>("ConfirmButton").Required();
+			_confirm = Root.Q<LocalizedButton>("ConfirmButton").Required();
 			_confirm.clicked += Data.OnAccept;
 			var data = _services.DataService.GetData<AppData>().TitleData;
 

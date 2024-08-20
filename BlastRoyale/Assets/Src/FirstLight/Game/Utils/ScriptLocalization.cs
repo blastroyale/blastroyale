@@ -2676,6 +2676,7 @@ namespace I2.Loc
 
 		public static class UITShared
 		{
+			public static string accept 		{ get{ return LocalizationManager.GetTranslation ("UITShared/accept"); } }
 			public static string News 		{ get{ return LocalizationManager.GetTranslation ("UITShared/News"); } }
 			public static string back_to 		{ get{ return LocalizationManager.GetTranslation ("UITShared/back_to"); } }
 			public static string battle_royale 		{ get{ return LocalizationManager.GetTranslation ("UITShared/battle_royale"); } }
@@ -5480,7 +5481,8 @@ namespace I2.Loc
 
 		public static class UITShared
 		{
-		    public const string News = "UITShared/News";
+			public const string accept = "UITShared/accept";
+			public const string News = "UITShared/News";
 		    public const string back_to = "UITShared/back_to";
 		    public const string battle_royale = "UITShared/battle_royale";
 		    public const string cancel = "UITShared/cancel";

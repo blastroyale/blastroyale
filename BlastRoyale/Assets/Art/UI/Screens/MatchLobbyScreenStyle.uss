@@ -1,8 +1,8 @@
 .players-container {
-    flex-grow: 1;
     margin-top: 150px;
     padding-right: 42px;
-    flex-basis: 1px;
+    flex-basis: auto;
+    flex-shrink: 1;
     margin-bottom: 0;
 }
 
@@ -147,16 +147,19 @@
 }
 
 .players-container .unity-scroll-view__content-container {
-    padding-top: 15px;
+    padding-top: 20px;
 }
 
 .left-container {
     flex-grow: 1;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .bottom-bar {
     flex-direction: row;
     align-items: center;
+    margin-top: 40px;
 }
 
 .player-count {
@@ -166,7 +169,8 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
 }
-.spectator-spacer{
+
+.spectator-spacer {
     height: 12px;
     flex-grow: 1;
 }

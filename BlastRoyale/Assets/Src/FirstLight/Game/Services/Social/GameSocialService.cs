@@ -333,14 +333,14 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			var hasIncomingRequest = relationship != null && relationship.Type == RelationshipType.FriendRequest && !relationship.IsOutgoingInvite();
+			var hasIncomingRequest = relationship is {Type: RelationshipType.FriendRequest} && !relationship.IsOutgoingInvite();
 			var canUseFriendSystem = _dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Friends);
 			if ((relationship == null || hasIncomingRequest) && canUseFriendSystem)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
 					() => FriendsService.Instance.AddFriendHandled(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
 			}
-			else if (relationship.Type == RelationshipType.FriendRequest && relationship.IsOutgoingInvite())
+			else if (relationship is {Type: RelationshipType.FriendRequest} && relationship.IsOutgoingInvite())
 			{
 				if (settings.ShowRemoveFriend)
 				{
@@ -355,7 +355,7 @@ namespace FirstLight.Game.Services
 					buttons.Add(PlayerContextButton.Create(ScriptLocalization.UITFriends.option_request_sent).Disable());
 				}
 			}
-			else if (relationship.Type == RelationshipType.Friend && settings.ShowRemoveFriend)
+			else if (relationship is {Type: RelationshipType.Friend} && settings.ShowRemoveFriend)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
 					() => FriendsService.Instance.RemoveRelationshipHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));

@@ -30294,6 +30294,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITShared/accept
+      TermType: 0
+      Description: 
+      Languages:
+      - ACCEPT
+      - ACCEPT
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

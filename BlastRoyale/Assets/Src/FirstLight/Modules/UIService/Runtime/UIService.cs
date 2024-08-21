@@ -197,7 +197,8 @@ namespace FirstLight.UIService
 			_openedScreensType.Remove(screenType);
 			_openedScreensLayer[presenter.Layer].Remove(presenter);
 
-			Addressables.ReleaseInstance(presenter.gameObject);
+			if (presenter)
+				Addressables.ReleaseInstance(presenter.gameObject);
 		}
 
 		private static string GetAddress<T>() where T : UIPresenter

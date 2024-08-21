@@ -54,6 +54,7 @@ MonoBehaviour:
   _fireVfxZoneTransform: {fileID: 7178133578685352592}
   _ringOfFireParticle: {fileID: 7178133578585440386}
   _damageMaterial: {fileID: 2100000, guid: fafdf9a4479be944c8e7535404d43e32, type: 2}
+  _mapData: {fileID: 0}
 --- !u!1 &4858687258718294325
 GameObject:
   m_ObjectHideFlags: 0

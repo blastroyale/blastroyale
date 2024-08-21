@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
@@ -55,10 +56,14 @@ namespace FirstLight.Game.Services
 			// We skip inviting to party if the player already has an invite open
 			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
 			var services = MainInstaller.ResolveServices();
+			var dataProvider = MainInstaller.ResolveData();
 			switch (message.MessageType)
 			{
 				case FriendMessage.FriendMessageType.Invite:
-					if (!services.GameSocialService.GetCurrentPlayerActivity().CanReceiveInvite())
+
+					var isBusy = !services.GameSocialService.GetCurrentPlayerActivity().CanReceiveInvite();
+					var blockTeamInviteByLevel = message.InviteType == FriendMessage.FriendInviteType.Party && !dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Squads);
+					if (isBusy || blockTeamInviteByLevel)
 					{
 						FriendsService.Instance.MessageAsync(e.UserId, FriendMessage.CreateDecline(message.LobbyID, message.InviteType)).AsUniTask().Forget();
 						return;

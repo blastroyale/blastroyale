@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -23,8 +24,8 @@ namespace FirstLight.Game.Utils
 #if UNITY_IOS && !UNITY_EDITOR
 			await UniTask.NextFrame(); // We wait for one frame because we had problems with the request in the past apparently
 			Unity.Advertisement.IosSupport.ATTrackingStatusBinding.RequestAuthorizationTracking();
-
-			await UniTask.WaitUntil(() => Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus() != Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED);
+			await UniTaskUtils.WaitUntilTimeout(() => Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus()
+				!= Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED, TimeSpan.FromMinutes(1));
 #endif
 		}
 	}

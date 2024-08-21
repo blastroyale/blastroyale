@@ -32,6 +32,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private FP _innerRadius;
 		private FP _outerRadius;
 		private const int MaxParticles = 50;
+		private Vector3[] _vertices;
 
 		private Mesh _mesh;
 
@@ -54,40 +55,59 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void CreateDamageZoneMeshData()
 		{
-			var mesh = _damageZoneTransform.gameObject.AddComponent<MeshFilter>();
+			var meshFilter = _damageZoneTransform.gameObject.AddComponent<MeshFilter>();
 			var meshRenderer = _damageZoneTransform.gameObject.AddComponent<MeshRenderer>();
+			_mesh= meshFilter.mesh;
+			_mesh.Clear();
+			
 			meshRenderer.material = _damageMaterial;
-
+			var circleVertexResolution = 120;
 			var cornerPositionSize = 4;
-			var linePositionCount = _safeAreaCircleLinerRenderer.Line.positionCount;
-			var totalSize = linePositionCount + cornerPositionSize;
-			Vector3[] vertices = new Vector3[totalSize];
-			_safeAreaCircleLinerRenderer.Line.GetPositions(vertices);
+			
+			var totalSize = circleVertexResolution + cornerPositionSize;
+			
+			var circlePositions = new Vector3[circleVertexResolution];
+			
+			var angle = 2 * Mathf.PI / circleVertexResolution;
 
-			for(var i=0; i<linePositionCount; i++)
+			for (var i = 0; i < circleVertexResolution; i++)
 			{
-				(vertices[i].y, vertices[i].z) = (vertices[i].z, vertices[i].y);
+				var cos = Mathf.Cos(angle * i);
+				var sin = Mathf.Sin(angle * i);
+				
+				var rotationMatrix = new Matrix4x4(new Vector4(cos, sin, 0, 0),
+					new Vector4(-sin, cos, 0, 0),
+					new Vector4(0, 0, 1, 0),
+					new Vector4(0, 0, 0, 1));
+				
+				circlePositions[i] = rotationMatrix.MultiplyPoint(new Vector3(0, 1, 0));
+			}
+
+			_vertices= new Vector3[totalSize];
+			for (var i = 0; i < circleVertexResolution; i++)
+			{
+				_vertices[i].Set(circlePositions[i].x, circlePositions[i].z, circlePositions[i].y);
 			}
 			
 			// corner points
-			vertices[totalSize-1] = new Vector3(-1, 0, 1);
-			vertices[totalSize-2] = new Vector3(-1, 0, -1);
-			vertices[totalSize-3] = new Vector3(1, 0, -1);
-			vertices[totalSize-4] = new Vector3(1, 0, 1);
+			_vertices[totalSize-1] = new Vector3(-1, 0, 1);
+			_vertices[totalSize-2] = new Vector3(-1, 0, -1);
+			_vertices[totalSize-3] = new Vector3(1, 0, -1);
+			_vertices[totalSize-4] = new Vector3(1, 0, 1);
 			
-			var segmentResolution = linePositionCount / 4;
-
+			var segmentResolution = circleVertexResolution / 4;
+			
 			var totalResolution = segmentResolution * 4;
 			var triangleCount = totalResolution * 3;
 			var triangles = new int[triangleCount + 12];
-
+			
 			for (var i = 0; i < totalResolution; i++)
 			{
 				triangles[i * 3] = i;
-				triangles[i * 3 + 1] = (i + 1 == linePositionCount) ? 0 : i + 1;
+				triangles[i * 3 + 1] = (i + 1 == circleVertexResolution) ? 0 : i + 1;
 				triangles[i * 3 + 2] = totalSize - (i / segmentResolution) - 1;
 			}
-
+			
 			triangles[triangleCount] = 0;
 			triangles[triangleCount+1] = totalSize-1;
 			triangles[triangleCount+2] = totalSize-4;
@@ -103,9 +123,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			triangles[triangleCount+9] = segmentResolution;
 			triangles[triangleCount+10] = totalSize-2;
 			triangles[triangleCount+11] = totalSize-1;
-			
-			_mesh= mesh.mesh;
-			_mesh.vertices = vertices;
+
+			_mesh.vertices = _vertices;
 			_mesh.triangles = triangles;
 		}
 
@@ -135,25 +154,27 @@ namespace FirstLight.Game.MonoComponent.Match
 			var radius = radiusFP.AsFloat;
 			var center = centerFP.ToUnityVector2();
 			
-			Vector3[] vertices = _mesh.vertices;
+	
 			var cornerPtSize = _mapData.Asset.Settings.WorldSize * 2;
 			var pt1 = new Vector3(-1 * cornerPtSize, 0, 1 * cornerPtSize) / radius;
 			var pt2 = new Vector3(-1 * cornerPtSize, 0, -1 * cornerPtSize) / radius;
 			var pt3 = new Vector3(1 * cornerPtSize, 0, -1 * cornerPtSize) / radius;
 			var pt4 = new Vector3(1 * cornerPtSize, 0, 1 * cornerPtSize) / radius;
 			
-			var vertexLength = _mesh.vertices.Length;
-			vertices[vertexLength - 1] = pt1;
-			vertices[vertexLength - 2] = pt2;
-			vertices[vertexLength - 3] = pt3;
-			vertices[vertexLength - 4] = pt4;
+			var vertexLength = _vertices.Length;
+			_vertices[vertexLength - 1] = pt1;
+			_vertices[vertexLength - 2] = pt2;
+			_vertices[vertexLength - 3] = pt3;
+			_vertices[vertexLength - 4] = pt4;
+			_mesh.vertices = _vertices;
 
-			_mesh.vertices = vertices;
 			
 			var cachedShrinkingCircleLineTransform = _shrinkingCircleLinerRenderer.transform;
 			var cachedSafeAreaCircleLine = _safeAreaCircleLinerRenderer.transform;
 			
 			var position = new Vector3(center.x, cachedShrinkingCircleLineTransform.position.y, center.y);
+			
+			_mesh.bounds = new Bounds(position, new Vector3(cornerPtSize, 1, cornerPtSize));
 			
 			if (_config == null || _config.Step != circle->Step)
 			{

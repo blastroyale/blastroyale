@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -35,9 +37,9 @@ namespace FirstLight.Game.Presenters
 		private const string USS_ADD_FRIEND_BUTTON = "add-friend-button";
 		private const string USS_ADD_FRIEND_BUTTON_BLOCKED = "add-friend-button--blocked";
 		private const string USS_ADD_FRIEND_BUTTON_PENDING = "add-friend-button--pending";
-		private const string USS_ADD_FRIEND_BUTTON_FRIEND = "add-friend-button--friend";
 
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 		private IMatchServices _matchServices;
 		private Action _friendPopAnimationCancel;
 
@@ -56,6 +58,7 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.ResolveData();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
 
@@ -178,7 +181,7 @@ namespace FirstLight.Game.Presenters
 			switch (type)
 			{
 				case RelationshipType.Friend:
-					_addFriend.AddToClassList(USS_ADD_FRIEND_BUTTON_FRIEND);
+					_addFriend.SetDisplay(false);
 					break;
 				case RelationshipType.Block:
 					_addFriendLabel.text = "BLOCKED";
@@ -195,6 +198,13 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateFriendButton(Relationship relationship)
 		{
+			var canUseFriendSystem = _dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Friends);
+			_addFriend.SetDisplay(canUseFriendSystem);
+			if (!canUseFriendSystem)
+			{
+				return;
+			}
+			
 			if (relationship == null)
 			{
 				_addFriend.enabled = true;

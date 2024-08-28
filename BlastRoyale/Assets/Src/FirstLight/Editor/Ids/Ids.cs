@@ -192,29 +192,29 @@ namespace FirstLight.Editor.Ids
 			{"Female02Avatar", 58, Deprecated},
 			{"MaleAssassin", 68, PlayerSkin, BotItem, Assassin, Collection},
 			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
-			{"MalePunk", 77, PlayerSkin, BotItem, Punk, Collection},
-			{"MaleSuperstar", 80, PlayerSkin, BotItem, Superstar, Collection},
+			{"MalePunk", 77, PlayerSkin, Punk, Collection},
+			{"MaleSuperstar", 80, PlayerSkin, Superstar, Collection},
 			{"FemaleAssassin", 81, PlayerSkin, BotItem, Assassin, Collection},
 			{"FemaleCorpos", 82, PlayerSkin, Corpo, Collection},
-			{"FemalePunk", 83, PlayerSkin, BotItem, Punk, Collection},
-			{"FemaleSuperstar", 104, PlayerSkin, BotItem, Superstar, Collection},
+			{"FemalePunk", 83, PlayerSkin, Punk, Collection},
+			{"FemaleSuperstar", 104, PlayerSkin, Superstar, Collection},
 			{"TestSkin", 122},
 			{"PlayerSkinDragonBoxer", 148}, // placeholder ID for the future skin
 			{"PlayerSkinTieGuy", 147}, // placeholder ID for the future skin
 			{"PlayerSkinFitnessChick", 146}, // placeholder ID for the future skin
 			{"PlayerSkinSkellyQueen", 145}, // placeholder ID for the future skin
-			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, Collection},
 			{"PlayerSkinJodie", 135}, // placeholder ID for the future skin
 			{"PlayerSkinMontyVonCue", 136}, // placeholder ID for the future skin
 			{"PlayerSkinBoudicca", 139}, // placeholder ID for the future skin
-			{"PlayerSkinCupid", 142, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinCupid", 142, PlayerSkin, Collection},
 			{"PlayerSkinPanda", 400, PlayerSkin, Collection},
 			{"PlayerSkinDragon", 402}, // placeholder ID for the future skin
-			{"PlayerSkinSnowboarder", 403, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinSnowboarder", 403, PlayerSkin, Collection},
 			{"PlayerSkinDunePaul", 404, PlayerSkin, Collection},
 			{"PlayerSkinViking", 405, PlayerSkin, Collection},
 			{"PlayerSkinLeprechaun", 401, PlayerSkin, Collection},
-			{"PlayerSkinEGirl", 196, PlayerSkin, Collection},
+			{"PlayerSkinEGirl", 196, PlayerSkin, Collection, BotItem},
 			{"PlayerSkinPoliceFemale", 199, PlayerSkin, Collection},
 			{"PlayerSkinNinja", 201, PlayerSkin, Collection},
 			{"PlayerSkinBrandFemale", 202, PlayerSkin, Collection, BotItem},
@@ -227,7 +227,7 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinLion", 213, PlayerSkin, Collection},
 			{"PlayerSkinSatoshi", 214, PlayerSkin, Collection},
 			{"PlayerSkinSheriff", 215, PlayerSkin, Collection},
-			{"PlayerSkinSoldier", 216, PlayerSkin, Collection},
+			{"PlayerSkinSoldier", 216, PlayerSkin, Collection, BotItem},
 			{"PlayerSkinSwimmer", 217, PlayerSkin, Collection},
 			{"PlayerSkinThief", 218, PlayerSkin, Collection},
 			{"PlayerSkinVR", 219, PlayerSkin, Collection},

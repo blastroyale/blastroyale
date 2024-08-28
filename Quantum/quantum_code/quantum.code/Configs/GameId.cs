@@ -2713,16 +2713,11 @@ namespace Quantum
 					GameIdGroup.BotItem, new List<GameId>
 					{
 						GameId.MaleAssassin,
-						GameId.MalePunk,
-						GameId.MaleSuperstar,
 						GameId.FemaleAssassin,
-						GameId.FemalePunk,
-						GameId.FemaleSuperstar,
-						GameId.PlayerSkinXmasSuperstar,
-						GameId.PlayerSkinCupid,
-						GameId.PlayerSkinSnowboarder,
 						GameId.PlayerSkinBrandFemale,
 						GameId.PlayerSkinBrandMale,
+						GameId.PlayerSkinEGirl,
+						GameId.PlayerSkinSoldier,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,

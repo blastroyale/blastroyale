@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformMode: 1
+  TransformMode: 0
   Transform2DVertical:
     IsEnabled: 0
     Height:
@@ -293,7 +293,7 @@ MonoBehaviour:
     SourceCollider: {fileID: 0}
     IsEnabled: 1
     Shape2D:
-      ShapeType: 0
+      ShapeType: 4
       PolygonCollider:
         Id:
           Value: 0
@@ -303,9 +303,9 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 0
+          RawValue: 163840
         Y:
-          RawValue: 0
+          RawValue: 163840
       PositionOffset:
         X:
           RawValue: 0
@@ -315,7 +315,29 @@ MonoBehaviour:
         RawValue: 0
       UserTag: 0
       IsPersistent: 1
-      CompoundShapes: []
+      CompoundShapes:
+      - ShapeType: 4
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 0
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 163840
+          Y:
+            RawValue: 163840
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
     Shape3D:
       ShapeType: 16

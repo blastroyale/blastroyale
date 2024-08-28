@@ -12,8 +12,8 @@ synced event LandMineThrown {
     entity_ref entity;
     FP TrajectoryStartsAt;
     FP TrajectoryEndsAt;
-    FPVector3 TrajectoryStart;
-    FPVector3 TrajectoryEnd;
+    FPVector2 TrajectoryStart;
+    FPVector2 TrajectoryEnd;
 }
 
 synced event LandMineTriggered {
@@ -25,5 +25,5 @@ synced event LandMineTriggered {
 
 synced event LandMineExploded {
     entity_ref Entity;
-    FPVector3 Position;
+    FPVector2 Position;
 }

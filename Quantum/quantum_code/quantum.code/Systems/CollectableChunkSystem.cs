@@ -34,7 +34,7 @@ namespace Quantum.Systems
 
 		public void OnAdded(Frame f, EntityRef entity, Collectable* component)
 		{
-			var pos = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
+			var pos = f.Unsafe.GetPointer<Transform2D>(entity)->Position;
 			var chunkIndex = GetChunk(f, pos);
 
 			var singleton = f.Unsafe.GetOrAddSingletonPointer<CollectableChunks>();
@@ -51,7 +51,7 @@ namespace Quantum.Systems
 
 		public void OnRemoved(Frame f, EntityRef entity, Collectable* component)
 		{
-			var pos = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
+			var pos = f.Unsafe.GetPointer<Transform2D>(entity)->Position;
 			var chunkIndex = GetChunk(f, pos);
 
 			var singleton = f.Unsafe.GetOrAddSingletonPointer<CollectableChunks>();

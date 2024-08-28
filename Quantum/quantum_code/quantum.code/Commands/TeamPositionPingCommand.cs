@@ -7,7 +7,7 @@ namespace Quantum.Commands
 	/// </summary>
 	public unsafe class TeamPositionPingCommand : CommandBase
 	{
-		public FPVector3 Position;
+		public FPVector2 Position;
 		public TeamPingType Type;
 
 		public override void Serialize(BitStream stream)

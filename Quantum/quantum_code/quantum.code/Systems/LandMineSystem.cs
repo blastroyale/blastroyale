@@ -6,17 +6,17 @@ namespace Quantum.Systems
 	public unsafe struct LandMineFilter
 	{
 		public EntityRef Entity;
-		public Transform3D* Transform;
+		public Transform2D* Transform;
 		public LandMine* LandMine;
 	}
 
-	public unsafe class LandMineSystem : SystemMainThreadFilter<LandMineFilter>, ISignalOnTriggerEnter3D, ISignalUseGenericSpecial
+	public unsafe class LandMineSystem : SystemMainThreadFilter<LandMineFilter>, ISignalOnTriggerEnter2D, ISignalUseGenericSpecial
 	{
 		private FP timeToExplode = FP._1;
 		private uint knockBack = 3;
 
 
-		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+		public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
 		{
 			if (!f.Unsafe.TryGetPointer<LandMine>(info.Entity, out var landMine) ||
 				!f.Unsafe.TryGetPointer<Stats>(info.Other, out var damaged)) return;
@@ -33,7 +33,7 @@ namespace Quantum.Systems
 		{
 			landMine->TriggeredTime = f.Time;
 
-			f.Remove<PhysicsCollider3D>(mineEntity);
+			f.Remove<PhysicsCollider2D>(mineEntity);
 			f.Events.LandMineTriggered(mineEntity, trigerrer, landMine->Radius);
 		}
 
@@ -72,7 +72,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var attackerTransform = f.Unsafe.GetPointer<Transform3D>(attacker);
+			var attackerTransform = f.Unsafe.GetPointer<Transform2D>(attacker);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(attacker);
 			var stats = f.Unsafe.GetPointer<Stats>(attacker);
 			// Dirty ugly workaround to get the health in percentage, gets the value from the owner percentage
@@ -80,15 +80,14 @@ namespace Quantum.Systems
 			var damage = targetHP * special.SpecialPower;
 
 			var aimInput = FPVector2.ClampMagnitude(aimDirection, FP._1);
-			var position = attackerTransform->Position + (aimInput.ToRotation() * playerCharacter->ProjectileSpawnOffset);
-			position.Y = attackerTransform->Position.Y;
+			var position = attackerTransform->Position + FPVector2.Rotate(playerCharacter->ProjectileSpawnOffset, aimInput.ToRotation());
 			var minePrototype = f.AssetConfigs.LandMinePrototype;
 			var mine = f.Create(minePrototype);
 
-			var shape = Shape3D.CreateSphere(special.Radius);
+			var shape = Shape2D.CreateCircle(special.Radius);
 			var mineComponent = f.Unsafe.GetPointer<LandMine>(mine);
-			var mineCollider = f.Unsafe.GetPointer<PhysicsCollider3D>(mine);
-			mineCollider->Shape = Shape3D.CreateSphere(special.Radius);
+			var mineCollider = f.Unsafe.GetPointer<PhysicsCollider2D>(mine);
+			mineCollider->Shape = shape;
 			mineComponent->TriggerableAfter = f.Time + special.Speed;
 			mineComponent->Radius = special.Radius;
 			mineComponent->Damage = (uint)damage;
@@ -96,7 +95,7 @@ namespace Quantum.Systems
 			mine.SetPosition(f, position);
 
 			// Check explosiont rigger
-			var hits = f.Physics3D.OverlapShape(position, FPQuaternion.Identity, shape,
+			var hits = f.Physics2D.OverlapShape(position, 0, shape,
 				f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			for (var j = 0; j < hits.Count; j++)
 			{

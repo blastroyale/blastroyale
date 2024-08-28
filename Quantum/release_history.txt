@@ -1,3 +1,72 @@
+# 2.1.8.1
+
+## Stable
+
+### Build 1434 (Apr 16, 2024)
+
+**Bug Fixes**
+
+- Fixed: GetDrawerTypeForType() errors for Unity 2022.3.23+
+
+# 2.1.8
+
+## Stable
+
+### Build 1389 (Mar 18, 2024)
+
+**What's New**
+
+- The context `LayerInfo` is now exposed in `FrameThreadSafe.Layers` property, similarly to `Frame.Layers`
+- `Session.IsDestroyed` and `QuantumGame.IsSessionDestroyed` properties to be able to check for destroyed sessions
+- CodeGen: Support for casting in the attribute list. E.g.: `[DrawIf("SomeField", (long)SomeEnum.SomeValue)] Int32 IntField;`
+- Set of core DLLs that increase max component count to 512. See Manual/Quantum ECS/Components/Max Component Count doc for details
+- NavMeshRegions support 3D colliders during NavMesh baking
+- Assertion error in Debug with meaningful message when LUTs are not loaded and trigonometric functions are called
+- Added `OnSimulateBeginUser(Frame)` and `OnSimulateEndUser(Frame)` partial methods to easier extend `QuantumGame`
+- Marking callback methods in `QuantumGame` as `virtual` (e.g. OnGameStart(), OnSimulate, ..)
+- Added the optional paramter `arrayCapacity` to `RuntimeConfig.ToByteArray(RuntimeConfig config, int arrayCapacity = 8192)` and `RuntimePlayer.ToByteArray(RuntimePlayer player, int arrayCapacity = 8192)`
+- `ColorRGBA.Lerp` and `.LerpUnclamped`
+
+**Improvements**
+
+- Layer properties in 2D and 3D colliders now clamp the value if outside the valid layer range
+- Improved detection of degenerate triangles when baking static mesh colliders
+
+**Changes**
+
+- Upgraded Photon Realtime SDK to version `4.1.8.0`
+- 2D and 3D PhysicsBody Force and Torque fields are now exposed as public getter properties
+- Upgraded Custom Quantum Plugin SDK Newtonsoft dependency to `13.0.3`
+
+**Bug Fixes**
+
+- Fixed: An issue on the server that cause input to be not accepted for late-joines for a while when lots of commands are issued by other clients
+- Fixed: Potential deadlocks when the simulation is using all Job threads and an asset which is sync-loaded triggers an async mesh/texture load
+- Fixed: An issue in the navmesh baking that could cause wrongs borders being generated, another epsilon has been introduced on the `MapNavMesh.ImportSettings` called `FixTrianglesOnEdgesHeightEpsilon`, which is set to 0.05 as default
+- Fixed: The sleep detection when the flag IsAwakenedByForces is enabled in 2D and 3D simulation for the Legacy Gauss  collision solver
+- Fixed: The sleep detection when the flag IsAwakenedByForces is enabled in 2D simulation for the collision solver Hybrid Jacobi and Legacy Gauss
+- Fixed: An issue that could cause flipped navmesh border normals around overlapping 3D navmesh parts
+- Fixed: Serialization issue in FrameMetaData that could cause a soft desync when expanding internal hash collections
+- Fixed: Possible desync on late-joins when switching a Map and disabling the Physics Engine system before it updates to the new Map
+- Fixed: An issue that could cause an exception inside the QuantumStats script after a plugin error during late-joining
+- Fixed: QuantumPrefabAssetImporter: long import times for projects with a large number of addressables
+- Fixed: `ComponentSet.IsSubsetOf` not computing the returned value correctly
+- Fixed: An issue that caused `Frame.GetPlayerData()` to return valid data before the `OnPlayerData` callback was called and potentially causing a desync
+- Fixed: Issues that could cause the player input flags to be PlayerNotPresent during the OnPlayerDataSet() callback
+- Fixed: Heap Allocation Tracker giving a false positive when adding shapes to a Compound and expanding the buffer
+- Fixed: Issue in the 2D Polygon-Polygon overlap check that could cause DivisionByZero exceptions
+- Fixed: Issue in 2D and 3D Physics that could cause queries and colliders that were touching but not penetrating to be ignored
+- Fixed: Quantum Prefab assets initial import failing due to Resources not being yet accessible
+- Fixed: An issue on the server that was introduced recently which caused an exception when disconnecting while the simulation is starting
+- Fixed: Issues with broad-phase shape overlap and cast queries in case the internal query buffer had to expand, on the frame when that happened
+- Fixed: An issue on the server that would cause redundant snapshot requests when heavily using commands at that time
+- Fixed: An issue on the server that could cause player RPCs to be unreasonably delayed
+- Fixed: Potential NullReferenceException on `MapData.DrawGizmos` due to math LUTs not being loaded
+- Fixed: An issue in pathfinding that caused the `OnSearchFailed` callback to be only called for one agent, when multiple agent path seaches fail at the same tick
+- Fixed: Possible memory corruption when using the 2D or 3D Physics Legacy Gauss-Seidel solver
+- Fixed: An issue on the `FPAnimationCurvePropertyDrawer` that ignored the `WeightedMode` for keys
+- Fixed: Issue in the volume computation of 3D boxes, which could affect the inertia tensor of dynamic bodies with compound-shape colliders that included box shapes
+
 # 2.1.7
 
 ## Stable

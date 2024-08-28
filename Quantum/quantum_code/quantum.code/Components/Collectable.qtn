@@ -2,7 +2,7 @@ component Collectable
 {
 	[HideInInspector] GameId GameId;
 	[HideInInspector] EntityRef Spawner;
-	[HideInInspector] FPVector3 OriginPosition;
+	[HideInInspector] FPVector2 OriginPosition;
 }
 
 component CollectableTime 
@@ -44,7 +44,7 @@ synced event OnCollectableCollected
 	entity_ref CollectableEntity;
 	entity_ref CollectorEntity;
 	entity_ref Spawner;
-	FPVector3 CollectablePosition;
+	FPVector2 CollectablePosition;
 }
 
 synced event OnCollectableBlocked

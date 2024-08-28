@@ -10,7 +10,7 @@ namespace Quantum
 		/// <summary>
 		/// Drops a consumable of the given <paramref name="gameId"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static void DropConsumable(Frame f, GameId gameId, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles)
+		public static void DropConsumable(Frame f, GameId gameId, FPVector2 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles)
 		{
 			DropConsumable(f, gameId, position, angleDropStep, isConsiderNavMesh, dropAngles, Constants.DROP_OFFSET_RADIUS);
 		}
@@ -18,27 +18,23 @@ namespace Quantum
 		/// <summary>
 		/// Drops a consumable of the given <paramref name="gameId"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static void DropConsumable(Frame f, GameId gameId, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles, FP offsetRadius)
+		public static void DropConsumable(Frame f, GameId gameId, FPVector2 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles, FP offsetRadius)
 		{
-			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles, offsetRadius);
-
-			// Setting Y to a fixed value to avoid consumable being too low or too high 
-			if (f.Context.GameModeConfig.Id != "Tutorial") // TODO: Remove this after we make a new flat tutorial level
-			{
-				dropPosition.Y = Constants.DROP_Y_POSITION;
-			}
+			var dropPosition = dropAngles == 1
+				? position
+				: GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles, offsetRadius);
 
 			var configConsumable = f.ConsumableConfigs.GetConfig(gameId);
 			var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
 
 			f.Unsafe.GetPointer<Consumable>(entityConsumable)->Init(f, entityConsumable, dropPosition,
-				FPQuaternion.Identity, configConsumable, EntityRef.None, position);
+				0, configConsumable, EntityRef.None, position);
 		}
 
 		/// <summary>
 		/// Drops an equipment item (weapon / gear) from <paramref name="equipment"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static void DropEquipment(Frame f, in Equipment equipment, FPVector3 position, int angleDropStep, bool isConsiderNavMesh,
+		public static void DropEquipment(Frame f, in Equipment equipment, FPVector2 position, int angleDropStep, bool isConsiderNavMesh,
 										 int dropAngles, PlayerRef owner = new PlayerRef())
 		{
 			if (equipment.IsDefaultItem())
@@ -49,14 +45,8 @@ namespace Quantum
 
 			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles, Constants.DROP_OFFSET_RADIUS);
 
-			// Setting Y to a fixed value to avoid weapon being too low or too high 
-			if (f.Context.GameModeConfig.Id != "Tutorial") // TODO: Remove this after we make a new flat tutorial level
-			{
-				dropPosition.Y = Constants.DROP_Y_POSITION;
-			}
-
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
-			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity, position,
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, 0, position,
 				equipment, EntityRef.None, owner);
 		}
 
@@ -124,16 +114,16 @@ namespace Quantum
 			}
 		}
 
-		private static FPVector3 GetPointOnNavMesh(Frame f, FPVector3 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles, FP radiusOffset)
+		private static FPVector2 GetPointOnNavMesh(Frame f, FPVector2 position, int angleDropStep, bool isConsiderNavMesh, int dropAngles, FP radiusOffset)
 		{
 			var angleLevel = (angleDropStep / dropAngles);
 			var angleGranularity = FP.PiTimes2 / dropAngles;
 			var angleStep = FPVector2.Rotate(FPVector2.Left,
 				(angleGranularity * angleDropStep) +
 				(angleLevel % 2) * angleGranularity / 2);
-			var dropPosition = (angleStep * radiusOffset * (angleLevel + 1)).XOY + position;
+			var dropPosition = (angleStep * radiusOffset * (angleLevel + 1)) + position;
 
-			if (!isConsiderNavMesh || f.NavMesh.Contains(dropPosition, NavMeshRegionMask.Default, true))
+			if (!isConsiderNavMesh || f.NavMesh.Contains(dropPosition.XOY, NavMeshRegionMask.Default, true))
 			{
 				return dropPosition;
 			}

@@ -568,7 +568,6 @@ namespace FirstLight.Game.StateMachines
 			return f.ComponentCount<Hazard>() > 0;
 		}
 
-
 		private bool IsGrenadeBotDead(Frame f)
 		{
 			if (!f.TryGetSingleton<TutorialRuntimeData>(out var tutorialData))

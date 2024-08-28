@@ -143,7 +143,7 @@ public class TestBlastRoyaleCommands
 		{
 			Data = new()
 			{
-				LastDeathPosition = new FPVector3(1, 2, 3)
+				LastDeathPosition = new FPVector2(1, 2)
 			}
 		};
 

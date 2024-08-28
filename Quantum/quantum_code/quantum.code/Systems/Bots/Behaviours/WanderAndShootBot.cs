@@ -23,7 +23,7 @@ namespace Quantum.Systems.Bots
 			var variationPerRetry = (rad360 - FP.Rad_22_50) / RETRIES;
 			for (var i = 0; i < RETRIES; i++)
 			{
-				if (TryToWanderToAngle(f, ref filter, filter.Transform->Position.XZ, FP._10, angle))
+				if (TryToWanderToAngle(f, ref filter, filter.Transform->Position, FP._10, angle))
 				{
 					break;
 				}
@@ -35,7 +35,7 @@ namespace Quantum.Systems.Bots
 		{
 			var x = circleCenter.X + circleRadius * FPMath.Cos(angleRad);
 			var y = circleCenter.Y + circleRadius * FPMath.Sin(angleRad);
-			if (BotMovement.MoveToLocation(f, filter.Entity, new FPVector3(x, FP._0, y)))
+			if (BotMovement.MoveToLocation(f, filter.Entity, new FPVector2(x, y)))
 			{
 				BotLogger.LogAction(ref filter,$"Wandering to ({x},{y})");
 				filter.BotCharacter->SetHasWaypoint(filter.Entity, f);

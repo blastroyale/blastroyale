@@ -14,7 +14,6 @@ using Quantum.Inspector;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Quantum;
-using System.Collections.Specialized;
 using System.Threading;
 using Quantum.Prototypes;
 using System.Reflection;
@@ -279,6 +278,8 @@ namespace Quantum {
     public const int DumpFlag_PrintReadableDynamicDB      = DumpFlag_ReadableDynamicDB;
 
     struct RuntimePlayerData {
+      public PlayerRef     PlayerRef;
+      public Int32         Tick;
       public Int32         ActorId;
       public Byte[]        Data;
       public RuntimePlayer Player;
@@ -299,6 +300,7 @@ namespace Quantum {
 
     // player data
     PersistentMap<Int32, RuntimePlayerData> _playerData;
+    List<RuntimePlayerData> _oldPlayerData;
 
     ISignalOnPlayerDataSet[] _ISignalOnPlayerDataSet;
 
@@ -453,6 +455,7 @@ namespace Quantum {
       _sessionConfig    = sessionConfig;
 
       _playerData = new PersistentMap<Int32, RuntimePlayerData>();
+      _oldPlayerData = new List<RuntimePlayerData>();
 
       AllocGen();
       InitStatic();
@@ -708,33 +711,47 @@ namespace Quantum {
     }
 
     void SerializeRuntimePlayers(BitStream stream) {
-      stream.WriteInt(_playerData.Count);
+      // player data can be invalid for this Frame, so we may have to filter out a few
+      var playerDataCount = 0;
+      foreach (var player in _playerData.Iterator()) {
+        if (TryGetPlayerData(player.Key, out var playerData)) {
+          playerDataCount++;
+        }
+      }
+
+      stream.WriteInt(playerDataCount);
 
       foreach (var player in _playerData.Iterator()) {
-        stream.WriteInt(player.Key);
-        stream.WriteInt(player.Value.ActorId);
-        stream.WriteByteArrayLengthPrefixed(player.Value.Data);
-        player.Value.Player.Serialize(stream);
+        // get actual data matching this tick
+        if (TryGetPlayerData(player.Key, out var playerData)) {
+          stream.WriteInt(player.Key);
+          stream.WriteInt(playerData.Tick);
+          stream.WriteInt(playerData.ActorId);
+          stream.WriteByteArrayLengthPrefixed(playerData.Data);
+          playerData.Player.Serialize(stream);
+        }
       }
     }
 
     void DeserializeRuntimePlayers(Byte[] bytes) {
       BitStream stream;
-      stream         = new BitStream(bytes);
+      stream = new BitStream(bytes);
       stream.Reading = true;
 
       var count = stream.ReadInt();
       _playerData = new PersistentMap<int, RuntimePlayerData>();
+      _oldPlayerData.Clear();
       for (Int32 i = 0; i < count; ++i) {
-        var player = stream.ReadInt();
 
         RuntimePlayerData data;
+        data.PlayerRef = stream.ReadInt();
+        data.Tick = stream.ReadInt();
         data.ActorId = stream.ReadInt();
-        data.Data    = stream.ReadByteArrayLengthPrefixed();
-        data.Player  = new RuntimePlayer();
+        data.Data = stream.ReadByteArrayLengthPrefixed();
+        data.Player = new RuntimePlayer();
         data.Player.Serialize(stream);
 
-        _playerData = _playerData.Add(player, data);
+        _playerData = _playerData.Add(data.PlayerRef, data);
       }
     }
 
@@ -784,7 +801,9 @@ namespace Quantum {
         {
           printer.ScopeBegin();
           foreach (var kv in _playerData.Iterator()) {
-            printer.AddObject($"[{kv.Key}]", kv.Value);
+            if (TryGetPlayerData(kv.Key, out var playerData)) {
+              printer.AddObject($"[{kv.Key}]", playerData);
+            }
           }
           printer.ScopeEnd();
         }
@@ -1213,14 +1232,38 @@ namespace Quantum {
     /// <param name="player">Player ref</param>
     /// <returns>Player config or null if player was not found</returns>
     public RuntimePlayer GetPlayerData(PlayerRef player) {
-      RuntimePlayerData data;
-
-      if (_playerData.TryFind(player, out data)) {
-        return data.Player;
+      if (TryGetPlayerData(player, out var playerData)) {
+        return playerData.Player;
       }
 
       return null;
     }
+
+    /// <summary>
+    /// Return the player data struct. 
+    /// Because Frame is shared, PlayerData inserted from input can be for a future tick.
+    /// </summary>
+    /// <param name="player">Player ref</param>
+    /// <param name="playerData">Player data object</param>
+    /// <returns>True is player can resolve to a valid player data.</returns>
+    private bool TryGetPlayerData(PlayerRef player, out RuntimePlayerData playerData) {
+      if (_playerData.TryFind(player, out playerData)) {
+        if (playerData.Tick <= Number) {
+          return true;
+        }
+
+        for (int i = 0; i < _oldPlayerData.Count; i++) {
+          if (_oldPlayerData[i].PlayerRef == player && _oldPlayerData[i].Tick <= Number) {
+            playerData = _oldPlayerData[i];
+            return true;
+          }
+        }
+      }
+
+      playerData = default(RuntimePlayerData);
+      return false;
+    }
+
 
     /// <summary>
     /// Converts a Quantum PlayerRef to an ActorId (Photon client id).
@@ -1228,10 +1271,8 @@ namespace Quantum {
     /// <param name="player">Player reference</param>
     /// <returns>ActorId or null if payer was not found</returns>
     public Int32? PlayerToActorId(PlayerRef player) {
-      RuntimePlayerData data;
-
-      if (_playerData.TryFind(player, out data)) {
-        return data.ActorId;
+      if (TryGetPlayerData(player, out var playerData)) {
+        return playerData.ActorId;
       }
 
       return null;
@@ -1245,8 +1286,10 @@ namespace Quantum {
     /// The first player because multiple players from the same Photon client can join.
     public PlayerRef? ActorIdToFirstPlayer(Int32 actorId) {
       foreach (var kvp in _playerData.Iterator()) {
-        if (kvp.Value.ActorId == actorId) {
-          return kvp.Key;
+        if (TryGetPlayerData(kvp.Key, out var playerData)) {
+          if (playerData.ActorId == actorId) {
+            return playerData.PlayerRef;
+          }
         }
       }
 
@@ -1259,10 +1302,33 @@ namespace Quantum {
     /// <param name="actorId">Actor id</param>
     /// <returns>Array of player references</returns>
     public PlayerRef[] ActorIdToAllPlayers(Int32 actorId) {
-      return _playerData.Iterator().Where(x => x.Value.ActorId == actorId).Select(x => (PlayerRef)x.Key).ToArray();
+      var result = new List<PlayerRef>();
+
+      foreach (var kvp in _playerData.Iterator()) {
+        if (TryGetPlayerData(kvp.Key, out var playerData)) {
+          if (playerData.ActorId == actorId) {
+            result.Add(playerData.PlayerRef);
+          }
+        }
+      }
+
+      return result.ToArray();
     }
 
     public void UpdatePlayerData() {
+      // Cleanup _oldPlayerData
+      if (IsVerified) {
+        for (int j = _oldPlayerData.Count - 1; j >= 0; j--) {
+          // Delete data on the next verified frame (after being injected) 
+          // 100 (injected)
+          //  99 (verified)
+          // 101 (verified, cleanup)
+          if (_playerData.TryFind(_oldPlayerData[j].PlayerRef, out var playerData) && playerData.Tick < Number) {
+            _oldPlayerData.RemoveAt(j);
+          }
+        }
+      }
+
       UInt64 set = 0;
 
       for (Int32 i = 0; i < PlayerCount; ++i) {
@@ -1275,12 +1341,26 @@ namespace Quantum {
             try {
               // create player data
               RuntimePlayerData data;
-              data.Data    = rpc;
-              data.ActorId = BitConverter.ToInt32(rpc, rpc.Length - 4);
-              data.Player  = Quantum.RuntimePlayer.FromByteArray(rpc);
+              data.PlayerRef = i;
+              data.Tick      = Number;
+              data.ActorId   = BitConverter.ToInt32(rpc, rpc.Length - 4);
+              data.Data      = rpc;
+              data.Player    = RuntimePlayer.FromByteArray(rpc);
+
+              var hasOldPlayerData = _playerData.TryFind(i, out var oldPlayerData);
 
               // set data
               _playerData = _playerData.AddOrSet(i, data);
+
+              if (hasOldPlayerData) {
+                // Add old player in case of when this Frame is used by an earlier tick later
+                _oldPlayerData.Add(oldPlayerData);
+                // Sort player data, keep highest ticks in front
+                if (_oldPlayerData.Count > 1) {
+                  // caveat: Sort() does not have to be deterministic here
+                  _oldPlayerData.Sort((a, b) => b.Tick.CompareTo(a.Tick));
+                }
+              }
 
               // set mask
               set |= 1UL << FPMath.Clamp(i, 0, 63);
@@ -1759,11 +1839,12 @@ namespace Quantum {
     /// Serialize the class into a byte array.
     /// </summary>
     /// <param name="config">Config to serialized</param>
+    /// <param name="arrayCapacity">Change the capacity of the Bitstream used to serialize the RuntimeConfig.</param>
     /// <returns>Byte array</returns>
-    public static Byte[] ToByteArray(RuntimeConfig config) {
+    public static Byte[] ToByteArray(RuntimeConfig config, int arrayCapacity = 8192) {
       BitStream stream;
       
-      stream = new BitStream(new Byte[8192]);
+      stream = new BitStream(new Byte[arrayCapacity]);
       stream.Writing = true;
 
       config.Serialize(stream);
@@ -1814,10 +1895,10 @@ namespace Quantum {
     partial void DumpUserData(ref String dump);
     partial void SerializeUserData(BitStream stream);
 
-    public static Byte[] ToByteArray(RuntimePlayer player) {
+    public static Byte[] ToByteArray(RuntimePlayer player, int arrayCapacity = 8192) {
       BitStream stream;
 
-      stream = new BitStream(new Byte[8192]);
+      stream = new BitStream(new Byte[arrayCapacity]);
       stream.Writing = true;
 
       player.Serialize(stream);
@@ -2454,6 +2535,17 @@ namespace Quantum {
   public unsafe partial class QuantumGame : IDeterministicGame {
     public event Action<ProfilerContextData> ProfilerSampleGenerated;
 
+    /// <summary>
+    /// Called at the start of <see cref="OnSimulate(DeterministicFrame)"/>.
+    /// </summary>
+    /// <param name="state">Frame</param>
+    partial void OnSimulateBeginUser(Frame state);
+    /// <summary>
+    /// Called at the end of <see cref="OnSimulate(DeterministicFrame)"/>.
+    /// </summary>
+    /// <param name="state">Frame</param>
+    partial void OnSimulateEndUser(Frame state);
+
     public struct StartParameters {
       public IResourceManager       ResourceManager;
       public IAssetSerializer       AssetSerializer;
@@ -2503,6 +2595,11 @@ namespace Quantum {
     /// <summary> Extra heaps to allocate for a session in case you need to create 'auxiliary' frames than actually required for the simulation itself. </summary>
     public int HeapExtraCount { get; }
 
+    /// <summary>
+    /// Returns true when the session has been assigned and has been destroyed.
+    /// The session assignment happens during the <see cref="DeterministicSession"/> contructor which is usually during QuantumRunner.StartGame().
+    /// </summary>
+    public bool IsSessionDestroyed => Session != null && Session.IsDestroyed;
 
     Byte[] _inputStreamReadZeroArray;
     IResourceManager _resourceManager;
@@ -2776,11 +2873,11 @@ namespace Quantum {
       _context.SetPredictionArea(position.XOY, radius);
     }
 
-    public void OnGameEnded() {
+    public virtual void OnGameEnded() {
       InvokeOnGameEnded();
     }
 
-    public void OnGameStart(DeterministicFrame f) {
+    public virtual void OnGameStart(DeterministicFrame f) {
       // init event invoker
       InitEventInvoker(Session.RollbackWindow);
 
@@ -2800,13 +2897,13 @@ namespace Quantum {
       Log.Debug("Local Players: " + string.Join(" ", Session.LocalPlayerIndices));
     }
 
-    public void OnGameResync() {
+    public virtual void OnGameResync() {
       _checksumSnapshotBuffer?.Clear();
       ReplayToolsOnGameResync();
 
       // reset physics engines statics
-      Frames.Verified.Physics2D.Init();
-      Frames.Verified.Physics3D.Init();
+      Frames.Verified.Physics2D.Init(Frames.Verified.Global->PhysicsState2D.MapStaticCollidersState.TrackedMap);
+      Frames.Verified.Physics3D.Init(Frames.Verified.Global->PhysicsState3D.MapStaticCollidersState.TrackedMap);
 
       // events won't get confirmed
       CancelPendingEvents();
@@ -2814,7 +2911,7 @@ namespace Quantum {
       InvokeOnGameResync();
     }
 
-    public DeterministicFrameInputTemp OnLocalInput(Int32 frame, Int32 player) {
+    public virtual DeterministicFrameInputTemp OnLocalInput(Int32 frame, Int32 player) {
       var input = default(QTuple<Input, DeterministicInputFlags>);
 
       // poll input
@@ -2843,12 +2940,20 @@ namespace Quantum {
       return DeterministicFrameInputTemp.Predicted(frame, player, _inputSerializerWrite.Stream.Data, _inputSerializerWrite.Stream.BytesRequired, input.Item1);
     }
 
-    public void OnSimulate(DeterministicFrame state) {
+    public virtual void OnSimulate(DeterministicFrame state) {
       HostProfiler.Start("QuantumGame.OnSimulate");
 
       var f = (Frame)state;
 
       try {
+        HostProfiler.Start("OnSimulateBeginUser");
+        try {
+          OnSimulateBeginUser(f);
+        } catch (Exception exn) {
+          Log.Exception(exn);
+        }
+        HostProfiler.End();
+
         // reset profiling
         HostProfiler.Start("Init Profiler");
         f.Context.ProfilerContext.Reset();
@@ -2902,6 +3007,14 @@ namespace Quantum {
           ProfilerSampleGenerated(data);
         }
 
+        HostProfiler.Start("OnSimulateEndUser");
+        try {
+          OnSimulateEndUser(f);
+        } catch (Exception exn) {
+          Log.Exception(exn);
+        }
+        HostProfiler.End();
+
 #if PROFILER_FRAME_AVERAGE
       f.Context.ProfilerContext.StoreFrameTime();
       Log.Info("Frame Average: " +  f.Context.ProfilerContext.GetFrameTimeAverage());
@@ -2913,12 +3026,12 @@ namespace Quantum {
       HostProfiler.End();
     }
 
-    public void OnSimulateFinished(DeterministicFrame state) {
+    public virtual void OnSimulateFinished(DeterministicFrame state) {
       SnapshotsOnSimulateFinished(state);
       InvokeOnSimulateFinished(state);
     }
 
-    public void OnUpdateDone() {
+    public virtual void OnUpdateDone() {
       Frames.Predicted = (Frame)Session.FramePredicted;
       Frames.PredictedPrevious = (Frame)Session.FramePredictedPrevious;
       Frames.Verified = (Frame)Session.FrameVerified;
@@ -2954,34 +3067,34 @@ namespace Quantum {
       }
     }
 
-    public void OnChecksumError(DeterministicTickChecksumError error, DeterministicFrame[] frames) {
+    public virtual void OnChecksumError(DeterministicTickChecksumError error, DeterministicFrame[] frames) {
       InvokeOnChecksumError(error, frames);
     }
 
-    public void OnChecksumComputed(Int32 frame, ulong checksum) {
+    public virtual void OnChecksumComputed(Int32 frame, ulong checksum) {
       InvokeOnChecksumComputed(frame, checksum);
       ReplayToolsOnChecksumComputed(frame, checksum);
     }
 
-    public void OnSimulationEnd() {
+    public virtual void OnSimulationEnd() {
       _context.OnSimulationEnd();
     }
 
-    public void OnSimulationBegin() {
+    public virtual void OnSimulationBegin() {
       _polledInputInThisSimulation = false;
       _context.OnSimulationBegin();
     }
 
-    public void OnInputConfirmed(DeterministicFrameInputTemp input) {
+    public virtual void OnInputConfirmed(DeterministicFrameInputTemp input) {
       InvokeOnInputConfirmed(input);
       ReplayToolsOnInputConfirmed(input);
     }
 
-    public void OnChecksumErrorFrameDump(int actorId, int frameNumber, DeterministicSessionConfig sessionConfig, byte[] runtimeConfig, byte[] frameData, byte[] extraData) {
+    public virtual void OnChecksumErrorFrameDump(int actorId, int frameNumber, DeterministicSessionConfig sessionConfig, byte[] runtimeConfig, byte[] frameData, byte[] extraData) {
       InvokeOnChecksumErrorFrameDump(actorId, frameNumber, sessionConfig, runtimeConfig, frameData, extraData);
     }
 
-    public void OnPluginDisconnect(string reason) {
+    public virtual void OnPluginDisconnect(string reason) {
       Log.Error("DISCONNECTED: " + reason);
       InvokeOnPluginDisconnect(reason);
     }
@@ -3329,6 +3442,7 @@ namespace Quantum {
     }
 
     void RaiseEvent(EventBase evnt) {
+      HostProfiler.Start("QuantumGame.RaiseEvent");
       try {
         evnt.Game = this;
         _eventDispatcher?.Publish(evnt);
@@ -3336,6 +3450,7 @@ namespace Quantum {
         Log.Error("## Event Callback Threw Exception ##");
         Log.Exception(exn);
       }
+      HostProfiler.End();
     }
 
     void CancelPendingEvents() {
@@ -3349,6 +3464,8 @@ namespace Quantum {
 
 
     void InvokeEvents() {
+      HostProfiler.Start("QuantumGame.InvokeEvents");
+
       while (_context.Events.Count > 0) {
         var head = _context.Events.PopHead();
         try {
@@ -3398,6 +3515,8 @@ namespace Quantum {
 
         InvokeOnEvent(key, confirmed);
       }
+
+      HostProfiler.End();
     }
   }
 }
@@ -3964,12 +4083,13 @@ namespace Quantum {
           _callbackChecksumErrorFrameDump.Clear();
         }
       } catch (Exception ex) {
-        HostProfiler.End();
         Log.Exception(ex);
       }
+      HostProfiler.End();
     }
 
     private void InvokeOnEvent(EventKey key, bool confirmed) {
+      HostProfiler.Start("QuantumGame.InvokeOnEvent");
       try {
         if (confirmed) {
           _callbackEventConfirmed.EventKey = key;
@@ -3983,6 +4103,7 @@ namespace Quantum {
       } catch (Exception ex) {
         Log.Exception(ex);
       }
+      HostProfiler.End();
     }
 
     public void InvokeOnPluginDisconnect(string reason) {

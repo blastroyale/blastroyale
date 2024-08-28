@@ -29,15 +29,15 @@ namespace Quantum.Systems
 						}
 						drop->Stage = AirDropStage.Announcing;
 						f.Events.OnAirDropDropped(filter.Entity, f.Get<AirDrop>(filter.Entity));
-						f.Unsafe.GetPointer<PhysicsCollider3D>(filter.Entity)->Enabled = false;
+						f.Unsafe.GetPointer<PhysicsCollider2D>(filter.Entity)->Enabled = false;
 					}
 
 					break;
 				case AirDropStage.Announcing:
-					var transform = f.Unsafe.GetPointer<Transform3D>(filter.Entity);
+					var transform = f.Unsafe.GetPointer<Transform2D>(filter.Entity);
 
 					var modifier = FP._1 - (f.Time - drop->StartTime - drop->Delay) / (drop->Duration);
-					transform->Position = drop->Position + FPVector3.Up * f.GameConfig.AirdropHeight * modifier;
+					transform->Position = drop->Position + FPVector2.Up * f.GameConfig.AirdropHeight * modifier;
 
 					if (f.Time >= drop->StartTime + drop->Delay + drop->Duration)
 					{
@@ -65,7 +65,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			if (f.TryGet<Transform3D>(characterEntity, out var trans))
+			if (f.TryGet<Transform2D>(characterEntity, out var trans))
 			{
 				filter.AirDrop->Position = trans.Position;
 			}

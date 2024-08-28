@@ -27,7 +27,7 @@ namespace Quantum.Commands
 			}
 
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-			var position = f.Get<Transform3D>(characterEntity).Position;
+			var position = f.Get<Transform2D>(characterEntity).Position;
 
 			var i = 0;
 			foreach (var gameId in consumables)

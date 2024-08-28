@@ -261,7 +261,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private unsafe void LegacyConeAim(Frame f, FPVector2 aim, bool shooting)
 		{
-			if (!f.Unsafe.TryGetPointer<CharacterController3D>(_localPlayerEntity, out var kcc) ||
+			if (!f.Unsafe.TryGetPointer<TopDownController>(_localPlayerEntity, out var kcc) ||
 				!f.Unsafe.TryGetPointer<PlayerCharacter>(_localPlayerEntity, out var playerCharacter))
 			{
 				return;
@@ -271,8 +271,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
 			var reloading = playerCharacter->SelectedWeaponSlot->MagazineShotCount == 0;
-			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
-			var aimDirection = QuantumHelpers.GetAimDirection(aim, transform->Rotation).Normalized.ToUnityVector2();
+			var aimDirection = aim;
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
 
 			// We use a formula to calculate the scale of a shooting indicator
@@ -286,7 +285,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
-			ShootIndicator.SetTransformState(aimDirection);
+			ShootIndicator.SetTransformState(aim.ToUnityVector2());
 			ShootIndicator.SetVisualState(shooting, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, rangeStat);
 		}
@@ -294,9 +293,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
 		{
 			if (!_localPlayerEntity.IsAlive(f)) return;
-			
-			// Melee weapon doesn't use a damage indicator
-			if (!_weaponConfig.IsMeleeWeapon)
+
+			if (_weaponConfig.IsMeleeWeapon)
+			{
+				//LegacyConeAim(f, aim, shooting);
+			}
+			else
 			{
 				_weaponAim.gameObject.SetActive(shooting);
 				if (shooting)

@@ -134,7 +134,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				//animates between the spawning position to the display position if they are different
 				var originPos = collectable.OriginPosition.ToUnityVector3();
-				var displayPos = frame.Get<Transform3D>(EntityView.EntityRef).Position.ToUnityVector3();
+				var displayPos = frame.Get<Transform2D>(EntityView.EntityRef).Position.ToUnityVector3();
 
 				if (originPos != displayPos && _spawnAnim)
 				{

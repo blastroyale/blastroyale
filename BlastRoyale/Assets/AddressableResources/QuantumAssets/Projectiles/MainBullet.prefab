@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformMode: 1
+  TransformMode: 0
   Transform2DVertical:
     IsEnabled: 0
     Height:
@@ -71,14 +71,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6553
+          RawValue: 7863
         Y:
-          RawValue: 26214
+          RawValue: 50462
       PositionOffset:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 1966
       RotationOffset:
         RawValue: 0
       UserTag: 0
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 9198686702013337546}
   - component: {fileID: 2985384978282819922}
   - component: {fileID: 3541723549871263804}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ LineRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3009301768106876208}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0

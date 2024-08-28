@@ -12,7 +12,8 @@ namespace Quantum
 			var systems = new List<SystemBase>()
 			{
 				// Initial pre-defined core systems
-				new Core.CullingSystem3D(),
+				//new Core.CullingSystem3D(),
+				new Core.CullingSystem2D(),
 				new Core.NavigationSystem(),
 				new Core.PlayerConnectedSystem(),
 
@@ -21,7 +22,7 @@ namespace Quantum
 				new AiPreUpdateSystem(),
 
 				// pre-defined core systems
-				new Core.PhysicsSystem3D(),
+				new Core.PhysicsSystem2D(),
 				new Core.EntityPrototypeSystem(),
 
 				// After physics AI system update
@@ -48,16 +49,17 @@ namespace Quantum
 				
 				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
+				new TopDownSystem(),
 				new ReviveSystem(),
 				new BotCharacterSystem(),
 				new StatSystem(),
 				new SpellSystem(),
 				new DeathFlagSystem(),
+				
+				// TODO: Remove when not in tutorial
 				new GateSystem(),
 				new TriggerSystem(),
 				new DestructibleSystem(),
-				new TransformOutOfWorldSystem(), // TODO: Remove it when we update Quantum and have Y coordinate in Navmesh
-				new RoofDamageSystem(),
 				new TeamSystem(), // needs to be after bots
 
 				// Debugging

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
@@ -5,6 +6,7 @@ using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -18,14 +20,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	[RequireComponent(typeof(RenderersContainerProxyMonoComponent))]
 	public abstract class AvatarViewBase : EntityMainViewBase
 	{
-		private IGameServices _services;
-
 		[SerializeField] private Vector3 _vfxLocalScale = Vector3.one;
 
 		protected CharacterSkinMonoComponent _skin;
+		private IGameServices _services;
 		private Coroutine _stunCoroutine;
 		private Coroutine _materialsCoroutine;
 		private Vfx<VfxId> _statusVfx;
+	
 
 		/// <summary>
 		/// The readonly <see cref="AnimatorWrapper"/> to play the avatar animations
@@ -41,13 +43,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_skin = GetComponent<CharacterSkinMonoComponent>();
 			_services = MainInstaller.ResolveServices();
-
+			
 			QuantumEvent.Subscribe<EventOnHealthIsZeroFromAttacker>(this, HandleOnHealthIsZeroFromAttacker);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, HandleOnStatusModifierCancelled);
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, HandleOnStatusModifierFinished);
 		}
-
+		
 		/// <summary>
 		/// Sets the modifier effect for the player
 		/// </summary>

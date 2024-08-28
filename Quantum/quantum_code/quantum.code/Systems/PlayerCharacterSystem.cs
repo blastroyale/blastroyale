@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
 using Quantum.Core;
+using Quantum.Physics2D;
 using Quantum.Physics3D;
+using Quantum.Profiling;
 
 namespace Quantum.Systems
 {
@@ -11,7 +13,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-												IKCCCallbacks3D, ISignalHealthIsZeroFromAttacker,
+												ISignalHealthIsZeroFromAttacker,
 												ISignalAllPlayersJoined
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
@@ -22,6 +24,8 @@ namespace Quantum.Systems
 		{
 			public EntityRef Entity;
 			public PlayerCharacter* Player;
+			public AlivePlayerCharacter* Alive;
+			public AIBlackboardComponent* Ai;
 		}
 
 		/// <inheritdoc />
@@ -124,7 +128,7 @@ namespace Quantum.Systems
 			}
 
 
-			var deathPosition = f.Unsafe.GetPointer<Transform3D>(entity)->Position;
+			var deathPosition = f.Unsafe.GetPointer<Transform2D>(entity)->Position;
 			var gameModeConfig = f.Context.GameModeConfig;
 			var equipmentToDrop = new List<Equipment>();
 			var consumablesToDrop = new List<GameId>();
@@ -230,9 +234,7 @@ namespace Quantum.Systems
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 					f.RNG->Next(-gridSquareSize, gridSquareSize));
 			var spawner = QuantumHelpers.GetPlayerSpawnPosition(f, spawnPosition);
-			var spawnTransform = new Transform3D { Position = spawner.Component->Position, Rotation = spawner.Component->Rotation };
-
-			var kccConfig = f.FindAsset<CharacterController3DConfig>(playerCharacter->KccConfigRef.Id);
+			var spawnTransform = new Transform2D { Position = spawner.Component->Position, Rotation = spawner.Component->Rotation };
 			var setup = new PlayerCharacterSetup()
 			{
 				e = playerEntity,
@@ -243,7 +245,6 @@ namespace Quantum.Systems
 				teamId = teamId,
 				modifiers = null,
 				minimumHealth = f.Context.GameModeConfig.MinimumHealth,
-				KccConfig = kccConfig,
 				deathFlagID = playerData.DeathFlagID
 			};
 			// Skin stuff
@@ -273,19 +274,17 @@ namespace Quantum.Systems
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{
 			// Do not process input if player is stunned or not alive
-			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity) ||
-				f.Has<BotCharacter>(filter.Entity))
+			if (f.Has<Stun>(filter.Entity) || f.Has<BotCharacter>(filter.Entity))
 			{
 				return;
 			}
 
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
+			var bb = filter.Ai;
 			// Do nothing when Skydiving as it handled via animation
 			if (bb->GetBoolean(f, Constants.IS_SKYDIVING))
 			{
 				return;
 			}
-
 			var input = f.GetPlayerInput(filter.Player->Player);
 
 			// Check inactivity only up to certain time and only in ranked matches
@@ -296,70 +295,60 @@ namespace Quantum.Systems
 				ProcessNoInputWarning(f, ref filter, input->GetHashCode());
 			}
 
-			var rotation = FPVector2.Zero;
+			var targetAimDirection = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
-			var prevRotation = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
+			var prevAimDirection = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
 
 			var isKnockedOut = ReviveSystem.IsKnockedOut(f, filter.Entity);
-			var direction = input->Direction;
-			var aim = input->AimingDirection;
+			var inputDirection = input->Direction;
+			var inputAim = input->AimingDirection;
 			var shooting = input->IsShooting && !isKnockedOut;
 			var lastShotAt = bb->GetFP(f, Constants.LAST_SHOT_AT);
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
 			var attackCooldown = f.Time < lastShotAt + (weaponConfig.IsMeleeWeapon ? FP._0_33 : FP._0_20);
 
-			if (direction != FPVector2.Zero)
+			if (inputDirection != FPVector2.Zero)
 			{
-				movedirection = direction;
+				movedirection = inputDirection;
 			}
 
 			if (!bb->GetBoolean(f, Constants.IS_SHOOTING_KEY))
 			{
-				rotation = direction;
+				targetAimDirection = inputDirection;
 			}
 
-			if (aim.SqrMagnitude > FP._0)
+			if (inputAim.SqrMagnitude > FP._0)
 			{
-				rotation = aim;
+				targetAimDirection = inputAim;
 			}
 			else if (attackCooldown)
 			{
-				rotation = prevRotation;
+				targetAimDirection = prevAimDirection;
 			}
 
 			//this way you save your previous attack angle when flicking and only return your movement angle when your shot is finished
-			if (rotation == FPVector2.Zero && bb->GetBoolean(f, Constants.IS_SHOOTING_KEY))
+			if (targetAimDirection == FPVector2.Zero && bb->GetBoolean(f, Constants.IS_SHOOTING_KEY))
 			{
-				rotation = prevRotation;
+				targetAimDirection = prevAimDirection;
 			}
 
 			if (isKnockedOut)
 			{
-				rotation = direction;
+				targetAimDirection = inputDirection;
 			}
 
 			var wasShooting = bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY);
-
-			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, shooting);
-			bb->Set(f, Constants.AIM_DIRECTION_KEY, rotation);
-			bb->Set(f, Constants.MOVE_DIRECTION_KEY, movedirection);
-			bb->Set(f, Constants.MOVE_SPEED_KEY, 1);
-
 			if (!wasShooting && shooting)
 			{
 				OnStartAiming(f, bb, weaponConfig);
 			}
-
-			var aimDirection = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
-			if (aimDirection.SqrMagnitude > FP._0)
-			{
-				QuantumHelpers.LookAt2d(f, filter.Entity, aimDirection, f.GameConfig.HardAngleAim ? FP._0 : TURN_RATE);
-			}
-
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+	
+			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, shooting);
+			bb->Set(f, Constants.AIM_DIRECTION_KEY, targetAimDirection);
+			bb->Set(f, Constants.MOVE_SPEED_KEY, 1);
+			
+			var kcc = f.Unsafe.GetPointer<TopDownController>(filter.Entity);
 			var maxSpeed = f.Unsafe.GetPointer<Stats>(filter.Entity)->GetStatData(StatType.Speed).StatValue;
-			var moveDirection = bb->GetVector2(f, Constants.MOVE_DIRECTION_KEY).XOY;
-			var velocity = kcc->Velocity;
 
 			if (shooting)
 			{
@@ -370,10 +359,8 @@ namespace Quantum.Systems
 
 			var speedUpMutatorExists = f.Context.Mutators.HasFlagFast(Mutator.SpeedUp);
 			kcc->MaxSpeed = speedUpMutatorExists ? maxSpeed * Constants.MUTATOR_SPEEDUP_AMOUNT : maxSpeed;
-
-			kcc->Velocity = velocity;
-
-			kcc->Move(f, filter.Entity, moveDirection, this);
+			kcc->AimDirection = targetAimDirection;
+			kcc->MoveDirection = movedirection;
 		}
 
 		private void ProcessNoInputWarning(Frame f, ref PlayerCharacterFilter filter, int inputHashCode)
@@ -409,7 +396,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-
+			
 			var seconds = Constants.MUTATOR_HEALTHPERSECONDS_DURATION;
 
 			// It will heal every x frames
@@ -434,25 +421,25 @@ namespace Quantum.Systems
 			}
 		}
 
-		public bool OnCharacterCollision3D(FrameBase f, EntityRef character, Hit3D hit)
+		public bool OnCharacterCollision2D(Frame f, EntityRef character, Hit hit)
 		{
 			var blockMovement = !QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamSystem.HasSameTeam(f, character, hit.Entity);
 			if (!QuantumFeatureFlags.PLAYER_PUSHING) return blockMovement;
-			if (blockMovement && f.TryGet<CharacterController3D>(hit.Entity, out var enemyKcc) &&
-				f.TryGet<CharacterController3D>(character, out var myKcc))
+			if (blockMovement && f.TryGet<TopDownController>(hit.Entity, out var enemyKcc) &&
+				f.TryGet<TopDownController>(character, out var myKcc))
 			{
-				var myTransform = f.Unsafe.GetPointer<Transform3D>(character);
-				var enemyTransform = f.Unsafe.GetPointer<Transform3D>(hit.Entity);
+				var myTransform = f.Unsafe.GetPointer<Transform2D>(character);
+				var enemyTransform = f.Unsafe.GetPointer<Transform2D>(hit.Entity);
 				var pushAngle = (myTransform->Position - enemyTransform->Position).Normalized;
 				pushAngle.Y = 0;
 				enemyKcc.Move(f, hit.Entity, pushAngle);
 			}
-
 			return blockMovement;
 		}
 
-		public void OnCharacterTrigger3D(FrameBase f, EntityRef character, Hit3D hit)
+		public void OnCharacterTrigger2D(FrameBase frame, EntityRef character, Hit hit)
 		{
+			
 		}
 	}
 }

@@ -51,7 +51,7 @@ namespace Quantum
 			BotLogger.LogAction(bot, "Set Waypoint");
 			bot.MoveTarget = entity;
 			bot.SetNextDecisionDelay(f, bot.DecisionInterval);
-			bot.StuckDetectionPosition = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
+			bot.StuckDetectionPosition = f.Unsafe.GetPointer<Transform2D>(entity)->Position;
 		}
 
 		/// <summary>
@@ -86,16 +86,16 @@ namespace Quantum
 			// are trying to Wander or GoToSafeArea; it's not happening really when bots go for Consumables, so potentially
 			// the issue is somewhere where we convert randomly chosen position into navmesh position
 			if (bot.StuckDetectionPosition != FPVector2.Zero
-				&& FPVector2.DistanceSquared(bot.StuckDetectionPosition, f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ)
+				&& FPVector2.DistanceSquared(bot.StuckDetectionPosition, f.Unsafe.GetPointer<Transform2D>(entity)->Position)
 				< Constants.BOT_STUCK_DETECTION_SQR_DISTANCE)
 			{
+				BotLogger.LogAction(bot, "I think im stuck !!!");
 				bot.ResetTargetWaypoint(f);
 				return false;
 			}
 
-			bot.StuckDetectionPosition = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
+			bot.StuckDetectionPosition = f.Unsafe.GetPointer<Transform2D>(entity)->Position;
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 			return bot.MoveTarget.IsValid;
 		}
 
@@ -132,12 +132,12 @@ namespace Quantum
 			botFilter.BotCharacter->SetAttackTarget(botFilter.Entity, f, target);
 		}
 
-		public static bool IsInCircleWithSpareSpace(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, in BotUpdateGlobalContext botCtx, FPVector3 positionToCheck)
+		public static bool IsInCircleWithSpareSpace(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, in BotUpdateGlobalContext botCtx, FPVector2 positionToCheck)
 		{
 			return IsInCircleWithSpareSpace(botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking, positionToCheck);
 		}
 
-		public static bool IsInCircleWithSpareSpace(FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking, FPVector3 positionToCheck)
+		public static bool IsInCircleWithSpareSpace(FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking, FPVector2 positionToCheck)
 		{
 			// If circle doesn't exist then we always return true
 			if (circleRadius < FP.SmallestNonZero)
@@ -146,7 +146,7 @@ namespace Quantum
 			}
 
 			var circleRadiusSqr = circleRadius * circleRadius;
-			var distanceSqr = (positionToCheck.XZ - circleCenter).SqrMagnitude;
+			var distanceSqr = (positionToCheck - circleCenter).SqrMagnitude;
 
 			// If circle is shrinking then it's risky to get to consumables on the edge so we don't do it
 			if (circleIsShrinking)
@@ -157,7 +157,7 @@ namespace Quantum
 			return distanceSqr <= circleRadiusSqr * (FP._0_75);
 		}
 
-		public static bool IsInCircle(FPVector2 circleCenter, FP circleRadius, FPVector3 positionToCheck)
+		public static bool IsInCircle(FPVector2 circleCenter, FP circleRadius, FPVector2 positionToCheck)
 		{
 			// If circle doesn't exist then we always return true
 			if (circleRadius < FP.SmallestNonZero)
@@ -166,7 +166,7 @@ namespace Quantum
 			}
 
 			var circleRadiusSqr = circleRadius * circleRadius;
-			var distanceSqr = (positionToCheck.XZ - circleCenter).SqrMagnitude;
+			var distanceSqr = (positionToCheck - circleCenter).SqrMagnitude;
 			return distanceSqr <= circleRadiusSqr;
 		}
 	}

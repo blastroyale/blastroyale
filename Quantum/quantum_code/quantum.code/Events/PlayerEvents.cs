@@ -24,7 +24,7 @@ namespace Quantum
 		public EntityRef Entity => Spell.Victim;
 		public EntityRef Attacker => Spell.Attacker;
 		public UInt32 TotalUnblockedDamage => Spell.PowerAmount;
-		public FPVector3 HitPosition => Spell.OriginalHitPosition;
+		public FPVector2 HitPosition => Spell.OriginalHitPosition;
 	}
 
 	public partial class Frame
@@ -62,8 +62,8 @@ namespace Quantum
 			public void OnPlayerSpecialUsed(EntityRef entity, Special special, int specialIndex, FPVector2 aimInput, FP maxRange)
 			{
 				var playerCharacter = _f.Unsafe.GetPointer<PlayerCharacter>(entity);
-				var attackerPosition = _f.Unsafe.GetPointer<Transform3D>(entity)->Position;
-				var hitPosition = attackerPosition + (FPVector2.ClampMagnitude(aimInput, FP._1) * maxRange).XOY;
+				var attackerPosition = _f.Unsafe.GetPointer<Transform2D>(entity)->Position;
+				var hitPosition = attackerPosition + (FPVector2.ClampMagnitude(aimInput, FP._1) * maxRange);
 				
 				var ev = OnPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, hitPosition);
 
@@ -71,7 +71,6 @@ namespace Quantum
 				{
 					return;
 				}
-
 				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, hitPosition);
 			}
 

@@ -14,7 +14,7 @@ namespace Quantum.Systems
 		{
 			public EntityRef Entity;
 			public Hazard* Hazard;
-			public Transform3D* Transform;
+			public Transform2D* Transform;
 		}
 
 
@@ -47,8 +47,8 @@ namespace Quantum.Systems
 			
 
 			//check the area when the hazard explodes
-			var shape = Shape3D.CreateSphere(hazard->Radius);
-			var hits = f.Physics3D.OverlapShape(filter.Transform->Position, FPQuaternion.Identity, shape,
+			var shape = Shape2D.CreateCircle(hazard->Radius);
+			var hits = f.Physics2D.OverlapShape(filter.Transform->Position, FP._0, shape,
 				f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			hits.SortCastDistance();
 

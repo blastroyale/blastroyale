@@ -19,14 +19,20 @@ namespace Quantum.Systems
 			f.Context.TargetAllLayerMask = -1;
 			f.Context.TargetPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS);
 			f.Context.TargetMapOnlyLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES);
-			f.Context.TargetPlayerLineOfSightLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES, PhysicsLayers.PLAYERS);
+			f.Context.TargetMapAndPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS,
+				PhysicsLayers.PLAYER_TRIGGERS, PhysicsLayers.OBSTACLES);
+			f.Context.TargetPlayerLineOfSightLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES);
 			f.Context.TargetPlayerTriggersLayerIndex = f.Layers.GetLayerIndex(PhysicsLayers.PLAYER_TRIGGERS);
 			f.Context.MapShrinkingCircleConfigs = f.ShrinkingCircleConfigs.GetConfigs(f.RuntimeConfig.MatchConfigs.MapId);
 
 			foreach (var systemName in f.Context.GameModeConfig.Systems)
 			{
 				var systemType = Type.GetType(systemName);
-				
+				if (systemType == null)
+				{
+					Log.Error($"System {systemName} not found to be initialized by game mode");
+					continue;
+				}
 				if (!f.SystemIsEnabledSelf(systemType))
 				{
 					f.SystemEnable(systemType);

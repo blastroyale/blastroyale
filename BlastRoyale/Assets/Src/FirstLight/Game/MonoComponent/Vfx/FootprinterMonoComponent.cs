@@ -87,17 +87,11 @@ public class FootprinterMonoComponent : MonoBehaviour
 	private Quaternion GetFootRotation()
 	{
 		var f = QuantumRunner.Default.Game.Frames.Predicted;
-
-		// Need this hack because our code handles bots differently from players -.-
-		if (_view.EntityRef.IsBot(f)) return _view.transform.rotation;
-
-		
-		if (f.TryGet<AIBlackboardComponent>(_view.EntityRef, out var bb) && bb.HasEntry(f, Constants.MOVE_DIRECTION_KEY))
+		if (!f.Has<TopDownController>(_view.EntityRef)) // the entity ref is changing to the dead dummies some ugly hack somewhere
 		{
-			return Quaternion.LookRotation(bb.GetVector2(f, Constants.MOVE_DIRECTION_KEY).ToUnityVector3());
+			return transform.rotation;
 		}
-
-		return _view.transform.rotation;
+		return Quaternion.LookRotation(_view.EntityRef.GetKccMoveDirection(f).ToUnityVector3());
 	}
 
 	private bool IsValid()

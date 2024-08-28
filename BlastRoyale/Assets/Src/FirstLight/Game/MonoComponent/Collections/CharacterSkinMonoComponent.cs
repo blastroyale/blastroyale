@@ -72,6 +72,11 @@ namespace FirstLight.Game.MonoComponent.Collections
 			set => _animator.SetLayerWeight(_animator.GetLayerIndex("Meta"), value ? 1f : 0f);
 		}
 
+		public bool AnimationEnabled
+		{
+			set => _animator.enabled = value;
+		}
+		
 		public WeaponType WeaponType
 		{
 			set

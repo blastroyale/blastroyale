@@ -39,21 +39,21 @@ synced event OnPlayerSpecialUpdated
 synced event OnAirstrikeUsed
 {
 	entity_ref Hazard;
-	FPVector3 TargetPosition;
+	FPVector2 TargetPosition;
 	Hazard HazardData;
 }
 
 synced event OnStunGrenadeUsed
 {
 	entity_ref Hazard;
-	FPVector3 TargetPosition;
+	FPVector2 TargetPosition;
 	Hazard HazardData;
 }
 
 synced event OnGenericSpecialUsed
 {
 	entity_ref Hazard;
-	FPVector3 TargetPosition;
+	FPVector2 TargetPosition;
 	Hazard HazardData;
 }
 
@@ -66,14 +66,14 @@ synced event OnShieldedChargeUsed
 synced event OnGrenadeUsed
 {
 	entity_ref Hazard;
-	FPVector3 TargetPosition;
+	FPVector2 TargetPosition;
 	Hazard HazardData;
 }
 
 synced event OnSkyBeamUsed
 {
 	entity_ref Hazard;
-	FPVector3 TargetPosition;
+	FPVector2 TargetPosition;
 	Hazard HazardData;
 }
 

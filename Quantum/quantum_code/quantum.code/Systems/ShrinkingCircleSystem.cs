@@ -50,9 +50,9 @@ namespace Quantum.Systems
 
 				foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
 				{
-					var transform = f.Unsafe.GetPointer<Transform3D>(pair.Entity);
+					var transform = f.Unsafe.GetPointer<Transform2D>(pair.Entity);
 					var position = transform->Position;
-					var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
+					var isInside = (position - center).SqrMagnitude < radius * radius;
 
 					if (pair.Component->TakingCircleDamage && isInside)
 					{
@@ -116,13 +116,12 @@ namespace Quantum.Systems
 			var halfWorldSize = f.Map.WorldSize / FP._2;
 			
 			// We use mathematical randomization to find a potential new center
-			var targetPos = new FPVector3(circle->CurrentCircleCenter.X + f.RNG->Next(-radiusToPickNewCenter, radiusToPickNewCenter),
-										  FP._0,
+			var targetPos = new FPVector2(circle->CurrentCircleCenter.X + f.RNG->Next(-radiusToPickNewCenter, radiusToPickNewCenter),
 										  circle->CurrentCircleCenter.Y - f.RNG->Next(-radiusToPickNewCenter, radiusToPickNewCenter));
 			
 			// Then we ensure that this center is not outside of map boundaries
 			targetPos.X = FPMath.Clamp(targetPos.X, -halfWorldSize, halfWorldSize);
-			targetPos.Z = FPMath.Clamp(targetPos.Z, -halfWorldSize, halfWorldSize);
+			targetPos.Y = FPMath.Clamp(targetPos.Y, -halfWorldSize, halfWorldSize);
 			
 			// Then we correct this potential new center so it's on the NavMesh
 			// we skip early steps whose circles are big enough to not require correction
@@ -133,7 +132,7 @@ namespace Quantum.Systems
 												   out targetPos);
 			}
 			
-			circle->TargetCircleCenter = targetPos.XZ;
+			circle->TargetCircleCenter = targetPos;
 
 			// When we change a step of a circle, we need to remove current spell from all players
 			// So in update the up-to-date spell will be added
@@ -155,7 +154,7 @@ namespace Quantum.Systems
 			}
 		}
 
-		private void AddShrinkingDamage(Frame f, EntityRef playerEntity, FPVector3 position)
+		private void AddShrinkingDamage(Frame f, EntityRef playerEntity, FPVector2 position)
 		{
 			if (TryGetSpellEntity(f, playerEntity, false, out _))
 			{
@@ -236,9 +235,9 @@ namespace Quantum.Systems
 				return;
 			}
 
-			if (f.TryGet<Transform3D>(characterEntity, out var trans))
+			if (f.TryGet<Transform2D>(characterEntity, out var trans))
 			{
-				circle->TargetCircleCenter = new FPVector2(trans.Position.X, trans.Position.Z);
+				circle->TargetCircleCenter = trans.Position;
 			}
 		}
 	}

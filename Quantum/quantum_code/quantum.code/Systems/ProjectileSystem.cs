@@ -8,13 +8,15 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="Projectile"/> collisions
 	/// </summary>
-	public unsafe class ProjectileSystem : SystemMainThreadFilter<ProjectileSystem.ProjectileFilter>, ISignalOnTriggerEnter3D
+	public unsafe class ProjectileSystem : SystemMainThreadFilter<ProjectileSystem.ProjectileFilter>, ISignalOnTriggerEnter2D
 	{
+		public static readonly FPVector2 CAMERA_CORRECTION = new FPVector2(FP._0_25, FP._0_50);
+		
 		public struct ProjectileFilter
 		{
 			public EntityRef Entity;
 			public Projectile* Projectile;
-			public Transform3D* Transform;
+			public Transform2D* Transform;
 		}
 		
 		/// <inheritdoc />
@@ -46,7 +48,7 @@ namespace Quantum.Systems
 			filter.Transform->Position += filter.Projectile->Direction;
 		}
 		
-		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+		public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
 		{
 			if (!f.Unsafe.TryGetPointer<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger || projectile->Attacker == info.Entity 
 				|| f.Has<EntityDestroyer>(info.Entity) || (projectile->Attacker == info.Other && !projectile->IsSubProjectile()) || (QuantumFeatureFlags.TEAM_IGNORE_COLLISION && projectile->Attacker != info.Other && TeamSystem.HasSameTeam(f, projectile->Attacker, info.Other)))
@@ -81,14 +83,14 @@ namespace Quantum.Systems
 		/// This creates a sub-projectile based on the parent projectile just changing its entity prototype and
 		/// a couple specific veriables specified per projectile hit type
 		/// </summary>
-		private void CreateSubProjectile(Frame f, Projectile* p, in FPVector3 hitPosition, in bool onHit)
+		private void CreateSubProjectile(Frame f, Projectile* p, in FPVector2 hitPosition, in bool onHit)
 		{
 			var cfg = f.WeaponConfigs.GetConfig(p->SourceId);
 			var subProjectile = *p;
 			if (cfg.HitType == SubProjectileHitType.AreaOfEffect)
 			{
 				subProjectile.Speed = 0;
-				subProjectile.Direction = FPVector3.Zero;
+				subProjectile.Direction = FPVector2.Zero;
 				subProjectile.SpawnPosition = hitPosition;
 				subProjectile.DespawnTime = f.Time + FP._0_50;
 				subProjectile.DamagePct = (byte)cfg.SplashDamageRatio.AsInt;
@@ -97,14 +99,14 @@ namespace Quantum.Systems
 			subProjectile.Iteration = (byte)(p->Iteration + 1);
 			var subId = onHit ? cfg.BulletHitPrototype.Id : cfg.BulletEndOfLifetimePrototype.Id;
 			var entity = f.Create(f.FindAsset<EntityPrototype>(subId));
-			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
+			var transform = f.Unsafe.GetPointer<Transform2D>(entity);
 			transform->Position = hitPosition;
 			f.Add(entity, subProjectile);
 		}
 
 		private void OnProjectileHit(Frame f, in EntityRef targetHit, in EntityRef projectileEntity, Projectile* projectile)
 		{
-			var position = f.Unsafe.GetPointer<Transform3D>(projectileEntity)->Position;
+			var position = f.Unsafe.GetPointer<Transform2D>(projectileEntity)->Position;
 			var isTeamHit = TeamSystem.HasSameTeam(f, projectile->Attacker, targetHit);
 			var spawnSubOnEof = projectile->ShouldPerformSubProjectileOnEndOfLifetime(f);
 
@@ -122,7 +124,7 @@ namespace Quantum.Systems
 			if(targetHit == projectileEntity || !targetHit.IsValid)
 				f.Events.OnProjectileFailedHitPredicted(projectileEntity, projectileCopy, position, true);
 			else
-				f.Events.OnProjectileSuccessHitPredicted(projectileCopy, targetHit, power, position);
+				f.Events.OnProjectileSuccessHitPredicted(projectileCopy, targetHit, position, power);
 			
 			f.Events.OnProjectileEndOfLife(projectile->SourceId, position, true,projectile->IsSubProjectile());
 			
@@ -167,7 +169,7 @@ namespace Quantum.Systems
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			var transform = f.Unsafe.GetPointer<Transform2D>(e);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var aimDirection = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
 			if(f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot) && bot->Target.IsValid && bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY))
@@ -178,20 +180,21 @@ namespace Quantum.Systems
 					if (bot->TrySharpShoot(e, f, bot->Target, out var sharpDirection))
 					{
 						aimDirection = sharpDirection;
+						bb->Set(f, Constants.AIM_DIRECTION_KEY, aimDirection);
 					}
 				}
-				QuantumHelpers.LookAt2d(transform, aimDirection, FP._0);
 			}
-			var position = transform->Position + (transform->Rotation * playerCharacter->ProjectileSpawnOffset);
-			var aimingDirection = QuantumHelpers.GetAimDirection(aimDirection, transform->Rotation).Normalized;
+			
+			var aimRotation = aimDirection.ToRotation();
+			var position = transform->Position + FPVector2.Rotate(playerCharacter->ProjectileSpawnOffset, aimRotation);
 			var rangeStat = f.Unsafe.GetPointer<Stats>(e)->GetStatData(StatType.AttackRange).StatValue;
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BURST_SHOT_COUNT, bb->GetFP(f, Constants.BURST_SHOT_COUNT) - 1);
 			bb->Set(f, Constants.LAST_SHOT_AT, f.Time);
-			f.Events.OnPlayerAttack(playerCharacter->Player, e, playerCharacter->CurrentWeapon, weaponConfig, aimingDirection, rangeStat);
+			f.Events.OnPlayerAttack(playerCharacter->Player, e, playerCharacter->CurrentWeapon, weaponConfig, aimDirection, rangeStat);
 			if (weaponConfig.NumberOfShots == 1 || weaponConfig.IsMeleeWeapon)
 			{
-				CreateProjectile(f, e, rangeStat, aimingDirection, position, weaponConfig);
+				CreateProjectile(f, e, rangeStat, aimDirection, position, weaponConfig);
 			}
 			else
 			{
@@ -200,21 +203,21 @@ namespace Quantum.Systems
 				FP angle = -max/ FP._2;
 				for (var x = 0; x < weaponConfig.NumberOfShots; x++)
 				{
-					var burstDirection = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad).XOY;
-					CreateProjectile(f, e, rangeStat, burstDirection.XZ, position, weaponConfig);
+					var burstDirection = FPVector2.Rotate(aimDirection, angle * FP.Deg2Rad);
+					CreateProjectile(f, e, rangeStat, burstDirection, position, weaponConfig);
 					angle += angleStep;
 				}
 			}
 		}
 	
-		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, in QuantumWeaponConfig weaponConfig)
+		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector2 projectileStartPosition, in QuantumWeaponConfig weaponConfig)
 		{
 			FP accuracyMod = FP._0;
 			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon && !(weaponConfig.NumberOfShots > 1))
 			{
 				accuracyMod = f.WeaponConfigs.GetRandomBakedAccuracyAngle(f, weaponConfig.Id);
 			}
-			var shotDirection = FPVector2.Rotate(aimingDirection, accuracyMod * FP.Deg2Rad).XOY;
+			var shotDirection = FPVector2.Rotate(aimingDirection, accuracyMod * FP.Deg2Rad).Normalized;
 			var directionPerTick = shotDirection * weaponConfig.AttackHitSpeed.AsInt * f.DeltaTime;
 			var despawnTime = FP._0;
 			if (weaponConfig.IsMeleeWeapon)
@@ -242,10 +245,12 @@ namespace Quantum.Systems
 				? weaponConfig.BulletPrototype.Id
 				: f.AssetConfigs.DefaultBulletPrototype.Id));
 			
-			var transform = f.Unsafe.GetPointer<Transform3D>(projectileEntity);
+			var transform = f.Unsafe.GetPointer<Transform2D>(projectileEntity);
 
-			transform->Position = projectile.SpawnPosition;
-			transform->Rotation = FPQuaternion.LookRotation(projectile.Direction, FPVector3.Up);
+			transform->Position = projectile.SpawnPosition + CAMERA_CORRECTION;
+			
+			var direction = projectile.Direction;
+			transform->Rotation = direction.Normalized.ToRotation();
 			
 			f.Add(projectileEntity, projectile);
 			

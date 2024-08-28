@@ -8,7 +8,6 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using Photon.Realtime;
@@ -77,7 +76,7 @@ namespace FirstLight.Game.Services
 			await LoadOptionalGroup<GameObject>(GameIdGroup.Collectable);
 			await LoadOptionalGroup<GameObject>(GameIdGroup.Weapon);
 			await LoadOptionalGroup<Sprite>(GameIdGroup.Weapon);
-			await LoadOptionalGroup<GameObject>(GameIdGroup.BotItem);
+			//await LoadOptionalGroup<GameObject>(GameIdGroup.BotItem);
 			_services.MessageBrokerService.Publish(new BenchmarkLoadedOptionalMatchAssets());
 		}
 

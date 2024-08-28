@@ -10,7 +10,7 @@ namespace Quantum.Systems
 		{
 			public EntityRef Entity;
 			public Gate* Gate;
-			public PhysicsCollider3D* Collider;
+			public PhysicsCollider2D* Collider;
 		}
 		
 		public override void Update(Frame f, ref GateFilter filter)

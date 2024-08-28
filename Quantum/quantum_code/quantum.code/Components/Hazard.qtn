@@ -16,7 +16,7 @@ component Hazard
 synced event OnHazardLand 
 {
 	GameId sourceId;
-	FPVector3 HitPosition;
+	FPVector2 HitPosition;
 	entity_ref AttackerEntity;
 	UInt32 Hits;
 }
@@ -25,6 +25,6 @@ synced event OnHazardHit
 {
  	entity_ref Hazard;
  	entity_ref HitEntity;
- 	FPVector3 HitPosition;
+ 	FPVector2 HitPosition;
  }
  

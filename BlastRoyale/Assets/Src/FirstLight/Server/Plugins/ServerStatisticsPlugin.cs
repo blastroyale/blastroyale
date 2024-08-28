@@ -114,7 +114,7 @@ namespace Src.FirstLight.Server
 
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<GameLogicMessageEvent<ClaimedRewardsMessage>>(OnClaimRewards);
-			evManager.RegisterEventListener<GameLogicMessageEvent<RewardClaimedMessage>>(OnPurchase);
+			evManager.RegisterEventListener<GameLogicMessageEvent<PurchaseClaimedMessage>>(OnPurchase);
 			evManager.RegisterEventListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassLevel);
 			evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnEndGameCalculations);
@@ -177,7 +177,7 @@ namespace Src.FirstLight.Server
 			await TrackRewards(ev.PlayerId, "BattlePassLevelUpMessage", ev.Message.Rewards);
 		}
 
-		private async Task OnPurchase(GameLogicMessageEvent<RewardClaimedMessage> ev)
+		private async Task OnPurchase(GameLogicMessageEvent<PurchaseClaimedMessage> ev)
 		{
 			await _ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.ITEMS_OBTAINED, 1));
 		}
@@ -185,8 +185,8 @@ namespace Src.FirstLight.Server
 		// private async Task OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
 		private async Task OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
 		{
-			
-			var isRankedMatch = endGameCmd.QuantumValues.AllowedRewards?.Contains(GameId.Trophies) ?? false;
+
+			var isRankedMatch = SimulationMatchConfig.FromByteArray(endGameCmd.SerializedSimulationConfig).MatchType == MatchType.Matchmaking;
 
 			//Non-Ranked Matches (Custom Games since we don't have Casual Matches) are not used for player's statistics calculation.
 			if (!isRankedMatch)
@@ -197,10 +197,11 @@ namespace Src.FirstLight.Server
 			var toSend = new List<ValueTuple<string, int>>();
 			var firstPlacePlayerData = endGameCmd.PlayersMatchData.FirstOrDefault(p => p.PlayerRank == 1);
 			var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
-			
-			CalculateMatchPlayedAndWinStatistics(toSend, firstPlacePlayerData, thisPlayerData, endGameCmd.TeamSize);
-			CalculatePersistentStatistics(toSend, thisPlayerData, endGameCmd.TeamSize);
-			await CalculateSeasonStatistics(toSend, userId, state,  thisPlayerData, endGameCmd.TeamSize);
+			var simulationConfig = SimulationMatchConfig.FromByteArray(endGameCmd.SerializedSimulationConfig);
+
+			CalculateMatchPlayedAndWinStatistics(toSend, firstPlacePlayerData, thisPlayerData, simulationConfig.TeamSize);
+			CalculatePersistentStatistics(toSend, thisPlayerData, simulationConfig.TeamSize);
+			await CalculateSeasonStatistics(toSend, userId, state,  thisPlayerData, simulationConfig.TeamSize);
 			
 			
 			toSend.Add((GameConstants.Stats.NOOB_TOTAL, await UpdatePlayerDataCurrencySeasonAndReset(userId, state, GameConstants.Stats.NOOB_TOTAL, GameId.NOOB)));

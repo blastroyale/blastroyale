@@ -274,7 +274,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var snapShot = _gameDataProvider.AppDataProvider.LastFrameSnapshot.Value;
-			if (snapShot.FrameNumber > 0 && _services.NetworkService.CurrentRoom.CanBeRestoredWithLocalSnapshot())
+			if (snapShot is {FrameNumber: > 0, Offline: true} && _services.RoomService.CurrentRoom.IsOffline)
 			{
 				FLog.Info("Restoring Local Snapshot");
 				FLog.Verbose(snapShot);
@@ -355,6 +355,7 @@ namespace FirstLight.Game.StateMachines
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
+				UnityId = AuthenticationService.Instance.PlayerId,
 				PlayerName = AuthenticationService.Instance.GetPlayerName(),
 				Cosmetics = equippedCosmetics,
 				DeathFlagID = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.GRAVE)!.Id,

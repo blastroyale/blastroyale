@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8308318883861072170}
   - component: {fileID: 583382157308184133}
   - component: {fileID: 8144184299190965543}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SwipeTransitionScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

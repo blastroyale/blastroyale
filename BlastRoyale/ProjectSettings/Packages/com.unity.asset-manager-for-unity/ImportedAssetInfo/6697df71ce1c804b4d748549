@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "ef7f8507c57b946f1930523e75ac3aa5",
+            "OriginalPath": "Melee_PowerPan.fbx"
+        },
+        {
+            "Guid": "f744c260f61884a3abfdce71bdbd7526",
+            "OriginalPath": "Icon_Melee_PowerPan.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71ce1c804b4d748549\\\",\\\"assetVersion\\\":\\\"31c2ec42-cbd1-4681-9bd1-240b8d41c17a\\\"}\",\"data\":{\"assetId\":\"6697df71ce1c804b4d748549\",\"assetVersion\":\"31c2ec42-cbd1-4681-9bd1-240b8d41c17a\",\"isFrozen\":true,\"versionNumber\":6,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":5,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:56:23.52Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:56:40.376Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_PowerPan.png\",\"name\":\"Melee_PowerPan\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 1,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
@@ -31,7 +32,14 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetTranslationGameIdString(this string gameId)
 		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{gameId}");
+			return LocalizationManager.GetTranslation(GetTranslationKeyGameIdString(gameId));
+		}
+		/// <summary>
+		/// Requests the localization key for the given <paramref name="gameId"/> as a string
+		/// </summary>
+		public static string GetTranslationKeyGameIdString(this string gameId)
+		{
+			return $"{nameof(ScriptTerms.GameIds)}/{gameId}";
 		}
 
 		/// <summary>
@@ -86,9 +94,17 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetDescriptionLocalization(this GameId id)
 		{
-			var localized = LocalizationManager.GetTranslation(id.GetLocalizationKey() + "Description");
+			var localized = LocalizationManager.GetTranslation(id.GetDescriptionLocalizationKey());
 			if (string.IsNullOrEmpty(localized)) return id.ToString();
 			return localized;
+		}
+
+		/// <summary>
+		/// Gets the key for the description of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetDescriptionLocalizationKey(this GameId id)
+		{
+			return id.GetLocalizationKey() + "Description";
 		}
 
 		/// <summary>
@@ -202,14 +218,6 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Requests the localized text representing the given <paramref name="error"/> as a string
-		/// </summary>
-		public static string GetTranslation(this PartyErrors error)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.UITSquads)}/error_{error}");
-		}
-
-		/// <summary>
 		/// Requests the localized text representing the given <paramref name="gameModeId"/> as a string
 		/// </summary>
 		public static string GetTranslationForGameModeId(string gameModeId)
@@ -226,7 +234,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Requests the localized text representing the given <paramref name="gameModeId"/> as a string
 		/// </summary>
-		public static string GetTranslationForTeamSize(int teamSize)
+		public static string GetTranslationForTeamSize(uint teamSize)
 		{
 			var term = $"{nameof(ScriptTerms.UITShared)}/team_size_{teamSize}";
 			if (LocalizationManager.TryGetTranslation(term, out var translation))
@@ -237,11 +245,10 @@ namespace FirstLight.Game.Utils
 			return teamSize.ToString();
 		}
 
-		public static string GetTranslationForGameModeAndTeamSize(string gameMode, int teamSize, string separator = " ")
+		public static string GetTranslationForGameModeAndTeamSize(string gameMode, uint teamSize, string separator = " ")
 		{
 			return GetTranslationForGameModeId(gameMode) + separator + GetTranslationForTeamSize(teamSize);
 		}
-
 
 		public static string GetTranslation(this UnlockSystem unlockSystem)
 		{
@@ -252,6 +259,16 @@ namespace FirstLight.Game.Utils
 			}
 
 			return unlockSystem.ToString().ToUpperInvariant();
+		}
+
+		public static string GetLocalizationKey(this Mutator mutator)
+		{
+			return $"UITCustomGames/mutator_{mutator.ToString()}";
+		}
+
+		public static string GetDescriptionLocalizationKey(this Mutator mutator)
+		{
+			return $"UITCustomGames/mutator_{mutator.ToString()}_Description";
 		}
 	}
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0fa56bc0c9cfb43ca95941c33ba6624f
+guid: f14f8384aa958134cbd9e9382b90fa3b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_VR
-    second: {fileID: 2100000, guid: 936e86d70b2804c2c8ae9c9ba8e8382e, type: 2}
+    second: {fileID: 2100000, guid: 8493dfdb2b29be04fad688da30e34100, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1
@@ -43,7 +43,65 @@ ModelImporter:
     - Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
     - Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: meta_idle1_loop
+      takeName: meta_idle1_loop
+      internalID: -1533404506062787293
+      firstFrame: 0
+      lastFrame: 560
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: meta_flair
+      takeName: meta_flair
+      internalID: -4311744423893859263
+      firstFrame: 0
+      lastFrame: 446
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []

@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
+using System.ComponentModel;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Presenters;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.TestCases.Helpers
 {
@@ -13,7 +16,6 @@ namespace FirstLight.Game.TestCases.Helpers
 		{
 			_uiHelper = uiHelper;
 		}
-
 
 		public IEnumerator WaitDropZoneSelectScreen()
 		{
@@ -31,7 +33,6 @@ namespace FirstLight.Game.TestCases.Helpers
 		{
 			yield return SelectPosition(Random.Range(0.2f, 0.8f), Random.Range(0.2f, 0.8f));
 		}
-
 
 		public IEnumerator WaitForSpectateScreen()
 		{
@@ -88,6 +89,44 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return _uiHelper.ClickNextButton();
 			yield return new WaitForSeconds(2);
 			yield return _uiHelper.ClickNextButton();
+			yield return new WaitForSeconds(5);
+			yield return CleanHomeScreen();
+		}
+
+		public IEnumerator CleanHomeScreen()
+		{
+			float start = Time.time;
+			while (true)
+			{
+				if (start + 10 < Time.time)
+				{
+					yield return FLGTestRunner.Instance.Fail("Failed to open home screen");
+				}
+
+				var types = new[] {typeof(RewardsScreenPresenter), typeof(BattlePassSeasonBannerPresenter), typeof(HomeScreenPresenter)};
+				yield return _uiHelper.WaitForAny(types);
+				var presenter = _uiHelper.GetFirstOpenScreen(types);
+
+				var clean = true;
+				if (presenter is RewardsScreenPresenter)
+				{
+					yield return _uiHelper.TouchOnElementByName("Blocker");
+					clean = false;
+				}
+
+				if (presenter is BattlePassSeasonBannerPresenter)
+				{
+					yield return _uiHelper.TouchOnElementByName("CloseButton");
+					clean = false;
+				}
+
+				if (clean)
+				{
+					break;
+				}
+
+				yield return new WaitForSeconds(1f);
+			}
 		}
 
 		public IEnumerator WaitForEndGameScreen(float timeout = 60)

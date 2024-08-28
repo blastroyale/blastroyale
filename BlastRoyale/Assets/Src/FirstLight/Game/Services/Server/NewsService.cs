@@ -43,10 +43,10 @@ namespace FirstLight.Game.Services
 			_newsLocalData = new DataService();
 			_data = _newsLocalData.LoadData<NewsData>();
 			service.Subscribe<SuccessAuthentication>(OnAuth);
-			service.Subscribe<MainMenuOpenedMessage>(OnMenuOpen);
+			service.Subscribe<MainMenuLoadedMessage>(OnMenuOpen);
 		}
 
-		private void OnMenuOpen(MainMenuOpenedMessage msg)
+		private void OnMenuOpen(MainMenuLoadedMessage msg)
 		{
 			if (_fetchingTask.Status == UniTaskStatus.Pending) return;
 

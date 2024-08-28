@@ -153,10 +153,20 @@
 .input-field > .unity-text-field__input {
     -unity-text-align: middle-left;
     -unity-font-definition: var(--font-italic-dynamic);
+    background-color: rgb(224, 224, 224);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    height: 80px;
 }
 
 .input-field--center > .unity-text-field__input {
     -unity-text-align: middle-center;
+    align-self: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .blocker {
@@ -195,11 +205,11 @@
     margin-bottom: 10px;
     font-size: 24px;
     -unity-font-style: normal;
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static');
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
 }
 
 .buy-button {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-main-yellow.png?fileID=2800000&guid=fec2c038b4fd64e349c7afb5d98f3cee&type=3#button-main-yellow');
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/button-main-yellow.png?fileID=2800000&guid=fec2c038b4fd64e349c7afb5d98f3cee&type=3#button-main-yellow");
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(147, 35, 14);
@@ -252,9 +262,9 @@
     flex-shrink: 0;
     flex-grow: 0;
     -unity-text-align: middle-right;
-    text-shadow: 3px 3px 0 rgb(156, 36, 12);
+    text-shadow: 4px 5px 0 rgb(156, 36, 12);
     -unity-text-outline-color: rgb(156, 36, 12);
-    letter-spacing: -4px;
+    -unity-text-outline-width: 6px;
 }
 
 .purchase-confirmation__button-icon {
@@ -271,6 +281,8 @@
     justify-content: center;
     width: 375px;
     height: 100px;
+    align-self: center;
+    margin-top: 17px;
 }
 
 .purchase-confirmation__desc-container {
@@ -305,11 +317,12 @@
     display: flex;
     font-size: 38px;
 }
+
 .purchase-confirmation__notenough-desc-icon {
-        flex-grow: 0;
-        width: 64px;
-        height: 64px;
-        margin-left: 5px;
+    flex-grow: 0;
+    width: 64px;
+    height: 64px;
+    margin-left: 5px;
 }
 
 .purchase-confirmation__notenough-desc-container {
@@ -351,8 +364,8 @@
 
 .purchase-confirmation__title {
     font-size: 44px;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 2px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 6px;
     -unity-text-outline-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     -unity-font-style: normal;
@@ -363,10 +376,10 @@
     color: rgb(255, 255, 255);
     font-size: 64px;
     height: 82px;
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    letter-spacing: -4px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    letter-spacing: -1px;
     -unity-text-align: lower-right;
     align-self: auto;
     width: 100%;
@@ -381,4 +394,9 @@
 }
 
 .height-spacer {
+}
+
+.generic-form-field {
+    width: 80%;
+    color: rgb(55, 52, 52);
 }

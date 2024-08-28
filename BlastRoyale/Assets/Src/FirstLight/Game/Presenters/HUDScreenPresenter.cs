@@ -241,7 +241,7 @@ namespace FirstLight.Game.Presenters
 		private bool IsMenuVisible()
 		{
 			return _gameServices.RoomService.CurrentRoom.GameModeConfig.Id == GameConstants.Tutorial.SECOND_BOT_MODE_ID ||
-				_gameServices.RoomService.CurrentRoom.Properties.MatchType.Value == MatchType.Custom;
+				_gameServices.RoomService.CurrentRoom.Properties.SimulationMatchConfig.Value.MatchType == MatchType.Custom;
 		}
 
 		private void OnMenuClicked()

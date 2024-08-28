@@ -6,7 +6,6 @@ singleton component GameContainer
 	bool IsGameOver;
 	bool IsGameStarted;
 	FP GameOverTime;
-	WeaponDropPool DropPool;
 }
 
 

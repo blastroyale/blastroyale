@@ -1,12 +1,12 @@
 .status-areashrinking {
     color: rgb(255, 255, 255);
-    font-size: 52px;
+    font-size: 50px;
     -unity-text-align: middle-center;
     -unity-text-outline-color: rgb(47, 44, 63);
     position: absolute;
     top: 148px;
-    -unity-text-outline-width: 1px;
-    text-shadow: 3px 3px -46.4px rgb(47, 44, 63);
+    -unity-text-outline-width: 4px;
+    text-shadow: 4px 4px -46.4px rgb(47, 44, 63);
     background-image: var(--sprite-match__background-whitegradient);
     width: 511px;
     height: 54px;
@@ -31,7 +31,7 @@
     left: 98px;
     top: 22px;
     rotate: -8deg;
-    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-width: 32px;
     -unity-text-outline-color: rgb(49, 46, 72);
     text-shadow: 4px 4px 0 rgb(49, 46, 72);
 }
@@ -41,7 +41,7 @@
     font-size: 60px;
     -unity-text-outline-color: rgb(49, 46, 72);
     text-shadow: 5px 5px 0 rgb(49, 46, 72);
-    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-width: 4px;
     color: rgb(255, 255, 255);
     rotate: -8deg;
     top: 52px;

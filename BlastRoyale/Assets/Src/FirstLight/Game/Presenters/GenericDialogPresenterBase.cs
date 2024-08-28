@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using UnityEngine.UIElements;
@@ -18,8 +19,8 @@ namespace FirstLight.Game.Presenters
 
 		private Label _titleLabel;
 		private Label _descLabel;
-		private Button _confirmButton;
-		private Button _cancelButton;
+		private LocalizedButton _confirmButton;
+		private LocalizedButton _cancelButton;
 		private Button _blockerButton;
 
 		private Action _closeCallback;
@@ -37,8 +38,8 @@ namespace FirstLight.Game.Presenters
 			_titleLabel = Root.Q<Label>("Title").Required();
 			_descLabel = Root.Q<Label>("Desc").Required();
 
-			_confirmButton = Root.Q<Button>("ConfirmButton").Required();
-			_cancelButton = Root.Q<Button>("CancelButton").Required();
+			_confirmButton = Root.Q<LocalizedButton>("ConfirmButton").Required();
+			_cancelButton = Root.Q<LocalizedButton>("CancelButton").Required();
 			_blockerButton = Root.Q<Button>("BlockerButton").Required();
 
 			_confirmCallback = null;
@@ -81,7 +82,7 @@ namespace FirstLight.Game.Presenters
 
 		private void CloseRequested()
 		{
-			_services.UIService.CloseScreen(UILayer.Popup, false).Forget();
+			_services.UIService.CloseLayer(UILayer.Popup).Forget();
 		}
 	}
 }

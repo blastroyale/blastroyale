@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Models;
 using FirstLight.Server.SDK.Modules.Commands;
 using Quantum;
@@ -25,7 +26,16 @@ namespace FirstLight.Game.Commands
 				var amt = p.Value;
 				ctx.Logic.CurrencyLogic().DeductCurrency(id, amt);
 			}
+			
 			ctx.Logic.RewardLogic().Reward(new [] { catalogItem });
+			
+			var msg = new PurchaseClaimedMessage
+			{
+				ItemPurchased = catalogItem,
+				SupportingContentCreator = ctx.Logic.ContentCreatorLogic().SupportingCreatorCode.Value 
+			};
+			ctx.Services.MessageBrokerService().Publish(msg);
+			
 		}
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -11,20 +12,22 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
-using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
-using Unity.Services.RemoteConfig;
 using Unity.Services.Authentication;
+using Unity.Services.Friends;
+using Unity.Services.Friends.Notifications;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Random = UnityEngine.Random;
@@ -34,14 +37,9 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Home Screen.
 	/// </summary>
-	public partial class HomeScreenPresenter : UIPresenterData<HomeScreenPresenter.StateData>
+	public class HomeScreenPresenter : UIPresenterData<HomeScreenPresenter.StateData>
 	{
 		private const float TROPHIES_COUNT_DELAY = 0.8f;
-
-		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
-		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
-
-		private const string USS_AVATAR_NFT = "player-header__avatar--nft";
 
 		public class StateData
 		{
@@ -63,12 +61,8 @@ namespace FirstLight.Game.Presenters
 
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
-		private IMainMenuServices _mainMenuServices;
-
-		private IPartyService _partyService;
 
 		private LocalizedButton _playButton;
-		private VisualElement _playButtonContainer;
 
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
@@ -76,42 +70,24 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _collectionNotification;
 		private VisualElement _settingsNotification;
+		private VisualElement _friendsNotification;
 		private VisualElement _newsNotification;
 		private VisualElement _newsNotificationShine;
+		private VisualElement _onlineFriendsNotification;
 
-		private ImageButton _gameModeButton;
-		private Label _gameModeLabel;
-		private VisualElement _gameModeIcon;
-
-		private Label _csAmountLabel;
-		private Label _blstAmountLabel;
-
-		private ImageButton _battlePassButton;
-		private Label _battlePassProgressLabel;
-		private Label _battlePassNextLevelLabel;
-		private VisualElement _battlePassProgressElement;
-		private VisualElement _battlePassRarity;
-
-		private VisualElement _bppPoolContainer;
-		private Label _bppPoolRestockTimeLabel;
-		private Label _bppPoolRestockAmountLabel;
-		private Label _bppPoolAmountLabel;
+		private Label _onlineFriendLabel;
 		private Label _outOfSyncWarningLabel;
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
 
 		[SerializeField] private HomePartyCharacterView _homePartyCharacterView = new ();
 
-		private Coroutine _updatePoolsCoroutine;
 		private HashSet<GameId> _currentAnimations = new ();
-		private HashSet<GameId> _initialized = new ();
 
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
-			_partyService = _services.PartyService;
 		}
 
 		private void OpenStats(PlayerStatisticsPopupPresenter.StateData data)
@@ -126,14 +102,11 @@ namespace FirstLight.Game.Presenters
 				var data = new PlayerStatisticsPopupPresenter.StateData
 				{
 					PlayfabID = PlayFabSettings.staticPlayer.PlayFabId,
-					OnCloseClicked = () =>
-					{
-						_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
-					},
 					OnEditNameClicked = () =>
 					{
 						Data.OnProfileClicked();
-					}
+					},
+					CanOpenLeaderboards = true
 				};
 
 				OpenStats(data);
@@ -141,47 +114,33 @@ namespace FirstLight.Game.Presenters
 
 			_playerNameLabel = Root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = Root.Q<Label>("TrophiesAmount").Required();
+			_onlineFriendLabel = Root.Q<Label>("OnlineFriendsCount").Required();
 
 			_avatar = Root.Q<PlayerAvatarElement>("Avatar").Required();
 
-			_gameModeLabel = Root.Q<Label>("GameModeLabel").Required();
-			_gameModeIcon = Root.Q<VisualElement>("GameModeIcon").Required();
-			_gameModeButton = Root.Q<ImageButton>("GameModeButton").Required();
-
 			_collectionNotification = Root.Q<VisualElement>("CollectionNotification").Required();
 			_settingsNotification = Root.Q<VisualElement>("SettingsNotification").Required();
+			_friendsNotification = Root.Q<VisualElement>("FriendsNotification").Required();
+			_onlineFriendsNotification = Root.Q<VisualElement>("OnlineFriendsNotification").Required();
 			_newsNotification = Root.Q<VisualElement>("NewsNotification").Required();
 			_newsNotificationShine = Root.Q("NewsShine").Required();
-			_newsNotificationShine.AddRotatingEffect(1, 1);
-
-			_bppPoolContainer = Root.Q<VisualElement>("BPPPoolContainer").Required();
-			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
-			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
-			_bppPoolRestockAmountLabel = _bppPoolContainer.Q<Label>("RestockLabelAmount").Required();
-
-			_battlePassButton = Root.Q<ImageButton>("BattlePassButton").Required();
-			_battlePassProgressElement = _battlePassButton.Q<VisualElement>("BattlePassProgressElement").Required();
-			_battlePassProgressLabel = _battlePassButton.Q<Label>("BPProgressText").Required();
-			_battlePassRarity = _battlePassButton.Q<VisualElement>("BPRarity").Required();
-			_battlePassNextLevelLabel = _battlePassButton.Q<Label>("BarLevelLabel").Required();
+			_newsNotificationShine.AddRotatingEffect(40, 10);
+			_newsNotificationShine.AnimatePingOpacity(fromAmount: 0.3f, duration: 2000, repeat: true);
 
 			Root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
 
-			QueryElementsSquads(Root);
-
-			_playButtonContainer = Root.Q("PlayButtonHolder");
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
 			Root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton);
+				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
 			Root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton);
+				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
 			Root.Q<CurrencyDisplayElement>("NOOBCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton, true);
+				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
 
 			Root.Q<VisualElement>("PartyMemberNames").Required()
 				.AttachExistingView(this, _homePartyCharacterView);
@@ -189,32 +148,39 @@ namespace FirstLight.Game.Presenters
 			_outOfSyncWarningLabel = Root.Q<Label>("OutOfSyncWarning").Required();
 			_betaLabel = Root.Q<Label>("BetaWarning").Required();
 
+			Root.Q("BattlePassButtonHolder").AttachView(this, out BattlePassButtonView bpButtonView);
+			bpButtonView.Clicked += Data.OnBattlePassClicked;
 			Root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
-			Root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
-			_gameModeButton.LevelLock2(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
+			var gameModeButton = Root.Q<ImageButton>("GameModeButton").Required();
+			gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
+			gameModeButton.AttachView(this, out GameModeButtonView _);
+
 			var leaderBoardButton = Root.Q<ImageButton>("LeaderboardsButton");
-			leaderBoardButton.LevelLock2(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
-			var collectionButton = Root.Q<Button>("CollectionButton");
-			collectionButton.LevelLock2(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
+			leaderBoardButton.LevelLock(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
+			var collectionButton = Root.Q<LocalizedButton>("CollectionButton");
+			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
-			var storeButton = Root.Q<Button>("StoreButton");
+			var storeButton = Root.Q<LocalizedButton>("StoreButton").Required();
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 			if (FeatureFlags.STORE_ENABLED)
 			{
-				storeButton.LevelLock2(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
+				storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
-			// Root.Q<Button>("FriendsButton").Required().clicked += Data.FriendsClicked;
-			// TODO: Re-enable this
-			Root.Q<Button>("FriendsButton").Required().SetDisplay(false);
+			Root.Q<LocalizedButton>("FriendsButton").Required().LevelLock(this, Root, UnlockSystem.Friends, () => Data.FriendsClicked?.Invoke());
+			Root.Q<LocalizedButton>("PartyUpButton").Required().LevelLock(this, Root, UnlockSystem.Squads, ShowPartyUpPopup);
 
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
 			Root.SetupClicks(_services);
-			OnAnyPartyUpdate();
+		}
+
+		private void ShowPartyUpPopup()
+		{
+			PopupPresenter.OpenParty().Forget();
 		}
 
 		private void OnItemRewarded(ItemRewardedMessage msg)
@@ -240,6 +206,8 @@ namespace FirstLight.Game.Presenters
 		{
 			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
+			_friendsNotification.SetDisplay(FriendsService.Instance.IncomingFriendRequests.ToList().Count > 0);
+
 			SetHasNewsNotification(false);
 			_services.NewsService.HasNotSeenNews().ContinueWith(SetHasNewsNotification);
 #if DEVELOPMENT_BUILD && !UNITY_EDITOR
@@ -248,49 +216,65 @@ namespace FirstLight.Game.Presenters
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
 			_betaLabel.SetDisplay(RemoteConfigs.Instance.ShowBetaLabel);
-
+			
+			RefreshOnlineFriends();
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
 
 			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
-			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
-			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
-			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
-			SubscribeToSquadEvents();
-			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
 			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameChanged);
 			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyUpdate;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnPartyJoined;
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
+			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
+			
+			UpdatePlayButton();
 
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
 
 			return base.OnScreenOpen(reload);
 		}
 
+		private void OnPartyJoined(Lobby l)
+		{
+			UpdatePlayButton();
+		}
+
+		private void RefreshOnlineFriends()
+		{
+			var onlineFriendsCount = FriendsService.Instance.Friends.Count(f => f.IsOnline());
+			var hasPlayerOnline = onlineFriendsCount > 0;
+			
+			
+			_onlineFriendsNotification.SetDisplay( onlineFriendsCount > 0);
+			_onlineFriendLabel.text = onlineFriendsCount.ToString();	
+		}
+
+		private void OnPartyLobbyUpdate(ILobbyChanges m)
+		{
+			UpdatePlayButton();
+		}
+
+		private void OnPresenceUpdated(IPresenceUpdatedEvent e)
+		{
+			RefreshOnlineFriends();
+		}
+		
 		protected override UniTask OnScreenClose()
 		{
 			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
-			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
-			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
 			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.BLST);
-			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.CS);
-			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
-			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnPartyLobbyUpdate;
+			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined -= OnPartyJoined;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
-
-			UnsubscribeFromSquadEvents();
-
-			if (_updatePoolsCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_updatePoolsCoroutine);
-				_updatePoolsCoroutine = null;
-			}
+			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
 
 			return base.OnScreenClose();
 		}
@@ -307,8 +291,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayerNameColor(int leaderboardRank)
 		{
-			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, leaderboardRank);
-			_playerNameLabel.style.color = nameColor;
+			_playerNameLabel.style.color = Color.white;
 		}
 
 		private void UpdatePFP()
@@ -356,11 +339,6 @@ namespace FirstLight.Game.Presenters
 			// TODO: Animate VFX when we have a progress bar: StartCoroutine(AnimateCurrency(GameId.Trophies, previous, current, _avatar));
 		}
 
-		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
-		{
-			UpdateGameModeButton();
-		}
-
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
 		{
 			_currentAnimations.Add(id);
@@ -386,145 +364,26 @@ namespace FirstLight.Game.Presenters
 			_currentAnimations.Remove(id);
 		}
 
-		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
-								   ObservableUpdateType updateType)
-		{
-			UpdatePoolLabels();
-		}
-
-		private IEnumerator UpdatePoolLabels()
-		{
-			var waitForSeconds = new WaitForSeconds(GameConstants.Visuals.RESOURCE_POOL_UPDATE_TIME_SECONDS);
-
-			while (true)
-			{
-				UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolRestockTimeLabel, _bppPoolRestockAmountLabel,
-					_bppPoolAmountLabel);
-				yield return waitForSeconds;
-			}
-		}
-
-		private void UpdatePool(GameId id, string amountStringFormat, Label timeLabel, Label restockAmountLabel,
-								Label poolAmountLabel)
-		{
-			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
-			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
-
-			poolAmountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
-
-			if (poolInfo.IsFull)
-			{
-				timeLabel.text = string.Empty;
-				restockAmountLabel.text = string.Empty;
-			}
-			else
-			{
-				restockAmountLabel.text = $"+ {poolInfo.RestockPerInterval}";
-				timeLabel.text = string.Format(
-					ScriptLocalization.UITHomeScreen.resource_pool_restock_time,
-					timeLeft.ToHoursMinutesSeconds());
-			}
-		}
-
-		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
-		{
-			UpdateBattlePassReward();
-
-			if (current > previous && _initialized.Contains(GameId.BPP) && !_currentAnimations.Contains(GameId.BPP))
-			{
-				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
-			}
-			else
-			{
-				_initialized.Add(GameId.BPP);
-				UpdateBattlePassPoints((int) current);
-			}
-		}
-
-		private IEnumerator AnimateBPP(GameId id, ulong previous, ulong current)
-		{
-			_currentAnimations.Add(id);
-			// Apparently this initial delay is a must, otherwise "GetPositionOnScreen" starts throwing "Element out of bounds" exception OCCASIONALLY
-			// I guess it depends on how long the transition to home screen take; so these errors still may appear
-			yield return new WaitForSeconds(0.4f);
-
-			var pointsDiff = (int) current - (int) previous;
-			var pointsToAnimate = Mathf.Clamp((current - previous) / 10, 3, 10);
-			var pointSegment = Mathf.RoundToInt(pointsDiff / pointsToAnimate);
-
-			var pointSegments = new List<int>();
-
-			// Split all points to animate into segments without any precision related errors due to division
-			while (pointsDiff > 0)
-			{
-				var newSegment = pointSegment;
-
-				if (pointSegment > pointsDiff)
-				{
-					newSegment = pointsDiff;
-				}
-
-				pointsDiff -= newSegment;
-				pointSegments.Add(newSegment);
-			}
-
-			var totalSegmentPointsRedeemed = 0;
-			var segmentIndex = 0;
-
-			// Fire point segment VFX and update points
-			foreach (var segment in pointSegments)
-			{
-				totalSegmentPointsRedeemed += segment;
-				segmentIndex += 1;
-
-				var points = (int) previous + totalSegmentPointsRedeemed;
-				var wasRedeemable = _dataProvider.BattlePassDataProvider.HasUnclaimedRewards((int) previous);
-
-				_services.UIVFXService.PlayVfx(id,
-					segmentIndex * 0.05f,
-					_playButton.GetPositionOnScreen(Root),
-					_battlePassProgressElement.GetPositionOnScreen(Root),
-					() =>
-					{
-						_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
-
-						if (wasRedeemable) return;
-
-						UpdateBattlePassPoints(points);
-					});
-			}
-
-			_currentAnimations.Remove(id);
-		}
-
-		private void UpdateGameModeButton()
-		{
-			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
-			var localMember = _services.PartyService.GetLocalMember();
-			var isMemberNotLeader = _services.PartyService.HasParty.Value && localMember is {Leader: false};
-			_gameModeLabel.text = LocalizationManager.GetTranslation(current.TitleTranslationKey);
-			_gameModeButton.SetEnabled(!isMemberNotLeader && !_partyService.OperationInProgress.Value);
-			_gameModeIcon.RemoveSpriteClasses();
-			_gameModeIcon.AddToClassList(current.IconSpriteClass);
-		}
-
 		private void UpdatePlayButton(bool forceLoading = false)
 		{
 			var translationKey = ScriptTerms.UITHomeScreen.play;
 			var buttonClass = string.Empty;
 			var buttonEnabled = true;
 
-			if (forceLoading || _services.PartyService.OperationInProgress.Value ||
-				_services.MatchmakingService.IsMatchmaking.Value)
+			FLog.Verbose("Updating play button state");
+			var partyLobby = _services.FLLobbyService.CurrentPartyLobby;
+
+			// TODO mihak: Add operation in progress logic for parties
+			if (forceLoading || _services.MatchmakingService.IsMatchmaking.Value)
 			{
 				buttonClass = "play-button--loading";
 				buttonEnabled = false;
 			}
-			else if (_services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember() != null)
+			else if (partyLobby != null)
 			{
-				if (_services.PartyService.GetLocalMember().Leader)
+				if (partyLobby.IsLocalPlayerHost())
 				{
-					if (!_services.PartyService.PartyReady.Value)
+					if (!partyLobby.IsEveryoneReady())
 					{
 						translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
 						buttonEnabled = false;
@@ -536,7 +395,7 @@ namespace FirstLight.Game.Presenters
 				}
 				else
 				{
-					var isReady = _services.PartyService.LocalReadyStatus.Value;
+					var isReady = partyLobby.Players.First(p => p.IsLocal()).IsReady();
 
 					if (isReady)
 					{
@@ -553,47 +412,7 @@ namespace FirstLight.Game.Presenters
 			_playButton.SetEnabled(buttonEnabled);
 			_playButton.RemoveModifiers();
 			if (!string.IsNullOrEmpty(buttonClass)) _playButton.AddToClassList(buttonClass);
-			_playButton.Localize(translationKey);
-		}
-
-		private void UpdateBattlePassReward()
-		{
-			var nextLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value + 1;
-			_battlePassRarity.RemoveSpriteClasses();
-
-			if (nextLevel <= _dataProvider.BattlePassDataProvider.MaxLevel)
-			{
-				var reward = _dataProvider.BattlePassDataProvider.GetRewardForLevel(nextLevel, PassType.Free);
-				_battlePassRarity.AddToClassList(UIUtils.GetBPRarityStyle(reward.GameId));
-			}
-		}
-
-		private void UpdateBattlePassPoints(int points)
-		{
-			var hasRewards = _dataProvider.BattlePassDataProvider.HasUnclaimedRewards(points);
-			_battlePassButton.EnableInClassList("battle-pass-button--claimreward", hasRewards);
-
-			if (!hasRewards)
-			{
-				if (_dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
-					_dataProvider.BattlePassDataProvider.MaxLevel)
-				{
-					_battlePassButton.EnableInClassList("battle-pass-button--completed", true);
-					_bppPoolContainer.SetDisplay(false);
-				}
-				else
-				{
-					var predictedLevelAndPoints =
-						_dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
-					_battlePassNextLevelLabel.text = (predictedLevelAndPoints.Item1 + 1).ToString();
-					var requiredPoints =
-						_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(
-							(int) predictedLevelAndPoints.Item1);
-
-					_battlePassProgressElement.style.width = Length.Percent((float) points / requiredPoints * 100);
-					_battlePassProgressLabel.text = $"{points}/{requiredPoints}";
-				}
-			}
+			_playButton.LocalizationKey = translationKey;
 		}
 
 		public void ShowMatchmaking(bool show)

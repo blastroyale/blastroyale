@@ -87,6 +87,9 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		public async Task Animate()
 		{
+			// Reconnection edge case
+			if (_levelRewardsInfo == null) return;
+			
 			ShowPanel();
 
 			var currentGained = 0;

@@ -1,3 +1,4 @@
+using System;
 using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,17 +8,35 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// A label that has it's text set from a I2 Localization key.
 	/// </summary>
-	public sealed class LocalizedLabel : TextElement
+	public class LocalizedLabel : LabelOutlined
 	{
-		private string localizationKey { get; set; }
+		protected string _localizationKey;
 
+		public string LocalizationKey
+		{
+			get => _localizationKey;
+			set
+			{
+				_localizationKey = value;
+				if (string.IsNullOrWhiteSpace(_localizationKey)) return;
+				if (!LocalizationManager.TryGetTranslation(_localizationKey, out var translation))
+				{
+					translation = _localizationKey;
+					Debug.LogWarning($"Could not find translation for key {_localizationKey} in element " + name);
+				}
+
+				text = translation;
+			}
+		}
+
+		[Obsolete("Do not use default constructor")]
 		public LocalizedLabel()
 		{
 		}
 
-		public LocalizedLabel(string key)
+		public LocalizedLabel(string localizationKey) : base($"#{localizationKey}#")
 		{
-			Localize(key);
+			LocalizationKey = localizationKey;
 		}
 
 		/// <summary>
@@ -25,32 +44,26 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void Localize(string key)
 		{
-			if (!LocalizationManager.TryGetTranslation(key, out var translation))
-			{
-				translation = key;
-				Debug.LogWarning($"Could not find translation for key {key} in element " + name);
-			}
-
-			localizationKey = key;
-			text = translation;
+			LocalizationKey = key;
 		}
 
 		public new class UxmlFactory : UxmlFactory<LocalizedLabel, UxmlTraits>
 		{
 		}
 
-		public new class UxmlTraits : TextElement.UxmlTraits
+		public new class UxmlTraits : LabelOutlined.UxmlTraits
 		{
 			UxmlStringAttributeDescription _localizationKeyAttribute = new ()
 			{
 				name = "localization-key",
-				use = UxmlAttributeDescription.Use.Required
+				use = UxmlAttributeDescription.Use.Optional
 			};
 
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
-				((LocalizedLabel) ve).Localize(_localizationKeyAttribute.GetValueFromBag(bag, cc));
+				var labelOutlined = (LocalizedLabel) ve;
+				labelOutlined.LocalizationKey = _localizationKeyAttribute.GetValueFromBag(bag, cc);
 			}
 		}
 	}

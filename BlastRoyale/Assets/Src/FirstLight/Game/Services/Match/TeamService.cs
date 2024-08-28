@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using Photon.Realtime;
@@ -21,11 +20,6 @@ namespace FirstLight.Game.MonoComponent.Match
 	public interface ITeamService
 	{
 		/// <summary>
-		///  Property set as the host to autobalance the game, just works for custom games
-		/// </summary>
-		public bool AutoBalanceCustom { get; set; }
-
-		/// <summary>
 		/// Gets the current team color of the current entity.
 		/// Returns null in case no color is assigned.
 		/// </summary>
@@ -47,11 +41,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		public string GetTeamForPlayer(Player player);
 
 		/// <summary>
-		/// Gets team of a given entity
-		/// </summary>
-		public int GetTeam(EntityRef entity);
-
-		/// <summary>
 		/// Checks if the entity is from the same team as the spectated player
 		/// </summary>
 		public bool IsSameTeamAsSpectator(EntityRef entity);
@@ -62,14 +51,12 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class TeamService : ITeamService
 	{
-		public bool AutoBalanceCustom { get; set; }
-
 		private IRoomService _roomService;
 
 		public TeamService(IRoomService roomService)
 		{
 			_roomService = roomService;
-			roomService.BeforeHostStartsCustomGame += BeforeCustomGameStarts;
+			//roomService.OnJoinedRoom += BeforeCustomGameStarts;
 		}
 
 		public Color? GetTeamMemberColor(EntityRef e)
@@ -88,16 +75,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		public byte GetTeamMemberColorIndex(Player player)
 		{
 			var room = _roomService.CurrentRoom;
-			if (room.Properties.TeamMemberColors.HasValue)
-			{
-				if (room.Properties.TeamMemberColors.Value.TryGetValue(player.ActorNumber.ToString(), out var color))
-				{
-					if (byte.TryParse(color, out var value))
-					{
-						return value;
-					}
-				}
-			}
 
 			var playerProps = room.GetPlayerProperties(player);
 			return playerProps.ColorIndex.HasValue ? playerProps.ColorIndex.Value : (byte) 0;
@@ -117,71 +94,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			return team > 0 && team == GetTeam(matchServices.SpectateService.GetSpectatedEntity());
 		}
 
-		private void AutoBalanceTeams()
-		{
-			var room = _roomService.CurrentRoom;
-			var playerTeam = new Dictionary<string, string>();
-			foreach (var playersValue in room.Players.Values)
-			{
-				playerTeam[playersValue.ActorNumber + ""] = "t_" + playersValue.ActorNumber;
-			}
-
-			playerTeam = TeamDistribution.Distribute(playerTeam, (uint) room.Properties.TeamSize.Value);
-			room.Properties.OverwriteTeams.Value = playerTeam;
-		}
-
 		public string GetTeamForPlayer(Player player)
 		{
 			var room = _roomService.CurrentRoom;
-			var playerTeam = room.Properties.OverwriteTeams.Value;
-			if (playerTeam != null)
-				if (playerTeam.TryGetValue(player.ActorNumber.ToString(), out var team))
-				{
-					return team;
-				}
-
 			return room.GetPlayerProperties(player).TeamId.Value;
-		}
-
-		private void SetTeamMemberColors()
-		{
-			var room = _roomService.CurrentRoom;
-
-			var lastUsedColorByTeam = new Dictionary<string, byte>();
-			var colorByPlayer = new Dictionary<string, string>();
-			foreach (var playersValue in room.Players.Values)
-			{
-				var playerTeam = "t_" + playersValue.ActorNumber;
-				if (room.Properties.OverwriteTeams.HasValue)
-				{
-					playerTeam = room.Properties.OverwriteTeams.Value[playersValue.ActorNumber.ToString()];
-				}
-				else if (room.GetPlayerProperties(playersValue).TeamId.HasValue)
-				{
-					playerTeam = room.GetPlayerProperties(playersValue).TeamId.Value;
-				}
-
-				byte usedColor = 0;
-				if (lastUsedColorByTeam.TryGetValue(playerTeam, out var lastColor))
-				{
-					usedColor = (byte) (lastColor + 1);
-				}
-
-				lastUsedColorByTeam[playerTeam] = usedColor;
-				colorByPlayer[playersValue.ActorNumber.ToString()] = usedColor.ToString();
-			}
-
-			room.Properties.TeamMemberColors.Value = colorByPlayer;
-		}
-
-		private void BeforeCustomGameStarts()
-		{
-			if (AutoBalanceCustom)
-			{
-				AutoBalanceTeams();
-			}
-
-			SetTeamMemberColors();
 		}
 	}
 }

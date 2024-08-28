@@ -1,17 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using PlayFab;
 using Quantum;
@@ -33,8 +34,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
 
 		public static readonly IStatechartEvent PhotonCriticalDisconnectedEvent = new StatechartEvent("NETWORK - Photon Critical Disconnected Event");
-		public static readonly IStatechartEvent RegionUpdatedEvent = new StatechartEvent("NETWORK - Connect To Region Master");
-		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
 
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("NETWORK - Create Room Failed Event");
 		public static readonly IStatechartEvent JoinedPlayfabMatchmaking = new StatechartEvent("NETWORK - Joined Matchmaking Event");
@@ -44,7 +43,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent AlreadyJoined = new StatechartEvent("NETWORK - Already joined");
 		public static readonly IStatechartEvent GameDoesNotExists = new StatechartEvent("NETWORK - Game does not exists");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
-		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -104,9 +102,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<LocalPlayerClickedPlayMessage>(OnPlayerClickedPlay);
 			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
-			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
-			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
-			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
+			_services.MessageBrokerService.Subscribe<JoinedCustomMatch>(OnJoinedCustomMatch);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
@@ -185,14 +181,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnGameMatched(GameMatched match)
 		{
-			if (match.RoomSetup.MapId == (int) GameId.Any)
+			if (match.RoomSetup.SimulationConfig.MapId == (int) GameId.Any)
 			{
 				var maps = _services.GameModeService.ValidMatchmakingMaps;
 				var index = Random.Range(0, maps.Count);
-				match.RoomSetup.MapId = (int) maps[index];
+				match.RoomSetup.SimulationConfig.MapId = (int) maps[index];
 			}
 
-			_services.RoomService.JoinOrCreateRoom(match.RoomSetup, match.TeamId, match.ColorIndex, match.ExpectedPlayers);
+			_services.RoomService.JoinOrCreateRoom(match.RoomSetup, match.PlayerProperties, match.ExpectedPlayers);
 			_services.GenericDialogService.CloseDialog();
 		}
 
@@ -201,6 +197,11 @@ namespace FirstLight.Game.StateMachines
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 			_networkService.LastUsedSetup.Value = match.RoomSetup;
 			_statechartTrigger(JoinedPlayfabMatchmaking);
+		}
+
+		private void OnJoinedCustomMatch(JoinedCustomMatch obj)
+		{
+			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 		}
 
 		private void OnMatchmakingCancelled()
@@ -216,16 +217,6 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose("Using playfab matchmaking!");
 			_networkService.LastUsedSetup.Value = setup;
 			_services.MatchmakingService.JoinMatchmaking(setup);
-		}
-
-		private void JoinRoom(string roomName, bool resetLastDcLocation = true)
-		{
-			if (!_networkService.QuantumClient.InRoom && resetLastDcLocation)
-			{
-				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-			}
-
-			_services.RoomService.JoinRoom(roomName);
 		}
 
 		private void LockRoom()
@@ -274,6 +265,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				if (!string.IsNullOrEmpty(_services.LocalPrefsService.ServerRegion.Value))
 				{
+					_services.LocalPrefsService.ServerRegion.Value = null;
 					FLog.Info("Invalid region, retrying");
 					_statechartTrigger(PhotonInvalidServer);
 					return;
@@ -312,14 +304,14 @@ namespace FirstLight.Game.StateMachines
 
 			FLog.Verbose($"Current Room Debug:{_networkService.CurrentRoom.Name}{_networkService.CurrentRoom.GetRoomDebugString()} ");
 
-			_services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
+			// TODO mihak: _services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
 
 			_networkService.SetLastRoom();
 
 			var room = _services.RoomService.CurrentRoom;
 			if (_networkService.JoinSource.Value == JoinRoomSource.FirstJoin)
 			{
-				var isSpectator = _services.RoomService.IsLocalPlayerSpectator;
+				var isSpectator = _services.FLLobbyService.CurrentMatchLobby != null && _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.IsLocal()).IsSpectator();
 
 				if (!isSpectator && _services.RoomService.CurrentRoom.GetRealPlayerAmount() >
 					_services.RoomService.CurrentRoom.GetRealPlayerCapacity())
@@ -340,6 +332,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			_statechartTrigger(JoinedRoomEvent);
+			_services.MessageBrokerService.Publish(new JoinRoomMessage());
 		}
 
 		public void OnJoinRoomFailed(short returnCode, string message)
@@ -514,23 +507,18 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Entry.GameModeId;
-			var mutators = selectedGameMode.Entry.Mutators;
-			var map = _services.GameModeService.SelectedMap;
-			var rewards = selectedGameMode.Entry.AllowedRewards;
 
-			if (!FeatureFlags.ENABLE_NOOB)
+			var simulationConfig = selectedGameMode.Entry.MatchConfig.CloneSerializing();
+			if (simulationConfig.MapId == GameId.Any.GetHashCode())
 			{
-				rewards.Remove(GameId.NOOB);
+				var map = _services.GameModeService.SelectedMap;
+				simulationConfig.MapId = (int) map;
 			}
 
+			simulationConfig.MatchType = MatchType.Matchmaking;
 			var matchmakingSetup = new MatchRoomSetup()
 			{
-				MapId = (int) map,
-				GameModeId = gameModeId,
-				Mutators = mutators,
-				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
-				AllowedRewards = selectedGameMode.Entry.AllowedRewards,
+				SimulationConfig = simulationConfig,
 				PlayfabQueue = selectedGameMode.Entry.PlayfabQueue
 			};
 
@@ -540,64 +528,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)
 		{
 			_services.MatchmakingService.LeaveMatchmaking();
-		}
-
-		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
-		{
-			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Entry.GameModeId;
-			var setup = new MatchRoomSetup()
-			{
-				GameModeId = gameModeId,
-				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
-				Mutators = selectedGameMode.Entry.Mutators,
-				MapId = msg.MapId,
-			};
-			StartRandomMatchmaking(setup);
-		}
-
-		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
-		{
-			var gameModeId = msg.GameModeConfig.Id;
-			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
-			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
-			_services.DataSaver.SaveData<AppData>();
-			var mutatorsFullList = msg.CustomGameOptions.Mutators;
-			if (msg.CustomGameOptions.WeaponLimiter != ScriptLocalization.MainMenu.None)
-			{
-				mutatorsFullList.Add(msg.CustomGameOptions.WeaponLimiter);
-			}
-
-			var setup = new MatchRoomSetup()
-			{
-				GameModeId = gameModeId,
-				MapId = (int) msg.MapConfig.Map,
-				Mutators = mutatorsFullList,
-				MatchType = MatchType.Custom,
-				RoomIdentifier = msg.RoomName,
-				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty,
-				PlayfabQueue = new GameModeRotationConfig.PlayfabQueue()
-				{
-					//TODO: Carlos remove team size from playfab queue, it should be outside
-					TeamSize = msg.CustomGameOptions.TeamSize
-				},
-				OverwriteMaxPlayers = msg.CustomGameOptions.PlayersNumber
-			};
-			var offlineMatch = msg.MapConfig.IsTestMap;
-			if (msg.JoinIfExists)
-			{
-				_services.RoomService.JoinOrCreateRoom(setup);
-			}
-			else
-			{
-				_services.RoomService.CreateRoom(setup, offlineMatch);
-			}
-		}
-
-		private void OnPlayJoinRoomClickedMessage(PlayJoinRoomClickedMessage msg)
-		{
-			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
-			JoinRoom(msg.RoomName);
 		}
 
 		private void OnApplicationQuitMessage(ApplicationQuitMessage data)

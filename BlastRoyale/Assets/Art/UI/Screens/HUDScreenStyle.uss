@@ -326,7 +326,7 @@
     font-size: 28px;
     -unity-text-align: middle-left;
     text-shadow: 2px 2px 0 rgb(6, 0, 51);
-    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(6, 0, 51);
     display: flex;
     padding-left: 0;
@@ -535,6 +535,7 @@
     left: -4px;
     opacity: 0.4;
 }
+
 .weapon-display__melee-icon--default {
     background-image: url('project://database/Assets/AddressableResources/Sprites/Equipment/Weapon/Hammer.png?fileID=2800000&guid=3b5db8c4fa149744a9add284a006ca9a&type=3#Hammer');
 }
@@ -555,7 +556,7 @@
 .weapon-display__ammo {
     color: rgb(242, 176, 53);
     font-size: 50px;
-    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-width: 4px;
     text-shadow: 3px 3px 0 rgb(16, 9, 51);
     position: absolute;
     top: 32px;
@@ -572,7 +573,6 @@
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
     -unity-text-outline-color: rgb(16, 9, 51);
-    -unity-paragraph-spacing: -12px;
 }
 
 .weapon-display--melee .weapon-display__ammo {
@@ -838,10 +838,10 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(49, 46, 72);
-    text-shadow: 2px 2px 0 rgb(49, 46, 72);
-    font-size: 42px;
+    text-shadow: 3px 3px 0 rgb(49, 46, 72);
+    font-size: 40px;
     color: rgb(255, 255, 255);
     margin-bottom: 0;
     margin-top: 0;
@@ -883,48 +883,23 @@
 .skydiving .local-player-info {
     display: none;
 }
-
-.local-player-info__team-color {
-    width: 100px;
-    height: 100px;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    align-items: center;
-    justify-content: center;
+.local-player-info__avatar {
+    width: 120px;
+    height: 120px;
+    bottom: 6px;
+    flex-grow: 0;
+    flex-shrink: 0;
     margin-right: 15px;
-}
-
-.local-player-info_pfp {
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    background-color: rgb(0, 0, 0);
-    width: 85px;
-    height: 85px;
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    background-image: var(--sprite-shared__avatar-default);
-    visibility: visible;
 }
 
 .local-player-info__name {
     position: absolute;
     font-size: 32px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(24, 18, 54);
-    text-shadow: 2px 2px 0 rgb(24, 18, 54);
-    left: 118px;
+    text-shadow: 3px 3px 0 rgb(24, 18, 54);
+    left: 136px;
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
@@ -952,9 +927,9 @@
 .revive-knockedout-label {
     font-size: 42px;
     color: rgb(255, 255, 255);
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(49, 46, 72);
-    -unity-text-outline-width: 1.2px;
-    text-shadow: 2px 2px 0 rgb(49, 46, 72);
+    text-shadow: 3px 3px 0 rgb(49, 46, 72);
     -unity-text-align: middle-center;
     position: absolute;
     align-self: center;
@@ -998,9 +973,9 @@
     position: absolute;
     font-size: 42px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(49, 46, 72);
-    text-shadow: 2px 2px 0 rgb(49, 46, 72);
+    text-shadow: 3px 3px 0 rgb(49, 46, 72);
     -unity-text-align: upper-center;
     align-self: center;
     -unity-paragraph-spacing: -20px;
@@ -1029,10 +1004,9 @@
     position: absolute;
     font-size: 32px;
     color: rgb(242, 176, 53);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(24, 18, 54);
-    text-shadow: 2px 2px 0 rgb(24, 18, 54);
-    left: 118px;
+    text-shadow: 3px 3px 0 rgb(24, 18, 54);
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
@@ -1043,4 +1017,7 @@
     padding-left: 0;
     -unity-text-align: lower-left;
     bottom: 86px;
+    left: auto;
+    right: 7px;
+    display: flex;
 }

@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/InvitePopupStyle.uss?fileID=7433441132597879392&amp;guid=5ab9db9ac3d944b54aa98ca2da1afd47&amp;type=3#InvitePopupStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/FriendListElementStyle.uss?fileID=7433441132597879392&amp;guid=225ed0ca899d471084bae92a2bb08119&amp;type=3#FriendListElementStyle" />
+    <ui:VisualElement name="root" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <FirstLight.Game.UIElements.GenericPopupElement title-localization-key="UITParty/party_invite" name="Popup" class="team-invite">
+            <ui:Label tabindex="-1" text="LongPlayerName#332 has invited you&#10;to their party!" name="ContentLabel" class="description" />
+            <FirstLight.Game.UIElements.FriendListElement name="Sender" class="sender" />
+            <ui:VisualElement name="HoriznotalGroup" class="team-invite__horizontal-group">
+                <FirstLight.Game.UIElements.LocalizedButton text="DECLINE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DeclineButton" class="button-long button-long--red" />
+                <FirstLight.Game.UIElements.LocalizedButton text="ACCEPT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AcceptButton" class="button-long button-long--green" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.GenericPopupElement>
+    </ui:VisualElement>
+</ui:UXML>

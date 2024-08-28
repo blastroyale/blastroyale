@@ -1,0 +1,25 @@
+.root {
+    align-items: center;
+    justify-content: center;
+}
+
+.blocker {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition-property: opacity;
+    transition-duration: 0.15s;
+}
+
+.hidden .blocker {
+    opacity: 0;
+}
+
+.generic-popup {
+    transition-property: scale, opacity;
+    transition-duration: 0.15s, 0.15s;
+    transition-timing-function: ease-out, ease;
+}
+
+.hidden .generic-popup {
+    scale: 0.95 0.95;
+    opacity: 0;
+}

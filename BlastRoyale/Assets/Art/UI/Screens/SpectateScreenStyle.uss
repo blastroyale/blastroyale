@@ -7,7 +7,7 @@
     color: rgb(255, 255, 255);
     align-items: center;
     justify-content: flex-start;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     flex-direction: row;
@@ -85,9 +85,11 @@
 }
 
 .player-holder__arrow {
-    width: 110px;
+    width: 96px;
+    height: 96px;
     align-items: center;
     justify-content: center;
+    align-self: center;
 }
 
 .player-holder__arrow--right {
@@ -118,9 +120,9 @@
 
 .player-holder__player-name {
     font-size: 50px;
-    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     margin-top: 9px;
     margin-bottom: 9px;
@@ -130,7 +132,7 @@
     color: rgb(231, 58, 58);
     font-size: 36px;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
@@ -154,4 +156,58 @@
 }
 
 .screen-header--no-back {
+}
+
+.add-friend-button {
+    position: absolute;
+    width: 275px;
+    height: 64px;
+    left: auto;
+    right: 0;
+    flex-direction: row;
+    background-image: var(--sprite-shared__highlight-leaderboard-localplayer);
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0.52);
+    justify-content: center;
+    align-items: center;
+}
+.add-friend-button.unity-disabled{
+   opacity: 1;
+}
+
+.add-friend-button__icon {
+    flex-grow: 0;
+    flex-shrink: 1;
+    width: 50px;
+    height: 50px;
+    background-image: var(--sprite-home__button-add-friends);
+}
+
+.add-friend-button:active .add-friend-button__icon {
+    background-image: var(--sprite-home__button-add-friends-pressed);
+}
+
+.add-friend-button:disabled .add-friend-button__icon {
+    background-image: var(--sprite-home__button-add-friends-disabled);
+}
+
+
+.add-friend-button__label {
+    font-size: 33px;
+    margin-right: 21px;
+}
+
+.add-friend-button--friend {
+    display: none;
+}
+
+.add-friend-button--blocked {
+    display: none;
+}
+
+
+.player-holder__friend-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: 12px;
+    background-image: var(--sprite-home__icon-match-friend);
 }

@@ -4,12 +4,12 @@
     },
     "FileInfos": [
         {
-            "Guid": "c05ede3f93a1144c7bdaf5369af126d1",
-            "OriginalPath": "Melee_Crowbar.fbx"
+            "Guid": "e4b99ef1fe62941fa9286ede749da373",
+            "OriginalPath": "Icon_Melee_Crowbar.png"
         },
         {
-            "Guid": "2e7f11a611d494177b634cd92ebbdbb8",
-            "OriginalPath": "Icon_Melee_Crowbar.png"
+            "Guid": "95d01d1ac2bae47d7a3b370ff6ebd79f",
+            "OriginalPath": "Melee_Crowbar.fbx"
         }
     ],
     "references": {
@@ -25,11 +25,12 @@
                 "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af1664b242a735bc87307\\\",\\\"assetVersion\\\":\\\"2dc82bb2-fbe4-4a0f-b877-7c14a28e8847\\\"}\",\"data\":{\"assetId\":\"666af1664b242a735bc87307\",\"assetVersion\":\"2dc82bb2-fbe4-4a0f-b877-7c14a28e8847\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-06-13T13:27:42.953Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:27:48.367Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Crowbar.png\",\"name\":\"Melee_Crowbar\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af1664b242a735bc87307\\\",\\\"assetVersion\\\":\\\"9e07b0a7-3aa0-48a1-a297-832501180f04\\\"}\",\"data\":{\"assetId\":\"666af1664b242a735bc87307\",\"assetVersion\":\"9e07b0a7-3aa0-48a1-a297-832501180f04\",\"isFrozen\":true,\"versionNumber\":5,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-06T10:24:12.034Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-08-06T10:24:47.462Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Crowbar.png\",\"name\":\"Melee_Crowbar\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
                     "m_AssetComparisonResult": 0,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
-                    "m_UVCSFiles": []
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
                 }
             }
         ]

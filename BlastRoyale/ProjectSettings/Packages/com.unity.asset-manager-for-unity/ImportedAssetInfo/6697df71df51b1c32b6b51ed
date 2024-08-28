@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "b874f20db613c4226bba4fb09010c495",
+            "OriginalPath": "Icon_Melee_SirQuacks.png"
+        },
+        {
+            "Guid": "f1b8873a7428c4e3681933add2b1459b",
+            "OriginalPath": "Melee_SirQuacks.fbx"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b51ed\\\",\\\"assetVersion\\\":\\\"0e2b1d99-91ee-42b0-ab48-e46439354d18\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b51ed\",\"assetVersion\":\"0e2b1d99-91ee-42b0-ab48-e46439354d18\",\"isFrozen\":true,\"versionNumber\":8,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":7,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:54:19.247Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:54:39.491Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_SirQuacks.png\",\"name\":\"Melee_SirQuacks\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 2,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

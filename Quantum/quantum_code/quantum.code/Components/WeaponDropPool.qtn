@@ -1,4 +1,0 @@
-struct WeaponDropPool
-{
-	array<Equipment>[PLAYER_COUNT] WeaponPool;
-}

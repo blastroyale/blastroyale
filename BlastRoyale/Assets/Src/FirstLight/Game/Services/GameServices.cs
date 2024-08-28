@@ -8,6 +8,7 @@ using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Collection;
+using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -102,13 +103,11 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
 
-		public IPartyService PartyService { get; }
-		
 		public RateAndReviewService RateAndReviewService { get; }
 
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
-		
+
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
 
@@ -125,6 +124,11 @@ namespace FirstLight.Game.Services
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
+		public IFLLobbyService FLLobbyService { get; }
+		public NotificationService NotificationService { get; }
+		public DeepLinkService DeepLinkService { get; }
+		public IGameSocialService GameSocialService { get; }
+		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -167,7 +171,6 @@ namespace FirstLight.Game.Services
 		public IGameModeService GameModeService { get; }
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
-		public IPartyService PartyService { get; }
 		public RateAndReviewService RateAndReviewService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
@@ -183,9 +186,14 @@ namespace FirstLight.Game.Services
 		public ILeaderboardService LeaderboardService { get; }
 		public IRewardService RewardService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
-		
-		public string QuitReason { get; set; }
+		public IFLLobbyService FLLobbyService { get; }
+		public NotificationService NotificationService { get; }
+		public DeepLinkService DeepLinkService { get; }
+		public IGameSocialService GameSocialService { get; }
 
+		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
+
+		public string QuitReason { get; set; }
 
 		public GameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
@@ -207,9 +215,14 @@ namespace FirstLight.Game.Services
 			UIVFXService = new UIVFXService(this, assetResolverService);
 			UIVFXService.Init().Forget();
 
+			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService);
+
+			NotificationService = new NotificationService(UIService);
+
 			AnalyticsService = new AnalyticsService(this, gameLogic, UIService);
 
 			ThreadService = new ThreadService();
+			CoroutineService = new CoroutineService();
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService =
@@ -217,26 +230,24 @@ namespace FirstLight.Game.Services
 			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);
-			PartyService = new PartyService(PlayfabPubSubService, gameLogic.AppDataProvider, GameBackendService,
-				GenericDialogService, MessageBrokerService, LocalPrefsService);
-
+			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
+			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic, PartyService, gameLogic.AppDataProvider, LocalPrefsService);
+			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService, MessageBrokerService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			RewardService = new RewardService(this, gameLogic);
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);
-			CoroutineService = new CoroutineService();
 			ControlsSetup = new ControlSetupService();
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
-			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService,
+			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
-			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 
-			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
+			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic,
+				LeaderboardService);
 			TutorialService = new TutorialService(RoomService, CommandService, ConfigsProvider, gameLogic);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
@@ -244,9 +255,9 @@ namespace FirstLight.Game.Services
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
+			GameSocialService = new GameSocialService(this, gameLogic);
+			PlayfabUnityBridgeService = new PlayfabUnityBridgeService(ProfileService, MessageBrokerService);
 		}
-
-
 
 		/// <inheritdoc />
 		public void QuitGame(string reason)

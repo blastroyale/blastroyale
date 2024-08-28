@@ -36,6 +36,11 @@ namespace FirstLight.Game.Logic
 		uint GetUnlockSystemLevel(UnlockSystem unlockSystem);
 
 		/// <summary>
+		/// Check if the player has unlocked the given system
+		/// </summary>
+		bool HasUnlocked(UnlockSystem unlockSystem);
+
+		/// <summary>
 		/// Returns a list of rewards you get for reaching a specific level.
 		/// </summary>
 		List<ItemData> GetRewardsForFameLevel(uint level);
@@ -54,7 +59,7 @@ namespace FirstLight.Game.Logic
 		/// Gets the amount of XP needed to level up
 		/// </summary>
 		uint GetXpNeededForLevel(uint level);
-		
+
 		/// <summary>
 		/// Returns the flags of the player.
 		/// </summary>
@@ -88,7 +93,7 @@ namespace FirstLight.Game.Logic
 
 		void ResetLevelAndXP();
 	}
-	
+
 	/// <inheritdoc cref="IPlayerLogic"/>
 	public class PlayerLogic : AbstractBaseLogic<PlayerData>, IPlayerLogic, IGameLogicInitializer
 	{
@@ -103,6 +108,7 @@ namespace FirstLight.Game.Logic
 
 		public IObservableFieldReader<uint> Level => _level;
 		public IObservableFieldReader<uint> XP => _xp;
+
 		public PlayerFlags Flags => Data.Flags;
 
 		public bool MigratedGuestAccount
@@ -117,12 +123,13 @@ namespace FirstLight.Game.Logic
 		public PlayerLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
-		
+
 		public void Init()
 		{
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 			_level = new ObservableResolverField<uint>(() => Data.Level, val => Data.Level = val);
 			_xp = new ObservableResolverField<uint>(() => Data.Xp, val => Data.Xp = val);
+
 			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
 		}
 
@@ -157,7 +164,7 @@ namespace FirstLight.Game.Logic
 			_xp.InvokeUpdate();
 			_tutorialSections.InvokeUpdate();
 		}
-		
+
 		public uint GetUnlockSystemLevel(UnlockSystem unlockSystem)
 		{
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
@@ -175,12 +182,17 @@ namespace FirstLight.Game.Logic
 					}
 				}
 			}
-			
+
 			FLog.Info($"The system {unlockSystem} is not defined in the {nameof(PlayerLevelConfig)}");
-			
+
 			return 0;
 		}
-		
+
+		public bool HasUnlocked(UnlockSystem unlockSystem)
+		{
+			return GetUnlockSystemLevel(unlockSystem) < Level.Value;
+		}
+
 		public List<ItemData> GetRewardsForFameLevel(uint level)
 		{
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
@@ -192,7 +204,7 @@ namespace FirstLight.Game.Logic
 				{
 					foreach (var (id, amount) in config.Value.Rewards)
 					{
-						if(amount > 1)
+						if (amount > 1)
 							rewards.Add(ItemFactory.Currency(id, amount));
 						else
 							rewards.Add(ItemFactory.Simple(id));
@@ -202,7 +214,7 @@ namespace FirstLight.Game.Logic
 					{
 						rewards.Add(ItemFactory.Unlock(unlockSystem));
 					}
-					
+
 					break;
 				}
 			}
@@ -221,7 +233,7 @@ namespace FirstLight.Game.Logic
 					return config.Value.LevelUpXP;
 				}
 			}
-			
+
 			throw new LogicException($"Could not find level config for level {level}");
 		}
 
@@ -230,7 +242,7 @@ namespace FirstLight.Game.Logic
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
 			var xp = _xp.Value + amount;
 			var level = _level.Value;
-			
+
 			if (level == GameConstants.Data.PLAYER_FAME_MAX_LEVEL)
 			{
 				return;
@@ -242,23 +254,24 @@ namespace FirstLight.Game.Logic
 				{
 					continue;
 				}
-				
+
 				for (var i = config.Value.LevelStart; i <= config.Value.LevelEnd; i++)
 				{
 					if (xp < config.Value.LevelUpXP)
 					{
 						break;
 					}
-					
+
 					xp -= config.Value.LevelUpXP;
 					level++;
 				}
-				
+
 				if (xp < config.Value.LevelUpXP)
 				{
 					break;
 				}
 			}
+
 			for (var l = _level.Value; l < level; l++)
 			{
 				GameLogic.RewardLogic.Reward(GetRewardsForFameLevel(l));
@@ -272,7 +285,7 @@ namespace FirstLight.Game.Logic
 		{
 			_trophies.Value = (uint) Math.Max(0, _trophies.Value + change);
 		}
-		
+
 		public bool HasTutorialSection(TutorialSection section)
 		{
 			return DataProvider.GetData<TutorialData>().TutorialSections.HasFlag(section);
@@ -284,7 +297,7 @@ namespace FirstLight.Game.Logic
 			data.TutorialSections |= section;
 			_tutorialSections.Value = data.TutorialSections; // trigger observables after bitshift
 		}
-		
+
 		public void MarkGuestAccountMigrated()
 		{
 			var data = DataProvider.GetData<PlayerData>();

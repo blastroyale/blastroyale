@@ -1,91 +1,58 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using FirstLight.Editor.Inspector;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Utils;
 using Newtonsoft.Json;
 using Quantum;
-using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
+using FirstLight.Game.Configs.Utils;
+using FirstLight.Game.Utils.Attributes;
+using Sirenix.OdinInspector;
 
 namespace FirstLight.Game.Configs
 {
 	[Serializable]
 	public struct GameModeRotationConfig
 	{
-		public long RotationStartTimeTicks;
-		public uint RotationSlotDuration;
-
 		public List<SlotWrapper> Slots;
 
 		[Serializable]
 		public class PlayfabQueue
 		{
 			[Required] public string QueueName;
-			[Required] public int TeamSize;
 			[Required] public int TimeoutTimeInSeconds;
+		}
+
+		[Serializable]
+		public class VisualEntryConfig
+		{
+			public LocalizableString TitleTranslationKey;
+			public LocalizableString DescriptionTranslationKey;
+			public LocalizableString LongDescriptionTranslationKey;
+			public string CardModifier;
+			[SpriteClass] public string IconSpriteClass;
+			public string ImageModifier;
+			public string OverwriteImageURL;
 		}
 
 		[Serializable]
 		public struct GameModeEntry : IEquatable<GameModeEntry>
 		{
-			public static string InvalidRewardsMessage = "You can only select the following values: " +
-				string.Join(",", GameConstants.Data.AllowedGameRewards.Select(i => Enum.GetName(typeof(GameId), i)));
+			public bool TimedEntry;
+			[ShowIf("TimedEntry")] public List<DurationConfig> TimedGameModeEntries;
 
-			public string GameModeId;
-			public MatchType MatchType;
-			public List<string> Mutators;
+			[FoldoutGroup("Match Config", expanded: true), HideLabel]
+			public SimulationMatchConfig MatchConfig;
+
+			[FoldoutGroup("Playfab Config", expanded: true), HideLabel]
 			public PlayfabQueue PlayfabQueue;
-			[JsonIgnore] public int TeamSize => PlayfabQueue.TeamSize;
 
-			[Required] [ValidateInput("ValidateAllowedRewards", "$InvalidRewardsMessage")]
-			public List<GameId> AllowedRewards;
+			[FoldoutGroup("UI"), HideLabel] public VisualEntryConfig Visual;
 
-			[FoldoutGroup("Screen"), LocalizationTerm]
-			public string TitleTranslationKey;
-
-			[FoldoutGroup("Screen"), LocalizationTerm]
-			public string DescriptionTranslationKey;
-
-			[FoldoutGroup("Screen")] public string ImageModifier;
-			[FoldoutGroup("Screen"), SpriteClass] public string IconSpriteClass;
-
-
-			private bool ValidateAllowedRewards(List<GameId> ids)
-			{
-				if (ids == null) return false;
-				return ids.All(i => GameConstants.Data.AllowedGameRewards.Contains(i));
-			}
-
-			public override string ToString()
-			{
-				return
-					$"{GameModeId}, {MatchType} TeamSize:{PlayfabQueue.TeamSize}, Mutators({string.Join(",", Mutators)})";
-			}
+			[JsonIgnore] public uint TeamSize => MatchConfig.TeamSize;
 
 			public bool Equals(GameModeEntry other)
 			{
-				return GameModeId == other.GameModeId &&
-					MatchType == other.MatchType &&
-					Mutators.SequenceEqual(other.Mutators) &&
-					PlayfabQueue.Equals(other.PlayfabQueue) &&
-					IsAllowedRewardsEqual(other.AllowedRewards);
+				return TimedEntry == other.TimedEntry && Equals(TimedGameModeEntries, other.TimedGameModeEntries) && Equals(MatchConfig, other.MatchConfig) && Equals(PlayfabQueue, other.PlayfabQueue);
 			}
-
-			private bool IsAllowedRewardsEqual(List<GameId> two)
-			{
-				if ((AllowedRewards == null || AllowedRewards.Count == 0) && (two == null || two.Count == 0))
-				{
-					return true;
-				}
-
-				if (AllowedRewards == null || two == null) return false;
-
-				return AllowedRewards.SequenceEqual(two);
-			}
-
 
 			public override bool Equals(object obj)
 			{
@@ -94,11 +61,37 @@ namespace FirstLight.Game.Configs
 
 			public override int GetHashCode()
 			{
-				return HashCode.Combine(GameModeId, (int) MatchType, Mutators, PlayfabQueue);
+				unchecked
+				{
+					var hashCode = TimedEntry.GetHashCode();
+					hashCode = (hashCode * 397) ^ (TimedGameModeEntries != null ? TimedGameModeEntries.GetHashCode() : 0);
+					hashCode = (hashCode * 397) ^ (MatchConfig != null ? MatchConfig.GetHashCode() : 0);
+					hashCode = (hashCode * 397) ^ (PlayfabQueue != null ? PlayfabQueue.GetHashCode() : 0);
+					return hashCode;
+				}
 			}
 
 			public static bool operator !=(GameModeEntry obj1, GameModeEntry obj2) => !(obj1.Equals(obj2));
 			public static bool operator ==(GameModeEntry obj1, GameModeEntry obj2) => obj1.Equals(obj2);
+
+			public void ValidateConfigId(List<string> existingValues)
+			{
+				if (MatchConfig.TeamSize == 0)
+				{
+					MatchConfig.TeamSize = 1;
+				}
+
+				if (MatchConfig.MapId == 0)
+				{
+					MatchConfig.MapId = GameId.Any.GetHashCode();
+				}
+
+				while (string.IsNullOrEmpty(MatchConfig.ConfigId) || existingValues.Contains(MatchConfig.ConfigId))
+				{
+					var newValue = Guid.NewGuid().ToString("D");
+					MatchConfig.ConfigId = newValue.Remove(newValue.IndexOf('-'));
+				}
+			}
 		}
 
 		[Serializable]
@@ -129,6 +122,19 @@ namespace FirstLight.Game.Configs
 		{
 			get => _config;
 			set => _config = value;
+		}
+
+		private void OnValidate()
+		{
+			var existing = new List<string>();
+			foreach (var slotWrapper in Config.Slots)
+			{
+				foreach (var slotWrapperEntry in slotWrapper.Entries)
+				{
+					slotWrapperEntry.ValidateConfigId(existing);
+					existing.Add(slotWrapperEntry.MatchConfig.ConfigId);
+				}
+			}
 		}
 	}
 }

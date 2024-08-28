@@ -48,7 +48,7 @@ namespace FirstLight.Game.Presenters
 		private LocalizedLabel _comingSoonLabel;
 		private Label _selectedItemLabel;
 		private Label _selectedItemDescription;
-		private Button _equipButton;
+		private LocalizedButton _equipButton;
 		private PriceButton _buyButton;
 		private VisualElement _nameLockedIcon;
 		private VisualElement _renderTexture;
@@ -78,7 +78,7 @@ namespace FirstLight.Game.Presenters
 			_collectionList.DisableScrollbars();
 
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
-			header.backClicked += Data.OnBackClicked;
+			header.backClicked = Data.OnBackClicked;
 
 			Root.Q<CurrencyDisplayElement>("CSCurrency").SetDisplay(false);
 			Root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView(this, out CurrencyDisplayView _);
@@ -97,7 +97,7 @@ namespace FirstLight.Game.Presenters
 			_selectedItemDescription = Root.Q<Label>("ItemDescription").Required();
 			_nameLockedIcon = Root.Q<VisualElement>("ItemNameLocked").Required();
 
-			_equipButton = Root.Q<Button>("EquipButton").Required();
+			_equipButton = Root.Q<LocalizedButton>("EquipButton").Required();
 			_equipButton.clicked += OnEquipClicked;
 
 			_buyButton = Root.Q<PriceButton>("BuyButton").Required();

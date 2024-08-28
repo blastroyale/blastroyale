@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 8031133416829682191}
   - component: {fileID: 1571740032104187485}
   - component: {fileID: 3274073835039566590}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WinnersScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,6 +168,7 @@ MonoBehaviour:
     - {fileID: 4880920319273044187}
     - {fileID: 7853203781828837506}
     - {fileID: 7488879185994845485}
+  _playerNameTemplate: {fileID: 9197481963319205126, guid: 12f945a3724c66742a881285b2b16800, type: 3}
 --- !u!114 &3274073835039566590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,7 +751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2949304956738128959, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3421
+      value: 3418
       objectReference: {fileID: 0}
     - target: {fileID: 2949304956738128959, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: m_LocalPosition.z

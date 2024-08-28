@@ -21,7 +21,7 @@ namespace FirstLight.Game.Utils
 			public const string ZENDESK_SUPPORT_FORM = "https://firstlightgames.zendesk.com/hc/en-gb/requests/new";
 
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
-			public const string YOUTUBE_LINK = "https://www.youtube.com/c/BlastRoyale22";
+			public const string YOUTUBE_LINK = "https://www.youtube.com/@BlastRoyaleGame/?sub_confirmation=1";
 			public const string INSTAGRAM_LINK = "https://www.instagram.com/blastroyale";
 			public const string TIKTOK_LINK = "https://www.tiktok.com/@blastroyale";
 
@@ -194,7 +194,8 @@ namespace FirstLight.Game.Utils
 
 		public static class Data
 		{
-			public const int MATCH_SPECTATOR_SPOTS = 15;
+			public const int MAX_SQUAD_MEMBERS = 3;
+			public const int MATCH_SPECTATOR_SPOTS = 15; 
 			public const float ROOM_SELECT_DROP_POSITION_SECONDS = 5f;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
@@ -256,6 +257,7 @@ namespace FirstLight.Game.Utils
 			public const float RESOURCE_POOL_UPDATE_TIME_SECONDS = 3;
 			public const float STAR_STATUS_CHARACTER_SCALE_MULTIPLIER = 1.5f;
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
+			public const float TEAMMATE_BORDER_RADIUS = 6f;
 			public static readonly Color HIT_COLOR = new Color(0x7B / 255f, 0x7B / 255f, 0x7B / 255f);
 
 			// The name of the parameter in the animator that decides the time of stun outro animation

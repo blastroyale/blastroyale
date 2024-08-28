@@ -8,7 +8,7 @@ namespace Quantum
 	{
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
-			var noHealthNoShields = f.Context.TryGetMutatorByType(MutatorType.Hardcore, out _);
+			var noHealthNoShields = f.Context.Mutators.HasFlagFast(Mutator.Hardcore);
 			var chestPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position;
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			List<SimulationItem> contents = null;

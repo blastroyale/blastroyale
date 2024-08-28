@@ -1,0 +1,111 @@
+.creator-code-widget {
+    width: 442px;
+    height: 676px;
+    /*background-image: url("project://database/Assets/Art/UI/Sprites/Home/background-creatorcode.png?fileID=2800000&guid=453bbf216c20d964593ba139bcbdf4a2&type=3#background-creatorcode");*/
+    background-image: var(--sprite-home__background-creatorcode)
+}
+
+.icon-container {
+    flex-grow: 0;
+    padding-top: 35px;
+    padding-bottom: 10px;
+}
+
+.icon-image {
+    width: 250px;
+    height: 250px;
+    align-self: center;
+    background-image: var(--sprite-home__icon-creatorcode);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.content-container {
+    height: 100%;
+}
+
+.content-header-text {
+    color: rgb(132, 117, 166);
+    font-size: 32px;
+    text-overflow: clip;
+    justify-content: center;
+    white-space: normal;
+    -unity-text-align: upper-center;
+    margin: 20px 25px;
+}
+
+.main-content-container {
+    height: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.main-content-text {
+    font-size: 32px;
+    white-space: normal;
+    text-overflow: clip;
+    -unity-text-align: middle-center;
+    margin-top: 25px;
+}
+
+.not-supporting-text {
+    color: rgb(231, 59, 59);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.supporting-text {
+    color: rgb(64, 169, 28);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.creator-name-text {
+    color: rgb(248, 199, 46);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    text-transform: uppercase;
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    margin-top: 10px;
+}
+
+.button-container {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+    margin: 25px 0;
+}
+
+.creator-code-button {
+    font-size: 40px;
+    letter-spacing: -5px;
+    word-spacing: 6px;
+    color: rgb(255, 255, 255);
+}
+
+.enter-code-button {
+    width: 273px;
+    height: 88px;
+}
+
+.change-code-button {
+    background-image: var(--sprite-home__button-long-purple);
+    width: 273px;
+    height: 88px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(58, 13, 121);
+    text-shadow: 3px 3.8px 0 rgb(58, 13, 121);
+}
+
+.change-code-button:active {
+    background-image: var(--sprite-home__button-long-purple-pressed);
+    padding-bottom: -5px;
+}
+
+.stop-supporting-button {
+    width: 223px;
+    height: 73px;
+}

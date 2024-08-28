@@ -378,7 +378,7 @@ namespace Quantum
 
 			if (CurrentShield != previousShield || previousShieldCapacity != currentShieldCapacity)
 			{
-				f.Events.OnShieldChanged(entity, previousShield, CurrentShield, previousShieldCapacity, currentShieldCapacity);
+				f.Events.OnShieldChangedPredicted(entity, previousShield, CurrentShield, currentShieldCapacity);
 			}
 		}
 
@@ -418,7 +418,8 @@ namespace Quantum
 
 			if (CurrentHealth != previousHealth)
 			{
-				f.Events.OnHealthChanged(e, previousHealth, CurrentHealth, maxHealth, spellType);
+				f.Events.OnHealthChangedPredicted(e, previousHealth, CurrentHealth, maxHealth, spellType);
+				f.Events.OnHealthChangedVerified(e, previousHealth, CurrentHealth, maxHealth, spellType);
 			}
 		}
 

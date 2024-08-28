@@ -29,12 +29,12 @@
                         <ui:VisualElement name="BG" class="match-status__bg" />
                         <ui:Label text="30" name="TimerText" class="match-status__counter-text" />
                     </ui:VisualElement>
-                    <ui:Label text="AREA SHRINKING" name="NotificationText" class="customizable-hud status-areashrinking" />
+                    <FirstLight.Game.UIElements.LabelOutlined text="AREA SHRINKING" name="NotificationText" class="customizable-hud status-areashrinking" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="DeviceStatus" picking-mode="Ignore" class="customizable-hud device-status-bar">
                 <ui:VisualElement name="BatteryIcon" class="icon-battery sprite-match__icon-battery-medium" />
-                <ui:Label text="49 ms" name="LatencyLabel" class="latency-label" />
+                <FirstLight.Game.UIElements.LabelOutlined text="49 ms" name="LatencyLabel" class="latency-label" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="WeaponDisplay" class="weapon-display customizable-hud">
                 <ui:VisualElement name="Melee" class="weapon-display__melee">
@@ -59,7 +59,7 @@
                         <ui:VisualElement name="WeaponIcon" class="weapon-display__weapon-icon" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:Label text="67" name="Ammo" class="weapon-display__ammo" />
+                <FirstLight.Game.UIElements.LabelOutlined text="67" name="Ammo" class="weapon-display__ammo" />
             </FirstLight.Game.UIElements.ImageButton>
             <ui:VisualElement name="KillFeed" picking-mode="Ignore" class="customizable-hud kill-feed">
                 <FirstLight.Game.UIElements.DeathNotificationElement class="death-notification--suicide" />
@@ -74,36 +74,34 @@
                 <ui:VisualElement name="KillContainer" class="player-counts__kills-container">
                     <ui:VisualElement name="KilledCountPing" class="player-counts__ping-background" />
                     <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed player-counts__icon" />
-                    <ui:Label text="12" name="KilledCountText" class="player-counts__label" />
+                    <FirstLight.Game.UIElements.LabelOutlined text="12" name="KilledCountText" class="player-counts__label" />
                 </ui:VisualElement>
                 <ui:VisualElement name="AliveContainer" class="player-counts__alive-container">
                     <ui:VisualElement name="AliveCountPing" class="player-counts__ping-background" />
                     <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive player-counts__icon" />
-                    <ui:Label text="12" name="AliveCountText" class="player-counts__label" />
+                    <FirstLight.Game.UIElements.LabelOutlined text="12" name="AliveCountText" class="player-counts__label" />
                 </ui:VisualElement>
                 <ui:VisualElement name="TeamsContainer" class="player-counts__teams-container">
                     <ui:VisualElement name="TeamsCountPing" class="player-counts__ping-background" />
                     <ui:VisualElement name="TeamsIcon" class="sprite-match__icon-players-teams player-counts__icon" />
-                    <ui:Label text="12" name="TeamsCountText" class="player-counts__label" />
+                    <FirstLight.Game.UIElements.LabelOutlined text="12" name="TeamsCountText" class="player-counts__label" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="BottomCenterContainer" picking-mode="Ignore" class="bottom-center-container">
                 <ui:VisualElement name="LocalPlayerInfo" class="local-player-info customizable-hud">
-                    <ui:VisualElement name="TeamColor" class="local-player-info__team-color">
-                        <ui:VisualElement name="PlayerAvatar" class="local-player-info_pfp" />
-                    </ui:VisualElement>
-                    <ui:Label tabindex="-1" text="PLAYER NAME" parse-escape-sequences="true" name="LocalPlayerName" class="local-player-info__name" />
+                    <FirstLight.Game.UIElements.InGamePlayerAvatar name="Avatar" class="local-player-info__avatar in-game-avatar--no-border" />
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="PLAYER NAME" parse-escape-sequences="true" name="LocalPlayerName" class="local-player-info__name" />
                     <FirstLight.Game.UIElements.PlayerHealthShieldElement name="LocalPlayerHealthShield" class="player-health-shield--local" />
-                    <ui:Label tabindex="-1" text="KNOCKED OUT" parse-escape-sequences="true" name="KnockedOutLabel" class="local-player-info__knocked-out" style="left: auto; right: 7px; display: none;" />
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="KNOCKED OUT" parse-escape-sequences="true" name="KnockedOutLabel" class="local-player-info__knocked-out" />
                 </ui:VisualElement>
                 <ui:VisualElement name="KnockoutNotificationContainer" class="bottom-notifications-container">
                     <ui:VisualElement name="NeedshelpNotification" class="revive-needshelp-background" style="display: none;">
-                        <ui:Label tabindex="-1" text="YOUR TEAMMATE&#10;NEEDS HELP" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NeedshelpLabel" class="revive-needshelp-label" />
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="YOUR TEAMMATE&#10;NEEDS HELP" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NeedshelpLabel" class="revive-needshelp-label" />
                         <ui:VisualElement name="NeedshelpIcon" class="revive-needshelp-icon" />
                         <ui:VisualElement name="NeedshelpIconAnimated" class="revive-needshelp-icon-animate" />
                     </ui:VisualElement>
                     <ui:VisualElement name="KnockedOutNotification" class="revive-knockedout-background" style="display: none;">
-                        <ui:Label tabindex="-1" text="KNOCKED OUT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KnockedOutLabel" class="revive-knockedout-label" />
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="KNOCKED OUT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KnockedOutLabel" class="revive-knockedout-label" />
                         <ui:VisualElement name="KnockedOutIcon" class="revive-knockedout-icon" />
                         <ui:VisualElement name="KnockedOutIconAnimated" class="revive-knockedout-icon-animate" />
                     </ui:VisualElement>
@@ -112,9 +110,9 @@
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="non-customizable-hud fill-parent">
             <ui:VisualElement name="BackgroundCyanTint" class="status-kill__background-cyan" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;" />
-            <ui:VisualElement name="BeastBlastNotification" class="status-kill" style="display: flex;">
+            <ui:VisualElement name="BeastBlastNotification" class="status-kill" style="display: none;">
                 <ui:VisualElement name="BlastGradient" class="status-kill__gradient" style="width: 1256px; left: -389px; rotate: -8deg; top: -241px; height: 611px;" />
-                <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
                 <ui:VisualElement name="BeastLabel" class="status-kill__beast-label" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
                     <ui:VisualElement name="StarIcon" class="status-kill__star" style="left: -51px; top: -14px; width: 46px; height: 46px;" />
                     <ui:VisualElement name="StarIcon2" class="status-kill__star" style="left: 114px; top: -52px;" />
@@ -131,10 +129,10 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="TripleBlastNotification" class="status-kill" style="display: none;">
+            <ui:VisualElement name="TripleBlastNotification" class="status-kill" style="display: flex;">
                 <ui:VisualElement name="BlastGradient" class="status-kill__gradient" />
-                <ui:Label tabindex="-1" text="TRIPLE BLAST" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
-                <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="TRIPLE BLAST" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
                 <ui:VisualElement name="SkullIcon" class="status-killl__skull-quadra">
                     <ui:VisualElement name="SkullImpact" class="status-killer__skull-impact" />
                     <ui:VisualElement name="SkullShardSmall" class="status-kill__skull-smallpart" />
@@ -146,8 +144,8 @@
             </ui:VisualElement>
             <ui:VisualElement name="DoubleBlastNotification" class="status-kill" style="display: none;">
                 <ui:VisualElement name="BlastGradient" class="status-kill__gradient" />
-                <ui:Label tabindex="-1" text="DOUBLE BLAST" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
-                <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="DOUBLE BLAST" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
                 <ui:VisualElement name="SkullIcon" class="status-kill__skull">
                     <ui:VisualElement name="SkullImpact" class="status-killer__skull-impact" />
                     <ui:VisualElement name="SkullShardSmall" class="status-kill__skull-smallpart" />
@@ -158,8 +156,8 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="BlastedNotification" class="status-kill" style="display: none;">
-                <ui:Label tabindex="-1" text="YOU BLASTED" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
-                <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="YOU BLASTED" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
                 <ui:VisualElement name="SkullIcon" class="status-kill__skull">
                     <ui:VisualElement name="SkullImpact" class="status-killer__skull-impact" />
                     <ui:VisualElement name="SkullShardSmall" class="status-kill__skull-smallpart" />

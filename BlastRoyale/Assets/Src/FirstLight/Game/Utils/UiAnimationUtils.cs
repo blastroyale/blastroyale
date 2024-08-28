@@ -20,23 +20,58 @@ namespace FirstLight.Game.Utils
 {
 	public static class UiAnimationUtils
 	{
+		public static ValueAnimation<float> AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150, int delay = 0)
+		{
+			var easing = new Func<float, float>(Easing.Linear);
+			var totalTime = (duration * 2) + delay;
+			return element.experimental.animation.Start(0f, totalTime, totalTime, (el, f) =>
+			{
+				var extraScale = amount - 1;
+				if (f <= duration) // growing
+				{
+					var pct = easing(f / duration);
+					var size = 1 + extraScale * pct;
+					el.transform.scale = new Vector3(size, size, size);
+					return;
+				}
+
+				if (f <= duration * 2) // shrinking
+				{
+					var pct = 1 - easing((f - duration) / duration);
+					var size = 1 + extraScale * pct;
+					el.transform.scale = new Vector3(size, size, size);
+					return;
+				}
+			});
+		}
+
 		/// <summary>
 		/// Animates the scale up and then back down to 1
+		/// <returns>Cancel callback</returns>
 		/// </summary>
-		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150, bool repeat = false)
+		public static Action AnimatePingRepeating(this VisualElement element, float amount = 1.4f, int duration = 150, int delay = 0)
 		{
-			var anim = element.experimental.animation.Scale(amount, duration).OnCompleted(() =>
+			var cancelled = false;
+			var anim = AnimatePing(element, amount, duration, delay);
+
+			anim.KeepAlive();
+			anim.OnCompleted(() =>
 			{
-				element.experimental.animation.Scale(1f, duration).OnCompleted(() =>
+				if (cancelled)
 				{
-					if (repeat)
-					{
-						element.AnimatePing(amount, duration, repeat);
-					}
-				}).Start();
+					anim.Recycle();
+					return;
+				}
+
+				anim.Start();
 			});
-			anim.Start();
-			return anim;
+			return () =>
+			{
+				if (cancelled) return;
+				cancelled = true;
+				element.transform.scale = Vector3.one;
+				anim.Stop();
+			};
 		}
 
 		/// <summary>
@@ -64,27 +99,29 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Animates the opacity from 0 up to <paramref name="amount"/> and back to 0;
+		/// Animates the opacity from <paramref name="fromAmount"/> up to <paramref name="toAmount"/> and back to <paramref name="fromAmount"/>;
 		/// </summary>
-		public static IValueAnimation AnimatePingOpacity(this VisualElement element, float amount = 1f, int duration = 150, bool repeat = false)
+		public static IValueAnimation AnimatePingOpacity(this VisualElement element, float fromAmount = 0f, float toAmount = 1f, int duration = 150, bool repeat = false, bool rewind = true)
 		{
 			var from = new StyleValues
 			{
-				opacity = 0f
+				opacity = fromAmount
 			};
 
 			var to = new StyleValues
 			{
-				opacity = amount
+				opacity = toAmount
 			};
 
 			var anim = element.experimental.animation.Start(from, to, duration).OnCompleted(() =>
 			{
+				if (!rewind) return;
+				
 				element.experimental.animation.Start(to, from, duration).OnCompleted(() =>
 				{
 					if (repeat)
 					{
-						element.AnimatePingOpacity(amount, duration, repeat);
+						element.AnimatePingOpacity(fromAmount, toAmount, duration, repeat);
 					}
 				}).Start();
 			});
@@ -100,9 +137,24 @@ namespace FirstLight.Game.Utils
 			var currentAngle = element.style.rotate.value.angle.value;
 			element.schedule.Execute(() =>
 			{
-				currentAngle += angleDelta;
+				currentAngle += angleDelta * Time.deltaTime;
 				element.style.rotate = new StyleRotate(new Rotate(new Angle(currentAngle)));
 			}).Every(delay);
+		}
+
+		public static IVisualElementScheduledItem SetTimer(this TextElement element, Func<DateTime> endTimeGetter, string prefix, Action<TextElement> finishCallback = null)
+		{
+			return element.schedule.Execute(() =>
+			{
+				var timeLeft = endTimeGetter() - DateTime.UtcNow;
+				if (timeLeft.TotalSeconds < 0)
+				{
+					finishCallback?.Invoke(element);
+					return;
+				}
+
+				element.text = $"{prefix}{timeLeft.Display(showSeconds: true, showDays: false).ToLowerInvariant()}";
+			}).Every(1000);
 		}
 	}
 }

@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters.Store
 		OWNED = 1 << 1,
 		NEW = 1 << 2
 	}
-	
+
 	public class StoreGameProductElement : VisualElement
 	{
 		private const string USS_PRODUCT_NAME = "product-name";
@@ -35,6 +35,8 @@ namespace FirstLight.Game.Presenters.Store
 		private const string USS_GRADIENT_BIG = "product-image-gradient-big";
 		private const string USS_GRADIENT_SMALL = "product-image-gradient-small";
 		private const string USS_WIDGET_EFFECTS = "widget-effect";
+		private const string USS_OWNED_STAMP = "owned-stamp";
+		private const string USS_OWNED_STAMP_TEXT = "owned-stamp-text";
 		private const string USS_OWNED_MODIFIER = "--owned";
 		private const string USS_SPRITE_CURRENCIES_BLASTBUCK = "sprite-currencies__blastbuck-1";
 
@@ -58,14 +60,14 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			USS_BUNDLE_IMAGE, USS_GRADIENT_SIDES, USS_GRADIENT_BIG,
 			USS_GRADIENT_SMALL, USS_WIDGET_EFFECTS, USS_PRODUCT_WIDGET,
-			USS_PRODUCT_PRICE, USS_PRODUCT_IMAGE, USS_PRODUCT_NAME
+			USS_PRODUCT_PRICE, USS_PRODUCT_IMAGE, USS_PRODUCT_NAME, USS_OWNED_STAMP, USS_OWNED_STAMP_TEXT
 		};
 
 		private Label _name;
 		private VisualElement _icon;
 		private VisualElement _root;
 		private Label _price;
-		private ImageButton _infoButton; 
+		private ImageButton _infoButton;
 		private ImageButton _background;
 		private VisualElement _ownedStamp;
 		private VisualElement _infoIcon;
@@ -92,7 +94,7 @@ namespace FirstLight.Game.Presenters.Store
 		private void OnClickInfo()
 		{
 			var desc = _product.PlayfabProductConfig.StoreItemData.Description;
-			_infoButton.OpenTooltip(_root, desc, TipDirection.BottomLeft, TooltipPosition.TopRight);
+			_infoButton.OpenTooltip(_root, desc);
 		}
 
 		public void SetData(GameProduct product, ProductFlags flags, VisualElement rootDocument)
@@ -108,14 +110,14 @@ namespace FirstLight.Game.Presenters.Store
 			{
 				_ownedOverlay.SetDisplay(true);
 				_ownedStamp.SetDisplay(true);
-				_icon.AddToClassList(USS_PRODUCT_NAME+USS_OWNED_MODIFIER);
-				_name.AddToClassList(USS_PRODUCT_NAME+USS_OWNED_MODIFIER);
-				_infoIcon.AddToClassList(USS_INFO+USS_OWNED_MODIFIER);
+				_icon.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
+				_name.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
+				_infoIcon.AddToClassList(USS_INFO + USS_OWNED_MODIFIER);
 			}
-			
+
 			var price = product.GetPrice();
 			FLog.Verbose("Store Screen", $"Setting up store item {product.GameItem}, price={price}");
-			
+
 			var priceConfig = product.PlayfabProductConfig.CatalogItem.VirtualCurrencyPrices.First();
 
 			if (flags.HasFlag(ProductFlags.OWNED))
@@ -129,10 +131,11 @@ namespace FirstLight.Game.Presenters.Store
 			else
 			{
 				var currencyItem = ItemFactory.Currency(price.item, 1);
-				var currencyView = (CurrencyItemViewModel)currencyItem.GetViewModel();
+				var currencyView = (CurrencyItemViewModel) currencyItem.GetViewModel();
 				var priceIcon = currencyView.GetRichTextIcon();
-				_price.text = priceIcon + priceConfig.Value;
+				_price.text = priceIcon + " " + priceConfig.Value;
 			}
+
 			itemView.DrawIcon(_icon);
 
 			_infoButton.SetDisplay(flags.HasFlag(ProductFlags.OWNED) || !string.IsNullOrEmpty(_product.PlayfabProductConfig.StoreItemData.Description));
@@ -204,13 +207,11 @@ namespace FirstLight.Game.Presenters.Store
 				defaultValue = GameId.FemaleCorpos,
 			};
 
-
 			private readonly UxmlStringAttributeDescription _imageOverwrite = new ()
 			{
 				name = "image-overwrite",
 				defaultValue = "",
 			};
-
 
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{

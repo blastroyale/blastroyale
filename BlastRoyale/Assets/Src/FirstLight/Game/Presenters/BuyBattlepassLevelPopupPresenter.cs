@@ -9,6 +9,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using Quantum;
+using QuickEye.UIToolkit;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -29,12 +30,11 @@ namespace FirstLight.Game.Presenters
 
 		private GameId _currency = GameId.BlastBuck;
 
+		private GenericPopupElement _popup;
 		private IGameServices _services;
 		private IBattlePassDataProvider _battlePassData;
 
 		private Label _itemPrice;
-		private Button _blockerButton;
-		private ImageButton _closeButton;
 		private SliderIntWithButtons _slider;
 		private ImageButton _buyButton;
 		private VisualElement _costIcon;
@@ -53,35 +53,33 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
+			_popup = Root.Q<GenericPopupElement>("Popup");
 			_itemPrice = Root.Q<Label>("ItemPrice").Required();
 			_costIcon = Root.Q("CostIcon").Required();
 			_slider = Root.Q<SliderIntWithButtons>("Slider").Required();
 			_buyButton = Root.Q<ImageButton>("BuyButton").Required();
-			_closeButton = Root.Q<ImageButton>("CloseButton").Required();
-			_blockerButton = Root.Q<Button>("BlockerButton").Required();
 
 			_buyButton.clicked += OnBuyButtonClicked;
-			_blockerButton.clicked += CloseRequested;
-			_closeButton.clicked += CloseRequested;
+			_slider.SetTooltipFormat("+ {0} LEVELS");
+			Root.Q<ImageButton>("BlockerButton").Required().clicked += CloseRequested;
+			_popup.CloseClicked += CloseRequested;
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_slider.highValue = (int) _battlePassData.GetMaxPurchasableLevels(Data.OwnedCurrency);
 			_slider.lowValue = 1;
-			_slider.RegisterCallback<ChangeEvent<int>>((e) => UpdatePriceAndLevel());
+			_slider.RegisterCallback<ChangeEvent<int>>(UpdatePrice);
 			var costIcon = ItemFactory.Currency(_currency, 0);
 			costIcon.GetViewModel().DrawIcon(_costIcon);
-
-			UpdatePriceAndLevel();
-
+			_slider.value = 1;
+			_itemPrice.text = _battlePassData.GetPriceForBuying(1).ToString();
 			return base.OnScreenOpen(reload);
 		}
 
-		private void UpdatePriceAndLevel()
+		private void UpdatePrice(ChangeEvent<int> evt)
 		{
 			var val = _slider.value;
-			_slider.SetTooltipText($"+ {val} LEVEL{(val > 1 ? "S" : "")}");
 			_itemPrice.text = _battlePassData.GetPriceForBuying((uint) val).ToString();
 		}
 

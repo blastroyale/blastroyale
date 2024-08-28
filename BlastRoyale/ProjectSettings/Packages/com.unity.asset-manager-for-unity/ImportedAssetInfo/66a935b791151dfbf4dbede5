@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "7d65523d3ed1f4755ac18926f426e8c3",
+            "OriginalPath": "Melee_Scythe.fbx"
+        },
+        {
+            "Guid": "001686bb04c67425c973ceb526ba5839",
+            "OriginalPath": "Icon_Melee_Scythe.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a935b791151dfbf4dbede5\\\",\\\"assetVersion\\\":\\\"f0a92d71-d688-4fea-ab23-69ea1dca5b0d\\\"}\",\"data\":{\"assetId\":\"66a935b791151dfbf4dbede5\",\"assetVersion\":\"f0a92d71-d688-4fea-ab23-69ea1dca5b0d\",\"isFrozen\":true,\"versionNumber\":5,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:55:12.914Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:55:26.963Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Scythe.png\",\"name\":\"Melee_Scythe\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

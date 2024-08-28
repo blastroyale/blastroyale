@@ -1,13 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="GameModeSelectionButton" src="project://database/Assets/Art/UI/Templates/GameModeSelectionButton.uxml?fileID=9197481963319205126&amp;guid=1acd361f6f23744e4b060f6c7339014b&amp;type=3#GameModeSelectionButton" />
     <Style src="project://database/Assets/Art/UI/Screens/GameModeSelectionScreenStyle.uss?fileID=7433441132597879392&amp;guid=65b63b653515f438aa2452fed30ceae6&amp;type=3#GameModeSelectionScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/MatchSettingsButtonStyle.uss?fileID=7433441132597879392&amp;guid=49dfa0136e894e18a6e53beb23b7a53e&amp;type=3#MatchSettingsButtonStyle" />
     <ui:VisualElement name="root" class="fill-parent">
-        <ui:VisualElement name="backgroundPattern" class="fill-parent">
-            <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="buttons-slider" />
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="DO_NOT_USE_font-style-normal instructions anim-fade anim-delay-1" />
-            <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
-        </ui:VisualElement>
-        <ui:VisualElement name="OptionsHolderColumnOne" class="selectors-options-column">
-            <FirstLight.Game.UIElements.LocalizedDropDown localization-key="UITGameModeSelection/select_map" name="Map" class="room-dropdown" />
-        </ui:VisualElement>
+        <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="buttons-slider">
+            <ui:Instance template="GameModeSelectionButton" name="event" class="game-mode-card--event game-mode-card--element-1" />
+            <ui:Instance template="GameModeSelectionButton" name="solo" class="game-mode-card--solo game-mode-card--selected" />
+            <ui:Instance template="GameModeSelectionButton" name="duos" class="game-mode-card--duos" />
+            <ui:Instance template="GameModeSelectionButton" name="quads" class="game-mode-card--quads">
+                <AttributeOverrides element-name="CardRoot" enabled="true" />
+            </ui:Instance>
+            <ui:Instance template="GameModeSelectionButton" name="custom" class="game-mode-card--custom" />
+        </ui:ScrollView>
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
+        <FirstLight.Game.UIElements.SafeAreaElement apply-right="false" apply-left="false" name="SafeArea" picking-mode="Ignore">
+            <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MapButton" title-localization-key="UITCustomGames/map" class="map-selector" />
+        </FirstLight.Game.UIElements.SafeAreaElement>
+        <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="instructions anim-fade anim-delay-1" />
     </ui:VisualElement>
 </ui:UXML>

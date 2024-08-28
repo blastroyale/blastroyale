@@ -24,6 +24,7 @@ using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Options;
+using Unity.Services.Lobbies;
 
 namespace FirstLight.Game.Services
 {
@@ -364,22 +365,6 @@ namespace FirstLight.Game.Services
 			var appData = _dataService.GetData<AppData>();
 			var tutorialData = _dataService.GetData<TutorialData>();
 			var titleData = result.InfoResultPayload.TitleData;
-
-			if (titleData.TryGetValue("REDIRECT_TESTSERVER", out var version))
-			{
-				if (version == VersionUtils.VersionExternal)
-				{
-					FLog.Info("Redirecting to staging");
-					_services.GameBackendService.SetupBackendEnvironment(FLEnvironment.STAGING);
-					LoginSetupGuest(onSuccess, onError);
-					return;
-				}
-			}
-			else
-			{
-				FLog.Info($"No server redirect version={VersionUtils.VersionExternal} vInternal {VersionUtils.VersionInternal}");
-			}
-
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var emails = result.InfoResultPayload.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
@@ -427,12 +412,11 @@ namespace FirstLight.Game.Services
 
 			FeatureFlags.ParseFlags(titleData);
 			FeatureFlags.ParseLocalFeatureFlags();
-			_services.MessageBrokerService.Publish(new FeatureFlagsChanged());
+			_services.MessageBrokerService.Publish(new FeatureFlagsReceived());
 
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
-			appData.AvatarUrl = result.InfoResultPayload.AccountInfo.TitleInfo.AvatarUrl;
 			appData.LoginTime = _services.TimeService.DateTimeUtcNow;
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
@@ -524,9 +508,10 @@ namespace FirstLight.Game.Services
 				.WithMemberProfile(true);
 			tasks.Add(FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask());
 			tasks.Add(AuthenticationService.Instance.GetPlayerNameAsync().AsUniTask()); // We fetch the name (which generates a new one) so it's stored in the cache
-			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
+			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId)); ;
 			await UniTask.WhenAll(tasks);
 			CheckNamesUpdates().Forget();
+			_services.NotificationService.Init();
 			_services.RateAndReviewService.Init();
 			onComplete();
 		}
@@ -546,10 +531,9 @@ namespace FirstLight.Game.Services
 				if (appData.IsFirstSession || string.IsNullOrWhiteSpace(playfabName))
 				{
 					FLog.Info("Updating playfab name to auto generated unity one" + unityName);
-
 					await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
 					{
-						DisplayName = unityName
+						DisplayName = unityName.Length > 25 ? unityName.Substring(0, 25) : unityName
 					});
 					return;
 				}

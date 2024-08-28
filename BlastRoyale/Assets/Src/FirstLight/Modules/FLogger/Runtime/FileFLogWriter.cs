@@ -75,6 +75,7 @@ namespace FirstLight.FLogger
 		}
 
 		/// <inheritdoc />
+		[HideInCallstack]
 		public void Write(FLogLevel level, string log)
 		{
 			lock (this)

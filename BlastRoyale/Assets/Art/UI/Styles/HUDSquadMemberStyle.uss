@@ -39,47 +39,16 @@
     background-color: rgba(250, 49, 49, 0.5);
     position: absolute;
 }
-
-
-.squad-member__team-color {
+.squad-member__avatar{
     position: absolute;
-    left: -8px;
     top: 0;
+    left: -8px;
     width: 96px;
     height: 96px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(255, 255, 255);
+    margin-right: 18px;
+    background-color: rgba(23, 18, 53, 0.39);
+    
 }
-
-.squad-member__pfp {
-    width: 80px;
-    height: 80px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(77, 25, 87);
-    background-image: var(--sprite-shared__avatar-default);
-    visibility: visible;
-}
-
 .squad-member__dead-cross {
     visibility: hidden;
     background-image: var(--sprite-match__icon-x-red);
@@ -110,9 +79,9 @@
     top: 4px;
     left: 107px;
     font-size: 28px;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(24, 18, 54);
-    text-shadow: 2px 2px 0 rgb(24, 18, 54);
+    text-shadow: 3px 3px 0 rgb(24, 18, 54);
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;

@@ -18,10 +18,9 @@ namespace FirstLight.Game.UIElements
 		private const string UssPopupContainer = UssPopup + "__container";
 		private const string UssPopupBlocker = UssPopup + "__blocker";
 
-
 		private VisualElement _container;
 		public override VisualElement contentContainer => _container;
-		private LocalizedLabel _title;
+		private LabelOutlined _title;
 
 		public PopupElement()
 		{
@@ -42,7 +41,7 @@ namespace FirstLight.Game.UIElements
 			header.Add(dotsBg);
 			dotsBg.AddToClassList(UssPopupHeaderBackground);
 
-			_title = new LocalizedLabel();
+			_title = new LabelOutlined("Title") {name = "title"};
 			header.Add(_title);
 			_title.AddToClassList(UssPopupHeaderTitle);
 
@@ -68,7 +67,7 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
-			UxmlStringAttributeDescription _localizationKeyAttribute = new()
+			UxmlStringAttributeDescription _localizationKeyAttribute = new ()
 			{
 				name = "title-localization-key",
 				use = UxmlAttributeDescription.Use.Required
@@ -77,7 +76,7 @@ namespace FirstLight.Game.UIElements
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
-				((PopupElement)ve).Localize(_localizationKeyAttribute.GetValueFromBag(bag, cc));
+				((PopupElement) ve).Localize(_localizationKeyAttribute.GetValueFromBag(bag, cc));
 			}
 		}
 	}

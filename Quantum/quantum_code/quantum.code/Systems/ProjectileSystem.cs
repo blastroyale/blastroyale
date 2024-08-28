@@ -29,7 +29,7 @@ namespace Quantum.Systems
 				// Projectile that performs Sub Projectile at end of lifetime is not considered as failed
 				else
 				{
-					f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile, filter.Transform->Position, false);
+					f.Events.OnProjectileFailedHitPredicted(filter.Entity, *filter.Projectile, filter.Transform->Position, false);
 				}
 
 				f.Events.OnProjectileEndOfLife(filter.Projectile->SourceId, filter.Transform->Position, false, filter.Projectile->IsSubProjectile());
@@ -111,21 +111,21 @@ namespace Quantum.Systems
 			var projectileCopy = *projectile;
 			if (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION && isTeamHit && !projectile->IsSubProjectile() && !spawnSubOnEof)
 			{
-				f.Events.OnProjectileFailedHit(projectileEntity, projectileCopy, position, false);
+				f.Events.OnProjectileFailedHitPredicted(projectileEntity, projectileCopy, position, false);
 				f.Destroy(projectileEntity);
 				return;
 			}
 			
-			if(targetHit == projectileEntity || !targetHit.IsValid)
-				f.Events.OnProjectileFailedHit(projectileEntity, projectileCopy, position, true);
-			else
-				f.Events.OnProjectileSuccessHit(projectileCopy, targetHit, position);
-			
-			f.Events.OnProjectileEndOfLife(projectile->SourceId, position, true,projectile->IsSubProjectile());
-
 			var isSelfAOE = projectile->Attacker == targetHit && projectile->IsSubProjectile();
 			var power = (uint)(projectile->GetPower(f) * (isSelfAOE ? Constants.SELF_DAMAGE_MODIFIER : FP._1));
-				
+			
+			if(targetHit == projectileEntity || !targetHit.IsValid)
+				f.Events.OnProjectileFailedHitPredicted(projectileEntity, projectileCopy, position, true);
+			else
+				f.Events.OnProjectileSuccessHitPredicted(projectileCopy, targetHit, power, position);
+			
+			f.Events.OnProjectileEndOfLife(projectile->SourceId, position, true,projectile->IsSubProjectile());
+			
 			var spell = Spell.CreateInstant(f, targetHit, projectile->Attacker, projectileEntity, power,
 											projectile->KnockbackAmount, position, isSelfAOE ? 0 : projectile->TeamSource);
 				
@@ -169,8 +169,8 @@ namespace Quantum.Systems
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
-			if(f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot) && bot->Target.IsValid && bb->GetBoolean(f, Constants.IsAimPressedKey))
+			var aimDirection = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
+			if(f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot) && bot->Target.IsValid && bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY))
 			{
 				if (bot->SharpShootNextShot)
 				{
@@ -186,8 +186,8 @@ namespace Quantum.Systems
 			var aimingDirection = QuantumHelpers.GetAimDirection(aimDirection, transform->Rotation).Normalized;
 			var rangeStat = f.Unsafe.GetPointer<Stats>(e)->GetStatData(StatType.AttackRange).StatValue;
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
-			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
-			bb->Set(f, Constants.LastShotAt, f.Time);
+			bb->Set(f, Constants.BURST_SHOT_COUNT, bb->GetFP(f, Constants.BURST_SHOT_COUNT) - 1);
+			bb->Set(f, Constants.LAST_SHOT_AT, f.Time);
 			f.Events.OnPlayerAttack(playerCharacter->Player, e, playerCharacter->CurrentWeapon, weaponConfig, aimingDirection, rangeStat);
 			if (weaponConfig.NumberOfShots == 1 || weaponConfig.IsMeleeWeapon)
 			{
@@ -196,7 +196,7 @@ namespace Quantum.Systems
 			else
 			{
 				FP max = weaponConfig.MinAttackAngle;
-				FP angleStep = weaponConfig.MinAttackAngle / weaponConfig.NumberOfShots;
+				FP angleStep = weaponConfig.MinAttackAngle / (weaponConfig.NumberOfShots - 1);
 				FP angle = -max/ FP._2;
 				for (var x = 0; x < weaponConfig.NumberOfShots; x++)
 				{

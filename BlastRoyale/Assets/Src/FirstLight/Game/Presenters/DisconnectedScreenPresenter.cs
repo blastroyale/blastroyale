@@ -33,8 +33,8 @@ namespace FirstLight.Game.Presenters
 		private const float TIMEOUT_DIM_SECONDS = 5f;
 
 		private VisualElement _dimElement;
-		private Button _menuButton;
-		private Button _reconnectButton;
+		private LocalizedButton _menuButton;
+		private LocalizedButton _reconnectButton;
 		private IGameServices _services;
 
 		private void Awake()
@@ -45,8 +45,8 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements()
 		{
 			_dimElement = Root.Q("Dim").Required();
-			_menuButton = Root.Q<Button>("MenuButton").Required();
-			_reconnectButton = Root.Q<Button>("ReconnectButton").Required();
+			_menuButton = Root.Q<LocalizedButton>("MenuButton").Required();
+			_reconnectButton = Root.Q<LocalizedButton>("ReconnectButton").Required();
 
 			_reconnectButton.clicked += OnReconnectClicked;
 			_menuButton.clicked += OnLeaveClicked;

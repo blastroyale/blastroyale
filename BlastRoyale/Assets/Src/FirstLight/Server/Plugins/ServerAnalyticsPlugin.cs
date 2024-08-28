@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using Newtonsoft.Json;
+using Quantum;
 
 namespace Src.FirstLight.Server
 {
@@ -28,16 +30,18 @@ namespace Src.FirstLight.Server
 			evManager.RegisterEventListener<GameLogicMessageEvent<ItemUpgradedMessage>>(OnItemUpgraded);
 			evManager.RegisterEventListener<GameLogicMessageEvent<ItemRepairedMessage>>(OnItemRepaired);
 			evManager.RegisterEventListener<GameLogicMessageEvent<CurrencyChangedMessage>>(OnCurrencyChanged);
+			evManager.RegisterEventListener<GameLogicMessageEvent<PurchaseClaimedMessage>>(OnPurchasedItemRewarded);
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnGameEndCommand);
 		}
 
 		private Task OnGameEndCommand(string userId, EndOfGameCalculationsCommand cmd, ServerState state)
 		{
+			var simulationConfig = SimulationMatchConfig.FromByteArray(cmd.SerializedSimulationConfig);
 			var player = cmd.PlayersMatchData[cmd.QuantumValues.ExecutingPlayer];
 			var data = new AnalyticsData()
 			{
 				{"match_id", cmd.QuantumValues.MatchId},
-				{"match_type", cmd.QuantumValues.MatchType.ToString()},
+				{"match_type", simulationConfig.MatchType},
 				{"game_mode", player.GameModeId},
 				{"map_id", player.MapId},
 				{"players_left", cmd.PlayersMatchData.Count(d => !d.IsBot)},
@@ -54,7 +58,7 @@ namespace Src.FirstLight.Server
 				{"first_death_time", player.Data.FirstDeathTime.AsLong.ToString() },
 				{"last_death_position", player.Data.LastDeathPosition.ToString() },
 				{"specials_used", player.Data.SpecialsUsedCount.ToString() },
-				{"team_size", cmd.TeamSize },
+				{"team_size", simulationConfig.TeamSize },
 				{"team_id", player.Data.TeamId },
 			};
 			_ctx.Analytics!.EmitUserEvent(userId, $"server_match_end_summary", data);
@@ -76,6 +80,24 @@ namespace Src.FirstLight.Server
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, eventName, data);
 			return Task.CompletedTask;
 		}
+		
+		private Task OnPurchasedItemRewarded(GameLogicMessageEvent<PurchaseClaimedMessage> ev)
+		{
+			var data = new AnalyticsData
+			{
+				{"item_name", Enum.GetName(typeof(GameId), ev.Message.ItemPurchased.Id)},
+				{"item_metadata", JsonConvert.SerializeObject(ev.Message.ItemPurchased)},
+			};
+
+			if (!string.IsNullOrEmpty(ev.Message.SupportingContentCreator))
+			{
+				data["content_creator_code"] = ev.Message.SupportingContentCreator;
+			}
+
+			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "purchased_item", data);
+			return Task.CompletedTask;
+		}
+
 
 		private Task OnItemRepaired(GameLogicMessageEvent<ItemRepairedMessage> ev)
 		{

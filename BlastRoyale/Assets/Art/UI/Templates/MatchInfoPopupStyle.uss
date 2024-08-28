@@ -1,0 +1,299 @@
+.content {
+    width: 1372px;
+    height: 760px;
+    flex-direction: row;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+}
+
+.content--event {
+}
+
+.unity-disabled.match-settings-button {
+    opacity: 1;
+}
+
+.content__left {
+    width: 583px;
+    padding-right: 35px;
+    padding-left: 35px;
+}
+
+.content__right {
+    flex-grow: 1;
+    padding-top: 20px;
+    padding-right: 16px;
+}
+
+.title {
+    font-size: 48px;
+    -unity-text-align: upper-center;
+    color: rgb(255, 199, 0);
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+}
+
+.thumbnail {
+    height: 288px;
+    width: 288px;
+    margin-top: 37px;
+    align-self: center;
+    margin-bottom: 37px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.left-container-label {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-align: upper-center;
+}
+
+.custom-game-container {
+    display: none;
+}
+
+.content--custom .custom-game-container {
+    display: flex;
+}
+
+
+.event-container__top {
+    width: 100%;
+    align-items: center;
+}
+
+.event-container {
+    height: 100%;
+    display: none;
+}
+
+.content--event .event-container {
+    display: flex;
+}
+
+.friends-match-scroll-container {
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 17px;
+    flex-direction: row;
+    justify-content: center;
+    max-height: 219px;
+}
+
+.friends-match-scroll-container .unity-scroll-view__content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.friends-match-scroll-container > Label {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(64, 169, 28);
+    height: 42px;
+    -unity-text-align: middle-left;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-top-left-radius: 21px;
+    border-top-right-radius: 21px;
+    border-bottom-right-radius: 21px;
+    border-bottom-left-radius: 21px;
+    margin-bottom: 15px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.event-thumbnail {
+    background-color: rgb(248, 158, 43);
+    height: 283px;
+    width: 283px;
+    align-self: center;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-thumbnail__image {
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+}
+
+.event-thumbnail__image--solo {
+    background-image: var(--sprite-home__gamemode-solo-event-characters);
+    translate: -48% -64%;
+    width: 569px;
+    height: 380px;
+}
+
+.event-thumbnail__image--duos {
+    background-image: var(--sprite-home__gamemode-duos-event-characters);
+    translate: -50% -56%;
+    width: 240px;
+    height: 292px;
+}
+
+.event-thumbnail__image--quads {
+    background-image: var(--sprite-home__gamemode-quads-event-characters);
+    translate: -48% -67%;
+    width: 437px;
+    height: 383px;
+}
+
+.event-container--custom-image .event-thumbnail__image {
+    position: absolute;
+    width: 302px;
+    height: 367px;
+    -unity-background-scale-mode: scale-to-fit;
+    translate: 0 -83px;
+}
+
+.event-container--custom-image .event-thumbnail__mask {
+    position: absolute;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.event-ends-label {
+    font-size: 28px;
+    color: white;
+    background-color: rgb(63, 168, 29);
+    width: 265px;
+    height: 45px;
+    border-radius: 15px;
+    -unity-text-align: middle-center;
+    margin-bottom: 30px;
+    margin-top: 8px;
+}
+
+.rewards-container {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.rewards-list-container {
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    align-content: auto;
+    justify-content: center;
+    max-width: 360px;
+    height: auto;
+    padding-left: 5px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.event-reward {
+    background-size: 75%;
+    color: white;
+    width: 100px;
+    height: 100px;
+    font-size: 32px;
+    -unity-text-align: lower-right;
+    background-color: rgb(21, 21, 37);
+    border-radius: 10px;
+    padding-right: 10px;
+    padding-bottom: 3px;
+    -unity-text-outline: black 1px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+
+.summary-title {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    margin-bottom: 11px;
+}
+
+.match-settings-button {
+    width: 371px;
+}
+
+.summary {
+    background-color: rgb(22, 20, 38);
+    border-top-left-radius: 31px;
+    border-top-right-radius: 31px;
+    border-bottom-right-radius: 31px;
+    border-bottom-left-radius: 31px;
+    font-size: 28px;
+    color: rgb(132, 117, 166);
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-bottom: 27px;
+}
+
+.row {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.match-settings-button--margin {
+    margin-right: 36px;
+}
+
+.join-button {
+    align-self: center;
+    margin-top: 15px;
+}
+
+
+.horizontal-label-list__container {
+    margin-top: 10px;
+}
+
+.horizontal-label-list__container__label {
+    font-size: 36px;
+    color: white;
+    -unity-text-outline: black 3px;
+    text-shadow: black 3px 3px;
+}
+
+.horizontal-label-list__scroll {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.horizontal-label-list__scroll LocalizedLabel {
+    background-color: white;
+    width: auto;
+    font-size: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 35px;
+    padding-left: 35px;
+    border-radius: 15px;
+    margin-right: 10px;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
+}
+
+.horizontal-label-list__background {
+    background-color: rgb(22, 20, 38);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    border-radius: 20px;
+    padding-right: 10px;
+    margin-top: 5px;
+}
+
+.right-scroll .unity-scroller--vertical {
+    padding-left: 41px;
+}

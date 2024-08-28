@@ -52,7 +52,7 @@ namespace FirstLight.Game.Configs
 				clh.LoadConfigEditor();
 			}
 		}
-		
+
 		public IEnumerable<IConfigLoadHandler> GetLoadHandlers(IConfigsAdder configsAdder)
 		{
 			return new List<IConfigLoadHandler>
@@ -87,18 +87,17 @@ namespace FirstLight.Game.Configs
 				new ConfigLoadDefinition<GameModeConfigs>(_assetLoader, AddressableId.Configs_GameModeConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				new ConfigLoadDefinition<ReviveConfigs>(_assetLoader, AddressableId.Configs_ReviveConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<GameModeRotationConfigs>(_assetLoader, AddressableId.Configs_GameModeRotationConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<MutatorConfigs>(_assetLoader, AddressableId.Configs_MutatorConfigs, asset => configsAdder.AddConfigs(data => data.Id.GetHashCode(), asset.Configs)),
 				new ConfigLoadDefinition<ScrapConfigs>(_assetLoader, AddressableId.Configs_ScrapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
 				new ConfigLoadDefinition<UpgradeDataConfigs>(_assetLoader, AddressableId.Configs_UpgradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
 				new ConfigLoadDefinition<RepairDataConfigs>(_assetLoader, AddressableId.Configs_RepairDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 				new ConfigLoadDefinition<LiveopsSegmentActionConfigs>(_assetLoader, AddressableId.Configs_LiveopsSegmentActionConfigs, asset => configsAdder.AddConfigs(data => data.ActionIdentifier, asset.Configs)),
-				new ConfigLoadDefinition<TutorialRewardConfigs>(_assetLoader, AddressableId.Configs_TutorialRewardConfigs, asset => configsAdder.AddConfigs(data => (int) data.Section, asset.Configs)),
 				new ConfigLoadDefinition<BotDifficultyConfigs>(_assetLoader, AddressableId.Configs_BotDifficultyConfigs, configsAdder.AddSingletonConfig),
 				new ConfigLoadDefinition<MatchmakingAndRoomConfigs>(_assetLoader, AddressableId.Configs_MatchmakingAndRoomConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<CharacterSkinConfigs>(_assetLoader, AddressableId.Collections_CharacterSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<WeaponSkinsConfigContainer>(_assetLoader, AddressableId.Collections_WeaponSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<AvatarCollectableConfigs>(_assetLoader, AddressableId.Collections_ProfilePicture_AvatarCollectableConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<CurrencySpriteConfigs>(_assetLoader, AddressableId.Configs_CurrencySpriteConfigs, cfg => configsAdder.AddSingletonConfig(cfg.Config)),
+				new ConfigLoadDefinition<TutorialConfigs>(_assetLoader, AddressableId.Configs_TutorialConfigs, cfg => configsAdder.AddSingletonConfig(cfg.Config)),
 			};
 		}
 
@@ -161,5 +160,33 @@ namespace FirstLight.Game.Configs
 #endif
 			}
 		}
+
+#if UNITY_EDITOR
+		public class EditorConfigProvider
+		{
+			private static ConfigsProvider _provider;
+
+			public static ConfigsProvider GetProvider()
+			{
+				if (_provider == null)
+				{
+					_provider = new ConfigsProvider();
+					var configsLoader = new GameConfigsLoader(new AssetResolverService());
+					configsLoader.LoadConfigEditor(_provider);
+				}
+
+				return _provider;
+			}
+
+			public static T LoadFromAddressable<T>() where T : ScriptableObject
+			{
+				var editorCfg = UnityEditor.AssetDatabase.FindAssets($"t:{typeof(T)}");
+				Assert.AreEqual(1, editorCfg.Length, $"Found more than one config of type {typeof(T)}");
+				var cfgPath = UnityEditor.AssetDatabase.GUIDToAssetPath(editorCfg[0]);
+				var asset = (T) UnityEditor.AssetDatabase.LoadAssetAtPath(cfgPath, typeof(T));
+				return asset;
+			}
+		}
+#endif
 	}
 }

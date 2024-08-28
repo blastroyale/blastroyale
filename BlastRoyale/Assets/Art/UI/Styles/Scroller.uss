@@ -1,0 +1,163 @@
+.unity-scroll-view {
+    flex-shrink: 1;
+}
+
+.unity-scroll-view__content-container {
+    flex-shrink: 0;
+}
+
+.unity-scroll-view--vertical > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport {
+    flex-direction: column;
+}
+
+.unity-scroll-view--vertical > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport > .unity-scroll-view__content-container {
+    flex-direction: column;
+}
+
+.unity-scroll-view--horizontal > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.unity-scroll-view--horizontal > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport > .unity-scroll-view__content-container {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.unity-scroll-view--vertical-horizontal > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport {
+    flex-direction: column;
+    align-self: flex-start;
+    flex-grow: 1;
+}
+
+.unity-scroll-view--vertical-horizontal > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport > .unity-scroll-view__content-container {
+    flex-direction: column;
+    align-self: flex-start;
+    flex-grow: 1;
+}
+
+.unity-scroll-view__content-viewport {
+    flex: auto;
+    overflow: hidden;
+}
+
+.unity-scroll-view--horizontal.unity-scroll-view--scroll > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport > .unity-scroll-view__content-container {
+    overflow: scroll;
+}
+
+.unity-scroll-view--vertical.unity-scroll-view--scroll > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport > .unity-scroll-view__content-container {
+    overflow: scroll;
+}
+
+.unity-scroll-view--vertical-horizontal.unity-scroll-view--scroll > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport > .unity-scroll-view__content-container {
+    overflow: scroll;
+}
+
+.unity-scroll-view--vertical-horizontal.unity-scroll-view--scroll > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport {
+    flex-direction: row;
+    overflow: scroll;
+}
+
+.unity-scroll-view__content-and-vertical-scroll-container {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+
+
+
+.unity-scroller {
+    
+}
+
+
+.unity-scroll-view__content-and_vertical_scroll_container {
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.unity-scroll-view__content-viewport {
+    overflow: hidden;
+}
+
+.unity-scroller--vertical {
+    width: 60px;
+    border-left-width: 2px;
+}
+
+.unity-scroller__high-button {
+    display: none;
+}
+
+.unity-scroller__low-button {
+    display: none;
+}
+
+.unity-scroller--vertical .unity-base-slider__dragger {
+    border-width: 0;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    left: 0;
+}
+
+.unity-scroll-view__horizontal-scroller {
+    flex-shrink: 0;
+}
+
+.unity-scroll-view__vertical-scroller {
+    flex-shrink: 0;
+}
+
+.unity-scroll-view__vertical-scroller {
+    width: 6px;
+    right: initial;
+    border-width: 0;
+}
+
+.unity-scroll-view__vertical-scroller > .unity-scroller__slider,
+.unity-scroll-view__horizontal-scroller > .unity-scroller__slider{
+    border-radius: 3px;
+    background-color: #1C1930;
+}
+
+.unity-scroll-view__horizontal-scroller > .unity-scroller__slider{
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 6px;
+}
+
+.unity-scroll-view__vertical-scroller > .unity-scroller__slider{
+    height: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 6px;
+}
+
+.unity-scroll-view__vertical-scroller .unity-base-slider__tracker {
+    display: none;
+}
+
+.unity-scroll-view__vertical-scroller > .unity-scroller__slider > .unity-slider__input {
+    background-color: initial;
+}
+
+.unity-scroll-view__horizontal-scroller > .unity-scroller__slider{
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 6px;
+}
+
+.unity-scroll-view__horizontal-scroller .unity-base-slider__tracker {
+    display: none;
+}
+
+.unity-scroll-view__horizontal-scroller > .unity-scroller__slider > .unity-slider__input {
+    background-color: initial;
+}
+
+.unity-scroll-view .unity-list-view__empty-label {
+    display: none;
+}

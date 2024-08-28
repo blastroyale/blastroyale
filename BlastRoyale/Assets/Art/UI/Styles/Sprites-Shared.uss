@@ -3,14 +3,17 @@
     --sprite-shared__arrow: url('/Assets/Art/UI/Sprites/Shared/arrow.png');
     --sprite-shared__avatar-default: url('/Assets/Art/UI/Sprites/Shared/avatar-default.png');
     --sprite-shared__background-currentplayer: url('/Assets/Art/UI/Sprites/Shared/background-currentplayer.png');
+    --sprite-shared__background-notification: url('/Assets/Art/UI/Sprites/Shared/background-notification.png');
     --sprite-shared__background-rewards-fame: url('/Assets/Art/UI/Sprites/Shared/background-rewards-fame.png');
     --sprite-shared__background-stat: url('/Assets/Art/UI/Sprites/Shared/background-stat.png');
     --sprite-shared__background-stat-dark: url('/Assets/Art/UI/Sprites/Shared/background-stat-dark.png');
     --sprite-shared__cloud-left: url('/Assets/Art/UI/Sprites/Shared/cloud-left.png');
+    --sprite-shared__copy-icon: url('/Assets/Art/UI/Sprites/Shared/copy-icon.png');
     --sprite-shared__highlight-leaderboard-localplayer: url('/Assets/Art/UI/Sprites/Shared/highlight-leaderboard-localplayer.png');
     --sprite-shared__icon_edit: url('/Assets/Art/UI/Sprites/Shared/icon_edit.png');
     --sprite-shared__icon-arrow-current: url('/Assets/Art/UI/Sprites/Shared/icon-arrow-current.png');
     --sprite-shared__icon-back: url('/Assets/Art/UI/Sprites/Shared/icon-back.png');
+    --sprite-shared__icon-bpp-xp: url('/Assets/Art/UI/Sprites/Shared/icon-bpp-xp.png');
     --sprite-shared__icon-bug: url('/Assets/Art/UI/Sprites/Shared/icon-bug.png');
     --sprite-shared__icon-currency-blastbuck: url('/Assets/Art/UI/Sprites/Shared/icon-currency-blastbuck.png');
     --sprite-shared__icon-currency-blst: url('/Assets/Art/UI/Sprites/Shared/icon-currency-blst.png');
@@ -39,6 +42,7 @@
     --sprite-shared__icon-special-shieldself: url('/Assets/Art/UI/Sprites/Shared/icon-special-shieldself.png');
     --sprite-shared__icon-special-skylaserbeam: url('/Assets/Art/UI/Sprites/Shared/icon-special-skylaserbeam.png');
     --sprite-shared__icon-trophy: url('/Assets/Art/UI/Sprites/Shared/icon-trophy.png');
+    --sprite-shared__icon-xp: url('/Assets/Art/UI/Sprites/Shared/icon-xp.png');
     --sprite-shared__logo-br: url('/Assets/Art/UI/Sprites/Shared/logo-br.png');
     --sprite-shared__progress-battlepass-bpp-bg: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-bg.png');
     --sprite-shared__progress-battlepass-bpp-yellow: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-yellow.png');
@@ -65,6 +69,12 @@
     height: 64px;
 }
 
+.sprite-shared__background-notification {
+    background-image: var(--sprite-shared__background-notification);
+    width: 256px;
+    height: 34px;
+}
+
 .sprite-shared__background-rewards-fame {
     background-image: var(--sprite-shared__background-rewards-fame);
     width: 92px;
@@ -89,6 +99,12 @@
     height: 98px;
 }
 
+.sprite-shared__copy-icon {
+    background-image: var(--sprite-shared__copy-icon);
+    width: 40px;
+    height: 43px;
+}
+
 .sprite-shared__highlight-leaderboard-localplayer {
     background-image: var(--sprite-shared__highlight-leaderboard-localplayer);
     width: 1412px;
@@ -111,6 +127,12 @@
     background-image: var(--sprite-shared__icon-back);
     width: 63px;
     height: 75px;
+}
+
+.sprite-shared__icon-bpp-xp {
+    background-image: var(--sprite-shared__icon-bpp-xp);
+    width: 131px;
+    height: 131px;
 }
 
 .sprite-shared__icon-bug {
@@ -279,6 +301,12 @@
     background-image: var(--sprite-shared__icon-trophy);
     width: 66px;
     height: 66px;
+}
+
+.sprite-shared__icon-xp {
+    background-image: var(--sprite-shared__icon-xp);
+    width: 160px;
+    height: 160px;
 }
 
 .sprite-shared__logo-br {

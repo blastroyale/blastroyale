@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1251741551950040016}
   - component: {fileID: 5959807838746283898}
   - component: {fileID: 1553595371545937153}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UserReportScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

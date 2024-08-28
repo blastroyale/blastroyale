@@ -3,4 +3,5 @@
     entity_ref GrenadeBot;
     entity_ref FinalBot;
     entity_ref FirstBarrier;
+    entity_ref FinalBotBlocker;
 }

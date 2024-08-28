@@ -7,6 +7,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using Quantum;
@@ -40,7 +41,7 @@ namespace FirstLight.Game.Presenters
 			_timeLeft = Root.Q<Label>("TimeLeft").Required();
 			_rewards = rewards.Children().Select(r => r.Q("RewardIcon").Required()).ToArray();
 			_finalReward = Root.Q("FinalRewardIcon").Required();
-			Root.Q<Button>("StartButton").Required().clicked += OnClick;
+			Root.Q<LocalizedButton>("StartButton").Required().clicked += OnClick;
 			Root.Q<Button>("CloseButton").clicked += ClosePopup;
 			Root.Q<VisualElement>("Blocker").RegisterCallback<PointerDownEvent>(ClickedOutside);
 			_closeCooldown = new Cooldown(TimeSpan.FromSeconds(2));
@@ -54,7 +55,7 @@ namespace FirstLight.Game.Presenters
 
 		private void ClosePopup()
 		{
-			_services.UIService.CloseScreen(this).Forget();
+			_services.UIService.CloseScreen<BattlePassSeasonBannerPresenter>().Forget();
 		}
 
 		private void OnClick()

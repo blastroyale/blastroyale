@@ -25,8 +25,6 @@ namespace FirstLight.Game.Presenters
 			public Action LogoutClicked;
 			public Action OnClose;
 			public Action OnConnectIdClicked;
-			public Action OnCustomizeHudClicked;
-			public Action OnServerSelectClicked;
 			public Action OnDeleteAccountClicked;
 		}
 
@@ -36,13 +34,13 @@ namespace FirstLight.Game.Presenters
 		private ImageButton _closeScreenButton;
 
 		private Label _buildInfoLabel;
-		private Button _serverButton;
-		private Button _customizeHudButton;
-		private Button _logoutButton;
-		private Button _deleteAccountButton;
-		private Button _connectIdButton;
-		private Button _web3Button;
-		private Button _supportButton;
+		private LocalizedButton _serverButton;
+		private LocalizedButton _customizeHudButton;
+		private LocalizedButton _logoutButton;
+		private LocalizedButton _deleteAccountButton;
+		private LocalizedButton _connectIdButton;
+		private LocalizedButton _web3Button;
+		private LocalizedButton _supportButton;
 		private Label _web3StatusLabel;
 		private VisualElement _web3Notification;
 		private LocalizedLabel _accountStatusLabel;
@@ -79,7 +77,7 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(Root.Q<LocalizedToggle>("ScreenShake").Required(), _services.LocalPrefsService.IsScreenShakeEnabled);
 			SetupToggle(Root.Q<Toggle>("SwitchJoysticks").Required(), _services.LocalPrefsService.SwapJoysticks);
 
-			_customizeHudButton = Root.Q<Button>("CustomizeHud").Required();
+			_customizeHudButton = Root.Q<LocalizedButton>("CustomizeHud").Required();
 			_customizeHudButton.clicked += OpenCustomizeHud;
 
 			// Graphics
@@ -88,24 +86,23 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(Root.Q<Toggle>("ShowLatency").Required(), _services.LocalPrefsService.ShowLatency);
 
 			// Account
-			_web3Button = Root.Q<Button>("Web3Button").Required();
-			_logoutButton = Root.Q<Button>("LogoutButton");
+			_web3Button = Root.Q<LocalizedButton>("Web3Button").Required();
+			_logoutButton = Root.Q<LocalizedButton>("LogoutButton");
 			_logoutButton.clicked += OnLogoutClicked;
-			_deleteAccountButton = Root.Q<Button>("DeleteAccountButton");
+			_deleteAccountButton = Root.Q<LocalizedButton>("DeleteAccountButton");
 			_deleteAccountButton.clicked += OnDeleteAccountClicked;
-			_connectIdButton = Root.Q<Button>("ConnectButton");
+			_connectIdButton = Root.Q<LocalizedButton>("ConnectButton");
 			_connectIdButton.clicked += Data.OnConnectIdClicked;
 			_accountStatusLabel = Root.Q<LocalizedLabel>("AccountStatusLabel").Required();
 			_playerIDField = Root.Q<TextField>("PlayerID").Required();
-			Root.Q<ImageButton>("CopyButton").Required().clicked += CopyPlayerID;
 			_web3StatusLabel = Root.Q<Label>("Web3StatusLabel");
 			UpdateAccountStatus();
 			UpdateWeb3State(MainInstaller.ResolveWeb3().State);
 
 			// Footer buttons
-			_supportButton = Root.Q<Button>("SupportButton").Required();
+			_supportButton = Root.Q<LocalizedButton>("SupportButton").Required();
 			_supportButton.clicked += OpenSupportService;
-			_serverButton = Root.Q<Button>("ServerButton").Required();
+			_serverButton = Root.Q<LocalizedButton>("ServerButton").Required();
 			_serverButton.clicked += OpenServerSelect;
 
 			var web3 = MainInstaller.ResolveWeb3();
@@ -254,16 +251,6 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
-		}
-		
-		private void CopyPlayerID()
-		{
-			var te = new TextEditor
-			{
-				text = _playerIDField.value
-			};
-			te.SelectAll();
-			te.Copy();
 		}
 	}
 }

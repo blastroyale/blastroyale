@@ -9,7 +9,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
     implementation 'com.google.android.gms:play-services-base:18.4.0' // Packages/com.google.firebase.app/Firebase/Editor/AppDependencies.xml:17
-    implementation 'com.google.android.play:core-common:2.0.0' // Packages/com.google.play.core/Editor/Dependencies.xml:3
+    implementation 'com.google.android.play:core-common:2.0.4' // Packages/com.google.play.core/Editor/Dependencies.xml:3
     implementation 'com.google.android.play:review:2.0.0' // Packages/com.google.play.review/Editor/Dependencies.xml:3
     implementation 'com.google.firebase:firebase-analytics:21.6.2' // Packages/com.google.firebase.analytics/Firebase/Editor/AnalyticsDependencies.xml:13
     implementation 'com.google.firebase:firebase-analytics-unity:11.9.0' // Packages/com.google.firebase.analytics/Firebase/Editor/AnalyticsDependencies.xml:18

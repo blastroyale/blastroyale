@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
@@ -24,34 +25,20 @@ namespace FirstLight.Game.Services.Collection.Handles
 			_configsProvider = configsProvider;
 			_assetResolver = assetResolver;
 		}
-	
+
 		public bool CanHandle(ItemData item)
 		{
 			return item.Id.IsInGroup(GameIdGroup.ProfilePicture) || Config.GameIdUrlDictionary.ContainsKey(item.Id);
 		}
 
-		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true, CancellationToken ct = default)
 		{
 			var avatarUrl = AvatarHelpers.GetAvatarUrl(item, Config);
 			
 			var services = MainInstaller.ResolveServices();
-			services.RemoteTextureService.RequestTexture(
-				avatarUrl,
-				tex => { _cache[item] = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f)); },
-				() =>
-				{
-					Log.Error($"Error downloading player avatar {item.Id}");
-					_cache[item] = null;
-				});
-			Sprite loaded = null;
-			while (!_cache.TryGetValue(item, out loaded))
-			{
-				await Task.Delay(10);
-			}
-
-			return loaded;
+			var tex = await services.RemoteTextureService.RequestTexture(avatarUrl, cancellationToken: ct);
+			return Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 		}
-
 
 		public UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{

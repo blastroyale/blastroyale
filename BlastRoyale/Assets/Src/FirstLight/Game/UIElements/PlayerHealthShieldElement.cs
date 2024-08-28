@@ -48,7 +48,7 @@ namespace FirstLight.Game.UIElements
 				shieldBarContainer.Add(_shieldDamageBar = new VisualElement {name = "shield-damage-bar"});
 				_shieldDamageBar.AddToClassList(USS_DAMAGE_BAR);
 
-				shieldBarContainer.Add(_shieldLabel = new Label("100") {name = "shield-label"});
+				shieldBarContainer.Add(_shieldLabel = new LabelOutlined("100") {name = "shield-label"});
 				_shieldLabel.AddToClassList(USS_SHIELD_LABEL);
 			}
 
@@ -77,7 +77,7 @@ namespace FirstLight.Game.UIElements
 					}
 				}
 
-				healthBarContainer.Add(_healthLabel = new Label("90") {name = "health-label"});
+				healthBarContainer.Add(_healthLabel = new LabelOutlined("90") {name = "health-label"});
 				_healthLabel.AddToClassList(USS_HEALTH_LABEL);
 			}
 		}

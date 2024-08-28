@@ -37,7 +37,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 
 			if (trim)
 			{
-				name = name.Remove(name.LastIndexOf('#'));
+				name = name.TrimPlayerNameNumbers();
 			}
 
 			return name;

@@ -84,8 +84,8 @@ namespace FirstLight.Game.Views.UITK
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
-			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
+			QuantumEvent.SubscribeManual<EventOnHealthChangedPredicted>(this, OnHealthChanged);
+			QuantumEvent.SubscribeManual<EventOnShieldChangedPredicted>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.SubscribeManual<EventOnShrinkingCircleDmg>(this, OnShrinkingCircleDmg);
@@ -186,7 +186,7 @@ namespace FirstLight.Game.Views.UITK
 
 		public unsafe void InitAll()
 		{
-			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var f = QuantumRunner.Default.Game.Frames.Predicted;
 			var dataArray = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 			for (int i = 0; i < f.PlayerCount; i++)
 			{
@@ -275,18 +275,18 @@ namespace FirstLight.Game.Views.UITK
 		}
 
 
-		private void OnShieldChanged(EventOnShieldChanged callback)
+		private void OnShieldChanged(EventOnShieldChangedPredicted callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			bar.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
+			bar.UpdateShield(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
 
-		private void OnHealthChanged(EventOnHealthChanged callback)
+		private void OnHealthChanged(EventOnHealthChangedPredicted callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			bar.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
+			bar.UpdateHealth(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
 
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
@@ -338,7 +338,8 @@ namespace FirstLight.Game.Views.UITK
 				return;
 			}
 
-			var text = $"+{ev.Amount} {ev.Collected.GetCurrencyLocalization(ev.Amount)}";
+			var fixedAmount = RewardLogic.GetModifiedReward(ev.Amount, ev.Collected, ev.Game.Frames.Predicted.RuntimeConfig.MatchConfigs, true);
+			var text = $"+{fixedAmount} {ev.Collected.GetCurrencyLocalization((uint)fixedAmount)}";
 			bar.ShowNotification(PlayerStatusBarElement.NotificationType.MiscPickup, text);
 		}
 
@@ -354,7 +355,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
-			var f = callback.Game.Frames.Verified;
+			var f = callback.Game.Frames.Predicted;
 			if (callback.SpellType == Spell.KnockedOut) return;
 			if (f.Has<Destructible>(callback.HitEntity) &&
 				f.Unsafe.TryGetPointer<Stats>(callback.HitEntity, out var stats))
@@ -419,8 +420,7 @@ namespace FirstLight.Game.Views.UITK
 		private void OnLocalPlayerNoInput(EventOnLocalPlayerNoInput callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
-			
-			
+
 			bar.ShowNotification(PlayerStatusBarElement.NotificationType.NoInputWarning, ScriptLocalization.UITMatch.no_input_warning);
 		}
 	}

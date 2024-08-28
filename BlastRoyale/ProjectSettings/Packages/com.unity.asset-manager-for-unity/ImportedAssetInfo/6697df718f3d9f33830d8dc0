@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "a062f10d18bbb4fb1a7867f6043758cb",
+            "OriginalPath": "Melee_Wrench.fbx"
+        },
+        {
+            "Guid": "e60482b1d557c4ddea475146673e2511",
+            "OriginalPath": "Icon_Melee_Wrench.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df718f3d9f33830d8dc0\\\",\\\"assetVersion\\\":\\\"494e3a1c-1853-462c-9bc9-86703f06cbf9\\\"}\",\"data\":{\"assetId\":\"6697df718f3d9f33830d8dc0\",\"assetVersion\":\"494e3a1c-1853-462c-9bc9-86703f06cbf9\",\"isFrozen\":true,\"versionNumber\":7,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":6,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:42:10.082Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:42:26.505Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Wrench.png\",\"name\":\"Melee_Wrench\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,10 @@
+.code-input {
+    width: 600px;
+}
+
+.content {
+    align-items: center;
+    height: 486px;
+    justify-content: center;
+    width: 884px;
+}

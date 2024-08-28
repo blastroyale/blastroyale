@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/GenericInfoPopupStyle.uss?fileID=7433441132597879392&amp;guid=4dfedf76bc408524ea1af78f8bc0dcc9&amp;type=3#GenericInfoPopupStyle" />
+    <ui:VisualElement name="Content" class="content">
+        <ui:VisualElement name="InfoTextContainer" class="info-container" style="flex-grow: 1;">
+            <ui:Label tabindex="-1" text="Generic Info Blask Royale Description Generic Info Blask Royale Description Generic Info Blask Royale Description Generic Info Blask Royale Description " parse-escape-sequences="true" display-tooltip-when-elided="true" name="InfoText" class="info-text" />
+        </ui:VisualElement>
+        <FirstLight.Game.UIElements.LocalizedButton name="OkButton" localization-key="General/OK" class="button-long button-long--yellow ok-button" />
+    </ui:VisualElement>
+</ui:UXML>

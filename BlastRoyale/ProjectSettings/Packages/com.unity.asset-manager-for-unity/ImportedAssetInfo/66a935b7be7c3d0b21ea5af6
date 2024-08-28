@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "4551c8027315c4775811bfa0f15ae1a1",
+            "OriginalPath": "Melee_Lightsaber.fbx"
+        },
+        {
+            "Guid": "85127e9a267bb4aa3b3aa4a5d02d0463",
+            "OriginalPath": "Icon_Melee_Lightsaber.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a935b7be7c3d0b21ea5af6\\\",\\\"assetVersion\\\":\\\"f7359947-c5e9-47bc-a1e5-282764f70ef0\\\"}\",\"data\":{\"assetId\":\"66a935b7be7c3d0b21ea5af6\",\"assetVersion\":\"f7359947-c5e9-47bc-a1e5-282764f70ef0\",\"isFrozen\":true,\"versionNumber\":4,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":3,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T14:13:16.665Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T14:14:04.444Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Lightsaber.png\",\"name\":\"Melee_Lightsaber\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 1,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

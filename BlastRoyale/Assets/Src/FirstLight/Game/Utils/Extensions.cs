@@ -8,6 +8,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -16,6 +17,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using PlayerMatchData = Quantum.PlayerMatchData;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Utils
 {
@@ -25,7 +27,7 @@ namespace FirstLight.Game.Utils
 	public static class Extensions
 	{
 		private static PlayerMatchData _defaultPlayerMatchDataReference = default;
-		
+
 		/// <summary>
 		/// Requests the hierarchy path in the scene of the given game object
 		/// </summary>
@@ -46,10 +48,10 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string TrimPlayerNameNumbers(this string playerName)
 		{
-			int appendedNumberAmount = GameConstants.Data.PLAYER_NAME_APPENDED_NUMBERS;
-			return playerName.Remove(playerName.Length - appendedNumberAmount, appendedNumberAmount);
+			int index = playerName.LastIndexOf("#", StringComparison.Ordinal);
+			if (index == -1) return playerName;
+			return playerName.Substring(0, index);
 		}
-
 
 		/// <summary>
 		/// Get Photon region translation for the given <paramref name="regionKey"/> 
@@ -60,7 +62,7 @@ namespace FirstLight.Game.Utils
 			{
 				return translation;
 			}
-			
+
 			switch (regionKey)
 			{
 				case "eu":
@@ -319,26 +321,12 @@ namespace FirstLight.Game.Utils
 			graph.GetRootPlayable(0).SetSpeed(0);
 		}
 
-
 		/// <summary>
 		/// Obtains the current selected room code name in the given <paramref name="room"/>
 		/// </summary>
 		public static string GetRoomName(this Room room)
 		{
 			return room.Name.Split(GameConstants.Network.ROOM_META_SEPARATOR)[0];
-		}
-
-		/// <summary>
-		/// Can a game room frame be restored from a local snapshot ?
-		/// </summary>
-		public static bool CanBeRestoredWithLocalSnapshot(this Room room)
-		{
-			if (!MainInstaller.TryResolve<IGameServices>(out var _services))
-			{
-				return false;
-			}
-
-			return room.IsOffline;
 		}
 
 		/// <summary>
@@ -354,7 +342,6 @@ namespace FirstLight.Game.Utils
 			return snapshot.Offline;
 		}
 
-
 		/// <summary>
 		/// Copy properties from one model to another.
 		/// Only a shallow copy.
@@ -367,7 +354,7 @@ namespace FirstLight.Game.Utils
 				property.SetValue(dest, property.GetValue(source));
 			}
 		}
-		
+
 		/// <summary>
 		/// Requests the <see cref="Quantum.PlayerMatchData"/> of the current local player playing the game
 		/// </summary>
@@ -415,10 +402,11 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Sets the Display style property of an element.
 		/// </summary>
-		public static void SetDisplay(this VisualElement element, bool active)
+		public static VisualElement SetDisplay(this VisualElement element, bool active)
 		{
 			// Enabling the class means that the element will become hidden
 			element.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
+			return element;
 		}
 
 		/// <summary>
@@ -450,7 +438,7 @@ namespace FirstLight.Game.Utils
 
 		public static void SelectDefaultRankedMode(this IGameModeService service)
 		{
-			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Matchmaking);
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry is {MatchConfig: not null, TimedEntry: false});
 			service.SelectedGameMode.Value = gameMode;
 		}
 
@@ -498,6 +486,16 @@ namespace FirstLight.Game.Utils
 		public static SpectatedPlayer GetSpectatedPlayer(this IMatchServices matchServices)
 		{
 			return matchServices.SpectateService.SpectatedPlayer.Value;
+		}
+
+		public static T CloneSerializing<T>(this T value)
+		{
+			return ModelSerializer.Deserialize<T>(ModelSerializer.Serialize(value).Value);
+		}
+		
+		public static IEnumerable<T> Randomize<T>(this IEnumerable<T> source)
+		{
+			return source.OrderBy((_) => Random.value);
 		}
 	}
 }

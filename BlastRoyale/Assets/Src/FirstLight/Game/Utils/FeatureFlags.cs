@@ -62,10 +62,10 @@ namespace FirstLight.Game.Utils
 		public bool ForceAuthError = false;
 
 		/// <summary>
-		/// Force authentication connection error
+		/// Disables unity to run in background
 		/// </summary>
-		[Description("Dev QOL/Disable Pause Behaviour")]
-		public bool DisablePauseBehaviour = false;
+		[Description("Dev QOL/Disable Run in Background")]
+		public bool DisableRunInBackground = false;
 
 		/// <summary>
 		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
@@ -139,7 +139,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Forces to stop the game when pausing
 		/// </summary>
-		public static bool PAUSE_FREEZE = true;
+		public static bool PAUSE_DISCONNECT_DIALOG = false;
 
 		/// <summary>
 		/// Enables / disables item durability checks for Non NFTs
@@ -224,11 +224,7 @@ namespace FirstLight.Game.Utils
 		/// client.
 		/// </summary>
 		public static string IMX_ID = null;
-
-		/// <summary>
-		/// Feature flag to toggle noob in the game
-		/// </summary>
-		public static bool ENABLE_NOOB = false;
+		
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -269,7 +265,7 @@ namespace FirstLight.Game.Utils
 
 			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))
 			{
-				PAUSE_FREEZE = pauseFreeze;
+				PAUSE_DISCONNECT_DIALOG = pauseFreeze;
 			}
 
 			if (TrySetFlag("WAIT_REWARD_SYNC", overrideData, out var waitSync))
@@ -280,11 +276,6 @@ namespace FirstLight.Game.Utils
 			if (TrySetStringFlag("IMX_ID", overrideData, out var imxId))
 			{
 				IMX_ID = imxId;
-			}
-			
-			if (TrySetFlag("ENABLE_NOOB", overrideData, out var enableNoob))
-			{
-				ENABLE_NOOB = enableNoob;
 			}
 		}
 

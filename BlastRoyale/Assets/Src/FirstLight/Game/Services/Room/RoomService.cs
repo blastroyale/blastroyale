@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
-using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Photon.Realtime;
 using Quantum;
 using Unity.Services.Authentication;
 using UnityEngine;
+using Assert = UnityEngine.Assertions.Assert;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using UniTaskCompletionSource = Cysharp.Threading.Tasks.UniTaskCompletionSource;
 
 namespace FirstLight.Game.Services.RoomService
 {
@@ -24,6 +23,13 @@ namespace FirstLight.Game.Services.RoomService
 	{
 		Join,
 		Leave,
+	}
+
+	public class PlayerJoinRoomProperties
+	{
+		public string Team;
+		public byte TeamColor;
+		public bool Spectator;
 	}
 
 	public interface IRoomService
@@ -44,21 +50,12 @@ namespace FirstLight.Game.Services.RoomService
 		event Action OnMatchStarted;
 
 		/// <summary>
-		/// Triggered when custom game loading starts
-		/// </summary>
-		event Action OnCustomGameLoadStart;
-
-		/// <summary>
-		/// Triggered in the custom game start process, just before setting communicating other players
-		/// </summary>
-		event Action BeforeHostStartsCustomGame;
-
-		/// <summary>
 		/// Do you need docs ?
 		/// </summary>
 		event Action OnMasterChanged;
 
 		event Action OnJoinedRoom;
+		event Action OnLeaveRoom;
 
 		/// <summary>
 		/// Yo
@@ -71,6 +68,7 @@ namespace FirstLight.Game.Services.RoomService
 		public event Action OnLocalPlayerKicked;
 
 		bool InRoom { get; }
+		bool IsJoiningRoom { get; }
 
 		GameRoom CurrentRoom { get; }
 		GameRoom LastRoom { get; }
@@ -80,12 +78,6 @@ namespace FirstLight.Game.Services.RoomService
 
 		byte GetMaxPlayers(MatchRoomSetup setup,
 						   bool spectators = true);
-
-		/// <summary>
-		///  Used for custom games owner clicks to start, it will move players to load screen
-		/// </summary>
-		/// <returns></returns>
-		void StartCustomGameLoading();
 
 		QuantumGameModeConfig GetGameModeConfig(string gameModeId);
 
@@ -99,7 +91,9 @@ namespace FirstLight.Game.Services.RoomService
 		/// for the client to be able to enter. If there is even one param mismatching, join operation will fail.
 		/// Used to join custom games
 		/// </remarks>
-		bool JoinRoom(string roomName);
+		bool JoinRoom(string roomName, PlayerJoinRoomProperties playerProperties = null);
+
+		UniTask JoinRoomAsync(string roomName, PlayerJoinRoomProperties playerProperties = null);
 
 		/// <summary>
 		/// Rejoins a room, only if the player is still active in the room. Will never enter a room creating a new player.
@@ -115,7 +109,9 @@ namespace FirstLight.Game.Services.RoomService
 		/// <remarks>
 		///  This used for custom games or forced matches
 		/// </remarks>
-		bool CreateRoom(MatchRoomSetup setup, bool offlineMode);
+		bool CreateRoom(MatchRoomSetup setup, bool offlineMode, PlayerJoinRoomProperties playerJoinRoomProperties = null);
+
+		UniTask CreateRoomAsync(MatchRoomSetup setup, PlayerJoinRoomProperties playerJoinRoomProperties = null);
 
 		/// <summary>
 		/// Joins a specific room with matching params if it exists, or creates a new one if it doesn't
@@ -126,7 +122,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// for the client to be able to enter. If there is even one param mismatching, join operation will fail.
 		/// Used for Playfab matchmaking, because with playfab matchmaking we know the name of the room, so a random player will create it and the others will join
 		/// </remarks>
-		bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, byte teamColor = 0, string[] expectedPlayers = null);
+		bool JoinOrCreateRoom(MatchRoomSetup setup, PlayerJoinRoomProperties playerProperties = null, string[] expectedPlayers = null);
 
 		/// <summary>
 		/// Leaves the current room that local player is in
@@ -148,7 +144,8 @@ namespace FirstLight.Game.Services.RoomService
 		private readonly ICoroutineService _coroutineService;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly ILeaderboardService _leaderboardService;
-
+		private readonly HashSet<ClientState> _joiningStates = new (new[] {ClientState.Joining, ClientState.Joined, ClientState.JoinedLobby, ClientState.JoiningLobby});
+		public bool IsJoiningRoom => _joiningStates.Contains(_networkService.QuantumClient.State);
 		public GameRoom CurrentRoom { get; private set; }
 		public GameRoom LastRoom { get; private set; }
 
@@ -161,18 +158,32 @@ namespace FirstLight.Game.Services.RoomService
 		public event Action<Player, PlayerChangeReason> OnPlayersChange;
 		public event Action OnRoomPropertiesChanged;
 		public event Action OnMatchStarted;
-		public event Action OnCustomGameLoadStart;
-		public event Action BeforeHostStartsCustomGame;
 		public event Action OnMasterChanged;
 		public event Action OnJoinedRoom;
+		public event Action OnLeaveRoom;
 		public event Action OnPlayerPropertiesUpdated;
 		public event Action OnLocalPlayerKicked;
 
 		public bool InRoom => CurrentRoom != null && _networkService.InRoom;
 
-		public bool IsLocalPlayerSpectator => CurrentRoom?.LocalPlayerProperties?.Spectator?.Value ?? false;
+		public bool IsLocalPlayerSpectator
+		{
+			get
+			{
+				if (CurrentRoom == null)
+				{
+					FLog.Error("Trying to get spectator properties when room no longer exists.");
+					return false;
+				}
+
+				return CurrentRoom?.LocalPlayerProperties?.Spectator?.Value ?? false;
+			}
+		}
 
 		internal MatchmakingAndRoomConfig Configs => _configsProvider.GetConfig<MatchmakingAndRoomConfig>();
+
+		private UniTaskCompletionSource _roomCreationTcs;
+		private UniTaskCompletionSource _roomJoinTcs;
 
 		public RoomService(IGameNetworkService networkService, IGameBackendService backendService, IConfigsProvider configsProvider,
 						   ICoroutineService coroutineService, IGameDataProvider dataProvider, ILeaderboardService leaderboardService)
@@ -199,25 +210,36 @@ namespace FirstLight.Game.Services.RoomService
 		/// </summary>
 		/// <param name="roomName"></param>
 		/// <returns></returns>
-		public bool JoinRoom(string roomName)
+		public bool JoinRoom(string roomName, PlayerJoinRoomProperties playerProperties = null)
 		{
-			FLog.Info($"JoinRoom: {InRoom}");
+			FLog.Info($"JoinRoom: Room:{roomName} InRoom?{InRoom}");
 
 			if (InRoom) return false;
 
 			var enterParams = _parameters.GetRoomEnterParams(roomName);
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
 
-			ResetLocalPlayerProperties();
+			ResetLocalPlayerProperties(playerProperties);
 			_networkService.LastUsedSetup.Value = null;
 
 			return _networkService.QuantumClient.OpJoinRoom(enterParams);
 		}
 
+		public UniTask JoinRoomAsync(string roomName, PlayerJoinRoomProperties playerProperties = null)
+		{
+			Assert.IsNull(_roomJoinTcs, "JoinRoomAsync called while another join operation is in progress");
+
+			_roomJoinTcs = new UniTaskCompletionSource();
+
+			JoinRoom(roomName, playerProperties);
+
+			return _roomJoinTcs.Task;
+		}
+
 		/// <summary>
 		/// This used for custom games or forced matches
 		/// </summary>
-		public bool CreateRoom(MatchRoomSetup setup, bool offlineMode)
+		public bool CreateRoom(MatchRoomSetup setup, bool offlineMode, PlayerJoinRoomProperties playerJoinRoomProperties)
 		{
 			if (InRoom) return false;
 
@@ -227,17 +249,28 @@ namespace FirstLight.Game.Services.RoomService
 
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = offlineMode;
 
-			ResetLocalPlayerProperties();
+			ResetLocalPlayerProperties(playerJoinRoomProperties);
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			_networkService.LastUsedSetup.Value = setup;
 			return _networkService.QuantumClient.OpCreateRoom(createParams);
+		}
+
+		public UniTask CreateRoomAsync(MatchRoomSetup setup, PlayerJoinRoomProperties playerJoinRoomProperties)
+		{
+			Assert.IsNull(_roomCreationTcs, "CreateRoomAsync called while another create operation is in progress");
+
+			_roomCreationTcs = new UniTaskCompletionSource();
+
+			CreateRoom(setup, false, playerJoinRoomProperties);
+
+			return _roomCreationTcs.Task;
 		}
 
 		/// <summary>
 		/// Used for Playfab matchmaking, because with playfab matchmaking we know the name of the room, so a random player will create it and the others will join
 		/// </summary>
 		/// <returns></returns>
-		public bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, byte teamColor = 0, string[] expectedPlayers = null)
+		public bool JoinOrCreateRoom(MatchRoomSetup setup, PlayerJoinRoomProperties playerProperties, string[] expectedPlayers = null)
 		{
 			if (InRoom) return false;
 
@@ -246,7 +279,7 @@ namespace FirstLight.Game.Services.RoomService
 			var createParams = _parameters.GetRoomCreateParams(setup);
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
 
-			ResetLocalPlayerProperties(teamID, teamColor);
+			ResetLocalPlayerProperties(playerProperties);
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			_networkService.LastUsedSetup.Value = setup;
 			return _networkService.QuantumClient.OpJoinOrCreateRoom(createParams);
@@ -289,10 +322,10 @@ namespace FirstLight.Game.Services.RoomService
 		public byte GetMaxPlayers(MatchRoomSetup setup,
 								  bool spectators = true)
 		{
-			var maxPlayers = setup.OverwriteMaxPlayers > 0 ? setup.OverwriteMaxPlayers : GetMapConfig(setup.MapId).MaxPlayers;
+			var maxPlayers = setup.SimulationConfig.MaxPlayersOverwrite > 0 ? setup.SimulationConfig.MaxPlayersOverwrite : GetMapConfig(setup.SimulationConfig.MapId).MaxPlayers;
 			if (spectators)
 			{
-				maxPlayers += GetMaxSpectators(setup.MatchType);
+				maxPlayers += GetMaxSpectators(setup.SimulationConfig.MatchType);
 			}
 
 			return (byte) maxPlayers;
@@ -382,6 +415,9 @@ namespace FirstLight.Game.Services.RoomService
 
 		void IMatchmakingCallbacks.OnJoinedRoom()
 		{
+			_roomJoinTcs?.TrySetResult();
+			_roomJoinTcs = null;
+
 			FLog.Verbose("Joined room!");
 			CheckRoomInit();
 			OnJoinedRoom?.Invoke();
@@ -404,25 +440,19 @@ namespace FirstLight.Game.Services.RoomService
 		private void CheckMatchmakingLoadingStart()
 		{
 			// When master joins matchmaking it should set the timer values
-			if (!CurrentRoom.LocalPlayer.IsMasterClient || CurrentRoom.Properties.MatchType.Value == MatchType.Custom ||
+			if (!CurrentRoom.LocalPlayer.IsMasterClient ||
 				CurrentRoom.Properties.LoadingStartServerTime.HasValue || CurrentRoom.GameStarted) return;
 			var time = _networkService.ServerTimeInMilliseconds;
 			// We don't have server time yet lets wait
 			if (time == 0) return;
 			CurrentRoom.Properties.LoadingStartServerTime.Value = _networkService.ServerTimeInMilliseconds;
-			CurrentRoom.Properties.SecondsToStart.Value = Configs.MatchmakingLoadingTimeout;
+			CurrentRoom.Properties.SecondsToStart.Value = CurrentRoom.Properties.SimulationMatchConfig.Value.MatchType == MatchType.Custom
+				? Configs.SecondsToLoadCustomGames
+				: Configs.MatchmakingLoadingTimeout;
 		}
 
 		private void SubscribeToPropertyChangeEvents(GameRoom room)
 		{
-			room.Properties.StartCustomGame.OnValueChanged += property =>
-			{
-				if (property.Value)
-				{
-					// Game started
-					OnCustomGameLoadStart?.Invoke();
-				}
-			};
 			room.Properties.GameStarted.OnValueChanged += property =>
 			{
 				if (property.Value)
@@ -475,11 +505,6 @@ namespace FirstLight.Game.Services.RoomService
 				return;
 			}
 
-			if (CurrentRoom.Properties.MatchType.Value == MatchType.Custom && !CurrentRoom.Properties.StartCustomGame.Value && !CurrentRoom.GameModeConfig.InstantLoad)
-			{
-				return;
-			}
-
 			// Check if players loaded assets, give them 5 more seconds then start game
 			if (!CurrentRoom.AreAllPlayersReady() && CurrentRoom.GameStartsAt() >
 				_networkService.ServerTimeInMilliseconds)
@@ -491,26 +516,6 @@ namespace FirstLight.Game.Services.RoomService
 			StartGame();
 		}
 
-		/// <summary>
-		///  Used for custom games owner clicks to start, it will move players to load screen
-		/// </summary>
-		/// <returns></returns>
-		public void StartCustomGameLoading()
-		{
-			if (!_networkService.LocalPlayer.IsMasterClient)
-			{
-				return;
-			}
-
-			BeforeHostStartsCustomGame?.Invoke();
-
-			_networkService.CurrentRoom.IsOpen = false;
-			CurrentRoom.Properties.LoadingStartServerTime.Value =
-				_networkService.ServerTimeInMilliseconds;
-			CurrentRoom.Properties.SecondsToStart.Value = Configs.SecondsToLoadCustomGames;
-			CurrentRoom.Properties.StartCustomGame.Value = true;
-		}
-
 		private void StartGame()
 		{
 			_networkService.CurrentRoom.IsOpen = false;
@@ -520,6 +525,8 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void OnJoinRoomFailed(short returnCode, string message)
 		{
+			_roomJoinTcs?.TrySetException(new Exception("Failed to join room: " + message));
+			_roomJoinTcs = null;
 			FLog.Info(message);
 		}
 
@@ -532,11 +539,12 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			FLog.Verbose("Left room");
 			CurrentRoom = null;
+			OnLeaveRoom?.Invoke();
 		}
 
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
-			if (newMasterClient.IsLocal && CurrentRoom.Properties.MatchType.Value != MatchType.Custom)
+			if (newMasterClient.IsLocal)
 			{
 				CheckMatchmakingLoadingStart();
 			}
@@ -550,10 +558,14 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void OnCreatedRoom()
 		{
+			_roomCreationTcs?.TrySetResult();
+			_roomCreationTcs = null;
 		}
 
 		public void OnCreateRoomFailed(short returnCode, string message)
 		{
+			_roomCreationTcs?.TrySetException(new Exception("Failed to create room: " + message));
+			_roomCreationTcs = null;
 			FLog.Info(message);
 		}
 
@@ -573,8 +585,16 @@ namespace FirstLight.Game.Services.RoomService
 			return _commands.SendKickCommand(playerToKick);
 		}
 
-		private void ResetLocalPlayerProperties(string teamId = null, byte teamColorIndex = 0)
+		private void ResetLocalPlayerProperties(PlayerJoinRoomProperties properties = null)
 		{
+			FLog.Verbose("Setting local player properties");
+			// reconnection edge case where 
+			if (_networkService.QuantumClient.State == ClientState.Joining)
+			{
+				FLog.Warn("Skipped property reset, client was still joining");
+				return;
+			}
+
 			_networkService.QuantumClient.NickName = AuthenticationService.Instance.GetPlayerName();
 			var preloadIds = new List<GameId>();
 
@@ -584,11 +604,11 @@ namespace FirstLight.Game.Services.RoomService
 			var props = new PlayerProperties
 			{
 				Loadout = {Value = preloadIds},
-				Spectator = {Value = false},
+				Spectator = {Value = properties?.Spectator ?? false},
 				CoreLoaded = {Value = false},
-				TeamId = {Value = teamId},
+				TeamId = {Value = properties?.Team},
 				Rank = {Value = _leaderboardService.CurrentRankedEntry.Position},
-				ColorIndex = {Value = teamColorIndex}
+				ColorIndex = {Value = properties?.TeamColor ?? 0}
 			};
 
 			_networkService.LocalPlayer.SetCustomProperties(props.ToHashTable());

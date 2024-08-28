@@ -1,0 +1,34 @@
+.content {
+    height: 486px;
+    width: 884px;
+    align-items: center;
+}
+
+.confirm-text-container {
+    width: 100%;
+    height: 70%;
+    padding: 25px 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm-text {
+    color: white;
+    font-size: 36px;
+    -unity-text-align: middle-center;
+    -unity-text-outline: 4px black;
+    text-shadow: black 4px 4px 0;
+    width: 100%;
+    margin: 10px;
+}
+
+.confirm-buttons-container {
+    width: 100%;
+    height: 30%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.button {
+    margin: 0px 20px;
+}

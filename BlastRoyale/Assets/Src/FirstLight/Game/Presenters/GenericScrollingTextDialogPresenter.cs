@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using UnityEngine.UIElements;
@@ -20,7 +21,7 @@ namespace FirstLight.Game.Presenters
 
 		private Button _privacy;
 		private Button _terms;
-		private Button _confirm;
+		private LocalizedButton _confirm;
 		private Label _text;
 		private Label _title;
 		private IGameServices _services;
@@ -32,7 +33,7 @@ namespace FirstLight.Game.Presenters
 			_title = Root.Q<Label>("Title").Required();
 			_text.text = Data.Text;
 			_title.text = Data.Title;
-			_confirm = Root.Q<Button>("ConfirmButton").Required();
+			_confirm = Root.Q<LocalizedButton>("ConfirmButton").Required();
 			_confirm.clicked += Data.OnConfirm;
 		}
 

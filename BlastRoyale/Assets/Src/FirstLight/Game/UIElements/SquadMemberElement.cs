@@ -21,14 +21,12 @@ namespace FirstLight.Game.UIElements
 		private const string USS_RING_EFFECT = USS_BLOCK + "__ring-effect";
 		private const string USS_DEAD_CROSS = USS_BLOCK + "__dead-cross";
 		private const string USS_BG = USS_BLOCK + "__bg";
-		private const string USS_PFP = USS_BLOCK + "__pfp";
-		private const string USS_TEAM_COLOR = USS_BLOCK + "__team-color";
+		private const string USS_AVATAR = USS_BLOCK + "__avatar";
 		private const string USS_NAME = USS_BLOCK + "__name";
 		private const string USS_SHIELD_HEALTH = USS_BLOCK + "__health-shield";
 
 		private readonly VisualElement _bg;
-		private readonly VisualElement _pfp;
-		private readonly VisualElement _teamColor;
+		private readonly InGamePlayerAvatar _playerAvatar;
 		private readonly Label _name;
 
 		private readonly PlayerHealthShieldElement _healthShield;
@@ -59,14 +57,9 @@ namespace FirstLight.Game.UIElements
 			container.Add(_bg = new VisualElement {name = "bg"});
 			_bg.AddToClassList(USS_BG);
 
-			container.Add(_teamColor = new VisualElement {name = "team-color"});
-			_teamColor.AddToClassList(USS_TEAM_COLOR);
-			{
-				_teamColor.Add(_pfp = new VisualElement {name = "pfp"});
-				_pfp.AddToClassList(USS_PFP);
-			}
-
-			container.Add(_name = new Label("PLAYER NAME") {name = "name"});
+			container.Add(_playerAvatar = new InGamePlayerAvatar() {name = "avatar"});
+			_playerAvatar.AddToClassList(USS_AVATAR);
+			container.Add(_name = new LabelOutlined("PLAYER NAME") {name = "player-name"});
 			_name.AddToClassList(USS_NAME);
 
 			container.Add(_healthShield = new PlayerHealthShieldElement {name = "health-shield"});
@@ -86,15 +79,9 @@ namespace FirstLight.Game.UIElements
 			this.Query().Build().ForEach(e => e.pickingMode = PickingMode.Ignore);
 		}
 
-		public void SetTeamColor(Color? color)
+		public void SetPlayer(PlayerRef player, string playerName, Sprite pfpSprite, Color playerNameColor)
 		{
-			if (!color.HasValue) _teamColor.SetDisplay(false);
-			else _teamColor.style.backgroundColor = color.Value;
-		}
-
-		public void SetPlayer(PlayerRef player, string playerName, int level, string pfpUrl, Color playerNameColor)
-		{
-			if (_player == player) return;
+			if (_player == player && pfpSprite == null) return;
 			_player = player;
 
 			_name.text = playerName;
@@ -102,27 +89,7 @@ namespace FirstLight.Game.UIElements
 
 			if (Application.isPlaying)
 			{
-				// pfpUrl =
-				// 	$"https://mainnetprodflghubstorage.blob.core.windows.net/collections/corpos/{Random.Range(1, 888)}.png";
-
-				if (!string.IsNullOrEmpty(pfpUrl))
-				{
-					var textureService = MainInstaller.Resolve<IGameServices>().RemoteTextureService;
-					textureService.CancelRequest(_pfpRequestHandle);
-					_pfpRequestHandle = textureService.RequestTexture(
-						pfpUrl,
-						tex =>
-						{
-							if (_pfp?.panel != null)
-							{
-								_pfp.style.backgroundImage = new StyleBackground(tex);
-							}
-						}, null);
-				}
-				else
-				{
-					_pfp.style.backgroundImage = StyleKeyword.Null;
-				}
+				_playerAvatar.SetSprite(pfpSprite);
 			}
 		}
 
@@ -152,7 +119,6 @@ namespace FirstLight.Game.UIElements
 				_pingRingEffect.schedule.Execute(() =>
 				{
 					_pingAnimation.Start();
-                    
 				}).Every(WOUNDED_PING_REPEAT).Until(() => !ClassListContains(USS_KNOCKEDOUT));
 			}
 		}
@@ -166,6 +132,11 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlFactory : UxmlFactory<SquadMemberElement, UxmlTraits>
 		{
+		}
+
+		public void SetTeamColor(Color? teamColor)
+		{
+			_playerAvatar.SetTeamColor(teamColor);
 		}
 	}
 }

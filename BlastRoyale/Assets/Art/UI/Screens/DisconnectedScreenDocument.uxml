@@ -6,15 +6,15 @@
             <ui:VisualElement name="Window" class="popup-radius popup__window">
                 <ui:VisualElement name="Header" class="background-purple window__header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITDisconnected/connection_lost" name="Title" class="DO_NOT_USE_font-style-h2" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITDisconnected/connection_lost" name="Title" class="game-label" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content">
                     <FirstLight.Game.UIElements.LocalizedLabel name="GenericDesc" localization-key="UITDisconnected/disconnected" focusable="false" class="font-style-popup content__desc" />
                     <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
                     <ui:VisualElement name="Controls" class="content__controls">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/menu" name="MenuButton" class="button-flat button-flat--primary sfx-click-forwards" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/menu" name="MenuButton" class="button-long button-long--yellow sfx-click-forwards" />
                         <ui:VisualElement name="Spacer" class="width-spacer width-spacer--s" />
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="button-flat button-flat--primary sfx-click-forwards" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="button-long button-long--yellow sfx-click-forwards" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Dim" class="window__dim" />

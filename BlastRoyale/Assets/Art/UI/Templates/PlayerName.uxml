@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
+    <ui:VisualElement name="PlayerContainer" class="player-name__container">
+        <FirstLight.Game.UIElements.LabelOutlined name="PlayerLabel" text="ZZZZZZZZZZZZZZZZZZZZ" class="player-name__label" />
+        <FirstLight.Game.UIElements.LabelOutlined name="TrophiesLabel" text="69420" class="game-label game-label--large player-name__trophies_label" />
+        <FirstLight.Game.UIElements.ImageButton name="AddFriendButton" class="player-name__add-friend-button" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -53,12 +53,17 @@ namespace FirstLight.UIService
 		private readonly GameObject _root;
 
 		private readonly Dictionary<Type, UIPresenter> _openedScreensType = new ();
-		private readonly Dictionary<UILayer, UIPresenter> _openedScreensLayer = new ();
+		private readonly Dictionary<UILayer, HashSet<UIPresenter>> _openedScreensLayer = new ();
 
 		public UIService()
 		{
 			_root = new GameObject("UI");
 			Object.DontDestroyOnLoad(_root);
+
+			foreach (var layer in Enum.GetValues(typeof(UILayer)))
+			{
+				_openedScreensLayer.Add((UILayer) layer, new HashSet<UIPresenter>());
+			}
 		}
 
 		/// <summary>
@@ -81,12 +86,10 @@ namespace FirstLight.UIService
 #endif
 			}
 
-			var layer = screenType.GetAttribute<UILayerAttribute>()?.Layer ?? UILayer.Default;
+			var uiLayer = screenType.GetAttribute<UILayerAttribute>();
+			var layer = uiLayer?.Layer ?? UILayer.Default;
 
-			if (_openedScreensLayer.TryGetValue(layer, out var openedScreen))
-			{
-				await CloseScreen(openedScreen);
-			}
+			await CloseLayer(layer, false);
 
 			var handle = Addressables.InstantiateAsync(GetAddress<T>(), _root.transform);
 			var go = handle.WaitForCompletion(); // Sync loading is intentional here
@@ -98,29 +101,11 @@ namespace FirstLight.UIService
 			uiDocument.sortingOrder = (int) layer;
 
 			_openedScreensType.Add(typeof(T), screen);
-			_openedScreensLayer.Add(layer, screen);
+			_openedScreensLayer[layer].Add(screen);
 
 			await screen.OnScreenOpenedInternal();
 			OnScreenOpened?.Invoke(typeof(T).Name.Replace("Presenter", ""), layer.ToString());
 			return (T) screen;
-		}
-
-		/// <summary>
-		/// LEGACY ONLY: Closes the provided screen.
-		/// </summary>
-		/// <param name="presenter">The presenter to close.</param>
-		public async UniTask CloseScreen(UIPresenter presenter)
-		{
-			var screenType = presenter.GetType();
-
-			Assert.IsTrue(_openedScreensType.ContainsKey(screenType), "Trying to close presenter that isn't open, how did you manage that?");
-
-			await presenter.OnScreenClosedInternal();
-
-			_openedScreensType.Remove(screenType);
-			_openedScreensLayer.Remove(presenter.Layer);
-
-			Addressables.ReleaseInstance(presenter.gameObject);
 		}
 
 		/// <summary>
@@ -146,24 +131,35 @@ namespace FirstLight.UIService
 		}
 
 		/// <summary>
-		/// Closes a screen on the given layer.
+		/// Closes all screens on a specific layer.
 		/// </summary>
-		/// <param name="layer">The layer to close.</param>
-		/// <param name="checkOpened">If we should log an error when this screen is not opened.</param>
-		public UniTask CloseScreen(UILayer layer, bool checkOpened = true)
+		/// <param name="layer">The layer to close</param>
+		/// <param name="useAutoClose">If AutoClose=false presenters should be ignored.</param>
+		public async UniTask CloseLayer(UILayer layer, bool useAutoClose = false)
 		{
-			FLog.Info($"Closing layer {layer}");
+			var presenters = _openedScreensLayer[layer];
+			var presentersToRemove = new List<UIPresenter>(presenters.Count);
 
-			if (_openedScreensLayer.TryGetValue(layer, out var screen))
+			foreach (var presenter in presenters)
 			{
-				return CloseScreen(screen);
+				var screenType = presenter.GetType();
+				var uiLayer = screenType.GetAttribute<UILayerAttribute>();
+
+				if (useAutoClose && !uiLayer.AutoClose) continue;
+
+				presentersToRemove.Add(presenter);
 			}
 
-#if DEVELOPMENT_BUILD || UNITY_EDITOR
-			if (checkOpened) FLog.Error($"Layer {layer} is empty!");
-#endif
+			foreach (var presenter in presentersToRemove)
+			{
+				presenters.Remove(presenter);
+				await CloseScreen(presenter);
+			}
+		}
 
-			return UniTask.CompletedTask;
+		public bool HasUIPresenterOpenOnLayer(UILayer uiLayer)
+		{
+			return _openedScreensLayer.TryGetValue(uiLayer, out _);
 		}
 
 		/// <summary>
@@ -190,6 +186,19 @@ namespace FirstLight.UIService
 		public bool IsScreenOpen<T>() where T : UIPresenter
 		{
 			return _openedScreensType.ContainsKey(typeof(T));
+		}
+
+		private async UniTask CloseScreen(UIPresenter presenter)
+		{
+			var screenType = presenter.GetType();
+
+			await presenter.OnScreenClosedInternal();
+
+			_openedScreensType.Remove(screenType);
+			_openedScreensLayer[presenter.Layer].Remove(presenter);
+
+			if (presenter)
+				Addressables.ReleaseInstance(presenter.gameObject);
 		}
 
 		private static string GetAddress<T>() where T : UIPresenter

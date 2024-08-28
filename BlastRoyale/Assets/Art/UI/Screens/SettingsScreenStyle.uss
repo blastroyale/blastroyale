@@ -75,57 +75,6 @@
     flex-grow: 1;
 }
 
-.settings-toggle {
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    margin-top: 15px;
-}
-
-.settings-toggle .unity-toggle__label {
-    flex-grow: 1;
-    flex-shrink: 0;
-    color: rgb(255, 255, 255);
-    font-size: 50px;
-}
-
-.settings-toggle .unity-toggle__input {
-    background-color: rgb(24, 20, 38);
-    flex-shrink: initial;
-    flex-grow: initial;
-    width: 194px;
-    flex-basis: initial;
-    height: 68px;
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 18px;
-    border-top-right-radius: 18px;
-    border-bottom-right-radius: 18px;
-    flex-direction: row;
-    justify-content: flex-start;
-    transition-duration: 0.15s;
-}
-
-.settings-toggle .unity-toggle__checkmark {
-    background-image: var(--sprite-home__button-settings-toggle);
-    width: 88px;
-    height: 68px;
-    background-color: rgba(0, 0, 0, 0);
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    -unity-background-image-tint-color: rgb(247, 107, 106);
-    transition-duration: 0.15s;
-}
-
-.settings-toggle:checked .unity-toggle__checkmark {
-    -unity-background-image-tint-color: rgb(0, 255, 106);
-}
-
-.settings-toggle:checked .unity-toggle__input {
-    padding-left: 106px;
-}
-
 .settings-tabbed-view {
     width: 1210px;
     margin-top: 43px;
@@ -268,45 +217,4 @@
 .account-button {
     margin-left: 10px;
     margin-right: 10px;
-}
-
-.unity-text-field {
-    flex-direction: column;
-    align-items: flex-start;
-    width: auto;
-    height: auto;
-    margin-bottom: 50px;
-}
-
-.unity-text-field__label {
-    -unity-text-align: upper-left;
-    color: rgb(157, 131, 216);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 2px 4px 0 rgb(0, 0, 0);
-    margin-left: 14px;
-}
-
-.unity-text-field__input {
-    background-image: none;
-    background-color: rgb(22, 20, 38);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    color: rgb(255, 255, 255);
-    height: 92px;
-}
-
-.button-copy {
-    position: absolute;
-    right: 4px;
-    bottom: 4px;
-    width: 84px;
-    height: 84px;
-    background-image: var(--sprite-home__button-copy);
-}
-
-.button-copy:active {
-    background-image: var(--sprite-home__button-copy-pressed);
 }

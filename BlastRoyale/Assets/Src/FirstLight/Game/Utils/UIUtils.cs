@@ -11,10 +11,13 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.UITK;
+using FirstLight.Modules.UIService.Runtime;
+using FirstLight.Statechart;
 using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using QuickEye.UIToolkit;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -29,6 +32,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Throws an exception if the <paramref name="visualElement"/> is null.
 		/// </summary>
+		[HideInCallstack]
 		public static T Required<T>(this T visualElement) where T : VisualElement
 		{
 			if (visualElement == null)
@@ -79,7 +83,7 @@ namespace FirstLight.Game.Utils
 		{
 			if (!element.worldBound.Overlaps(root.worldBound))
 			{
-				throw new Exception("Element out of bounds");
+				throw new Exception("Unable to get position in screen!");
 			}
 
 			var viewportPoint = element.worldBound.center / root.worldBound.size;
@@ -192,7 +196,6 @@ namespace FirstLight.Game.Utils
 			};
 		}
 
-
 		public static async UniTask<Sprite> LoadSprite(GameId id)
 		{
 			// TODO: This should be handled better.
@@ -235,22 +238,9 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
 		/// </summary>
-		public static void LevelLock<TElement, TPData>(this TElement element,
-													   UIPresenterData<TPData> presenter, VisualElement root, UnlockSystem unlockSystem,
-													   Action unlockedCallback)
-			where TElement : VisualElement
-			where TPData : class
-		{
-			//element.AttachView(presenter, out FameLockedView storeLockedView);
-			//storeLockedView.Init(unlockSystem, root, unlockedCallback);
-		}
-
-		/// <summary>
-		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
-		/// </summary>
-		public static void LevelLock2<TElement>(this TElement element,
-												UIPresenter presenter, VisualElement root, UnlockSystem unlockSystem,
-												Action unlockedCallback)
+		public static void LevelLock<TElement>(this TElement element,
+											   UIPresenter presenter, VisualElement root, UnlockSystem unlockSystem,
+											   Action unlockedCallback)
 			where TElement : VisualElement
 		{
 			element.AttachView(presenter, out FameLockedView storeLockedView);
@@ -264,13 +254,11 @@ namespace FirstLight.Game.Utils
 		{
 			element.SetLevel(gameDataProvider.PlayerDataProvider.Level.Value);
 
-
 			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
 			var spriteTask = gameServices.CollectionService.LoadCollectionItemSprite(itemData);
 
-			element.LoadFromTask(spriteTask).Forget();
+			element.LoadFromTask(spriteTask);
 		}
-
 
 		/// <summary>
 		/// Get the position inside the Panel of a World Position
@@ -285,13 +273,78 @@ namespace FirstLight.Game.Utils
 			return RuntimePanelUtils.ScreenToPanel(panel, screenPoint);
 		}
 
-
 		/// <summary>
 		/// Set the transform.position of an UIToolkit element to be at the same place of a given position in the 3D world
 		/// </summary>
 		public static void SetPositionBasedOnWorldPosition(this VisualElement element, Vector3 worldPosition)
 		{
+			element.style.position = Position.Absolute;
 			element.transform.position = WorldPositionToPanel(element.panel, worldPosition);
+		}
+
+		public static void SetPadding(this IStyle st, int padding)
+		{
+			st.paddingBottom = 0;
+			st.paddingLeft = 0;
+			st.paddingRight = 0;
+			st.paddingTop = 0;
+		}
+
+		public static void SetMargin(this IStyle st, int padding)
+		{
+			st.marginBottom = 0;
+			st.marginLeft = 0;
+			st.marginRight = 0;
+			st.marginTop = 0;
+		}
+
+		public static void ListenOnce<T>(this VisualElement visual, Action action) where T : EventBase<T>, new()
+		{
+			ListenOnce<T>(visual, (_) =>
+			{
+				action();
+			});
+		}
+
+		public static void ListenOnce<T>(this VisualElement visual, EventCallback<T> action) where T : EventBase<T>, new()
+		{
+			EventCallback<T> wrapped = null;
+			wrapped = @event =>
+			{
+				action(@event);
+				visual.UnregisterCallback(wrapped);
+			};
+			visual.RegisterCallback(wrapped);
+		}
+
+		/// <summary>
+		/// Copies the provided string to the system clipboard.
+		/// </summary>
+		public static void SaveToClipboard(string value)
+		{
+			var te = new TextEditor
+			{
+				text = value
+			};
+			te.SelectAll();
+			te.Copy();
+		}
+
+		public static T AddClass<T>(this T visualElement, params string[] classes) where T : VisualElement
+		{
+			foreach (var @class in classes)
+			{
+				visualElement.AddToClassList(@class);
+			}
+
+			return visualElement;
+		}
+
+		public static void LoadTemplateAndBind(this VisualElement visualElement, string path)
+		{
+			var tree = Resources.Load<VisualTreeAsset>(path);
+			tree.CloneTree(visualElement);
+			visualElement.AssignElementResults(visualElement);
 		}
 	}
 }

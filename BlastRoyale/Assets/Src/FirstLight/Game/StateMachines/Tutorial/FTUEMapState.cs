@@ -157,12 +157,7 @@ namespace FirstLight.Game.StateMachines
 			moveToGateArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToGateArea); });
 			moveToGateArea.OnEnter(OnEnterMoveToGateArea);
 			moveToGateArea.Event(MatchState.MatchUnloadedEvent).Target(final);
-			moveToGateArea.Event(ProceedTutorialEvent).Target(moveToChestArea);
-
-			moveToChestArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToChestArea); });
-			moveToChestArea.OnEnter(OnEnterMoveToChestArea);
-			moveToChestArea.Event(MatchState.MatchUnloadedEvent).Target(final);
-			moveToChestArea.Event(ProceedTutorialEvent).Target(openBox);
+			moveToGateArea.Event(ProceedTutorialEvent).Target(openBox);
 
 			openBox.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.OpenBox); });
 			openBox.OnEnter(OnEnterOpenBox);
@@ -186,7 +181,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnUpdateSimulation(CallbackUpdateView callback)
 		{
-			var f = callback.Game.Frames.Predicted;
+			var f = callback.Game.Frames.Verified;
 			CheckProgressWithCompleteFunction(f);
 		}
 
@@ -263,12 +258,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerEnteredMessageVolume(PlayerEnteredMessageVolume msg)
 		{
 			CheckGameplayProceedConditions(typeof(PlayerEnteredMessageVolume), msg.VolumeId);
-
-			if (msg.VolumeId == GameConstants.Tutorial.TRIGGER_ARENA_AREA)
-			{
-				DespawnPointers();
-				_tutorialOverlay.Dialog.HideDialog(CharacterType.Female);
-			}
 		}
 
 		private void BindMatchServices()
@@ -441,11 +430,14 @@ namespace FirstLight.Game.StateMachines
 
 
 		private void OnEnterPickupSpecial()
-		{
+		{			
+			if (GetLocalPlayerView() == null) return; // reconnection edge case
+			
 			QuantumRunner.Default.Game.SendCommand(new TutorialSpawnSpecialCommand());
 			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_special, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
-			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_SPECIAL_PICKUP].transform.position, GetLocalPlayerView().transform);
+			var position = GetLocalPlayerView().transform;
+			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_SPECIAL_PICKUP].transform.position, position);
 			_tutorialOverlay.HideGuideHand();
 
 			_currentGameplayProceedData = new GameplayProceedEventData
@@ -456,6 +448,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterKill1BotSpecial()
 		{
+			if (GetLocalPlayerView() == null) return; // reconnection edge case
+			
 			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.use_grenade, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, GetLocalPlayerView().transform);
@@ -483,20 +477,7 @@ namespace FirstLight.Game.StateMachines
 				EventMetaId = GameConstants.Tutorial.TRIGGER_GATE_AREA
 			};
 		}
-
-		private void OnEnterMoveToChestArea()
-		{
-			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_chest_area, CharacterType.Female, CharacterDialogMoodType.Neutral);
-			DespawnPointers();
-			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_TOP_PLATFORM].transform.position, GetLocalPlayerView().transform);
-
-			_currentGameplayProceedData = new GameplayProceedEventData()
-			{
-				EventType = typeof(PlayerEnteredMessageVolume),
-				EventMetaId = GameConstants.Tutorial.TRIGGER_CHEST_AREA
-			};
-		}
-
+		
 		private void OnEnterOpenBox()
 		{
 			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.open_chest, CharacterType.Female, CharacterDialogMoodType.Happy);

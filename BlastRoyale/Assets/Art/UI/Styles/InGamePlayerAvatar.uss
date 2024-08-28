@@ -1,0 +1,47 @@
+.in-game-avatar {
+    width: 106px;
+    height: 106px;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-left-color: rgb(205, 86, 119);
+    border-right-color: rgb(205, 86, 119);
+    border-top-color: rgb(205, 86, 119);
+    border-bottom-color: rgb(205, 86, 119);
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(23, 18, 53, 0.39);
+}
+
+.in-game-avatar--no-border {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+
+.in-game-avatar__pfp {
+    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/Snowboarder/Icon_Char_Snowboarder.png?fileID=21300000&amp;guid=e79f03853fe1b49c1b4ed408b1b6239a&amp;type=3#Icon_Char_Snowboarder');
+    position: absolute;
+    width: 117%;
+    height: 88%;
+    bottom: -6px;
+}
+
+.in-game-avatar__pfp-mask {
+    background-image: url('project://database/Assets/Art/UI/Vectors/avatar-mask-hud.svg?fileID=7388822144124034973&guid=6bafe853b1a3dac4cacac6eb1c7e4c6f&type=3#avatar-mask-hud');
+    position: absolute;
+    width: 93%;
+    height: 125%;
+    align-items: center;
+    overflow: hidden;
+    bottom: 0;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+    justify-content: flex-end;
+}

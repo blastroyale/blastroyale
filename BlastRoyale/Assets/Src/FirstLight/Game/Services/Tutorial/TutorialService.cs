@@ -1,19 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.Services
 {
@@ -106,12 +100,15 @@ namespace FirstLight.Game.Services
 
 			var roomSetup = new MatchRoomSetup()
 			{
-				GameModeId = gameModeId,
-				MapId = GameId.FtueDeck.GetHashCode(),
+				SimulationConfig = new SimulationMatchConfig()
+				{
+					GameModeID = gameModeId,
+					MapId = GameId.FtueDeck.GetHashCode(),
+					MatchType = MatchType.Forced,
+					TeamSize = 1,
+					HasBots = true
+				},
 				RoomIdentifier = Guid.NewGuid().ToString(),
-				Mutators = Array.Empty<string>(),
-				MatchType = MatchType.Forced,
-				AllowedRewards = new ()
 			};
 
 			_roomService.CreateRoom(roomSetup, true);
@@ -119,19 +116,12 @@ namespace FirstLight.Game.Services
 
 		public void CreateJoinSecondTutorialRoom()
 		{
-			var gameModeId = GameConstants.Tutorial.SECOND_BOT_MODE_ID;
-			var gameModeConfig = _configsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
-
-			var rewards = GameConstants.Data.AllowedGameRewards.ToList();
-			rewards.Remove(GameId.NOOB);
+			var config = _configsProvider.GetConfig<TutorialConfig>().SecondMatch.CloneSerializing();
+			config.MatchType = MatchType.Forced;
 			var setup = new MatchRoomSetup()
 			{
-				GameModeId = gameModeId,
-				MapId = GameId.MazeMayhem.GetHashCode(),
+				SimulationConfig = config,
 				RoomIdentifier = Guid.NewGuid().ToString(),
-				Mutators = Array.Empty<string>(),
-				MatchType = MatchType.Forced,
-				AllowedRewards = rewards
 			};
 
 			_roomService.JoinOrCreateRoom(setup);

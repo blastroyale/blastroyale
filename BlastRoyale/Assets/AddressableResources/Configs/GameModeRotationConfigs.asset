@@ -13,45 +13,2899 @@ MonoBehaviour:
   m_Name: GameModeRotationConfigs
   m_EditorClassIdentifier: 
   _config:
-    RotationStartTimeTicks: 0
-    RotationSlotDuration: 10800
     Slots:
     - Entries:
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators: []
-        PlayfabQueue:
-          QueueName: battleroyale_1
-          TeamSize: 1
-          TimeoutTimeInSeconds: 10
-        AllowedRewards: 030000000c000000160000001a000000d10000003d000000
-        TitleTranslationKey: UITGameModeSelection/br_solo_title
-        DescriptionTranslationKey: UITGameModeSelection/br_solo_description
-        ImageModifier: battleroyale-solo
-        IconSpriteClass: sprite-shared__icon-gamemode-solo
-    - Entries:
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators: []
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 27/07/2024 05:00
+          EndsAt: 27/07/2024 07:00
+        - StartsAt: 27/07/2024 12:00
+          EndsAt: 27/07/2024 14:00
+        - StartsAt: 27/07/2024 20:00
+          EndsAt: 27/07/2024 22:00
+        - StartsAt: 28/08/2024 05:00
+          EndsAt: 28/08/2024 07:00
+        - StartsAt: 28/08/2024 12:00
+          EndsAt: 28/08/2024 14:00
+        - StartsAt: 28/08/2024 20:00
+          EndsAt: 28/08/2024 22:00
+        - StartsAt: 29/09/2024 05:00
+          EndsAt: 29/09/2024 07:00
+        - StartsAt: 29/09/2024 12:00
+          EndsAt: 29/09/2024 14:00
+        - StartsAt: 29/09/2024 20:00
+          EndsAt: 29/09/2024 22:00
+        MatchConfig:
+          ConfigId: f30174bb
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModSniper
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
         PlayfabQueue:
           QueueName: battleroyale_2
-          TeamSize: 2
           TimeoutTimeInSeconds: 25
-        AllowedRewards: 030000000c000000160000001a000000d10000003d000000
-        TitleTranslationKey: UITGameModeSelection/br_duos_title
-        DescriptionTranslationKey: UITGameModeSelection/br_duos_description
-        ImageModifier: battleroyale-duos
-        IconSpriteClass: sprite-shared__icon-gamemode-duos
-    - Entries:
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators: []
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EAGLE EYE LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 15/07/2024 05:00
+          EndsAt: 15/07/2024 07:00
+        - StartsAt: 15/07/2024 12:00
+          EndsAt: 15/07/2024 14:00
+        - StartsAt: 15/07/2024 20:00
+          EndsAt: 15/07/2024 22:00
+        - StartsAt: 16/08/2024 05:00
+          EndsAt: 16/08/2024 07:00
+        - StartsAt: 16/08/2024 12:00
+          EndsAt: 16/08/2024 14:00
+        - StartsAt: 16/08/2024 20:00
+          EndsAt: 16/08/2024 22:00
+        - StartsAt: 17/09/2024 05:00
+          EndsAt: 17/09/2024 07:00
+        - StartsAt: 17/09/2024 12:00
+          EndsAt: 17/09/2024 14:00
+        - StartsAt: 17/09/2024 20:00
+          EndsAt: 17/09/2024 22:00
+        MatchConfig:
+          ConfigId: e743f9ce
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModSniper
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
         PlayfabQueue:
           QueueName: battleroyale_4
-          TeamSize: 4
           TimeoutTimeInSeconds: 40
-        AllowedRewards: 030000000c000000160000001a000000d10000003d000000
-        TitleTranslationKey: UITGameModeSelection/br_quads_title
-        DescriptionTranslationKey: UITGameModeSelection/br_quads_description
-        ImageModifier: battleroyale-quads
-        IconSpriteClass: sprite-shared__icon-gamemode-squads
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EAGLE EYE LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 24/07/2024 05:00
+          EndsAt: 24/07/2024 07:00
+        - StartsAt: 24/07/2024 12:00
+          EndsAt: 24/07/2024 14:00
+        - StartsAt: 24/07/2024 20:00
+          EndsAt: 24/07/2024 22:00
+        - StartsAt: 25/08/2024 05:00
+          EndsAt: 25/08/2024 07:00
+        - StartsAt: 25/08/2024 12:00
+          EndsAt: 25/08/2024 14:00
+        - StartsAt: 25/08/2024 20:00
+          EndsAt: 25/08/2024 22:00
+        - StartsAt: 26/09/2024 05:00
+          EndsAt: 26/09/2024 07:00
+        - StartsAt: 26/09/2024 12:00
+          EndsAt: 26/09/2024 14:00
+        - StartsAt: 26/09/2024 20:00
+          EndsAt: 26/09/2024 22:00
+        MatchConfig:
+          ConfigId: c329ee28
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModSniper
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EAGLE EYE LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 18/07/2024 05:00
+          EndsAt: 18/07/2024 07:00
+        - StartsAt: 18/07/2024 12:00
+          EndsAt: 18/07/2024 14:00
+        - StartsAt: 18/07/2024 20:00
+          EndsAt: 18/07/2024 22:00
+        - StartsAt: 19/08/2024 05:00
+          EndsAt: 19/08/2024 07:00
+        - StartsAt: 19/08/2024 12:00
+          EndsAt: 19/08/2024 14:00
+        - StartsAt: 19/08/2024 20:00
+          EndsAt: 19/08/2024 22:00
+        - StartsAt: 20/09/2024 05:00
+          EndsAt: 20/09/2024 07:00
+        - StartsAt: 20/09/2024 12:00
+          EndsAt: 20/09/2024 14:00
+        - StartsAt: 20/09/2024 20:00
+          EndsAt: 20/09/2024 22:00
+        MatchConfig:
+          ConfigId: 6ccebd67
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModSniper
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EAGLE EYE LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 09/07/2024 05:00
+          EndsAt: 09/07/2024 07:00
+        - StartsAt: 09/07/2024 12:00
+          EndsAt: 09/07/2024 14:00
+        - StartsAt: 09/07/2024 20:00
+          EndsAt: 09/07/2024 22:00
+        - StartsAt: 10/08/2024 05:00
+          EndsAt: 10/08/2024 07:00
+        - StartsAt: 10/08/2024 12:00
+          EndsAt: 10/08/2024 14:00
+        - StartsAt: 10/08/2024 20:00
+          EndsAt: 10/08/2024 22:00
+        - StartsAt: 11/09/2024 05:00
+          EndsAt: 11/09/2024 07:00
+        - StartsAt: 11/09/2024 12:00
+          EndsAt: 11/09/2024 14:00
+        - StartsAt: 11/09/2024 20:00
+          EndsAt: 11/09/2024 22:00
+        MatchConfig:
+          ConfigId: 432928d7
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModSniper
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EAGLE EYE HUNT
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 06/08/2024 05:00
+          EndsAt: 06/08/2024 07:00
+        - StartsAt: 06/08/2024 12:00
+          EndsAt: 06/08/2024 14:00
+        - StartsAt: 06/08/2024 20:00
+          EndsAt: 06/08/2024 22:00
+        - StartsAt: 07/09/2024 05:00
+          EndsAt: 07/09/2024 07:00
+        - StartsAt: 07/09/2024 12:00
+          EndsAt: 07/09/2024 14:00
+        - StartsAt: 07/09/2024 20:00
+          EndsAt: 07/09/2024 22:00
+        - StartsAt: 09/10/2024 05:00
+          EndsAt: 09/10/2024 07:00
+        - StartsAt: 09/10/2024 12:00
+          EndsAt: 09/10/2024 14:00
+        - StartsAt: 09/10/2024 20:00
+          EndsAt: 09/10/2024 22:00
+        MatchConfig:
+          ConfigId: b481f40c
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModSniper
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EAGLE EYE HUNT
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 11/07/2024 05:00
+          EndsAt: 11/07/2024 07:00
+        - StartsAt: 11/07/2024 12:00
+          EndsAt: 11/07/2024 14:00
+        - StartsAt: 11/07/2024 20:00
+          EndsAt: 11/07/2024 22:00
+        - StartsAt: 12/08/2024 05:00
+          EndsAt: 12/08/2024 07:00
+        - StartsAt: 12/08/2024 12:00
+          EndsAt: 12/08/2024 14:00
+        - StartsAt: 12/08/2024 20:00
+          EndsAt: 12/08/2024 22:00
+        - StartsAt: 13/09/2024 05:00
+          EndsAt: 13/09/2024 07:00
+        - StartsAt: 13/09/2024 12:00
+          EndsAt: 13/09/2024 14:00
+        - StartsAt: 13/09/2024 20:00
+          EndsAt: 13/09/2024 22:00
+        MatchConfig:
+          ConfigId: 099ead59
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModSniper
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EAGLE EYE HUNT
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 19/07/2024 05:00
+          EndsAt: 19/07/2024 07:00
+        - StartsAt: 19/07/2024 12:00
+          EndsAt: 19/07/2024 14:00
+        - StartsAt: 19/07/2024 20:00
+          EndsAt: 19/07/2024 22:00
+        - StartsAt: 20/08/2024 05:00
+          EndsAt: 20/08/2024 07:00
+        - StartsAt: 20/08/2024 12:00
+          EndsAt: 20/08/2024 14:00
+        - StartsAt: 20/08/2024 20:00
+          EndsAt: 20/08/2024 22:00
+        - StartsAt: 21/09/2024 05:00
+          EndsAt: 21/09/2024 07:00
+        - StartsAt: 21/09/2024 12:00
+          EndsAt: 21/09/2024 14:00
+        - StartsAt: 21/09/2024 20:00
+          EndsAt: 21/09/2024 22:00
+        MatchConfig:
+          ConfigId: 865ccb29
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModSniper
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EAGLE EYE HUNT
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn, snipers only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 05/08/2024 05:00
+          EndsAt: 05/08/2024 07:00
+        - StartsAt: 05/08/2024 12:00
+          EndsAt: 05/08/2024 14:00
+        - StartsAt: 05/08/2024 20:00
+          EndsAt: 05/08/2024 22:00
+        - StartsAt: 06/09/2024 05:00
+          EndsAt: 06/09/2024 07:00
+        - StartsAt: 06/09/2024 12:00
+          EndsAt: 06/09/2024 14:00
+        - StartsAt: 06/09/2024 20:00
+          EndsAt: 06/09/2024 22:00
+        - StartsAt: 08/10/2024 05:00
+          EndsAt: 08/10/2024 07:00
+        - StartsAt: 08/10/2024 12:00
+          EndsAt: 08/10/2024 14:00
+        - StartsAt: 08/10/2024 20:00
+          EndsAt: 08/10/2024 22:00
+        MatchConfig:
+          ConfigId: 673c2481
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModShotgun
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: DEADLY LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 01/08/2024 05:00
+          EndsAt: 01/08/2024 07:00
+        - StartsAt: 01/08/2024 12:00
+          EndsAt: 01/08/2024 14:00
+        - StartsAt: 01/08/2024 20:00
+          EndsAt: 01/08/2024 22:00
+        - StartsAt: 02/09/2024 05:00
+          EndsAt: 02/09/2024 07:00
+        - StartsAt: 02/09/2024 12:00
+          EndsAt: 02/09/2024 14:00
+        - StartsAt: 02/09/2024 20:00
+          EndsAt: 02/09/2024 22:00
+        - StartsAt: 04/10/2024 05:00
+          EndsAt: 04/10/2024 07:00
+        - StartsAt: 04/10/2024 12:00
+          EndsAt: 04/10/2024 14:00
+        - StartsAt: 04/10/2024 20:00
+          EndsAt: 04/10/2024 22:00
+        MatchConfig:
+          ConfigId: d084a0b5
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModShotgun
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: DEADLY LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 28/07/2024 05:00
+          EndsAt: 28/07/2024 07:00
+        - StartsAt: 28/07/2024 12:00
+          EndsAt: 28/07/2024 14:00
+        - StartsAt: 28/07/2024 20:00
+          EndsAt: 28/07/2024 22:00
+        - StartsAt: 29/08/2024 05:00
+          EndsAt: 29/08/2024 07:00
+        - StartsAt: 29/08/2024 12:00
+          EndsAt: 29/08/2024 14:00
+        - StartsAt: 29/08/2024 20:00
+          EndsAt: 29/08/2024 22:00
+        - StartsAt: 30/09/2024 05:00
+          EndsAt: 30/09/2024 07:00
+        - StartsAt: 30/09/2024 12:00
+          EndsAt: 30/09/2024 14:00
+        - StartsAt: 30/09/2024 20:00
+          EndsAt: 30/09/2024 22:00
+        MatchConfig:
+          ConfigId: 3b8785ca
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModShotgun
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: DEADLY LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 25/07/2024 05:00
+          EndsAt: 25/07/2024 07:00
+        - StartsAt: 25/07/2024 12:00
+          EndsAt: 25/07/2024 14:00
+        - StartsAt: 25/07/2024 20:00
+          EndsAt: 25/07/2024 22:00
+        - StartsAt: 26/08/2024 05:00
+          EndsAt: 26/08/2024 07:00
+        - StartsAt: 26/08/2024 12:00
+          EndsAt: 26/08/2024 14:00
+        - StartsAt: 26/08/2024 20:00
+          EndsAt: 26/08/2024 22:00
+        - StartsAt: 27/09/2024 05:00
+          EndsAt: 27/09/2024 07:00
+        - StartsAt: 27/09/2024 12:00
+          EndsAt: 27/09/2024 14:00
+        - StartsAt: 27/09/2024 20:00
+          EndsAt: 27/09/2024 22:00
+        MatchConfig:
+          ConfigId: 919b4a6c
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModShotgun
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: DEADLY LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 20/07/2024 05:00
+          EndsAt: 20/07/2024 07:00
+        - StartsAt: 20/07/2024 12:00
+          EndsAt: 20/07/2024 14:00
+        - StartsAt: 20/07/2024 20:00
+          EndsAt: 20/07/2024 22:00
+        - StartsAt: 21/08/2024 05:00
+          EndsAt: 21/08/2024 07:00
+        - StartsAt: 21/08/2024 12:00
+          EndsAt: 21/08/2024 14:00
+        - StartsAt: 21/08/2024 20:00
+          EndsAt: 21/08/2024 22:00
+        - StartsAt: 22/09/2024 05:00
+          EndsAt: 22/09/2024 07:00
+        - StartsAt: 22/09/2024 12:00
+          EndsAt: 22/09/2024 14:00
+        - StartsAt: 22/09/2024 20:00
+          EndsAt: 22/09/2024 22:00
+        MatchConfig:
+          ConfigId: 1f0a808d
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModShotgun
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: DEADLY LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 21/07/2024 05:00
+          EndsAt: 21/07/2024 07:00
+        - StartsAt: 21/07/2024 12:00
+          EndsAt: 21/07/2024 14:00
+        - StartsAt: 21/07/2024 20:00
+          EndsAt: 21/07/2024 22:00
+        - StartsAt: 22/08/2024 05:00
+          EndsAt: 22/08/2024 07:00
+        - StartsAt: 22/08/2024 12:00
+          EndsAt: 22/08/2024 14:00
+        - StartsAt: 22/08/2024 20:00
+          EndsAt: 22/08/2024 22:00
+        - StartsAt: 23/09/2024 05:00
+          EndsAt: 23/09/2024 07:00
+        - StartsAt: 23/09/2024 12:00
+          EndsAt: 23/09/2024 14:00
+        - StartsAt: 23/09/2024 20:00
+          EndsAt: 23/09/2024 22:00
+        MatchConfig:
+          ConfigId: 6aada054
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModShotgun
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: DEADLY LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 16/07/2024 05:00
+          EndsAt: 16/07/2024 07:00
+        - StartsAt: 16/07/2024 12:00
+          EndsAt: 16/07/2024 14:00
+        - StartsAt: 16/07/2024 20:00
+          EndsAt: 16/07/2024 22:00
+        - StartsAt: 17/08/2024 05:00
+          EndsAt: 17/08/2024 07:00
+        - StartsAt: 17/08/2024 12:00
+          EndsAt: 17/08/2024 14:00
+        - StartsAt: 17/08/2024 20:00
+          EndsAt: 17/08/2024 22:00
+        - StartsAt: 18/09/2024 05:00
+          EndsAt: 18/09/2024 07:00
+        - StartsAt: 18/09/2024 12:00
+          EndsAt: 18/09/2024 14:00
+        - StartsAt: 18/09/2024 20:00
+          EndsAt: 18/09/2024 22:00
+        MatchConfig:
+          ConfigId: b5f4e8cc
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModShotgun
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: DEADLY LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 13/07/2024 05:00
+          EndsAt: 13/07/2024 07:00
+        - StartsAt: 13/07/2024 12:00
+          EndsAt: 13/07/2024 14:00
+        - StartsAt: 13/07/2024 20:00
+          EndsAt: 13/07/2024 22:00
+        - StartsAt: 14/08/2024 05:00
+          EndsAt: 14/08/2024 07:00
+        - StartsAt: 14/08/2024 12:00
+          EndsAt: 14/08/2024 14:00
+        - StartsAt: 14/08/2024 20:00
+          EndsAt: 14/08/2024 22:00
+        - StartsAt: 15/09/2024 05:00
+          EndsAt: 15/09/2024 07:00
+        - StartsAt: 15/09/2024 12:00
+          EndsAt: 15/09/2024 14:00
+        - StartsAt: 15/09/2024 20:00
+          EndsAt: 15/09/2024 22:00
+        MatchConfig:
+          ConfigId: ddefd6f3
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModShotgun
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: DEADLY LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, shotguns only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 12/07/2024 05:00
+          EndsAt: 12/07/2024 07:00
+        - StartsAt: 12/07/2024 12:00
+          EndsAt: 12/07/2024 14:00
+        - StartsAt: 12/07/2024 20:00
+          EndsAt: 12/07/2024 22:00
+        - StartsAt: 13/08/2024 05:00
+          EndsAt: 13/08/2024 07:00
+        - StartsAt: 13/08/2024 12:00
+          EndsAt: 13/08/2024 14:00
+        - StartsAt: 13/08/2024 20:00
+          EndsAt: 13/08/2024 22:00
+        - StartsAt: 14/09/2024 05:00
+          EndsAt: 14/09/2024 07:00
+        - StartsAt: 14/09/2024 12:00
+          EndsAt: 14/09/2024 14:00
+        - StartsAt: 14/09/2024 20:00
+          EndsAt: 14/09/2024 22:00
+        MatchConfig:
+          ConfigId: 7c0d7367
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModLauncher
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EXPLOSIVE LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 26/07/2024 05:00
+          EndsAt: 26/07/2024 07:00
+        - StartsAt: 26/07/2024 12:00
+          EndsAt: 26/07/2024 14:00
+        - StartsAt: 26/07/2024 20:00
+          EndsAt: 26/07/2024 22:00
+        - StartsAt: 27/08/2024 05:00
+          EndsAt: 27/08/2024 07:00
+        - StartsAt: 27/08/2024 12:00
+          EndsAt: 27/08/2024 14:00
+        - StartsAt: 27/08/2024 20:00
+          EndsAt: 27/08/2024 22:00
+        - StartsAt: 28/09/2024 05:00
+          EndsAt: 28/09/2024 07:00
+        - StartsAt: 28/09/2024 12:00
+          EndsAt: 28/09/2024 14:00
+        - StartsAt: 28/09/2024 20:00
+          EndsAt: 28/09/2024 22:00
+        MatchConfig:
+          ConfigId: 3d7fbad2
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModLauncher
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EXPLOSIVE LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 23/07/2024 05:00
+          EndsAt: 23/07/2024 07:00
+        - StartsAt: 23/07/2024 12:00
+          EndsAt: 23/07/2024 14:00
+        - StartsAt: 23/07/2024 20:00
+          EndsAt: 23/07/2024 22:00
+        - StartsAt: 24/08/2024 05:00
+          EndsAt: 24/08/2024 07:00
+        - StartsAt: 24/08/2024 12:00
+          EndsAt: 24/08/2024 14:00
+        - StartsAt: 24/08/2024 20:00
+          EndsAt: 24/08/2024 22:00
+        - StartsAt: 25/09/2024 05:00
+          EndsAt: 25/09/2024 07:00
+        - StartsAt: 25/09/2024 12:00
+          EndsAt: 25/09/2024 14:00
+        - StartsAt: 25/09/2024 20:00
+          EndsAt: 25/09/2024 22:00
+        MatchConfig:
+          ConfigId: 84fd036d
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModLauncher
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EXPLOSIVE LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 30/07/2024 05:00
+          EndsAt: 30/07/2024 07:00
+        - StartsAt: 30/07/2024 12:00
+          EndsAt: 30/07/2024 14:00
+        - StartsAt: 30/07/2024 20:00
+          EndsAt: 30/07/2024 22:00
+        - StartsAt: 31/08/2024 05:00
+          EndsAt: 31/08/2024 07:00
+        - StartsAt: 31/08/2024 12:00
+          EndsAt: 31/08/2024 14:00
+        - StartsAt: 31/08/2024 20:00
+          EndsAt: 31/08/2024 22:00
+        - StartsAt: 02/10/2024 05:00
+          EndsAt: 02/10/2024 07:00
+        - StartsAt: 02/10/2024 12:00
+          EndsAt: 02/10/2024 14:00
+        - StartsAt: 02/10/2024 20:00
+          EndsAt: 02/10/2024 22:00
+        MatchConfig:
+          ConfigId: 78fe1a05
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModLauncher
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EXPLOSIVE LOOTING
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 02/08/2024 05:00
+          EndsAt: 02/08/2024 07:00
+        - StartsAt: 02/08/2024 12:00
+          EndsAt: 02/08/2024 14:00
+        - StartsAt: 02/08/2024 20:00
+          EndsAt: 02/08/2024 22:00
+        - StartsAt: 03/09/2024 05:00
+          EndsAt: 03/09/2024 07:00
+        - StartsAt: 03/09/2024 12:00
+          EndsAt: 03/09/2024 14:00
+        - StartsAt: 03/09/2024 20:00
+          EndsAt: 03/09/2024 22:00
+        - StartsAt: 05/10/2024 05:00
+          EndsAt: 05/10/2024 07:00
+        - StartsAt: 05/10/2024 12:00
+          EndsAt: 05/10/2024 14:00
+        - StartsAt: 05/10/2024 20:00
+          EndsAt: 05/10/2024 22:00
+        MatchConfig:
+          ConfigId: a3f055a5
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModLauncher
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EXPLOSIVE HUNT
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 08/07/2024 05:00
+          EndsAt: 08/07/2024 07:00
+        - StartsAt: 08/07/2024 12:00
+          EndsAt: 08/07/2024 14:00
+        - StartsAt: 08/07/2024 20:00
+          EndsAt: 08/07/2024 22:00
+        - StartsAt: 09/08/2024 05:00
+          EndsAt: 09/08/2024 07:00
+        - StartsAt: 09/08/2024 12:00
+          EndsAt: 09/08/2024 14:00
+        - StartsAt: 09/08/2024 20:00
+          EndsAt: 09/08/2024 22:00
+        - StartsAt: 10/09/2024 05:00
+          EndsAt: 10/09/2024 07:00
+        - StartsAt: 10/09/2024 12:00
+          EndsAt: 10/09/2024 14:00
+        - StartsAt: 10/09/2024 20:00
+          EndsAt: 10/09/2024 22:00
+        MatchConfig:
+          ConfigId: 54075997
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModLauncher
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EXPLOSIVE HUNT
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 14/07/2024 05:00
+          EndsAt: 14/07/2024 07:00
+        - StartsAt: 14/07/2024 12:00
+          EndsAt: 14/07/2024 14:00
+        - StartsAt: 14/07/2024 20:00
+          EndsAt: 14/07/2024 22:00
+        - StartsAt: 15/08/2024 05:00
+          EndsAt: 15/08/2024 07:00
+        - StartsAt: 15/08/2024 12:00
+          EndsAt: 15/08/2024 14:00
+        - StartsAt: 15/08/2024 20:00
+          EndsAt: 15/08/2024 22:00
+        - StartsAt: 16/09/2024 05:00
+          EndsAt: 16/09/2024 07:00
+        - StartsAt: 16/09/2024 12:00
+          EndsAt: 16/09/2024 14:00
+        - StartsAt: 16/09/2024 20:00
+          EndsAt: 16/09/2024 22:00
+        MatchConfig:
+          ConfigId: 001b24ef
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModLauncher
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EXPLOSIVE HUNT
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 03/08/2024 05:00
+          EndsAt: 03/08/2024 07:00
+        - StartsAt: 03/08/2024 12:00
+          EndsAt: 03/08/2024 14:00
+        - StartsAt: 03/08/2024 20:00
+          EndsAt: 03/08/2024 22:00
+        - StartsAt: 04/09/2024 05:00
+          EndsAt: 04/09/2024 07:00
+        - StartsAt: 04/09/2024 12:00
+          EndsAt: 04/09/2024 14:00
+        - StartsAt: 04/09/2024 20:00
+          EndsAt: 04/09/2024 22:00
+        - StartsAt: 06/10/2024 05:00
+          EndsAt: 06/10/2024 07:00
+        - StartsAt: 06/10/2024 12:00
+          EndsAt: 06/10/2024 14:00
+        - StartsAt: 06/10/2024 20:00
+          EndsAt: 06/10/2024 22:00
+        MatchConfig:
+          ConfigId: b67cbbdf
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite:
+          - ModLauncher
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: EXPLOSIVE HUNT
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn, RPGs only
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 31/07/2024 05:00
+          EndsAt: 31/07/2024 07:00
+        - StartsAt: 31/07/2024 12:00
+          EndsAt: 31/07/2024 14:00
+        - StartsAt: 31/07/2024 20:00
+          EndsAt: 31/07/2024 22:00
+        - StartsAt: 01/09/2024 05:00
+          EndsAt: 01/09/2024 07:00
+        - StartsAt: 01/09/2024 12:00
+          EndsAt: 01/09/2024 14:00
+        - StartsAt: 01/09/2024 20:00
+          EndsAt: 01/09/2024 22:00
+        - StartsAt: 03/10/2024 05:00
+          EndsAt: 03/10/2024 07:00
+        - StartsAt: 03/10/2024 12:00
+          EndsAt: 03/10/2024 14:00
+        - StartsAt: 03/10/2024 20:00
+          EndsAt: 03/10/2024 22:00
+        MatchConfig:
+          ConfigId: 2ef1ae47
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: LOOTING TIME
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 29/07/2024 05:00
+          EndsAt: 29/07/2024 07:00
+        - StartsAt: 29/07/2024 12:00
+          EndsAt: 29/07/2024 14:00
+        - StartsAt: 29/07/2024 20:00
+          EndsAt: 29/07/2024 22:00
+        - StartsAt: 30/08/2024 05:00
+          EndsAt: 30/08/2024 07:00
+        - StartsAt: 30/08/2024 12:00
+          EndsAt: 30/08/2024 14:00
+        - StartsAt: 30/08/2024 20:00
+          EndsAt: 30/08/2024 22:00
+        - StartsAt: 01/10/2024 05:00
+          EndsAt: 01/10/2024 07:00
+        - StartsAt: 01/10/2024 12:00
+          EndsAt: 01/10/2024 14:00
+        - StartsAt: 01/10/2024 20:00
+          EndsAt: 01/10/2024 22:00
+        MatchConfig:
+          ConfigId: 9c154555
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: LOOTING TIME
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins in crates and airdrops; +100% BPPs for match
+              placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 17/07/2024 05:00
+          EndsAt: 17/07/2024 07:00
+        - StartsAt: 17/07/2024 12:00
+          EndsAt: 17/07/2024 14:00
+        - StartsAt: 17/07/2024 20:00
+          EndsAt: 17/07/2024 22:00
+        - StartsAt: 18/08/2024 05:00
+          EndsAt: 18/08/2024 07:00
+        - StartsAt: 18/08/2024 12:00
+          EndsAt: 18/08/2024 14:00
+        - StartsAt: 18/08/2024 20:00
+          EndsAt: 18/08/2024 22:00
+        - StartsAt: 19/09/2024 05:00
+          EndsAt: 19/09/2024 07:00
+        - StartsAt: 19/09/2024 12:00
+          EndsAt: 19/09/2024 14:00
+        - StartsAt: 19/09/2024 20:00
+          EndsAt: 19/09/2024 22:00
+        MatchConfig:
+          ConfigId: a1db4209
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: LOOTING TIME
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 10/07/2024 05:00
+          EndsAt: 10/07/2024 07:00
+        - StartsAt: 10/07/2024 12:00
+          EndsAt: 10/07/2024 14:00
+        - StartsAt: 10/07/2024 20:00
+          EndsAt: 10/07/2024 22:00
+        - StartsAt: 11/08/2024 05:00
+          EndsAt: 11/08/2024 07:00
+        - StartsAt: 11/08/2024 12:00
+          EndsAt: 11/08/2024 14:00
+        - StartsAt: 11/08/2024 20:00
+          EndsAt: 11/08/2024 22:00
+        - StartsAt: 12/09/2024 05:00
+          EndsAt: 12/09/2024 07:00
+        - StartsAt: 12/09/2024 12:00
+          EndsAt: 12/09/2024 14:00
+        - StartsAt: 12/09/2024 20:00
+          EndsAt: 12/09/2024 22:00
+        MatchConfig:
+          ConfigId: 89127fd6
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 0
+            DropRate:
+              RawValue: 52428
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 58982
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 1
+            DropRate:
+              RawValue: 13107
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: LOOTING TIME
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Rich crates
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs in crates and airdrops; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 04/08/2024 05:00
+          EndsAt: 04/08/2024 07:00
+        - StartsAt: 04/08/2024 12:00
+          EndsAt: 04/08/2024 14:00
+        - StartsAt: 04/08/2024 20:00
+          EndsAt: 04/08/2024 22:00
+        - StartsAt: 05/09/2024 05:00
+          EndsAt: 05/09/2024 07:00
+        - StartsAt: 05/09/2024 12:00
+          EndsAt: 05/09/2024 14:00
+        - StartsAt: 05/09/2024 20:00
+          EndsAt: 05/09/2024 22:00
+        - StartsAt: 07/10/2024 05:00
+          EndsAt: 07/10/2024 07:00
+        - StartsAt: 07/10/2024 12:00
+          EndsAt: 07/10/2024 14:00
+        - StartsAt: 07/10/2024 20:00
+          EndsAt: 07/10/2024 22:00
+        MatchConfig:
+          ConfigId: ba801831
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: HUNTING TIME
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 07/08/2024 05:00
+          EndsAt: 07/08/2024 07:00
+        - StartsAt: 07/08/2024 12:00
+          EndsAt: 07/08/2024 14:00
+        - StartsAt: 07/08/2024 20:00
+          EndsAt: 07/08/2024 22:00
+        - StartsAt: 08/09/2024 05:00
+          EndsAt: 08/09/2024 07:00
+        - StartsAt: 08/09/2024 12:00
+          EndsAt: 08/09/2024 14:00
+        - StartsAt: 08/09/2024 20:00
+          EndsAt: 08/09/2024 22:00
+        - StartsAt: 10/10/2024 05:00
+          EndsAt: 10/10/2024 07:00
+        - StartsAt: 10/10/2024 12:00
+          EndsAt: 10/10/2024 14:00
+        - StartsAt: 10/10/2024 20:00
+          EndsAt: 10/10/2024 22:00
+        MatchConfig:
+          ConfigId: d518d6a3
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 105
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: HUNTING TIME
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Blast Bucks and Coins for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 08/08/2024 05:00
+          EndsAt: 08/08/2024 07:00
+        - StartsAt: 08/08/2024 12:00
+          EndsAt: 08/08/2024 14:00
+        - StartsAt: 08/08/2024 20:00
+          EndsAt: 08/08/2024 22:00
+        - StartsAt: 09/09/2024 05:00
+          EndsAt: 09/09/2024 07:00
+        - StartsAt: 09/09/2024 12:00
+          EndsAt: 09/09/2024 14:00
+        - StartsAt: 09/09/2024 20:00
+          EndsAt: 09/09/2024 22:00
+        - StartsAt: 11/10/2024 05:00
+          EndsAt: 11/10/2024 07:00
+        - StartsAt: 11/10/2024 12:00
+          EndsAt: 11/10/2024 14:00
+        - StartsAt: 11/10/2024 20:00
+          EndsAt: 11/10/2024 22:00
+        MatchConfig:
+          ConfigId: 936485fb
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: HUNTING TIME
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: duos
+          OverwriteImageURL: 
+      - TimedEntry: 1
+        TimedGameModeEntries:
+        - StartsAt: 22/07/2024 05:00
+          EndsAt: 22/07/2024 07:00
+        - StartsAt: 22/07/2024 12:00
+          EndsAt: 22/07/2024 14:00
+        - StartsAt: 22/07/2024 20:00
+          EndsAt: 22/07/2024 22:00
+        - StartsAt: 23/08/2024 05:00
+          EndsAt: 23/08/2024 07:00
+        - StartsAt: 23/08/2024 12:00
+          EndsAt: 23/08/2024 14:00
+        - StartsAt: 23/08/2024 20:00
+          EndsAt: 23/08/2024 22:00
+        - StartsAt: 24/09/2024 05:00
+          EndsAt: 24/09/2024 07:00
+        - StartsAt: 24/09/2024 12:00
+          EndsAt: 24/09/2024 14:00
+        - StartsAt: 24/09/2024 20:00
+          EndsAt: 24/09/2024 22:00
+        MatchConfig:
+          ConfigId: 1f4dabb6
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 2
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 26
+            Place: 2
+            DropRate:
+              RawValue: 32768
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 26
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 26
+            Multiplier:
+              RawValue: 131072
+            CollectedInsideGame: 0
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: HUNTING TIME
+          DescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Kill-2-Earn
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: Coins and BPPs for kills; +100% BPPs for match placement
+          CardModifier: event
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: quads
+          OverwriteImageURL: 
+    - Entries:
+      - TimedEntry: 0
+        TimedGameModeEntries: []
+        MatchConfig:
+          ConfigId: a1c6f3af
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 1
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 655
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 1310
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 65
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_1
+          TimeoutTimeInSeconds: 15
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_solo_title
+            _text: 
+          DescriptionTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_solo_description
+            _text: 
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
+          CardModifier: solo
+          IconSpriteClass: sprite-shared__icon-gamemode-solo
+          ImageModifier: 
+          OverwriteImageURL: 
+    - Entries:
+      - TimedEntry: 0
+        TimedGameModeEntries: []
+        MatchConfig:
+          ConfigId: 9bf41c6a
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 2
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 655
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 1310
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 65
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_2
+          TimeoutTimeInSeconds: 25
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_duos_title
+            _text: 
+          DescriptionTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_duos_description
+            _text: 
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
+          CardModifier: duos
+          IconSpriteClass: sprite-shared__icon-gamemode-duos
+          ImageModifier: 
+          OverwriteImageURL: 
+    - Entries:
+      - TimedEntry: 0
+        TimedGameModeEntries: []
+        MatchConfig:
+          ConfigId: b273d8cb
+          GameModeID: BattleRoyale
+          MapId: 126
+          TeamSize: 4
+          Mutators: 0
+          WeaponsSelectionOverwrite: []
+          MetaItemDropOverwrites:
+          - Id: 61
+            Place: 0
+            DropRate:
+              RawValue: 655
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 61
+            Place: 1
+            DropRate:
+              RawValue: 1310
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 0
+            DropRate:
+              RawValue: 65
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          - Id: 105
+            Place: 1
+            DropRate:
+              RawValue: 6553
+            MinDropAmount: 1
+            MaxDropAmount: 1
+          RewardModifiers:
+          - Id: 61
+            Multiplier:
+              RawValue: 655360
+            CollectedInsideGame: 1
+          - Id: 105
+            Multiplier:
+              RawValue: 65536
+            CollectedInsideGame: 1
+          HasBots: 1
+          BotOverwriteDifficulty: -1
+          MaxPlayersOverwrite: 0
+          MatchType: 2
+        PlayfabQueue:
+          QueueName: battleroyale_4
+          TimeoutTimeInSeconds: 40
+        Visual:
+          TitleTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_quads_title
+            _text: 
+          DescriptionTranslationKey:
+            _useLocalization: 1
+            _localizationTerm: UITGameModeSelection/br_quads_description
+            _text: 
+          LongDescriptionTranslationKey:
+            _useLocalization: 0
+            _localizationTerm: 
+            _text: 
+          CardModifier: quads
+          IconSpriteClass: sprite-shared__icon-gamemode-squads
+          ImageModifier: 
+          OverwriteImageURL: 

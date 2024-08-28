@@ -36,16 +36,6 @@ namespace FirstLight.Game.Logic
 		string PlayerId { get; }
 		
 		/// <summary>
-		/// The URL of the player's avatar.
-		/// </summary>
-		string AvatarUrl { get; }
-
-		/// <summary>
-		/// Returns the last gamemode user has chosen
-		/// </summary>
-		GameModeRotationConfig.GameModeEntry LastGameMode { get; set; }
-
-		/// <summary>
 		/// Returns the last ranked map user has selected
 		/// </summary>
 		int LastSelectedRankedMap { get; set; }
@@ -59,12 +49,6 @@ namespace FirstLight.Game.Logic
 		/// Playfab title data thats read and setup after player logs in
 		/// </summary>
 		IReadOnlyDictionary<string, string> TitleData { get; }
-
-		/// <summary>
-		/// Sets last custom game options
-		/// </summary>
-		/// <param name="options"></param>
-		void SetLastCustomGameOptions(CustomGameOptions options);
 
 		/// <summary>
 		/// Marks the date when the game was last time reviewed
@@ -105,14 +89,6 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public CustomGameOptions LastCustomGameOptions => Data.LastCustomGameOptions;
-
-		public string AvatarUrl => Data.AvatarUrl;
-
-		public GameModeRotationConfig.GameModeEntry LastGameMode
-		{
-			get => Data.LastGameMode;
-			set => Data.LastGameMode = value;
-		}
 
 		public int LastSelectedRankedMap
 		{

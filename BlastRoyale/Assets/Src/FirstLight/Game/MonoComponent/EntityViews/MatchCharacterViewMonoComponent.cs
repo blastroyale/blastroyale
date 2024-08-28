@@ -36,7 +36,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			// TODO: Very ugly hack
 			var meleeWeapon = await InstantiateMelee();
-			var isSkydiving = frame.Get<AIBlackboardComponent>(entityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
+			var isSkydiving = frame.Get<AIBlackboardComponent>(entityView.EntityRef).GetBoolean(frame, Constants.IS_SKYDIVING);
 
 			if (isSkydiving)
 			{

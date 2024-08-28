@@ -86,7 +86,7 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public new class UxmlTraits : ImageButton.UxmlTraits
+		public new class UxmlTraits : AutoFocusTrait
 		{
 			UxmlStringAttributeDescription _localizationKeyAttribute = new()
 			{

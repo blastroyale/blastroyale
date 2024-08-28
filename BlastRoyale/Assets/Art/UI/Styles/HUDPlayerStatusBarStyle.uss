@@ -13,10 +13,10 @@
     display: none;
     align-items: stretch;
     font-size: 36px;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(23, 18, 53);
-    letter-spacing: -4px;
-    text-shadow: 2px 2px 0 rgb(23, 18, 53);
+    letter-spacing: -1px;
+    text-shadow: 3px 3px 0 rgb(23, 18, 53);
     -unity-text-align: upper-center;
     padding-left: 0;
     padding-right: 0;
@@ -82,7 +82,7 @@
 .player-status-bar__damage-number {
     position: absolute;
     color: rgb(255, 255, 255);
-    font-size: 32px;
+    font-size: 30px;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -92,7 +92,7 @@
     padding-top: 0;
     padding-bottom: 0;
     opacity: 0;
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     bottom: -51px;

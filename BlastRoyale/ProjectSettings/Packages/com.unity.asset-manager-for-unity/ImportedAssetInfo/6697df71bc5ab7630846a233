@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "a9e78860ff5c541b786b84bd7afa7481",
+            "OriginalPath": "Melee_Putter.fbx"
+        },
+        {
+            "Guid": "0342ed37f895441ddb8efc4a41ee4bb2",
+            "OriginalPath": "Icon_Melee_Putter.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71bc5ab7630846a233\\\",\\\"assetVersion\\\":\\\"84c92742-ee27-40de-b957-9896e0f17c93\\\"}\",\"data\":{\"assetId\":\"6697df71bc5ab7630846a233\",\"assetVersion\":\"84c92742-ee27-40de-b957-9896e0f17c93\",\"isFrozen\":true,\"versionNumber\":4,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":3,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:56:01.34Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:56:15.668Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Putter.png\",\"name\":\"Melee_Putter\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 1,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

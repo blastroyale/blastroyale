@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "48ae1b92043a04140ab99bf719882681",
+            "OriginalPath": "Melee_ThunderAxe.fbx"
+        },
+        {
+            "Guid": "1bc4bb1786df84c9e85278d4a9651140",
+            "OriginalPath": "Icon_Melee_ThunderAxe.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71fe649d10c55ebd9d\\\",\\\"assetVersion\\\":\\\"6b0978e3-25bf-4e26-8289-ab5d68b2a75b\\\"}\",\"data\":{\"assetId\":\"6697df71fe649d10c55ebd9d\",\"assetVersion\":\"6b0978e3-25bf-4e26-8289-ab5d68b2a75b\",\"isFrozen\":true,\"versionNumber\":5,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:48:08.176Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:48:32.172Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_ThunderAxe.png\",\"name\":\"Melee_ThunderAxe\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 2,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

@@ -125,7 +125,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeMessages()
 		{
-			_services.MessageBrokerService.Subscribe<MatchCountdownStartedMessage>(OnMatchCountdownStarted);
 			_services.MessageBrokerService.Subscribe<ApplicationPausedMessage>(OnApplicationPausedMessage);
 			_services.MessageBrokerService.Subscribe<PlayerEnteredAmbienceMessage>(OnPlayerEnteredAmbienceMessage);
 			_services.MessageBrokerService.Subscribe<PlayerLeftAmbienceMessage>(OnPlayerLeftAmbienceMessage);
@@ -156,7 +155,6 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
-			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponChanged>(this, OnPlayerWeaponChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerStartReload);
 			QuantumEvent.SubscribeManual<EventOnPlayerMagazineReloaded>(this, OnPlayerMagazineReloaded);
@@ -317,11 +315,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OnMatchCountdownStarted(MatchCountdownStartedMessage msg)
-		{
-			_services.CoroutineService.StartCoroutine(MatchCountdownCoroutine());
-		}
-
 		private void OnApplicationPausedMessage(ApplicationPausedMessage message)
 		{
 			if (message.IsPaused)
@@ -346,14 +339,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
-		}
-
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
-		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
-
-			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 		}
 
 		private void OnPlayerSkydiveDrop(EventOnPlayerSkydiveDrop callback)

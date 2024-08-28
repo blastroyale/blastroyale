@@ -33,17 +33,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 2
         - ItemConfig:
             SimpleGameId: 89
@@ -52,17 +45,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 2
         - ItemConfig:
             SimpleGameId: 110
@@ -71,17 +57,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 119
@@ -90,17 +69,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 102
@@ -109,17 +81,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 62
@@ -128,17 +93,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 2
         - ItemConfig:
             SimpleGameId: 666
@@ -147,17 +105,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 2
       CollectableChestPickupRadius:
         RawValue: 111411
@@ -178,17 +129,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 1
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 5
         - ItemConfig:
             SimpleGameId: 89
@@ -197,17 +141,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 5
         - ItemConfig:
             SimpleGameId: 110
@@ -216,17 +153,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 4
         - ItemConfig:
             SimpleGameId: 102
@@ -235,17 +165,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 4
         - ItemConfig:
             SimpleGameId: 119
@@ -254,17 +177,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 4
         - ItemConfig:
             SimpleGameId: 85
@@ -273,17 +189,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 5
         - ItemConfig:
             SimpleGameId: 666
@@ -292,17 +201,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 5
         - ItemConfig:
             SimpleGameId: 4
@@ -311,17 +213,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 4
         - ItemConfig:
             SimpleGameId: 20
@@ -330,17 +225,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 4
         - ItemConfig:
             SimpleGameId: 127
@@ -349,17 +237,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 4
       - Chance:
           RawValue: 65536
@@ -372,17 +253,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 20
@@ -391,17 +265,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 127
@@ -410,17 +277,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
       - Chance:
           RawValue: 65536
@@ -433,17 +293,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 91
@@ -452,17 +305,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 87
@@ -471,17 +317,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 68
         - ItemConfig:
             SimpleGameId: 92
@@ -490,17 +329,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 90
@@ -509,17 +341,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 93
@@ -528,17 +353,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 94
@@ -547,17 +365,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 88
@@ -566,17 +377,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 88
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 41
         - ItemConfig:
             SimpleGameId: 91
@@ -585,17 +389,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 91
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 41
         - ItemConfig:
             SimpleGameId: 87
@@ -604,17 +401,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 87
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 25
         - ItemConfig:
             SimpleGameId: 92
@@ -623,17 +413,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 92
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 41
         - ItemConfig:
             SimpleGameId: 90
@@ -642,17 +425,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 90
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 41
         - ItemConfig:
             SimpleGameId: 93
@@ -661,17 +437,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 93
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 41
         - ItemConfig:
             SimpleGameId: 94
@@ -680,63 +449,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 94
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
-          Weight: 1
-      - Chance:
-          RawValue: 47
-        Amount: 1
-        Pool:
-        - ItemConfig:
-            SimpleGameId: 61
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 0
-              Generation: 0
-              Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
-              Level: 0
-              Material: 0
-              MaxDurability: 0
-              Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
-          Weight: 1
-      - Chance:
-          RawValue: 3276
-        Amount: 1
-        Pool:
-        - ItemConfig:
-            SimpleGameId: 209
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 0
-              Generation: 0
-              Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
-              Level: 0
-              Material: 0
-              MaxDurability: 0
-              Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
       CollectableChestPickupRadius:
         RawValue: 111411
@@ -757,17 +473,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 20
@@ -776,17 +485,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 127
@@ -795,17 +497,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
       - Chance:
           RawValue: 65536
@@ -818,17 +513,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 89
@@ -837,17 +525,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 110
@@ -856,17 +537,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 3
         - ItemConfig:
             SimpleGameId: 102
@@ -875,17 +549,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 3
         - ItemConfig:
             SimpleGameId: 119
@@ -894,17 +561,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 3
         - ItemConfig:
             SimpleGameId: 85
@@ -913,17 +573,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 666
@@ -932,17 +585,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 4
@@ -951,17 +597,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 20
@@ -970,17 +609,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 127
@@ -989,17 +621,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
       - Chance:
           RawValue: 65536
@@ -1012,17 +637,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 0
         - ItemConfig:
             SimpleGameId: 91
@@ -1031,17 +649,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 0
         - ItemConfig:
             SimpleGameId: 87
@@ -1050,17 +661,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 29
         - ItemConfig:
             SimpleGameId: 92
@@ -1069,17 +673,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 0
         - ItemConfig:
             SimpleGameId: 90
@@ -1088,17 +685,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 0
         - ItemConfig:
             SimpleGameId: 93
@@ -1107,17 +697,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 0
         - ItemConfig:
             SimpleGameId: 94
@@ -1126,17 +709,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 290
         - ItemConfig:
             SimpleGameId: 88
@@ -1145,17 +721,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 88
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 10
         - ItemConfig:
             SimpleGameId: 91
@@ -1164,17 +733,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 91
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 10
         - ItemConfig:
             SimpleGameId: 87
@@ -1183,17 +745,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 87
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 145
         - ItemConfig:
             SimpleGameId: 92
@@ -1202,17 +757,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 92
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 10
         - ItemConfig:
             SimpleGameId: 90
@@ -1221,17 +769,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 90
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 10
         - ItemConfig:
             SimpleGameId: 93
@@ -1240,17 +781,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 93
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 10
         - ItemConfig:
             SimpleGameId: 94
@@ -1259,64 +793,11 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 94
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 60
-      - Chance:
-          RawValue: 194
-        Amount: 1
-        Pool:
-        - ItemConfig:
-            SimpleGameId: 61
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 0
-              Generation: 0
-              Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
-              Level: 0
-              Material: 0
-              MaxDurability: 0
-              Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
-          Weight: 1
-      - Chance:
-          RawValue: 32768
-        Amount: 2
-        Pool:
-        - ItemConfig:
-            SimpleGameId: 209
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 0
-              Generation: 0
-              Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
-              Level: 0
-              Material: 0
-              MaxDurability: 0
-              Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
-          Weight: 1
       CollectableChestPickupRadius:
         RawValue: 131072
       CollectTime:
@@ -1336,17 +817,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
       - Chance:
           RawValue: 65536
@@ -1359,17 +833,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
       - Chance:
           RawValue: 65536
@@ -1382,17 +849,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 92
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 4
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
       CollectableChestPickupRadius:
         RawValue: 111411
@@ -1413,17 +873,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 100
         - ItemConfig:
             SimpleGameId: 91
@@ -1432,17 +885,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 100
         - ItemConfig:
             SimpleGameId: 87
@@ -1451,17 +897,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 92
@@ -1470,17 +909,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 100
         - ItemConfig:
             SimpleGameId: 90
@@ -1489,17 +921,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 100
         - ItemConfig:
             SimpleGameId: 93
@@ -1508,17 +933,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 100
         - ItemConfig:
             SimpleGameId: 94
@@ -1527,17 +945,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 1
         - ItemConfig:
             SimpleGameId: 127
@@ -1546,17 +957,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 10
       CollectableChestPickupRadius:
         RawValue: 111411
@@ -1577,17 +981,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 28
         - ItemConfig:
             SimpleGameId: 4
@@ -1596,17 +993,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 72
         - ItemConfig:
             SimpleGameId: 127
@@ -1615,17 +1005,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 2
       CollectableChestPickupRadius:
         RawValue: 65536
@@ -1646,17 +1029,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 94
         - ItemConfig:
             SimpleGameId: 4
@@ -1665,17 +1041,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 3
         - ItemConfig:
             SimpleGameId: 20
@@ -1684,17 +1053,10 @@ MonoBehaviour:
               Edition: 0
               Faction: 0
               GameId: 0
-              Generation: 0
               Grade: 0
-              InitialReplicationCounter: 0
-              LastRepairTimestamp: 0
               Level: 0
               Material: 0
-              MaxDurability: 0
               Rarity: 0
-              ReplicationCounter: 0
-              TotalRestoredDurability: 0
-              Tuning: 0
           Weight: 3
       CollectableChestPickupRadius:
         RawValue: 65536

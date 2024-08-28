@@ -50,7 +50,7 @@
     text-overflow: ellipsis;
     text-shadow: 2px 2px 0 rgb(23, 18, 53);
     -unity-text-outline-color: rgb(23, 18, 53);
-    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-width: 2px;
 }
 
 .death-notification__name--killer {
@@ -76,12 +76,14 @@
 
 .death-notification__pfp {
     width: 60px;
-    -unity-background-scale-mode: scale-and-crop;
+    background-color: rgba(19, 4, 71, 0.3);
+    background-size: 150%;
+    background-position: center; 
+    
 }
 
 .death-notification__pfp--killer {
     background-image: var(--sprite-match__icon-deathnotification-killer);
-    -unity-background-scale-mode: scale-and-crop;
 }
 
 .death-notification--suicide .death-notification__pfp--killer {

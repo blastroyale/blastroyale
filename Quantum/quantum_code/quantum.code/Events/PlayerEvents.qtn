@@ -156,10 +156,10 @@ event OnEntityDamaged
 	Spell Spell;
 	UInt32 TotalDamage;
 	UInt32 ShieldDamage; 
-	Int32 PreviousShield;
+	nothashed Int32 PreviousShield;
 	Int32 MaxShield;
 	UInt32 HealthDamage;
-	Int32 PreviousHealth;
+	nothashed Int32 PreviousHealth;
 	Int32 MaxHealth;
 }
 
@@ -169,7 +169,7 @@ event OnPlayerAttackHit
 	entity_ref PlayerEntity;
 	Int32 PlayerTeamId;
 	entity_ref HitEntity;
-	FPVector3 HitPosition;
+	nothashed FPVector3 HitPosition;
 	UInt32 TotalDamage;
 	bool isShieldDmg;
 	byte SpellType;

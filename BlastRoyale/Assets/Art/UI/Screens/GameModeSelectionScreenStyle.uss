@@ -1,9 +1,7 @@
 .buttons-slider {
     flex-direction: row;
-    margin-top: auto;
     margin-bottom: auto;
     height: auto;
-    padding-left: 165px;
     top: 0;
     bottom: 0;
     position: absolute;
@@ -11,13 +9,20 @@
     right: 0;
     align-items: center;
     justify-content: space-between;
+    align-self: center;
+    margin-top: 47px;
+    padding-left: 129px;
 }
 
 .instructions {
     position: absolute;
-    bottom: 8%;
     width: 100%;
     -unity-text-align: upper-center;
+    font-size: 36px;
+    -unity-font-style: normal;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
+    bottom: 5%;
+    color: white;
 }
 
 #unity-content-viewport {
@@ -34,4 +39,18 @@
     width: 400;
     flex-grow: 1;
     right: 267px;
+}
+
+.buttons-slider .unity-scroll-view__content-container {
+    justify-content: flex-start;
+}
+
+.map-selector {
+    right: 55px;
+    position: absolute;
+    top: 28px;
+}
+
+.map-selector .unity-base-field__label {
+    margin-left: 31px;
 }

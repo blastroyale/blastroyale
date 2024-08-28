@@ -96,10 +96,10 @@ Menu.SetChecked("FLG/Local Flags/Dev QOL/Use bot behaviour", IsUseBotBehaviour);
 
 		private static bool IsDisablePauseBehaviour
 		{
-			get => FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour;
+			get => FeatureFlags.GetLocalConfiguration().DisableRunInBackground;
 			set
 			{
-				FeatureFlags.GetLocalConfiguration().DisablePauseBehaviour = value;
+				FeatureFlags.GetLocalConfiguration().DisableRunInBackground = value;
 				Debug.Log("Setting DisablePauseBehaviour to "+value);
 				FeatureFlags.SaveLocalConfig();
 			}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8031133416829682191}
   - component: {fileID: 3274073835039566590}
   - component: {fileID: 572607484}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LeaderboardAndRewardsScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,6 +67,7 @@ MonoBehaviour:
   _character: {fileID: 1362319859418750371}
   _camera: {fileID: 8278269561853960441}
   _leaderboardEntryAsset: {fileID: 9197481963319205126, guid: 6fb24398d54ea4f059d3e6f638340f5d, type: 3}
+  _playerNameTemplate: {fileID: 9197481963319205126, guid: 12f945a3724c66742a881285b2b16800, type: 3}
 --- !u!1001 &862008424895337714
 PrefabInstance:
   m_ObjectHideFlags: 0

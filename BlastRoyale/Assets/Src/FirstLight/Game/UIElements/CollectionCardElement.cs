@@ -44,11 +44,10 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
-		
-		private IGameServices _services;
+
 		public ItemData Item { get; private set; }
 		public int CollectionIndex { get; private set; }
-		
+
 		private readonly VisualElement _backgroundImage;
 		private readonly VisualElement _image;
 		private readonly Label _name;
@@ -67,8 +66,7 @@ namespace FirstLight.Game.UIElements
 		public CollectionCardElement()
 		{
 			AddToClassList(UssBlock);
-			_services = MainInstaller.ResolveServices();
-			
+
 			var selectedBg = new VisualElement {name = "selected-bg"};
 			Add(selectedBg);
 			selectedBg.AddToClassList(UssSelected);
@@ -126,7 +124,7 @@ namespace FirstLight.Game.UIElements
 				AddToClassList(UssBlockSelected);
 				if (_notification.style.display == DisplayStyle.Flex)
 				{
-					_services.RewardService.MarkAsSeen(ItemMetadataType.Collection, Item);
+					MainInstaller.ResolveServices().RewardService.MarkAsSeen(ItemMetadataType.Collection, Item);
 					SetNotificationPip(false);
 				}
 			}
@@ -157,7 +155,7 @@ namespace FirstLight.Game.UIElements
 			Item = item;
 			var view = item.GetViewModel();
 			CollectionIndex = index;
-			
+
 			if (item.Id.IsInGroup(GameIdGroup.ProfilePicture))
 			{
 				_name.text = "";
@@ -166,11 +164,11 @@ namespace FirstLight.Game.UIElements
 			{
 				_name.text = displayName;
 			}
-			
+
 			view.DrawIcon(_image);
 		}
 
-		public new class UxmlFactory : UxmlFactory<CollectionCardElement, UxmlTraits>
+		public new class UxmlFactory : UxmlFactory<CollectionCardElement, AutoFocusTrait>
 		{
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -17,9 +18,9 @@ namespace FirstLight.Game.Services.Collection
 	public interface ICollectionService
 	{
 		bool IsDefaultItem(GameId gameId);
-		
+
 		UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true);
-		UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true);
+		UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Find the cosmetic of ids present in the group, 
@@ -34,7 +35,7 @@ namespace FirstLight.Game.Services.Collection
 	interface ICollectionGroupHandler
 	{
 		bool CanHandle(ItemData item);
-		UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true);
+		UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true, CancellationToken cancellationToken = default);
 		UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true);
 	}
 
@@ -50,7 +51,6 @@ namespace FirstLight.Game.Services.Collection
 			{GameIdGroup.Footprint, GameId.FootprintDot},
 			{GameIdGroup.ProfilePicture, GameId.AvatarBrandmale},
 		};
-
 
 		private IAssetResolverService _assetResolver;
 		private IConfigsProvider _configsProvider;
@@ -80,7 +80,7 @@ namespace FirstLight.Game.Services.Collection
 		{
 			return DefaultItems.ContainsValue(gameId);
 		}
-		
+
 		public ItemData GetCosmeticForGroup(IEnumerable<GameId> cosmeticLoadout, GameIdGroup group, bool returnDefault = true)
 		{
 			if (cosmeticLoadout != null)
@@ -93,23 +93,22 @@ namespace FirstLight.Game.Services.Collection
 					}
 				}
 			}
+
 			return ItemFactory.Collection(returnDefault ? DefaultItems[group] : default);
 		}
 
-
-		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
+		public async UniTask<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true, CancellationToken cancellationToken = default)
 		{
 			foreach (var handler in _handlers)
 			{
 				if (handler.CanHandle(item))
 				{
-					return await handler.LoadCollectionItemSprite(item, instantiate);
+					return await handler.LoadCollectionItemSprite(item, instantiate, cancellationToken);
 				}
 			}
 
 			return await _assetResolver.RequestAsset<GameId, Sprite>(item.Id, true, instantiate);
 		}
-
 
 		public async UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{

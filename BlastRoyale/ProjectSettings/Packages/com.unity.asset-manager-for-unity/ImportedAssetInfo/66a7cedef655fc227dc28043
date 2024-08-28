@@ -1,0 +1,134 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "e612d6391ebee4234be4b4b9618bdc6c",
+            "OriginalPath": "Char_Midas.fbx"
+        },
+        {
+            "Guid": "dff4a052ae63a4868af5afe0c1dafe13",
+            "OriginalPath": "Icon_Char_Midas.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": ".fbx",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cedef655fc227dc28043\\\",\\\"assetVersion\\\":\\\"f197ddc5-f064-4503-bdd6-9c0cd3d46024\\\"}\",\"data\":{\"assetId\":\"66a7cedef655fc227dc28043\",\"assetVersion\":\"f197ddc5-f064-4503-bdd6-9c0cd3d46024\",\"isFrozen\":true,\"versionNumber\":2,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-07-31T17:34:33Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-31T17:34:38.819Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9iYzg1M2JlZS0yMmU2LTQwNDEtYjc3Mi02ZDA5ZDAyYjUwODkvODM1ZmY5YzNlNDYzYmQwMDlmZjY2ODU4ZDRhYWYzMDYvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-31T17:34:34Z&ske=2024-08-03T17:34:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-03T17:34:34Z&sr=b&sp=r&sig=9JRZbXBNVS0rcWQG388AZHgEH6KcW2x6z8RIdZPHV8w%3D\",\"name\":\"Char_Midas\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9iYzg1M2JlZS0yMmU2LTQwNDEtYjc3Mi02ZDA5ZDAyYjUwODkvODM1ZmY5YzNlNDYzYmQwMDlmZjY2ODU4ZDRhYWYzMDYvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-31T17:34:34Z&ske=2024-08-03T17:34:34Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-03T17:34:34Z&sr=b&sp=r&sig=9JRZbXBNVS0rcWQG388AZHgEH6KcW2x6z8RIdZPHV8w%3D",
+                    "m_SourceFiles": [
+                        {
+                            "rid": 1001
+                        },
+                        {
+                            "rid": 1002
+                        }
+                    ],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Char_Midas.fbx",
+                    "m_Available": true,
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 1063100,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Icon_Char_Midas.png",
+                    "m_Available": true,
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 190512,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1003,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cedef655fc227dc28043\\\",\\\"assetVersion\\\":\\\"f197ddc5-f064-4503-bdd6-9c0cd3d46024\\\"}\",\"data\":{\"assetId\":\"66a7cedef655fc227dc28043\",\"assetVersion\":\"f197ddc5-f064-4503-bdd6-9c0cd3d46024\",\"isFrozen\":true,\"versionNumber\":2,\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[\"Latest\"],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-07-31T17:34:33Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-31T17:34:38.819Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Midas\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1004,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cedef655fc227dc28043\\\",\\\"assetVersion\\\":\\\"8a3baf87-0f90-4e29-a302-0417ad3347f5\\\"}\",\"data\":{\"assetId\":\"66a7cedef655fc227dc28043\",\"assetVersion\":\"8a3baf87-0f90-4e29-a302-0417ad3347f5\",\"isFrozen\":true,\"versionNumber\":1,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\",\"Pending\"],\"status\":\"Draft\",\"created\":\"2024-07-29T17:18:22.174Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-29T21:06:03.671Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Midas\",\"description\":\"\",\"tags\":[],\"primaryType\":\"2D Asset\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        },
+                        {
+                            "rid": 1004
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

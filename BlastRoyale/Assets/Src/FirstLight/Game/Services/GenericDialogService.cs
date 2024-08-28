@@ -31,7 +31,6 @@ namespace FirstLight.Game.Services
 		public bool IsEmpty => ButtonOnClick.GetInvocationList().Length == 0;
 	}
 
-
 	/// <summary>
 	/// This service provides a direct reference to UI Generic dialogs to any system in the game.
 	/// This are the <see cref="GenericButtonDialogPresenter"/>, <see cref="GenericDialogVideoPresenter"/>, etc
@@ -71,6 +70,11 @@ namespace FirstLight.Game.Services
 		/// Closes the <see cref="GenericButtonDialogPresenter"/> if opened
 		/// </summary>
 		void CloseDialog();
+
+		/// <summary>
+		/// Check if there's any popup already open before calling a new one
+		/// </summary>
+		bool HasPopupOpen();
 	}
 
 	/// <inheritdoc />
@@ -130,7 +134,13 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void CloseDialog()
 		{
-			_uiService.CloseScreen(UILayer.Popup, false).Forget();
+			_uiService.CloseLayer(UILayer.Popup).Forget();
 		}
+
+		public bool HasPopupOpen()
+		{
+			return _uiService.HasUIPresenterOpenOnLayer(UILayer.Popup);
+		}
+
 	}
 }

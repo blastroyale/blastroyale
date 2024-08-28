@@ -22,7 +22,7 @@ public partial class SROptions
 	{
 		MainInstaller.ResolveServices().UIService.OpenScreen<BattlePassSeasonBannerPresenter>().Forget();
 	}
-	
+
 	[Category("Other")]
 	public void OpenButtonDialog()
 	{
@@ -44,7 +44,7 @@ public partial class SROptions
 		{
 			FLog.Warn("Close callback.");
 		}
-	}
+	} 
 
 	[Category("Other")]
 	public void OpenInputDialog()

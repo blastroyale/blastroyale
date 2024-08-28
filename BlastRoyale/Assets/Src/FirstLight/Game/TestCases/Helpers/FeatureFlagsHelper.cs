@@ -22,7 +22,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public void Subscribe()
 		{
-			Services.MessageBrokerService.Subscribe<FeatureFlagsChanged>(changed => { OverwriteFeatureFlags?.Invoke(); });
+			Services.MessageBrokerService.Subscribe<FeatureFlagsReceived>(changed => { OverwriteFeatureFlags?.Invoke(); });
 		}
 
 		public void FreshGameInstallation()

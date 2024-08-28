@@ -38,11 +38,8 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent MatchCompleteExitEvent = new StatechartEvent("Game Complete Exit Event");
 		public static readonly IStatechartEvent LeaveRoomClicked = new StatechartEvent("Leave Room Requested");
 		public static readonly IStatechartEvent MatchStateEndingEvent = new StatechartEvent("Match Flow Leaving Event");
-		public static readonly IStatechartEvent JoinedQuantumMatchmaking = new StatechartEvent("Enter Matchmaking");
-
 
 		public static readonly IStatechartEvent RoomGameStartEvent = new StatechartEvent("NETWORK - Room Game Start Event");
-		public static readonly IStatechartEvent CustomGameLoadStart = new StatechartEvent("NETWORK - Custom Game Load Start");
 
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
@@ -72,13 +69,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				statechartTrigger(RoomGameStartEvent);
 			};
-			_roomService.OnCustomGameLoadStart += () =>
-			{
-				statechartTrigger(CustomGameLoadStart);
-			};
 			_roomService.OnLocalPlayerKicked += OnLocalPlayerKicked;
 		}
-
 
 		/// <summary>
 		/// Setups the Adventure gameplay state
@@ -89,7 +81,6 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var loading = stateFactory.TaskWait("Loading Assets");
 			var openLoadingScreen = stateFactory.TaskWait("Open Pre Game Screen");
-			var openCustomGameScreen = stateFactory.TaskWait("Open CustomGame Screen");
 			var roomCheck = stateFactory.Choice("Room Check");
 			var gameLoading = stateFactory.State("Matchmaking");
 			var openHud = stateFactory.TaskWait("Open HUD");
@@ -97,7 +88,6 @@ namespace FirstLight.Game.StateMachines
 			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectCheck = stateFactory.Choice("Post Reload Check");
 			var customGameCheck = stateFactory.Choice("Custom Game Check");
-			var customGameLobby = stateFactory.State("Custom Game Lobby");
 			var gameEndedChoice = stateFactory.Choice("Game Ended Check");
 			var leaderboardsCheck = stateFactory.Choice("Tutorial Check");
 			var gameEnded = stateFactory.State("Game Ended Screen");
@@ -117,13 +107,7 @@ namespace FirstLight.Game.StateMachines
 			// Reconnection is first, because if the custom game is running we skip the custom game screen
 			customGameCheck.Transition().Condition(IsInstantLoad).Target(loading);
 			customGameCheck.Transition().Condition(IsReconnection).Target(loading);
-			customGameCheck.Transition().Condition(IsCustomGame).Target(openCustomGameScreen);
 			customGameCheck.Transition().Target(openLoadingScreen);
-
-			openCustomGameScreen.WaitingFor(OpenCustomLobbyScreen).Target(customGameLobby);
-
-			customGameLobby.Event(NetworkState.LeftRoomEvent).Target(randomLeftRoom);
-			customGameLobby.Event(CustomGameLoadStart).Target(openLoadingScreen);
 
 			openLoadingScreen.WaitingFor(OpenPreGameScreen).Target(loading);
 
@@ -201,6 +185,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				await _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
 			}
+
 			await _services.UIService.OpenScreen<HUDScreenPresenter>();
 		}
 
@@ -212,12 +197,6 @@ namespace FirstLight.Game.StateMachines
 		private bool IsReconnection()
 		{
 			return _roomService.CurrentRoom.GameStarted || _networkService.JoinSource.Value.IsSnapshotAutoConnect();
-		}
-
-
-		private bool IsCustomGame()
-		{
-			return _roomService.CurrentRoom.Properties.MatchType.Value == MatchType.Custom;
 		}
 
 		private bool IsGameStarted()
@@ -248,7 +227,10 @@ namespace FirstLight.Game.StateMachines
 
 			if (f == null) return false;
 
-			var players = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
+			// Reconnection edge case on the end of the game where the component was destroyed already
+			if (!f.Unsafe.TryGetPointerSingleton<GameContainer>(out var container)) return false;
+			
+			var players = container->PlayersData;
 
 			for (var x = 0; x < players.Length; x++)
 			{
@@ -266,7 +248,6 @@ namespace FirstLight.Game.StateMachines
 			return _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH;
 		}
 
-
 		/// <summary>
 		/// Whenever the simulation wants to fire logic commands.
 		/// This will also run on quantum server and will be sent to logic service from there.
@@ -280,21 +261,19 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			FLog.Verbose("Quantum Logic Command Received: " + ev.CommandType.ToString());
-			
+
 			_services.MessageBrokerService.Publish(new BeforeSimulationCommand()
 			{
 				Game = game,
 				Type = ev.CommandType
 			});
-			
+
 			var command = QuantumLogicCommandFactory.BuildFromEvent(ev);
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			command.FromFrame(game.Frames.Verified, new QuantumValues()
 			{
 				MatchId = room.Name,
 				ExecutingPlayer = game.GetLocalPlayers()[0],
-				MatchType = _roomService.CurrentRoom.Properties.MatchType.Value,
-				AllowedRewards = _roomService.CurrentRoom.Properties.AllowedRewards.Value
 			});
 			_services.CommandService.ExecuteCommand(command as IGameCommand);
 		}
@@ -323,7 +302,6 @@ namespace FirstLight.Game.StateMachines
 			_matchServices.FrameSnapshotService.ClearFrameSnapshot();
 		}
 
-
 		private void OnGameEnded(EventOnGameEnded callback)
 		{
 			_statechartTrigger(MatchEndedEvent);
@@ -350,7 +328,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Simulation;
 		}
-
 
 		private async UniTask LoadMatchAssets()
 		{
@@ -503,17 +480,6 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			await _services.UIService.OpenScreen<PreGameLoadingScreenPresenter>(data);
-		}
-
-		private async UniTask OpenCustomLobbyScreen()
-		{
-			var data = new CustomLobbyScreenPresenter.StateData
-			{
-				LeaveRoomClicked = () => _statechartTrigger(LeaveRoomClicked)
-			};
-			await _services.UIService.OpenScreen<CustomLobbyScreenPresenter>(data);
-			await UniTask.NextFrame(); // Custom lobby is old UI screen so let's give it a bit to initialize
-			await _services.UIService.CloseScreen<SwipeTransitionScreenPresenter>();
 		}
 
 		private void OnLocalPlayerKicked()

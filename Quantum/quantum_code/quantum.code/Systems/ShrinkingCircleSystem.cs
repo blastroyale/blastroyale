@@ -18,7 +18,15 @@ namespace Quantum.Systems
 			base.OnEnabled(f);
 
 			var circle = f.Unsafe.GetOrAddSingletonPointer<ShrinkingCircle>();
-			circle->CurrentRadius = f.Map.WorldSize / FP._2;
+			
+			if(f.Context.MapConfig.IsLegacyMap)
+			{
+				circle->CurrentRadius = f.Map.WorldSize / FP._2;
+			}
+			else
+			{
+				circle->CurrentRadius = (f.Map.WorldSize / FP._2) * FPMath.Sqrt(FP._2);
+			}
 			circle->Step = -1;
 		}
 
@@ -100,10 +108,11 @@ namespace Quantum.Systems
 
 			var fitRadius = circle->CurrentRadius - circle->TargetRadius;
 
-			var newSafeSpaceAreaSizeK = f.Context.TryGetMutatorByType(MutatorType.SafeZoneInPlayableArea, out var _)
+			var newSafeSpaceAreaSizeK = f.Context.Mutators.HasFlagFast(Mutator.SafeZoneInPlayableArea)
 											? FPMath.Clamp(config.NewSafeSpaceAreaSizeK, FP._0, FP._1)
 											: config.NewSafeSpaceAreaSizeK;
-			var radiusToPickNewCenter = FPMath.Max(0, fitRadius * newSafeSpaceAreaSizeK);
+			
+			var radiusToPickNewCenter = FPMath.Max(0, fitRadius + (circle->TargetRadius * (newSafeSpaceAreaSizeK - FP._1)));
 			var halfWorldSize = f.Map.WorldSize / FP._2;
 			
 			// We use mathematical randomization to find a potential new center

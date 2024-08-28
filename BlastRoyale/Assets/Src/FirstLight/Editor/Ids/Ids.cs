@@ -210,7 +210,7 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinCupid", 142, PlayerSkin, BotItem, Collection},
 			{"PlayerSkinPanda", 400, PlayerSkin, Collection},
 			{"PlayerSkinDragon", 402}, // placeholder ID for the future skin
-			{"PlayerSkinSnowboarder", 403, PlayerSkin, Collection},
+			{"PlayerSkinSnowboarder", 403, PlayerSkin, BotItem, Collection},
 			{"PlayerSkinDunePaul", 404, PlayerSkin, Collection},
 			{"PlayerSkinViking", 405, PlayerSkin, Collection},
 			{"PlayerSkinLeprechaun", 401, PlayerSkin, Collection},
@@ -231,6 +231,13 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinSwimmer", 217, PlayerSkin, Collection},
 			{"PlayerSkinThief", 218, PlayerSkin, Collection},
 			{"PlayerSkinVR", 219, PlayerSkin, Collection},
+			{"PlayerSkinWitch", 222, PlayerSkin, Collection},
+			{"PlayerSkinHazmat", 230, PlayerSkin, Collection},
+			{"PlayerSkinAura", 231, PlayerSkin, Collection},
+			{"PlayerSkinMidas", 234, PlayerSkin, Collection},
+			{"PlayerSkinNFL", 237, PlayerSkin, Collection},
+			{"PlayerSkinPilot", 241, PlayerSkin, Collection},
+			{"PlayerSkinSkeleton", 242, PlayerSkin, Collection},
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins
@@ -260,21 +267,21 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinCactus", 302, MeleeSkin, Collection},
 			{"MeleeSkinAtomSlicer", 303, MeleeSkin, Collection},
 			{"MeleeSkinDaggerOfDestiny", 304, MeleeSkin, Collection, BotItem},
-			{"MeleeSkinElectricSolo", 305, MeleeSkin, Collection},
+			{"MeleeSkinElectricSolo", 305, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinGigaMelee", 306, MeleeSkin, Collection},
 			{"MeleeSkinHatchet", 307, MeleeSkin, Collection},
 			{"MeleeSkinMicDrop", 308, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinMightySledge", 309, MeleeSkin, Collection},
-			{"MeleeSkinOutOfThePark", 310, MeleeSkin, Collection},
+			{"MeleeSkinOutOfThePark", 310, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinPowerPan", 311, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinPutter", 312, MeleeSkin, Collection},
 			{"MeleeSkinSirQuacks", 313, MeleeSkin, Collection},
 			{"MeleeSkinThunderAxe", 314, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinToyMelee", 315, MeleeSkin, Collection, BotItem},
-			{"MeleeSkinTvTakedown", 316, MeleeSkin, Collection},
+			{"MeleeSkinTvTakedown", 316, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinWheelOfPain", 317, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinWrench", 318, MeleeSkin, Collection},
-			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection},
+			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinBaton", 129, MeleeSkin, Collection},
 			{"MeleeSkinKatana", 206, MeleeSkin, Collection},
@@ -287,6 +294,16 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinSpatula", 227, MeleeSkin, Collection},
 			{"MeleeSkinTrophy", 228, MeleeSkin, Collection},
 			{"MeleeSkinWalkingStick", 229, MeleeSkin, Collection},
+			{"MeleeSkinBroccoli", 232, MeleeSkin, Collection},
+			{"MeleeSkinBone", 233, MeleeSkin, Collection},
+			{"MeleeSkinBroom", 235, MeleeSkin, Collection},
+			{"MeleeSkinLightsaber", 238, MeleeSkin, Collection},
+			{"MeleeSkinScythe", 239, MeleeSkin, Collection},
+			{"MeleeSkinSickle", 240, MeleeSkin, Collection},
+			{"MeleeSkinPickaxe", 243, MeleeSkin, Collection},
+			{"MeleeSkinLollipop", 244, MeleeSkin, Collection},
+			{"MeleeSkinDoctorStaff", 236, MeleeSkin, Collection},
+			// WEAPON GENERATION TOKEN KEEP THIS HERE
 			
 			#endregion
 
@@ -365,7 +382,15 @@ namespace FirstLight.Editor.Ids
 			{"AvatarVr", 518, ProfilePicture, Collection},
 			{"AvatarBall", 519, ProfilePicture, Collection},
 			{"AvatarLincoln", 520, ProfilePicture, Collection},
-
+			{"AvatarMidasfull", 521, ProfilePicture, Collection},
+			{"AvatarHazmatfull", 522, ProfilePicture, Collection},
+			{"AvatarSkeletonfull", 523, ProfilePicture, Collection},
+			{"AvatarWitchhat", 524, ProfilePicture, Collection},
+			{"AvatarPumpkin", 525, ProfilePicture, Collection},
+			{"AvatarAuraarmed", 526, ProfilePicture, Collection},
+			{"AvatarNflarmed", 527, ProfilePicture, Collection},
+			{"AvatarPilotarmed", 528, ProfilePicture, Collection},
+			{"AvatarWitch", 529, ProfilePicture, Collection},
 
 			#endregion
 

@@ -85,10 +85,7 @@ namespace FirstLight.Game.Messages
 	public struct LeftBeforeMatchFinishedMessage : IMessage
 	{
 	}
-
-	public struct MatchCountdownStartedMessage : IMessage
-	{
-	}
+	
 
 	public struct PlayerEnteredMessageVolume : IMessage
 	{

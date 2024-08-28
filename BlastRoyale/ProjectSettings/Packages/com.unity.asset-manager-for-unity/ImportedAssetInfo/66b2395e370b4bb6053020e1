@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "de2562cb4f05a4b718d8cbd6e981e6b0",
+            "OriginalPath": "Melee_Bone.fbx"
+        },
+        {
+            "Guid": "4a808c625733a4fe7afaa48ce56f060a",
+            "OriginalPath": "Icon_Melee_Bone.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66b2395e370b4bb6053020e1\\\",\\\"assetVersion\\\":\\\"37023913-dccf-431c-bf99-27c4f023ce21\\\"}\",\"data\":{\"assetId\":\"66b2395e370b4bb6053020e1\",\"assetVersion\":\"37023913-dccf-431c-bf99-27c4f023ce21\",\"isFrozen\":true,\"versionNumber\":3,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T14:21:40.361Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T14:21:57.784Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Bone.png\",\"name\":\"Melee_Bone\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

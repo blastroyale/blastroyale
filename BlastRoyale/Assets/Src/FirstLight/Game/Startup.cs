@@ -18,8 +18,10 @@ using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Sirenix.OdinInspector;
+using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
+using Unity.Services.Lobbies;
 using Unity.Services.PushNotifications;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
@@ -195,9 +197,17 @@ namespace FirstLight.Game
 
 			initOpts.SetEnvironmentName(FLEnvironment.Current.UCSEnvironmentName);
 			RemoteConfigService.Instance.SetEnvironmentID(FLEnvironment.Current.UCSEnvironmentID);
-
 			await UnityServices.InitializeAsync(initOpts).AsUniTask();
 			await Addressables.InitializeAsync().Task.AsUniTask();
+			((ILobbyServiceSDKConfiguration) LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
+			
+			
+#if UNITY_EDITOR
+			if (ParrelSync.ClonesManager.IsClone())
+			{
+				AuthenticationService.Instance.SwitchProfile("_clone_" + ParrelSync.ClonesManager.GetArgument());
+			}
+#endif
 		}
 
 		private static async UniTask InitAnalytics()

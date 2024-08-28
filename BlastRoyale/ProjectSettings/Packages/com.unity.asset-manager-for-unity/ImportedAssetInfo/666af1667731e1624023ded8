@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "50fc3f8d72f9c45708ed88224ce8ae06",
+            "Guid": "50b292170b0ce405b8f803f724e55f6f",
             "OriginalPath": "Melee_Trophy.fbx"
         },
         {
-            "Guid": "0691eaf9649104d5fa174056ffa5d02a",
+            "Guid": "98be26d40a13f4461a8b1e31328f9cb7",
             "OriginalPath": "Icon_Melee_Trophy.png"
         }
     ],
@@ -23,50 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
+                    "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af1667731e1624023ded8\\\",\\\"assetVersion\\\":\\\"7ef4afab-30e7-4088-a320-a9d2e24050ff\\\"}\",\"data\":{\"assetId\":\"666af1667731e1624023ded8\",\"assetVersion\":\"7ef4afab-30e7-4088-a320-a9d2e24050ff\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-06-13T13:31:44.576Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:31:57.486Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Trophy.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9mOGM4N2ZkMC0wZWMxLTQ0MjQtYjZhMC0xZWIyMzhkZTE2NDMvMTQ5NjA1ZThhNGFkZWI5N2VkMDM0M2U0ZGU0N2Y0NTgvSWNvbl9NZWxlZV9Ucm9waHkucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:31:53Z&ske=2024-06-16T13:31:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T13:31:53Z&sr=b&sp=r&sig=e0HcZyTDmwTB%2BA1XYzePFbCX4KVCRBKXn%2B2MYeFnrEQ%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:28.333Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:48.138Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/f8c87fd0-0ec1-4424-b6a0-1eb238de1643/109fa4605d5814558b1b16865e3da13b/Melee_Trophy.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=GdDpyLkQdgUIDc4KNnJfQDnJ0%2B6UGC02zQe6VrkP12A%3D\",\"filePath\":\"Melee_Trophy.fbx\",\"fileSize\":47036,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:43.995Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:44.188Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/22796d18-bc83-42cb-8a86-d45d2e4cc7d6/381e044690cf3d2d5a48c945d987c6bb/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=jVlOf5zMgWpE0sxutwsOoqBYG1PfIAN%2FGCZD9S%2BMtgw%3D\",\"filePath\":\"preview.glb\",\"fileSize\":30844,\"userChecksum\":\"165993393015a978c7faafa428ad7606\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:44.001Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:44.001Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/22796d18-bc83-42cb-8a86-d45d2e4cc7d6/398d44c2e61e0bbe29f7c895a6013816/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=P4%2F9qmiIIuvoin%2F9Fl5C7THY85lu%2B1IOB0ED4WCSblg%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:47.859Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:47.859Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/cead604b-dfe5-407f-b3ae-4efab3c071d5/2519cc296be5320569b702823a9cbd77/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=SSMyX1Enr%2FPdYzE2JieYgScjOk2W08SSf6Caz0FJMTI%3D\",\"filePath\":\"metadata.json\",\"fileSize\":521,\"userChecksum\":\"fc88cedc1dbde14bf4596871e9a539d3\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:18:18.839Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:19.108Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/6e1d4304-5034-4877-9525-910a44092fb3/c221d238ce776f17e3fa7d7494e8751f/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=n9gLnQnNtlCt%2Ba8awYWp7iZJiAFXo8myShnKWQdVP1I%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":107897,\"userChecksum\":\"42f3a2754d60e7fb720cb59773484df5\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:18:18.844Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:19.362Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/6e1d4304-5034-4877-9525-910a44092fb3/8e442ce10799f8bce396b1f1d22419a9/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=8y2KQ0tAOTNLTK06Iq39C2IuQIwz%2FRd2182WrNTLYzQ%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":211271,\"userChecksum\":\"04d573a772a34c049b8cb5644e077e9f\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:18:18.849Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:19.607Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/6e1d4304-5034-4877-9525-910a44092fb3/b33bc57a2f46e7ded6d1254a737fef87/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=mni6LJgi%2Bz4li3RRxfj1T7GwG%2FtgxHwQZgXW7%2FeJbpk%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":131170,\"userChecksum\":\"1af85460320ccf833c409e55b9a6ded3\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:18:18.855Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:19.855Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/6e1d4304-5034-4877-9525-910a44092fb3/cd385482de995418aef5eac78418e3eb/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:42Z&ske=2024-06-13T13:43:42Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:42Z&sr=b&sp=r&sig=wPcbOSdwFTxjX%2BwKdon0Ypa6RZ4KTAFuZVcKFO0Ud%2FI%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":187136,\"userChecksum\":\"ee8ae599e96e326c734ba35ae3af3c44\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:23:31.012Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:31:52.593Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/f8c87fd0-0ec1-4424-b6a0-1eb238de1643/149605e8a4adeb97ed0343e4de47f458/Icon_Melee_Trophy.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:33:43Z&ske=2024-06-13T13:43:43Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T13:43:43Z&sr=b&sp=r&sig=Vr8pSAs5Ley83PMWKe0Yx%2BL%2FDXOZKl1r5o2wqG38q24%3D\",\"filePath\":\"Icon_Melee_Trophy.png\",\"fileSize\":79811,\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"f8c87fd0-0ec1-4424-b6a0-1eb238de1643\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:26.789Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:23:32.78Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"edc07baf-a9a4-49ef-8be7-7d0cc8066959\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:26.795Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:31:54.098Z\",\"filesOrder\":[\"preview.glb\",\"preview_persFrontLeftTop.png\",\"preview_front.png\",\"preview_left.png\",\"preview_top.png\",\"Icon_Melee_Trophy.png\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"6e1d4304-5034-4877-9525-910a44092fb3\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:30.515Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:18:18.862Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"22796d18-bc83-42cb-8a86-d45d2e4cc7d6\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:31.2Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:44.006Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"cead604b-dfe5-407f-b3ae-4efab3c071d5\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T13:17:31.665Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T13:17:47.865Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Melee_Trophy\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"666af1667731e1624023ded8\\\",\\\"assetVersion\\\":\\\"38df5dea-2780-48c3-a497-395cef511c5f\\\"}\",\"data\":{\"assetId\":\"666af1667731e1624023ded8\",\"assetVersion\":\"38df5dea-2780-48c3-a497-395cef511c5f\",\"isFrozen\":true,\"versionNumber\":5,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-12T13:44:20.886Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-08-12T13:44:34.898Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Trophy.png\",\"name\":\"Melee_Trophy\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
                     "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9mOGM4N2ZkMC0wZWMxLTQ0MjQtYjZhMC0xZWIyMzhkZTE2NDMvMTQ5NjA1ZThhNGFkZWI5N2VkMDM0M2U0ZGU0N2Y0NTgvSWNvbl9NZWxlZV9Ucm9waHkucG5n-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T13:31:53Z&ske=2024-06-16T13:31:53Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T13:31:53Z&sr=b&sp=r&sig=e0HcZyTDmwTB%2BA1XYzePFbCX4KVCRBKXn%2B2MYeFnrEQ%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        },
-                        {
-                            "rid": 1002
-                        }
-                    ],
-                    "m_UVCSFiles": []
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Icon_Melee_Trophy.png",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 79811,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Melee_Trophy.fbx",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 47036,
-                    "m_Guid": ""
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
                 }
             }
         ]

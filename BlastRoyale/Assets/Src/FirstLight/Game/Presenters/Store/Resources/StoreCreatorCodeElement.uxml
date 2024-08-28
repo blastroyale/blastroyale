@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/StoreCreatorCodeStyle.uss?fileID=7433441132597879392&amp;guid=7f059a76af524cbc860fbe13996d5db7&amp;type=3#StoreCreatorCodeStyle" />
+    <ui:VisualElement name="CreatorCodeWidget" class="creator-code-widget">
+        <ui:VisualElement name="CreatorCodeIconContainer" class="icon-container">
+            <ui:VisualElement name="IconImage" class="icon-image" />
+        </ui:VisualElement>
+        <ui:VisualElement name="SupportCreatorContainer" class="content-container">
+            <ui:Label tabindex="-1" text="Support your favorite content creator when purchasing items by  entering their creator code!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SupportCreatorText" class="content-header-text" />
+            <ui:VisualElement name="NotSupportingContainer" class="main-content-container" style="display: flex;">
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="You are not supporting any&#10;Content Creators currently" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NotSupportingText" class="not-supporting-text main-content-text" />
+                <ui:VisualElement name="NotSupportingButtonContainer" class="button-container">
+                    <FirstLight.Game.UIElements.LocalizedButton text="ENTER CODE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EnterCodeButton" class="button-long button-long--yellow enter-code-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="SupportingContainer" class="main-content-container" style="display: none;">
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="Currently supporting:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SupportingText" class="supporting-text main-content-text" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="CreatorName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SupportingCreatorNameText" class="creator-name-text main-content-text" />
+                <ui:VisualElement name="SupportingButtonContainer" class="button-container" style="display: flex;">
+                    <FirstLight.Game.UIElements.LocalizedButton text="CHANGE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ChangeButton" class="button-long button" />
+                    <FirstLight.Game.UIElements.LocalizedButton text="STOP" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StopButton" class="button-long button-long--red button stop-supporting-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

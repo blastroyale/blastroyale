@@ -29,10 +29,11 @@
 .currency-display__label {
     -unity-text-align: middle-center;
     height: 52px;
-    font-size: 42px;
+    font-size: 36px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 6px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 6px black;
     position: absolute;
     left: 47px;
     white-space: nowrap;

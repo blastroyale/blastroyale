@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -13,7 +16,6 @@ using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using Assert = NUnit.Framework.Assert;
-
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
@@ -41,11 +43,111 @@ namespace FirstLight.Tests.EditorMode.Logic
 		private List<QuantumPlayerMatchData> _matchData;
 		private int _executingPlayer;
 
+		private GameModeRotationConfig.GameModeEntry MatchMakingModified = new ()
+		{
+			MatchConfig = new SimulationMatchConfig()
+			{
+				ConfigId = "mockedtripletrophies",
+				MatchType = MatchType.Matchmaking,
+				GameModeID = "",
+				TeamSize = 1,
+				RewardModifiers = new[]
+				{
+					new RewardModifier()
+					{
+						Id = GameId.Trophies,
+						Multiplier = FP._3
+					},
+					new RewardModifier()
+					{
+						Id = GameId.COIN,
+						Multiplier = FP._3,
+						CollectedInsideGame = true
+					}
+				}
+			}
+		};
+
+		private GameModeRotationConfig.GameModeEntry LimitedEvent = new ()
+		{
+			TimedEntry = true,
+			TimedGameModeEntries = new List<DurationConfig>()
+			{
+				new ()
+				{
+					StartsAt = "20/06/2024 12:35",
+					EndsAt = "20/06/2024 17:35"
+				}
+			},
+			MatchConfig = new SimulationMatchConfig()
+			{
+				ConfigId = "limitedevent",
+				MatchType = MatchType.Matchmaking,
+				GameModeID = "",
+				TeamSize = 1,
+				RewardModifiers = Array.Empty<RewardModifier>()
+			}
+		};
+
+		private GameModeRotationConfig.GameModeEntry MatchMakingEntry = new ()
+		{
+			MatchConfig = new SimulationMatchConfig()
+			{
+				ConfigId = "mockedmatchmaking",
+				MatchType = MatchType.Matchmaking,
+				GameModeID = "",
+				TeamSize = 1,
+				RewardModifiers = Array.Empty<RewardModifier>(),
+				MetaItemDropOverwrites = Array.Empty<MetaItemDropOverwrite>(),
+			}
+		};
+
+		private GameModeRotationConfig.GameModeEntry MatchmakingNoBPP = new ()
+		{
+			MatchConfig = new SimulationMatchConfig()
+			{
+				ConfigId = "mockedmatchmakingnobpp",
+				MatchType = MatchType.Matchmaking,
+				GameModeID = "",
+				TeamSize = 1,
+				RewardModifiers = new[]
+				{
+					new RewardModifier()
+					{
+						Id = GameId.BPP,
+						Multiplier = FP._0,
+					}
+				}
+			}
+		};
+
 		[SetUp]
 		public void Init()
 		{
 			_rewardLogic = new RewardLogic(GameLogic, DataService);
 
+			InitConfigData(new GameModeRotationConfig
+			{
+				Slots = new List<GameModeRotationConfig.SlotWrapper>()
+				{
+					new ()
+					{
+						Entries = new List<GameModeRotationConfig.GameModeEntry>() {MatchMakingEntry}
+					},
+					new ()
+					{
+						Entries = new List<GameModeRotationConfig.GameModeEntry>() {MatchMakingModified}
+					},
+					new ()
+					{
+						Entries = new List<GameModeRotationConfig.GameModeEntry>() {MatchmakingNoBPP}
+					},
+					new ()
+					{
+						Entries = new List<GameModeRotationConfig.GameModeEntry>() {LimitedEvent}
+					}
+				}
+			});
 			SetupData();
 			_rewardLogic.Init();
 		}
@@ -57,8 +159,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Matchmaking,
-				AllowedRewards = GameConstants.Data.AllowedGameRewards,
+				MatchConfig = MatchMakingEntry.MatchConfig,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
@@ -76,12 +177,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetPlayerRank(10, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
-				AllowedRewards = GameConstants.Data.AllowedGameRewards,
+				MatchConfig = MatchMakingEntry.MatchConfig,
 			}, out _);
 
 			Assert.AreEqual(2, rewards.Count);
@@ -95,12 +195,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetPlayerRank(1, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Matchmaking,
+				MatchConfig = MatchMakingEntry.MatchConfig,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
-				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
 			Assert.AreEqual(2, rewards.Count);
@@ -114,12 +213,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetPlayerRank(10, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Matchmaking,
+				MatchConfig = MatchMakingEntry.MatchConfig,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
-				GamePlayerCount = _matchData.Count,
-				AllowedRewards = GameConstants.Data.AllowedGameRewards,
+				GamePlayerCount = _matchData.Count
 			}, out _);
 
 			Assert.AreEqual(2, rewards.Count);
@@ -134,12 +232,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetupZeroResources();
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
-				AllowedRewards = GameConstants.Data.AllowedGameRewards,
+				MatchConfig = MatchMakingEntry.MatchConfig,
 			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
@@ -150,15 +247,33 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Matchmaking,
+				MatchConfig = MatchMakingEntry.MatchConfig,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = true,
 				GamePlayerCount = _matchData.Count,
-				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
+		}
+
+		[Test]
+		public void GiveMatchRewards_PlayerAfk_NoRewards()
+		{
+			SetPlayerRank(1, 10, new PlayerMatchData()
+			{
+				KilledByBeingAFK = true
+			});
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchConfig = MatchMakingEntry.MatchConfig,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = true,
+				GamePlayerCount = _matchData.Count,
+			}, out _);
+
+			Assert.AreEqual(0, rewards.Count);
 		}
 
 		[Test]
@@ -167,37 +282,179 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetPlayerRank(1, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Custom,
+				MatchConfig = new SimulationMatchConfig()
+				{
+					MatchType = MatchType.Custom,
+					GameModeID = "battleroyale",
+				},
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
-				AllowedRewards = new List<GameId>(),
 			}, out _);
 
 			Assert.AreEqual(0, rewards.Count);
 		}
 
 		[Test]
-		public void GiveMatchRewards_Casual_OnlyRewardsBPP()
+		public void GiveMatchRewards_NoBPP_Modifier()
 		{
-		
 			SetPlayerRank(1, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Matchmaking,
+				MatchConfig = MatchmakingNoBPP.MatchConfig,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
-				AllowedRewards = new List<GameId>()
-				{
-					GameId.BPP
-				},
 			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
-			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.True(rewards.All(data => data.Id != GameId.BPP));
+		}
+
+		[Test]
+		public void GiveMatchRewards_TripleTrophies_Modifier()
+		{
+			SetPlayerRank(1, 10);
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchConfig = MatchMakingModified.MatchConfig,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count,
+			}, out _);
+
+			Assert.AreEqual(2, rewards.Count);
+			Assert.AreEqual(PLACEMENT1_Trophies * 3, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
+		}
+
+		[Test]
+		public void GiveMatchRewards_Collected_Coins()
+		{
+			SetPlayerRank(1, 10);
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchConfig = MatchMakingEntry.MatchConfig,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count,
+				CollectedItems = new Dictionary<GameId, ushort>()
+				{
+					{GameId.COIN, 10}
+				}
+			}, out _);
+
+			Assert.AreEqual(3, rewards.Count);
+			Assert.AreEqual(10, rewards.Find(data => data.Id == GameId.COIN).GetMetadata<CurrencyMetadata>().Amount);
+		}
+
+		[Test]
+		public void GiveMatchRewards_Collected_Coins_Triple_Modifier()
+		{
+			SetPlayerRank(1, 10);
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchConfig = MatchMakingModified.MatchConfig,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count,
+				CollectedItems = new Dictionary<GameId, ushort>()
+				{
+					{GameId.COIN, 10}
+				}
+			}, out _);
+
+			Assert.AreEqual(3, rewards.Count);
+			Assert.AreEqual(30, rewards.Find(data => data.Id == GameId.COIN).GetMetadata<CurrencyMetadata>().Amount);
+		}
+
+		[Test]
+		public void GiveMatchRewards_Test_Compromised_MetaRewardsConfig()
+		{
+			SetPlayerRank(1, 10);
+
+			var compromisedConfig = MatchMakingEntry.MatchConfig.CloneSerializing();
+			compromisedConfig.MetaItemDropOverwrites = compromisedConfig.MetaItemDropOverwrites.Concat(
+				new[]
+				{
+					new MetaItemDropOverwrite()
+					{
+						Id = GameId.COIN,
+						Place = DropPlace.Player,
+						DropRate = FP._1,
+						MaxDropAmount = 10,
+						MinDropAmount = 10,
+					}
+				}).ToArray();
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchConfig = compromisedConfig,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count,
+				CollectedItems = new Dictionary<GameId, ushort>()
+				{
+					{GameId.COIN, 500}
+				}
+			}, out _);
+
+			Assert.AreEqual(0, rewards.Count);
+		}
+
+		[Test]
+		public void GiveMatchRewards_TestLimitedEvent_ValidTime()
+		{
+			var validTime = LimitedEvent.TimedGameModeEntries[0].GetStartsAtDateTime().AddMinutes(30);
+			var rewards = SimulateEventWithDate(validTime);
+			Assert.AreEqual(3, rewards.Count);
+			Assert.AreEqual(10, rewards.Find(data => data.Id == GameId.NOOB).GetMetadata<CurrencyMetadata>().Amount);
+		}
+
+		[Test]
+		public void GiveMatchRewards_TestLimitedEvent_InvalidTime()
+		{
+			var invalidTime = LimitedEvent.TimedGameModeEntries[0].GetStartsAtDateTime().AddMinutes(-30);
+			var rewards = SimulateEventWithDate(invalidTime);
+			Assert.AreEqual(0, rewards.Count);
+
+			invalidTime = LimitedEvent.TimedGameModeEntries[0].GetEndsAtDateTime().AddMinutes(30);
+			rewards = SimulateEventWithDate(invalidTime);
+			Assert.AreEqual(0, rewards.Count);
+		}
+
+		[Test]
+		public void GiveMatchRewards_TestLimitedEvent_Buffer()
+		{
+			var validTime = LimitedEvent.TimedGameModeEntries[0].GetStartsAtDateTime().AddMinutes(-5);
+			var rewards = SimulateEventWithDate(validTime);
+			Assert.AreEqual(3, rewards.Count);
+
+			validTime = LimitedEvent.TimedGameModeEntries[0].GetEndsAtDateTime().AddMinutes(5);
+			rewards = SimulateEventWithDate(validTime);
+			Assert.AreEqual(3, rewards.Count);
+		}
+
+		private List<ItemData> SimulateEventWithDate(DateTime date)
+		{
+			TimeService.DateTimeUtcNow.Returns(date);
+			SetPlayerRank(1, 10);
+			return _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchConfig = LimitedEvent.MatchConfig,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count,
+				CollectedItems = new Dictionary<GameId, ushort>()
+				{
+					{GameId.NOOB, 10}
+				}
+			}, out _);
 		}
 
 		[Test]
@@ -207,8 +464,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			{
 				_rewardLogic.CalculateMatchRewards(new RewardSource
 				{
-					MatchType = MatchType.Matchmaking,
-					MatchData = new List<QuantumPlayerMatchData> {new()},
+					MatchConfig = MatchMakingModified.MatchConfig,
+					MatchData = new List<QuantumPlayerMatchData> {new ()},
 					ExecutingPlayer = 0,
 					DidPlayerQuit = false,
 					GamePlayerCount = 0
@@ -237,7 +494,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			_rewardLogic.ClaimUnclaimedRewards();
 			Assert.AreEqual(0, TestData.UncollectedRewards.Count);
 		}
-		
+
 		[Test]
 		public void TestItemDataCompare()
 		{
@@ -246,7 +503,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			Assert.AreEqual(i1, i2);
 		}
-		
+
 		[Test]
 		public void TestCurrencySerialization()
 		{
@@ -275,7 +532,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			GameLogic.BattlePassLogic.GetRemainingPointsOfBp().Returns<uint>(100);
 
-			_matchData = new List<QuantumPlayerMatchData> {new()};
+			_matchData = new List<QuantumPlayerMatchData> {new ()};
 			SetPlayerRank(1, 10);
 
 			InitConfigData(new QuantumMapConfig {Map = (GameId) _matchData[_executingPlayer].MapId});
@@ -283,7 +540,13 @@ namespace FirstLight.Tests.EditorMode.Logic
 			InitConfigData(new QuantumGameConfig
 				{TrophiesPerKill = FP._1_50, TrophyEloK = 4, TrophyEloRange = 400, TrophyMinChange = FP._0_05});
 
-
+			InitConfigData(new TutorialConfig()
+			{
+				SecondMatch = new SimulationMatchConfig()
+				{
+					ConfigId = "tutorial"
+				}
+			});
 			InitConfigData(config => config.Placement,
 				new MatchRewardConfig
 				{
@@ -313,33 +576,33 @@ namespace FirstLight.Tests.EditorMode.Logic
 					}
 				});
 			InitConfigData(config => config.Placement,
-			               new TrophyRewardConfig
-			               {
-				               Placement = 1,
-				               TeamSize = 1,
-				               BracketReward = new SerializedDictionary<int, int>
-				               {
-					               {BRACKET_Trophies, PLACEMENT1_Trophies}
-				               }
-			               },
-			               new TrophyRewardConfig
-			               {
-				               Placement = 2,
-				               TeamSize = 1,
-				               BracketReward = new SerializedDictionary<int, int>
-				               {
-					               {BRACKET_Trophies, PLACEMENT2_Trophies}
-				               }
-			               },
-			               new TrophyRewardConfig
-			               {
-				               Placement = 3,
-				               TeamSize = 1,
-				               BracketReward = new SerializedDictionary<int, int>
-				               {
-					               {BRACKET_Trophies, PLACEMENT3_Trophies}
-				               }
-			               });
+				new TrophyRewardConfig
+				{
+					Placement = 1,
+					TeamSize = 1,
+					BracketReward = new SerializedDictionary<int, int>
+					{
+						{BRACKET_Trophies, PLACEMENT1_Trophies}
+					}
+				},
+				new TrophyRewardConfig
+				{
+					Placement = 2,
+					TeamSize = 1,
+					BracketReward = new SerializedDictionary<int, int>
+					{
+						{BRACKET_Trophies, PLACEMENT2_Trophies}
+					}
+				},
+				new TrophyRewardConfig
+				{
+					Placement = 3,
+					TeamSize = 1,
+					BracketReward = new SerializedDictionary<int, int>
+					{
+						{BRACKET_Trophies, PLACEMENT3_Trophies}
+					}
+				});
 		}
 
 		private void SetupZeroResources()
@@ -351,7 +614,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			ResourceLogic.GetResourcePoolInfo(GameId.BPP).Returns(resourceInfoBPP);
 		}
 
-		private void SetPlayerRank(int rank, int totalPlayers, byte collectedNfts = 1)
+		private void SetPlayerRank(int rank, int totalPlayers, PlayerMatchData data = default)
 		{
 			Debug.Assert(totalPlayers >= rank);
 			Debug.Assert(rank >= 1);
@@ -361,7 +624,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				_matchData.Add(new QuantumPlayerMatchData
 				{
 					PlayerRank = (uint) i,
-					Data = new PlayerMatchData()
+					Data = data
 				});
 				_executingPlayer = rank - 1;
 			}

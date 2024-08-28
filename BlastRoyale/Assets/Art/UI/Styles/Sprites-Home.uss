@@ -9,25 +9,36 @@
     --sprite-home__background-bundle-image: url('/Assets/Art/UI/Sprites/Home/background-bundle-image.png');
     --sprite-home__background-bundle-image-gradient: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png');
     --sprite-home__background-bundle-image-small: url('/Assets/Art/UI/Sprites/Home/background-bundle-image-small.png');
+    --sprite-home__background-creatorcode: url('/Assets/Art/UI/Sprites/Home/background-creatorcode.png');
+    --sprite-home__background-difficultygradient: url('/Assets/Art/UI/Sprites/Home/background-difficultygradient.png');
     --sprite-home__background-dots-effect: url('/Assets/Art/UI/Sprites/Home/background-dots-effect.png');
+    --sprite-home__background-dropzone-effect: url('/Assets/Art/UI/Sprites/Home/background-dropzone-effect.png');
     --sprite-home__background-friends-player: url('/Assets/Art/UI/Sprites/Home/background-friends-player.png');
     --sprite-home__background-gamemode-battleroyale-duos: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-duos.png');
     --sprite-home__background-gamemode-battleroyale-quads: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-quads.png');
     --sprite-home__background-gamemode-battleroyale-solo: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-solo.png');
     --sprite-home__background-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/background-gamemode-custom.png');
+    --sprite-home__background-game-option: url('/Assets/Art/UI/Sprites/Home/background-game-option.png');
     --sprite-home__background-inputfield: url('/Assets/Art/UI/Sprites/Home/background-inputfield.png');
     --sprite-home__background-matchmakingstatus: url('/Assets/Art/UI/Sprites/Home/background-matchmakingstatus.png');
+    --sprite-home__background-matchsettings: url('/Assets/Art/UI/Sprites/Home/background-matchsettings.png');
+    --sprite-home__background-matchsettings-gameinfo: url('/Assets/Art/UI/Sprites/Home/background-matchsettings-gameinfo.png');
+    --sprite-home__background-matchsettings-spectators: url('/Assets/Art/UI/Sprites/Home/background-matchsettings-spectators.png');
     --sprite-home__background-modeselection-casual: url('/Assets/Art/UI/Sprites/Home/background-modeselection-casual.png');
     --sprite-home__background-modeselection-comingsoon: url('/Assets/Art/UI/Sprites/Home/background-modeselection-comingsoon.png');
     --sprite-home__background-modeselection-custom: url('/Assets/Art/UI/Sprites/Home/background-modeselection-custom.png');
     --sprite-home__background-modeselection-ranked: url('/Assets/Art/UI/Sprites/Home/background-modeselection-ranked.png');
     --sprite-home__background-modetag-casual: url('/Assets/Art/UI/Sprites/Home/background-modetag-casual.png');
     --sprite-home__background-modetag-ranked: url('/Assets/Art/UI/Sprites/Home/background-modetag-ranked.png');
+    --sprite-home__background-pending-party-invite: url('/Assets/Art/UI/Sprites/Home/background-pending-party-invite.png');
     --sprite-home__background-popup-equipment: url('/Assets/Art/UI/Sprites/Home/background-popup-equipment.png');
+    --sprite-home__background-popup-generic: url('/Assets/Art/UI/Sprites/Home/background-popup-generic.png');
+    --sprite-home__background-popup-header: url('/Assets/Art/UI/Sprites/Home/background-popup-header.png');
     --sprite-home__background-price: url('/Assets/Art/UI/Sprites/Home/background-price.png');
     --sprite-home__background-price-small: url('/Assets/Art/UI/Sprites/Home/background-price-small.png');
     --sprite-home__background-profile: url('/Assets/Art/UI/Sprites/Home/background-profile.png');
     --sprite-home__background-resourcepool: url('/Assets/Art/UI/Sprites/Home/background-resourcepool.png');
+    --sprite-home__background-roundedelement: url('/Assets/Art/UI/Sprites/Home/background-roundedelement.png');
     --sprite-home__background-settings-item: url('/Assets/Art/UI/Sprites/Home/background-settings-item.png');
     --sprite-home__background-settingstab: url('/Assets/Art/UI/Sprites/Home/background-settingstab.png');
     --sprite-home__background-settingstab-chosen: url('/Assets/Art/UI/Sprites/Home/background-settingstab-chosen.png');
@@ -36,8 +47,13 @@
     --sprite-home__background-tab-friends-selected: url('/Assets/Art/UI/Sprites/Home/background-tab-friends-selected.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
+    --sprite-home__gbones-season-reward: url('/Assets/Art/UI/Sprites/Home/gbones-season-reward.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
+    --sprite-home__button-addbubble: url('/Assets/Art/UI/Sprites/Home/button-addbubble.png');
+    --sprite-home__button-add-friends: url('/Assets/Art/UI/Sprites/Home/button-add-friends.png');
+    --sprite-home__button-add-friends-disabled: url('/Assets/Art/UI/Sprites/Home/button-add-friends-disabled.png');
+    --sprite-home__button-add-friends-pressed: url('/Assets/Art/UI/Sprites/Home/button-add-friends-pressed.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
     --sprite-home__button-battlepass-claimreward: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward.png');
     --sprite-home__button-battlepass-claimreward-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward-pressed.png');
@@ -53,12 +69,15 @@
     --sprite-home__button-copy: url('/Assets/Art/UI/Sprites/Home/button-copy.png');
     --sprite-home__button-copy-pressed: url('/Assets/Art/UI/Sprites/Home/button-copy-pressed.png');
     --sprite-home__button-gamemode: url('/Assets/Art/UI/Sprites/Home/button-gamemode.png');
+    --sprite-home__button-gamemode-event: url('/Assets/Art/UI/Sprites/Home/button-gamemode-event.png');
     --sprite-home__button-gamemode-overlay-battleroyale: url('/Assets/Art/UI/Sprites/Home/button-gamemode-overlay-battleroyale.png');
     --sprite-home__button-gamemode-pressed: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed.png');
-    --sprite-home__button-gamemodeselection: url('/Assets/Art/UI/Sprites/Home/button-gamemodeselection.png');
+    --sprite-home__button-gamemode-pressed-event: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed-event.png');
+    --sprite-home__button-generic-popup-close: url('/Assets/Art/UI/Sprites/Home/button-generic-popup-close.png');
     --sprite-home__button-grey: url('/Assets/Art/UI/Sprites/Home/button-grey.png');
     --sprite-home__button-info: url('/Assets/Art/UI/Sprites/Home/button-info.png');
     --sprite-home__button-info-pressed: url('/Assets/Art/UI/Sprites/Home/button-info-pressed.png');
+    --sprite-home__button-info-round: url('/Assets/Art/UI/Sprites/Home/button-info-round.png');
     --sprite-home__button-long-darkblue: url('/Assets/Art/UI/Sprites/Home/button-long-darkblue.png');
     --sprite-home__button-long-darkblue-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-darkblue-pressed.png');
     --sprite-home__button-long-disabled: url('/Assets/Art/UI/Sprites/Home/button-long-disabled.png');
@@ -95,12 +114,26 @@
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
     --sprite-home__cloud-exclusive-reward: url('/Assets/Art/UI/Sprites/Home/cloud-exclusive-reward.png');
+    --sprite-home__cross-x-button: url('/Assets/Art/UI/Sprites/Home/cross-x-button.png');
     --sprite-home__customizable-back-part: url('/Assets/Art/UI/Sprites/Home/customizable-back-part.png');
     --sprite-home__dark-pattern-piece: url('/Assets/Art/UI/Sprites/Home/dark-pattern-piece.png');
     --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
     --sprite-home__flag-superstar: url('/Assets/Art/UI/Sprites/Home/flag-superstar.png');
     --sprite-home__flag-tombstone: url('/Assets/Art/UI/Sprites/Home/flag-tombstone.png');
     --sprite-home__flag-unicorn: url('/Assets/Art/UI/Sprites/Home/flag-unicorn.png');
+    --sprite-home__gamemode-border-glow: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-border-glow.png');
+    --sprite-home__gamemode-card-blue: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-blue.png');
+    --sprite-home__gamemode-card-purple: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-purple.png');
+    --sprite-home__gamemode-card-yellow: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-yellow.png');
+    --sprite-home__gamemode-circle-info-button: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-circle-info-button.png');
+    --sprite-home__gamemode-coming-soon: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-coming-soon.png');
+    --sprite-home__gamemode-custom-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-custom-characters.png');
+    --sprite-home__gamemode-duos-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-duos-characters.png');
+    --sprite-home__gamemode-solo-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-solo-event-characters.png');
+    --sprite-home__gamemode-duos-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-duos-event-characters.png');
+    --sprite-home__gamemode-quads-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-quads-event-characters.png');
+    --sprite-home__gamemode-quads-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-quads-characters.png');
+    --sprite-home__gamemode-solo-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-solo-characters.png');
     --sprite-home__glider-divinci: url('/Assets/Art/UI/Sprites/Home/glider-divinci.png');
     --sprite-home__glider-falcon: url('/Assets/Art/UI/Sprites/Home/glider-falcon.png');
     --sprite-home__glider-rocket: url('/Assets/Art/UI/Sprites/Home/glider-rocket.png');
@@ -133,11 +166,14 @@
     --sprite-home__icon-core-epic: url('/Assets/Art/UI/Sprites/Home/icon-core-epic.png');
     --sprite-home__icon-core-legendary: url('/Assets/Art/UI/Sprites/Home/icon-core-legendary.png');
     --sprite-home__icon-core-rare: url('/Assets/Art/UI/Sprites/Home/icon-core-rare.png');
+    --sprite-home__icon-creatorcode: url('/Assets/Art/UI/Sprites/Home/icon-creatorcode.png');
     --sprite-home__icon-crown: url('/Assets/Art/UI/Sprites/Home/icon-crown.png');
+    --sprite-home__icon-crown-2: url('/Assets/Art/UI/Sprites/Home/icon-crown-2.png');
     --sprite-home__icon-crown-ranked: url('/Assets/Art/UI/Sprites/Home/icon-crown-ranked.png');
     --sprite-home__icon-customgame: url('/Assets/Art/UI/Sprites/Home/icon-customgame.png');
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
     --sprite-home__icon-durability: url('/Assets/Art/UI/Sprites/Home/icon-durability.png');
+    --sprite-home__icon-edit: url('/Assets/Art/UI/Sprites/Home/icon-edit.png');
     --sprite-home__icon-equipment: url('/Assets/Art/UI/Sprites/Home/icon-equipment.png');
     --sprite-home__icon-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale.png');
     --sprite-home__icon-gamemode-battleroyale-shadow: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale-shadow.png');
@@ -148,14 +184,22 @@
     --sprite-home__icon-instagram: url('/Assets/Art/UI/Sprites/Home/icon-instagram.png');
     --sprite-home__icon-jetpack: url('/Assets/Art/UI/Sprites/Home/icon-jetpack.png');
     --sprite-home__icon-leaderboards: url('/Assets/Art/UI/Sprites/Home/icon-leaderboards.png');
+    --sprite-home__icon-link: url('/Assets/Art/UI/Sprites/Home/icon-link.png');
     --sprite-home__icon-mapmarker: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker.png');
+    --sprite-home__icon-mapmarker-small: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker-small.png');
     --sprite-home__icon-marketplace: url('/Assets/Art/UI/Sprites/Home/icon-marketplace.png');
+    --sprite-home__icon-match-duos: url('/Assets/Art/UI/Sprites/Home/icon-match-duos.png');
+    --sprite-home__icon-match-friend: url('/Assets/Art/UI/Sprites/Home/icon-match-friend.png');
+    --sprite-home__icon-match-quads: url('/Assets/Art/UI/Sprites/Home/icon-match-quads.png');
+    --sprite-home__icon-match-solos: url('/Assets/Art/UI/Sprites/Home/icon-match-solos.png');
     --sprite-home__icon-melee-skin: url('/Assets/Art/UI/Sprites/Home/icon-melee-skin.png');
     --sprite-home__icon-mutator-healthyair: url('/Assets/Art/UI/Sprites/Home/icon-mutator-healthyair.png');
     --sprite-home__icon-mutator-quickspecials: url('/Assets/Art/UI/Sprites/Home/icon-mutator-quickspecials.png');
     --sprite-home__icon-mutator-speedup: url('/Assets/Art/UI/Sprites/Home/icon-mutator-speedup.png');
     --sprite-home__icon-notification: url('/Assets/Art/UI/Sprites/Home/icon-notification.png');
+    --sprite-home__icon-party: url('/Assets/Art/UI/Sprites/Home/icon-party.png');
     --sprite-home__icon-player-blue: url('/Assets/Art/UI/Sprites/Home/icon-player-blue.png');
+    --sprite-home__icon-plus: url('/Assets/Art/UI/Sprites/Home/icon-plus.png');
     --sprite-home__icon-profilepicture: url('/Assets/Art/UI/Sprites/Home/icon-profilepicture.png');
     --sprite-home__icon-questionmark: url('/Assets/Art/UI/Sprites/Home/icon-questionmark.png');
     --sprite-home__icon-settings: url('/Assets/Art/UI/Sprites/Home/icon-settings.png');
@@ -265,10 +309,28 @@
     height: 254px;
 }
 
+.sprite-home__background-creatorcode {
+    background-image: var(--sprite-home__background-creatorcode);
+    width: 442px;
+    height: 676px;
+}
+
+.sprite-home__background-difficultygradient {
+    background-image: var(--sprite-home__background-difficultygradient);
+    width: 587px;
+    height: 23px;
+}
+
 .sprite-home__background-dots-effect {
     background-image: var(--sprite-home__background-dots-effect);
     width: 370px;
     height: 412px;
+}
+
+.sprite-home__background-dropzone-effect {
+    background-image: var(--sprite-home__background-dropzone-effect);
+    width: 84px;
+    height: 124px;
 }
 
 .sprite-home__background-friends-player {
@@ -301,6 +363,12 @@
     height: 461px;
 }
 
+.sprite-home__background-game-option {
+    background-image: var(--sprite-home__background-game-option);
+    width: 108px;
+    height: 109px;
+}
+
 .sprite-home__background-inputfield {
     background-image: var(--sprite-home__background-inputfield);
     width: 72px;
@@ -311,6 +379,24 @@
     background-image: var(--sprite-home__background-matchmakingstatus);
     width: 516px;
     height: 114px;
+}
+
+.sprite-home__background-matchsettings {
+    background-image: var(--sprite-home__background-matchsettings);
+    width: 360px;
+    height: 594px;
+}
+
+.sprite-home__background-matchsettings-gameinfo {
+    background-image: var(--sprite-home__background-matchsettings-gameinfo);
+    width: 230px;
+    height: 67px;
+}
+
+.sprite-home__background-matchsettings-spectators {
+    background-image: var(--sprite-home__background-matchsettings-spectators);
+    width: 244px;
+    height: 67px;
 }
 
 .sprite-home__background-modeselection-casual {
@@ -349,10 +435,28 @@
     height: 46px;
 }
 
+.sprite-home__background-pending-party-invite {
+    background-image: var(--sprite-home__background-pending-party-invite);
+    width: 380px;
+    height: 118px;
+}
+
 .sprite-home__background-popup-equipment {
     background-image: var(--sprite-home__background-popup-equipment);
     width: 76px;
     height: 76px;
+}
+
+.sprite-home__background-popup-generic {
+    background-image: var(--sprite-home__background-popup-generic);
+    width: 124px;
+    height: 124px;
+}
+
+.sprite-home__background-popup-header {
+    background-image: var(--sprite-home__background-popup-header);
+    width: 1110px;
+    height: 103px;
 }
 
 .sprite-home__background-price {
@@ -377,6 +481,12 @@
     background-image: var(--sprite-home__background-resourcepool);
     width: 428px;
     height: 102px;
+}
+
+.sprite-home__background-roundedelement {
+    background-image: var(--sprite-home__background-roundedelement);
+    width: 64px;
+    height: 66px;
 }
 
 .sprite-home__background-settings-item {
@@ -427,6 +537,12 @@
     height: 760px;
 }
 
+.sprite-home__gbones-season-reward {
+    background-image: var(--sprite-home__gbones-season-reward);
+    width: 510px;
+    height: 719px;
+}
+
 .sprite-home__banner-mapselection {
     background-image: var(--sprite-home__banner-mapselection);
     width: 932px;
@@ -437,6 +553,28 @@
     background-image: var(--sprite-home__blastroyale-logo);
     width: 1568px;
     height: 859px;
+}
+
+.sprite-home__button-addbubble {
+    background-image: var(--sprite-home__button-addbubble);
+    width: 130px;
+    height: 114px;
+}
+
+.sprite-home__button-add-friends {
+    background-image: var(--sprite-home__button-add-friends);
+    width: 70px;
+    height: 70px;
+}
+
+.sprite-home__button-add-friends-disabled {
+    background-image: var(--sprite-home__button-add-friends-disabled);
+    width: 83px;
+    height: 83px;
+}
+
+.sprite-home__button-add-friends:active {
+    background-image: var(--sprite-home__button-add-friends-pressed);
 }
 
 .sprite-home__button-battlepass {
@@ -517,6 +655,12 @@
     height: 168px;
 }
 
+.sprite-home__button-gamemode-event {
+    background-image: var(--sprite-home__button-gamemode-event);
+    width: 414px;
+    height: 168px;
+}
+
 .sprite-home__button-gamemode-overlay-battleroyale {
     background-image: var(--sprite-home__button-gamemode-overlay-battleroyale);
     width: 264px;
@@ -527,10 +671,16 @@
     background-image: var(--sprite-home__button-gamemode-pressed);
 }
 
-.sprite-home__button-gamemodeselection {
-    background-image: var(--sprite-home__button-gamemodeselection);
-    width: 494px;
-    height: 722px;
+.sprite-home__button-gamemode-pressed-event {
+    background-image: var(--sprite-home__button-gamemode-pressed-event);
+    width: 414px;
+    height: 168px;
+}
+
+.sprite-home__button-generic-popup-close {
+    background-image: var(--sprite-home__button-generic-popup-close);
+    width: 93px;
+    height: 93px;
 }
 
 .sprite-home__button-grey {
@@ -547,6 +697,12 @@
 
 .sprite-home__button-info:active {
     background-image: var(--sprite-home__button-info-pressed);
+}
+
+.sprite-home__button-info-round {
+    background-image: var(--sprite-home__button-info-round);
+    width: 67px;
+    height: 65px;
 }
 
 .sprite-home__button-long-darkblue {
@@ -739,6 +895,12 @@
     height: 236px;
 }
 
+.sprite-home__cross-x-button {
+    background-image: var(--sprite-home__cross-x-button);
+    width: 40px;
+    height: 42px;
+}
+
 .sprite-home__customizable-back-part {
     background-image: var(--sprite-home__customizable-back-part);
     width: 190px;
@@ -773,6 +935,84 @@
     background-image: var(--sprite-home__flag-unicorn);
     width: 324px;
     height: 324px;
+}
+
+.sprite-home__gamemode-border-glow {
+    background-image: var(--sprite-home__gamemode-border-glow);
+    width: 814px;
+    height: 1085px;
+}
+
+.sprite-home__gamemode-card-blue {
+    background-image: var(--sprite-home__gamemode-card-blue);
+    width: 451px;
+    height: 650px;
+}
+
+.sprite-home__gamemode-card-purple {
+    background-image: var(--sprite-home__gamemode-card-purple);
+    width: 451px;
+    height: 650px;
+}
+
+.sprite-home__gamemode-card-yellow {
+    background-image: var(--sprite-home__gamemode-card-yellow);
+    width: 451px;
+    height: 650px;
+}
+
+.sprite-home__gamemode-circle-info-button {
+    background-image: var(--sprite-home__gamemode-circle-info-button);
+    width: 67px;
+    height: 65px;
+}
+
+.sprite-home__gamemode-coming-soon {
+    background-image: var(--sprite-home__gamemode-coming-soon);
+    width: 463px;
+    height: 662px;
+}
+
+.sprite-home__gamemode-custom-characters {
+    background-image: var(--sprite-home__gamemode-custom-characters);
+    width: 448px;
+    height: 669px;
+}
+
+.sprite-home__gamemode-duos-characters {
+    background-image: var(--sprite-home__gamemode-duos-characters);
+    width: 463px;
+    height: 456px;
+}
+
+.sprite-home__gamemode-solo-event-characters {
+    background-image: var(--sprite-home__gamemode-solo-event-characters);
+    width: 448px;
+    height: 669px;
+}
+
+.sprite-home__gamemode-duos-event-characters {
+    background-image: var(--sprite-home__gamemode-duos-event-characters);
+    width: 436px;
+    height: 531px;
+}
+
+.sprite-home__gamemode-quads-event-characters {
+    background-image: var(--sprite-home__gamemode-quads-event-characters);
+    width: 448px;
+    height: 669px;
+}
+
+.sprite-home__gamemode-quads-characters {
+    background-image: var(--sprite-home__gamemode-quads-characters);
+    width: 448px;
+    height: 669px;
+}
+
+.sprite-home__gamemode-solo-characters {
+    background-image: var(--sprite-home__gamemode-solo-characters);
+    width: 297px;
+    height: 453px;
 }
 
 .sprite-home__glider-divinci {
@@ -961,10 +1201,22 @@
     height: 280px;
 }
 
+.sprite-home__icon-creatorcode {
+    background-image: var(--sprite-home__icon-creatorcode);
+    width: 179px;
+    height: 173px;
+}
+
 .sprite-home__icon-crown {
     background-image: var(--sprite-home__icon-crown);
     width: 56px;
     height: 56px;
+}
+
+.sprite-home__icon-crown-2 {
+    background-image: var(--sprite-home__icon-crown-2);
+    width: 56px;
+    height: 46px;
 }
 
 .sprite-home__icon-crown-ranked {
@@ -989,6 +1241,12 @@
     background-image: var(--sprite-home__icon-durability);
     width: 40px;
     height: 40px;
+}
+
+.sprite-home__icon-edit {
+    background-image: var(--sprite-home__icon-edit);
+    width: 49px;
+    height: 49px;
 }
 
 .sprite-home__icon-equipment {
@@ -1051,16 +1309,52 @@
     height: 85px;
 }
 
+.sprite-home__icon-link {
+    background-image: var(--sprite-home__icon-link);
+    width: 61px;
+    height: 34px;
+}
+
 .sprite-home__icon-mapmarker {
     background-image: var(--sprite-home__icon-mapmarker);
     width: 90px;
     height: 132px;
 }
 
+.sprite-home__icon-mapmarker-small {
+    background-image: var(--sprite-home__icon-mapmarker-small);
+    width: 60px;
+    height: 54px;
+}
+
 .sprite-home__icon-marketplace {
     background-image: var(--sprite-home__icon-marketplace);
     width: 128px;
     height: 85px;
+}
+
+.sprite-home__icon-match-duos {
+    background-image: var(--sprite-home__icon-match-duos);
+    width: 338px;
+    height: 413px;
+}
+
+.sprite-home__icon-match-friend {
+    background-image: var(--sprite-home__icon-match-friend);
+    width: 43px;
+    height: 43px;
+}
+
+.sprite-home__icon-match-quads {
+    background-image: var(--sprite-home__icon-match-quads);
+    width: 338px;
+    height: 413px;
+}
+
+.sprite-home__icon-match-solos {
+    background-image: var(--sprite-home__icon-match-solos);
+    width: 338px;
+    height: 413px;
 }
 
 .sprite-home__icon-melee-skin {
@@ -1093,10 +1387,22 @@
     height: 38px;
 }
 
+.sprite-home__icon-party {
+    background-image: var(--sprite-home__icon-party);
+    width: 136px;
+    height: 90px;
+}
+
 .sprite-home__icon-player-blue {
     background-image: var(--sprite-home__icon-player-blue);
     width: 549px;
     height: 599px;
+}
+
+.sprite-home__icon-plus {
+    background-image: var(--sprite-home__icon-plus);
+    width: 51px;
+    height: 50px;
 }
 
 .sprite-home__icon-profilepicture {

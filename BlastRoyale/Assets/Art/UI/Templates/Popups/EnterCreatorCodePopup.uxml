@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/Popups/EnterCreatorCodePopupStyle.uss?fileID=7433441132597879392&amp;guid=8abd392b719d4fd4d898e9e987c68026&amp;type=3#EnterCreatorCodePopupStyle" />
+    <ui:VisualElement name="Content" class="content">
+        <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITStore/content_creator_description" name="CreatorCodeInput" />
+        <FirstLight.Game.UIElements.LocalizedButton name="SupportButton" localization-key="UITStore/content_creator_support" class="button-long button-long--yellow" />
+    </ui:VisualElement>
+</ui:UXML>

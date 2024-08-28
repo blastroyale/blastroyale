@@ -1,0 +1,266 @@
+.match-lobby-item {
+    margin: 10px 0;
+}
+
+.match-list-container {
+    flex-grow: 1;
+    padding-top: 5%; 
+    padding-right: 2%;
+}
+
+.match-list-container__list {
+    flex-grow: 1;
+}
+
+/*
+ * Header item
+ */
+.match-list-container__headers {
+    width: 69%;
+    flex-direction: row;
+    padding-left: 38px;
+    padding-right: 38px;
+    margin-bottom: 20px;
+    /*background-color: black;*/
+}
+
+.match-list-container__header-item {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-align: middle-left;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+/*
+ * List Item style
+ */
+.match-lobby-item__container {
+    flex-direction: row;
+    height: 118px;
+    padding-left: 38px;
+    padding-right: 16px;
+    align-items: center;
+    background-image: var(--sprite-home__background-roundedelement);
+    -unity-background-image-tint-color: rgb(50, 41, 90);
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 16px;
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    overflow: hidden;
+}
+
+/*
+ * Info container Style
+ * Info container has all the information regarding the Match Lobby (Name, Mode, Players, Region)
+ */
+.match-lobby-item__info-container {
+    width: 70%;
+    height: 100%;
+    padding-right: 38px;
+    flex-direction: row;
+}
+
+.match-lobby-item__info-container > Label,
+.match-lobby-item__info-container > LocalizedLabel {
+    overflow: hidden;
+    -unity-text-overflow-position: end;
+    text-overflow: ellipsis;
+}
+
+/*
+ * Action container Style
+ * Action container has all the action buttons (Join, Info)
+ */
+.match-lobby-item__action-container {
+    width: 30%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.match-lobby-item__action-button {
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.match-lobby-item__info-button {
+    width: 67px;
+    height: 65px;
+    background-image: var(--sprite-home__button-info-round);
+    transition-property: scale;
+    transition-duration: 0.1s;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.match-lobby-item__info-button:active {
+    scale: 0.9 0.9;
+}
+
+.match-lobby-item__action-background {
+    position: absolute;
+    background-color: rgb(22, 20, 38);
+    right: 0;
+    width: 30%;
+    height: 330px;
+    rotate: 16deg;
+}
+
+
+
+/*
+ * Info and Header text and content alignment/size style
+ */
+.match-lobby-item__name {
+    flex-grow: 1.2;
+    -unity-text-align: middle-left;
+    width: 0;
+}
+
+.match-lobby-item__mode {
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+    width: 0;
+}
+
+.match-lobby-item__players {
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+    width: 0;
+}
+
+.match-lobby-item__region {
+    flex-grow: 0.5;
+    -unity-text-align: middle-center;
+    width: 0;
+}
+
+
+/*
+ * MatchLobbyItem Icons style
+ */
+.match-lobby-item__friend-icon {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    background-image: var(--sprite-home__icon-match-friend);
+    right: 25%;
+    top: 10%;
+}
+
+.match-lobby-item__mutators-count {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-color: rgb(255, 255, 255);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    -unity-text-outline-width: 0;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    right: 5%;
+    top: 10%;
+}
+
+
+/*
+ * Match Settings Panel and Elements style
+ */
+.match-settings .unity-scroll-view__content-container {
+    flex-grow: 1;
+}
+
+#MutatorsToggle {
+    display: none;
+}
+
+#Mutators {
+    display: none;
+}
+
+#RandomizeTeams {
+    display: none;
+}
+
+#FilterWeaponsToggle {
+    display: none;
+}
+
+#FilterWeapons {
+    display: none;
+}
+
+#AllowBotsToggle {
+    display: none;
+}
+
+#BotDifficultySlider {
+    display: none;
+}
+
+#ShowAllRegionsToggle {
+    margin-right: 20px;
+}
+
+
+
+/*
+ * General Style
+ */
+.safe-area {
+    flex-direction: row;
+    align-items: stretch;
+    padding: 3% 2%;
+}
+
+.match-list-container__loader {
+    position: absolute;
+    top: 337px;
+    scale: 2.5 2.5;
+    align-self: center;
+}
+
+.match-list-container__bottom-bar {
+    flex-direction: row;
+    margin-right: 2%;
+}
+
+.no-lobbies-label {
+    position: absolute;
+    align-self: center;
+    top: 50%;
+    font-size: 44px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-align: upper-center;
+}
+
+.unity-scroll-view__content-viewport {
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+.unity-scroller {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.unity-scroller--vertical {
+    width: 8px;
+    margin-bottom: 3%;
+}
+
+.unity-list-view__item {
+    padding: 10px 0;
+}

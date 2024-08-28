@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "1491504dd9aba41ada12463cb704db97",
+            "OriginalPath": "Melee_Cactus.fbx"
+        },
+        {
+            "Guid": "2e939c6b531784fcf8a50904698f589f",
+            "OriginalPath": "Icon_Melee_Cactus.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"6697df71df51b1c32b6b5201\\\",\\\"assetVersion\\\":\\\"335e9db6-4818-4d34-b339-e39c2c537cc8\\\"}\",\"data\":{\"assetId\":\"6697df71df51b1c32b6b5201\",\"assetVersion\":\"335e9db6-4818-4d34-b339-e39c2c537cc8\",\"isFrozen\":true,\"versionNumber\":7,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":6,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-08-07T16:11:30.76Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-08-07T16:13:12.978Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Cactus.png\",\"name\":\"Melee_Cactus\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

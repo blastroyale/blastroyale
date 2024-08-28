@@ -2,6 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/LeaderboardAndRewardsScreenStyle.uss?fileID=7433441132597879392&amp;guid=671410c7fc8b44ebebe2e36a0f17d624&amp;type=3#LeaderboardAndRewardsScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
     <ui:VisualElement name="root" class="fill-parent">
+        <ui:VisualElement name="WorldPositioning" picking-mode="Ignore" class="world-positioning-root" />
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/standings" subtitle-key="UITLeaderboards/battleroyale" name="Header" class="screen-header--no-navigation" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement name="LeaderboardPanel" picking-mode="Ignore" class="leaderboard-panel" style="display: none;">
@@ -21,37 +22,37 @@
                     <ui:VisualElement name="PinkBand" />
                     <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="trophies__gained" />
                     <ui:VisualElement name="LogoTotal" class="trophies__logo-total" />
-                    <ui:Label text="10235" display-tooltip-when-elided="true" name="Total" class="trophies__total" />
+                    <FirstLight.Game.UIElements.LabelOutlined text="10235" display-tooltip-when-elided="true" name="Total" class="trophies__total" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Fame" class="fame">
                     <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" class="fame__avatar" style="scale: 0.7 0.7;" />
-                    <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="FameTitle" class="fame__title" />
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="FameTitle" class="game-label fame__title" />
                     <ui:VisualElement name="LogoTop" class="fame__logo-top" />
                     <ui:VisualElement name="PinkBand" />
                     <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="fame__gained" style="display: none;" />
-                    <ui:Label text="&lt;size=80%&gt;TO LV&lt;/size&gt; 77" display-tooltip-when-elided="true" name="Level" class="fame__level" />
+                    <FirstLight.Game.UIElements.LabelOutlined text="&lt;size=80%&gt;TO LV&lt;/size&gt; 77" display-tooltip-when-elided="true" name="Level" class="fame__level" />
                     <ui:VisualElement name="Bar" class="fame__bar">
                         <ui:VisualElement name="YellowBar" class="fame__bar__yellow-bar" />
                         <ui:VisualElement name="GreenBar" class="fame__bar__green-bar" />
-                        <ui:Label text="60/100" display-tooltip-when-elided="true" name="Total" class="fame__bar__total" />
+                        <FirstLight.Game.UIElements.LabelOutlined text="60/100" display-tooltip-when-elided="true" name="Total" class="fame__bar__total game-label game-label--small" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="BPP" class="bpp">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/battlepass" class="bpp__title" />
                     <ui:VisualElement name="LogoTop" class="bpp__logo-top" />
                     <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="bpp__gained" />
-                    <ui:Label text="to Lv" display-tooltip-when-elided="true" name="ToLevel" class="bpp__to-level" />
-                    <ui:Label text="8" display-tooltip-when-elided="true" name="Level" class="bpp__level" />
+                    <FirstLight.Game.UIElements.LabelOutlined text="to Lv" display-tooltip-when-elided="true" name="ToLevel" class="bpp__to-level" />
+                    <FirstLight.Game.UIElements.LabelOutlined text="8" display-tooltip-when-elided="true" name="Level" class="bpp__level" />
                     <ui:VisualElement name="Bar" class="bpp__bar">
                         <ui:VisualElement name="YellowBar" class="bpp__bar__yellow-bar" style="-unity-background-image-tint-color: rgb(41, 84, 83);" />
                         <ui:VisualElement name="GreenBar" class="bpp__bar__green-bar" />
-                        <ui:Label text="60/100" display-tooltip-when-elided="true" name="Total" class="bpp__bar__total" />
+                        <FirstLight.Game.UIElements.LabelOutlined text="60/100" display-tooltip-when-elided="true" name="Total" class="bpp__bar__total game-label game-label--small" />
                     </ui:VisualElement>
                     <ui:VisualElement name="WeekInfo" class="bpp__week-info">
-                        <ui:Label text="+110 BPP IN 2H 23m" display-tooltip-when-elided="true" name="Next" class="bpp__week-info__next" />
+                        <FirstLight.Game.UIElements.LabelOutlined text="+110 BPP IN 2H 23m" display-tooltip-when-elided="true" name="Next" class="game-label game-label--small bpp__week-info__next" />
                         <ui:VisualElement name="Logo" class="bpp__week-info__logo" />
-                        <ui:Label text="50" display-tooltip-when-elided="true" name="GainedWeek" class="bpp__week-info__gained-week" />
-                        <ui:Label text="/ 100" display-tooltip-when-elided="true" name="TotalWeek" class="bpp__week-info__total-week" />
+                        <FirstLight.Game.UIElements.LabelOutlined text="50" display-tooltip-when-elided="true" name="GainedWeek" class="game-label bpp__week-info__gained-week" />
+                        <FirstLight.Game.UIElements.LabelOutlined text="/ 100" display-tooltip-when-elided="true" name="TotalWeek" class="game-label bpp__week-info__total-week" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

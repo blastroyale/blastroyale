@@ -176,16 +176,33 @@ namespace FirstLight.Game.Utils
 			}
 		}
 
+		public static bool TryGetFromName(string environment, out Definition definition)
+		{
+			if (environment == "development")
+				definition = DEVELOPMENT;
+			else if (environment == "staging")
+				definition = STAGING;
+			else if (environment == "community")
+				definition = COMMUNITY;
+			else if (environment == "production")
+				definition = PRODUCTION;
+			else
+			{
+				definition = default;
+				return false;
+			}
+
+			return true;
+		}
+
 		public static Definition FromName(string environment)
 		{
-			return environment switch
+			if (TryGetFromName(environment, out var definition))
 			{
-				"development" => DEVELOPMENT,
-				"staging"     => STAGING,
-				"community"   => COMMUNITY,
-				"production"  => PRODUCTION,
-				_             => throw new NotSupportedException("Invalid environment type")
-			};
+				return definition;
+			}
+
+			throw new NotSupportedException("Invalid environment type");
 		}
 
 		#region EditorHelpers

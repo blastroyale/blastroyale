@@ -11,19 +11,20 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class ScreenHeaderElement : VisualElement
 	{
-		private const string UssBlock = "screen-header";
+		private const string USS_BLOCK = "screen-header";
 
-		private const string UssSafeAreaHolder = UssBlock + "__safe-area-holder";
-		private const string UssDisableButtonsModifier = UssBlock + "--disable-buttons";
-		private const string UssTitle = UssBlock + "__title";
-		private const string UssSubTitle = UssBlock + "__subtitle";
-		private const string UssBack = UssBlock + "__back";
-		private const string UssSeparator = UssBlock + "__separator";
+		private const string USS_SAFE_AREA_HOLDER = USS_BLOCK + "__safe-area-holder";
+		private const string USS_DISABLE_BUTTONS_MODIFIER = USS_BLOCK + "--disable-buttons";
+		private const string USS_TITLE = USS_BLOCK + "__title";
+		private const string USS_SUB_TITLE = USS_BLOCK + "__subtitle";
+		private const string USS_BACK = USS_BLOCK + "__back";
+		private const string USS_SEPARATOR = USS_BLOCK + "__separator";
+		private const string USS_NO_BUTTON = USS_BLOCK + "__no-button";
 
 		/// <summary>
 		/// Triggered when the back button is clicked.
 		/// </summary>
-		public event Action backClicked;
+		public Action backClicked;
 
 		private string titleKey { get; set; }
 		private string subtitleKey { get; set; }
@@ -34,31 +35,31 @@ namespace FirstLight.Game.UIElements
 
 		public ScreenHeaderElement()
 		{
-			AddToClassList(UssBlock);
-			AddToClassList("anim-delay-0");
-			AddToClassList("anim-fade");
+			AddToClassList(USS_BLOCK);
+			// AddToClassList("anim-delay-0");
+			// AddToClassList("anim-fade");
 
 			// This doesn't seem to work at the moment - picking mode has to be manually set to Ignore
 			// on the Header element in UXML if you want to have interactive elements behind it.
 			pickingMode = PickingMode.Ignore;
 
 			var safeAreaContainer = new SafeAreaElement(false, false, false, true);
-			safeAreaContainer.AddToClassList(UssSafeAreaHolder);
+			safeAreaContainer.AddToClassList(USS_SAFE_AREA_HOLDER);
 			Add(safeAreaContainer);
 
 			safeAreaContainer.Add(_back = new ImageButton {name = "back"});
-			_back.AddToClassList(UssBack);
+			_back.AddToClassList(USS_BACK);
 			_back.AddToClassList(UIService.UIService.SFX_CLICK_BACKWARDS);
 			_back.clicked += () => backClicked?.Invoke();
-			
-			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});
-			_title.AddToClassList(UssTitle);
 
-			safeAreaContainer.Add(_subTitle = new Label("SUBTITLE") {name = "subtitle"});
-			_subTitle.AddToClassList(UssSubTitle);
+			safeAreaContainer.Add(_title = new LabelOutlined("Title") {name = "title"});
+			_title.AddToClassList(USS_TITLE);
+
+			safeAreaContainer.Add(_subTitle = new LabelOutlined("Subtitle") {name = "subtitle"});
+			_subTitle.AddToClassList(USS_SUB_TITLE);
 
 			var centerContent = new VisualElement {name = "separator", pickingMode = PickingMode.Ignore};
-			centerContent.AddToClassList(UssSeparator);
+			centerContent.AddToClassList(USS_SEPARATOR);
 			safeAreaContainer.Add(centerContent);
 		}
 
@@ -67,7 +68,13 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetButtonsVisibility(bool shouldShow)
 		{
-			EnableInClassList(UssDisableButtonsModifier, !shouldShow);
+			EnableInClassList(USS_DISABLE_BUTTONS_MODIFIER, !shouldShow);
+
+			if (!shouldShow)
+			{
+				_title.AddToClassList(USS_NO_BUTTON);
+				_subTitle.AddToClassList(USS_NO_BUTTON);
+			}
 		}
 
 		/// <summary>
@@ -94,12 +101,12 @@ namespace FirstLight.Game.UIElements
 				_subTitle.text = subtitle;
 			}
 		}
-
+		
 		public new class UxmlFactory : UxmlFactory<ScreenHeaderElement, UxmlTraits>
 		{
 		}
 
-		public new class UxmlTraits : ImageButton.UxmlTraits
+		public new class UxmlTraits : ImageButton.AutoFocusTrait
 		{
 			private readonly UxmlStringAttributeDescription _titleKeyAttribute = new ()
 			{

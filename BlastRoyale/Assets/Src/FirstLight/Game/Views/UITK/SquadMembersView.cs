@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -17,12 +20,11 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class SquadMembersView : UIView
 	{
-		private const int MAX_SQUAD_MEMBERS = 3;
-
 		private IMatchServices _matchServices;
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
-
+		private ICollectionService _collectionService;
+		
 		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new ();
 
 		protected override void Attached()
@@ -30,6 +32,7 @@ namespace FirstLight.Game.Views.UITK
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.ResolveServices();
 			_dataProvider = MainInstaller.ResolveData();
+			_collectionService = _services.CollectionService;
 			Element.Clear(); // Clears development-time child elements.
 		}
 
@@ -37,8 +40,8 @@ namespace FirstLight.Game.Views.UITK
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
-			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
+			QuantumEvent.SubscribeManual<EventOnHealthChangedPredicted>(this, OnHealthChanged);
+			QuantumEvent.SubscribeManual<EventOnShieldChangedPredicted>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
 			QuantumEvent.SubscribeManual<EventOnTeamAssigned>(this, OnTeamAssigned);
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(this, OnPlayerKnockedOut);
@@ -97,18 +100,18 @@ namespace FirstLight.Game.Views.UITK
 		}
 
 
-		private void OnHealthChanged(EventOnHealthChanged callback)
+		private void OnHealthChanged(EventOnHealthChangedPredicted callback)
 		{
 			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
 
-			squadMember.UpdateHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
+			squadMember.UpdateHealth(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
 
-		private void OnShieldChanged(EventOnShieldChanged callback)
+		private void OnShieldChanged(EventOnShieldChangedPredicted callback)
 		{
 			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
 
-			squadMember.UpdateShield(callback.PreviousShield, callback.CurrentShield, callback.CurrentShieldCapacity);
+			squadMember.UpdateShield(callback.PreviousValue, callback.CurrentValue, callback.CurrentMax);
 		}
 
 		private void OnEntityDamaged(EventOnEntityDamaged callback)
@@ -118,7 +121,7 @@ namespace FirstLight.Game.Views.UITK
 			squadMember.PingDamage();
 		}
 
-		private void RecheckSquadMembers(Frame f)
+		private unsafe void RecheckSquadMembers(Frame f)
 		{
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 
@@ -128,7 +131,7 @@ namespace FirstLight.Game.Views.UITK
 			var index = 0;
 			foreach (var (e, pc) in f.GetComponentIterator<PlayerCharacter>())
 			{
-				if (_squadMembers.Count >= MAX_SQUAD_MEMBERS) break;
+				if (_squadMembers.Count >= GameConstants.Data.MAX_SQUAD_MEMBERS) break;
 
 				if (pc.TeamId == spectatedPlayer.Team && spectatedPlayer.Entity != e)
 				{
@@ -157,8 +160,12 @@ namespace FirstLight.Game.Views.UITK
 						: _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked,
 							(int) f.GetPlayerData(pc.Player).LeaderboardRank);
 
-					squadMember.SetPlayer(pc.Player, playerName, 0,
-						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl, playerNameColor);
+					var cosmetics = f.ResolveList(f.Get<CosmeticsHolder>(e).Cosmetics);
+					 _collectionService.LoadCollectionItemSprite(_collectionService.GetCosmeticForGroup(cosmetics, GameIdGroup.PlayerSkin))
+									   .ContinueWith(loadedAvatar => squadMember.SetPlayer(pc.Player, playerName, loadedAvatar, playerNameColor));
+					
+					 squadMember.SetPlayer(pc.Player, playerName, null, playerNameColor);
+					
 					if (f.TryGet<Stats>(e, out var stats))
 					{
 						var maxHealth = FPMath.RoundToInt(stats.GetStatData(StatType.Health).StatValue);

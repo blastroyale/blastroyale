@@ -1,0 +1,282 @@
+.match-settings {
+    width: 708px;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+#GameInfo:disabled {
+    opacity: 1;
+}
+
+.match-settings__left-bg {
+    flex-grow: 1;
+    background-image: var(--sprite-home__background-matchsettings);
+}
+
+.match-settings__right-bg {
+    flex-grow: 1;
+    background-image: var(--sprite-home__background-matchsettings);
+    scale: -1 1;
+}
+
+.match-settings__title {
+    position: absolute;
+    font-size: 55px;
+    color: rgb(255, 255, 255);
+    top: 42px;
+    left: 158px;
+    right: 158px;
+    -unity-text-align: upper-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    visibility: hidden;
+}
+
+.match-settings__map-button {
+    margin-right: 16px;
+}
+
+.match-settings__max-players {
+    flex-grow: 1;
+}
+
+.match-settings .unity-scroll-view__content-container {
+    padding-right: 16px;
+}
+
+.match-settings__horizontal-holder {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.horizontal-scroll-picker {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    transition-property: height;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+.horizontal-scroll-picker--hidden {
+    height: 0;
+}
+
+.horizontal-scroll-picker__top-container {
+    height: 100px;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.horizontal-scroll-picker__label {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.horizontal-scroll-picker__container {
+    background-color: rgb(23, 20, 38);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    height: 87px;
+}
+
+.horizontal-scroll-picker .unity-scroll-view__content-container {
+    padding-right: 0;
+    padding-top: 0;
+}
+
+.horizontal-scroll-picker .unity-scroll-view__content-and-vertical-scroll-container{
+    
+}
+
+.horizontal-scroll-picker__container LocalizedLabel {
+    background-color: rgb(255, 255, 255);
+    font-size: 32px;
+    height: 60px;
+    -unity-text-align: middle-center;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 16px;
+    -unity-text-outline-width: 0;
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    color: rgb(0, 0, 0);
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 0;
+}
+
+.horizontal-scroll-picker__add-button {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    background-image: var(--sprite-home__button-addbubble);
+    width: 115px;
+    height: 100px;
+    right: 0;
+    bottom: 0;
+}
+
+.horizontal-scroll-picker__add-button:disabled {
+    display: none;
+}
+
+.horizontal-scroll-picker__add-button:active {
+    scale: 0.9 0.9;
+}
+
+#ModeButton > .match-settings-button__edit-icon {
+    display: none;
+}
+
+.match-settings__action-button {
+    align-self: center;
+}
+
+.match-settings__scrollview {
+    flex-grow: 1;
+}
+
+.unity-tab-button--gameinfo {
+    width: 230px;
+    height: 67px;
+    background-image: var(--sprite-home__background-matchsettings-gameinfo);
+    right: -5px;
+}
+
+.unity-tab-button--spectators {
+    width: 244px;
+    height: 67px;
+    background-image: var(--sprite-home__background-matchsettings-spectators);
+    left: -5px;
+}
+
+.unity-tabbed-view__tabs-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px;
+}
+
+.unity-tabbed-view__content-container {
+    flex-grow: 1;
+    margin-top: 53px;
+    margin-left: 45px;
+    margin-right: 43px;
+    margin-bottom: 45px;
+}
+
+.unity-tab-button {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    justify-content: center;
+    -unity-background-image-tint-color: rgb(22, 20, 38);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 4 rgb(0, 0, 0);
+    transition-property: scale;
+    transition-duration: 0.1s;
+}
+
+.unity-tab-button--active {
+    -unity-background-image-tint-color: rgb(46, 71, 125);
+}
+
+.bots-slider {
+    margin-top: 15px;
+}
+
+.bots-slider--hidden {
+    display: none;
+}
+
+.bots-slider .unity-base-slider__drag-container {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.bots-slider .unity-base-slider__dragger {
+    width: 46px;
+    height: 33px;
+    top: 23px;
+    background-color: rgb(132, 117, 166);
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    border-bottom-right-radius: 11px;
+    border-bottom-left-radius: 11px;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-left-color: rgb(22, 20, 38);
+    border-right-color: rgb(22, 20, 38);
+    border-top-color: rgb(22, 20, 38);
+    border-bottom-color: rgb(22, 20, 38);
+}
+
+.bots-slider > .unity-slider-int__label {
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    margin-bottom: 12px;
+}
+
+.bots-slider .unity-base-slider__tracker {
+    background-image: var(--sprite-home__background-difficultygradient);
+    background-color: initial;
+    height: 16px;
+    top: 22px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.bots-slider > .unity-slider-int__input {
+    height: 54px;
+    border-radius: 10px;
+    background-color: rgb(22, 20, 38);
+}
+
+.spoctators-container {
+    flex-grow: 1;
+    margin-bottom: 40px;
+}
+
+.spectators-scroll-view {
+    flex-grow: 1;
+}
+.spectators-scroll-view .unity-scroll-view__content-viewport{
+    overflow: hidden;
+}
+
+
+.match-settings-button--margin {
+    margin-right: 20px;
+}

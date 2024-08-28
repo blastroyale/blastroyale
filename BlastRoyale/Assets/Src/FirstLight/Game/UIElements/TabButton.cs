@@ -20,8 +20,8 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlStringAttributeDescription m_Target = new UxmlStringAttributeDescription
 				{name = "target"};
-			
-			private readonly UxmlStringAttributeDescription _localizationKeyAttribute = new()
+
+			private readonly UxmlStringAttributeDescription _localizationKeyAttribute = new ()
 			{
 				name = "localization-key",
 				use = UxmlAttributeDescription.Use.Required
@@ -62,7 +62,7 @@ namespace FirstLight.Game.UIElements
 			m_Label.text = text;
 			Target = target;
 		}
-		
+
 		public void LocalizeLabel(string labelKey)
 		{
 			localizationKey = labelKey;
@@ -101,16 +101,16 @@ namespace FirstLight.Game.UIElements
 			// visualTree.CloneTree(this);
 
 			// m_Label = this.Q<Label>("Label");
-			
+
 			var topBar = new VisualElement();
 			Add(topBar);
 			topBar.AddToClassList("unity-tab-button__top-bar");
-			
+
 			var content = new VisualElement();
 			Add(content);
 			content.AddToClassList("unity-tab-button__content");
-			
-			m_Label = new Label {name = "Label"};
+
+			m_Label = new LabelOutlined("Text") {name = "Label"};
 			content.Add(m_Label);
 			m_Label.AddToClassList("unity-tab-button__content-label");
 

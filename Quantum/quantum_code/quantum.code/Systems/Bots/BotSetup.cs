@@ -87,7 +87,7 @@ namespace Quantum.Systems.Bots
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),
 				NavMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id),
 				PlayersByTeam = TeamSystem.GetPlayersByTeam(f),
-				TotalTeamsInGameMode = (uint)f.PlayerCount / (uint)f.GetTeamSize()
+				TotalTeamsInGameMode = (uint)f.PlayerCount / f.GetTeamSize()
 			};
 			AddBotTeams(ctx);
 			return ctx;
@@ -394,7 +394,7 @@ namespace Quantum.Systems.Bots
 				return @override;
 			}
 
-			var maxPlayers = frame.RuntimeConfig.TeamSize;
+			var maxPlayers = frame.RuntimeConfig.MatchConfigs.TeamSize;
 			foreach (var kv in playerByTeam)
 			{
 				if (kv.Value.Count < maxPlayers)
@@ -557,13 +557,13 @@ namespace Quantum.Systems.Bots
 				botGamemodeKey = f.Context.GameModeConfig.Id;
 			}
 
-			if (f.RuntimeConfig.BotOverwriteDifficulty != -1)
+			if (f.RuntimeConfig.MatchConfigs.BotOverwriteDifficulty != -1)
 			{
 				BotLogger.LogAction(EntityRef.None,
-					"Using config difficulty " + f.RuntimeConfig.BotOverwriteDifficulty);
+					"Using config difficulty " + f.RuntimeConfig.MatchConfigs.BotOverwriteDifficulty);
 				var configs = f.BotConfigs.QuantumConfigs;
 				return configs.Where(config =>
-						config.Difficulty == f.RuntimeConfig.BotOverwriteDifficulty &&
+						config.Difficulty == f.RuntimeConfig.MatchConfigs.BotOverwriteDifficulty &&
 						config.GameMode == botGamemodeKey)
 					.ToList();
 			}

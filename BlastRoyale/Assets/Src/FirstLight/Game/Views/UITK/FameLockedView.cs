@@ -39,6 +39,14 @@ namespace FirstLight.Game.Views.UITK
 			{
 				ib.clicked += OnClick;
 			}
+			else if (Element is LocalizedButton lb)
+			{
+				lb.clicked += OnClick;
+			}
+			else if (Element is AngledContainerElement angled)
+			{
+				angled.clicked += OnClick;
+			}
 			else if (Element is Button b)
 			{
 				b.clicked += OnClick;
@@ -56,19 +64,10 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnClick()
 		{
-
-			var dir = TipDirection.TopLeft;
-			var pos = TooltipPosition.BottomRight;
-			if (Element.GetPositionOnScreen(_root).x > (Screen.width / 2))
-			{
-				dir = TipDirection.TopRight;
-				pos = TooltipPosition.BottomLeft;
-			}
 			if (_locked)
 			{
 				// Tooltip
-				Element.OpenTooltip(_root, $"You need to reach level <color=#f8c72e>{_requiredLevel}</color> to unlock this.",
-					position: pos, direction: dir);
+				Element.OpenTooltip(_root, $"You need to reach level <color=#f8c72e>{_requiredLevel}</color> to unlock this.");
 			}
 			else
 			{
@@ -92,18 +91,18 @@ namespace FirstLight.Game.Views.UITK
 		private void OnFameUpdated(uint _, uint level)
 		{
 			_currentLevel = level;
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			if (FeatureFlags.GetLocalConfiguration().UnlockAllFameStuff)
 			{
 				_currentLevel = 99;
 			}
-			#endif
+#endif
 			UpdateLock(true);
 		}
 
 		private void UpdateLock(bool animate)
 		{
-			var locked = FeatureFlags.SYSTEM_LOCKS ?  _currentLevel < _requiredLevel : false;
+			var locked = FeatureFlags.SYSTEM_LOCKS ? _currentLevel < _requiredLevel : false;
 			EnableLock(locked, animate);
 		}
 

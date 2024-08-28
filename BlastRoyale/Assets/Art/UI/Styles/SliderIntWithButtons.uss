@@ -1,44 +1,79 @@
+.slider-with-buttons {
+    flex-direction: row;
+    align-items: center;
+    padding: 30px;
+    background-color: #161426;
+    border-radius: 30px;
+    height: 436px;
+}
+
 .slider-with-buttons__button {
     width: 120px;
     height: 120px;
-    background-color: #F5F5F5;
     border-radius: 27%;
-    border-color: #8475A6;
+    border-color: rgb(132, 117, 166);
     border-width: 1.65px;
-    background-image: var(--sprite-home__pattern-dots-rotated);
+    background-image: var(--sprite-home__background-friends-player);
+    -unity-background-image-tint-color: #302c58;
     background-size: 400px;
     background-position-x: -200px;
     background-position-y: -120px;
-    -unity-background-image-tint-color: rgba(132, 117, 166, 0.1);
+    font-size: 66px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-align: middle-center;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: scale-and-crop;
 }
 
 .slider-with-buttons__button__label {
     font-size: 96px;
-    color: #4A4868;
+    color: rgb(74, 72, 104);
 }
 
 .slider-with-buttons .unity-base-slider__input {
-    background-color: #F5F5F5;
     height: 120px;
     margin-left: 10px;
     margin-right: 10px;
     border-radius: 27px;
     border-width: 1px;
-    border-color: #8475A6;
+    border-color: rgb(132, 117, 166);
     justify-content: center;
     padding-left: 20px;
     padding-right: 20px;
-
+    background-image: var(--sprite-home__background-friends-player);
+    -unity-background-image-tint-color: #302c58;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 0;
+    padding-bottom: 5px;
+    flex-direction: row;
+    align-items: center;
 }
 
 .slider-with-buttons .unity-base-slider__tracker {
     height: 32px;
-    top: 50px;
     border-radius: 15px;
     border-width: 2.7px;
-    border-color: #C1CBF4;
+    border-color: rgb(193, 203, 244);
     background-color: rgba(102, 102, 102, 0);
     overflow: hidden;
+    position: relative;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .slider-with-buttons .unity-base-slider__input:hover .unity-base-slider__tracker:hover {
@@ -54,8 +89,8 @@
 }
 
 .slider-with-buttons__gradient {
-    --gradient-from: rgba(216, 75, 121, 0.37);
-    --gradient-to: rgba(96, 136, 250, 0.36);
+    --gradient-from: rgb(60, 138, 255);
+    --gradient-to: rgb(60, 138, 255);
     height: 100%;
 }
 
@@ -71,40 +106,39 @@
     padding-left: 25px;
     padding-right: 25px;
     justify-content: center;
-
 }
 
 .slider-with-buttons__dragger__tooltip__label {
     font-size: 48px;
-    color: #312F54;
+    -unity-text-align: middle-center;
+    color: rgb(49, 47, 84);
 }
 
-.slider-with-buttons .unity-base-slider__input:focus .unity-base-slider__dragger {
-    background-color: #F8C72E;
-    border-color: #B0510C;
-}
-
+.slider-with-buttons .unity-base-slider__input:hover .unity-base-slider__dragger,
+.slider-with-buttons .unity-base-slider__input:focus .unity-base-slider__dragger,
 .slider-with-buttons .unity-base-slider__input:active .unity-base-slider__dragger {
-    background-color: #F8C72E;
-    border-color: #B0510C;
-}
-
-.slider-with-buttons .unity-base-slider__input:hover .unity-base-slider__dragger {
-    background-color: #F8C72E;
-    border-color: #B0510C;
+    background-color: rgb(248, 199, 46);
+    border-color: rgb(176, 81, 12);
 }
 
 .slider-with-buttons .unity-base-slider__dragger {
     width: 64px;
     height: 44px;
-    top: 52px;
-    background-color: #F8C72E;
+    background-color: rgb(248, 199, 46);
     border-radius: 10px;
-    border-color: #B0510C;
+    border-color: rgb(176, 81, 12);
     border-width: 3px;
     background-image: var(--sprite-home__pattern-dots-rotated);
     background-size: 200px;
     background-position-x: -50px;
     background-position-y: -20px;
     -unity-background-image-tint-color: rgba(132, 117, 166, 0.1);
+    left: 0;
+    top: -5px;
+    right: 0;
+    bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }

@@ -66,7 +66,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 #pragma warning disable CS0612 // Type or member is obsolete
 			BuildingVisibility = new ();
 #pragma warning restore CS0612 // Type or member is obsolete
-			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
+			QuantumEvent.Subscribe<EventOnHealthChangedPredicted>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -136,15 +136,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_characterView.PrintFootsteps = active;
 		}
 
-		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
+		private void HandleOnHealthChanged(EventOnHealthChangedPredicted evnt)
 		{
-			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
+			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousValue <= evnt.CurrentValue)
 			{
 				return;
 			}
 
 			// Do not trigger hit when player is knockedout
-			if (!ReviveSystem.IsKnockedOut(evnt.Game.Frames.Verified, evnt.Entity))
+			if (!ReviveSystem.IsKnockedOut(evnt.Game.Frames.Predicted, evnt.Entity))
 			{
 				_skin.TriggerHit();
 			}
@@ -175,7 +175,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			get
 			{
 				var f = QuantumRunner.Default.PredictedFrame();
-				return f.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(f, Constants.IsSkydiving);
+				return f.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(f, Constants.IS_SKYDIVING);
 			}
 		}
 
@@ -556,7 +556,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 
 			var isMoving = sqrSpeed > (ReviveSystem.IsKnockedOut(f, EntityRef) ? KNOCKED_OUT_SPEED_THRESHOLD_SQUARED : SPEED_THRESHOLD_SQUARED);
-			var isAiming = bb->GetBoolean(f, Constants.IsAimPressedKey) && !knockedOut;
+			var isAiming = bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY) && !knockedOut;
 
 			_skin.Moving = isMoving;
 			_characterView.PrintFootsteps = isMoving && !knockedOut;

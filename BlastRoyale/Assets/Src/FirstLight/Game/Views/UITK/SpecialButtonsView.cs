@@ -99,6 +99,7 @@ namespace FirstLight.Game.Views.UITK
 		public void UpdateFromLatestVerifiedFrame(EntityRef entityRef)
 		{
 			var f = QuantumRunner.Default.Game.Frames.Verified;
+			if (!f.Exists(entityRef)) return;
 			var inventory = f.Get<PlayerInventory>(entityRef);
 			UpdateSpecials(f, inventory, ReviveSystem.IsKnockedOut(f, entityRef));
 		}
@@ -142,7 +143,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateSpecials(Frame f, PlayerInventory inventory, bool forceHide = false)
 		{
-			if (f.Context.TryGetMutatorByType(MutatorType.DoNotDropSpecials, out _) || forceHide)
+			if (f.Context.Mutators.HasFlagFast(Mutator.DoNotDropSpecials) || forceHide)
 			{
 				_special0Button.SetVisibility(false);
 				_special1Button.SetVisibility(false);

@@ -24,7 +24,7 @@ namespace FirstLight.Game.Services
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
-			msgBroker.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpen);
+			msgBroker.Subscribe<MainMenuLoadedMessage>(OnMainMenuOpen);
 			msgBroker.Subscribe<NewBattlePassSeasonMessage>(OnViewBanner);
 			msgBroker.Subscribe<OnViewingRewardsFinished>(OnFinishedViewingRewards);
 		}
@@ -39,7 +39,7 @@ namespace FirstLight.Game.Services
 			CheckDisplayBanner();
 		}
 
-		private void OnMainMenuOpen(MainMenuOpenedMessage msg)
+		private void OnMainMenuOpen(MainMenuLoadedMessage msg)
 		{
 			CheckDisplayBanner();
 		}

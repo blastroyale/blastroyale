@@ -187,7 +187,7 @@
     left: 3px;
     width: 107px;
     -unity-background-image-tint-color: rgb(214, 74, 123);
-    background-image: url('project://database/Assets/Art/UI/Vectors/LeaderbordProfileMask.svg?fileID=7388822144124034973&guid=69441292e424642e182fedc73dd14e6b&type=3#LeaderbordProfileMask');
+    background-image: url("project://database/Assets/Art/UI/Vectors/LeaderbordProfileMask.svg?fileID=7388822144124034973&guid=69441292e424642e182fedc73dd14e6b&type=3#LeaderbordProfileMask");
     overflow: hidden;
     top: 3px;
     bottom: 3px;
@@ -236,4 +236,28 @@
     height: 80px;
     left: -2px;
     bottom: -6px;
+}
+
+.add-friend-button {
+    width: 72px;
+    height: 60px;
+    --border-radius: 0;
+    --border-width: 4;
+    --border-color: #100e1d;
+    --fill-color: #151526;
+    --right-angle: 12;
+    --left-angle: 12;
+    --inverted: true;
+    align-self: center;
+    margin-right: 10px;
+}
+
+.add-friend-button__dots {
+    font-size: 48px;
+    width: 100%;
+    height: 100%;
+    color: #645da0;
+    letter-spacing: 8px;
+    -unity-text-align: middle-center;
+    padding-bottom: 24px;
 }

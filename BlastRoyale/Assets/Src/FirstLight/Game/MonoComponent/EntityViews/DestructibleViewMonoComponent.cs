@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -14,6 +15,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int _dieHash = Animator.StringToHash("die");
 		private static readonly int _onfireHash = Animator.StringToHash("onfire");
 		private static readonly int _hitHash = Animator.StringToHash("hit");
+
+		public ParticleSystem DestroyEffect;
+		public AudioId DestroyAudio;
 		
 		[SerializeField, Required] private Animator _animator;
 
@@ -30,16 +34,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (frame.TryGet<Destructible>(EntityView.EntityRef, out var destructible) && destructible.IsDestructing)
 			{
 				var lifetime = destructible.TimeToDestroy - frame.Time;
-
 				StartDestruction(lifetime.AsFloat, destructible.SplashRadius.AsFloat);
 			}
 			
-			//EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
+			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 		}
 
 		private void OnEntityDestroyed(QuantumGame game)
 		{
-			//transform.parent = null;
+			if (QuantumRunner.Default.IsDefinedAndRunning())
+			{
+				transform.parent = null; // breaks reconnection as it de-couples view with entity
+			}
 		}
 
 		private void HandleProjectileHit(EventOnPlayerAttackHit callback)
@@ -68,6 +74,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_animator.SetTrigger(_onfireHash);
 			QuantumEvent.UnsubscribeListener(this);
+
+			if (DestroyEffect != null)
+			{
+				DestroyEffect.Play();
+			}
+
+			if (DestroyAudio != AudioId.None)
+			{
+				MainInstaller.ResolveServices().AudioFxService.PlayClip2D(DestroyAudio);
+			}
 			
 			await Task.Delay((int) (lifetime * 1000));
 

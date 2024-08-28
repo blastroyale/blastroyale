@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
@@ -14,7 +14,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Photon.Realtime;
@@ -33,28 +32,29 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class PreGameLoadingScreenPresenter : UIPresenterData<PreGameLoadingScreenPresenter.StateData>
 	{
+		private const string USS_MAP_MARKER_LEFT = "map-marker--left";
+		private const string USS_TEAM_MEMBER_MARKER = "map-marker-party";
+		
 		private const int TIMER_PADDING_MS = 2000;
-		private const int DISABLE_LEAVE_AFTER = 3;
+		private const int MOVE_LOCATION_LEFT = -375;
 
 		public class StateData
 		{
 			public Action LeaveRoomClicked;
 		}
 
+		private VisualElement _teamMembersList;
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
 		private VisualElement _mapMarker;
 		private VisualElement _mapImage;
 		private VisualElement _squadContainer;
-		private VisualElement _partyMarkers;
+		private InGamePlayerAvatar[] _partyMarkers;
 		private Label _squadLabel;
-		private ListView _squadMembersList;
 		private Label _mapMarkerTitle;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
 		private ScreenHeaderElement _header;
-		private Label _modeDescTopLabel;
-		private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
 		private Label _debugMasterClient;
 		private IGameServices _services;
@@ -66,9 +66,10 @@ namespace FirstLight.Game.Presenters
 		private bool _matchStarting;
 
 		private List<Player> _squadMembers = new ();
-
 		private MapAreaConfig _mapAreaConfig;
 		private Vector2 _markerLocalPosition;
+		private Dictionary<int, CancellationTokenSource> _popMarkerAnimations = new ();
+
 
 		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
@@ -86,6 +87,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
+			var size = GameConstants.Data.MAX_SQUAD_MEMBERS + 1;
+
 			_mapHolder = Root.Q("Map").Required();
 			_mapImage = Root.Q("MapImage").Required();
 			_mapMarker = Root.Q("MapMarker").Required();
@@ -94,21 +97,27 @@ namespace FirstLight.Game.Presenters
 			_loadStatusLabel = Root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = Root.Q<Label>("LocationLabel").Required();
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
-			_modeDescTopLabel = Root.Q<Label>("ModeDescTop").Required();
-			_modeDescBotLabel = Root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = Root.Q<Label>("DebugPlayerCount").Required();
 			_debugMasterClient = Root.Q<Label>("DebugMasterClient").Required();
 			_squadContainer = Root.Q("SquadContainer").Required();
-			_squadMembersList = Root.Q<ListView>("SquadList").Required();
-			_partyMarkers = Root.Q("PartyMarkers").Required();
+			_teamMembersList = Root.Q<VisualElement>("TeamMembersList").Required();
+			_teamMembersList.Clear();
+			var partyMarkersContainer = Root.Q<VisualElement>("PartyMarkers");
+			_header.SetSubtitle("");
+			_header.SetButtonsVisibility(false);
 
-			_squadMembersList.DisableScrollbars();
-			_squadMembersList.makeItem = CreateSquadListEntry;
-			_squadMembersList.bindItem = BindSquadListEntry;
-
-			_header.backClicked += OnCloseClicked;
+			partyMarkersContainer.Clear();
+			_partyMarkers = new InGamePlayerAvatar[size - 1];
+			for (var i = 0; i < size - 1; i++)
+			{
+				_partyMarkers[i] = new InGamePlayerAvatar()
+				{
+					visible = false
+				};
+				_partyMarkers[i].AddToClassList(USS_TEAM_MEMBER_MARKER);
+				partyMarkersContainer.Add(_partyMarkers[i]);
+			}
 		}
-
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
@@ -135,7 +144,6 @@ namespace FirstLight.Game.Presenters
 			_services.RoomService.OnMasterChanged -= UpdateMasterClient;
 			_services.RoomService.OnPlayerPropertiesUpdated -= OnPlayerPropertiesUpdate;
 
-
 			return base.OnScreenClose();
 		}
 
@@ -143,65 +151,106 @@ namespace FirstLight.Game.Presenters
 		{
 			var isSquadGame = CurrentRoom.IsTeamGame;
 
-			if (isSquadGame)
+			if (isSquadGame && !MainInstaller.ResolveServices().RoomService.IsLocalPlayerSpectator)
 			{
 				var teamId = _services.TeamService.GetTeamForPlayer(CurrentRoom.LocalPlayer);
 
-				_squadContainer.SetDisplay(true);
 				_squadMembers = CurrentRoom.Players.Values
 					.Where(p => _services.TeamService.GetTeamForPlayer(p) == teamId)
 					.ToList();
-
-				_squadMembersList.itemsSource = _squadMembers;
-				_squadMembersList.RefreshItems();
-
 				RefreshPartyMarkers();
+
+				while (_squadMembers.Count > _teamMembersList.childCount)
+				{
+					var el = new PlayerMemberElement();
+					_teamMembersList.Add(el);
+				}
+
+				while (_teamMembersList.childCount > _squadMembers.Count)
+				{
+					var last = _teamMembersList[_teamMembersList.childCount - 1];
+					_teamMembersList.Remove(last);
+				}
+
+				for (var i = 0; i < _squadMembers.Count; i++)
+				{
+					BindTeamMember(_squadMembers[i], (PlayerMemberElement) _teamMembersList[i]);
+				}
 			}
+
 			else
 			{
 				_squadContainer.SetDisplay(false);
 				_squadMembers.Clear();
-				_partyMarkers.Clear();
 			}
 		}
 
+		private void BindTeamMember(Player player, PlayerMemberElement element)
+		{
+			var nameColor = _services.TeamService.GetTeamMemberColor(player);
+
+			element.SetData(player.NickName, nameColor ?? Color.white);
+
+			var loadout = CurrentRoom.GetPlayerProperties(player).Loadout;
+
+			_services.CollectionService.LoadCollectionItemSprite(
+				_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(),
+					GameIdGroup.PlayerSkin)).ContinueWith(element.SetPfpImage);
+		}
+		
 		private void RefreshPartyMarkers()
 		{
-			_partyMarkers.Clear();
+			var isSquadGame = CurrentRoom.IsTeamGame;
 
-			foreach (var squadMember in _squadMembers)
+			if (!isSquadGame)
 			{
-				if (squadMember.IsLocal) continue;
+				return;
+			}
+
+			foreach (var partyMarker in _partyMarkers)
+			{
+				partyMarker.visible = false;
+			}
+
+			var players = _squadMembers.Where(p => !p.IsLocal).ToList();
+
+			for (var i = 0; i < players.Count(); i++)
+			{
+				var squadMember = players[i];
+				
+				var partyMarker = _partyMarkers[i];
+				partyMarker.visible = true;
 
 				var memberDropPosition = CurrentRoom.GetPlayerProperties(squadMember).DropPosition.Value;
-				var marker = new VisualElement {name = "marker"};
-				marker.AddToClassList("map-marker-party");
+				var loadout = CurrentRoom.GetPlayerProperties(squadMember).Loadout;
 				var nameColor = _services.TeamService.GetTeamMemberColor(squadMember);
-				marker.style.backgroundColor = nameColor ?? Color.white;
+				partyMarker.SetTeamColor(nameColor);
+				_services.CollectionService.LoadCollectionItemSprite(
+					_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(),
+						GameIdGroup.PlayerSkin)).ContinueWith(partyMarker.SetSprite);
+
 				var mapWidth = _mapImage.contentRect.width;
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
 
-				_partyMarkers.Add(marker);
-				marker.transform.position = markerPos;
+				var oldPos = partyMarker.transform.position;
+				partyMarker.transform.position = markerPos;
+				var oldVec = new Vector2(oldPos.x, oldPos.y);
+				if (Vector2.Distance(oldVec, markerPos) > 150)
+				{
+					if (_popMarkerAnimations.TryGetValue(i, out var source))
+					{
+						source.Cancel();
+					}
+
+					var src = CancellationTokenSource.CreateLinkedTokenSource(GetCancellationTokenOnClose());
+					_popMarkerAnimations[i] = src;
+					UniTask.Void(async cc =>
+					{
+						await UniTask.Delay(666, cancellationToken: cc);
+						partyMarker.AnimatePing(1.3f, 150);
+					}, src.Token);
+				}
 			}
-		}
-
-		private void BindSquadListEntry(VisualElement element, int index)
-		{
-			if (index < 0 || index >= _squadMembers.Count) return;
-
-			var nameColor = _services.TeamService.GetTeamMemberColor(_squadMembers[index]);
-
-
-			((Label) element).text = _squadMembers[index].NickName;
-			((Label) element).style.color = nameColor ?? Color.white;
-		}
-
-		private VisualElement CreateSquadListEntry()
-		{
-			var label = new Label();
-			label.AddToClassList("squad-member");
-			return label;
 		}
 
 		/// <summary>
@@ -229,7 +278,16 @@ namespace FirstLight.Game.Presenters
 			{
 				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 				_mapImage.style.backgroundImage = new StyleBackground(sprite);
-				_mapAreaConfig = _services.ConfigsProvider.GetConfig<MapAreaConfigs>().GetMapAreaConfig(mapConfig.Map);
+				var halfWidth = Screen.width / 2;
+
+				if (halfWidth >= Screen.height)
+				{
+					_mapHolder.style.width = _mapImage.worldBound.height;
+				}
+				else
+				{
+					_mapHolder.style.height = _mapImage.worldBound.width;
+				}
 			}
 			else
 			{
@@ -252,19 +310,14 @@ namespace FirstLight.Game.Presenters
 			// the geometry changed event fires constantly.
 			_mapHolder.UnregisterCallback<GeometryChangedEvent>(InitMap);
 
-			var matchType = CurrentRoom.Properties.MatchType.Value;
+			var simulationConfig = CurrentRoom.Properties.SimulationMatchConfig.Value;
 			var gameModeConfig = CurrentRoom.GameModeConfig;
 			var mapConfig = CurrentRoom.MapConfig;
-			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
 
+			_mapAreaConfig = _services.ConfigsProvider.GetConfig<MapAreaConfigs>().GetMapAreaConfig(mapConfig.Map);
 			_locationLabel.text = mapConfig.Map.GetLocalization();
-			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, CurrentRoom.Properties.TeamSize.Value),
-				matchType.GetLocalization().ToUpper());
-
-			_modeDescTopLabel.text = modeDesc[0];
-			_modeDescBotLabel.text = modeDesc[1];
-			_header.SetButtonsVisibility(!_services.TutorialService.IsTutorialRunning);
-
+			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, simulationConfig.TeamSize));
+			
 			UpdatePlayerCount();
 			UpdateMasterClient();
 			StartLabelTimerCoroutine();
@@ -287,7 +340,6 @@ namespace FirstLight.Game.Presenters
 
 			await LoadMapAsset(mapConfig);
 			InitSkydiveSpawnMapData();
-			RefreshPartyList();
 		}
 
 		private void InitSkydiveSpawnMapData()
@@ -299,6 +351,7 @@ namespace FirstLight.Game.Presenters
 				posX = 0.5f;
 				posY = 0.5f;
 			}
+
 			SelectDropZone(posX, posY);
 
 			// This weird register is just a slight performance improvement that prevents a closure allocation
@@ -363,6 +416,8 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_markerLocalPosition = new Vector3(localPos.x - mapWidthHalf, localPos.y - mapHeightHalf, 0);
+			FLog.Verbose("Map local position " + _markerLocalPosition);
+			_mapMarker.EnableInClassList(USS_MAP_MARKER_LEFT, _markerLocalPosition.y < MOVE_LOCATION_LEFT);
 			_mapMarker.transform.position = _markerLocalPosition;
 
 			return true;
@@ -393,9 +448,15 @@ namespace FirstLight.Game.Presenters
 			_services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value = quantumSelectPos;
 		}
 
-		private void OnPlayersChanged(Player p, PlayerChangeReason r)
+		private void OnPlayersChanged(Player player, PlayerChangeReason reason)
 		{
 			UpdatePlayerCount();
+
+			if (!CurrentRoom.IsTeamGame)
+			{
+				return;
+			}
+
 			RefreshPartyList();
 		}
 
@@ -405,8 +466,6 @@ namespace FirstLight.Game.Presenters
 			{
 				_services.CoroutineService.StopCoroutine(_gameStartTimerCoroutine);
 			}
-
-			_header.SetButtonsVisibility(false);
 
 			_loadStatusLabel.text = RejoiningRoom
 				? "Reconnecting to Game!"
@@ -467,11 +526,7 @@ namespace FirstLight.Game.Presenters
 				}
 
 				var timeLeft = CurrentRoom.TimeLeftToGameStart().Add(TimeSpan.FromMilliseconds(-TIMER_PADDING_MS));
-				if (timeLeft.Seconds <= DISABLE_LEAVE_AFTER)
-				{
-					_header.SetButtonsVisibility(false);
-					_services.GenericDialogService.CloseDialog();
-				}
+				
 
 				if (timeLeft.Milliseconds < 0)
 				{
@@ -492,37 +547,9 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-
-		private string[] GetGameModeDescriptions(GameCompletionStrategy strategy)
-		{
-			var descriptions = new string[2];
-			descriptions[0] = strategy.GetLocalization();
-			descriptions[1] = ScriptLocalization.UITMatchmaking.wins_the_match;
-
-			return descriptions;
-		}
-
-
 		public void OnPlayerPropertiesUpdate()
 		{
-			RefreshPartyList();
-		}
-
-		private void OnCloseClicked()
-		{
-			var desc = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.Yes,
-				ButtonOnClick = () =>
-				{
-					_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
-					Data.LeaveRoomClicked();
-				}
-			};
-
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true,
-				confirmButton);
+			RefreshPartyMarkers();
 		}
 	}
 }

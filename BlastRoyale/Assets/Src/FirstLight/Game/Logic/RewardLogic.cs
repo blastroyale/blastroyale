@@ -40,24 +40,14 @@ namespace FirstLight.Game.Logic
 		public int ExecutingPlayer { get; set; }
 
 		/// <summary>
-		/// Reflects the type of the given match
+		/// Simulation match config
 		/// </summary>
-		public MatchType MatchType { get; set; }
-
-		/// <summary>
-		/// Allowed rewards for this match
-		/// </summary>
-		public List<GameId> AllowedRewards { get; set; }
+		public SimulationMatchConfig MatchConfig { get; set; }
 
 		/// <summary>
 		/// Items the player collected during the match
 		/// </summary>
 		public Dictionary<GameId, ushort> CollectedItems { get; set; }
-
-		/// <summary>
-		/// Team size of the match the player played
-		/// </summary>
-		public uint TeamSize { get; set; }
 	}
 
 	/// <summary>
@@ -122,7 +112,6 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		void RewardToUnclaimedRewards(IEnumerable<ItemData> items);
 
-
 		/// <summary>
 		/// Generates ItemData of all given configs.
 		/// Those configs represents a "chest like" structure containing rules on how to generate items.
@@ -133,6 +122,8 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IRewardLogic"/>
 	public class RewardLogic : AbstractBaseLogic<PlayerData>, IRewardLogic, IGameLogicInitializer
 	{
+		public const int EXTRA_GAME_MODE_CHECK_MINUTES = 20;
+
 		private IObservableList<ItemData> _unclaimedRewards;
 
 		public IObservableListReader<ItemData> UnclaimedRewards => _unclaimedRewards;
@@ -154,24 +145,91 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards.InvokeUpdate();
 		}
 
+		public static int GetModifiedReward(int currentValue, GameId id, SimulationMatchConfig config, bool CollectedInGame)
+		{
+			var mod = config.RewardModifiers.FirstOrDefault(m => m.Id == id && m.CollectedInsideGame == CollectedInGame);
+			var mp = mod == null ? 1 : mod.Multiplier.AsDouble;
+			return (int) Math.Floor(currentValue * mp);
+		}
+
+		private bool IsDebug(SimulationMatchConfig matchConfig)
+		{
+			// This is checked on quantum plugin, rooms are not allowed to be created with this config
+			return matchConfig.ConfigId?.Contains("debug-") ?? false;
+		}
+
+		public List<SimulationMatchConfig> ValidMatchRewardConfigs()
+		{
+			var validConfigs = new List<SimulationMatchConfig>
+			{
+				GameLogic.ConfigsProvider.GetConfig<TutorialConfig>().SecondMatch
+			};
+
+			var rotationConfigs = GameLogic.ConfigsProvider.GetConfig<GameModeRotationConfig>();
+			var now = GameLogic.TimeService.DateTimeUtcNow;
+			foreach (var gameModeEntry in rotationConfigs.Slots.SelectMany(m => m.Entries))
+			{
+				if (!gameModeEntry.TimedEntry)
+				{
+					validConfigs.Add(gameModeEntry.MatchConfig);
+					continue;
+				}
+
+				foreach (var timedGameModeEntry in gameModeEntry.TimedGameModeEntries)
+				{
+					// Lets add some time due to clock desyncs and matchs in progress
+					var starts = timedGameModeEntry.GetStartsAtDateTime().AddMinutes(-EXTRA_GAME_MODE_CHECK_MINUTES);
+					var endsAt = timedGameModeEntry.GetEndsAtDateTime().AddMinutes(EXTRA_GAME_MODE_CHECK_MINUTES);
+					if (starts < now && endsAt > now)
+					{
+						validConfigs.Add(gameModeEntry.MatchConfig);
+						break;
+					}
+				}
+			}
+
+			return validConfigs;
+		}
+
+		private bool IsEventValid(RewardSource source, SimulationMatchConfig usedConfig)
+		{
+			// Config not valid someone probably trying to cheat
+			if (usedConfig == null) return false;
+			// Prevent sneaky players from sending different meta item drop overwrites from the config,
+			// in this case the collected items from the simulation cannot be trusted
+			if (source.MatchConfig.MetaItemDropOverwrites != null && !source.MatchConfig.MetaItemDropOverwrites.SequenceEqual(usedConfig.MetaItemDropOverwrites))
+			{
+				return false;
+			}
+
+			return true;
+		}
+
 		public List<ItemData> CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var rewards = new List<ItemData>();
-
 			var localMatchData = source.MatchData[source.ExecutingPlayer];
 			trophyChange = 0;
+			if (source.MatchConfig.MatchType == MatchType.Custom) return rewards;
 
 			if (localMatchData.PlayerRank == 0)
 			{
 				throw new MatchDataEmptyLogicException();
 			}
 
-			if (localMatchData.Data.KilledByBeingAFK)
+			var usedSimConfig = ValidMatchRewardConfigs().FirstOrDefault(valid => valid.ConfigId == source.MatchConfig.ConfigId);
+
+			if ((!IsEventValid(source, usedSimConfig) && !IsDebug(source.MatchConfig)) || localMatchData.Data.KilledByBeingAFK)
 			{
 				return rewards;
 			}
-			
-			var teamSize = Math.Max(1, source.TeamSize);
+
+			if (IsDebug(source.MatchConfig))
+			{
+				usedSimConfig = source.MatchConfig;
+			}
+
+			var teamSize = Math.Max(1, usedSimConfig.TeamSize);
 			var maxTeamsInMatch = source.GamePlayerCount / teamSize;
 
 			// Always perform ordering operation on the configs.
@@ -213,34 +271,20 @@ namespace FirstLight.Game.Logic
 				}
 			}
 
-			var allowedRewards = source.AllowedRewards ?? new List<GameId>();
-
 			// We dont give rewards for quitting, but players can loose trophies
-			if (allowedRewards.Contains(GameId.Trophies))
-			{
-				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
-			}
-
+			CalculateTrophiesReward(rewards, usedSimConfig, localMatchData, trophyRewardConfig, out trophyChange);
 			if (source.DidPlayerQuit || source.GamePlayerCount == 1)
 			{
 				return rewards;
 			}
 
-			if (allowedRewards.Contains(GameId.BPP))
-			{
-				CalculateBPPReward(rewards, rewardConfig);
-			}
-
-			if (allowedRewards.Contains(GameId.XP))
-			{
-				CalculateXPReward(rewards, rewardConfig);
-			}
-
-			CalculateCollectedRewards(rewards, source);
+			CalculateBPPReward(rewards, rewardConfig, usedSimConfig);
+			CalculateXPReward(rewards, rewardConfig, usedSimConfig);
+			CalculateCollectedRewards(rewards, source, usedSimConfig);
 			return rewards;
 		}
 
-		private void CalculateCollectedRewards(List<ItemData> rewards, RewardSource source)
+		private void CalculateCollectedRewards(List<ItemData> rewards, RewardSource source, SimulationMatchConfig simConfig)
 		{
 			if (source.CollectedItems == null || source.CollectedItems.Count == 0) return;
 
@@ -250,14 +294,16 @@ namespace FirstLight.Game.Logic
 			{
 				if (collected.TryGetValue(reward.Id, out var collectedAmt))
 				{
-					reward.GetMetadata<CurrencyMetadata>().Amount += collectedAmt;
+					var amount = GetModifiedReward(collectedAmt, reward.Id, simConfig, true);
+					reward.GetMetadata<CurrencyMetadata>().Amount += amount;
 					collected.Remove(reward.Id);
 				}
 			}
 
 			foreach (var (id, amt) in collected)
 			{
-				rewards.Add(ItemFactory.Currency(id, amt));
+				var fixedAmount = GetModifiedReward(amt, id, simConfig, true);
+				rewards.Add(ItemFactory.Currency(id, fixedAmount));
 			}
 		}
 
@@ -311,11 +357,11 @@ namespace FirstLight.Game.Logic
 
 		public IEnumerable<ItemData> GetRewardsFromTutorial(TutorialSection section)
 		{
-			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<TutorialRewardConfig>();
-			var tutorialRewardsCount = tutorialRewardsCfg.Count(c => c.Section == section);
+			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfig<TutorialConfig>();
+			var tutorialRewardsCount = tutorialRewardsCfg.Rewards.Count(c => c.Section == section);
 			if (tutorialRewardsCount == 0) return Array.Empty<ItemData>();
 			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
-			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint) c.Id));
+			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.Rewards.First(c => c.Section == section).RewardIds.Contains((uint) c.Id));
 			var rewardItems = CreateItemsFromConfigs(rewardsConfigs);
 			return rewardItems;
 		}
@@ -350,10 +396,12 @@ namespace FirstLight.Game.Logic
 			return CreateItemFromConfig(config);
 		}
 
-		private void CalculateBPPReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig)
+		private void CalculateBPPReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig, SimulationMatchConfig simulationMatchConfig)
 		{
 			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
 			{
+				amount = GetModifiedReward(amount, GameId.BPP, simulationMatchConfig, false);
+
 				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
 				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
 				var remainingPoints = (int) GameLogic.BattlePassLogic.GetRemainingPointsOfBp();
@@ -365,16 +413,17 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
-		private void CalculateXPReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig)
+		private void CalculateXPReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig, SimulationMatchConfig usedSimConfig)
 		{
 			if (rewardConfig.Rewards.TryGetValue(GameId.XP, out var amount))
 			{
+				amount = GetModifiedReward(amount, GameId.XP, usedSimConfig, false);
 				rewards.Add(ItemFactory.Currency(GameId.XP, amount));
 			}
 		}
 
 		private void CalculateTrophiesReward(ICollection<ItemData> rewards,
-											 IReadOnlyCollection<QuantumPlayerMatchData> players,
+											 SimulationMatchConfig simulationMatchConfig,
 											 QuantumPlayerMatchData localPlayerData,
 											 TrophyRewardConfig rewardConfig,
 											 out int trophyChangeOut)
@@ -405,6 +454,7 @@ namespace FirstLight.Game.Logic
 					finalTrophyChange = (int) -Data.Trophies;
 				}
 
+				finalTrophyChange = GetModifiedReward(finalTrophyChange, GameId.Trophies, simulationMatchConfig, false);
 				trophyChangeOut = finalTrophyChange;
 				rewards.Add(ItemFactory.Currency(GameId.Trophies, finalTrophyChange));
 			}

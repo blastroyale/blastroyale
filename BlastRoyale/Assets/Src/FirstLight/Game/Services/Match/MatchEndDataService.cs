@@ -39,6 +39,11 @@ namespace FirstLight.Game.Services
 		QuantumPlayerMatchData LocalPlayerMatchData { get; }
 
 		/// <summary>
+		/// MatchConfigs used during this match.
+		/// </summary>
+		SimulationMatchConfig MatchConfig { get; }
+		
+		/// <summary>
 		/// Player that killed the local player. Will have a value if the player was killed.
 		/// </summary>
 		PlayerRef LocalPlayerKiller { get; }
@@ -68,6 +73,11 @@ namespace FirstLight.Game.Services
 		/// Read all data from simulation. Just in case we missed something for a reconnecting player
 		/// </summary>
 		void Reload();
+		
+		/// <summary>
+		/// Checks if current player played the game as spectator
+		/// </summary>
+		bool JoinedAsSpectator { get; }
 	}
 
 	/// <summary>
@@ -100,15 +110,15 @@ namespace FirstLight.Game.Services
 	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService
 	{
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
-
 		public bool LeftBeforeMatchFinished { get; set; }
 		public RewardDataCache CachedRewards { get; private set; }
 		public PlayerRef Leader { get; private set; }
-
+		public bool JoinedAsSpectator { get; private set; }
 		public Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; private set; }
 		public bool ShowUIStandingsExtraInfo { get; private set; }
 		public PlayerRef LocalPlayer { get; private set; }
 		public QuantumPlayerMatchData LocalPlayerMatchData { get; private set; }
+		public SimulationMatchConfig MatchConfig { get; private set; }
 		public PlayerRef LocalPlayerKiller { get; private set; }
 		public bool DiedFromRoofDamage { get; private set; }
 		public Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; private set; } = new ();
@@ -198,10 +208,10 @@ namespace FirstLight.Game.Services
 			var gameContainer = frame.Unsafe.GetPointerSingleton<GameContainer>();
 			LocalPlayer = game.GetLocalPlayerRef();
 			QuantumPlayerMatchData = gameContainer->GeneratePlayersMatchData(frame, out var leader, out _);
-
+			JoinedAsSpectator = _services.RoomService.IsLocalPlayerSpectator;
 			Leader = leader;
-
 			PlayerMatchData.Clear();
+			MatchConfig = game.Configurations.Runtime.MatchConfigs;
 			foreach (var quantumPlayerData in QuantumPlayerMatchData)
 			{
 				// This means that the match disconnected before the 

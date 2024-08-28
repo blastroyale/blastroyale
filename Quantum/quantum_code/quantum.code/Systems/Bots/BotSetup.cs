@@ -311,7 +311,7 @@ namespace Quantum.Systems.Bots
 			var aim = spawnerTransform.Rotation.ToDirection();
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
 			var kcc = f.Unsafe.GetPointer<TopDownController>(botEntity);
-				.	kcc->AimDirection = aim;
+			kcc->AimDirection = aim;
 			
 			bb->Set(f, Constants.AIM_DIRECTION_KEY, aim);
 

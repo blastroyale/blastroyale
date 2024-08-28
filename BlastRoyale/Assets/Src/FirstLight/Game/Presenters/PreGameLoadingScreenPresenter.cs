@@ -151,7 +151,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var isSquadGame = CurrentRoom.IsTeamGame;
 
-			if (isSquadGame)
+			if (isSquadGame && !MainInstaller.ResolveServices().RoomService.IsLocalPlayerSpectator)
 			{
 				var teamId = _services.TeamService.GetTeamForPlayer(CurrentRoom.LocalPlayer);
 
@@ -217,7 +217,7 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < players.Count(); i++)
 			{
 				var squadMember = players[i];
-
+				
 				var partyMarker = _partyMarkers[i];
 				partyMarker.visible = true;
 

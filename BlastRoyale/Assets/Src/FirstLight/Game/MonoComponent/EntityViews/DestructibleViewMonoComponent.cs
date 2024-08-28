@@ -42,7 +42,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnEntityDestroyed(QuantumGame game)
 		{
-			transform.parent = null;
+			if (QuantumRunner.Default.IsDefinedAndRunning())
+			{
+				transform.parent = null; // breaks reconnection as it de-couples view with entity
+			}
 		}
 
 		private void HandleProjectileHit(EventOnPlayerAttackHit callback)

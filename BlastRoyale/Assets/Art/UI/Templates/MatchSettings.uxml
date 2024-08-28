@@ -5,10 +5,10 @@
         <ui:VisualElement name="LeftBG" class="match-settings__left-bg" />
         <ui:VisualElement name="RightBG" class="match-settings__right-bg" />
         <FirstLight.Game.UIElements.LocalizedLabel name="Title" localization-key="UITCustomGames/create_game" class="match-settings__title" />
-        <FirstLight.Game.UIElements.TabbedView class="fill-parent">
+        <FirstLight.Game.UIElements.TabbedView name="Tabs" class="fill-parent">
             <FirstLight.Game.UIElements.TabButton name="GameInfoTab" target="GameInfo" localization-key="UITCustomGames/game_info" class="unity-tab-button--gameinfo" />
             <FirstLight.Game.UIElements.TabButton name="SpectatorsTab" target="Spectators" localization-key="UITCustomGames/spectators" class="unity-tab-button--spectators" />
-            <ui:VisualElement name="Spectators" class="spoctators-container">
+            <ui:VisualElement name="Spectators" class="spectators-container">
                 <ui:ScrollView name="SpectatorsScrollView" class="spectators-scroll-view">
                     <FirstLight.Game.UIElements.MatchLobbyPlayerElement />
                 </ui:ScrollView>

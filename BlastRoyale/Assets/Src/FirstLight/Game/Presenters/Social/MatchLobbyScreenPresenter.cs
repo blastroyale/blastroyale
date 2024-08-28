@@ -18,6 +18,7 @@ using QuickEye.UIToolkit;
 using Sirenix.OdinInspector;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Player = Unity.Services.Lobbies.Models.Player;
@@ -32,7 +33,7 @@ namespace FirstLight.Game.Presenters
 		private const int PLAYERS_PER_ROW = 4;
 		private const string USS_ROW = "players-container__row";
 
-		private readonly BufferedQueue _updateBuffer = new (TimeSpan.FromSeconds(0.02), true);
+		private readonly AsyncBufferedQueue _updateBuffer = new (TimeSpan.FromSeconds(0.02), true);
 		private LobbyGridData _lastGridSnapshot;
 
 		public class StateData
@@ -80,6 +81,7 @@ namespace FirstLight.Game.Presenters
 			_services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			_services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += OnKickedFromLobby;
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
+			var localPlayer = matchLobby.Players.First(p => p.IsLocal());
 			_localPlayerHost = matchLobby.IsLocalPlayerHost();
 
 			_matchSettingsView.SpectatorChanged += async spectating =>
@@ -95,6 +97,7 @@ namespace FirstLight.Game.Presenters
 			};
 
 			RefreshData();
+			_updateBuffer.Add(CheckJoiningSpectator);
 
 			return base.OnScreenOpen(reload);
 		}
@@ -134,14 +137,15 @@ namespace FirstLight.Game.Presenters
 					
 					var squadSize = _services.FLLobbyService.CurrentMatchLobby.GetMatchSettings().SquadSize;
 					var localPlayer = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
-	
-					if (!localPlayer.IsSpectator())
+					var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
+
+					var isSpectator = localPlayer.IsSpectator() || localPlayerPosition == -1;
+					if (!isSpectator)
 					{
-						var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
 						joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
 						joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
 					}
-					joinProperties.Spectator = localPlayer.IsSpectator();
+					joinProperties.Spectator = isSpectator;
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
 				}
@@ -160,11 +164,24 @@ namespace FirstLight.Game.Presenters
 
 			FLog.Verbose("Joininig room from Custom Lobby");
 			_joining = true;
-			_services.MessageBrokerService.Publish(new StartedCustomMatch());
+			_services.MessageBrokerService.Publish(new JoinedCustomMatch());
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			// TODO mihak: This should not be here, move when we refac network service
 			await _services.RoomService.JoinRoomAsync(room, playerJoinRoomProperties);
 			_services.MessageBrokerService.UnsubscribeAll(this);
+		}
+
+		public async UniTask CheckJoiningSpectator()
+		{
+			var lobby = _services.FLLobbyService.CurrentMatchLobby;
+			var localPlayer = lobby.Players.First(p => p.IsLocal());
+			var grid = lobby.GetPlayerGrid();
+			if (!localPlayer.IsSpectator() && !lobby.HasRoomInGrid() && grid.GetPosition(localPlayer.Id) == -1)
+			{
+				FLog.Verbose("Non spectator local player that was not in grid and no room in grid, making spectator");
+				await _services.FLLobbyService.SetMatchSpectator(true);
+				_matchSettingsView.ToggleSpectatorTab();
+			}
 		}
 
 		[Button]
@@ -194,7 +211,8 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_matchSettingsView.SetMatchSettings(matchSettings, matchLobby.IsLocalPlayerHost(), true);
-				_matchSettingsView.SetSpectators(matchLobby.Players.Where(p => p.IsSpectator() || matchLobby.GetPlayerPosition(p) == -1));
+				_matchSettingsView.SetSpectators(_services.FLLobbyService.CurrentMatchLobby.Players.Where(p => p.IsSpectator()).ToList());
+				//await UpdateSpectators();
 
 				VisualElement row = null;
 
@@ -247,19 +265,22 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_lastGridSnapshot = grid;
-				_playersAmount.text = $"{matchLobby.Players.Count}/{matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS}";
+				_playersAmount.text = $"{matchLobby.PlayersInGrid().Count}/{matchLobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS}";
+				return UniTask.CompletedTask;
 			});
 		}
 
 		private async UniTaskVoid StartMatch()
 		{
-			if (_matchSettingsView.MatchSettings.BotDifficulty <= 0 && _services.FLLobbyService.CurrentMatchLobby.Players.Count <= 1)
+			var noBotsOnePlayer = _matchSettingsView.MatchSettings.BotDifficulty <= 0 &&
+				_services.FLLobbyService.CurrentMatchLobby.NonSpectators().Count == 1;
+			var noPlayers = _services.FLLobbyService.CurrentMatchLobby.NonSpectators().Count < 1;
+			if (noBotsOnePlayer || noPlayers)
 			{
 				PopupPresenter.OpenGenericInfo(ScriptTerms.UITCustomGames.custom_game, ScriptLocalization.UITCustomGames.no_players_bots).Forget();
 				return;
 			}
-			
-			var matchSettings = _matchSettingsView.MatchSettings;
+
 			var matchLobby = _services.FLLobbyService.CurrentMatchLobby;
 			var matchGrid = matchLobby.GetPlayerGrid();
 
@@ -274,13 +295,13 @@ namespace FirstLight.Game.Presenters
 
 			// TODO: user flow should not be handled here but in state machines
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
-			
+
 			_services.MessageBrokerService.Publish(new StartedCustomMatch()
 			{
 				Settings = _matchSettingsView.MatchSettings
 			});
 		}
-		
+
 		private async UniTaskVoid ReadyUp()
 		{
 			await _services.FLLobbyService.ToggleMatchReady();
@@ -296,6 +317,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSpotClicked(VisualElement source, int index)
 		{
+			var localPlayer = _services.FLLobbyService.CurrentMatchLobby.LocalPlayer();
+
 			if (source.userData is not Player player)
 			{
 				if (!_matchSettingsView.MatchSettings.RandomizeTeams)
@@ -313,7 +336,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var buttons = new List<PlayerContextButton>();
-
 			if (!player.IsReady() && !player.IsLocal() && !_matchSettingsView.MatchSettings.RandomizeTeams)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITCustomGames.option_swap,

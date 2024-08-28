@@ -18,7 +18,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="MainContent" class="main-container">
             <ui:VisualElement name="TeamGameModeContainer" style="flex-grow: 0; flex-direction: row; justify-content: space-between; align-items: center; align-self: auto;">
-                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="YOUR PARTY (0)" name="YourTeamLabel" class="category-title" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="YOUR PARTY (0)" name="YourTeamLabel" class="category-title your-team-label"/>  />
                 <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="BATTLE ROYALE QUADS" name="GameModeLabel" class="category-title" />
             </ui:VisualElement>
             <ui:VisualElement name="YourTeamContainer" class="container-your-team">

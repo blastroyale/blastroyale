@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine.Serialization;
 using BitStream = Photon.Deterministic.BitStream;
@@ -126,6 +127,11 @@ namespace FirstLight.Game.Services
 				AmtPlayers = (byte) lastRoom?.GetRealPlayerAmount(),
 			};
 
+			if (snapshot.Offline)
+			{
+				snapshot.SnapshotBytes = game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit);
+				snapshot.FrameNumber = game.Frames.Verified.Number;
+			}
 			_data.AppDataProvider.LastFrameSnapshot.Value = snapshot;
 			_services.DataSaver.SaveData<AppData>();
 			FLog.Info($"Frame snapshot captured {snapshot}");

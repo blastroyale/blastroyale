@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using I2.Loc;
@@ -21,8 +22,6 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class FriendListElement : ImageButton
 	{
-		private static readonly BatchQueue _batchQueue = new (2);
-
 		private const string USS_BLOCK = "friend-list-element";
 		private const string USS_LOCAL_MODIFIER = USS_BLOCK + "--local";
 		private const string USS_OFFLINE_MODIFIER = USS_BLOCK + "--offline";
@@ -35,6 +34,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_TEXT_CONTAINER = USS_BLOCK + "__text-container";
 		private const string USS_NAME_AND_TROPHIES = USS_BLOCK + "__name-and-trophies";
 		private const string USS_ACTIVITY = USS_BLOCK + "__activity";
+		private const string USS_ACTIVITY_IN_TEAM = USS_ACTIVITY + "--in-team";
 		private const string USS_MAIN_ACTION_BUTTON = USS_BLOCK + "__main-action-button";
 		private const string USS_MORE_ACTIONS_BUTTON = USS_BLOCK + "__more-actions-button";
 		private const string USS_ACCEPT_DECLINE_CONTAINER = USS_BLOCK + "__accept-decline-container";
@@ -131,7 +131,7 @@ namespace FirstLight.Game.UIElements
 			_moreActionsButton.clicked += () => _moreActionsAction?.Invoke(_moreActionsButton);
 			_acceptButton.clicked += () => _acceptAction?.Invoke();
 			_declineButton.clicked += () => _declineAction?.Invoke();
-			SetStatus(null, true, null);
+			SetStatus((string) null, true, null);
 		}
 
 		public FriendListElement SetFromParty(Player partyPlayer)
@@ -141,7 +141,7 @@ namespace FirstLight.Game.UIElements
 			var stringTrophies = partyPlayer.GetProperty(FLLobbyService.KEY_TROHPIES);
 			int.TryParse(stringTrophies, out var trophies);
 
-			FillElementsFromHack(new CacheHackData()
+			FillElementsFromHack(new PlayfabUnityBridgeService.CacheHackData()
 			{
 				AvatarUrl = partyPlayer.GetProperty(FLLobbyService.KEY_AVATAR_URL),
 				Trophies = trophies,
@@ -174,13 +174,13 @@ namespace FirstLight.Game.UIElements
 			}
 			else
 			{
-				SetStatus(activity?.Status, relationship.IsOnline(), relationship.Member?.Presence?.LastSeen);
+				SetStatus(activity, relationship.IsOnline(), relationship.Member?.Presence?.LastSeen);
 			}
 
 			_avatar.SetDisplay(true);
 			if (!string.IsNullOrEmpty(activity?.AvatarUrl))
 			{
-				FillElementsFromHack(new CacheHackData()
+				FillElementsFromHack(new PlayfabUnityBridgeService.CacheHackData()
 				{
 					Trophies = activity.Trophies,
 					AvatarUrl = activity.AvatarUrl,
@@ -195,16 +195,7 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		private class CacheHackData
-		{
-			public string AvatarUrl;
-			public int Trophies;
-			public string PlayerName;
-		}
-
-		private static Dictionary<string, CacheHackData> _cacheHack = new ();
-
-		private void FillElementsFromHack(CacheHackData hack)
+		private void FillElementsFromHack(PlayfabUnityBridgeService.CacheHackData hack)
 		{
 			SetAvatar(hack.AvatarUrl);
 			SetPlayerName(hack.PlayerName, hack.Trophies);
@@ -214,47 +205,16 @@ namespace FirstLight.Game.UIElements
 		{
 			var services = MainInstaller.ResolveServices();
 			var unityId = relationship.Member.Id;
-			if (_cacheHack.TryGetValue(unityId, out var hackData))
+
+			var data = await services.PlayfabUnityBridgeService.LoadDataForPlayer(unityId, relationship.Member.Profile?.Name?.TrimPlayerNameNumbers());
+			if (panel == null || parent == null) return;
+			if (data == null)
 			{
-				FillElementsFromHack(hackData);
+				_avatar.SetFailedState();
 				return;
 			}
 
-			FLog.Verbose("Setting avatar hack for " + unityId + " playfabid ");
-			try
-			{
-				var playfabid = await CloudSaveService.Instance.LoadPlayfabID(unityId);
-				if (playfabid == null)
-				{
-					_avatar.SetFailedState();
-					return;
-				}
-
-				_batchQueue.Add(async () =>
-				{
-					if (this.panel == null || this.parent == null) return;
-					var profile = await services.ProfileService.GetPlayerPublicProfile(playfabid);
-					_cacheHack[unityId] = new CacheHackData()
-					{
-						AvatarUrl = profile.AvatarUrl,
-						Trophies = profile.Statistics.Where(st => st.Name == GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME)
-							.Select(s => s.Value)
-							.FirstOrDefault(),
-						PlayerName = relationship.Member.Profile?.Name?.TrimPlayerNameNumbers()
-					};
-					if (_cacheHack[unityId].AvatarUrl == null)
-					{
-						_avatar.SetFailedState();
-						return;
-					}
-
-					FillElementsFromHack(_cacheHack[unityId]);
-				});
-			}
-			catch (Exception e)
-			{
-				FLog.Warn($"Error setting friend unityid {unityId} avatar", e);
-			}
+			FillElementsFromHack(data);
 		}
 
 		public FriendListElement SetPlayerName(string playerName, int trophies)
@@ -279,10 +239,22 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
+		public FriendListElement SetStatus(FriendActivity activity, bool? online, DateTime? presenceLastSeen)
+		{
+			SetStatus(activity?.Status, online, presenceLastSeen);
+			if (activity?.CurrentActivityEnum == GameActivities.In_team)
+			{
+				_statusLabel.EnableInClassList(USS_ACTIVITY_IN_TEAM, true);
+			}
+
+			return this;
+		}
+
 		public FriendListElement SetStatus(string activity, bool? online, DateTime? presenceLastSeen)
 		{
 			_statusLabel.SetVisibility(!string.IsNullOrEmpty(activity));
 			_statusLabel.text = activity;
+			_statusLabel.RemoveFromClassList(USS_ACTIVITY_IN_TEAM);
 			var isOnline = online ?? false;
 			EnableInClassList(USS_OFFLINE_MODIFIER, !isOnline);
 			_onlineIndicator.SetDisplay(true);
@@ -328,7 +300,7 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		public FriendListElement TryAddInviteOption(Relationship friend, Action callback)
+		public FriendListElement TryAddInviteOption(VisualElement root, Relationship friend, Action callback)
 		{
 			var services = MainInstaller.ResolveServices();
 
@@ -337,11 +309,14 @@ namespace FirstLight.Game.UIElements
 				return SetMainAction(null, null, false);
 			}
 
-			var showInvite = callback != null && services.GameSocialService.CanInvite(friend);
+			string reason = null;
+
+			var showInvite = callback != null && services.GameSocialService.CanInvite(friend, out reason);
 			if (showInvite)
 				return SetMainAction(ScriptLocalization.UITFriends.invite, callback, false);
 
-			return SetMainAction(ScriptLocalization.UITFriends.invite, null, false).DisableMainActionButton();
+			return SetMainAction(ScriptLocalization.UITFriends.invite, null, false)
+				.DisableMainActionButton(root, reason);
 		}
 
 		public FriendListElement AddOpenProfileAction(Relationship friend)
@@ -351,7 +326,7 @@ namespace FirstLight.Game.UIElements
 
 		public FriendListElement SetMainAction(string label, Action mainAction, bool negative)
 		{
-			_mainActionButton.SetEnabled(true);
+			_mainActionButton.RemoveFromClassList("button-long--disabled");
 			_mainActionButton.SetDisplay(!string.IsNullOrEmpty(label));
 			_mainActionButton.EnableInClassList("button-long--red", negative);
 			_mainActionButton.EnableInClassList("button-long--yellow", !negative);
@@ -361,9 +336,18 @@ namespace FirstLight.Game.UIElements
 			return this;
 		}
 
-		public FriendListElement DisableMainActionButton()
+		public FriendListElement DisableMainActionButton(VisualElement root, string reason = null)
 		{
-			_mainActionButton.SetEnabled(false);
+			_mainAction = null;
+			if (reason != null)
+			{
+				_mainAction = () =>
+				{
+					_mainActionButton.OpenLocalizedTooltip(root, "UITFriends/tooltip_disabled_" + reason);
+				};
+			}
+
+			_mainActionButton.AddToClassList("button-long--disabled");
 			return this;
 		}
 

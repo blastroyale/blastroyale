@@ -2190,6 +2190,7 @@ namespace I2.Loc
 			public static string create_game 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/create_game"); } }
 			public static string create_lobby 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/create_lobby"); } }
 			public static string custom_game 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/custom_game"); } }
+			public static string custom_game_invite 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/custom_game_invite"); } }
 			public static string enter_room_code 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/enter_room_code"); } }
 			public static string filter_weapons 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/filter_weapons"); } }
 			public static string friends_playing 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/friends_playing"); } }
@@ -2675,6 +2676,7 @@ namespace I2.Loc
 
 		public static class UITShared
 		{
+			public static string accept 		{ get{ return LocalizationManager.GetTranslation ("UITShared/accept"); } }
 			public static string News 		{ get{ return LocalizationManager.GetTranslation ("UITShared/News"); } }
 			public static string back_to 		{ get{ return LocalizationManager.GetTranslation ("UITShared/back_to"); } }
 			public static string battle_royale 		{ get{ return LocalizationManager.GetTranslation ("UITShared/battle_royale"); } }
@@ -4993,6 +4995,7 @@ namespace I2.Loc
 		    public const string create_game = "UITCustomGames/create_game";
 		    public const string create_lobby = "UITCustomGames/create_lobby";
 		    public const string custom_game = "UITCustomGames/custom_game";
+			public const string custom_game_invite = "UITCustomGames/custom_game_invite";
 		    public const string enter_room_code = "UITCustomGames/enter_room_code";
 		    public const string filter_weapons = "UITCustomGames/filter_weapons";
 		    public const string friends_playing = "UITCustomGames/friends_playing";
@@ -5478,7 +5481,8 @@ namespace I2.Loc
 
 		public static class UITShared
 		{
-		    public const string News = "UITShared/News";
+			public const string accept = "UITShared/accept";
+			public const string News = "UITShared/News";
 		    public const string back_to = "UITShared/back_to";
 		    public const string battle_royale = "UITShared/battle_royale";
 		    public const string cancel = "UITShared/cancel";

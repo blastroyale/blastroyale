@@ -24,7 +24,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_progressIndicator.fillAmount = 0f;
 			_canvas = GetComponentInChildren<Canvas>();
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView, onlyIfActiveAndEnabled: true);
-			EntityView.OnEntityDestroyed.AddListener(HandleOnEntityDestroyed);
 		}
 
 		public override void SetCulled(bool culled)
@@ -65,11 +64,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_text.text = "";
 				_progressIndicator.fillAmount = 0f;
 			}
-		}
-
-		private void HandleOnEntityDestroyed(QuantumGame game)
-		{
-			GameObject.Destroy(gameObject.transform.parent.gameObject);
 		}
 	}
 }

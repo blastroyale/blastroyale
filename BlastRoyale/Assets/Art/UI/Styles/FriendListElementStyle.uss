@@ -120,6 +120,9 @@
     padding-bottom: 0;
     padding-left: 0;
 }
+.friend-list-element__activity--in-team {
+    color: #40A91C;
+}
 
 .friend-list-element__main-action-button {
     font-size: 32px;

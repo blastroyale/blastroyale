@@ -6,12 +6,13 @@ using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
+using FirstLight.Game.Services.Social;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UIService;
-using FirstLightServerSDK.Modules.RemoteCollection;
+using FirstLightServerSDK.Modules.RemoteCollection;	
 using NSubstitute;
 
 namespace FirstLight.Tests.EditorMode
@@ -64,6 +65,7 @@ namespace FirstLight.Tests.EditorMode
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public IGameSocialService GameSocialService { get; set; }
+		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 

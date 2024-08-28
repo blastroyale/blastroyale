@@ -102,7 +102,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<LocalPlayerClickedPlayMessage>(OnPlayerClickedPlay);
 			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
-			_services.MessageBrokerService.Subscribe<StartedCustomMatch>(OnJoinedCustomMatch);
+			_services.MessageBrokerService.Subscribe<JoinedCustomMatch>(OnJoinedCustomMatch);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
@@ -199,7 +199,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(JoinedPlayfabMatchmaking);
 		}
 
-		private void OnJoinedCustomMatch(StartedCustomMatch obj)
+		private void OnJoinedCustomMatch(JoinedCustomMatch obj)
 		{
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 		}
@@ -516,22 +516,6 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			simulationConfig.MatchType = MatchType.Matchmaking;
-
-			if (!FeatureFlags.ENABLE_NOOB)
-			{
-				var removeNoobOverwrites = Enum.GetValues(typeof(DropPlace)).Cast<DropPlace>()
-					.Select(place => new MetaItemDropOverwrite()
-					{
-						Place = place,
-						Id = GameId.NOOB,
-						DropRate = FP._0
-					});
-
-				simulationConfig.MetaItemDropOverwrites = simulationConfig.MetaItemDropOverwrites.Where(drop => drop.Id != GameId.NOOB)
-					.Concat(removeNoobOverwrites)
-					.ToArray();
-			}
-
 			var matchmakingSetup = new MatchRoomSetup()
 			{
 				SimulationConfig = simulationConfig,

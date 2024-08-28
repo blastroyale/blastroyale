@@ -54,10 +54,19 @@ namespace FirstLight.Game.Messages
 
 	/// <summary>
 	///  This should be temporary, its a workaround to reset joinsource, because presenters are handling join room logic
+	/// Only trigger when player starts a custom match simulation
 	/// </summary>
 	public struct StartedCustomMatch : IMessage
 	{
 		public CustomMatchSettings Settings;
+	}
+	
+	/// <summary>
+	/// Triggered everytime player joins a custom match simulation
+	/// </summary>
+	public struct JoinedCustomMatch : IMessage
+	{
+
 	}
 
 	public struct MapDropPointSelectedMessage : IMessage

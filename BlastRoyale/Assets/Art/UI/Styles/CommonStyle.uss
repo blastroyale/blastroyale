@@ -386,14 +386,34 @@
     background-image: var(--sprite-home__button-long-green-pressed);
 }
 
+.button-long--disabled {
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    color: rgb(146, 140, 159);
+    background-image: var(--sprite-home__button-long-disabled);
+    -unity-text-algn: middle-center;
+    opacity: 1;
+}
+
+.button-long--disabled:active {
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    color: rgb(146, 140, 159);
+    background-image: var(--sprite-home__button-long-disabled);
+    -unity-text-algn: middle-center;
+    opacity: 1;
+    padding: 0 0 7px;
+}
+
 .button-long:disabled {
     background-color: rgba(0, 0, 0, 0);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
     color: rgb(146, 140, 159);
     background-image: var(--sprite-home__button-long-disabled);
-    -unity-text-align: middle-center;
-    
+    -unity-text-algn: middle-center;
     opacity: 1;
 }
 

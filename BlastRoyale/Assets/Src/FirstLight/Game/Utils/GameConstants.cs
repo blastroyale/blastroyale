@@ -195,7 +195,7 @@ namespace FirstLight.Game.Utils
 		public static class Data
 		{
 			public const int MAX_SQUAD_MEMBERS = 3;
-			public const int MATCH_SPECTATOR_SPOTS = 15;
+			public const int MATCH_SPECTATOR_SPOTS = 15; 
 			public const float ROOM_SELECT_DROP_POSITION_SECONDS = 5f;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;

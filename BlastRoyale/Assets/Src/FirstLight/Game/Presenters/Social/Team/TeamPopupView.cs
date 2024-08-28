@@ -83,7 +83,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 			_localPlayer = new FriendListElement()
 				.SetLocal()
 				.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers(), (int) data.PlayerDataProvider.Trophies.Value)
-				.SetAvatar(data.AppDataProvider.AvatarUrl)
+				.SetAvatar(data.CollectionDataProvider.GetEquippedAvatarUrl())
 				.SetElementClickAction(el =>
 				{
 					el.OpenTooltip(Presenter.Root, ScriptLocalization.UITCustomGames.local_player_tooltip);
@@ -174,7 +174,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 			var relationship = _friends[index];
 			var e = ((FriendListElement) element);
 			e.SetFromRelationship(relationship)
-				.TryAddInviteOption(relationship, () =>
+				.TryAddInviteOption(Presenter.Root, relationship, () =>
 				{
 					_services.FLLobbyService.InviteToParty(relationship).ContinueWith(() =>
 					{

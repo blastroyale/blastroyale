@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
@@ -39,7 +40,7 @@ namespace FirstLight.Game.Services
 		{
 			var message = e.GetAs<FriendMessage>();
 
-			if (message.MessageType == FriendMessage.FriendMessageType.CancelPartyInvite)
+			if (message.MessageType == FriendMessage.FriendMessageType.Cancel)
 			{
 				if (_uiService.IsScreenOpen<InvitePopupPresenter>())
 				{
@@ -55,33 +56,31 @@ namespace FirstLight.Game.Services
 			// We skip inviting to party if the player already has an invite open
 			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
 			var services = MainInstaller.ResolveServices();
+			var dataProvider = MainInstaller.ResolveData();
 			switch (message.MessageType)
 			{
-				case FriendMessage.FriendMessageType.PartyInvite:
-					if (!services.GameSocialService.GetCurrentPlayerActivity().CanReceivePartyInvite())
+				case FriendMessage.FriendMessageType.Invite:
+
+					var isBusy = !services.GameSocialService.GetCurrentPlayerActivity().CanReceiveInvite();
+					var blockTeamInviteByLevel = message.InviteType == FriendMessage.FriendInviteType.Party && !dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Squads);
+					if (isBusy || blockTeamInviteByLevel)
 					{
-						services.FLLobbyService.CurrentPartyCallbacks.TriggerInviteDeclined(e.UserId);
+						FriendsService.Instance.MessageAsync(e.UserId, FriendMessage.CreateDecline(message.LobbyID, message.InviteType)).AsUniTask().Forget();
 						return;
 					}
+
 					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
 					{
-						Type = InvitePopupPresenter.StateData.InviteType.Party,
+						Type = message.InviteType,
 						SenderID = e.UserId,
 						LobbyCode = message.LobbyID
 					}).Forget();
 					break;
-				case FriendMessage.FriendMessageType.DeclinePartyInvite:
-					services.FLLobbyService.CurrentPartyCallbacks.TriggerInviteDeclined(e.UserId);
+				case FriendMessage.FriendMessageType.Decline:
+					var callbacks = message.InviteType == FriendMessage.FriendInviteType.Match ? services.FLLobbyService.CurrentMatchCallbacks : services.FLLobbyService.CurrentPartyCallbacks;
+					callbacks.TriggerInviteDeclined(e.UserId);
 					break;
-				case FriendMessage.FriendMessageType.MatchInvite:
-					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
-					{
-						Type = InvitePopupPresenter.StateData.InviteType.Match,
-						SenderID = e.UserId,
-						LobbyCode = message.LobbyID
-					}).Forget();
-					break;
-				case FriendMessage.FriendMessageType.CancelPartyInvite:
+				case FriendMessage.FriendMessageType.Cancel:
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

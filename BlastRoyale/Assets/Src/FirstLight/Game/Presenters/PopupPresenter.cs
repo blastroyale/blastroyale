@@ -163,7 +163,7 @@ namespace FirstLight.Game.Presenters
 		public static UniTask Close()
 		{
 			var services = MainInstaller.ResolveServices();
-			return services.UIService.CloseScreen<PopupPresenter>();
+			return services.UIService.CloseScreen<PopupPresenter>(false);
 		}
 
 		private static async UniTaskVoid OpenPopup(UIView view, string titleKey, bool closeOpenedPopups = false)

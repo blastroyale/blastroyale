@@ -87,9 +87,22 @@ namespace FirstLight.Game.Presenters
 
 		private void SetHeaderGameModeInfo()
 		{
-			var gameMode = _gameServices.GameModeService.SelectedGameMode.Value.Entry;
+			var matchConfig = _matchServices.MatchEndDataService.MatchConfig;
+			
+			//Check if current ended match was an Event
+			if (matchConfig.MatchType == MatchType.Matchmaking)
+			{
+				var selectedGameMode = _gameServices.GameModeService.SelectedGameMode.Value.Entry;
 
-			switch (gameMode.TeamSize)
+				if (selectedGameMode.TimedEntry && selectedGameMode.MatchConfig.ConfigId == matchConfig.ConfigId)
+				{
+					_header.SetSubtitle(selectedGameMode.Visual.TitleTranslationKey.GetText());	
+					return;
+				}
+			}
+			
+			var matchConfigTeamSize = _matchServices.MatchEndDataService.MatchConfig.TeamSize;
+			switch (matchConfigTeamSize)
 			{
 				case 1:
 					_header.SetSubtitle(ScriptLocalization.UITGameModeSelection.br_solo_title);

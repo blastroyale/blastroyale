@@ -111,10 +111,9 @@ namespace FirstLight.Game.Presenters
 			FriendsService.Instance.RelationshipAdded -= OnRelationshipAdded;
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdate;
 			FriendsService.Instance.MessageReceived -= OnMessageReceived;
-			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= OnInvitesUpdated; 
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated -= OnInvitesUpdated;
 			return base.OnScreenClose();
 		}
-		
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
@@ -126,10 +125,9 @@ namespace FirstLight.Game.Presenters
 			FriendsService.Instance.RelationshipAdded += OnRelationshipAdded; // not called with local changes
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdate;
 			FriendsService.Instance.MessageReceived += OnMessageReceived;
-			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated += OnInvitesUpdated; 
+			_services.FLLobbyService.CurrentPartyCallbacks.OnInvitesUpdated += OnInvitesUpdated;
 			return base.OnScreenOpen(reload);
 		}
-
 
 		private void RefreshAll()
 		{
@@ -137,6 +135,7 @@ namespace FirstLight.Game.Presenters
 			RefreshRequests();
 			RefreshBlocked();
 		}
+
 		private void OnInvitesUpdated(FLLobbyEventCallbacks.InviteUpdateType _)
 		{
 			RefreshFriends();
@@ -215,7 +214,7 @@ namespace FirstLight.Game.Presenters
 				.SetHeader(header)
 				.SetFromRelationship(relationship)
 				.SetMoreActions(ve => OpenTooltip(ve, relationship))
-				.TryAddInviteOption(relationship, () =>
+				.TryAddInviteOption(Root, relationship, () =>
 				{
 					_services.FLLobbyService.InviteToParty(relationship).Forget();
 				});
@@ -290,12 +289,12 @@ namespace FirstLight.Game.Presenters
 				RefreshRequests();
 				RefreshFriends();
 
-				_services.NotificationService.QueueNotification("#Friend request accepted#");
+				_services.NotificationService.QueueNotification("Friend request accepted");
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error accepting friend request.", e);
-				_services.NotificationService.QueueNotification($"#Error accepting friend request, {e.ParseError()}#");
+				_services.NotificationService.QueueNotification($"Error accepting friend request, {e.ParseError()}");
 			}
 		}
 
@@ -308,12 +307,12 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Friend request deleted: {r.Member.Id}");
 				RefreshRequests();
 
-				_services.NotificationService.QueueNotification("#Friend request declined#");
+				_services.NotificationService.QueueNotification("Friend request declined");
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error declining friend request", e);
-				_services.NotificationService.QueueNotification($"#Error declining friend request, {e.ParseError()}#");
+				_services.NotificationService.QueueNotification($"Error declining friend request, {e.ParseError()}");
 			}
 		}
 

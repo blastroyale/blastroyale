@@ -14,8 +14,8 @@
                         <ui:Label name="PopupText" focusable="false" text="TEXT" localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc scroll-text-font" />
                     </ui:ScrollView>
                     <ui:VisualElement name="Controls" class="content__controls">
-                        <ui:VisualElement name="OkButton" class="button-flat-outline">
-                            <ui:Button localization-key="Accept" name="ConfirmButton" text="Ok" class="button-flat button-flat--primary accept-btn" />
+                        <ui:VisualElement class="button-flat-outline">
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/accept" name="ConfirmButton" text="CONFIRM" class="button-flat button-flat--primary" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

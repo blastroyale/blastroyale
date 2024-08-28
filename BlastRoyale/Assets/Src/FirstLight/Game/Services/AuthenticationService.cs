@@ -417,7 +417,6 @@ namespace FirstLight.Game.Services
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
-			appData.AvatarUrl = result.InfoResultPayload.AccountInfo.TitleInfo.AvatarUrl;
 			appData.LoginTime = _services.TimeService.DateTimeUtcNow;
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;

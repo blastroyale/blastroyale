@@ -5,6 +5,10 @@ using System.Runtime.Serialization;
 using Best.HTTP.Shared.PlatformSupport.IL2CPP;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes.Helpers;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
@@ -13,6 +17,8 @@ using I2.Loc;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Quantum;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 using UnityEngine.UIElements;
@@ -32,7 +38,7 @@ namespace FirstLight.Game.Services
 
 	public static class GameActivitiesExtensions
 	{
-		public static bool CanReceivePartyInvite(this GameActivities activities)
+		public static bool CanReceiveInvite(this GameActivities activities)
 		{
 			return activities == GameActivities.In_main_menu;
 		}
@@ -46,7 +52,7 @@ namespace FirstLight.Game.Services
 
 		[Preserve, DataMember(Name = "avatar", IsRequired = true, EmitDefaultValue = true)]
 		public string AvatarUrl { get; set; }
-		
+
 		[Preserve, DataMember(Name = "region", IsRequired = false, EmitDefaultValue = true), CanBeNull]
 		public string Region { get; set; }
 
@@ -69,7 +75,7 @@ namespace FirstLight.Game.Services
 
 	public interface IGameSocialService
 	{
-		bool CanInvite(Relationship friend);
+		bool CanInvite(Relationship friend, out string reason);
 		bool CanAddFriend(Player friend);
 		void SetCurrentActivity(GameActivities activity);
 		public GameActivities GetCurrentPlayerActivity();
@@ -82,15 +88,17 @@ namespace FirstLight.Game.Services
 	{
 		private BufferedQueue _stateUpdates = new (TimeSpan.FromSeconds(3), true);
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 		private HashSet<string> _fakeBotRequests = new ();
 		private FriendActivity _playerActivity = new ();
 
-		public GameSocialService(IGameServices services)
+		public GameSocialService(IGameServices services, IGameDataProvider dataProvider)
 		{
+			_services = services;
+			_dataProvider = dataProvider;
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += _ => OnJoinedParty();
-			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += _ => UpdateCurrentPlayerActivity();
 
 			services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyJoined += _ => UpdateCurrentPlayerActivity();
 			services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
@@ -113,7 +121,15 @@ namespace FirstLight.Game.Services
 			{
 				UpdateCurrentPlayerActivity();
 			};
-			_services = services;
+			services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnEquippedAvatar);
+		}
+
+		private void OnEquippedAvatar(CollectionItemEquippedMessage msg)
+		{
+			if (msg.Category != CollectionCategories.PROFILE_PICTURE) return;
+			var config = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
+			var url = AvatarHelpers.GetAvatarUrl(msg.EquippedItem, config);
+			CloudSaveService.Instance.SaveAvatarURLAsync(url).Forget();
 		}
 
 		private void OnJoinedParty()
@@ -149,7 +165,7 @@ namespace FirstLight.Game.Services
 			}
 
 			// If this is bindinded player is not in the main menu, dirty ugly hack
-			if (MainInstaller.TryResolve<IMatchServices>(out _ ))
+			if (MainInstaller.TryResolve<IMatchServices>(out _))
 			{
 				return GameActivities.In_match;
 			}
@@ -179,36 +195,61 @@ namespace FirstLight.Game.Services
 			return !isFriend && !isPending;
 		}
 
-		public bool CanInvite(Relationship friend)
+		public bool CanInvite(Relationship friend, out string reason)
 		{
-			if (!friend.IsOnline()) return false;
+			if (!friend.IsOnline())
+			{
+				reason = "player_offline";
+				return false;
+			}
 
 			var activity = friend.Member?.Presence?.GetActivity<FriendActivity>();
-			if (activity == null) return false;
-
-			if (!activity.CurrentActivityEnum.CanReceivePartyInvite())
+			if (activity == null)
 			{
+				reason = "player_offline";
+				return false;
+			}
+
+			if (!activity.CurrentActivityEnum.CanReceiveInvite())
+			{
+				reason = "activity_" + activity.CurrentActivityEnum.ToString().ToLowerInvariant();
 				return false;
 			}
 
 			if (activity.Region != _services.LocalPrefsService.ServerRegion.Value)
 			{
+				reason = "different_region";
 				return false;
-			}	
+			}
 
 			if (_services.FLLobbyService.CurrentMatchLobby != null && _services.FLLobbyService.SentMatchInvites.Contains(friend.Member.Id))
 			{
+				reason = "already_invited_to_match";
 				return false;
 			}
 
-			if (_services.FLLobbyService.SentPartyInvites.Any(sent => sent.PlayerId == friend.Member.Id)) return false;
+			if (_services.FLLobbyService.SentPartyInvites.Any(sent => sent.PlayerId == friend.Member.Id))
+			{
+				reason = "already_invited_to_team";
+				return false;
+			}
 
 			if (_services.FLLobbyService.CurrentPartyLobby != null)
 			{
-				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id)) return false;
-				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= _services.FLLobbyService.CurrentPartyLobby.MaxPlayers) return false;
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Any(p => p.Id == friend.Member.Id))
+				{
+					reason = "already_member";
+					return false;
+				}
+				
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= 4)
+				{
+					reason = "team_full";
+					return false;
+				}
 			}
 
+			reason = null;
 			return true;
 		}
 
@@ -218,7 +259,7 @@ namespace FirstLight.Game.Services
 			{
 				var data = MainInstaller.ResolveData();
 				_playerActivity.CurrentActivity = (int) activity;
-				_playerActivity.AvatarUrl = data.AppDataProvider.AvatarUrl;
+				_playerActivity.AvatarUrl = data.CollectionDataProvider.GetEquippedAvatarUrl();
 				_playerActivity.Region = _services.LocalPrefsService.ServerRegion.Value;
 				_playerActivity.Trophies = (int) data.PlayerDataProvider.Trophies.Value;
 				FLog.Verbose("Setting social activity as " + JsonConvert.SerializeObject(_playerActivity));
@@ -243,6 +284,9 @@ namespace FirstLight.Game.Services
 			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_open_profile,
 				() => PlayerStatisticsPopupPresenter.OpenBot(playerName).Forget()));
 
+			var canUseFriendSystem = _dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Friends);
+
+			if (!canUseFriendSystem) return;
 			if (!IsBotInvited(playerName))
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
@@ -279,12 +323,14 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			if (relationship == null || relationship.Type == RelationshipType.FriendRequest && !relationship.IsOutgoingInvite())
+			var hasIncomingRequest = relationship is {Type: RelationshipType.FriendRequest} && !relationship.IsOutgoingInvite();
+			var canUseFriendSystem = _dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Friends);
+			if ((relationship == null || hasIncomingRequest) && canUseFriendSystem)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
 					() => FriendsService.Instance.AddFriendHandled(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
 			}
-			else if (relationship.Type == RelationshipType.FriendRequest && relationship.IsOutgoingInvite())
+			else if (relationship is {Type: RelationshipType.FriendRequest} && relationship.IsOutgoingInvite())
 			{
 				if (settings.ShowRemoveFriend)
 				{
@@ -299,7 +345,7 @@ namespace FirstLight.Game.Services
 					buttons.Add(PlayerContextButton.Create(ScriptLocalization.UITFriends.option_request_sent).Disable());
 				}
 			}
-			else if (relationship.Type == RelationshipType.Friend && settings.ShowRemoveFriend)
+			else if (relationship is {Type: RelationshipType.Friend} && settings.ShowRemoveFriend)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
 					() => FriendsService.Instance.RemoveRelationshipHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
@@ -314,6 +360,12 @@ namespace FirstLight.Game.Services
 
 		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName, PlayerContextSettings settings = null)
 		{
+			if (unityId == AuthenticationService.Instance.PlayerId)
+			{
+				element.OpenTooltip(root, ScriptLocalization.UITCustomGames.local_player_tooltip);
+				return;
+			}
+
 			if (settings == null) settings = new PlayerContextSettings();
 			var isLocalPlayerLeader = _services.FLLobbyService.CurrentPartyLobby?.IsLocalPlayerHost() ?? false;
 			var playerContextButtons = new List<PlayerContextButton>();

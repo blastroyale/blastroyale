@@ -33,6 +33,10 @@ namespace FirstLight.Game.Services.Social
 				{
 					Place(GetEmptySlot(), p);
 				}
+				else
+				{
+					FLog.Verbose("No room in grid for player "+p);
+				}
 			}
 		}
 
@@ -67,8 +71,8 @@ namespace FirstLight.Game.Services.Social
 
 		public void Place(int position, string player)
 		{
-			_playerIds[position] = player;
 			FLog.Verbose("Grid", $"{player} placed in slot {position}");
+			_playerIds[position] = player;
 		}
 
 		public void Remove(params string[] players)

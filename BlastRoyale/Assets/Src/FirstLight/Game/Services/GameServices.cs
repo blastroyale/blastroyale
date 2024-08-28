@@ -8,6 +8,7 @@ using FirstLight.Game.Services.Analytics;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Collection;
+using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -127,6 +128,7 @@ namespace FirstLight.Game.Services
 		public NotificationService NotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
 		public IGameSocialService GameSocialService { get; }
+		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -188,6 +190,8 @@ namespace FirstLight.Game.Services
 		public NotificationService NotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
 		public IGameSocialService GameSocialService { get; }
+
+		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
 
 		public string QuitReason { get; set; }
 
@@ -251,7 +255,8 @@ namespace FirstLight.Game.Services
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
-			GameSocialService = new GameSocialService(this);
+			GameSocialService = new GameSocialService(this, gameLogic);
+			PlayfabUnityBridgeService = new PlayfabUnityBridgeService(ProfileService, MessageBrokerService);
 		}
 
 		/// <inheritdoc />

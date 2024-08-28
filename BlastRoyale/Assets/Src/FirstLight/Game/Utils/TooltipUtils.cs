@@ -76,6 +76,25 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Opens a tooltip with a string content.
 		/// </summary>
+		public static void OpenLocalizedTooltip(this VisualElement element, VisualElement root, string term)
+
+		{
+			string text;
+			if (LocalizationManager.TryGetTranslation(term, out var translation))
+			{
+				text = translation;
+			}
+			else
+			{
+				text = $"#{term}#";
+			}
+
+			OpenTooltip(element, root, text);
+		}
+
+		/// <summary>
+		/// Opens a tooltip with a string content.
+		/// </summary>
 		public static void OpenTooltip(this VisualElement element, VisualElement root, string content,
 									   Vector2 offset = default,
 									   TooltipPosition position = TooltipPosition.Auto,

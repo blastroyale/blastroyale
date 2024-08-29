@@ -186,7 +186,7 @@ namespace FirstLight.Game.Presenters.Store
 				foreach (var sizeable in _sizeable)
 				{
 					var element = this.Q(ClassNameToElementName(sizeable));
-					element.AddToClassList($"{sizeable}--small");
+					element?.AddToClassList($"{sizeable}--small");
 				}
 			}
 
@@ -196,7 +196,7 @@ namespace FirstLight.Game.Presenters.Store
 				foreach (var modifiable in _modifiable)
 				{
 					var element = this.Q(ClassNameToElementName(modifiable));
-					element.AddToClassList($"{modifiable}--{customModifier}");
+					element?.AddToClassList($"{modifiable}--{customModifier}");
 				}
 			}
 

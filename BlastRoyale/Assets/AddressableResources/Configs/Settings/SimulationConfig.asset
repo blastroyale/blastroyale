@@ -26,7 +26,7 @@ MonoBehaviour:
         RawValue: 65536
       HeightThresholdForAvoidance:
         RawValue: 65536
-      RawPathSize: 256
+      RawPathSize: 512
       RawPathAllocationStrategy: 0
       EnableAvoidance: 0
       AvoidanceRange:
@@ -43,8 +43,8 @@ MonoBehaviour:
         Z:
           RawValue: 0
       SolverType: 1
-      SolverIterations: 1
-      PositionSolverIterations: 1
+      SolverIterations: 2
+      PositionSolverIterations: 2
       UseJoints: 0
       UseAngularVelocity: 0
       UseVerticalTransform: 0
@@ -79,8 +79,8 @@ MonoBehaviour:
         RawValue: 65
       MaxTimeOfImpactIterations: 16
       MaxRootFindingIterations: 32
-      DefaultEntriesCapacity: 2048
-      DefaultStaticsCapacity: 1024
+      DefaultEntriesCapacity: 3072
+      DefaultStaticsCapacity: 4096
       DefaultQueriesCapacity: 1024
       DefaultQueryItemsCapacity: 4096
       DefaultHitCollectionItemsCapacity: 32
@@ -133,7 +133,7 @@ MonoBehaviour:
       LayerMatrix: 0880fdff0880f9ff0880f9ffffffffff0880f9ff0880f9ffc8f3ffff48f1ffffc8c0fdff48c0ffff0880fbff0880f9ffc890f9ffc880f9ffc883f9fffffffdfffffff9ffc806f8ffc983f8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     Entities:
       CommitCommandsMode: 0
-      DefaultEntityCapacity: 1024
+      DefaultEntityCapacity: 2024
       DefaultComponentBlockCapacity: 128
       ComponentTypeConfiguration: []
     AutoLoadSceneFromMap: 0

@@ -12,8 +12,8 @@ namespace Quantum.Systems.Bots
 		/// This determines how fast innacurate bots will move the aim line towards their randomized angle
 		/// to create the effect of smoothly aiming
 		/// </summary>
-		private static FP ACCURACY_LERP_TICK = FP._0_05;
-
+		private static readonly FP ACCURACY_LERP_TICK = FP._0_01;
+		
 		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, PlayerCharacter* pc, Frame f)
 		{
 			if (pc->HasMeleeWeapon(f, entity))
@@ -58,7 +58,7 @@ namespace Quantum.Systems.Bots
 						var speed = f.Unsafe.GetPointer<Stats>(filter.Entity)->Values[(int)StatType.Speed].StatValue;
 						speed *= filter.BotCharacter->MovementSpeedMultiplier;
 						speed *= weaponConfig.AimingMovementSpeed;
-						var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+						var kcc = f.Unsafe.GetPointer<TopDownController>(filter.Entity);
 						kcc->MaxSpeed = speedUpMutatorExists ? speed * Constants.MUTATOR_SPEEDUP_AMOUNT : speed;
 						filter.SetAttackTarget(f, targetHit);
 						target = targetHit;
@@ -163,7 +163,7 @@ namespace Quantum.Systems.Bots
 			ReviveSystem.OverwriteMaxMoveSpeed(f, botFilter.Entity, ref speed);
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
-			f.Unsafe.GetPointer<CharacterController3D>(botFilter.Entity)->MaxSpeed = speed;
+			f.Unsafe.GetPointer<TopDownController>(botFilter.Entity)->MaxSpeed = speed;
 
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botFilter.Entity);
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
@@ -182,7 +182,7 @@ namespace Quantum.Systems.Bots
 			ReviveSystem.OverwriteMaxMoveSpeed(f, entity, ref speed);
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
-			f.Unsafe.GetPointer<CharacterController3D>(entity)->MaxSpeed = speed;
+			f.Unsafe.GetPointer<TopDownController>(entity)->MaxSpeed = speed;
 
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
@@ -195,7 +195,7 @@ namespace Quantum.Systems.Bots
 		/// Tries basic combat movement.
 		/// Will attempt not to get close to the enemy and stay in a decent range while moving randomly.
 		/// </summary>
-		public static bool TryCombatMovement(this ref BotCharacter bot, in EntityRef e, Frame f, in FPVector3 botPosition, in EntityRef target, in FPVector3 targetPosition, in FP rangeSquared, in FP distanceSquared)
+		public static bool TryCombatMovement(this ref BotCharacter bot, in EntityRef e, Frame f, in FPVector2 botPosition, in EntityRef target, in FPVector2 targetPosition, in FP rangeSquared, in FP distanceSquared)
 		{
 			if (bot.IsLowLife(e, f) || bot.IsStaticMovement()) return false;
 			if (!bot.Target.IsValid && bot.HasWaypoint(e, f)) return false; // if im not combating and moving ill ignore
@@ -206,7 +206,7 @@ namespace Quantum.Systems.Bots
 
 			if (distanceSquared < minCombatDistance)
 			{
-				if (bot.WanderInsideCircle(e, f, botPosition.XZ, minCombatDistance))
+				if (bot.WanderInsideCircle(e, f, botPosition, minCombatDistance))
 				{
 					BotLogger.LogAction(e, "Moving away from target, too close to him");
 					bot.SetHasWaypoint(e, f);
@@ -225,7 +225,7 @@ namespace Quantum.Systems.Bots
 					return false;
 				}
 
-				if (bot.WanderInsideCircle(e, f, targetPosition.XZ, rangeSquared))
+				if (bot.WanderInsideCircle(e, f, targetPosition, rangeSquared))
 				{
 					BotLogger.LogAction(e, "Moving away from target, too close to him");
 					bot.SetHasWaypoint(e, f);
@@ -260,16 +260,16 @@ namespace Quantum.Systems.Bots
 			var weaponConfig = f.WeaponConfigs.GetConfig(character->CurrentWeapon.GameId);
 			var weaponTraversePerFrame = weaponConfig.AttackHitSpeed.AsInt * f.DeltaTime;
 			if (weaponTraversePerFrame == FP._0) return false;
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(target);
+			var kcc = f.Unsafe.GetPointer<TopDownController>(target);
 			var targetPosition = target.GetPosition(f);
 			var botPosition = botEntity.GetPosition(f);
-			var currentDistance = FPVector3.Distance(botPosition, targetPosition);
+			var currentDistance = FPVector2.Distance(botPosition, targetPosition);
 			var estimationFramesToHit = currentDistance / weaponTraversePerFrame;
 			var moveSpeed = kcc->Velocity;
 			moveSpeed = moveSpeed.Normalized * kcc->MaxSpeed;
 			var estimatedPositionOffset = moveSpeed * f.DeltaTime * estimationFramesToHit;
 			targetPosition += estimatedPositionOffset;
-			direction = (targetPosition - botPosition).XZ;
+			direction = (targetPosition - botPosition);
 			return true;
 		}
 
@@ -297,19 +297,15 @@ namespace Quantum.Systems.Bots
 			{
 				return false;
 			}
-
-			HostProfiler.Start("TryUseSpecials");
-
 			for (var i = 0; i <= 1; i++)
 			{
 				if (TryUseSpecial(f, inventory, i, botEntity, bot.Target))
 				{
 					bot.NextAllowedSpecialUseTime = f.Time + f.RNG->NextInclusive(bot.SpecialCooldown);
-					HostProfiler.End();
+
 					return true;
 				}
 			}
-			HostProfiler.End();
 			return false;
 		}
 
@@ -362,10 +358,8 @@ namespace Quantum.Systems.Bots
 			}
 
 			var botPosition = botEntity.GetPosition(f);
-			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 
-			var targetPosition = f.Unsafe.GetPointer<Transform3D>(targetToCheck)->Position;
-			targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
+			var targetPosition = f.Unsafe.GetPointer<Transform2D>(targetToCheck)->Position;
 
 			if (bot.TryCombatMovement(botEntity, f, botPosition, targetToCheck, targetPosition, maxRangeSquared, distanceSquared))
 			{
@@ -373,17 +367,14 @@ namespace Quantum.Systems.Bots
 			}
 			else
 			{
-				var hit = f.Physics3D.Linecast(botPosition,
+				var hit = f.Physics2D.Linecast(botPosition,
 					targetPosition,
-					f.Context.TargetPlayerLineOfSightLayerMask,
-					QueryOptions.HitDynamics | QueryOptions.HitStatics |
+					f.Context.TargetPlayerLineOfSightLayerMask, QueryOptions.HitStatics |
 					QueryOptions.HitKinematics);
-
-				// We check if hit is an entity because this will check for obstacles so we dont aim 
-				// versus targets behind walls
-				if (hit.HasValue && hit.Value.Entity != EntityRef.None)
+				
+				if (!hit.HasValue)
 				{
-					targetHit = hit.Value.Entity;
+					targetHit = targetToCheck;
 				}
 			}
 
@@ -403,88 +394,25 @@ namespace Quantum.Systems.Bots
 		/// We reusing player character blackboard components here to save space. Those blackboard
 		/// attributes are only being used by real players.
 		/// </summary>
-		private static void SetAimWithAccuracyLerp(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in EntityRef target, in FPVector3 targetPosition)
+		private static void SetAimWithAccuracyLerp(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in EntityRef target, in FPVector2 targetPosition)
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
 			var botPosition = botEntity.GetPosition(f);
-
-			// if bot is marked to sharpshoot next shot we just aim at the enemy
-			// when the shot is fired bot will make sure it gets prediction
-			if (bot.SharpShootNextShot)
+			var accuracy = bb->GetFP(f, Constants.ACCURACY_LERP);
+			var perfectAim = (targetPosition - botPosition).Normalized;
+			if (accuracy > -ACCURACY_LERP_TICK && accuracy < ACCURACY_LERP_TICK)
 			{
-				bb->Set(f, Constants.AIM_DIRECTION_KEY, (targetPosition - botPosition).XZ);
-				BotLogger.LogAction(bot, "Sharp Shooting");
-				return;
-			}
-
-			if (bot.AccuracySpreadAngle > 0)
-			{
-				var lerpSpeed = bb->GetFP(f, Constants.ACCURACY_LERP);
-				var aimDirection = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
-				var targetAimDirection = bb->GetVector2(f, Constants.TARGET_AIM);
-
-				if (aimDirection == FPVector2.Zero)
-				{
-					aimDirection = (targetPosition - botPosition).XZ;
-				}
-
-				// Target aim is the direction the bot is going to lerp to to aim
-				// This will set an innacurate target aim direction
-				if (targetAimDirection == FPVector2.Zero)
-				{
-					var targetHealthRatio = Stats.VitalityRatio(target, f);
-					var botHealthRatio = Stats.VitalityRatio(botEntity, f);
-
-					// If bot has at least 90% of the player life, 50% chance he will aim innacurately
-					if (targetHealthRatio < botHealthRatio)
-					{
-						var angleHalfInRad = (bot.AccuracySpreadAngle * FP.Deg2Rad) / FP._2;
-						targetAimDirection = FPVector2.Rotate((targetPosition - botPosition).XZ, f.RNG->Next(-angleHalfInRad, angleHalfInRad));
-						bb->Set(f, Constants.TARGET_AIM, targetAimDirection);
-						BotLogger.LogAction(bot, "Setting Target Aim without precision");
-					}
-					else
-					{
-						// If bot is almost dying, target is not dying he will sharp shoot to catchup
-						if (botHealthRatio < FP._0_33 && botHealthRatio < targetHealthRatio && f.RNG->NextBool())
-						{
-							bot.SharpShootNextShot = true;
-							bb->Set(f, Constants.ACCURACY_LERP, FP._1);
-						}
-
-						// if he is just lower life than enemy he will just shoot better
-						// but wont sharp shoot
-						targetAimDirection = (targetPosition - botPosition).XZ;
-						bb->Set(f, Constants.AIM_DIRECTION_KEY, targetAimDirection);
-						BotLogger.LogAction(bot, "Setting aim with precision but lerping");
-					}
-				}
-
-				// Do the lerp towards the direction he wants to aim to
-				lerpSpeed += ACCURACY_LERP_TICK;
-
-				// reached my aim rotation target, so ill reset and look for another innacurate lerped angle
-				if (lerpSpeed >= FP._1)
-				{
-					aimDirection = targetAimDirection;
-					bb->Set(f, Constants.ACCURACY_LERP, FP._0);
-					bb->Set(f, Constants.TARGET_AIM, FPVector2.Zero);
-				}
-				else
-				{
-					bb->Set(f, Constants.ACCURACY_LERP, lerpSpeed);
-					aimDirection = FPQuaternion.Lerp(aimDirection.ToRotation(), targetAimDirection.ToRotation(), lerpSpeed).ToDirection();
-				}
-
-				bb->Set(f, Constants.AIM_DIRECTION_KEY, aimDirection);
+				var spread = (bot.AccuracySpreadAngle * FP.Deg2Rad);
+				accuracy = f.RNG->Next(-spread, spread);
 			}
 			else
 			{
-				// Sharp Shooter
-				BotLogger.LogAction(bot, "Setting sharp shooter");
-				bot.SharpShootNextShot = true;
-				bb->Set(f, Constants.AIM_DIRECTION_KEY, (targetPosition - botPosition).XZ);
+				if (accuracy > 0) accuracy -= ACCURACY_LERP_TICK;
+				else accuracy += ACCURACY_LERP_TICK;
 			}
+			perfectAim = (perfectAim.ToRotation() + accuracy).ToDirection();
+			bb->Set(f, Constants.AIM_DIRECTION_KEY, perfectAim);
+			bb->Set(f, Constants.ACCURACY_LERP, accuracy);
 		}
 	}
 }

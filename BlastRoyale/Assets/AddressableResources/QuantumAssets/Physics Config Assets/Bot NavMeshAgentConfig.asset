@@ -28,7 +28,7 @@ MonoBehaviour:
       RawValue: 0
     AutomaticTargetCorrection: 1
     AutomaticTargetCorrectionRadius:
-      RawValue: 1310720
+      RawValue: 65536
     EnableWaypointDetectionAxis: 0
     WaypointDetectionAxisExtend:
       RawValue: 32768
@@ -36,10 +36,10 @@ MonoBehaviour:
       RawValue: 0
     DefaultWaypointDetectionDistance:
       RawValue: 655
-    MovementType: 3
-    VerticalPositioning: 0
+    MovementType: 4
+    VerticalPositioning: 1
     Speed:
-      RawValue: 327680
+      RawValue: 190054
     AngularSpeed:
       RawValue: 3276800
     Acceleration:
@@ -52,8 +52,8 @@ MonoBehaviour:
     ClampAgentToNavmesh: 1
     ClampAgentToNavmeshCorrection:
       RawValue: 16384
-    AvoidanceType: 2
-    AvoidanceQuality: 3
+    AvoidanceType: 0
+    AvoidanceQuality: 1
     Priority: 50
     AvoidanceRadius:
       RawValue: 32768

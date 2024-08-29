@@ -8,8 +8,7 @@ namespace Quantum
 
 		public static readonly FP OUT_OF_WORLD_Y_THRESHOLD = -FP._5;
 		public static readonly FP CHARGE_VALIDITY_CHECK_DISTANCE_STEP = FP._0_25;
-		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
-		public static readonly FP SPECIAL_CHARGE_Y_OFFSET = FP._0_10;
+		
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._1_50;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_25;
 		public static readonly int OFFHAND_POOLSIZE = 20;
@@ -23,7 +22,6 @@ namespace Quantum
 		public static readonly FP INITIAL_AMMO_FILLED = FP._0_10 + FP._0_05 + FP._0_01;
 		public static readonly FP CONSUMABLE_POPOUT_DURATION = FP._0_50 + FP._0_10;
 		public static readonly FP CHANCE_TO_DROP_WEAPON_ON_DEATH = FP._1 - FP._0_10;
-		public static readonly FP DROP_Y_POSITION = FP._0_10;
 		public static readonly FP SHRINKINGCIRCLE_NAVMESH_CORRECTION_RADIUS = FP._10;
 
 		public const int TEAM_ID_NEUTRAL = 0;

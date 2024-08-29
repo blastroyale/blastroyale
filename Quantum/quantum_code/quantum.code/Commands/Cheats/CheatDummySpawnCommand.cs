@@ -9,8 +9,8 @@ namespace Quantum.Commands
 	/// </summary>
 	public unsafe class CheatDummySpawnCommand : CommandBase
 	{
-		public FPVector3 Position;
-		public FPQuaternion Rotation;
+		public FPVector2 Position;
+		public FP Rotation;
 		public int Health;
 		
 		/// <inheritdoc />
@@ -26,7 +26,7 @@ namespace Quantum.Commands
 		{
 #if DEBUG			
 			var e = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.DummyCharacterPrototype.Id));
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			var transform = f.Unsafe.GetPointer<Transform2D>(e);
 
 			transform->Position = Position;
 			transform->Rotation = Rotation;

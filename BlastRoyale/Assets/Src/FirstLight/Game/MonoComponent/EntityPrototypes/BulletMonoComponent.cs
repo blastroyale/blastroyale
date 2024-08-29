@@ -9,10 +9,6 @@ public class BulletMonoComponent : MonoBehaviour
 	[SerializeField] public Gradient NormalGunGradient;
 	[SerializeField] private LineRenderer _renderer;
 
-
-	public static Vector3 CameraCorrectionOffset = new Vector3(0, -0.6f, 0);
-
-
 #if UNITY_EDITOR
 	private void OnValidate()
 	{
@@ -27,8 +23,7 @@ public class BulletMonoComponent : MonoBehaviour
 	{
 		View.OnEntityInstantiated.AddListener(SetupBulletColor);
 	}
-
-
+	
 	public void SetupBulletColor(QuantumGame game)
 	{
 		if (_renderer == null) return;

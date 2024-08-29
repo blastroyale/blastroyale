@@ -46,8 +46,6 @@ MonoBehaviour:
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null
-      - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
-        PublicKeyToken=null
     - Id: Testing
       MaxAllowedPlayersPerTeam: 0
       AllowedMaps: 0b00000005000000f1030000
@@ -127,6 +125,4 @@ MonoBehaviour:
       IsDebugOnly: 1
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
-        PublicKeyToken=null
-      - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null

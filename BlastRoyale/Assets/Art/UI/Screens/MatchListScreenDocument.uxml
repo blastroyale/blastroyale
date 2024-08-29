@@ -10,7 +10,7 @@
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/players" name="PlayersTitle" class="match-lobby-item__players match-list-container__header-item" />
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/region" name="RegionTitle" class="match-lobby-item__region match-list-container__header-item" />
                 </ui:VisualElement>
-                <ui:ListView name="GamesList" fixed-item-height="138" show-bound-collection-size="false" horizontal-scrolling="false" show-foldout-header="false" virtualization-method="FixedHeight" selection-type="None" class="anim-delay-0 anim-fade match-list-container__list" />
+                <ui:ListView name="GamesList" fixed-item-height="138" show-bound-collection-size="false" horizontal-scrolling="false" show-foldout-header="false" virtualization-method="DynamicHeight" selection-type="None" class="anim-delay-0 anim-fade match-list-container__list" />
                 <FirstLight.Game.UIElements.DotsLoadingElement name="Loader" class="match-list-container__loader" />
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITCustomGames/no_lobbies" name="NoLobbiesLabel" class="no-lobbies-label" />
                 <ui:VisualElement class="match-list-container__bottom-bar">

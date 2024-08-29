@@ -150,12 +150,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 
-			if (IsBot)
-			{
-				var bot = _playerView.gameObject.AddComponent<BotCharacterViewMonoComponent>();
-				bot.SetEntityView(quantumGame, _playerView.EntityView);
-			}
-
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)
 			{
 				var time = stats.CurrentStatusModifierEndTime - frame.Time;

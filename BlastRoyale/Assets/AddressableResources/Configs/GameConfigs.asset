@@ -39,12 +39,12 @@ MonoBehaviour:
         Values: 640000002c010000
       PlayerDefaultSpeed:
         Default:
-          RawValue: 190054
+          RawValue: 193331
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 190054
+        - RawValue: 193331
         - RawValue: 245760
       PlayerMaxShieldCapacity:
         Default: 100
@@ -111,7 +111,7 @@ MonoBehaviour:
       AirdropHeight:
         RawValue: 1310720
       MultiKillResetTime:
-        RawValue: 262144
+        RawValue: 655360
       BotsMaxDifficulty: 0
       NftDurabilityDropDays:
         RawValue: 458752
@@ -136,7 +136,7 @@ MonoBehaviour:
         RawValue: 98304
       HardAngleAim: 0
       CollectableEquipmentPickupRadius:
-        RawValue: 65536
+        RawValue: 49152
       ChanceToDropNoobOnKill:
         RawValue: 655
       NoInputWarningTime:

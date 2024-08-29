@@ -11,7 +11,7 @@ namespace Quantum.Systems
 		{
 			public EntityRef Entity;
 			public Destructible* Destructible;
-			public Transform3D* Transform;
+			public Transform2D* Transform;
 			public Targetable* Targetable;
 			public Stats* Stats;
 		}

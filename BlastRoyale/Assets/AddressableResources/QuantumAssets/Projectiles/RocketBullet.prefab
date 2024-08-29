@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformMode: 1
+  TransformMode: 0
   Transform2DVertical:
     IsEnabled: 0
     Height:
@@ -72,9 +72,9 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6553
+          RawValue: 11769
         Y:
-          RawValue: 26214
+          RawValue: 52425
       PositionOffset:
         X:
           RawValue: 0
@@ -296,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5909681677658348944}
   - component: {fileID: 4549019146470985702}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

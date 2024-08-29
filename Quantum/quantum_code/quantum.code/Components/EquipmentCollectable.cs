@@ -19,11 +19,11 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Weapon pick up with all the necessary data
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, FPVector3 originPos, in Equipment equipment, EntityRef spawner,
+		internal void Init(Frame f, EntityRef e, FPVector2 position, FP rotation, FPVector2 originPos, in Equipment equipment, EntityRef spawner,
 		                   PlayerRef owner = new PlayerRef())
 		{
 			var collectable = new Collectable {GameId = equipment.GameId };
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			var transform = f.Unsafe.GetPointer<Transform2D>(e);
 
 			transform->Position = position;
 			transform->Rotation = rotation;
@@ -36,8 +36,8 @@ namespace Quantum
 
 			f.Add(e, collectable);
 			
-			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
-			collider->Shape.Sphere.Radius = f.GameConfig.CollectableEquipmentPickupRadius;
+			var collider = f.Unsafe.GetPointer<PhysicsCollider2D>(e);
+			collider->Shape.Circle.Radius = f.GameConfig.CollectableEquipmentPickupRadius;
 		}
 
 		/// <summary>

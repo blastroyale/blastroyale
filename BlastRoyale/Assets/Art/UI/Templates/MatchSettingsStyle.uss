@@ -273,7 +273,7 @@
     flex-grow: 1;
 }
 .spectators-scroll-view .unity-scroll-view__content-viewport{
-    overflow: visible;
+    overflow: hidden;
 }
 
 

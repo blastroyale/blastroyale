@@ -23,8 +23,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_footsteps.SpawnFootprints = value;
 			}
 		}
-
-
+		
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
 		/// </summary>
@@ -43,7 +42,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				var glider = _services.CollectionService.GetCosmeticForGroup(Cosmetics, GameIdGroup.Glider);
 				await InstantiateGlider(glider);
 			}
-
 
 			var runner = QuantumRunner.Default;
 

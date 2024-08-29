@@ -6,15 +6,15 @@ namespace Quantum.Systems
 	/// <summary>
 	/// System handling knockout logic, this contains knocking out the player when he dies, knockout collider, and reviving the player.
 	/// </summary>
-	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnTriggerEnter3D,
-									   ISignalOnTriggerExit3D, ISignalOnComponentRemoved<KnockedOut>, ISignalPlayerDead,
+	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnTriggerEnter2D,
+									   ISignalOnTriggerExit2D, ISignalOnComponentRemoved<KnockedOut>, ISignalPlayerDead,
 									   ISignalGameEnded
 	{
 		public struct KnockedOutFilter
 		{
 			public EntityRef Entity;
 			public KnockedOut* KnockedOut;
-			public Transform3D* Transform;
+			public Transform2D* Transform;
 			public Stats* Stats;
 		}
 
@@ -45,8 +45,8 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref KnockedOutFilter filter)
 		{
 			// Move revive collider with player
-			var colliderTransform3D = f.Unsafe.GetPointer<Transform3D>(filter.KnockedOut->ColliderEntity);
-			colliderTransform3D->Position = filter.Transform->Position;
+			var colliderTransform2D = f.Unsafe.GetPointer<Transform2D>(filter.KnockedOut->ColliderEntity);
+			colliderTransform2D->Position = filter.Transform->Position;
 
 			if (f.ResolveHashSet(filter.KnockedOut->PlayersReviving).Count > 0)
 			{
@@ -55,8 +55,6 @@ namespace Quantum.Systems
 					var reviveHealthPercentage = GetConfigForKnockedOut(f, filter.KnockedOut).LifePercentageOnRevived;
 					RevivePlayer(f, filter.Entity, filter.Stats, reviveHealthPercentage);
 				}
-
-				// Someone is reviving him so no damage
 				return;
 			}
 
@@ -85,7 +83,7 @@ namespace Quantum.Systems
 		}
 
 
-		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+		public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
 		{
 			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(info.Entity, out var knockedOutCollider))
 			{
@@ -126,7 +124,7 @@ namespace Quantum.Systems
 		}
 
 
-		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
+		public void OnTriggerExit2D(Frame f, ExitInfo2D info)
 		{
 			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(info.Entity, out var knockedOutCollider)
 				|| !f.Unsafe.TryGetPointer<KnockedOut>(knockedOutCollider->KnockedOutEntity, out var knockedOut)
@@ -275,18 +273,18 @@ namespace Quantum.Systems
 			knockedOutComponent->ConfigIndex = revivable->TimesKnockedOut;
 			var config = GetConfigForKnockedOut(f, knockedOutComponent);
 			var stats = f.Unsafe.GetPointer<Stats>(playerEntityRef);
-			var transform = f.Unsafe.GetPointer<Transform3D>(playerEntityRef);
+			var transform = f.Unsafe.GetPointer<Transform2D>(playerEntityRef);
 			stats->SetCurrentHealthPercentage(f, playerEntityRef, config.LifePercentageOnKnockedOut);
 			knockedOutComponent->NextDamageAt = f.Time + config.DamageTickInterval;
 			// Create collider to detect revive
 			knockedOutComponent->ColliderEntity = f.Create();
 			knockedOutComponent->KnockedOutBy = spell->Attacker;
 
-			var shape3D = Shape3D.CreateSphere(config.ReviveColliderRange);
+			var shape3D = Shape2D.CreateCircle(config.ReviveColliderRange);
 			var colliderEntity = knockedOutComponent->ColliderEntity;
-			f.Add(colliderEntity, Transform3D.Create(transform->Position));
+			f.Add(colliderEntity, Transform2D.Create(transform->Position));
 			f.Add(colliderEntity,
-				PhysicsCollider3D.Create(f, shape3D, null, true, f.Context.TargetPlayerTriggersLayerIndex));
+				PhysicsCollider2D.Create(f, shape3D, null, true, f.Context.TargetPlayerTriggersLayerIndex));
 			f.Add(colliderEntity, new KnockedOutCollider()
 			{
 				KnockedOutEntity = playerEntityRef

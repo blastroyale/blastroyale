@@ -140,7 +140,7 @@ namespace FirstLight.Game.Utils
 			public const float SFX_3D_SPATIAL_BLEND = 1f;
 
 			public const float SFX_3D_MIN_DISTANCE = 0.5f;
-			public const float SFX_3D_MAX_DISTANCE = 16f;
+			public const float SFX_3D_MAX_DISTANCE = 32f;
 
 			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
 			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
@@ -195,7 +195,7 @@ namespace FirstLight.Game.Utils
 		public static class Data
 		{
 			public const int MAX_SQUAD_MEMBERS = 3;
-			public const int MATCH_SPECTATOR_SPOTS = 2; // TODO UNDO
+			public const int MATCH_SPECTATOR_SPOTS = 15; 
 			public const float ROOM_SELECT_DROP_POSITION_SECONDS = 5f;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;

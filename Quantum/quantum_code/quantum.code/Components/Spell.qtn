@@ -7,7 +7,7 @@ component Spell
 	Int32 TeamSource;
 	UInt32 PowerAmount;
 	UInt32 KnockbackAmount;
-	FPVector3 OriginalHitPosition;
+	FPVector2 OriginalHitPosition;
 	FP Cooldown;
 	FP NextHitTime;
 	FP EndTime;

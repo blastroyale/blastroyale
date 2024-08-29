@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="AI\Actions\PlayerActivateAction.cs" />
     <Compile Include="AI\Actions\PlayerOnBurstCompleteAction.cs" />
+    <Compile Include="AI\Actions\PlayerRaycastAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerReloadAction.cs" />
     <Compile Include="AI\Actions\PlayerPhysicsAction.cs" />
     <Compile Include="AI\Actions\PlayerStartReloadAction.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="AI\Actions\SkydiveStopAction.cs" />
     <Compile Include="AI\Actions\PlayerAmmoEmptyAction.cs" />
     <Compile Include="AI\Actions\AIAction.cs" />
-    <Compile Include="AI\Actions\PlayerRaycastAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerChangeDefaultWeaponAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerStopAttackAction.cs" />
@@ -290,6 +290,8 @@
     <Compile Include="Systems\Bots\BotSetup.cs" />
     <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\Bots\BotUpdateContext.cs" />
+    <Compile Include="Systems\TopDown\TopDownController.cs" />
+    <Compile Include="Systems\TopDown\TopDownSystem.cs" />
     <Compile Include="Systems\ChestSystem.cs" />
     <Compile Include="Systems\CollectableChunkSystem.cs" />
     <Compile Include="Systems\DeathFlagSystem.cs" />
@@ -297,11 +299,11 @@
     <Compile Include="Systems\GameItemCollectableSystem.cs" />
     <Compile Include="Systems\LandMineSystem.cs" />
     <Compile Include="Systems\TeamSystem.cs" />
+    <Compile Include="Systems\TopDown\TopDownUtils.cs" />
     <Compile Include="Systems\VisibilityAreaSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />
     <Compile Include="Systems\GateSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
-    <Compile Include="Systems\RoofDamageSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
     <Compile Include="Systems\CollectableSystem.cs" />
@@ -310,7 +312,6 @@
     <Compile Include="Systems\SpellSystem.cs" />
     <Compile Include="Systems\StatusModifiers\ImmunitySystem.cs" />
     <Compile Include="Systems\StatusModifiers\StatusModifierSystemGroup.cs" />
-    <Compile Include="Systems\TransformOutOfWorldSystem.cs" />
     <Compile Include="Systems\StatusModifiers\RageSystem.cs" />
     <Compile Include="Systems\StatusModifiers\StunSystem.cs" />
     <Compile Include="Systems\EntityLateDestroyerSystem.cs" />
@@ -392,6 +393,7 @@
     <Content Include="Events\ChestEvents.qtn" />
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
+    <Content Include="Systems\TopDown\TopDown.qtn" />
     <EmbeddedResource Include="db.json" />
   </ItemGroup>
   <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">

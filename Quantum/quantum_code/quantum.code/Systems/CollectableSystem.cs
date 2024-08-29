@@ -7,86 +7,85 @@ namespace Quantum.Systems
 	/// This system handles all the <see cref="Collectable"/> component collection interactions using triggers 
 	/// </summary>
 	public unsafe class CollectableSystem : SystemSignalsOnly, ISignalPlayerDead,
-											ISignalOnTriggerEnter3D, ISignalOnTrigger3D, ISignalOnTriggerExit3D,
+											ISignalOnFeetCollisionEnter, ISignalOnFeetCollisionContinue, ISignalOnFeetCollisionLeft,
 											ISignalPlayerColliderDisabled
 	{
-		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+		
+		public void OnFeetCollisionEnter(Frame f, EntityRef entity, EntityRef collidedWith, FPVector2 point)
 		{
-			TryStartCollecting(f, info, true);
+			TryStartCollecting(f, collidedWith, entity, true);
 		}
 
-		public void OnTrigger3D(Frame f, TriggerInfo3D info)
+		public void OnFeetCollisionContinue(Frame f, EntityRef collector, EntityRef collidedWith)
 		{
-			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-				!f.Has<AlivePlayerCharacter>(info.Other) || !f.Unsafe.TryGetPointer<PlayerCharacter>(info.Other, out var player) ||
-				f.Has<EntityDestroyer>(info.Entity))
+			if (!f.Unsafe.TryGetPointer<Collectable>(collidedWith, out var collectable) ||
+				!f.Has<AlivePlayerCharacter>(collector) || !f.Unsafe.TryGetPointer<PlayerCharacter>(collector, out var player) ||
+				f.Has<EntityDestroyer>(collidedWith))
 			{
 				return;
 			}
 
-			var playerEntity = info.Other;
+			var playerEntity = collector;
 
 			// We try to start collecting here because collectable may be allowed to
 			// become collected after it already triggered with a player
-			if (!collectable->IsCollecting(f, info.Entity, playerEntity))
+			if (!collectable->IsCollecting(f, collidedWith, playerEntity))
 			{
-				if (!TryStartCollecting(f, info, false))
+				if (!TryStartCollecting(f, collidedWith, collector, false))
 				{
 					return;
 				}
 			}
 
-			if (!collectable->TryGetCollectingEndTime(f, info.Entity, playerEntity, out var endTime) || f.Time < endTime)
+			if (!collectable->TryGetCollectingEndTime(f, collidedWith, playerEntity, out var endTime) || f.Time < endTime)
 			{
 				return;
 			}
 
-			if (IsCollectableFilled(f, info.Entity, info.Other) || ReviveSystem.IsKnockedOut(f, info.Other))
+			if (IsCollectableFilled(f, collidedWith, collector) || ReviveSystem.IsKnockedOut(f, collector))
 			{
 				//f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
-				StopCollecting(f, info.Entity, info.Other, player->Player, collectable);
+				StopCollecting(f, collidedWith, collector, player->Player, collectable);
 				return;
 			}
 
-			Collect(f, info.Entity, info.Other, player->Player, collectable);
+			Collect(f, collidedWith, collector, player->Player, collectable);
 
-			f.Destroy(info.Entity);
+			f.Destroy(collidedWith);
 		}
 
-		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
+		public void OnFeetCollisionLeft(Frame f, EntityRef collector, EntityRef collidedWith)
 		{
-			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-				!f.Has<AlivePlayerCharacter>(info.Other) || !f.Unsafe.TryGetPointer<PlayerCharacter>(info.Other, out var player) ||
-				f.Has<EntityDestroyer>(info.Entity))
+			if (!f.Unsafe.TryGetPointer<Collectable>(collidedWith, out var collectable) ||
+				!f.Has<AlivePlayerCharacter>(collector) || !f.Unsafe.TryGetPointer<PlayerCharacter>(collector, out var player) ||
+				f.Has<EntityDestroyer>(collidedWith))
 			{
 				return;
 			}
-
-			StopCollecting(f, info.Entity, info.Other, player->Player, collectable);
+			StopCollecting(f, collidedWith, collector, player->Player, collectable);
 		}
-
-		private bool TryStartCollecting(Frame f, TriggerInfo3D info, bool sendEvent)
+		
+		private bool TryStartCollecting(Frame f, EntityRef entity, EntityRef collector, bool sendEvent)
 		{
-			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
+			if (!f.Unsafe.TryGetPointer<Collectable>(entity, out var collectable) ||
 				!GameContainer.HasGameStarted(f) ||
-				!f.Has<AlivePlayerCharacter>(info.Other) ||
-				!f.Unsafe.TryGetPointer<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity) ||
-				ReviveSystem.IsKnockedOut(f, info.Other))
+				!f.Has<AlivePlayerCharacter>(collector) ||
+				!f.Unsafe.TryGetPointer<PlayerCharacter>(collector, out var player) || f.Has<EntityDestroyer>(entity) ||
+				ReviveSystem.IsKnockedOut(f, collector))
 			{
 				return false;
 			}
 
-			if (IsCollectableFilled(f, info.Entity, info.Other))
+			if (IsCollectableFilled(f, entity, collector))
 			{
 				if (sendEvent)
 				{
-					f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player->Player, info.Other);
+					f.Events.OnCollectableBlocked(collectable->GameId, entity, player->Player, collector);
 				}
-
 				return false;
 			}
 
-			return StartCollecting(f, player->Player, info.Other, collectable, info.Entity);
+			return StartCollecting(f, player->Player, collector, collectable, entity);
 		}
 
 		private bool IsCollectableFilled(Frame f, EntityRef entity, EntityRef player)
@@ -107,6 +106,7 @@ namespace Quantum.Systems
 
 		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
+			// TODO: Optimize
 			foreach (var collectable in f.Unsafe.GetComponentBlockIterator<Collectable>())
 			{
 				StopCollecting(f, collectable.Entity, entityDead, playerDead, collectable.Component);
@@ -182,7 +182,7 @@ namespace Quantum.Systems
 
 			f.Signals.CollectableCollected(gameId, entity, playerEntity, collectable->Spawner);
 			f.Events.OnCollectableCollected(gameId, entity, playerEntity, collectable->Spawner,
-				f.Unsafe.GetPointer<Transform3D>(entity)->Position);
+				f.Unsafe.GetPointer<Transform2D>(entity)->Position);
 		}
 
 		private FP GetCollectDuration(Frame f, EntityRef consumableEntity, EntityRef playerEntity)

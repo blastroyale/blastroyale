@@ -45,7 +45,7 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		public static bool TryWanderInsideCircle(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in FPVector2 circleCenter, in FP circleRadius, in bool clockwise)
 		{
-			var position = botEntity.GetPosition(f).XZ;
+			var position = botEntity.GetPosition(f);
 
 			// Player angle in relation to the center of the circle
 			var distanceToCenter = FPVector2.Distance(position, circleCenter);
@@ -69,17 +69,17 @@ From radius {distanceToCenter} to radius {randomizedRadius}
 From position {position} to position ({x},{y})
 ");
 
-			return MoveToLocation(f, botEntity, new FPVector3(x, FP._0, y));
+			return MoveToLocation(f, botEntity, new FPVector2(x, y));
 		}
 
 		/// <summary>
 		/// Set's the navmesh agent of the given entity's target position to as closest as possible
 		/// </summary>
-		public static bool MoveToLocation(Frame f, in EntityRef e, in FPVector3 destination)
+		public static bool MoveToLocation(Frame f, in EntityRef e, in FPVector2 destination)
 		{
 			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(e);
 			var navMesh = f.NavMesh;
-			agent->SetTarget(f, destination, navMesh);
+			agent->SetTarget(f, destination.XOY, navMesh);
 			return true;
 		}
 	}

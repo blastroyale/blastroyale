@@ -74,7 +74,7 @@ namespace Quantum.Systems.Bots
 			var teamMembers = TeamSystem.GetTeamMemberEntities(f, filter.Entity);
 			var invalidTargets = f.ResolveHashSet(filter.BotCharacter->InvalidMoveTargets);
 
-			var botChunk = CollectableChunkSystem.GetChunk(f, botPosition.XZ);
+			var botChunk = CollectableChunkSystem.GetChunk(f, botPosition);
 			var chunks = new[]
 			{
 				botChunk,
@@ -86,7 +86,7 @@ namespace Quantum.Systems.Bots
 				CollectableChunkSystem.AddChunks(f, botChunk, 1, -1),
 				CollectableChunkSystem.AddChunks(f, botChunk, 0, -1),
 				CollectableChunkSystem.AddChunks(f, botChunk, -1, -1)
-			};
+			}; // TODO: ArrayPool.Shared, but it returns random sizes 
 			var foundItem = false;
 			var collectableEntity = EntityRef.None;
 			foreach (var chunk in chunks)
@@ -179,7 +179,7 @@ namespace Quantum.Systems.Bots
 				return true;
 			}
 
-			var pos = f.Unsafe.GetPointer<Transform3D>(collectableEntity)->Position;
+			var pos = f.Unsafe.GetPointer<Transform2D>(collectableEntity)->Position;
 			if (BotMovement.MoveToLocation(f, filter.Entity, pos))
 			{
 				filter.BotCharacter->MoveTarget = collectableEntity;

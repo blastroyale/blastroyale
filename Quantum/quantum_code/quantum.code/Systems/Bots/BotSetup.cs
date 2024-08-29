@@ -235,11 +235,7 @@ namespace Quantum.Systems.Bots
 			// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
 			// var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
 			var trophies = (uint)Math.Max(0, ctx.AverageTrophies + f.RNG->Next(-50, 50));
-
-			// Giving bots random weapon based on loadout rarity provided in bot configs
-			var randomWeapon = new Equipment(f.RNG->RandomElement(ctx.WeaponsPool), EquipmentEdition.Genesis,
-				botCharacter.LoadoutRarity);
-
+			
 			List<Modifier> modifiers = null;
 
 			if (config.DamageDoneMultiplier != FP._1 || config.DamageTakenMultiplier != FP._1)
@@ -289,10 +285,7 @@ namespace Quantum.Systems.Bots
 				spawner = f.RNG->RandomElement(ctx.AllSpawners);
 			}
 
-			var spawnerTransform = f.Get<Transform3D>(spawner.Entity);
-
-
-			var kccConfig = f.FindAsset<CharacterController3DConfig>(f.AssetConfigs.BotKccConfig.Id);
+			var spawnerTransform = f.Get<Transform2D>(spawner.Entity);
 			var setup = new PlayerCharacterSetup()
 			{
 				e = botEntity,
@@ -302,18 +295,25 @@ namespace Quantum.Systems.Bots
 				trophies = trophies,
 				teamId = teamId,
 				modifiers = modifiers,
-				KccConfig = kccConfig,
 				deathFlagID = botCharacter.DeathMarker
 			};
 
 			SetupBotCosmetics(f, botEntity, spawner.Entity);
 			playerCharacter->Init(f, setup);
+			
 			CheckUpdateTutorialRuntimeData(f, spawner.Entity, botEntity);
 			if (f.Unsafe.TryGetPointer<BotLoadout>(spawner.Entity, out var botLoadout))
 			{
 				playerCharacter->AddWeapon(f, botEntity, botLoadout->Weapon, true);
 				playerCharacter->EquipSlotWeapon(f, botEntity, Constants.WEAPON_INDEX_PRIMARY);
 			}
+
+			var aim = spawnerTransform.Rotation.ToDirection();
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
+			var kcc = f.Unsafe.GetPointer<TopDownController>(botEntity);
+			kcc->AimDirection = aim;
+			
+			bb->Set(f, Constants.AIM_DIRECTION_KEY, aim);
 
 			f.Destroy(spawner.Entity);
 		}
@@ -499,8 +499,8 @@ namespace Quantum.Systems.Bots
 				{
 					for (var i = 0; i < players.Count; i++)
 					{
-						if (f.Unsafe.TryGetPointer<Transform3D>(players[i], out var pt) &&
-							pt->Position != FPVector3.Zero)
+						if (f.Unsafe.TryGetPointer<Transform2D>(players[i], out var pt) &&
+							pt->Position != FPVector2.Zero)
 						{
 							randomPlayer = players[i];
 							break;
@@ -516,9 +516,9 @@ namespace Quantum.Systems.Bots
 				}
 
 				// If we DID find a real player or bot with defined position then we look for a spot to spawn nearby
-				if (f.TryGet<Transform3D>(randomPlayer, out var transform))
+				if (f.TryGet<Transform2D>(randomPlayer, out var transform))
 				{
-					var position = transform.Position.XZ;
+					var position = transform.Position;
 
 					// Get closest
 					var closestIndex = -1;
@@ -526,7 +526,7 @@ namespace Quantum.Systems.Bots
 
 					for (var i = 0; i < ctx.AvailableSpawners.Count; i++)
 					{
-						var spawnerPosition = f.Get<Transform3D>(ctx.AvailableSpawners[i].Entity).Position.XZ;
+						var spawnerPosition = f.Get<Transform2D>(ctx.AvailableSpawners[i].Entity).Position;
 
 						var distance = FPVector2.DistanceSquared(position, spawnerPosition);
 						if (distance < closestDistance)

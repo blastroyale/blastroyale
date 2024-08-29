@@ -10,7 +10,7 @@ namespace Quantum.Systems.Bots
 		{
 			Log.Warn($"[{DateTime.Now.Ticks}] Bot " + filter.BotCharacter->BotNameIndex + " " + filter.Entity + " took decision " + action);
 		}
-
+		
 		[Conditional("BOT_DEBUG")]
 		public static void LogAction(EntityRef entity, string action)
 		{

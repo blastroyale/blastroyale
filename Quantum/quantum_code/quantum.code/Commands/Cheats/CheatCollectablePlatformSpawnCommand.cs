@@ -37,7 +37,7 @@ namespace Quantum.Commands
 			spawner->GameId = Collectable;
 			spawner->RespawnTimeInSec = RespawnTimeInSec;
 			spawner->InitialSpawnDelayInSec = InitialSpawnDelayInSec;
-			f.Unsafe.GetPointer<Transform3D>(entity)->Position = Position;
+			f.Unsafe.GetPointer<Transform2D>(entity)->Position = Position.XZ;
 #else
 			Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
 #endif

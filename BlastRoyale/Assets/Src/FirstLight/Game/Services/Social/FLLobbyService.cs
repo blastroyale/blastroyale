@@ -164,7 +164,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Toggles the spectator status for the current player in the match lobby.
 		/// </summary>
-		UniTask SetMatchSpectator(bool spectating);
+		UniTask<bool> SetMatchSpectator(bool spectating);
 
 		/// <summary>
 		/// Requests a specific position in the match lobby. The request has to be handled
@@ -265,17 +265,18 @@ namespace FirstLight.Game.Services
 
 		private ILobbyEvents _partyLobbyEvents;
 		private ILobbyEvents _matchLobbyEvents;
-
+	
 		private readonly IGameDataProvider _dataProvider;
 		private readonly NotificationService _notificationService;
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly Dictionary<string, PartyInvite> _sentPartyInvites = new ();
 		private readonly List<string> _sentMatchInvites = new ();
 		private readonly LobbyGrid _grid = new ();
-		private readonly AsyncBufferedQueue _matchUpdateQueue = new (TimeSpan.FromSeconds(1), true);
+		private readonly AsyncBufferedQueue _matchUpdateQueue = new (TimeSpan.FromSeconds(1.2), true);
 
 		private bool _leaving;
 
+		
 		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService,
 							  LocalPrefsService localPrefsService)
 		{
@@ -745,10 +746,9 @@ namespace FirstLight.Game.Services
 		public async UniTask<bool> JoinMatch(string lobbyIDOrCode, bool spectator)
 		{
 			Assert.IsNull(CurrentMatchLobby, "Trying to join a match but the player is already in one!");
-
 			try
 			{
-				var player = CreateLocalPlayer(spectator: spectator);
+				var player = CreateLocalPlayer(spectator: false);
 				var isLobbyCode = lobbyIDOrCode.Length == 6;
 				FLog.Info($"Joining match with ID/Code: {lobbyIDOrCode} spectate: {spectator}");
 				var lobby = isLobbyCode
@@ -757,6 +757,14 @@ namespace FirstLight.Game.Services
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = await LobbyService.Instance.GetLobbyAsync(lobby.Id); // to ensure we don't miss events
 				CurrentMatchCallbacks.TriggerLobbyJoined(lobby);
+
+				if(CurrentMatchLobby.GetMatchRegion() != _localPrefsService.ServerRegion.Value)
+				{
+					FLog.Warn("Entered room of another region, leaving");
+					_notificationService.QueueNotification($"Oops it seems you joined a room from another region");
+					await LeaveMatch();
+				}
+				
 				FLog.Info($"Match lobby joined! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
 			}
 			catch (LobbyServiceException e)
@@ -928,11 +936,10 @@ namespace FirstLight.Game.Services
 				_notificationService.QueueNotification($"Could not kick player, {e.ParseError()}");
 				return false;
 			}
-
 			return true;
 		}
 
-		public async UniTask SetMatchSpectator(bool spectating)
+		public async UniTask<bool> SetMatchSpectator(bool spectating)
 		{
 			Assert.IsNotNull(CurrentMatchLobby, "Trying to toggle spectator status but the player is not in a match!");
 
@@ -952,16 +959,19 @@ namespace FirstLight.Game.Services
 				CurrentMatchLobby =
 					await LobbyService.Instance.UpdatePlayerAsync(CurrentMatchLobby.Id, AuthenticationService.Instance.PlayerId, options);
 				FLog.Info("Spectate status set successfully!");
+				return true;
 			}
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error setting spectate status!", e);
 				_notificationService.QueueNotification($"Could not set spectate status, {e.ParseError()}");
+				return false;
 			}
 		}
 
 		public void SetMatchPositionRequest(int position)
 		{
+			if (CurrentMatchLobby.LocalPlayer().IsSpectator()) return;
 			_grid.RequestToGoToPosition(CurrentMatchLobby, position);
 		}
 
@@ -1052,7 +1062,7 @@ namespace FirstLight.Game.Services
 					{KEY_PLAYFAB_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayFabSettings.staticPlayer.EntityId)},
 					{KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, spectator.ToString().ToLowerInvariant())},
 					{KEY_TROHPIES, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.PlayerDataProvider.Trophies.Value.ToString())},
-					{KEY_AVATAR_URL, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.AppDataProvider.AvatarUrl)}
+					{KEY_AVATAR_URL, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.CollectionDataProvider.GetEquippedAvatarUrl())}
 				},
 				profile: new PlayerProfile(AuthenticationService.Instance.PlayerName)
 			);
@@ -1074,6 +1084,15 @@ namespace FirstLight.Game.Services
 			else
 			{
 				changes.ApplyToLobby(CurrentMatchLobby);
+			}
+			// If a player joined check if we sent the invite and remove it
+			if (changes.PlayerJoined.Value != null)
+			{
+				foreach (var playerJoined in changes.PlayerJoined.Value)
+				{
+					_sentMatchInvites.Remove(playerJoined.Player.Id);
+					CurrentMatchCallbacks.TriggerOnInvitesUpdated();
+				}
 			}
 
 			CurrentMatchCallbacks.TriggerLocalLobbyUpdated(changes);

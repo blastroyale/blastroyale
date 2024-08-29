@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformMode: 1
+  TransformMode: 0
   Transform2DVertical:
     IsEnabled: 0
     Height:
@@ -93,7 +93,7 @@ MonoBehaviour:
     SourceCollider: {fileID: 0}
     IsEnabled: 1
     Shape2D:
-      ShapeType: 0
+      ShapeType: 1
       PolygonCollider:
         Id:
           Value: 0
@@ -258,13 +258,6 @@ MonoBehaviour:
         Value: 0
       Adjective:
         Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
     Owner:
       _index: 0
 --- !u!1001 &4967879128221675060

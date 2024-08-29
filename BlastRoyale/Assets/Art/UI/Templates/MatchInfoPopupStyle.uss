@@ -61,14 +61,6 @@
     display: flex;
 }
 
-.friends-playing-list-container {
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 17px;
-    flex-direction: row;
-    justify-content: center;
-    max-height: 219px;
-}
 
 .event-container__top {
     width: 100%;
@@ -82,6 +74,39 @@
 
 .content--event .event-container {
     display: flex;
+}
+
+.friends-match-scroll-container {
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 17px;
+    flex-direction: row;
+    justify-content: center;
+    max-height: 219px;
+}
+
+.friends-match-scroll-container .unity-scroll-view__content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.friends-match-scroll-container > Label {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(64, 169, 28);
+    height: 42px;
+    -unity-text-align: middle-left;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-top-left-radius: 21px;
+    border-top-right-radius: 21px;
+    border-bottom-right-radius: 21px;
+    border-bottom-left-radius: 21px;
+    margin-bottom: 15px;
+    margin-left: 7px;
+    margin-right: 7px;
 }
 
 .event-thumbnail {
@@ -186,22 +211,6 @@
     margin-bottom: 10px;
 }
 
-.friends-playing-list-container > Label {
-    font-size: 28px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(64, 169, 28);
-    height: 42px;
-    -unity-text-align: middle-left;
-    padding-left: 25px;
-    padding-right: 25px;
-    border-top-left-radius: 21px;
-    border-top-right-radius: 21px;
-    border-bottom-right-radius: 21px;
-    border-bottom-left-radius: 21px;
-    margin-bottom: 15px;
-    margin-left: 7px;
-    margin-right: 7px;
-}
 
 .summary-title {
     font-size: 32px;

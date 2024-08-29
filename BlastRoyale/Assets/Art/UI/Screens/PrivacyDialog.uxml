@@ -11,23 +11,23 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content">
                     <ui:VisualElement name="Row" class="text-row">
-                        <ui:Label name="Desc" focusable="false" text="You need to agree to our" localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc" />
+                        <ui:Label name="Desc" focusable="false" text="You need to agree to our " class="font-style-popup" />
                         <ui:Button text="&#10;" display-tooltip-when-elided="true" name="TermsOfServiceButton" class="row-btn">
-                            <ui:Label name="Desc" focusable="false" text="Terms of Service" localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc row-btn__text" />
+                            <ui:Label name="Desc" focusable="false" text="Terms of Service" class="font-style-popup content__desc row-btn__text" />
                         </ui:Button>
                     </ui:VisualElement>
                     <ui:VisualElement name="Row" class="text-row">
-                        <ui:Label name="Desc" focusable="false" text="and read our " localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc" />
+                        <ui:Label name="Desc" focusable="false" text="and read our " class="font-style-popup" />
                         <ui:Button text="&#10;" display-tooltip-when-elided="true" name="PrivacyButton" class="row-btn">
-                            <ui:Label name="PrivacyPolicyButton" focusable="false" text="Privacy Policy" localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc row-btn__text" />
+                            <ui:Label name="PrivacyPolicyButton" focusable="false" text=" Privacy Policy"  class="font-style-popup content__desc row-btn__text" />
                         </ui:Button>
                     </ui:VisualElement>
                     <ui:VisualElement name="Row">
-                        <ui:Label name="Desc" focusable="false" text="to continue playing" localization-key="UITBattlePass/equipment_reward_desc" class="desc-text-row font-style-popup content__desc"/>
+                        <ui:Label name="Desc" focusable="false" text="to continue playing" class="desc-text-row font-style-popup"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="Controls" class="content__controls">
                         <ui:VisualElement class="button-flat-outline">
-                            <ui:Button localization-key="Accept" name="ConfirmButton" text="Accept" class="button-flat button-flat--primary accept-btn" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/accept" name="ConfirmButton" text="CONFIRM" class="button-flat button-flat--primary" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

@@ -15,8 +15,8 @@ namespace FirstLight.Game.MonoComponent.Ftue
 		{
 			QuantumRunner.Default.Game.SendCommand(new CheatDummySpawnCommand
 			{
-				Position = transform.position.ToFPVector3(),
-				Rotation = transform.rotation.ToFPQuaternion(),
+				Position = transform.position.ToFPVector2(),
+				Rotation = transform.rotation.ToFPRotation2D(),
 				Health = _health
 			});
 		}

@@ -96,7 +96,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			HostProfiler.Start("TryGoToSafeArea");
-			if (!FPMathHelpers.IsPositionInsideCircle(botCtx.circleTargetCenter, botCtx.circleTargetRadius, filter.Transform->Position.XZ) && botCtx.circleTimeToShrink < filter.BotCharacter->TimeStartRunningFromCircle)
+			if (!FPMathHelpers.IsPositionInsideCircle(botCtx.circleTargetCenter, botCtx.circleTargetRadius, filter.Transform->Position) && botCtx.circleTimeToShrink < filter.BotCharacter->TimeStartRunningFromCircle)
 			{
 				if (TryGoToSafeArea(f, ref filter, botCtx.circleTargetCenter, botCtx.circleTargetRadius))
 				{
@@ -109,7 +109,7 @@ namespace Quantum.Systems.Bots
 
 
 			// Let it finish the path
-			if (filter.BotCharacter->HasWaypoint(filter.Entity, f) && filter.Controller->Velocity != FPVector3.Zero && filter.NavMeshAgent->IsActive)
+			if (filter.BotCharacter->HasWaypoint(filter.Entity, f) && filter.Controller->Velocity != FPVector2.Zero && filter.NavMeshAgent->IsActive)
 			{
 				BotLogger.LogAction(ref filter, "wait for path to finish waypoint. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
 				return;
@@ -172,7 +172,7 @@ namespace Quantum.Systems.Bots
 						continue;
 					}
 
-					var teamMatePosition = f.Unsafe.GetPointer<Transform3D>(entityRef)->Position;
+					var teamMatePosition = f.Unsafe.GetPointer<Transform2D>(entityRef)->Position;
 					// if the player is outside the safe zone that's his problem :D
 					if (!BotState.IsInCircle(botCtx.circleCenter, botCtx.circleRadius, teamMatePosition))
 					{
@@ -207,7 +207,7 @@ namespace Quantum.Systems.Bots
 
 			var newPosition = circleCenter;
 			// We try to go into random position OR into circle center (it's good for a very small circle)
-			if (BotMovement.MoveToLocation(f, filter.Entity, newPosition.XOY))
+			if (BotMovement.MoveToLocation(f, filter.Entity, newPosition))
 			{
 				filter.SetHasWaypoint(f);
 			}
@@ -254,14 +254,14 @@ namespace Quantum.Systems.Bots
 				return false;
 			}
 
-			var botPosition = filter.Transform->Position.XZ;
+			var botPosition = filter.Transform->Position;
 
 			var circleToVector = FPVector2.Normalize(botPosition - circleCenter);
 			var range = circleRadius * (FP._0_75 + f.RNG->NextInclusive(FP._0_10 * FP.Minus_1, FP._0_10));
 			var intersectionPoint = circleCenter + (circleToVector * range);
 			var newPosition = intersectionPoint;
 
-			if (BotMovement.MoveToLocation(f, filter.Entity, newPosition.XOY))
+			if (BotMovement.MoveToLocation(f, filter.Entity, newPosition))
 			{
 				filter.SetHasWaypoint(f);
 				BotLogger.LogAction(ref filter, $"Going towards direction random radius center:{circleCenter} Random:{newPosition} bot:{filter.Transform->Position}");
@@ -269,7 +269,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			// We try to go into random position OR into circle center (it's good for a very small circle)
-			if (BotMovement.MoveToLocation(f, filter.Entity, circleCenter.XOY))
+			if (BotMovement.MoveToLocation(f, filter.Entity, circleCenter))
 			{
 				BotLogger.LogAction(ref filter, $"Going towards center: Center:{circleCenter} Random:{newPosition} bot:{filter.Transform->Position}");
 				filter.SetHasWaypoint(f);

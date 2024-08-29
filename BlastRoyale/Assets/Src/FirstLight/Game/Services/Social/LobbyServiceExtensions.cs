@@ -153,9 +153,18 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// <summary>
 		/// Gets non spectators and bots
 		/// </summary>
-		public static IReadOnlyList<Player> PlayersInGrid(this Lobby l)
+		public static IReadOnlyList<Player> NonSpectators(this Lobby l)
 		{
 			return l.Players.Where(p => !p.IsSpectator()).ToList();
+		}
+		
+		/// <summary>
+		/// Gets non spectators and bots
+		/// </summary>
+		public static IReadOnlyList<Player> PlayersInGrid(this Lobby l)
+		{
+			var grid = l.GetPlayerGrid();
+			return l.Players.Where(p =>  grid.GetPosition(p.Id) != -1).ToList();
 		}
 		
 		public static Player LocalPlayer(this Lobby l)
@@ -166,7 +175,12 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		public static bool HasRoomInGrid(this Lobby lobby)
 		{
 			var maxPlayers = lobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
-			return lobby.PlayersInGrid().Count < maxPlayers;
+			return lobby.NonSpectators().Count < maxPlayers;
+		}
+		
+		public static bool HasRoomInSpectators(this Lobby lobby)
+		{
+			return lobby.Players.Count(p => p.IsSpectator()) < GameConstants.Data.MATCH_SPECTATOR_SPOTS;
 		}
 
 		public static string ParseError(this FriendsServiceException e)

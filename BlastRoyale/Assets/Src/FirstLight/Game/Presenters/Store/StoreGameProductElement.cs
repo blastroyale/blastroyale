@@ -12,6 +12,7 @@ using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Threading.Tasks;
 
 namespace FirstLight.Game.Presenters.Store
 {
@@ -35,6 +36,8 @@ namespace FirstLight.Game.Presenters.Store
 		private const string USS_GRADIENT_BIG = "product-image-gradient-big";
 		private const string USS_GRADIENT_SMALL = "product-image-gradient-small";
 		private const string USS_WIDGET_EFFECTS = "widget-effect";
+		private const string USS_OWNED_STAMP = "owned-stamp";
+		private const string USS_OWNED_STAMP_TEXT = "owned-stamp-text";
 		private const string USS_OWNED_MODIFIER = "--owned";
 		private const string USS_SPRITE_CURRENCIES_BLASTBUCK = "sprite-currencies__blastbuck-1";
 
@@ -58,7 +61,7 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			USS_BUNDLE_IMAGE, USS_GRADIENT_SIDES, USS_GRADIENT_BIG,
 			USS_GRADIENT_SMALL, USS_WIDGET_EFFECTS, USS_PRODUCT_WIDGET,
-			USS_PRODUCT_PRICE, USS_PRODUCT_IMAGE, USS_PRODUCT_NAME
+			USS_PRODUCT_PRICE, USS_PRODUCT_IMAGE, USS_PRODUCT_NAME, USS_OWNED_STAMP, USS_OWNED_STAMP_TEXT
 		};
 
 		private Label _name;
@@ -75,7 +78,7 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			var treeAsset = Resources.Load<VisualTreeAsset>("StoreGameProductElement");
 			treeAsset.CloneTree(this);
-			_background = this.Q<ImageButton>("ProductBackgroundImage").Required();
+			_background = this.Q<ImageButton>("ProductWidgetWrapper").Required();
 			_background.clicked += () => OnClicked?.Invoke(_product);
 			_name = this.Q<Label>("ProductName").Required();
 			_icon = this.Q("ProductImage").Required();
@@ -87,12 +90,33 @@ namespace FirstLight.Game.Presenters.Store
 			_infoIcon = this.Q("InformationIcon").Required();
 			_ownedOverlay = this.Q("OwnedOverlay").Required();
 			_infoButton.clicked += OnClickInfo;
+
+       		_background.RegisterCallback<PointerDownEvent>(ev => ScaleDown(), TrickleDown.TrickleDown);
+       		_background.RegisterCallback<PointerUpEvent>(ev => ScaleUp());
+       		_background.RegisterCallback<PointerLeaveEvent>(ev => ScaleUp());
 		}
 
 		private void OnClickInfo()
 		{
 			var desc = _product.PlayfabProductConfig.StoreItemData.Description;
 			_infoButton.OpenTooltip(_root, desc);
+		}
+
+		private void ScaleDown()
+		{
+			_background.style.scale = new Scale(new Vector3(0.9f, 0.9f, 1));
+		}
+
+		private async void ScaleUp()
+		{
+			_background.style.scale = new Scale(new Vector3(1.1f, 1.1f, 1));
+			await Task.Delay(150);
+			ResetScale();
+		}
+
+		private void ResetScale()
+		{
+			_background.style.scale = new Scale(new Vector3(1.0f, 1.0f, 1));
 		}
 
 		public void SetData(GameProduct product, ProductFlags flags, VisualElement rootDocument)

@@ -8,6 +8,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes.Helpers;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
@@ -87,16 +88,17 @@ namespace FirstLight.Game.Services
 	{
 		private BufferedQueue _stateUpdates = new (TimeSpan.FromSeconds(3), true);
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 		private HashSet<string> _fakeBotRequests = new ();
 		private FriendActivity _playerActivity = new ();
 
-		public GameSocialService(IGameServices services)
+		public GameSocialService(IGameServices services, IGameDataProvider dataProvider)
 		{
 			_services = services;
+			_dataProvider = dataProvider;
 			services.FLLobbyService.CurrentPartyCallbacks.LobbyDeleted += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += _ => OnJoinedParty();
-			services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += _ => UpdateCurrentPlayerActivity();
 
 			services.FLLobbyService.CurrentMatchCallbacks.LocalLobbyJoined += _ => UpdateCurrentPlayerActivity();
 			services.FLLobbyService.CurrentMatchCallbacks.KickedFromLobby += UpdateCurrentPlayerActivity;
@@ -239,10 +241,11 @@ namespace FirstLight.Game.Services
 					reason = "already_member";
 					return false;
 				}
-
-				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= _services.FLLobbyService.CurrentPartyLobby.MaxPlayers)
+				
+				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= 4)
 				{
 					reason = "team_full";
+					return false;
 				}
 			}
 
@@ -256,7 +259,7 @@ namespace FirstLight.Game.Services
 			{
 				var data = MainInstaller.ResolveData();
 				_playerActivity.CurrentActivity = (int) activity;
-				_playerActivity.AvatarUrl = data.AppDataProvider.AvatarUrl;
+				_playerActivity.AvatarUrl = data.CollectionDataProvider.GetEquippedAvatarUrl();
 				_playerActivity.Region = _services.LocalPrefsService.ServerRegion.Value;
 				_playerActivity.Trophies = (int) data.PlayerDataProvider.Trophies.Value;
 				FLog.Verbose("Setting social activity as " + JsonConvert.SerializeObject(_playerActivity));
@@ -281,6 +284,9 @@ namespace FirstLight.Game.Services
 			buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_open_profile,
 				() => PlayerStatisticsPopupPresenter.OpenBot(playerName).Forget()));
 
+			var canUseFriendSystem = _dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Friends);
+
+			if (!canUseFriendSystem) return;
 			if (!IsBotInvited(playerName))
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
@@ -317,12 +323,14 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			if (relationship == null || relationship.Type == RelationshipType.FriendRequest && !relationship.IsOutgoingInvite())
+			var hasIncomingRequest = relationship is {Type: RelationshipType.FriendRequest} && !relationship.IsOutgoingInvite();
+			var canUseFriendSystem = _dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Friends);
+			if ((relationship == null || hasIncomingRequest) && canUseFriendSystem)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
 					() => FriendsService.Instance.AddFriendHandled(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
 			}
-			else if (relationship.Type == RelationshipType.FriendRequest && relationship.IsOutgoingInvite())
+			else if (relationship is {Type: RelationshipType.FriendRequest} && relationship.IsOutgoingInvite())
 			{
 				if (settings.ShowRemoveFriend)
 				{
@@ -337,7 +345,7 @@ namespace FirstLight.Game.Services
 					buttons.Add(PlayerContextButton.Create(ScriptLocalization.UITFriends.option_request_sent).Disable());
 				}
 			}
-			else if (relationship.Type == RelationshipType.Friend && settings.ShowRemoveFriend)
+			else if (relationship is {Type: RelationshipType.Friend} && settings.ShowRemoveFriend)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
 					() => FriendsService.Instance.RemoveRelationshipHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));

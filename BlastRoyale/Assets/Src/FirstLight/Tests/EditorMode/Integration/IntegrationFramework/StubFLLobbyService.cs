@@ -143,7 +143,7 @@ namespace FirstLight.Tests.EditorMode
 			throw new System.NotImplementedException();
 		}
 
-		public UniTask SetMatchSpectator(bool spectating)
+		public UniTask<bool> SetMatchSpectator(bool spectating)
 		{
 			throw new System.NotImplementedException();
 		}

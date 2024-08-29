@@ -29,13 +29,13 @@ namespace Quantum.Systems.Bots
 		public struct BotCharacterFilter
 		{
 			public EntityRef Entity;
-			public Transform3D* Transform;
+			public Transform2D* Transform;
 			public BotCharacter* BotCharacter;
 			public PlayerCharacter* PlayerCharacter;
 			public PlayerInventory* PlayerInventory;
 			public AlivePlayerCharacter* AlivePlayerCharacter;
 			public NavMeshPathfinder* NavMeshAgent;
-			public CharacterController3D* Controller;
+			public TopDownController* Controller;
 			public TeamMember* TeamMember;
 		}
 
@@ -114,12 +114,6 @@ namespace Quantum.Systems.Bots
 			// Don't do anything when skydiving
 			if (filter.PlayerCharacter->IsSkydiving(f, filter.Entity))
 			{
-				// Grounding is handled by skydiving if it exists; otherwise we need to call "Move" so gravity does its job
-				if (!f.Context.GameModeConfig.SkydiveSpawn)
-				{
-					filter.Controller->Move(f, filter.Entity, FPVector3.Zero);
-				}
-
 				return;
 			}
 
@@ -198,7 +192,7 @@ namespace Quantum.Systems.Bots
 				bot->ResetTargetWaypoint(f);
 			}
 		}
-
+		
 		public void OnNavMeshSearchFailed(Frame f, EntityRef entity, ref bool resetAgent)
 		{
 			BotLogger.LogAction(entity, "pathfinding failed");
@@ -228,8 +222,8 @@ namespace Quantum.Systems.Bots
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
 			if (bot->IsStaticMovement()) return;
 			if (attacker == bot->Target) return;
-			if (!f.Unsafe.TryGetPointer<Transform3D>(attacker, out var attackerLocation)) return;
-			if (!f.Unsafe.TryGetPointer<Transform3D>(entity, out var botLocation)) return;
+			if (!f.Unsafe.TryGetPointer<Transform2D>(attacker, out var attackerLocation)) return;
+			if (!f.Unsafe.TryGetPointer<Transform2D>(entity, out var botLocation)) return;
 
 
 			// If player attacks a bot that has no target, the bot will try to answer
@@ -244,7 +238,7 @@ namespace Quantum.Systems.Bots
 				botMaxRange *= botMaxRange;
 				bot->Target = attacker;
 
-				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
+				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position, attackerLocation->Position);
 
 				// when in range, ill just target back
 				if (distanceToAttacker < botMaxRange)
@@ -279,17 +273,17 @@ namespace Quantum.Systems.Bots
 			}
 			else // bot already has a valid target
 			{
-				if (!f.Unsafe.TryGetPointer<Transform3D>(bot->Target, out var targetLocation))
+				if (!f.Unsafe.TryGetPointer<Transform2D>(bot->Target, out var targetLocation))
 				{
 					return;
 				}
 
-				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position.XZ, attackerLocation->Position.XZ);
+				var distanceToAttacker = FPVector2.DistanceSquared(botLocation->Position, attackerLocation->Position);
 
 				// If the attacker is closer to the bot than the current bot target, 50% swap chance
 				if (f.RNG->NextBool() &&
 					distanceToAttacker <
-					FPVector2.DistanceSquared(botLocation->Position.XZ, targetLocation->Position.XZ))
+					FPVector2.DistanceSquared(botLocation->Position, targetLocation->Position))
 				{
 					BotLogger.LogAction(entity, "Changing attacker to nearby attacker");
 					bot->SetNextDecisionDelay(f, FP._3);

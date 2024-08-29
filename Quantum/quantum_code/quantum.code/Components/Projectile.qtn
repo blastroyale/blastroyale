@@ -13,6 +13,7 @@ component Projectile
 	byte DamagePct;
 	byte StunDuration;
 	byte Iteration;
+	byte ShotNumber;
 }
 
 synced event OnProjectileFired

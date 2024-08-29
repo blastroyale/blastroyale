@@ -11,5 +11,6 @@ component Spell
 	FP Cooldown;
 	FP NextHitTime;
 	FP EndTime;
-    bool IgnoreShield;
+	bool IgnoreShield;
+	byte ShotNumber;
 }

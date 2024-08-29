@@ -18,6 +18,7 @@ namespace FirstLight.Game.Data
 		public bool PrivateRoom = false;
 		public bool ShowCreatorName = true;
 		public bool RandomizeTeams = false;
+		public bool AllowInvites = true;
 
 		public SimulationMatchConfig ToSimulationMatchConfig()
 		{

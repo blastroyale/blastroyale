@@ -1079,3 +1079,13 @@
     height: 40%;
     background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
 }
+
+.localized-toggle__label {
+    font-size: 34px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-align: middle-center;
+    padding-right: 12px;
+}

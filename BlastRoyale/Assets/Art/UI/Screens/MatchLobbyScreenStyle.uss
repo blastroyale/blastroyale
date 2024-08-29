@@ -1,6 +1,6 @@
 .players-container {
     flex-grow: 1;
-    margin-top: 150px;
+    margin-top: 97px;
     padding-right: 42px;
     flex-basis: 1px;
     margin-bottom: 0;
@@ -123,9 +123,9 @@
 .safe-area {
     flex-direction: row;
     align-items: stretch;
-    padding-top: 42px;
+    padding-top: 21px;
     padding-right: 25px;
-    padding-bottom: 42px;
+    padding-bottom: 58px;
     padding-left: 25px;
 }
 
@@ -144,6 +144,7 @@
     font-size: 42px;
     margin-bottom: 0;
     margin-left: 26px;
+    position: absolute;
 }
 
 .players-container .unity-scroll-view__content-container {
@@ -166,7 +167,12 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
 }
-.spectator-spacer{
+
+.spectator-spacer {
     height: 12px;
     flex-grow: 1;
+}
+
+#InviteToggle .localized-toggle__label {
+    font-size: 38px;
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
@@ -17,8 +18,10 @@ namespace FirstLight.Game.Services
 	{
 		private readonly UIService.UIService _uiService;
 
-		private readonly Queue<string> _messages = new ();
+		private readonly List<string> _messages = new ();
 		private bool _isProcessingQueue;
+		private CancellationTokenSource _currentNotificationToken;
+		private string _currentNotificationMessage;
 
 		public NotificationService(UIService.UIService uiService)
 		{
@@ -32,7 +35,16 @@ namespace FirstLight.Game.Services
 
 		public void QueueNotification(string message)
 		{
-			_messages.Enqueue(message);
+			if (_messages.Count > 0 && _messages[^1] == message) return; // Skip duplicates
+			if (_isProcessingQueue && _currentNotificationMessage == message)
+			{
+				// If we are playing the current message already, lets play the popup effect again
+				_currentNotificationToken.Cancel();
+				_messages.Insert(0, message);
+				return;
+			}
+
+			_messages.Add(message);
 			ProcessQueue().Forget();
 		}
 
@@ -94,8 +106,11 @@ namespace FirstLight.Game.Services
 			_isProcessingQueue = true;
 			while (_messages.Count > 0)
 			{
+				_currentNotificationToken = new CancellationTokenSource();
+				_currentNotificationMessage = _messages[0];
+				_messages.RemoveAt(0);
 				// TODO: Not the best since we always destroy and create the screen
-				await _uiService.OpenScreen<NotificationPopupPresenter>(new NotificationPopupPresenter.StateData(_messages.Dequeue()));
+				await _uiService.OpenScreen<NotificationPopupPresenter>(new NotificationPopupPresenter.StateData(_currentNotificationMessage, _currentNotificationToken.Token));
 				await _uiService.CloseScreen<NotificationPopupPresenter>();
 			}
 

@@ -1479,8 +1479,6 @@ namespace I2.Loc
 			public static string PlayerSkinMidasDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinMidasDescription"); } }
 			public static string PlayerSkinMontyVonCue 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinMontyVonCue"); } }
 			public static string PlayerSkinMontyVonCueDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinMontyVonCueDescription"); } }
-			public static string PlayerSkinNFL 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinNFL"); } }
-			public static string PlayerSkinNFLDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinNFLDescription"); } }
 			public static string PlayerSkinNinja 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinNinja"); } }
 			public static string PlayerSkinNinjaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinNinjaDescription"); } }
 			public static string PlayerSkinPanda 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPanda"); } }
@@ -4295,8 +4293,6 @@ namespace I2.Loc
 		    public const string PlayerSkinMidasDescription = "GameIds/PlayerSkinMidasDescription";
 		    public const string PlayerSkinMontyVonCue = "GameIds/PlayerSkinMontyVonCue";
 		    public const string PlayerSkinMontyVonCueDescription = "GameIds/PlayerSkinMontyVonCueDescription";
-		    public const string PlayerSkinNFL = "GameIds/PlayerSkinNFL";
-		    public const string PlayerSkinNFLDescription = "GameIds/PlayerSkinNFLDescription";
 		    public const string PlayerSkinNinja = "GameIds/PlayerSkinNinja";
 		    public const string PlayerSkinNinjaDescription = "GameIds/PlayerSkinNinjaDescription";
 		    public const string PlayerSkinPanda = "GameIds/PlayerSkinPanda";
@@ -5503,8 +5499,8 @@ namespace I2.Loc
 
 		public static class UITShared
 		{
-		    public const string News = "UITShared/News";
 		    public const string accept = "UITShared/accept";
+		    public const string News = "UITShared/News";
 		    public const string back_to = "UITShared/back_to";
 		    public const string battle_royale = "UITShared/battle_royale";
 		    public const string cancel = "UITShared/cancel";

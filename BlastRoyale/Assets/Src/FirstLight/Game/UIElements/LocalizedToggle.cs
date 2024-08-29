@@ -6,6 +6,7 @@ namespace FirstLight.Game.UIElements
 	public class LocalizedToggle : Toggle
 	{
 		protected string localizationKey { get; set; }
+		private Label _label;
 
 		public LocalizedToggle() : this(string.Empty)
 		{
@@ -13,6 +14,9 @@ namespace FirstLight.Game.UIElements
 
 		public LocalizedToggle(string key)
 		{
+			_label = new LabelOutlined("##");
+			_label.AddToClassList("localized-toggle__label");
+			Insert(0, _label);
 			Localize(key);
 		}
 
@@ -22,7 +26,7 @@ namespace FirstLight.Game.UIElements
 		public void Localize(string key)
 		{
 			localizationKey = key;
-			label = LocalizationManager.TryGetTranslation(key, out var translation) ? translation : $"#{key}#";
+			_label.text = LocalizationManager.TryGetTranslation(key, out var translation) ? translation : $"#{key}#";
 		}
 
 		public new class UxmlFactory : UxmlFactory<LocalizedToggle, UxmlTraits>

@@ -43,7 +43,10 @@ namespace FirstLight.Game.Presenters
 
 		[Q("Header")] private ScreenHeaderElement _header;
 		[Q("PlayersScrollview")] private ScrollView _playersContainer;
-		[Q("LobbyCode")] private LocalizedTextField _lobbyCode;
+		[Q("CodeLabel")] private Label _codeLabel;
+		[Q("CopyCodeButton")] private ButtonOutlined _copyCodeButton;
+		
+		[Q("InviteToggle")] private Toggle _inviteToggle;
 		[Q("PlayersAmountLabel")] private Label _playersAmount;
 		[Q("InviteFriendsButton")] private LocalizedButton _inviteFriendsButton;
 
@@ -60,7 +63,12 @@ namespace FirstLight.Game.Presenters
 
 			_header.backClicked = () => LeaveMatchLobby().Forget();
 
-			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
+			_codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
+			_copyCodeButton.clicked += () =>
+			{
+				UIUtils.SaveToClipboard(_codeLabel.text);
+				_services.NotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
+			};
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 		}
 
@@ -95,6 +103,12 @@ namespace FirstLight.Game.Presenters
 				if (!_localPlayerHost) return;
 				_services.FLLobbyService.UpdateMatchLobby(settings).Forget();
 			};
+			_inviteToggle.value = matchLobby.GetMatchSettings().AllowInvites;
+			_inviteToggle.RegisterValueChangedCallback((ev) =>
+			{
+				_matchSettingsView.MatchSettings.AllowInvites = ev.newValue;
+				_services.FLLobbyService.UpdateMatchLobby(_matchSettingsView.MatchSettings).Forget();
+			});
 
 			RefreshData();
 			_updateBuffer.Add(CheckJoiningSpectator);
@@ -134,7 +148,7 @@ namespace FirstLight.Game.Presenters
 					changes.Data.Value.TryGetValue(FLLobbyService.KEY_LOBBY_MATCH_ROOM_NAME, out var value))
 				{
 					var joinProperties = new PlayerJoinRoomProperties();
-					
+
 					var squadSize = _services.FLLobbyService.CurrentMatchLobby.GetMatchSettings().SquadSize;
 					var localPlayer = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
 					var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
@@ -145,6 +159,7 @@ namespace FirstLight.Game.Presenters
 						joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
 						joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
 					}
+
 					joinProperties.Spectator = isSpectator;
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
@@ -198,6 +213,9 @@ namespace FirstLight.Game.Presenters
 				_playersContainer.Clear();
 
 				_header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
+
+				_inviteToggle.SetDisplay(_localPlayerHost);
+				_inviteFriendsButton.SetEnabled(_localPlayerHost || matchSettings.AllowInvites);
 
 				if (_localPlayerHost)
 				{

@@ -33,35 +33,36 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
-			if (!f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer ||
-				f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[0].Entity != EntityRef.None)
+			if (!f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameStarted)
 			{
-				var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
+				return;
+			}
 
-				// Set initial shrinking circle data
-				if (circle->Step < 0)
+			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
+
+			// Set initial shrinking circle data
+			if (circle->Step < 0)
+			{
+				var config = f.Context.MapShrinkingCircleConfigs[0];
+				SetShrinkingCircleData(f, circle, config);
+			}
+
+			ProcessShrinkingCircle(f, circle);
+			circle->GetMovingCircle(f, out var center, out var radius);
+
+			foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
+			{
+				var transform = f.Unsafe.GetPointer<Transform2D>(pair.Entity);
+				var position = transform->Position;
+				var isInside = (position - center).SqrMagnitude < radius * radius;
+
+				if (pair.Component->TakingCircleDamage && isInside)
 				{
-					var config = f.Context.MapShrinkingCircleConfigs[0];
-					SetShrinkingCircleData(f, circle, config);
+					RemoveShrinkingDamage(f, pair.Entity);
 				}
-
-				ProcessShrinkingCircle(f, circle);
-				circle->GetMovingCircle(f, out var center, out var radius);
-
-				foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
+				else if (!pair.Component->TakingCircleDamage && !isInside)
 				{
-					var transform = f.Unsafe.GetPointer<Transform2D>(pair.Entity);
-					var position = transform->Position;
-					var isInside = (position - center).SqrMagnitude < radius * radius;
-
-					if (pair.Component->TakingCircleDamage && isInside)
-					{
-						RemoveShrinkingDamage(f, pair.Entity);
-					}
-					else if (!pair.Component->TakingCircleDamage && !isInside)
-					{
-						AddShrinkingDamage(f, pair.Entity, position);
-					}
+					AddShrinkingDamage(f, pair.Entity, position);
 				}
 			}
 		}

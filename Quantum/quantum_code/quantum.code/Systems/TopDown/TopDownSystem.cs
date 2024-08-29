@@ -11,7 +11,7 @@ namespace Quantum
 		public TopDownController* Controller;
 	}
 	
-	public unsafe class TopDownSystem : SystemMainThreadFilter<TopDownSystemFilter>, ISignalOnNavMeshMoveAgent, ISignalOnNavMeshWaypointReached
+	public unsafe class TopDownSystem : SystemMainThreadFilter<TopDownSystemFilter>, ISignalGameEnded, ISignalOnNavMeshMoveAgent, ISignalOnNavMeshWaypointReached
 	{
 		public override void Update(Frame f, ref TopDownSystemFilter filter)
 		{
@@ -33,6 +33,17 @@ namespace Quantum
 			{
 				kcc->MoveDirection = FPVector2.Zero;
 			} 
+		}
+
+		public void GameEnded(Frame f)
+		{
+			foreach (var livingPlayer in f.GetComponentIterator<TopDownController>())
+			{
+				if (f.TryGet<TopDownController>(livingPlayer.Entity, out var kcc))
+				{
+					kcc.MoveDirection = FPVector2.Zero;
+				}
+			}
 		}
 	}
 }

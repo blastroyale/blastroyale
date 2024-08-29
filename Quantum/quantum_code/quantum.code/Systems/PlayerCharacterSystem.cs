@@ -18,7 +18,6 @@ namespace Quantum.Systems
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
 		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
-		public static readonly FP AIM_DELAY = FP._0_50;
 
 		public struct PlayerCharacterFilter
 		{
@@ -263,7 +262,7 @@ namespace Quantum.Systems
 		{
 			if (weaponConfig.IsMeleeWeapon) return; // melee weapons are instant
 			var nextShotTime = bb->GetFP(f, Constants.NEXT_SHOT_TIME);
-			var expectedAimDelayShot = f.Time + AIM_DELAY;
+			var expectedAimDelayShot = f.Time + weaponConfig.AimDelayTime;
 			var isInCooldown = nextShotTime > f.Time;
 			// If the shoot cooldown will finish after the aim delay, we use it instead
 			if (isInCooldown && nextShotTime > expectedAimDelayShot) expectedAimDelayShot = nextShotTime;

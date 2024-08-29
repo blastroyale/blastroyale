@@ -14,11 +14,13 @@ namespace FirstLight.Game.Configs
 	{
 		public GameId GameId;
 		public AudioId WeaponShotId;
+		public AudioId WeaponShotLocalId;
 		public AudioId WeaponShotWindUpId;
 		public AudioId WeaponShotWindDownId;
 		public AudioId ProjectileFlyTrailId;
 		public AudioId ProjectileImpactId;
 		public AudioId ProjectileEndOfLife;
+		public AudioId ChangeMagazineId;
 	}
 	
 	/// <summary>

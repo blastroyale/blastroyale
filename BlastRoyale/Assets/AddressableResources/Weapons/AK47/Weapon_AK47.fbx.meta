@@ -12,6 +12,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: m_props
+    second: {fileID: 2100000, guid: e8fa8f21907090640a854146d341e06c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: melee_weapons
     second: {fileID: 2100000, guid: 729d0da7a48b649a69d5ee8d6207e9cc, type: 2}
   materials:

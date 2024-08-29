@@ -203,6 +203,43 @@ namespace FirstLight.Game.Ids
 		CircleIsClosing,
 		TeammateKnockedDown,
 		NoobPickup,
+		
+		ShotgunShot,
+		ShotgunShotLocal,
+		SniperShot,
+		SniperShotLocal,
+		PistolShot,
+		PistolShotLocal,
+		PistolChangeMagazine,
+		AssaultRifleShot,
+		AssaultRifleShotLocal,
+		
+		TakeHealthDamageLocal,
+		TakeShieldDamageLocal,
+		
+		SMGShot,
+		SMGShotLocal,
+		QuadzookaShot,
+		QuadzookaShotLocal,
+		QuadzookaChangeMagazine,
+		MinigunShot,
+		MinigunShotLocal,
+		MinigunRevup,
+		MinigunRevdown,
+		DefaultMeleeShot,
+		DefaultMeleeShotLocal,
+		KatanaMeleeShot,
+		KatanaMeleeShotLocal,
+		BluesaberMeleeShot,
+		BluesaberMeleeShotLocal,
+		
+		AmmoPickupLocal,
+		HealthPickupLocal,
+		ShieldPickupLocal,
+		LargeShieldPickupLocal,
+		NoobPickupLocal,
+		WeaponPickupLocal,
+		GearPickupLocal,
 	}
 	
 	/// <summary>

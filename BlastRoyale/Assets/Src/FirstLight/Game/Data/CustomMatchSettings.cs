@@ -27,7 +27,7 @@ namespace FirstLight.Game.Data
 				GameModeID = GameModeID,
 				MatchType = MatchType.Custom,
 				Mutators = Mutators,
-				MaxPlayersOverwrite = MaxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS,
+				MaxPlayersOverwrite = MaxPlayers,
 				HasBots = BotDifficulty > 0,
 				BotOverwriteDifficulty = BotDifficulty,
 				TeamSize = SquadSize,

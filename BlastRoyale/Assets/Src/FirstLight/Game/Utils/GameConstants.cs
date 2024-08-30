@@ -183,8 +183,8 @@ namespace FirstLight.Game.Utils
 
 		public static class PlayerName
 		{
-			public const int PLAYER_NAME_MIN_LENGTH = 3;
-			public const int PLAYER_NAME_MAX_LENGTH = 20;
+			public const int PLAYER_NAME_MIN_LENGTH = 5;
+			public const int PLAYER_NAME_MAX_LENGTH = 12;
 			public const string DEFAULT_PLAYER_NAME = "Player Name";
 			public static readonly Color GOLD_COLOR = new (247 / 255f, 198 / 255f, 46 / 255f);
 			public static readonly Color SILVER_COLOR = new (247 / 255f, 198 / 255f, 46 / 255f);

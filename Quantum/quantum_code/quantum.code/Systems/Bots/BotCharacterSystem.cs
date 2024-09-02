@@ -190,6 +190,7 @@ namespace Quantum.Systems.Bots
 			if (bot->MoveTarget == entity || !bot->MoveTarget.IsValid || waypointFlags.HasFlag(Navigation.WaypointFlag.Target))
 			{
 				bot->ResetTargetWaypoint(f);
+				BotLogger.LogAction(entity, $"Resetting waypoints");
 			}
 		}
 		

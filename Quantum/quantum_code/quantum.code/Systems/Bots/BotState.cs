@@ -80,22 +80,6 @@ namespace Quantum
 		/// </summary>
 		public static bool HasWaypoint(this ref BotCharacter bot, EntityRef entity, Frame f)
 		{
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// This STUCK DETECTION code is HIDING the issue about bots being stuck, it's a WORKAROUND
-			// IF YOU EVER want to remove this code be sure to FIND OUT WHY bots stuck going into walls when they
-			// are trying to Wander or GoToSafeArea; it's not happening really when bots go for Consumables, so potentially
-			// the issue is somewhere where we convert randomly chosen position into navmesh position
-			if (bot.StuckDetectionPosition != FPVector2.Zero
-				&& FPVector2.DistanceSquared(bot.StuckDetectionPosition, f.Unsafe.GetPointer<Transform2D>(entity)->Position)
-				< Constants.BOT_STUCK_DETECTION_SQR_DISTANCE)
-			{
-				BotLogger.LogAction(bot, "I think im stuck !!!");
-				bot.ResetTargetWaypoint(f);
-				return false;
-			}
-
-			bot.StuckDetectionPosition = f.Unsafe.GetPointer<Transform2D>(entity)->Position;
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////
 			return bot.MoveTarget.IsValid;
 		}
 

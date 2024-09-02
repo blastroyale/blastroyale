@@ -68,7 +68,6 @@ namespace Quantum.Systems.Bots
 From radius {distanceToCenter} to radius {randomizedRadius}
 From position {position} to position ({x},{y})
 ");
-
 			return MoveToLocation(f, botEntity, new FPVector2(x, y));
 		}
 
@@ -80,6 +79,7 @@ From position {position} to position ({x},{y})
 			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(e);
 			var navMesh = f.NavMesh;
 			agent->SetTarget(f, destination.XOY, navMesh);
+			BotLogger.LogAction(e, "Moving to "+destination);
 			return true;
 		}
 	}

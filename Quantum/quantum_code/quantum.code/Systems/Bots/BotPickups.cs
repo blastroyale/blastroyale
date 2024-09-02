@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -53,8 +54,18 @@ namespace Quantum.Systems.Bots
 
 			return false;
 		}
-
-// TODO: Implement chunk based spatial positioning
+		
+		private static IEnumerable<short> ChunksEnumerator(Frame f, short botChunk)
+		{
+			yield return CollectableChunkSystem.AddChunks(f, botChunk, -1, 0);
+			yield return CollectableChunkSystem.AddChunks(f, botChunk, -1, 1);
+			yield return CollectableChunkSystem.AddChunks(f, botChunk, 0, 1);
+			yield return CollectableChunkSystem.AddChunks(f, botChunk, 1, 1);
+			yield return CollectableChunkSystem.AddChunks(f, botChunk, 1, 0);
+			yield return CollectableChunkSystem.AddChunks(f, botChunk, 1, -1);
+			yield return CollectableChunkSystem.AddChunks(f, botChunk, 0, -1);
+			yield return CollectableChunkSystem.AddChunks(f, botChunk, -1, -1);
+		}
 
 		public static bool TryGoForClosestCollectable(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking)
 		{
@@ -75,21 +86,10 @@ namespace Quantum.Systems.Bots
 			var invalidTargets = f.ResolveHashSet(filter.BotCharacter->InvalidMoveTargets);
 
 			var botChunk = CollectableChunkSystem.GetChunk(f, botPosition);
-			var chunks = new[]
-			{
-				botChunk,
-				CollectableChunkSystem.AddChunks(f, botChunk, -1, 0),
-				CollectableChunkSystem.AddChunks(f, botChunk, -1, 1),
-				CollectableChunkSystem.AddChunks(f, botChunk, 0, 1),
-				CollectableChunkSystem.AddChunks(f, botChunk, 1, 1),
-				CollectableChunkSystem.AddChunks(f, botChunk, 1, 0),
-				CollectableChunkSystem.AddChunks(f, botChunk, 1, -1),
-				CollectableChunkSystem.AddChunks(f, botChunk, 0, -1),
-				CollectableChunkSystem.AddChunks(f, botChunk, -1, -1)
-			}; // TODO: ArrayPool.Shared, but it returns random sizes 
+		
 			var foundItem = false;
 			var collectableEntity = EntityRef.None;
-			foreach (var chunk in chunks)
+			foreach (var chunk in ChunksEnumerator(f, botChunk))
 			{
 				if (foundItem)
 				{
@@ -182,6 +182,7 @@ namespace Quantum.Systems.Bots
 			var pos = f.Unsafe.GetPointer<Transform2D>(collectableEntity)->Position;
 			if (BotMovement.MoveToLocation(f, filter.Entity, pos))
 			{
+				BotLogger.LogAction(*filter.BotCharacter, "Going for consumable "+collectableEntity);
 				filter.BotCharacter->MoveTarget = collectableEntity;
 				return true;
 			}

@@ -46,7 +46,7 @@ namespace Quantum
         public readonly FP Acceleration = FP._10 * 8;
         public readonly Boolean Debug = false;
         public readonly FP Brake = FP._10 * 8;
-        public readonly  Shape2D shape = Shape2D.CreateCircle(FP._0_20 + FP._0_20); 
+        public readonly Shape2D PlayerFeetShape = Shape2D.CreateCircle(FP._0_20 + FP._0_20); 
         
         public void Init(ref TopDownController kcc)
         {
@@ -111,14 +111,13 @@ namespace Quantum
             TopDownKCCMovementData movementPack = default;
             movementPack.Type = direction != default ? TopDownKCCMovementType.FromDirection : TopDownKCCMovementType.None;
             movementPack.Direction = direction;
-           
-            var hits = f.Physics2D.OverlapShape(transform->Position, FP._0, shape, layerMask, options: queryOptions | QueryOptions.HitAll | QueryOptions.ComputeDetailedInfo);
-            int count = Math.Min(MaxContacts, hits.Count);
+
+            var isBot = f.Has<BotCharacter>(entity);
+            var feetCollision = f.Physics2D.OverlapShape(transform->Position, FP._0, PlayerFeetShape, layerMask, options: queryOptions | QueryOptions.HitAll | QueryOptions.ComputeDetailedInfo);
+            int count = Math.Min(MaxContacts, feetCollision.Count);
 
             HostProfiler.Start("Validate leaving feet collisions");
             var collisions = kcc->CollidingWith;
-
-            //if(!f.Has<BotCharacter>(entity)) Log.Warn(entity+"Current Collisions: ",string.Join(",", collisions));
             
             for (var i = 0; i < collisions.Length; i++)
             {
@@ -127,9 +126,9 @@ namespace Quantum
                 if (!c.IsValid) continue;
                 
                 bool left = true;
-                for (int j = 0; j < hits.Count && count > 0; j++)
+                for (int j = 0; j < feetCollision.Count && count > 0; j++)
                 {
-                    if (hits[j].Entity == c)
+                    if (feetCollision[j].Entity == c)
                     {
                         left = false;
                         break;
@@ -139,7 +138,6 @@ namespace Quantum
                 if (left)
                 {
                     collisions[i] = EntityRef.None;
-                    //if(!f.Has<BotCharacter>(entity)) Log.Warn("COL LEFT "+entity);
                     f.Signals.OnFeetCollisionLeft(entity, c);
                 }
             }
@@ -147,13 +145,13 @@ namespace Quantum
             bool newHit = false;
             
             HostProfiler.Start("Processing Hits");
-            if (hits.Count > 0)
+            if (feetCollision.Count > 0)
             {
                 var initialized = false;
-                hits.Sort(transform->Position);
-                for (int i = 0; i < hits.Count && count > 0; i++)
+                feetCollision.Sort(transform->Position);
+                for (int i = 0; i < feetCollision.Count && count > 0; i++)
                 {
-                    var hit = hits[i];
+                    var hit = feetCollision[i];
                     
                     if (hit.Entity == entity)
                     {
@@ -178,8 +176,6 @@ namespace Quantum
                         if (newHit && openIndex != -1)
                         {
                             collisions[openIndex] = hit.Entity;
-                            //if(!f.Has<BotCharacter>(entity)) Log.Warn("NEW HIT ! "+hit.Entity);
-                            
                             f.Signals.OnFeetCollisionEnter(entity, hit.Entity, hit.Point);
                         }
                         else
@@ -193,20 +189,28 @@ namespace Quantum
                     {
                         continue;
                     }
+
+                    // Bots wont apply movement correction, we just trust the ai agent
+                    // this way we can avoid odd stucks or events
+                    // this means a bot can walk anywhere it's ai thinks it can basically
+                    if (isBot)
+                    {
+                        continue;
+                    }
                     
                     var contactPoint = hit.Point;
                     var contactToCenter = transform->Position - contactPoint;
-                    var localDiff = contactToCenter.Magnitude - shape.Circle.Radius;
+                    var localDiff = contactToCenter.Magnitude - PlayerFeetShape.Circle.Radius;
                     var localNormal = contactToCenter.Normalized;
 
-                    var other = hits[i].Entity;
+                    var other = feetCollision[i].Entity;
 
                     HostProfiler.Start("Processing 2D Body Contact");
                     if (other != default && f.Exists(other) == true && f.Has<TopDownController>(other) && f.TryGet<PhysicsCollider2D>(other, out var otherCollider))
                     {
                         var otherTransform = f.Get<Transform2D>(other);
                         var centerToCenter = otherTransform.Position - transform->Position;
-                        var maxRadius = FPMath.Max(shape.Circle.Radius, otherCollider.Shape.Circle.Radius);
+                        var maxRadius = FPMath.Max(PlayerFeetShape.Circle.Radius, otherCollider.Shape.Circle.Radius);
                         if (centerToCenter.Magnitude <= maxRadius)
                         {
                             localDiff = -maxRadius;

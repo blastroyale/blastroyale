@@ -179,6 +179,7 @@ namespace Quantum.Systems.Bots
 				: f.Create(ctx.PlayerPrototype);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 			var pathfinder = NavMeshPathfinder.Create(f, botEntity, ctx.NavMeshAgentConfig);
+
 			var listNamesIndex = f.RNG->RandomElement(ctx.BotNamesIndices);
 
 			if (!ctx.PlayersByTeam.TryGetValue(teamId, out var entities))

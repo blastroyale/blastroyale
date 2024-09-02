@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 672166898487096628}
   - component: {fileID: 8755646374635016916}
   - component: {fileID: 831566930108708915}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +589,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 6
+    Layer: 12
     CallbackFlags:
       Value: 448
   PhysicsBody:

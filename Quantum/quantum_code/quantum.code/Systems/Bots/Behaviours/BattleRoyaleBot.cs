@@ -89,6 +89,7 @@ namespace Quantum.Systems.Bots
 				{
 					if (filter.PlayerCharacter->WeaponSlots[slotIndex].Weapon.IsValid())
 					{
+						BotLogger.LogAction(*filter.BotCharacter, "Equipping weapon");
 						filter.PlayerCharacter->EquipSlotWeapon(f, filter.Entity, slotIndex);
 						break;
 					}
@@ -106,15 +107,14 @@ namespace Quantum.Systems.Bots
 				}
 			}
 			HostProfiler.End();
-
-
+			
 			// Let it finish the path
-			if (filter.BotCharacter->HasWaypoint(filter.Entity, f) && filter.Controller->Velocity != FPVector2.Zero && filter.NavMeshAgent->IsActive)
+			if (filter.BotCharacter->HasWaypoint(filter.Entity, f) && filter.NavMeshAgent->IsActive)
 			{
 				BotLogger.LogAction(ref filter, "wait for path to finish waypoint. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
 				return;
 			}
-
+			
 			HostProfiler.Start("TryGoForClosestCollectable");
 			if (filter.TryGoForClosestCollectable(f, botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking))
 			{
@@ -137,6 +137,7 @@ namespace Quantum.Systems.Bots
 			if (filter.BotCharacter->WanderInsideCircle(filter.Entity, f, botCtx.circleCenter, botCtx.circleRadius))
 			{
 				filter.SetHasWaypoint(f);
+				filter.BotCharacter->SetNextDecisionDelay(f, FP._2);
 				BotLogger.LogAction(ref filter, "wander");
 				HostProfiler.End();
 				return;
@@ -146,6 +147,7 @@ namespace Quantum.Systems.Bots
 			if (filter.BotCharacter->IsDoingJackShit())
 			{
 				filter.BotCharacter->SetNextDecisionDelay(f, FP._0_05);
+				BotLogger.LogAction(ref filter, "jackshit");
 			}
 
 			BotLogger.LogAction(ref filter, "no action");

@@ -134,7 +134,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							break;
 						case GameId.ModLauncher:
 							_itemGameObject.transform.localScale = new Vector3(2.3f, 2.3f, 2.5f);
-							_itemGameObject.transform.position += new Vector3(0f, -0.8f, -0.14f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.8f, -0.08f);
 							break;
 						case GameId.ModRifle:
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);

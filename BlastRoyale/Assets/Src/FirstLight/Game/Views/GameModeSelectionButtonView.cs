@@ -3,6 +3,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -212,6 +213,11 @@ namespace FirstLight.Game.Views
 			if (GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites == null) return;
 			foreach (var gameId in GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites.Select(a => a.Id).Distinct())
 			{
+				if (RewardLogic.TryGetRewardCurrencyGroupId(gameId, out var _))
+				{
+					continue;
+				}
+				
 				var icon = new VisualElement();
 				icon.AddToClassList(USS_REWARD_ICON);
 				var viewModel = new CurrencyItemViewModel(ItemFactory.Currency(gameId, 0));

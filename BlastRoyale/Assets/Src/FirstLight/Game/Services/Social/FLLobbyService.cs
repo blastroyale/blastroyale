@@ -424,9 +424,16 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error creating lobby!", e);
-				_notificationService.QueueNotification($"Could not create party, {e.ParseError()}");
+				HandleLobbyError(e, "Could not create party");
 			}
+		}
+
+		private void HandleLobbyError(LobbyServiceException e, string err)
+		{
+			if (!e.ShouldBeVisible()) return;
+			
+			FLog.Warn(err, e);
+			_notificationService.QueueNotification($"{err}, {e.ParseError()}");
 		}
 
 		public async UniTask JoinParty(string code)
@@ -450,8 +457,8 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
+				HandleLobbyError(e, "Could not join party");
 				FLog.Warn("Error joining party!", e);
-				_notificationService.QueueNotification($"Could not join party {e.ParseError()}");
 			}
 		}
 
@@ -573,8 +580,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn($"Error updating host!", e);
-				_notificationService.QueueNotification($"Could not update host, {e.ParseError()}");
+				HandleLobbyError(e, "Could not update host");
 				return null;
 			}
 		}
@@ -597,8 +603,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error updating lobby!", e);
-				_notificationService.QueueNotification($"Could not update lobby, {e.ParseError()}");
+				HandleLobbyError(e, "Could not update lobby");
 				return false;
 			}
 
@@ -868,8 +873,7 @@ namespace FirstLight.Game.Services
 				}
 				catch (LobbyServiceException e)
 				{
-					FLog.Warn("Error updating match settings!", e);
-					_notificationService.QueueNotification($"Could not update match settings, {e.ParseError()}");
+					HandleLobbyError(e, "Could not update match settings");
 				}
 			});
 			return UniTask.FromResult(false);
@@ -897,8 +901,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error updating match room!", e);
-				_notificationService.QueueNotification($"Could not update match room, {e.ParseError()}");
+				HandleLobbyError(e, "Could not update match room");
 				return false;
 			}
 
@@ -932,8 +935,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error kicking player!", e);
-				_notificationService.QueueNotification($"Could not kick player, {e.ParseError()}");
+				HandleLobbyError(e, "Could not kick player");
 				return false;
 			}
 			return true;
@@ -963,8 +965,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error setting spectate status!", e);
-				_notificationService.QueueNotification($"Could not set spectate status, {e.ParseError()}");
+				HandleLobbyError(e, "Could not set spectate status");
 				return false;
 			}
 		}

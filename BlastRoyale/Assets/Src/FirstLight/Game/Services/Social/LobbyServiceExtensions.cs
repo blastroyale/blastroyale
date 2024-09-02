@@ -202,6 +202,15 @@ namespace FirstLight.Game.Utils.UCSExtensions
 
 			return e.Reason.ToStringSeparatedWords();
 		}
+		
+		public static bool ShouldBeVisible(this LobbyServiceException e)
+		{
+			if (e.Reason == LobbyExceptionReason.RateLimited || e.Reason == LobbyExceptionReason.UnknownErrorCode)
+			{
+				return false;
+			}
+			return true;
+		}
 
 		/// <summary>
 		/// Gets the player grid state of the lobby

@@ -12,7 +12,6 @@ using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Threading.Tasks;
 
 namespace FirstLight.Game.Presenters.Store
 {
@@ -73,7 +72,6 @@ namespace FirstLight.Game.Presenters.Store
 		private VisualElement _ownedStamp;
 		private VisualElement _infoIcon;
 		private VisualElement _ownedOverlay;
-		private bool isPointerDown = false;
 
 		public StoreGameProductElement()
 		{
@@ -92,36 +90,14 @@ namespace FirstLight.Game.Presenters.Store
 			_ownedOverlay = this.Q("OwnedOverlay").Required();
 			_infoButton.clicked += OnClickInfo;
 
-       		_background.RegisterCallback<PointerDownEvent>(ev => ScaleDown(), TrickleDown.TrickleDown);
-       		_background.RegisterCallback<PointerLeaveEvent>(ev => ScaleUp());
+			// Apply the pop-up effect to the product widget
+			new PopUpEffectAnimation(_background);
 		}
 
 		private void OnClickInfo()
 		{
 			var desc = _product.PlayfabProductConfig.StoreItemData.Description;
 			_infoButton.OpenTooltip(_root, desc);
-		}
-
-		private void ScaleDown()
-		{
-			isPointerDown = true;
-			_background.style.scale = new Scale(new Vector3(0.9f, 0.9f, 1));
-		}
-
-		private async void ScaleUp()
-		{
-			if (isPointerDown)
-			{
-				_background.style.scale = new Scale(new Vector3(1.1f, 1.1f, 1));
-				await Task.Delay(150);
-				ResetScale();
-			}
-		}
-
-		private void ResetScale()
-		{
-			_background.style.scale = new Scale(new Vector3(1.0f, 1.0f, 1));
-			isPointerDown = false;
 		}
 
 		public void SetData(GameProduct product, ProductFlags flags, VisualElement rootDocument)

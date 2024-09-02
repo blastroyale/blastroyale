@@ -73,6 +73,7 @@ namespace FirstLight.Game.Presenters.Store
 		private VisualElement _ownedStamp;
 		private VisualElement _infoIcon;
 		private VisualElement _ownedOverlay;
+		private bool isPointerDown = false;
 
 		public StoreGameProductElement()
 		{
@@ -92,7 +93,6 @@ namespace FirstLight.Game.Presenters.Store
 			_infoButton.clicked += OnClickInfo;
 
        		_background.RegisterCallback<PointerDownEvent>(ev => ScaleDown(), TrickleDown.TrickleDown);
-       		_background.RegisterCallback<PointerUpEvent>(ev => ScaleUp());
        		_background.RegisterCallback<PointerLeaveEvent>(ev => ScaleUp());
 		}
 
@@ -104,19 +104,24 @@ namespace FirstLight.Game.Presenters.Store
 
 		private void ScaleDown()
 		{
+			isPointerDown = true;
 			_background.style.scale = new Scale(new Vector3(0.9f, 0.9f, 1));
 		}
 
 		private async void ScaleUp()
 		{
-			_background.style.scale = new Scale(new Vector3(1.1f, 1.1f, 1));
-			await Task.Delay(150);
-			ResetScale();
+			if (isPointerDown)
+			{
+				_background.style.scale = new Scale(new Vector3(1.1f, 1.1f, 1));
+				await Task.Delay(150);
+				ResetScale();
+			}
 		}
 
 		private void ResetScale()
 		{
 			_background.style.scale = new Scale(new Vector3(1.0f, 1.0f, 1));
+			isPointerDown = false;
 		}
 
 		public void SetData(GameProduct product, ProductFlags flags, VisualElement rootDocument)
@@ -186,7 +191,7 @@ namespace FirstLight.Game.Presenters.Store
 				foreach (var sizeable in _sizeable)
 				{
 					var element = this.Q(ClassNameToElementName(sizeable));
-					element.AddToClassList($"{sizeable}--small");
+					element?.AddToClassList($"{sizeable}--small");
 				}
 			}
 
@@ -196,7 +201,7 @@ namespace FirstLight.Game.Presenters.Store
 				foreach (var modifiable in _modifiable)
 				{
 					var element = this.Q(ClassNameToElementName(modifiable));
-					element.AddToClassList($"{modifiable}--{customModifier}");
+					element?.AddToClassList($"{modifiable}--{customModifier}");
 				}
 			}
 

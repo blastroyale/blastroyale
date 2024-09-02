@@ -105,6 +105,18 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.NOOBRare, new List<GameIdGroup>
+					{
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.NOOBSuperRare, new List<GameIdGroup>
+					{
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
 					GameId.CS, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency,
@@ -965,7 +977,6 @@ namespace Quantum
 					GameId.MalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -974,7 +985,6 @@ namespace Quantum
 					GameId.MaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -1000,7 +1010,6 @@ namespace Quantum
 					GameId.FemalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -1009,7 +1018,6 @@ namespace Quantum
 					GameId.FemaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -1043,7 +1051,6 @@ namespace Quantum
 					GameId.PlayerSkinXmasSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1066,7 +1073,6 @@ namespace Quantum
 					GameId.PlayerSkinCupid, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1086,7 +1092,6 @@ namespace Quantum
 					GameId.PlayerSkinSnowboarder, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1115,7 +1120,8 @@ namespace Quantum
 					GameId.PlayerSkinEGirl, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1208,7 +1214,8 @@ namespace Quantum
 					GameId.PlayerSkinSoldier, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -2714,9 +2721,9 @@ namespace Quantum
 					{
 						GameId.MaleAssassin,
 						GameId.FemaleAssassin,
+						GameId.PlayerSkinEGirl,
 						GameId.PlayerSkinBrandFemale,
 						GameId.PlayerSkinBrandMale,
-						GameId.PlayerSkinEGirl,
 						GameId.PlayerSkinSoldier,
 						GameId.Divinci,
 						GameId.Falcon,
@@ -2766,6 +2773,8 @@ namespace Quantum
 				{
 					GameIdGroup.Collectable, new List<GameId>
 					{
+						GameId.NOOBRare,
+						GameId.NOOBSuperRare,
 						GameId.Health,
 						GameId.AmmoSmall,
 						GameId.ShieldSmall,

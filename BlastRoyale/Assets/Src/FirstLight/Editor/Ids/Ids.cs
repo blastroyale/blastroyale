@@ -69,6 +69,8 @@ namespace FirstLight.Editor.Ids
 			{"BLST", 14, Currency},
 			{"Fragments", 112, Currency, Deprecated},
 			{"NOOB", 209, Currency},
+			{"NOOBRare", 245, Collectable},
+			{"NOOBSuperRare", 246, Collectable},
 			{"CS", 12, Currency, ResourcePool},
 			{"XP", 3, Resource},
 			{"Trophies", 22, Resource},

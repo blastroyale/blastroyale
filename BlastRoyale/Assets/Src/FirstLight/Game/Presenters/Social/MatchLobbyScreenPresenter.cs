@@ -214,9 +214,14 @@ namespace FirstLight.Game.Presenters
 
 				_header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
 
+				var canInvite = _localPlayerHost || matchSettings.AllowInvites;
 				_inviteToggle.SetDisplay(_localPlayerHost);
-				_inviteFriendsButton.SetEnabled(_localPlayerHost || matchSettings.AllowInvites);
-
+				_inviteFriendsButton.SetEnabled(canInvite);
+				if (!canInvite)
+				{
+					_services.UIService.CloseScreen<PopupPresenter>(false);
+				}
+				
 				if (_localPlayerHost)
 				{
 					_matchSettingsView.SetMainAction(ScriptTerms.UITCustomGames.start_match, () => StartMatch().Forget());

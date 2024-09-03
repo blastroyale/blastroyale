@@ -69,8 +69,13 @@ namespace FirstLight.Tests.EditorMode
 		{
 		}
 
+		public void SetupBackendEnvironment()
+		{
+			throw new NotImplementedException();
+		}
+
 		public void UpdateDisplayNamePlayfab(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null,
-									  Action<PlayFabError> onError = null)
+											 Action<PlayFabError> onError = null)
 		{
 		}
 

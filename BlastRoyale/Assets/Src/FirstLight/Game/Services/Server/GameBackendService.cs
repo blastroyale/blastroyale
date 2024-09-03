@@ -28,7 +28,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Sets up the backend with the correct cloud environment, per platform
 		/// </summary>
-		void SetupBackendEnvironment(FLEnvironment.Definition? forceEnvironment = null);
+		void SetupBackendEnvironment();
 
 		/// <summary>
 		/// Updates the user nickname in playfab.
@@ -41,7 +41,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
 						  Action<PlayFabError> onError, object parameter = null);
-		
+
 		/// <summary>
 		/// Same as above but async
 		/// </summary>
@@ -149,17 +149,10 @@ namespace FirstLight.Game.Services
 				e => { HandleError(e, onError); });
 		}
 
-		public void SetupBackendEnvironment(FLEnvironment.Definition? forceEnvironment)
+		public void SetupBackendEnvironment()
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
-
-			if (forceEnvironment.HasValue)
-			{
-				FLog.Info("Forcing Environment " + forceEnvironment.Value.Name);
-				ForcedEnvironment = true;
-				FLEnvironment.Current = forceEnvironment.Value;
-			}
 
 			FLog.Info($"Using environment: {FLEnvironment.Current.UCSEnvironmentName}");
 
@@ -236,7 +229,7 @@ namespace FirstLight.Game.Services
 				FunctionName = functionName, GeneratePlayStreamEvent = true, FunctionParameter = parameter,
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
-			
+
 			PlayFabCloudScriptAPI.ExecuteFunction(request, res =>
 			{
 				var exception = ExtractException(res);

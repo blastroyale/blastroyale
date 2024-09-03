@@ -48,19 +48,24 @@ namespace Backend.Game
 			_gameConfigs = gameConfigs;
 		}
 
+
 		/// <summary>
 		/// Runs a logic request in server state for the given player. This will persist the updated state at the end.
 		/// </summary>
 		public async Task<BackendLogicResult> RunLogic(string playerId, LogicRequest logicRequest)
 		{
-			var cmdType = logicRequest.Command;
 			var requestData = logicRequest.Data;
 			var savedDataAmount = 0;
 			try
 			{
-				if (!requestData.TryGetValue(CommandFields.Command, out var commandData))
+				if (!requestData.TryGetValue(CommandFields.CommandType, out var cmdType))
 				{
-					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.Command}");
+					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.CommandData}");
+				}
+
+				if (!requestData.TryGetValue(CommandFields.CommandData, out var commandData))
+				{
+					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.CommandData}");
 				}
 
 				_log.LogInformation($"{playerId} running {cmdType}");

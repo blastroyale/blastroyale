@@ -131,11 +131,11 @@ public class TestServer
 		var commandData = new Dictionary<string, string>();
 		commandData[CommandFields.Timestamp] = "1";
 		commandData[CommandFields.ClientVersion] = GetService<IBaseServiceConfiguration>().MinClientVersion.ToString();
-		commandData[CommandFields.Command] = ModelSerializer.Serialize(cmd).Value;
+		commandData[CommandFields.CommandData] = ModelSerializer.Serialize(cmd).Value;
+		commandData[CommandFields.CommandType] = cmd.GetType().FullName;
 		commandData["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
 		return GetService<GameServer>()?.RunLogic(GetTestPlayerID(), new LogicRequest()
 		{
-			Command = cmd.GetType().FullName,
 			Data = commandData,
 		}).Result;
 	}

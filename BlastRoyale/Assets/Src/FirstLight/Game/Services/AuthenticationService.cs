@@ -13,6 +13,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLightServerSDK.Services;
@@ -432,7 +433,7 @@ namespace FirstLight.Game.Services
 
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)
 		{
-			_services.GameBackendService.CallFunction("GetPlayerData",
+			_services.GameBackendService.CallGenericFunction(CommandNames.GET_PLAYER_DATA,
 				(res) => { OnPlayerDataObtained(res, loginData, onSuccess, onError, previouslyLoggedIn); },
 				e => { _services.GameBackendService.HandleError(e, onError); });
 		}
@@ -481,7 +482,7 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Info("UnityCloudAuth", "Requesting session token!");
 
-				_services.GameBackendService.CallFunction("AuthenticateUnity",
+				_services.GameBackendService.CallGenericFunction(CommandNames.AUTHENTICATE_UNITY,
 					(res) =>
 					{
 						var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
@@ -508,9 +509,22 @@ namespace FirstLight.Game.Services
 				.WithMemberProfile(true);
 			tasks.Add(FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask());
 			tasks.Add(AuthenticationService.Instance.GetPlayerNameAsync().AsUniTask()); // We fetch the name (which generates a new one) so it's stored in the cache
-			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId)); ;
+			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
 			await UniTask.WhenAll(tasks);
-			CheckNamesUpdates().Forget();
+			CheckNamesUpdates()
+				.ContinueWith(() =>
+				{
+					// GOD FORGIVE ME
+					var dataService = _services.DataService;
+					var migrationData = dataService.LoadData<LocalMigrationData>();
+					if (!migrationData.RanMigrations.Contains(LocalMigrationData.SYNC_NAME))
+					{
+						_services.GameBackendService.CallGenericFunction(CommandNames.SYNC_NAME).Forget();
+						migrationData.RanMigrations.Add(LocalMigrationData.SYNC_NAME);
+						dataService.SaveData<LocalMigrationData>();
+					}
+				})
+				.Forget();
 			_services.NotificationService.Init();
 			_services.RateAndReviewService.Init();
 			onComplete();
@@ -531,9 +545,13 @@ namespace FirstLight.Game.Services
 				if (appData.IsFirstSession || string.IsNullOrWhiteSpace(playfabName))
 				{
 					FLog.Info("Updating playfab name to auto generated unity one" + unityName);
-					await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
+					var playfabResult = await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
 					{
 						DisplayName = unityName.Length > 25 ? unityName.Substring(0, 25) : unityName
+					});
+					_services.MessageBrokerService.Publish(new DisplayNameChangedMessage()
+					{
+						NewPlayfabDisplayName = playfabResult.DisplayName
 					});
 					return;
 				}
@@ -566,11 +584,6 @@ namespace FirstLight.Game.Services
 					}
 
 					var dataInstance = ModelSerializer.DeserializeFromData(type, state);
-					if (dataInstance is CollectionItemEnrichmentData enrichmentData)
-					{
-						_services.CollectionEnrichnmentService.Enrich(enrichmentData);
-					}
-
 					_dataService.AddData(type, dataInstance);
 				}
 				catch (Exception e)

@@ -12,7 +12,6 @@ using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLightServerSDK.Modules.RemoteCollection;
 
 namespace FirstLight.Game.Services
 {
@@ -111,7 +110,6 @@ namespace FirstLight.Game.Services
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
 
-		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 
 		public IControlSetupService ControlsSetup { get; }
@@ -175,7 +173,6 @@ namespace FirstLight.Game.Services
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
-		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; }
 		public IRoomService RoomService { get; }
@@ -240,7 +237,6 @@ namespace FirstLight.Game.Services
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);
 			ControlsSetup = new ControlSetupService();
-			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);

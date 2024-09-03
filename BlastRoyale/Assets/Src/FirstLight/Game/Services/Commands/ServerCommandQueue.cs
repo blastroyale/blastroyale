@@ -84,7 +84,6 @@ namespace FirstLight.Game.Services
 			return invalid;
 		}
 
-
 		/// <summary>
 		/// Adds a given command to the "to send to server queue".
 		/// We send one command at a time to server, this queue ensure that.
@@ -103,7 +102,6 @@ namespace FirstLight.Game.Services
 				RunNext();
 			}
 		}
-
 
 		/// <summary>
 		/// Whenever the HTTP request to proccess a command returns 200
@@ -151,7 +149,6 @@ namespace FirstLight.Game.Services
 			_queue.Clear(); // clear to make easier for testing
 #endif
 		}
-
 
 		/// <summary>
 		/// When server returns an exception after a command was executed
@@ -257,21 +254,18 @@ namespace FirstLight.Game.Services
 		private void ExecuteServerCommand(IGameCommand command)
 		{
 			FLog.Verbose($"Sending server command {command.GetType().Name}");
-			var request = new LogicRequest
-			{
-				Command = command.GetType().FullName,
-				Platform = Application.platform.ToString(),
-				Data = new Dictionary<string, string>
-				{
-					{CommandFields.Command, ModelSerializer.Serialize(command).Value},
-					{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
-					{CommandFields.ClientVersion, VersionUtils.VersionExternal},
-					{CommandFields.ConfigurationVersion, _logic.ConfigsProvider.Version.ToString()}
-				}
-			};
-			_gameBackend.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
-		}
 
+			var data = new Dictionary<string, string>
+			{
+				{CommandFields.CommandType, command.GetType().FullName},
+				{CommandFields.CommandData, ModelSerializer.Serialize(command).Value},
+				{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
+				{CommandFields.ClientVersion, VersionUtils.VersionExternal},
+				{CommandFields.ConfigurationVersion, _logic.ConfigsProvider.Version.ToString()}
+			};
+
+			_gameBackend.CallGenericFunction(CommandNames.EXECUTE_LOGIC, OnCommandSuccess, OnCommandError, data);
+		}
 
 		private class ServerCommandQueueEntry
 		{
@@ -284,7 +278,6 @@ namespace FirstLight.Game.Services
 			/// Command to execute in the server
 			/// </summary>
 			public IGameCommand GameCommand { get; }
-
 
 			public ServerCommandQueueEntry(StateDelta clientDelta, IGameCommand gameCommand)
 			{

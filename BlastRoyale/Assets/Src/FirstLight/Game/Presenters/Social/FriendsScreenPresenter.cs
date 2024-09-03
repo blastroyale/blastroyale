@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -10,6 +11,7 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
+using PlayFab;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
@@ -117,7 +119,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_yourIDField.value = AuthenticationService.Instance.PlayerId;
+			var appData = _services.DataService.GetData<AppData>();
+			_yourIDField.value = appData.DisplayName;
 			RefreshAll();
 
 			// TODO mihak: Temporary, we just always refresh all lists

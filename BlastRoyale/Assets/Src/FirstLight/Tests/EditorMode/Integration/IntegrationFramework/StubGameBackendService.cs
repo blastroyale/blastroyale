@@ -100,6 +100,16 @@ namespace FirstLight.Tests.EditorMode
 			return UniTask.FromResult(new ExecuteFunctionResult());
 		}
 
+		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError, Dictionary<string, string> data = null)
+		{
+			throw new NotImplementedException();
+		}
+
+		public UniTask<ExecuteFunctionResult> CallGenericFunction(string functionName, Dictionary<string, string> data = null)
+		{
+			throw new NotImplementedException();
+		}
+
 		public void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError)
 		{
 		}

@@ -13,7 +13,7 @@ using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
 /// </summary>
 public class WipeBPP : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
+	public override Environment GetEnvironment() => Environment.DEV;
 	private const uint SEASON_TO_WIPE = 6;
 
 	public override void Execute(ScriptParameters parameters)

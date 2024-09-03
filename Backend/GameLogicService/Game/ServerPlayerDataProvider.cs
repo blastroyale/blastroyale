@@ -4,7 +4,6 @@ using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK.Models;
-using FirstLightServerSDK.Modules.RemoteCollection;
 using PlayFab;
 
 
@@ -48,6 +47,7 @@ namespace Backend.Game
 					continue;
 				newState.UpdateModel(model);
 			}
+
 			_modelsConsumed.Clear();
 			return newState;
 		}
@@ -69,7 +69,7 @@ namespace Backend.Game
 		/// <inheritdoc />
 		public T GetData<T>() where T : class
 		{
-			return (T)GetData(typeof(T));
+			return (T) GetData(typeof(T));
 		}
 
 		/// <inheritdoc />
@@ -87,21 +87,17 @@ namespace Backend.Game
 			{
 				throw new LogicException($"Trying to load model {type.FullName} from state, but only {string.Join(",", _state.Keys)} found");
 			}
+
 			_modelsConsumed[type] = data;
 			return data;
 		}
-		
+
 		/// <inheritdoc/>
 		public IEnumerable<Type> GetKeys()
 		{
 			return _state.Keys.Select(s => typeof(PlayerData).GetAssembly().GetType(s))!;
 		}
 
-		public ICollectionEnrichmentService GetEnrichmentService()
-		{
-			// Server-Side collection enrichment for logic commands coming soon [TM]
-			return null!;
-		}
 
 		public void ClearDeltas()
 		{

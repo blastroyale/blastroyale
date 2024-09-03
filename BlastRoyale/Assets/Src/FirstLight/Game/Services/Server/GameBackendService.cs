@@ -7,6 +7,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
@@ -17,6 +18,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -34,18 +36,15 @@ namespace FirstLight.Game.Services
 		/// Updates the user nickname in playfab.
 		/// </summary>
 		void UpdateDisplayNamePlayfab(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError);
-
+		
 		/// <summary>
-		/// Calls the given cloudscript function with the given arguments.
-		/// Deprecated, please use async instead
+		/// Execute a function using the generic endcpoint, to see current values look at <see cref="FirstLight.Server.SDK.Modules.Commands"/>
 		/// </summary>
-		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
-						  Action<PlayFabError> onError, object parameter = null);
-
+		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError, Dictionary<string, string> data = null);
 		/// <summary>
-		/// Same as above but async
+		/// Same as <see cref="CallGenericFunction"/>
 		/// </summary>
-		UniTask<ExecuteFunctionResult> CallFunctionAsync(string functionName, object parameter = null);
+		public UniTask<ExecuteFunctionResult> CallGenericFunction(string functionName, Dictionary<string, string> data = null);
 
 		/// <summary>
 		/// Reads the specific title data by the given key.
@@ -209,7 +208,27 @@ namespace FirstLight.Game.Services
 			}, e => { HandleError(e, onError); });
 		}
 
-		public async UniTask<ExecuteFunctionResult> CallFunctionAsync(string function, object param = null)
+		public UniTask<ExecuteFunctionResult> CallGenericFunction(string functionName, Dictionary<string, string> data = null)
+		{
+			return CallFunctionAsync("Generic", new LogicRequest()
+			{
+				Command = functionName,
+				Platform = Application.platform.ToString(),
+				Data = data
+			});
+		}
+
+		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError, Dictionary<string, string> data = null)
+		{
+			CallFunction("Generic", onSuccess, onError, new LogicRequest()
+			{
+				Command = functionName,
+				Platform = Application.platform.ToString(),
+				Data = data
+			});
+		}
+
+		private async UniTask<ExecuteFunctionResult> CallFunctionAsync(string function, object param = null)
 		{
 			var request = new ExecuteFunctionRequest
 			{
@@ -221,7 +240,7 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		/// <inheritdoc />
-		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
+		private void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
 								 Action<PlayFabError> onError, object parameter = null)
 		{
 			var request = new ExecuteFunctionRequest

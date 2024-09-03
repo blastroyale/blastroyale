@@ -55,7 +55,7 @@ class Program
 		var scripts = allScripts.Where(type => !typeof(VersionMigrationScript).IsAssignableFrom(type)).ToList();
 		var migrationScripts = allScripts.Where(type => typeof(VersionMigrationScript).IsAssignableFrom(type)).ToList();
 
-		Environment.GetCommandLineArgs();
+		System.Environment.GetCommandLineArgs();
 		Console.WriteLine("Select script to run:");
 		Console.WriteLine("0 - Data Migrations");
 		scripts.ForEach(script => Console.WriteLine($"{scripts.IndexOf(script) + 1} - {script.Name}"));

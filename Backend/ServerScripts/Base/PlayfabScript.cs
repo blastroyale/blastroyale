@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using Backend.Game.Services;
 using CsvHelper;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
@@ -18,6 +21,9 @@ using PlayFab.AuthenticationModels;
 using PlayFab.Internal;
 using PlayFab.ServerModels;
 using Scripts.Base;
+using Unity.Services.CloudCode.Apis;
+using Unity.Services.CloudCode.Apis.Admin;
+using Unity.Services.CloudCode.Core;
 using AddPlayerTagRequest = PlayFab.AdminModels.AddPlayerTagRequest;
 using GetAllSegmentsRequest = PlayFab.ServerModels.GetAllSegmentsRequest;
 using GetPlayerProfileRequest = PlayFab.ServerModels.GetPlayerProfileRequest;
@@ -32,19 +38,20 @@ using UpdateUserDataRequest = PlayFab.ServerModels.UpdateUserDataRequest;
 /// <summary>
 /// Playfab configuration for a single environment
 /// </summary>
-public class PlayfabConfiguration
+public class EnvironmentConfiguration
 {
 	public string TitleId;
-	public string SecretKey;
 	public string AllPlayersSegmentId;
-	public string ServerSecretKey;
 	public string ServerBaseEndpoint;
+	public string UnityEnvironmentId;
+	public string UnityProjectId;
+	[AllowNull] public EnvironmentSecrets Secrets;
 }
 
 /// <summary>
 /// Represents our stacks
 /// </summary>
-public enum PlayfabEnvironment
+public enum Environment
 {
 	DEV,
 	STAGING,
@@ -52,58 +59,93 @@ public enum PlayfabEnvironment
 	TESTNET,
 }
 
+public class EnvironmentSecrets
+{
+	public string SecretKey;
+	public string ServerSecretKey;
+	public string UnityServiceAccountKeyId;
+	public string UnityServiceAccountSecretKey;
+	public string UnityHeader;
+}
+
 /// <summary>
 /// Will setup playfab before script run
 /// </summary>
 public abstract class PlayfabScript : IScript
 {
-	private static string ReadFromFile = "read_from_file";
-	private static string PlayFabSecretFilename = "playfab_key.txt";
-	private static string ServerSecretFilename = "server_key.txt";
-	
+	private static string ProdSecretsFile = "prod_secrets.json";
 
-	private Dictionary<PlayfabEnvironment, PlayfabConfiguration> _envSetups = new()
+	public IAdminApiClient GetUnityAdmin()
+	{
+		return AdminApiClient.Create();
+	}
+
+	public UnityScriptExecutionContext GetUnityContext()
+	{
+		var config = GetPlayfabConfiguration();
+		return new UnityScriptExecutionContext()
+		{
+			ProjectId = config.UnityProjectId,
+			EnvironmentId = config.UnityEnvironmentId,
+			ServiceAccountSecretKey = config.Secrets.UnityServiceAccountSecretKey,
+			ServiceAccountKeyId = config.Secrets.UnityServiceAccountKeyId,
+		};
+	}
+
+	private Dictionary<Environment, EnvironmentConfiguration> _envSetups = new()
 	{
 		{
-			PlayfabEnvironment.DEV, new PlayfabConfiguration()
+			Environment.DEV, new EnvironmentConfiguration()
 			{
 				TitleId = "***REMOVED***",
-				SecretKey = "***REMOVED***",
+				UnityProjectId = "***REMOVED***",
+				UnityEnvironmentId = "***REMOVED***",
+				Secrets = null,
 				AllPlayersSegmentId = "97EC6C2DE051B678",
-				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/", 
-				ServerSecretKey = "devkey"
+				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/",
 			}
 		},
 
 		{
-			PlayfabEnvironment.STAGING, new PlayfabConfiguration()
+			Environment.STAGING, new EnvironmentConfiguration()
 			{
 				TitleId = "***REMOVED***",
-				SecretKey = "***REMOVED***",
+				UnityProjectId = "***REMOVED***",
+				UnityEnvironmentId = "***REMOVED***",
+				Secrets = new()
+				{
+					ServerSecretKey = "stagingkey",
+					SecretKey = "***REMOVED***",
+				},
 				AllPlayersSegmentId = "1ECB17662366E940",
-				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/", 
-				ServerSecretKey = "stagingkey"
+				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/",
 			}
 		},
 		{
-			PlayfabEnvironment.TESTNET, new PlayfabConfiguration()
+			Environment.TESTNET, new EnvironmentConfiguration()
 			{
 				TitleId = "***REMOVED***",
-				SecretKey = "***REMOVED***",
+				Secrets = new()
+				{
+					ServerSecretKey = "testnetkey",
+					SecretKey = "***REMOVED***",
+				},
+				UnityProjectId = "***REMOVED***",
+				UnityEnvironmentId = "***REMOVED***",
 				AllPlayersSegmentId = "	4F3220F8011EE630",
-				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/", 
-				ServerSecretKey = "testnetkey"
+				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/",
 			}
 		},
 
 		{
-			PlayfabEnvironment.PROD, new PlayfabConfiguration()
+			Environment.PROD, new EnvironmentConfiguration()
 			{
 				TitleId = "***REMOVED***",
-				SecretKey = ReadFromFile,
+				Secrets = null,
+				UnityProjectId = "***REMOVED***",
+				UnityEnvironmentId = "***REMOVED***",
 				AllPlayersSegmentId = "98523D5E0EF3941",
-				ServerBaseEndpoint = "https://mainnet-prod-hub-account-service.blastroyale.com/", 
-				ServerSecretKey = ReadFromFile
+				ServerBaseEndpoint = "https://mainnet-prod-hub-account-service.blastroyale.com/",
 			}
 		},
 	};
@@ -161,36 +203,35 @@ public abstract class PlayfabScript : IScript
 		SetEnvironment(GetEnvironment());
 	}
 
-	protected void SetEnvironment(PlayfabEnvironment environment)
+	protected void SetEnvironment(Environment environment)
 	{
 		var playfabSetup = _envSetups[environment];
 		PlayFabSettings.staticSettings.TitleId = playfabSetup.TitleId;
-		var key = ResolveSecretKey(playfabSetup.SecretKey, PlayFabSecretFilename);
-		var serverKey = ResolveSecretKey(playfabSetup.ServerSecretKey, ServerSecretFilename);
 
-		PlayFabSettings.staticSettings.DeveloperSecretKey = key;
-		ConfigRegistry.Set("ServerSecretKey", serverKey);
+		// ReSharper disable once NullCoalescingConditionIsAlwaysNotNullAccordingToAPIContract
+		var secrets = playfabSetup.Secrets ?? ReadSecretsFromFile(ProdSecretsFile);
+
+		playfabSetup.Secrets = secrets;
+		PlayFabSettings.staticSettings.DeveloperSecretKey = secrets.SecretKey;
+		ConfigRegistry.Set("ServerSecretKey", secrets.ServerSecretKey);
 		ConfigRegistry.Set("ServerBaseEndpoint", playfabSetup.ServerBaseEndpoint);
-		
+
 		Console.WriteLine($"Using Playfab Title {PlayFabSettings.staticSettings.TitleId}");
 	}
-	
-	private string ResolveSecretKey(string key, string fileName)
+
+	private EnvironmentSecrets ReadSecretsFromFile(string fileName)
 	{
-		if (key == ReadFromFile)
+		try
 		{
-			try
-			{
-				var keyPath = Path.Combine(Environment.CurrentDirectory, fileName);
-				return File.ReadAllText(keyPath);
-			}
-			catch (IOException ex)
-			{
-				Console.Error.WriteLine($"Error reading file {fileName}: {ex.Message}");
-				return null;  // or throw, depending on how critical this failure is
-			}
+			var keyPath = Path.Combine(System.Environment.CurrentDirectory, fileName);
+			return ModelSerializer.Deserialize<EnvironmentSecrets>(File.ReadAllText(keyPath));
 		}
-		return key;
+		catch (IOException ex)
+		{
+			Console.Error.WriteLine($"Could not get production credentials from file, please create it!");
+			Console.Error.WriteLine($"Error reading file {fileName}: {ex.Message}");
+			return null; // or throw, depending on how critical this failure is
+		}
 	}
 
 	protected async Task AuthenticateServer()
@@ -201,9 +242,9 @@ public abstract class PlayfabScript : IScript
 		}).HandleError();
 	}
 
-	public abstract PlayfabEnvironment GetEnvironment();
+	public abstract Environment GetEnvironment();
 
-	protected PlayfabConfiguration GetPlayfabConfiguration()
+	protected EnvironmentConfiguration GetPlayfabConfiguration()
 	{
 		return _envSetups[GetEnvironment()];
 	}

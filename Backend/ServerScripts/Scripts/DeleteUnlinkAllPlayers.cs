@@ -12,7 +12,7 @@ using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
 /// </summary>
 public class DeleteAndUnlinkAllPlayers : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.STAGING;
+	public override Environment GetEnvironment() => Environment.STAGING;
 	
 	private HttpClient _client;
 	

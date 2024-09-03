@@ -9,6 +9,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
@@ -122,6 +123,15 @@ namespace FirstLight.Game.Services
 				UpdateCurrentPlayerActivity();
 			};
 			services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnEquippedAvatar);
+			services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnNameChanged);
+		}
+
+		private void OnNameChanged(DisplayNameChangedMessage obj)
+		{
+			// FUCKING HACKS
+			var data = _services.DataService.LoadData<AppData>();
+			data.DisplayName = obj.NewPlayfabDisplayName;
+			_services.DataService.SaveData<AppData>();
 		}
 
 		private void OnEquippedAvatar(CollectionItemEquippedMessage msg)

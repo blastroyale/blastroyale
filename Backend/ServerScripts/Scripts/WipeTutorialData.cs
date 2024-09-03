@@ -14,9 +14,9 @@ namespace Scripts.Scripts
 	/// </summary>
 	public class WipeTutorialData : PlayfabScript
 	{
-		public override PlayfabEnvironment GetEnvironment()
+		public override Environment GetEnvironment()
 		{
-			return PlayfabEnvironment.DEV;
+			return Environment.DEV;
 		}
 
 		public override void Execute(ScriptParameters args)

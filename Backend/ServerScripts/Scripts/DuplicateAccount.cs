@@ -17,7 +17,7 @@ using UpdatePlayerStatisticsRequest = PlayFab.ServerModels.UpdatePlayerStatistic
 
 public class DuplicateAccount : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.PROD;
+	public override Environment GetEnvironment() => Environment.PROD;
 
 	public override void Execute(ScriptParameters parameters)
 	{

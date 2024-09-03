@@ -8,6 +8,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -133,9 +134,10 @@ namespace FirstLight.Game.StateMachines
 
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 
+			UpdateUserTitleDisplayNameResult playfabResponse;
 			try
 			{
-				await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
+				playfabResponse = await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
 				{
 					DisplayName = newNameTrimmed
 				});
@@ -162,7 +164,11 @@ namespace FirstLight.Game.StateMachines
 				await OnSetNameError($"Error setting player name: {e.Message}");
 			}
 
-			_services.MessageBrokerService.Publish(new DisplayNameChangedMessage());
+
+			_services.MessageBrokerService.Publish(new DisplayNameChangedMessage()
+			{
+				NewPlayfabDisplayName = playfabResponse.DisplayName
+			});
 		}
 
 		private async UniTask OnSetNameError(string errorMessage)

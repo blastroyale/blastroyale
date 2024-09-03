@@ -54,6 +54,8 @@ namespace FirstLight.Game
 			InitGlobalShaderData();
 
 			await ATTrackingUtils.RequestATTPermission();
+			await VersionUtils.LoadVersionDataAsync();
+			await FLEnvironment.CheckForEnvironmentRedirect(VersionUtils.BuildNumber);
 			await InitUnityServices();
 			await InitAnalytics();
 
@@ -67,7 +69,6 @@ namespace FirstLight.Game
 			FLGCustomSerializers.RegisterSerializers();
 			FeatureFlags.ParseLocalFeatureFlags();
 
-			await VersionUtils.LoadVersionDataAsync();
 			// This uglyness is here because we need to show the loading screen before loading configs, which need this tuple
 			var (services, assetResolver, configsProvider) = InitFLGServices();
 			OhYeah();
@@ -195,13 +196,13 @@ namespace FirstLight.Game
 		{
 			var initOpts = new InitializationOptions();
 
+			FLog.Info("Using unity environment: " + FLEnvironment.Current.UCSEnvironmentName);
 			initOpts.SetEnvironmentName(FLEnvironment.Current.UCSEnvironmentName);
 			RemoteConfigService.Instance.SetEnvironmentID(FLEnvironment.Current.UCSEnvironmentID);
 			await UnityServices.InitializeAsync(initOpts).AsUniTask();
 			await Addressables.InitializeAsync().Task.AsUniTask();
 			((ILobbyServiceSDKConfiguration) LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
-			
-			
+
 #if UNITY_EDITOR
 			if (ParrelSync.ClonesManager.IsClone())
 			{

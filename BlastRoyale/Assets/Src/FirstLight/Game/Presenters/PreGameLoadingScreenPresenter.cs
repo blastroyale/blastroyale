@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using DG.DemiEditor;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -333,7 +332,7 @@ namespace FirstLight.Game.Presenters
 			// Combining a list of weapons (in case weapon filter is active)
 			for (int i = 0; i < simulationConfig.WeaponsSelectionOverwrite.Length; i++)
 			{
-				if (i == 0 && !mutatorsString.IsNullOrEmpty())
+				if (i == 0 && !string.IsNullOrEmpty(mutatorsString))
 				{
 					mutatorsString += ", ";
 				}

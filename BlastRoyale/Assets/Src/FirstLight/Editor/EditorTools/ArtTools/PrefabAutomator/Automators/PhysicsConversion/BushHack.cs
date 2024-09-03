@@ -36,6 +36,17 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 
           foreach (var c in e)
           {
+             if (c.PhysicsCollider.Shape3D.ShapeType == Shape3DType.None && c.PhysicsCollider.Shape3D.BoxExtents.X > 0)
+             {
+                c.TransformMode = EntityPrototypeTransformMode.Transform2D;
+                c.PhysicsCollider.Shape2D.ShapeType = Shape2DType.Box;
+                c.PhysicsCollider.Shape2D.BoxExtents = c.PhysicsCollider.Shape3D.BoxExtents.XZ;
+                c.PhysicsCollider.Shape2D.PositionOffset = c.PhysicsCollider.Shape3D.PositionOffset.XZ;
+                c.PhysicsCollider.Shape3D.ShapeType = Shape3DType.None;
+                EditorUtility.SetDirty(c);
+                return true;
+             }
+             
              if (c.PhysicsCollider.Shape3D.ShapeType == Shape3DType.Box)
              {
                 c.TransformMode = EntityPrototypeTransformMode.Transform2D;

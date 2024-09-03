@@ -6,9 +6,9 @@ namespace Quantum.Systems
 	/// <summary>
 	/// System handling knockout logic, this contains knocking out the player when he dies, knockout collider, and reviving the player.
 	/// </summary>
-	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnTriggerEnter2D,
-									   ISignalOnTriggerExit2D, ISignalOnComponentRemoved<KnockedOut>, ISignalPlayerDead,
-									   ISignalGameEnded
+	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>,ISignalOnComponentRemoved<KnockedOut>, 
+									   ISignalPlayerDead, ISignalGameEnded, 
+									   ISignalOnFeetCollisionEnter, ISignalOnFeetCollisionLeft
 	{
 		public struct KnockedOutFilter
 		{
@@ -82,23 +82,23 @@ namespace Quantum.Systems
 			}
 		}
 
-
-		public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
+		
+		public void OnFeetCollisionEnter(Frame f, EntityRef entity, EntityRef collidedWith, FPVector2 point)
 		{
-			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(info.Entity, out var knockedOutCollider))
+			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(collidedWith, out var knockedOutCollider))
 			{
 				return;
 			}
 
 			// It needs to be a player to revivew
 			// Knocked out players cant revive other players
-			if (!f.Has<PlayerCharacter>(info.Other) || f.Has<KnockedOut>(info.Other))
+			if (!f.Has<PlayerCharacter>(entity) || f.Has<KnockedOut>(entity))
 			{
 				return;
 			}
 
 			// needs to be in the same team
-			if (!TeamSystem.HasSameTeam(f, info.Other, knockedOutCollider->KnockedOutEntity))
+			if (!TeamSystem.HasSameTeam(f, entity, knockedOutCollider->KnockedOutEntity))
 			{
 				return;
 			}
@@ -120,22 +120,19 @@ namespace Quantum.Systems
 				f.Events.OnPlayerStartReviving(knockedOutCollider->KnockedOutEntity);
 			}
 
-			reviving.Add(info.Other);
+			reviving.Add(entity);
 		}
 
-
-		public void OnTriggerExit2D(Frame f, ExitInfo2D info)
+		public void OnFeetCollisionLeft(Frame f, EntityRef entity, EntityRef collidedWith)
 		{
-			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(info.Entity, out var knockedOutCollider)
+			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(collidedWith, out var knockedOutCollider)
 				|| !f.Unsafe.TryGetPointer<KnockedOut>(knockedOutCollider->KnockedOutEntity, out var knockedOut)
 			   )
 			{
 				return;
 			}
-
-			StopRevivingPlayer(f, knockedOut, knockedOutCollider->KnockedOutEntity, info.Other);
+			StopRevivingPlayer(f, knockedOut, knockedOutCollider->KnockedOutEntity, entity);
 		}
-
 
 		public void OnRemoved(Frame f, EntityRef entity, KnockedOut* component)
 		{
@@ -280,16 +277,16 @@ namespace Quantum.Systems
 			knockedOutComponent->ColliderEntity = f.Create();
 			knockedOutComponent->KnockedOutBy = spell->Attacker;
 
-			var shape3D = Shape2D.CreateCircle(config.ReviveColliderRange);
+			var shape2d = Shape2D.CreateCircle(config.ReviveColliderRange);
 			var colliderEntity = knockedOutComponent->ColliderEntity;
 			f.Add(colliderEntity, Transform2D.Create(transform->Position));
 			f.Add(colliderEntity,
-				PhysicsCollider2D.Create(f, shape3D, null, true, f.Context.TargetPlayerTriggersLayerIndex));
+				PhysicsCollider2D.Create(f, shape2d, null, true, f.Context.TargetPlayerTriggersLayerIndex));
 			f.Add(colliderEntity, new KnockedOutCollider()
 			{
 				KnockedOutEntity = playerEntityRef
 			});
-			f.Physics3D.SetCallbacks(colliderEntity,
+			f.Physics2D.SetCallbacks(colliderEntity,
 				CallbackFlags.OnDynamicTriggerEnter | CallbackFlags.OnDynamicTriggerExit);
 			f.Events.OnPlayerKnockedOut(spell->Attacker, playerEntityRef);
 			f.Signals.OnPlayerKnockedOut(playerEntityRef);

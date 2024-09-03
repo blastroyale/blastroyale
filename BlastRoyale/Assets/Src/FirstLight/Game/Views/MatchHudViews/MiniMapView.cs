@@ -358,7 +358,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				int index = 0;
 				foreach (var (entity, apc) in f.GetComponentIterator<AlivePlayerCharacter>())
 				{
-					var pos = f.Get<Transform2D>(entity).Position.ToUnityVector2();
+					var pos = f.Get<Transform2D>(entity).Position.ToUnityVector3();
 
 					// Check range
 					if (Vector3.Distance(playerPosition, pos) > _radarRange)

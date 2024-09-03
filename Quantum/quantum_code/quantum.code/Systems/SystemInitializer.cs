@@ -19,7 +19,7 @@ namespace Quantum.Systems
 			f.Context.TargetAllLayerMask = -1;
 			f.Context.TargetPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS);
 			f.Context.TargetMapOnlyLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES);
-			f.Context.TargetMapAndPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS,
+			f.Context.TargetMapAndPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS_HITBOX,
 				PhysicsLayers.PLAYER_TRIGGERS, PhysicsLayers.OBSTACLES);
 			f.Context.TargetPlayerLineOfSightLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES);
 			f.Context.TargetPlayerTriggersLayerIndex = f.Layers.GetLayerIndex(PhysicsLayers.PLAYER_TRIGGERS);

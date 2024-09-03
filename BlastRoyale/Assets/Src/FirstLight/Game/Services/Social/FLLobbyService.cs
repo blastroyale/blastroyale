@@ -1009,7 +1009,7 @@ namespace FirstLight.Game.Services
 		public float TickDelay()
 		{
 			if (!MainInstaller.TryResolve<IGameDataProvider>(out var data)) return TICK_DELAY;
-			if (data.AppDataProvider.TitleData.TryGetValue("LOBBY_TICK", out var t) && Int32.TryParse(t, out var intt))
+			if (data.AppDataProvider.TitleData != null && data.AppDataProvider.TitleData.TryGetValue("LOBBY_TICK", out var t) && Int32.TryParse(t, out var intt))
 			{
 				return intt;
 			}

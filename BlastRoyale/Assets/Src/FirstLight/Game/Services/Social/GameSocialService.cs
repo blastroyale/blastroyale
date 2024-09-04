@@ -14,6 +14,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.Server.SDK.Modules.Commands;
 using I2.Loc;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -132,6 +133,7 @@ namespace FirstLight.Game.Services
 			var data = _services.DataService.LoadData<AppData>();
 			data.DisplayName = obj.NewPlayfabDisplayName;
 			_services.DataService.SaveData<AppData>();
+            _services.GameBackendService.CallGenericFunction(CommandNames.SYNC_NAME).Forget();
 		}
 
 		private void OnEquippedAvatar(CollectionItemEquippedMessage msg)

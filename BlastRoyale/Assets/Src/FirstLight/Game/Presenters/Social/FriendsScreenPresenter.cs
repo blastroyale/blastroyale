@@ -11,8 +11,6 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
-using PlayFab;
-using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -38,7 +36,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _requestsEmptyContainer;
 		private VisualElement _blockedEmptyContainer;
 
-		private LocalizedTextField _yourIDField;
+		private Label _yourIDField;
 		private TextField _addFriendIDField;
 		private LocalizedButton _addFriendButton;
 		private Label _requestsCount;
@@ -66,9 +64,11 @@ namespace FirstLight.Game.Presenters
 			_requestsEmptyContainer = Root.Q<VisualElement>("RequestsEmptyContainer").Required();
 			_blockedEmptyContainer = Root.Q<VisualElement>("BlockedEmptyContainer").Required();
 
-			_yourIDField = Root.Q<LocalizedTextField>("YourID").Required();
-			_yourIDField.OnCopied += () =>
+			_yourIDField = Root.Q<Label>("YourID").Required();
+			var copyIdButton = Root.Q<ImageButton>("CopyIDButton").Required();
+			copyIdButton.clicked += () =>
 			{
+				UIUtils.SaveToClipboard(_yourIDField.text);
 				_services.NotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			};
 			_addFriendIDField = Root.Q<TextField>("AddFriendID").Required();
@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			var appData = _services.DataService.GetData<AppData>();
-			_yourIDField.value = appData.DisplayName;
+			_yourIDField.text = appData.DisplayName;
 			RefreshAll();
 
 			// TODO mihak: Temporary, we just always refresh all lists

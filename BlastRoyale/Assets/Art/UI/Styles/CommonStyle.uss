@@ -1089,3 +1089,16 @@
     -unity-text-align: middle-center;
     padding-right: 12px;
 }
+
+.copy-button {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    width: 84px;
+    height: 84px;
+    background-image: var(--sprite-home__button-copy);
+}
+
+.copy-button:active {
+    background-image: var(--sprite-home__button-copy-pressed);
+}

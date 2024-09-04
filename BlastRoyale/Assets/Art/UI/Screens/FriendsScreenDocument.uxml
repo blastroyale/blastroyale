@@ -7,9 +7,16 @@
                 <ui:VisualElement name="Background" class="left-bar__background-parent">
                     <ui:VisualElement name="Center" class="left-bar__background" />
                 </ui:VisualElement>
-                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITFriends/your_id" picking-mode="Ignore" name="YourID" value="JwaSqAKILS3YAeAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" show-copy-button="true" class="your-id-input" />
+                <ui:VisualElement name="YourIdContainer" style="flex-grow: 0; width: 400px; margin-bottom: 145px;">
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITFriends/your_id" outline-hack="true" name="YourIdLabel" style="font-size: 36px; color: rgb(157, 131, 216); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 3px; text-shadow: 3px 3px 0 rgba(0, 0, 0, 0); margin-bottom: 10px;" />
+                    <ui:VisualElement name="YourIdHolder" style="flex-grow: 1; width: 390px; height: 92px; background-color: rgb(22, 20, 38); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;">
+                        <FirstLight.Game.UIElements.AutoSizeLabel max-font-size="48" min-font-size="12" text="CARLOS4444" name="YourID" class="game-label" style="width: 322px; height: 100%; -unity-text-align: middle-left; background-color: rgba(250, 232, 60, 0);" />
+                    </ui:VisualElement>
+                    <FirstLight.Game.UIElements.ImageButton name="CopyIDButton" class="copy-button" style="position: absolute; right: -70px; bottom: 15px; width: 68px; height: 68px;" />
+                </ui:VisualElement>
+                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITFriends/your_id" picking-mode="Ignore" name="YourIDOLD" value="JwaSqAKILS3YAeAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" show-copy-button="true" class="your-id-input" style="display: none;" />
                 <FirstLight.Game.UIElements.LocalizedTextField picking-mode="Ignore" label-localization-key="UITFriends/enter_id" name="AddFriendID" max-length="50" />
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITFriends/add_friend" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddFriendButton" class="button-long button-long--purple" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITFriends/add_friend" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddFriendButton" class="button-long button-long--yellow" />
             </ui:VisualElement>
             <ui:VisualElement name="Content" picking-mode="Ignore" class="right-content">
                 <FirstLight.Game.UIElements.TabbedView class="settings-tabbed-view fill-parent">

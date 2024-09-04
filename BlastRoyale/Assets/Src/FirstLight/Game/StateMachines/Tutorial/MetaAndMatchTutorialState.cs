@@ -49,7 +49,8 @@ namespace FirstLight.Game.StateMachines
 			var createTutorialRoom = stateFactory.State("Join Room");
 			var waitSimulationStart = stateFactory.State("WaitSimulationStart");
 
-			initial.Transition().Target(enterName);
+			
+			initial.Transition().Target(completionCheck);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(_services.GameModeService.SelectDefaultRankedMode);
 			initial.OnExit(GetTutorialScreenRefs);
@@ -62,14 +63,14 @@ namespace FirstLight.Game.StateMachines
 			enterName.OnEnter(OnEnterNameEnter);
 			enterName.Event(EnterNameState.NameSetEvent).OnTransition(() =>
 			{
-				Debug.Log("NameSetEvent completing ENTER_NAME_PROMPT section");
 				_tutorialOverlay.Dialog.HideDialog(CharacterType.Female);
 				_services.TutorialService.CompleteTutorialSection(TutorialSection.ENTER_NAME_PROMPT);
 			}).Target(completionCheck);
 			enterName.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			enterName.OnExit(OnEnterNameExit);
-
+			
 			completionCheck.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
+			completionCheck.Transition().Condition(EnterNamePromptConditionsCheck).Target(enterName);
 			completionCheck.Transition().Target(playGame);
 
 			playGame.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PlayGameClick); });
@@ -99,6 +100,13 @@ namespace FirstLight.Game.StateMachines
 
 			final.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
 			final.OnEnter(UnsubscribeMessages);
+		}
+
+		private bool EnterNamePromptConditionsCheck()
+		{
+			// If first enter prompt tutorial not completed, and tutorial not running
+			return !_services.TutorialService.HasCompletedTutorial() &&
+				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT);
 		}
 
 		private void StartSecondTutorialMatch()

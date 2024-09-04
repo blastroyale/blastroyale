@@ -44,6 +44,7 @@ namespace FirstLight.Game.Presenters
 		[Q("Header")] private ScreenHeaderElement _header;
 		[Q("PlayersScrollview")] private ScrollView _playersContainer;
 		[Q("CodeLabel")] private Label _codeLabel;
+		[Q("ShowHideCode")] private ImageButton _showHideCodeLabel;
 		[Q("CopyCodeButton")] private ButtonOutlined _copyCodeButton;
 		
 		[Q("InviteToggle")] private Toggle _inviteToggle;
@@ -63,13 +64,19 @@ namespace FirstLight.Game.Presenters
 
 			_header.backClicked = () => LeaveMatchLobby().Forget();
 
-			_codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
+			// _codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
 			_copyCodeButton.clicked += () =>
 			{
 				UIUtils.SaveToClipboard(_codeLabel.text);
 				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			};
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
+
+			// Show or hide the code label
+			_showHideCodeLabel.clicked += () =>
+			{
+				Debug.Log("Show/Hide code label");
+			};
 		}
 
 		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)

@@ -1,9 +1,36 @@
+:root {
+    --show-code-icon: url('project://database/Assets/Art/UI/Sprites/Shared/code-hidden.png?fileID=21300000&amp;guid=51c85571873739947aa28b4daed7fced&amp;type=3#code-hidden');
+    --hide-code-icon: url('project://database/Assets/Art/UI/Sprites/Shared/hide-code.png?fileID=21300000&amp;guid=65d271528193a3f418ff058c61c43969&amp;type=3#hide-code');
+}
+
 .players-container {
     flex-grow: 1;
     margin-top: 97px;
     padding-right: 42px;
     flex-basis: 1px;
     margin-bottom: 0;
+}
+
+.show-hide-code {
+    width: 90px;
+    height: 90px;
+    background-color: rgba(15, 36, 80, 0.6);
+    border-radius: 11px;
+    margin-right: 25px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s;
+}
+
+.show-hide-code:active {
+    scale: 0.9 0.9;
+}
+
+.show-code {
+    width: 46.73px;
+    height: 39.75px;
+    background-image: var(--show-code-icon);
+    background-size: contain;
 }
 
 .players-container__row {

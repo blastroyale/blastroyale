@@ -68,16 +68,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 662be58fdc424e1f988d84670934e07f
-    m_Address: Assets/AddressableResources/Replays/Inputs/tutorial.json
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 63d6b329b3bdf0e4d85a7007440de5eb
-    m_Address: Sprites/Specials/InvisibilityAimAreaStatus.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1c02f793964ff49eab93c941b5a9c290
     m_Address: AdventureAssets/Footprint/FootprintDot.prefab
     m_ReadOnly: 0
@@ -155,11 +145,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 551588a7996664ceebac948e598c488f
-    m_Address: Assets/Art/Models/Weapons/DeWe/M_Weapons_DeWe 1.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4e60c5949fa400d45802af22e47974d7
     m_Address: Sprites/T_Projectiles_E.tga
     m_ReadOnly: 0
@@ -192,6 +177,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e8fa8f21907090640a854146d341e06c
     m_Address: Assets/AddressableResources/Collections/WeaponSkins/M_props.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a97d43a291d826489348604e85f1447
+    m_Address: Assets/Art/Materials/M_Material_Gold.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

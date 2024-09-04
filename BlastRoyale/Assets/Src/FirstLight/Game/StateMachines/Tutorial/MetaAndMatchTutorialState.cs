@@ -104,7 +104,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool EnterNamePromptConditionsCheck()
 		{
-			// If first enter prompt tutorial not completed, and tutorial not running
+			// If first enter prompt tutorial not completed, and tutorial is not completed 
 			return !_services.TutorialService.HasCompletedTutorial() &&
 				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT);
 		}

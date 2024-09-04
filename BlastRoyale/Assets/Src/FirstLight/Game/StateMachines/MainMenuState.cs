@@ -333,7 +333,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool MetaTutorialConditionsCheck()
 		{
-			// If first enter prompt tutorial not completed, and tutorial not running
+			// If first enter prompt tutorial not completed, and tutorial is not completed 
 			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT) && 
 				!_services.TutorialService.HasCompletedTutorial();
 		}

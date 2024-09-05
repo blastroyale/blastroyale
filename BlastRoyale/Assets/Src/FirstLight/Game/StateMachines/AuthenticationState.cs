@@ -128,6 +128,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask LoginTask()
 		{
+			FLog.Info("Starting async login");
 			_services.GameBackendService.SetupBackendEnvironment();
 
 			if (HasLinkedDevice())

@@ -376,7 +376,7 @@ namespace FirstLight.Game.Services
 
 			var requiredServices = 2;
 			var doneServices = 0;
-
+						
 			void OnServiceConnected(LoginData data)
 			{
 				if (++doneServices >= requiredServices)
@@ -385,15 +385,13 @@ namespace FirstLight.Game.Services
 					{
 						TryMigrateData(migrationData);
 					}
-
-					_dataService.SaveData<AppData>();
-					onSuccess(loginData);
 				}
 			}
-
+			
 			AuthenticateGameNetwork(loginData, OnServiceConnected, onError);
 			GetPlayerData(loginData, OnServiceConnected, onError, previouslyLoggedIn);
 
+			
 			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out _))
 			{
 				onError?.Invoke(null);
@@ -424,11 +422,17 @@ namespace FirstLight.Game.Services
 			appData.PlayerId = result.PlayFabId;
 			accountData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			appData.TitleData = titleData;
-			OnLogin?.Invoke(result);
-			State.LoggedIn = true;
-			_dataService.SaveData<AppData>();
-			_localAccountData.SaveData<AccountData>();
-			FLog.Verbose("Saved AppData");
+			
+			UniTask.WaitUntil(() => doneServices >= requiredServices).ContinueWith(() =>
+			{
+				FLog.Info("Finalizing login");
+				State.LoggedIn = true;
+				_dataService.SaveData<AppData>();
+				_localAccountData.SaveData<AccountData>();
+				FLog.Verbose("Saved AppData");
+				onSuccess(loginData); // TODO: https://firstlightgames.atlassian.net/browse/BRR-1999
+				OnLogin?.Invoke(result);
+			}).Forget();
 		}
 
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)

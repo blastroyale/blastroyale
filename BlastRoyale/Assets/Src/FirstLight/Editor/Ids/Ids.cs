@@ -238,6 +238,10 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinNFL", 237, PlayerSkin, Collection},
 			{"PlayerSkinPilot", 241, PlayerSkin, Collection},
 			{"PlayerSkinSkeleton", 242, PlayerSkin, Collection},
+            {"PlayerSkinFemale01", 245, PlayerSkin, Collection},
+            {"PlayerSkinFemale02", 246, PlayerSkin, Collection},
+            {"PlayerSkinMale01", 247, PlayerSkin, Collection},
+            {"PlayerSkinMale02", 248, PlayerSkin, Collection},
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins

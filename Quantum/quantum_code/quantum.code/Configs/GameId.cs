@@ -105,13 +105,19 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.NOOBRare, new List<GameIdGroup>
+					GameId.NOOBBronze, new List<GameIdGroup>
 					{
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
-					GameId.NOOBSuperRare, new List<GameIdGroup>
+					GameId.NOOBSilver, new List<GameIdGroup>
+					{
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.NOOBGold, new List<GameIdGroup>
 					{
 						GameIdGroup.Collectable
 					}.AsReadOnly()
@@ -2805,8 +2811,9 @@ namespace Quantum
 				{
 					GameIdGroup.Collectable, new List<GameId>
 					{
-						GameId.NOOBRare,
-						GameId.NOOBSuperRare,
+						GameId.NOOBBronze,
+						GameId.NOOBSilver,
+						GameId.NOOBGold,
 						GameId.Health,
 						GameId.AmmoSmall,
 						GameId.ShieldSmall,

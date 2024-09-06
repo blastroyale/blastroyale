@@ -13,7 +13,7 @@ namespace FirstLight.Editor.Inspector
 {
 	public class MetaItemDropOverwriteProcessor : OdinAttributeProcessor<MetaItemDropOverwrite>
 	{
-		private static IEnumerable<GameId> ValidMetaItems = new[] {GameId.NOOB, GameId.COIN, GameId.BPP, GameId.BlastBuck, GameId.NOOBRare, GameId.NOOBSuperRare};
+		private static IEnumerable<GameId> ValidMetaItems = new[] {GameId.NOOB, GameId.COIN, GameId.BPP, GameId.BlastBuck, GameId.NOOBBronze, GameId.NOOBSilver, GameId.NOOBGold};
 
 		public override void ProcessChildMemberAttributes(InspectorProperty parentProperty, MemberInfo member, List<Attribute> attributes)
 		{

@@ -316,7 +316,7 @@ MonoBehaviour:
         - RawValue: 13107
       CollectableConsumablePickupRadius:
         RawValue: 49152
-    - Id: 245
+    - Id: 249
       AssetRef:
         Id:
           Value: 240296495379453662
@@ -328,16 +328,16 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 49152
+          RawValue: 52428
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 49152
+        - RawValue: 52428
         - RawValue: 13107
       CollectableConsumablePickupRadius:
         RawValue: 49152
-    - Id: 246
+    - Id: 250
       AssetRef:
         Id:
           Value: 240296495379453662
@@ -349,12 +349,33 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 49152
+          RawValue: 55705
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 49152
+        - RawValue: 55705
+        - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 49152
+    - Id: 251
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      ConsumableType: 8
+      Amount:
+        Default:
+          RawValue: 65536
+        Keys: []
+        Values: []
+      ConsumableCollectTime:
+        Default:
+          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 65536
         - RawValue: 13107
       CollectableConsumablePickupRadius:
         RawValue: 49152

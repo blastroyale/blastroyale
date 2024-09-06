@@ -261,7 +261,6 @@ namespace FirstLight.Editor.Ids
 			{"Demon", 25, DeathMarker, BotItem, Collection},
 			{"Superstar", 75, DeathMarker, BotItem, Collection},
 			{"Unicorn", 76, DeathMarker, BotItem, Collection},
-
 			#endregion
 
 			#region MeleeSkins

@@ -35,7 +35,7 @@ namespace FirstLight.Game.Presenters
 
 			_confirm = Root.Q<LocalizedButton>("ConfirmButton").Required();
 			_confirm.clicked += Data.OnAccept;
-			var data = _services.DataService.GetData<AppData>().TitleData;
+			var data = _services.GameAppService.AppData;
 
 			_terms.clicked += () =>
 			{

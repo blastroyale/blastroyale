@@ -44,12 +44,7 @@ namespace FirstLight.Game.Logic
 		/// Gets last current custom game options used
 		/// </summary>
 		CustomGameOptions LastCustomGameOptions { get; }
-
-		/// <summary>
-		/// Playfab title data thats read and setup after player logs in
-		/// </summary>
-		IReadOnlyDictionary<string, string> TitleData { get; }
-
+		
 		/// <summary>
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
@@ -97,8 +92,6 @@ namespace FirstLight.Game.Logic
 		}
 
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
-
-		public IReadOnlyDictionary<string, string> TitleData => Data.TitleData;
 
 		/// <inheritdoc />
 		public string DisplayName => Data.DisplayName;

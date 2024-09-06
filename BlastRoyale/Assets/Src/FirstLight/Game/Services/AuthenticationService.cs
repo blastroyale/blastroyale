@@ -374,6 +374,19 @@ namespace FirstLight.Game.Services
 
 			FLog.Info("Using photon with the id " + FLEnvironment.Current.PhotonAppIDRealtime);
 
+			FeatureFlags.ParseFlags(titleData);
+			FeatureFlags.ParseLocalFeatureFlags();
+			_services.MessageBrokerService.Publish(new FeatureFlagsReceived()
+			{
+				AppData = titleData
+			});
+			
+			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out _))
+			{
+				onError?.Invoke(null);
+				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
+			}
+			
 			var requiredServices = 2;
 			var doneServices = 0;
 						
@@ -391,13 +404,6 @@ namespace FirstLight.Game.Services
 			AuthenticateGameNetwork(loginData, OnServiceConnected, onError);
 			GetPlayerData(loginData, OnServiceConnected, onError, previouslyLoggedIn);
 
-			
-			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out _))
-			{
-				onError?.Invoke(null);
-				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
-			}
-
 			if (string.IsNullOrWhiteSpace(accountData.DeviceId) ||
 				result.InfoResultPayload.AccountInfo.PrivateInfo.Email != accountData.LastLoginEmail)
 			{
@@ -409,10 +415,6 @@ namespace FirstLight.Game.Services
 				UpdateContactEmail(email, null, null);
 			}
 
-			FeatureFlags.ParseFlags(titleData);
-			FeatureFlags.ParseLocalFeatureFlags();
-			_services.MessageBrokerService.Publish(new FeatureFlagsReceived());
-
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
@@ -421,8 +423,7 @@ namespace FirstLight.Game.Services
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
 			accountData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-			appData.TitleData = titleData;
-			
+		
 			UniTask.WaitUntil(() => doneServices >= requiredServices).ContinueWith(() =>
 			{
 				FLog.Info("Finalizing login");

@@ -96,7 +96,7 @@ namespace FirstLight.Game.Services
 
 		private void FetchLeaderboardConfigs()
 		{
-			var data = _services.DataService.GetData<AppData>().TitleData;
+			var data = _services.GameAppService.AppData;
 			if(!data.TryGetValue(LeaderboardConfigsDataName, out var configs)) return;
 			_configs = ModelSerializer.Deserialize<LeaderboardConfigs>(configs);
 			foreach (var (metricName, config) in _configs)

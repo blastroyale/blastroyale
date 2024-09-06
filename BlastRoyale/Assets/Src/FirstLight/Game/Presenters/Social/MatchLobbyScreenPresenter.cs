@@ -45,6 +45,7 @@ namespace FirstLight.Game.Presenters
 		[Q("PlayersScrollview")] private ScrollView _playersContainer;
 		[Q("CodeLabel")] private Label _codeLabel;
 		[Q("ShowHideCode")] private ImageButton _showHideCodeLabel;
+		[Q("ShowHideCodeIcon")] private VisualElement _showHideCodeIcon;
 		[Q("CopyCodeButton")] private ButtonOutlined _copyCodeButton;
 		
 		[Q("InviteToggle")] private Toggle _inviteToggle;
@@ -57,6 +58,7 @@ namespace FirstLight.Game.Presenters
 
 		private bool _joining;
 		private bool _localPlayerHost;
+		private bool isCodeShown;
 
 		protected override void QueryElements()
 		{
@@ -64,18 +66,30 @@ namespace FirstLight.Game.Presenters
 
 			_header.backClicked = () => LeaveMatchLobby().Forget();
 
-			// _codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
 			_copyCodeButton.clicked += () =>
 			{
-				UIUtils.SaveToClipboard(_codeLabel.text);
-				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
+				UIUtils.SaveToClipboard(_services.FLLobbyService.CurrentMatchLobby.LobbyCode);
+				_services.NotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			};
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 
 			// Show or hide the code label
 			_showHideCodeLabel.clicked += () =>
 			{
-				Debug.Log("Show/Hide code label");
+				if (isCodeShown)
+				{
+					_codeLabel.text = "CODE HIDDEN";
+					_showHideCodeIcon.AddToClassList("show-code-icon");
+					_showHideCodeIcon.RemoveFromClassList("hide-code-icon");
+					isCodeShown = false;
+				}
+				else
+				{
+					_codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
+					_showHideCodeIcon.AddToClassList("hide-code-icon");
+					_showHideCodeIcon.RemoveFromClassList("show-code-icon");
+					isCodeShown = true;
+				}
 			};
 		}
 

@@ -5,8 +5,8 @@
         <FirstLight.Game.UIElements.SafeAreaElement apply-bottom="false" apply-top="true" class="safe-area">
             <ui:VisualElement name="LeftContainer" class="left-container">
                 <ui:VisualElement name="LobbyCodeContainer" style="flex-grow: 0; flex-direction: row; position: absolute; top: auto; left: auto; right: 45px;">
-                    <FirstLight.Game.UIElements.ImageButton name="ShowHideCode" class="show-hide-code">
-                        <ui:VisualElement name="ShowCode" class="show-code" />
+                    <FirstLight.Game.UIElements.ImageButton name="ShowHideCode" tooltip="Hello" class="show-hide-code">
+                        <ui:VisualElement name="ShowHideCodeIcon" class="show-code show-code-icon" />
                     </FirstLight.Game.UIElements.ImageButton>
                     <FirstLight.Game.UIElements.LabelOutlined text="CODE HIDDEN" name="CodeLabel" class="game-label game-label--large" style="margin-right: 32px; font-size: 58px;" />
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/copy_code" name="CopyCodeButton" class="button-long" style="width: 255px; height: 98px;" />

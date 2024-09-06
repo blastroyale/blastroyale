@@ -4,12 +4,15 @@
     <ui:VisualElement name="root" class="fill-parent" style="align-items: center; justify-content: center;">
         <FirstLight.Game.UIElements.SafeAreaElement apply-bottom="false" apply-top="true" class="safe-area">
             <ui:VisualElement name="LeftContainer" class="left-container">
-                <ui:VisualElement name="LobbyCodeContainer" style="flex-grow: 0; flex-direction: row; position: absolute; top: auto; left: auto; right: 45px;">
-                    <FirstLight.Game.UIElements.ImageButton name="ShowHideCode" tooltip="Hello" class="show-hide-code">
-                        <ui:VisualElement name="ShowHideCodeIcon" class="show-code show-code-icon" />
-                    </FirstLight.Game.UIElements.ImageButton>
-                    <FirstLight.Game.UIElements.LabelOutlined text="CODE HIDDEN" name="CodeLabel" class="game-label game-label--large" style="margin-right: 32px; font-size: 58px;" />
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/copy_code" name="CopyCodeButton" class="button-long" style="width: 255px; height: 98px;" />
+                <ui:VisualElement name="LobbyHeader" class="lobby-header">
+                    <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" picking-mode="Ignore" class="lobby-screen-header" />
+                    <ui:VisualElement name="LobbyCodeContainer" class="lobby-code-container">
+                        <FirstLight.Game.UIElements.ImageButton name="ShowHideCode" tooltip="Hello" class="show-hide-code">
+                            <ui:VisualElement name="ShowHideCodeIcon" class="show-code show-code-icon" />
+                        </FirstLight.Game.UIElements.ImageButton>
+                        <FirstLight.Game.UIElements.LabelOutlined text="CODE HIDDEN" name="CodeLabel" class="game-label game-label--large" style="margin-right: 32px; font-size: 58px;" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/copy_code" name="CopyCodeButton" class="button-long" style="width: 255px; height: 98px;" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:ScrollView name="PlayersScrollview" horizontal-scroller-visibility="Hidden" class="players-container">
                     <ui:VisualElement class="players-container__row">
@@ -34,6 +37,5 @@
             </ui:VisualElement>
             <ui:Instance template="MatchSettings" name="MatchSettingsContainer" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" picking-mode="Ignore" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,9 +1,41 @@
 .players-container {
     flex-grow: 1;
-    margin-top: 97px;
+    margin-top: -45px;
     padding-right: 42px;
     flex-basis: 1px;
     margin-bottom: 0;
+}
+
+.lobby-header {
+    position: relative;
+    left: -25px;
+    top: -21px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lobby-screen-header {
+    position: relative;
+    left: 0;
+}
+
+.lobby-screen-header .screen-header__title {
+    position: relative;
+    left: 0;
+    top: -5px;
+}
+
+.lobby-screen-header .screen-header__title .unity-text-element {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.lobby-code-container {
+    flex-grow: 0;
+    flex-direction: row;
+    top: -10px;
 }
 
 .show-hide-code {

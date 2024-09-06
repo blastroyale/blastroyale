@@ -50,7 +50,12 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.ResolveServices();
 			
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
-			header.backClicked = Data.BackClicked; 
+			header.backClicked = Data.BackClicked;
+
+			// Get label inside header and change style
+			// var headerLabel = Root.Q<ScreenHeaderElement>("Header")?.Q<VisualElement>("Container")?.Q<Label>("Text");
+			var headerLabel = header.Q<Label>(className: "screen-header__title");
+			headerLabel.style.marginLeft = 30;
 
 			_matchSettings.AttachView(this, out _matchSettingsView);
 			_gamesList.bindItem = BindMatchLobbyItem;

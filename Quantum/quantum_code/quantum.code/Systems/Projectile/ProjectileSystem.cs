@@ -261,6 +261,5 @@ namespace Quantum.Systems
 			// Can be read from predicted 
 			f.Events.OnProjectileFiredPredicted(projectileEntity, projectile);
 		}
-		
 	}
 }

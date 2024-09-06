@@ -236,7 +236,6 @@
     <Compile Include="Components\Hazard.cs" />
     <Compile Include="Components\Input.cs" />
     <Compile Include="Components\PlayerCharacter.cs" />
-    <Compile Include="Components\Projectile.cs" />
     <Compile Include="Components\SpecialGrenade.cs" />
     <Compile Include="Components\SpecialHazardAimSpawn.cs" />
     <Compile Include="Components\SpecialRadar.cs" />
@@ -290,6 +289,9 @@
     <Compile Include="Systems\Bots\BotSetup.cs" />
     <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\Bots\BotUpdateContext.cs" />
+    <Compile Include="Systems\Projectile\Projectile.cs" />
+    <Compile Include="Systems\Projectile\ProjectileSystem.cs" />
+    <Compile Include="Systems\SpellSystem.cs" />
     <Compile Include="Systems\TopDown\TopDownController.cs" />
     <Compile Include="Systems\TopDown\TopDownSystem.cs" />
     <Compile Include="Systems\ChestSystem.cs" />
@@ -309,7 +311,6 @@
     <Compile Include="Systems\CollectableSystem.cs" />
     <Compile Include="Systems\DestructibleSystem.cs" />
     <Compile Include="Systems\DummyCharacterSystem.cs" />
-    <Compile Include="Systems\SpellSystem.cs" />
     <Compile Include="Systems\StatusModifiers\ImmunitySystem.cs" />
     <Compile Include="Systems\StatusModifiers\StatusModifierSystemGroup.cs" />
     <Compile Include="Systems\StatusModifiers\RageSystem.cs" />
@@ -321,7 +322,6 @@
     <Compile Include="Systems\StatSystem.cs" />
     <Compile Include="Systems\PlayerCharacterSystem.cs" />
     <Compile Include="Systems\AiSystem.cs" />
-    <Compile Include="Systems\ProjectileSystem.cs" />
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Systems\TriggerSystem.cs" />
     <Compile Include="Systems\ReviveSystem.cs" />
@@ -376,7 +376,6 @@
     <Content Include="Components\Input.qtn" />
     <Content Include="Components\Spawners.qtn" />
     <Content Include="Components\PlayerMatchData.qtn" />
-    <Content Include="Components\Projectile.qtn" />
     <Content Include="Components\PlayerCharacter.qtn" />
     <Content Include="Components\Specials.qtn" />
     <Content Include="Components\Spell.qtn" />
@@ -393,6 +392,7 @@
     <Content Include="Events\ChestEvents.qtn" />
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
+    <Content Include="Systems\Projectile\Projectile.qtn" />
     <Content Include="Systems\TopDown\TopDown.qtn" />
     <EmbeddedResource Include="db.json" />
   </ItemGroup>

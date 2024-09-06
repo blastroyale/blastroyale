@@ -114,7 +114,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 18
+    Layer: 7
     CallbackFlags:
       Value: 1152
   PhysicsBody:

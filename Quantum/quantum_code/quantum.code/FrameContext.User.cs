@@ -16,7 +16,7 @@ namespace Quantum
 		public int TargetMapOnlyLayerMask { get; internal set; }
 		public int TargetMapAndPlayersMask { get; internal set; }
 		public int TargetPlayerLineOfSightLayerMask { get; internal set; }
-		public int TargetPlayersMask { get; internal set; }
+		public int TargetPlayersHitboxMask { get; internal set; }
 		public int TargetPlayerTriggersLayerIndex { get; internal set; }
 	}
 }

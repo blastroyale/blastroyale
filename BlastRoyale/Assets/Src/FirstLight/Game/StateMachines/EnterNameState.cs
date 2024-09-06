@@ -8,6 +8,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -93,9 +94,12 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = newName => OnNameSet(newName).Forget()
 			};
 
+			var emptyInputText = !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT) &&
+			!_services.TutorialService.HasCompletedTutorial();
+			
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name,
 				ScriptLocalization.UITHomeScreen.new_name_desc,
-				AuthenticationService.Instance.GetPlayerName(true, false),
+				emptyInputText ? "" : AuthenticationService.Instance.GetPlayerName(true, false),
 				confirmButton, false);
 		}
 
@@ -133,9 +137,10 @@ namespace FirstLight.Game.StateMachines
 
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 
+			UpdateUserTitleDisplayNameResult playfabResponse;
 			try
 			{
-				await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
+				playfabResponse = await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
 				{
 					DisplayName = newNameTrimmed
 				});
@@ -162,7 +167,11 @@ namespace FirstLight.Game.StateMachines
 				await OnSetNameError($"Error setting player name: {e.Message}");
 			}
 
-			_services.MessageBrokerService.Publish(new DisplayNameChangedMessage());
+
+			_services.MessageBrokerService.Publish(new DisplayNameChangedMessage()
+			{
+				NewPlayfabDisplayName = playfabResponse.DisplayName
+			});
 		}
 
 		private async UniTask OnSetNameError(string errorMessage)

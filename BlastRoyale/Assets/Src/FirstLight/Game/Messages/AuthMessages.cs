@@ -5,5 +5,9 @@ namespace FirstLight.Game.Messages
 {
 	public struct SuccessAuthentication : IMessage { }
 	public struct DataReinitializedMessage : IMessage { }
-	public struct DisplayNameChangedMessage : IMessage { }
+
+	public struct DisplayNameChangedMessage : IMessage
+	{
+		public string NewPlayfabDisplayName;
+	}
 }

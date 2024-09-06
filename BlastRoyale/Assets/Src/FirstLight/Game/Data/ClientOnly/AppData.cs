@@ -49,8 +49,6 @@ namespace FirstLight.Game.Data
 
 		public CustomGameOptions LastCustomGameOptions = new();
 		public int LastSelectedRankedMap;
-		
-		[NonSerialized] public Dictionary<string, string> TitleData;
 	}
 
 

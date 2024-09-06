@@ -33,6 +33,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 				var c2d = c.gameObject.AddComponent<QuantumStaticBoxCollider2D>();
 				c2d.SourceCollider = c.SourceCollider;
 				c2d.Size = c.Size.XZ;
+				c2d.RotationOffset = c.RotationOffset.Y;
 				DestroyImmediate(c);
 			}
 

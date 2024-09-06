@@ -154,7 +154,7 @@ MonoBehaviour:
         RawValue: 22937
     - Id: 90
       FiringMode: 0
-      WeaponType: 2
+      WeaponType: 9
       MaxAmmo: 120
       BulletPrototype:
         Id:
@@ -286,7 +286,7 @@ MonoBehaviour:
         RawValue: 39321
     - Id: 88
       FiringMode: 0
-      WeaponType: 2
+      WeaponType: 8
       MaxAmmo: 124
       BulletPrototype:
         Id:

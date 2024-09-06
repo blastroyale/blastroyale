@@ -24,9 +24,9 @@ namespace Scripts.Scripts
 
 		private readonly Random _rnd = new();
 
-		public override PlayfabEnvironment GetEnvironment()
+		public override Environment GetEnvironment()
 		{
-			return PlayfabEnvironment.DEV;
+			return Environment.DEV;
 		}
 
 		public override void Execute(ScriptParameters args)

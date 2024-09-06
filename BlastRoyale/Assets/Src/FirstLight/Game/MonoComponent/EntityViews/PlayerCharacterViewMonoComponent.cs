@@ -84,7 +84,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
-			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, HandleOnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnStunGrenadeUsed>(this, HandleOnStunGrenadeUsed);
@@ -553,25 +552,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					}
 				}).Forget();
 		}
-
-		private void HandleOnAirstrikeUsed(EventOnAirstrikeUsed callback)
-		{
-			if (callback.HazardData.Attacker != EntityView.EntityRef)
-			{
-				return;
-			}
-
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
-			var time = callback.Game.Frames.Verified.Time;
-			var targetPosition = callback.TargetPosition.ToUnityVector3();
-
-			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,
-				(callback.HazardData.EndTime - time).AsFloat);
-
-			Services.VfxService.Spawn(VfxId.Airstrike).transform.position = targetPosition;
-
-			HandleDelayedFX(callback.HazardData.Interval, targetPosition, VfxId.ImpactAirStrike).Forget();
-		}
+		
 
 		private async UniTaskVoid HandleDelayedFX(FP delayTime, Vector3 targetPosition, VfxId explosionVfxId)
 		{

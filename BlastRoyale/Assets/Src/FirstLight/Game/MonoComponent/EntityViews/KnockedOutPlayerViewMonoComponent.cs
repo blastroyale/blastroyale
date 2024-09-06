@@ -92,12 +92,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void StartRevivingPlayer(Frame f, EntityRef entityRef)
 		{
 			if (!f.Unsafe.TryGetPointer<KnockedOut>(entityRef, out var knockedOut) ||
-				!f.Unsafe.TryGetPointer<PhysicsCollider3D>(knockedOut->ColliderEntity, out var knockedOutCollider))
+				!f.Unsafe.TryGetPointer<PhysicsCollider2D>(knockedOut->ColliderEntity, out var knockedOutCollider))
 			{
 				return;
 			}
 
-			var range = (knockedOutCollider->Shape.Sphere.Radius.AsFloat * 0.9f) * 2;
+			var range = (knockedOutCollider->Shape.Circle.Radius.AsFloat * 0.9f) * 2;
 			SetProgress(0);
 			_circleActive = true;
 			_indicatorsRoot.SetActive(true);

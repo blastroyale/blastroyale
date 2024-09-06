@@ -81,6 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 5751338008705613759}
   _shells: 1
+  _shellsPlaySound: 0
 --- !u!114 &2421723991097698964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,11 +100,11 @@ MonoBehaviour:
   - {fileID: 8766129286681079547}
   - {fileID: 6824811221735831115}
   _originalMaterials:
-  - {fileID: 2100000, guid: 6f9f5c55163a8442c99b737427c4096f, type: 2}
+  - {fileID: 2100000, guid: e8fa8f21907090640a854146d341e06c, type: 2}
   _rendererColors:
   - {r: 1, g: 1, b: 1, a: 1}
   _rendererAdditiveColors:
-  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &577084986728780384
 PrefabInstance:
   m_ObjectHideFlags: 0

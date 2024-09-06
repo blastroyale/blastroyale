@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
-using FirstLightServerSDK.Modules.RemoteCollection;
 
 // TODO: Implement properly, this is throw-away test code
 public class ServerTestData : IDataProvider
@@ -34,10 +33,5 @@ public class ServerTestData : IDataProvider
 	{
 		throw new NotImplementedException();
 	}
-
-	public ICollectionEnrichmentService GetEnrichmentService()
-	{
-		// TODO: Stub
-		throw new NotImplementedException();
-	}
+	
 }

@@ -20,6 +20,12 @@ namespace Quantum
         public FP MaxPenetration;
     }
     
+    /// <summary>
+    /// This controls player movement.
+    /// We have 2 main colliders on players. The feet collider, which is a shapecast you will find in this file,
+    /// which is a trigger as its a shapecast, and a player hitbox collider, which is a entity collider and that's the
+    /// main collider we use to see if something touched the player to damage
+    /// </summary>
     public partial struct TopDownController
     {
         public static TopDownKCCSettings _settings = new TopDownKCCSettings();
@@ -31,6 +37,7 @@ namespace Quantum
         
         public void Move(Frame f, EntityRef entity, FPVector2 direction)
         {
+            // TODO: Optimize by removing detailed info on collisions
             var movement = _settings.ComputeRawMovement(f, entity, direction, f.Context.TargetMapAndPlayersMask, QueryOptions.ComputeDetailedInfo | QueryOptions.HitAll);
             _settings.SteerAndMove(f, entity, movement);
         }
@@ -40,8 +47,8 @@ namespace Quantum
     {
         // TODO: Move to config. @Nik 
         public readonly Int32 MaxContacts = 4; // fixed array in component too
-        public readonly FP AllowedPenetration = FP._0_10;
-        public readonly FP CorrectionSpeed = FP._10;
+        public readonly FP AllowedPenetration = FP._0_05;
+        public readonly FP CorrectionSpeed = FP._1;
         public readonly FP BaseSpeed = FP._0_75;
         public readonly FP Acceleration = FP._10 * 8;
         public readonly Boolean Debug = false;
@@ -95,7 +102,7 @@ namespace Quantum
             HostProfiler.End();
         }
         
-        public TopDownKCCMovementData ComputeRawMovement(Frame f, EntityRef entity, FPVector2 direction, int layerMask = -1, QueryOptions queryOptions = QueryOptions.HitAll)
+        public TopDownKCCMovementData ComputeRawMovement(Frame f, EntityRef entity, FPVector2 direction, int layerMask, QueryOptions queryOptions)
         {
             TopDownController* kcc = null;
             if (f.Unsafe.TryGetPointer(entity, out kcc) == false)
@@ -111,9 +118,12 @@ namespace Quantum
             TopDownKCCMovementData movementPack = default;
             movementPack.Type = direction != default ? TopDownKCCMovementType.FromDirection : TopDownKCCMovementType.None;
             movementPack.Direction = direction;
-
-            var isBot = f.Has<BotCharacter>(entity);
-            var feetCollision = f.Physics2D.OverlapShape(transform->Position, FP._0, PlayerFeetShape, layerMask, options: queryOptions | QueryOptions.HitAll | QueryOptions.ComputeDetailedInfo);
+            
+            HostProfiler.Start("Feet Overlap Shape");
+            // TODO: Convert to multi-threaded query for performance 
+            var feetCollision = f.Physics2D.OverlapShape(transform->Position, FP._0, PlayerFeetShape, layerMask: layerMask, options: queryOptions);
+            HostProfiler.End();
+            
             int count = Math.Min(MaxContacts, feetCollision.Count);
 
             HostProfiler.Start("Validate leaving feet collisions");
@@ -160,7 +170,6 @@ namespace Quantum
                     
                     if (hit.Entity.IsValid)
                     {
-                        //if(!f.Has<BotCharacter>(entity)) Log.Warn("Feet Hit valid entity "+hit.Entity);
                         newHit = true;
                         var openIndex = -1;
                         for (var j = 0; j < collisions.Length; j++)
@@ -184,30 +193,30 @@ namespace Quantum
                         }
                         HostProfiler.End();
                     }
+         
+                    // Bots wont apply movement correction, we just trust the ai agent
+                    // this way we can avoid odd stucks or events
+                    // this means a bot can walk anywhere it's ai thinks it can basically
+                    if (QuantumFeatureFlags.BOTS_PHYSICS_IGNORE_OBSTACLES && f.Has<BotCharacter>(entity))
+                    {
+                        continue;
+                    }
                     
+                    var other = feetCollision[i].Entity;
                     if (hit.IsTrigger)
                     {
                         continue;
                     }
-
-                    // Bots wont apply movement correction, we just trust the ai agent
-                    // this way we can avoid odd stucks or events
-                    // this means a bot can walk anywhere it's ai thinks it can basically
-                    if (isBot)
-                    {
-                        continue;
-                    }
                     
+                
                     var contactPoint = hit.Point;
                     var contactToCenter = transform->Position - contactPoint;
                     var localDiff = contactToCenter.Magnitude - PlayerFeetShape.Circle.Radius;
                     var localNormal = contactToCenter.Normalized;
-
-                    var other = feetCollision[i].Entity;
-
-                    HostProfiler.Start("Processing 2D Body Contact");
-                    if (other != default && f.Exists(other) == true && f.Has<TopDownController>(other) && f.TryGet<PhysicsCollider2D>(other, out var otherCollider))
+                    
+                    if (QuantumFeatureFlags.PLAYER_PUSHING && other != default && f.Exists(other) == true && f.Has<TopDownController>(other) && f.TryGet<PhysicsCollider2D>(other, out var otherCollider))
                     {
+                        HostProfiler.Start("Processing 2D Body Contact");
                         var otherTransform = f.Get<Transform2D>(other);
                         var centerToCenter = otherTransform.Position - transform->Position;
                         var maxRadius = FPMath.Max(PlayerFeetShape.Circle.Radius, otherCollider.Shape.Circle.Radius);
@@ -216,8 +225,9 @@ namespace Quantum
                             localDiff = -maxRadius;
                             localNormal = entity.Index > other.Index ? FPVector2.Right : FPVector2.Left;
                         }
+                        HostProfiler.End();
                     }
-                    HostProfiler.End();
+                  
                     count--;
                     if (!initialized)
                     {
@@ -249,7 +259,7 @@ namespace Quantum
                     var localCorrection = localNormal * -localDiff;
                     movementPack.Correction += localCorrection;
                 }
-            }
+            } 
             HostProfiler.End();
             HostProfiler.End();
             return movementPack;

@@ -93,8 +93,7 @@
 				{
 					o = m_Child[i].gameObject;
 				}
-
-				o.hideFlags = i == 0 ? (HideFlags.DontSave | HideFlags.HideInHierarchy) : m_Child[0].gameObject.hideFlags;
+				
 
 				MeshFilter meshfilter = m_Child[i].GetComponent<MeshFilter>();
 				Undo.RecordObject(meshfilter, "MeshUpdate");

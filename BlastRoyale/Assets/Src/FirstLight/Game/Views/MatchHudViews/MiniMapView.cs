@@ -55,7 +55,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		[SerializeField, Title("Animation")] private Ease _openCloseEase = Ease.OutSine;
 		[SerializeField, Required] private float _duration = 0.2f;
-		[SerializeField, Required] private float _pingDuration = 1f;
 
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
@@ -133,7 +132,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
-			QuantumEvent.Subscribe<EventOnTeamPositionPing>(this, OnTeamPositionPing);
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
@@ -179,28 +177,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 				var ratio = currentSize / _mapConfigCameraSize;
 				_viewportSize *= ratio;
 				_currentViewportSize = _viewportSize;
-			}
-		}
-
-		private void OnTeamPositionPing(EventOnTeamPositionPing e)
-		{
-			if (e.TeamId < 0 || _matchServices.SpectateService.SpectatedPlayer.Value.Team == e.TeamId)
-			{
-				var pingPosition = _minimapCamera.WorldToViewportPoint(e.Position.ToUnityVector3());
-
-				var ping = _pingPool.Spawn();
-				ping.ViewportPosition = pingPosition;
-				ping.LateCall(_pingDuration, () => _pingPool.Despawn(ping)).Forget();
-
-				_minimapImage.materialForRendering.SetVector(_pingPositionPID, pingPosition - Vector3.one / 2f);
-
-				_pingTweener?.Kill();
-				_pingTweener = DOVirtual.Float(0f, 1f, 1f,
-					val => _minimapImage.materialForRendering.SetFloat(_pingProgressPID, val));
-
-				// Maybe not the cleanest, that the Minimap spawns the VFX.
-				var pingVfx = _services.VfxService.Spawn(VfxId.Ping);
-				pingVfx.transform.position = e.Position.ToUnityVector3();
 			}
 		}
 
@@ -358,7 +334,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				int index = 0;
 				foreach (var (entity, apc) in f.GetComponentIterator<AlivePlayerCharacter>())
 				{
-					var pos = f.Get<Transform2D>(entity).Position.ToUnityVector2();
+					var pos = f.Get<Transform2D>(entity).Position.ToUnityVector3();
 
 					// Check range
 					if (Vector3.Distance(playerPosition, pos) > _radarRange)

@@ -62,7 +62,6 @@ namespace ServerCommon.Cloudscript
 		public async Task<dynamic> ExecuteFunction([FromBody] ExecuteFunctionRequest functionRequest)
 		{
 			if (!_config.DevelopmentMode) return Unauthorized();
-			_log.LogInformation($"Proxy Request received for function {functionRequest.FunctionName}");
 			var serializer = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer);
 			var playerId = functionRequest?.AuthenticationContext.PlayFabId;
 			var logicString = functionRequest?.FunctionParameter as JObject;
@@ -70,9 +69,10 @@ namespace ServerCommon.Cloudscript
 			{
 				FunctionArgument = serializer.DeserializeObject<LogicRequest>(logicString?.ToString())
 			};
+			_log.LogInformation($"Proxy Request received for function {functionRequest.FunctionName} with argument "+logicString);
 			var controller = _provider.GetService(typeof(CloudscriptController)) as CloudscriptController;
-			dynamic response = controller.GetType().GetMethod(functionRequest?.FunctionName).Invoke(controller, new object [] {model});
-			OkObjectResult result = response.GetAwaiter().GetResult();
+			dynamic response = controller.GetType().GetMethod("Generic").Invoke(controller, new object [] {model});
+			var result = response.GetAwaiter().GetResult();
 			return Content(serializer.SerializeObject(new PlayfabProxyResponseFormat()
 			{
 				code = 200,

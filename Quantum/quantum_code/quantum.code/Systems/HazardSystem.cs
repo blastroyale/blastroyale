@@ -7,7 +7,7 @@ namespace Quantum.Systems
 	/// <summary>
 	/// TODO: DELETE THE HAZARD SYSTEM
 	/// </summary>
-	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>
+	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>, ISignalOnComponentAdded<Stun>
 	{
 
 		public struct HazardFilter
@@ -105,6 +105,14 @@ namespace Quantum.Systems
 			}
 
 			f.Events.OnHazardHit(spell->Attacker, spell->Victim, spell->OriginalHitPosition);
+		}
+
+		public void OnAdded(Frame f, EntityRef entity, Stun* component)
+		{
+			if (!f.Unsafe.TryGetPointer<TopDownController>(entity, out var kcc)) return;
+			
+			kcc->AimDirection = FPVector2.Zero;
+			kcc->MoveDirection = FPVector2.Zero;
 		}
 	}
 }

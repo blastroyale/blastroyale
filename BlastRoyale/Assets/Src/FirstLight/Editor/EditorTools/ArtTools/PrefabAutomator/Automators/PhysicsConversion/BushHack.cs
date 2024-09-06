@@ -9,7 +9,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 {
     public class BushHack : AutoPrefabUpdater
     {
-       [MenuItem("FLG/Art/Prefab Automation/Physics 3D to 2D/Visibility Area Fix")]
+       [MenuItem("FLG/Art/Prefab Automation/Physics 3D to 2D/Remaining Fixes")]
        public static void OpenWindow()
        {
           var wnd = GetWindow<BushHack>();
@@ -18,7 +18,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 
        protected override void OnRenderUI()
        {
-          GUILayout.Label("Update All Bushes", EditorStyles.boldLabel);
+          GUILayout.Label("Update All Bushes n stuffs", EditorStyles.boldLabel);
           GUILayout.Label("Fixes visibility area compounds.");
        }
        
@@ -36,12 +36,24 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 
           foreach (var c in e)
           {
+             if (c.PhysicsCollider.Shape3D.ShapeType == Shape3DType.None && c.PhysicsCollider.Shape3D.BoxExtents.X > 0)
+             {
+                c.TransformMode = EntityPrototypeTransformMode.Transform2D;
+                c.PhysicsCollider.Shape2D.ShapeType = Shape2DType.Box;
+                c.PhysicsCollider.Shape2D.BoxExtents = c.PhysicsCollider.Shape3D.BoxExtents.XZ;
+                c.PhysicsCollider.Shape2D.PositionOffset = c.PhysicsCollider.Shape3D.PositionOffset.XZ;
+                c.PhysicsCollider.Shape3D.ShapeType = Shape3DType.None;
+                EditorUtility.SetDirty(c);
+                return true;
+             }
+             
              if (c.PhysicsCollider.Shape3D.ShapeType == Shape3DType.Box)
              {
                 c.TransformMode = EntityPrototypeTransformMode.Transform2D;
                 c.PhysicsCollider.Shape2D.ShapeType = Shape2DType.Box;
                 c.PhysicsCollider.Shape2D.BoxExtents = c.PhysicsCollider.Shape3D.BoxExtents.XZ;
                 c.PhysicsCollider.Shape2D.PositionOffset = c.PhysicsCollider.Shape3D.PositionOffset.XZ;
+                c.PhysicsCollider.Shape2D.RotationOffset = c.PhysicsCollider.Shape3D.RotationOffset.Y;
                 c.PhysicsCollider.Shape3D.ShapeType = Shape3DType.None;
                 EditorUtility.SetDirty(c);
                 return true;
@@ -58,6 +70,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
                       ShapeType = Shape2DType.Box,
                       BoxExtents = c.PhysicsCollider.Shape3D.CompoundShapes[i].BoxExtents.XZ,
                       PositionOffset = c.PhysicsCollider.Shape3D.CompoundShapes[i].PositionOffset.XZ,
+                      RotationOffset = c.PhysicsCollider.Shape3D.CompoundShapes[i].RotationOffset.Y,
                    });
                 }
                 c.PhysicsCollider.Shape3D.ShapeType = Shape3DType.None;

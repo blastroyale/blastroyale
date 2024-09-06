@@ -17,7 +17,7 @@ using Scripts.Base;
 /// </summary>
 public class AllPlayerDataToCsv : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
+	public override Environment GetEnvironment() => Environment.DEV;
 
 	public override void Execute(ScriptParameters parameters)
 	{

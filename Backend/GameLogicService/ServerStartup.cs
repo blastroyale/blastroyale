@@ -39,7 +39,7 @@ namespace Backend
 			var services = builder.Services;
 			DbSetup.Setup(services, envConfig);
 			var pluginManager = new PluginManager();
-			
+
 			services.AddSingleton<IPluginManager>(f => pluginManager);
 			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, AnalyticsService>();
@@ -65,6 +65,7 @@ namespace Backend
 			services.AddSingleton<GameServer>();
 			services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();
 			services.AddSingleton<UnityAuthService>();
+			services.AddSingleton<UnityCloudService>();
 			services.AddHttpClient();
 			services.AddSingleton<IEventManager, PluginEventManager>(p =>
 			{

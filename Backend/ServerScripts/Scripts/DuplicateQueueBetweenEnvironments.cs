@@ -9,7 +9,7 @@ using Scripts.Base;
 
 public class DuplicateQueueBetweenEnvironments : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
+	public override Environment GetEnvironment() => Environment.DEV;
 
 	public override void Execute(ScriptParameters parameters)
 	{
@@ -18,11 +18,11 @@ public class DuplicateQueueBetweenEnvironments : PlayfabScript
 
 	public async Task RunAsync()
 	{
-		var availableEnvironments = string.Join(", ", Enum.GetNames<PlayfabEnvironment>());
+		var availableEnvironments = string.Join(", ", Enum.GetNames<Environment>());
 		Console.WriteLine("Available Environments: " + availableEnvironments);
 		Console.WriteLine("Input the environment to copy from: ");
 		var sourceEnv = Console.ReadLine();
-		if (!Enum.TryParse<PlayfabEnvironment>(sourceEnv?.Trim().ToUpperInvariant(), out var source))
+		if (!Enum.TryParse<Environment>(sourceEnv?.Trim().ToUpperInvariant(), out var source))
 		{
 			Console.WriteLine("Invalid environment, available ones: " + availableEnvironments);
 			return;
@@ -66,7 +66,7 @@ public class DuplicateQueueBetweenEnvironments : PlayfabScript
 		Console.WriteLine("Available Environments: " + availableEnvironments);
 		Console.WriteLine("Input the environment to copy to: ");
 		var targetString = Console.ReadLine();
-		if (!Enum.TryParse<PlayfabEnvironment>(targetString?.Trim().ToUpperInvariant(), out var target))
+		if (!Enum.TryParse<Environment>(targetString?.Trim().ToUpperInvariant(), out var target))
 		{
 			Console.WriteLine("Invalid environment, available ones: " + availableEnvironments);
 			return;

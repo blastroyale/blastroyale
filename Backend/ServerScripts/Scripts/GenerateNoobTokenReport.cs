@@ -13,7 +13,7 @@ using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
 /// </summary>
 public class GenerateNoobTokenReport : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
+	public override Environment GetEnvironment() => Environment.DEV;
 
 	private HubService _hubService;
 	

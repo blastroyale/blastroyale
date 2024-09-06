@@ -9,7 +9,9 @@ namespace FirstLight.Game.Data
 	{
 		NONE = 0,
 		FIRST_GUIDE_MATCH = 1 << 1,
+		ENTER_NAME_PROMPT = 1 << 5,
 		META_GUIDE_AND_MATCH = 1 << 2,
+		
 		[Obsolete] // Cant remove it because it will break existing data
 		TUTORIAL_BP = 1 << 4,
 		[Obsolete]

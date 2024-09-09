@@ -156,9 +156,8 @@ namespace FirstLight.Game.Logic
 		{
 			switch (rewardId)
 			{
-				case GameId.NOOBBronze:
-				case GameId.NOOBSilver:
-				case GameId.NOOBGold:
+				case GameId.NOOBGolden:
+				case GameId.NOOBRainbow:
 					groupId = GameId.NOOB;
 					return true;
 				default:

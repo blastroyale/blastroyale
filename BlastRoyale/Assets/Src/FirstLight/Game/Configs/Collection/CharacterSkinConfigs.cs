@@ -11,16 +11,14 @@ namespace FirstLight.Game.Configs
 	[Serializable, IgnoreServerSerialization]
 	public struct CharacterSkinsConfig
 	{
-		public List<CharacterSkinConfigEntry> Skins;
+		public List<CosmeticConfigEntry> Skins;
 	}
 
 	[Serializable]
-	public struct CharacterSkinConfigEntry
+	public struct CosmeticConfigEntry
 	{
 		[Required] public GameId GameId;
-
 		[Required] public AssetReferenceGameObject Prefab;
-
 		[Required] public AssetReferenceSprite Sprite;
 	}
 

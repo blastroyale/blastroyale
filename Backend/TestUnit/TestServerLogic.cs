@@ -1,4 +1,3 @@
-
 using Backend.Game;
 using Backend.Game.Services;
 using FirstLight;
@@ -13,6 +12,7 @@ using NUnit.Framework;
 using Quantum;
 using FirstLight.Server.SDK.Services;
 using FirstLight.Services;
+using GameLogicService.Services;
 using Assert = NUnit.Framework.Assert;
 
 public class TestServerLogic
@@ -20,7 +20,7 @@ public class TestServerLogic
 	private TestServer _server = null!;
 	private IServerStateService? _stateService;
 	private IServerCommahdHandler? _cmdHandler;
-	
+
 	[SetUp]
 	public void Setup()
 	{
@@ -37,10 +37,10 @@ public class TestServerLogic
 	{
 		var cfg = _server.GetService<IConfigsProvider>();
 		var state = _server.GetService<IServerStateService>().GetPlayerState(_server.GetTestPlayerID()).Result;
-		var logic = new GameServerLogic(cfg, new ServerPlayerDataProvider(state), new InMemoryMessageBrokerService());
+		var logic = new GameServerLogic(cfg, new UnityServerRemoteConfigProvider(null), new ServerPlayerDataProvider(state), new InMemoryMessageBrokerService());
 		logic.Init();
 	}
-	
+
 	[Test]
 	public void TestServerExecutingCommand()
 	{
@@ -49,10 +49,10 @@ public class TestServerLogic
 		var oldPlayerData = oldState.DeserializeModel<CollectionData>();
 		var newSkin = GameId.FemaleAssassin;
 		var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(newSkin) };
-		var newState = _cmdHandler.ExecuteCommand(playerId, cmd, oldState).Result;
+		var remoteConfig = new UnityServerRemoteConfigProvider(null);
+		var newState = _cmdHandler.ExecuteCommand(playerId, cmd, oldState, remoteConfig).Result;
 		var newPlayerData = newState.DeserializeModel<CollectionData>();
-		
-		Assert.AreEqual(newSkin, newPlayerData.Equipped[new (GameIdGroup.PlayerSkin)].Id);
-	}
 
+		Assert.AreEqual(newSkin, newPlayerData.Equipped[new(GameIdGroup.PlayerSkin)].Id);
+	}
 }

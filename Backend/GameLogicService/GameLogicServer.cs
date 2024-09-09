@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Game;
+using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using Microsoft.Extensions.Logging;
@@ -10,9 +11,11 @@ using PlayFab;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
+using GameLogicService.Services;
 
 namespace Backend
 {
@@ -54,10 +57,11 @@ namespace Backend
 		private readonly IStatisticsService _statistics;
 		private readonly IServerMutex _mutex;
 		private readonly IMetricsService _metrics;
+		private readonly IRemoteConfigService _remoteConfigService;
 
 		public GameLogicWebWebService(IEventManager eventManager, ILogger log,
 									  IPlayerSetupService service, IServerStateService stateService, GameServer server,
-									  IBaseServiceConfiguration serviceConfiguration, IServerMutex mutex, IMetricsService metricsService)
+									  IBaseServiceConfiguration serviceConfiguration, IServerMutex mutex, IMetricsService metricsService, IRemoteConfigService remoteConfigService)
 		{
 			_setupService = service;
 			_stateService = stateService;
@@ -67,6 +71,7 @@ namespace Backend
 			_eventManager = eventManager;
 			_log = log;
 			_metrics = metricsService;
+			_remoteConfigService = remoteConfigService;
 		}
 
 		public async Task<PlayFabResult<BackendLogicResult>> RunLogic(string playerId, LogicRequest request)
@@ -87,14 +92,14 @@ namespace Backend
 			try
 			{
 				await _mutex.Lock(playerId);
-				var state = await _stateService.GetPlayerState(playerId);
+				var (state, serverConfig) = await _stateService.FetchStateAndConfigs(_remoteConfigService, playerId, 0);
 				if (!_setupService.IsSetup(state))
 				{
 					_log.LogInformation($"Setting up player {playerId}");
 					await SetupPlayer(playerId);
 				}
 
-				state = await _server.RunInitializationCommands(playerId, state);
+				state = await _server.RunInitializationCommands(playerId, state, serverConfig);
 				await _eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
 				if (state.HasDelta())
 				{
@@ -111,7 +116,7 @@ namespace Backend
 			catch (Exception e)
 			{
 				var errorResult = _server.GetErrorResult(null, e);
-				_metrics.EmitException(e,"GetPlayerData");
+				_metrics.EmitException(e, "GetPlayerData");
 				return GetPlayfabError(errorResult);
 			}
 			finally

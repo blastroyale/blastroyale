@@ -8,10 +8,17 @@ namespace FirstLight.Game.Logic.RPC
 	[Serializable]
 	public class LogicException : Exception
 	{
+		public int ErrorCode;
+
+		public LogicException(string message, int errorCode) : base(message)
+		{
+			ErrorCode = errorCode;
+		}
+
 		public LogicException(string message) : base(message)
 		{
 		}
- 
+
 		public LogicException(string message, Exception inner) : base(message, inner)
 		{
 		}

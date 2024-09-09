@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Photon.Deterministic;
+using Quantum.Profiling;
 using Quantum.Systems.Bots;
 
 namespace Quantum.Systems
@@ -117,6 +118,7 @@ namespace Quantum.Systems
 				f.Destroy(projectileEntity);
 				return;
 			}
+			HostProfiler.Start("OnProjectileHit");
 			
 			var isSelfAOE = projectile->Attacker == targetHit && projectile->IsSubProjectile();
 			var power = (uint)(projectile->GetPower(f) * (isSelfAOE ? Constants.SELF_DAMAGE_MODIFIER : FP._1));
@@ -146,6 +148,7 @@ namespace Quantum.Systems
 			{
 				f.Destroy(projectileEntity);
 			}
+			HostProfiler.End();
 		}
 
 		private void OnHit(Frame f, Spell* spell)
@@ -261,6 +264,5 @@ namespace Quantum.Systems
 			// Can be read from predicted 
 			f.Events.OnProjectileFiredPredicted(projectileEntity, projectile);
 		}
-		
 	}
 }

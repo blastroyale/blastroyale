@@ -17,7 +17,7 @@ namespace Quantum.Systems
 			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.MatchConfigs.GameModeID);
 			f.Context.Mutators = f.RuntimeConfig.MatchConfigs.Mutators;
 			f.Context.TargetAllLayerMask = -1;
-			f.Context.TargetPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS);
+			f.Context.TargetPlayersHitboxMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS_HITBOX);
 			f.Context.TargetMapOnlyLayerMask = f.Layers.GetLayerMask(PhysicsLayers.OBSTACLES);
 			f.Context.TargetMapAndPlayersMask = f.Layers.GetLayerMask(PhysicsLayers.PLAYERS_HITBOX,
 				PhysicsLayers.PLAYER_TRIGGERS, PhysicsLayers.OBSTACLES);

@@ -72,7 +72,8 @@ namespace FirstLight.Game.Services.Collection
 			{
 				new ProfilePictureHandler(_configsProvider, _assetResolver),
 				new CharacterSkinGroupHandler(_configsProvider, _assetResolver),
-				new WeaponSkinCollectionHandler(_configsProvider, _assetResolver)
+				new WeaponSkinCollectionHandler(_configsProvider, _assetResolver),
+				new FlagGroupHandler(_configsProvider, _assetResolver)
 			};
 		}
 

@@ -53,6 +53,7 @@ namespace FirstLight.Game.Configs
 			}
 		}
 
+		// TODO: load via addressable bundle in a single go
 		public IEnumerable<IConfigLoadHandler> GetLoadHandlers(IConfigsAdder configsAdder)
 		{
 			return new List<IConfigLoadHandler>
@@ -94,6 +95,7 @@ namespace FirstLight.Game.Configs
 				new ConfigLoadDefinition<BotDifficultyConfigs>(_assetLoader, AddressableId.Configs_BotDifficultyConfigs, configsAdder.AddSingletonConfig),
 				new ConfigLoadDefinition<MatchmakingAndRoomConfigs>(_assetLoader, AddressableId.Configs_MatchmakingAndRoomConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<CharacterSkinConfigs>(_assetLoader, AddressableId.Collections_CharacterSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				new ConfigLoadDefinition<FlagSkinConfigs>(_assetLoader, AddressableId.Collections_Flags_FlagSkinConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<WeaponSkinsConfigContainer>(_assetLoader, AddressableId.Collections_WeaponSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<AvatarCollectableConfigs>(_assetLoader, AddressableId.Collections_ProfilePicture_AvatarCollectableConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<CurrencySpriteConfigs>(_assetLoader, AddressableId.Configs_CurrencySpriteConfigs, cfg => configsAdder.AddSingletonConfig(cfg.Config)),

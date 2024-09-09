@@ -4,6 +4,7 @@ using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.Config;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
@@ -24,13 +25,13 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Returns the leaderboard config for the given leaderboard
 		/// </summary>
-		LeaderboardConfigs GetConfigs();
+		LeaderboardConfig GetConfigs();
 
 		/// <summary>
 		/// Max amount of returned entries leaderboards
 		/// </summary>
 		int MaxEntries { get; }
-		
+
 		/// <summary>
 		/// Gets the top ranks of a given leaderboard.
 		/// Pagination not yet supported.
@@ -56,7 +57,7 @@ namespace FirstLight.Game.Services
 		/// Gets the main ranked board
 		/// </summary>
 		public GameLeaderboard Ranked { get; }
-		
+
 		/// <summary>
 		/// Event happens when player's rank in the global leaderboard changes
 		/// </summary>
@@ -66,40 +67,42 @@ namespace FirstLight.Game.Services
 	public class LeaderboardsService : ILeaderboardService
 	{
 		public event Action<PlayerLeaderboardEntry> OnRankingUpdate;
-		
+
 		public const int MAX_ENTRIES = 100;
 		public const string LeaderboardConfigsDataName = "LeaderboardConfigs";
-		
+
 		private IGameServices _services;
-		private readonly List<GameLeaderboard> _leaderboards = new();
-		private LeaderboardConfigs _configs;
-		private PlayerLeaderboardEntry _currentRankedEntry = new();
-		private Dictionary<string, int> _currentSeasons = new();
-		
+		private readonly List<GameLeaderboard> _leaderboards = new ();
+		private PlayerLeaderboardEntry _currentRankedEntry = new ();
+		private Dictionary<string, int> _currentSeasons = new ();
+
 		public LeaderboardsService(IGameServices services)
 		{
 			_services = services;
 			_services.MessageBrokerService.Subscribe<MainMenuLoadedMessage>(OnMenuOpened);
-			_services.AuthenticationService.OnLogin += OnLogin;
+			_services.MessageBrokerService.Subscribe<SuccessAuthentication>(OnAuthenticated);
 		}
 
-		public LeaderboardConfigs GetConfigs() => _configs;
-		
+		private void OnAuthenticated(SuccessAuthentication obj)
+		{
+			FetchLeaderboardConfigs();
+		}
+
+		public LeaderboardConfig GetConfigs() => MainInstaller.ResolveData().RemoteConfigProvider.GetConfig<LeaderboardConfig>();
+
 		private void OnMenuOpened(MainMenuLoadedMessage msg)
 		{
-			if (_configs == null)
+			if (_leaderboards.Count == 0)
 			{
 				FetchLeaderboardConfigs();
 			}
+
 			UpdateLocalPlayerClientRank();
 		}
 
 		private void FetchLeaderboardConfigs()
 		{
-			var data = _services.GameAppService.AppData;
-			if(!data.TryGetValue(LeaderboardConfigsDataName, out var configs)) return;
-			_configs = ModelSerializer.Deserialize<LeaderboardConfigs>(configs);
-			foreach (var (metricName, config) in _configs)
+			foreach (var (metricName, config) in GetConfigs())
 			{
 				if (!_currentSeasons.TryGetValue(metricName, out var currentSeason)) currentSeason = config.LastSeason;
 				var seasonConfig = config.GetSeason(currentSeason);
@@ -111,11 +114,10 @@ namespace FirstLight.Game.Services
 					{
 						Ranked = lb;
 					}
+
 					FLog.Verbose($"Registered Leaderboard for metric {metricName}");
 				}
 			}
-			_services.MessageBrokerService.Unsubscribe<MainMenuLoadedMessage>(OnMenuOpened);
-
 		}
 
 		public GameLeaderboard Ranked { get; set; }
@@ -123,14 +125,14 @@ namespace FirstLight.Game.Services
 		public int MaxEntries => MAX_ENTRIES;
 
 		public IReadOnlyList<GameLeaderboard> Leaderboards => _leaderboards;
-		
+
 		public void GetTopRankLeaderboard(string metricName, Action<GetLeaderboardResult> onSuccess)
 		{
 			var leaderboardRequest = new GetLeaderboardRequest()
 			{
-				StatisticName = metricName, 
+				StatisticName = metricName,
 				StartPosition = 0, MaxResultsCount = MAX_ENTRIES,
-				ProfileConstraints = new PlayerProfileViewConstraints { ShowAvatarUrl = true, ShowDisplayName = true}
+				ProfileConstraints = new PlayerProfileViewConstraints {ShowAvatarUrl = true, ShowDisplayName = true}
 			};
 
 			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, LeaderboardError);
@@ -140,17 +142,18 @@ namespace FirstLight.Game.Services
 		{
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
 			{
-				StatisticName = metricName, 
+				StatisticName = metricName,
 				MaxResultsCount = 1
 			};
 			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, onSuccess, LeaderboardError);
 		}
 
 		public PlayerLeaderboardEntry CurrentRankedEntry => _currentRankedEntry;
+
 		public Color GetRankColor(GameLeaderboard board, int rank)
 		{
 			if (board != Ranked || rank <= 0) return GameConstants.PlayerName.DEFAULT_COLOR;
-			
+
 			if (rank <= GameConstants.Data.LEADERBOARD_GOLD_ENTRIES) return GameConstants.PlayerName.GOLD_COLOR;
 			else if (rank <= GameConstants.Data.LEADERBOARD_SILVER_ENTRIES) return GameConstants.PlayerName.SILVER_COLOR;
 			else if (rank <= GameConstants.Data.LEADERBOARD_BRONZE_ENTRIES) return GameConstants.PlayerName.BRONZE_COLOR;
@@ -173,6 +176,7 @@ namespace FirstLight.Game.Services
 					{
 						OnRankingUpdate?.Invoke(newEntry);
 					}
+
 					_currentRankedEntry = newEntry;
 					_currentRankedEntry.Position += 1;
 					FLog.Verbose("Updated leaderboard entry for local player");
@@ -187,7 +191,7 @@ namespace FirstLight.Game.Services
 
 		private void OnLogin(LoginResult login)
 		{
-			_currentSeasons = login.InfoResultPayload.PlayerStatistics.ToDictionary(k => k.StatisticName, k => (int)k.Version);
+			_currentSeasons = login.InfoResultPayload.PlayerStatistics.ToDictionary(k => k.StatisticName, k => (int) k.Version);
 		}
 	}
 }

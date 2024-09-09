@@ -283,7 +283,7 @@ namespace FirstLight.Editor.AssetImporters
 					iconPath = DEFAULT_ICON_PATH;
 				}
 
-				config.Skins.Add(new CharacterSkinConfigEntry
+				config.Skins.Add(new CosmeticConfigEntry
 				{
 					GameId = gameId ?? GameId.Random,
 					Prefab = new AssetReferenceGameObject(AssetDatabase.GUIDFromAssetPath(Path.Combine(folder, $"{characterFileName}.prefab"))

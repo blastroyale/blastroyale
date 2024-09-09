@@ -1,10 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FirstLight.Game.Utils;
-using Newtonsoft.Json;
+using DG.DemiEditor;
 
-namespace FirstLight.Game.Configs
+namespace FirstLight.Game.Data.Config
 {
 	/// <summary>
 	/// Represents a leaderboard that is displayed in-game.
@@ -15,7 +14,7 @@ namespace FirstLight.Game.Configs
 		/// Localized name key for the leaderboard
 		/// </summary>
 		public string Name;
-		
+
 		/// <summary>
 		/// Should be the same name as the playfab metric name
 		/// </summary>
@@ -27,7 +26,7 @@ namespace FirstLight.Game.Configs
 			MetricName = metric;
 		}
 	}
-	
+
 	/// <summary>
 	/// Represents a season config for a leaderboard
 	/// </summary>
@@ -42,13 +41,13 @@ namespace FirstLight.Game.Configs
 		public string Rewards;
 		public string ManualEndTime;
 	}
-	
+
 	/// <summary>
 	/// Represents a leaderboard config, one for all seasons
 	/// <season int, Season Config>
 	/// </summary>
 	[Serializable]
-	public class LeaderboardConfig : SerializedDictionary<int, SeasonConfig>
+	public class LeaderboardSeasons : Dictionary<int, SeasonConfig>
 	{
 		public bool HasSeason(int season) => ContainsKey(season);
 
@@ -66,16 +65,16 @@ namespace FirstLight.Game.Configs
 
 		public SeasonConfig LastSeasonConfig => this[LastSeason];
 	}
-	
+
 	/// <summary>
 	/// Contains all configs for all leaderboards, separated by metric name.
 	/// <metric name string, Config for Metric>
 	/// </summary>
 	[Serializable]
-	public class LeaderboardConfigs : SerializedDictionary<string, LeaderboardConfig>
+	public class LeaderboardConfig : Dictionary<string, LeaderboardSeasons>
 	{
 		public IReadOnlyList<string> Metrics => Keys.ToList();
 
-		public LeaderboardConfig GetConfig(GameLeaderboard board) => TryGetValue(board.MetricName, out var cfg) ? cfg : null;
+		public LeaderboardSeasons GetConfig(GameLeaderboard board) => TryGetValue(board.MetricName, out var cfg) ? cfg : null;
 	}
 }

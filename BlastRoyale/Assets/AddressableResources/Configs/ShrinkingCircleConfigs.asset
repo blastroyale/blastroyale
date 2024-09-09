@@ -1528,7 +1528,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 4915200
       ShrinkingSizeK:
-        RawValue: 36700
+        RawValue: 39322
       NewSafeSpaceAreaSizeK:
         RawValue: 49152
       MaxHealthDamage:
@@ -1553,7 +1553,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 2621440
       ShrinkingSizeK:
-        RawValue: 42598
+        RawValue: 45875
       NewSafeSpaceAreaSizeK:
         RawValue: 98304
       MaxHealthDamage:

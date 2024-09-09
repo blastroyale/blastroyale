@@ -24,12 +24,12 @@ namespace FirstLight.Game.Utils
 		/// Enables or disables showing review prompt to a user
 		/// </summary>
 		public bool EnableReviewPrompt = true;
-		
+
 		/// <summary>
 		/// The number of games played required to show a review prompt
 		/// </summary>
 		public int ReviewPromptGamesPlayedReq = 4;
-		
+
 		/// <summary>
 		/// If rooms should be created with a commit lock (only clients on the same commit
 		/// can play together).
@@ -47,14 +47,15 @@ namespace FirstLight.Game.Utils
 		public bool EnableDeepLinking = true;
 
 		public static RemoteConfigs Instance { get; private set; }
+		public static RuntimeConfig RuntimeConfig { get; private set; }
 
 		public static async UniTask Init()
 		{
 			RemoteConfigService.Instance.SetCustomUserID(AuthenticationService.Instance.PlayerId);
-			
+
 			// Fetch regular configs
-			var rc = await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
-			Instance = JsonConvert.DeserializeObject<RemoteConfigs>(rc.config.ToString());
+			RuntimeConfig = await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+			Instance = JsonConvert.DeserializeObject<RemoteConfigs>(RuntimeConfig.config.ToString());
 
 			// Init configs for CCD Game Overrides
 			var rcCCD = await RemoteConfigService.Instance.FetchConfigsAsync(CCD_CONFIG_TYPE, new UserAttributes(), new AppAttributes());

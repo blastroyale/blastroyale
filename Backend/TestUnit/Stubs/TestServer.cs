@@ -20,6 +20,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
+using GameLogicService.Services;
 using GameLogicService.Services.Providers;
 using Quantum;
 using Environment = System.Environment;
@@ -114,12 +115,14 @@ public class TestServer
 		{
 			services.RemoveAll(typeof(IServerAnalytics));
 			services.RemoveAll(typeof(IServerStateService));
+			services.RemoveAll(typeof(IRemoteConfigService));
 			services.RemoveAll(typeof(ITestPlayerSetup));
 			services.RemoveAll(typeof(IServerMutex));
 			services.AddSingleton<IServerStateService>(p => new InMemoryPlayerState());
 			services.AddSingleton<ITestPlayerSetup, InMemoryTestSetup>();
 			services.AddSingleton<IServerMutex, InMemoryMutex>();
 			services.AddSingleton<IServerAnalytics, InMemoryAnalytics>();
+			services.AddSingleton<IRemoteConfigService, InMemoryRemoteConfigService>();
 		});
 	}
 
@@ -133,6 +136,7 @@ public class TestServer
 		commandData[CommandFields.ClientVersion] = GetService<IBaseServiceConfiguration>().MinClientVersion.ToString();
 		commandData[CommandFields.CommandData] = ModelSerializer.Serialize(cmd).Value;
 		commandData[CommandFields.CommandType] = cmd.GetType().FullName;
+		commandData[CommandFields.ServerConfigurationVersion] = 1.ToString();
 		commandData["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
 		return GetService<GameServer>()?.RunLogic(GetTestPlayerID(), new LogicRequest()
 		{

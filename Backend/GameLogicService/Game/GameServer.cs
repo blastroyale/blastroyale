@@ -15,7 +15,9 @@ using FirstLight.Server.SDK.Services;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
+using FirstLightServerSDK.Services;
 using GameLogicService.Game;
+using GameLogicService.Services;
 
 namespace Backend.Game
 {
@@ -33,9 +35,10 @@ namespace Backend.Game
 		private IEventManager _eventManager;
 		private IMetricsService _metrics;
 		private IBaseServiceConfiguration _baseServiceConfig;
-		private IConfigsProvider _gameConfigs;
+		private IRemoteConfigService _remoteConfig;
 
-		public GameServer(IConfigsProvider gameConfigs, IBaseServiceConfiguration baseServiceConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics, ServerEnvironmentService environmentService)
+
+		public GameServer(IBaseServiceConfiguration baseServiceConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics, ServerEnvironmentService environmentService, IRemoteConfigService remoteConfig)
 		{
 			_cmdHandler = cmdHandler;
 			_log = log;
@@ -44,8 +47,8 @@ namespace Backend.Game
 			_eventManager = eventManager;
 			_metrics = metrics;
 			_environmentService = environmentService;
+			_remoteConfig = remoteConfig;
 			_baseServiceConfig = baseServiceConfig;
-			_gameConfigs = gameConfigs;
 		}
 
 
@@ -60,7 +63,7 @@ namespace Backend.Game
 			{
 				if (!requestData.TryGetValue(CommandFields.CommandType, out var cmdType))
 				{
-					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.CommandData}");
+					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.CommandType}");
 				}
 
 				if (!requestData.TryGetValue(CommandFields.CommandData, out var commandData))
@@ -68,13 +71,25 @@ namespace Backend.Game
 					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.CommandData}");
 				}
 
+				if (!requestData.TryGetValue(CommandFields.ServerConfigurationVersion, out var srvCmdVersionString) || !int.TryParse(srvCmdVersionString, out var clientRemoteConfigVersion))
+				{
+					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.ServerConfigurationVersion}");
+				}
+
+				var (currentPlayerState, serverConfig) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, clientRemoteConfigVersion);
+
+
+				if (serverConfig.GetConfigVersion() > clientRemoteConfigVersion) // Client is outdated
+				{
+					throw new LogicException("Remote configs outdated", CommandErrorCodes.OUTDATED_SERVER_CONFIG);
+				}
+
 				_log.LogInformation($"{playerId} running {cmdType}");
 				await _mutex.Lock(playerId);
 				var commandInstance = _cmdHandler.BuildCommandInstance(commandData, cmdType);
-				var currentPlayerState = await _state.GetPlayerState(playerId);
 				ValidateCommand(currentPlayerState, commandInstance, requestData);
 
-				var newState = await RunCommands(playerId, new[] { commandInstance }, currentPlayerState, commandData);
+				var newState = await RunCommands(playerId, new[] { commandInstance }, currentPlayerState, serverConfig);
 
 				if (newState.HasDelta())
 				{
@@ -84,14 +99,7 @@ namespace Backend.Game
 				}
 
 				var response = new Dictionary<string, string>();
-				if (requestData.TryGetValue(CommandFields.ConfigurationVersion, out var clientConfigVersion))
-				{
-					var clientConfigVersionNumber = ulong.Parse(clientConfigVersion);
-					if (_gameConfigs.Version > clientConfigVersionNumber)
-					{
-						response[CommandFields.ConfigurationVersion] = _gameConfigs.Version.ToString();
-					}
-				}
+
 
 				ModelSerializer.SerializeToData(response, newState.GetDeltas());
 				return new BackendLogicResult() { Command = cmdType, Data = response, PlayFabId = playerId };
@@ -116,21 +124,21 @@ namespace Backend.Game
 		/// <summary>
 		/// Run all initialization commands and SAVES the player state if it has modifications
 		/// </summary>
-		public Task<ServerState> RunInitializationCommands(string playerId, ServerState state)
+		public Task<ServerState> RunInitializationCommands(string playerId, ServerState state, IRemoteConfigProvider remoteConfigProvider)
 		{
 			var cmds = _cmdHandler.GetInitializationCommands();
 			_log.LogInformation($"{playerId} running initialization commands: {string.Join(", ", cmds.Select(a => a.GetType().Name))}");
-			return RunCommands(playerId, cmds, state, "{}");
+			return RunCommands(playerId, cmds, state, remoteConfigProvider);
 		}
 
-		private async Task<ServerState> RunCommands(string playerId, IGameCommand[] commandInstances, ServerState currentPlayerState, string commandData)
+		private async Task<ServerState> RunCommands(string playerId, IGameCommand[] commandInstances, ServerState currentPlayerState, IRemoteConfigProvider remoteConfigProvider)
 		{
 			var currentState = currentPlayerState;
 			var deltas = new StateDelta();
 			currentState.GetDeltas().Merge(deltas);
 			foreach (var commandInstance in commandInstances)
 			{
-				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentState);
+				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentState, remoteConfigProvider);
 				await _eventManager.CallCommandEvent(playerId, commandInstance, newState);
 				currentState = newState;
 				deltas.Merge(currentState.GetDeltas());
@@ -200,7 +208,14 @@ namespace Backend.Game
 		{
 			_log.LogError(exp, $"Unhandled Server Error for {request?.Command}");
 			_metrics.EmitException(exp, $"{exp.Message} at {exp.StackTrace} on {request?.Command}");
-			return new BackendErrorResult() { Error = exp, Command = request?.Command, Data = new Dictionary<string, string>() { { "LogicException", exp.Message } } };
+			int errorCode = 0;
+			if (exp is LogicException le)
+			{
+				errorCode = le.ErrorCode;
+			}
+
+			request.Data.TryGetValue(CommandFields.CommandType, out var commandType);
+			return new BackendErrorResult() { Error = exp, Command = commandType, Data = new Dictionary<string, string>() { { "LogicException", exp.Message }, { "ErrorCode", errorCode.ToString() } } };
 		}
 
 		/// <summary>

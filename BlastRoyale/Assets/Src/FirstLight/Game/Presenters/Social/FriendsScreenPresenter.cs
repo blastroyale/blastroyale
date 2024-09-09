@@ -325,7 +325,7 @@ namespace FirstLight.Game.Presenters
 
 			_addFriendButton.SetEnabled(false);
 
-			var success = await FriendsService.Instance.AddFriendHandled(playerID);
+			var success = await FriendsService.Instance.AddFriendByName(playerID);
 
 			if (success)
 			{

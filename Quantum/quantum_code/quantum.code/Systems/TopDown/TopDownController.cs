@@ -38,7 +38,10 @@ namespace Quantum
         public void Move(Frame f, EntityRef entity, FPVector2 direction)
         {
             // TODO: Optimize by removing detailed info on collisions
-            var movement = _settings.ComputeRawMovement(f, entity, direction, f.Context.TargetMapAndPlayersMask, QueryOptions.ComputeDetailedInfo | QueryOptions.HitAll);
+            var isBot = f.Has<BotCharacter>(entity);
+            var layer = isBot ? f.Context.TargetPlayerTriggersLayerIndex : f.Context.TargetMapAndPlayersMask;
+            var flags = isBot ? QueryOptions.HitDynamics : QueryOptions.ComputeDetailedInfo | QueryOptions.HitAll;
+            var movement = _settings.ComputeRawMovement(f, entity, direction, layer, flags);
             _settings.SteerAndMove(f, entity, movement);
         }
     }

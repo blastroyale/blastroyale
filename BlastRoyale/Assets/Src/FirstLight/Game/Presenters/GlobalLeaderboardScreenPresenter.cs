@@ -192,8 +192,10 @@ namespace FirstLight.Game.Presenters
 
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
+			var trimmedDisplayName = leaderboardEntry.DisplayName[..^5];
+			
 			var borderColor = _services.LeaderboardService.GetRankColor(_viewingBoard, leaderboardEntry.Position + 1);
-			leaderboardEntryView.SetData(leaderboardEntry.Position + 1, leaderboardEntry.DisplayName[..^5].Replace(AuthenticationServiceExtensions.SPACE_CHAR_MATCH, ' '), -1, leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.PlayFabId, borderColor);
+			leaderboardEntryView.SetData(leaderboardEntry.Position + 1, trimmedDisplayName.Replace(AuthenticationServiceExtensions.SPACE_CHAR_MATCH, ' '), -1, leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.PlayFabId, borderColor);
 			leaderboardEntryView.SetLeaderboardEntryPFPUrl(leaderboardEntry.Profile.AvatarUrl);
 
 			leaderboardEntryView.SetIcon(GetIconClass());
@@ -312,8 +314,10 @@ namespace FirstLight.Game.Presenters
 
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
+			var trimmedDisplayName = leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5);
+			
 			view.SetData(leaderboardEntry.Position + 1,
-				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5).Replace(AuthenticationServiceExtensions.SPACE_CHAR_MATCH, ' '), -1,
+				trimmedDisplayName.Replace(AuthenticationServiceExtensions.SPACE_CHAR_MATCH, ' '), -1,
 				trophies, true, leaderboardEntry.PlayFabId, Color.white);
 			view.SetLeaderboardEntryPFPUrl(_dataProvider.CollectionDataProvider.GetEquippedAvatarUrl());
 

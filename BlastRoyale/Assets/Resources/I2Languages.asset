@@ -13715,6 +13715,50 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinFemale01
+      TermType: 0
+      Description: 
+      Languages:
+      - SCARLET
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFemale01Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Available to OG players only
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFemale02
+      TermType: 0
+      Description: 
+      Languages:
+      - LUNA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFemale02Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Available to OG players only
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/FemaleAssassin
       TermType: 0
       Description: 
@@ -13752,7 +13796,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Own any female Corpo to unlock
+      - Own any female Corpo NFT to unlock
       - Combat Queen
       - Combat Queen
       - 
@@ -14313,6 +14357,50 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinMale01
+      TermType: 0
+      Description: 
+      Languages:
+      - JOEL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMale01Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Available to OG players only
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMale02
+      TermType: 0
+      Description: 
+      Languages:
+      - BO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMale02Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Available to OG players only
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MaleAssassin
       TermType: 0
       Description: 
@@ -14350,7 +14438,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Own any male Corpo to unlock
+      - Own any male Corpo NFT to unlock
       - El General
       - El General
       - 
@@ -16055,7 +16143,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Own any Plague Doctor to unlock
+      - Own any Plague Doctor NFT to unlock
       - 
       - 
       - 
@@ -16452,6 +16540,28 @@ MonoBehaviour:
       Description: 
       Languages:
       - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGamer
+      TermType: 0
+      Description: 
+      Languages:
+      - RED FURY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGamerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any GAM3RS NFT to unlock
       - 
       - 
       - 
@@ -30177,7 +30287,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - COPY CODE
+      - SHARE CODE
       - 
       - 
       - 
@@ -30351,7 +30461,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1724945870657
+    Google_LastUpdatedVersion: 1725660644521
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

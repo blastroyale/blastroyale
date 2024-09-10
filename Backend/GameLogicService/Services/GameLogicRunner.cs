@@ -3,8 +3,10 @@ using FirstLight.Server.SDK;
 using Microsoft.Extensions.Logging;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 using GameLogicService.Models;
+using GameLogicService.Services;
 
 
 namespace Backend.Game.Services
@@ -18,30 +20,28 @@ namespace Backend.Game.Services
 		/// Creates a game logic execution context to run for a given player.
 		/// Current state can be passed as a optional argument. When not provided will be fetched.
 		/// </summary>
-		public Task<GameLogicExecutionContext> GetLogicContext(string userId, ServerState? currentState = null);
+		public Task<GameLogicExecutionContext> GetLogicContext(string userId, IRemoteConfigProvider remoteConfigProvider, ServerState currentState);
 	}
-	
+
 	public class GameLogicContextService : IGameLogicContextService
 	{
-		private readonly IServerStateService _state;
 		private readonly IGameConfigurationService _cfg;
 		private readonly ILogger _log;
 		private readonly IEventManager _eventManager;
 
-		public GameLogicContextService(IServerStateService state, IGameConfigurationService cfg, ILogger log, IEventManager eventManager)
+		public GameLogicContextService(IGameConfigurationService cfg, ILogger log, IEventManager eventManager)
 		{
 			_cfg = cfg;
 			_log = log;
 			_eventManager = eventManager;
-			_state = state;
 		}
 
-		public async Task<GameLogicExecutionContext> GetLogicContext(string userId, ServerState? currentState)
+		public async Task<GameLogicExecutionContext> GetLogicContext(string userId, IRemoteConfigProvider remoteConfigProvider, ServerState currentState)
 		{
-			var dataProvider = new ServerPlayerDataProvider(currentState ?? await _state.GetPlayerState(userId));
+			var dataProvider = new ServerPlayerDataProvider(currentState);
 			dataProvider.ClearDeltas(); // initializing logic triggers deltas
 			var msgBroker = new GameServerLogicMessageBroker(userId, _eventManager, _log);
-			var logic = new GameServerLogic(await _cfg.GetGameConfigs(), dataProvider, msgBroker);
+			var logic = new GameServerLogic(await _cfg.GetGameConfigs(), remoteConfigProvider, dataProvider, msgBroker);
 			logic.Init();
 			return new GameLogicExecutionContext()
 			{

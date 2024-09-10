@@ -14,7 +14,7 @@ namespace ServerCommon
         {
             var services = builder.Services;
             var envConfig = new EnvironmentVariablesConfigurationService(appPath);
-            if (envConfig.TelemetryConnectionString != null)
+            if (!string.IsNullOrWhiteSpace(envConfig.TelemetryConnectionString))
             {
                 services.AddApplicationInsightsTelemetry(o => o.ConnectionString = envConfig.TelemetryConnectionString);
                 services.AddSingleton<IMetricsService, AppInsightsMetrics>();

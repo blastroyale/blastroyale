@@ -64,9 +64,11 @@ namespace FirstLight.Game.Logic
 		IBattlePassDataProvider BattlePassDataProvider { get; }
 
 		ICollectionDataProvider CollectionDataProvider { get; }
-		
+
 		/// <inheritdoc cref="IContentCreatorDataProvider"/>
 		IContentCreatorDataProvider ContentCreatorDataProvider { get; }
+
+		IRemoteConfigProvider RemoteConfigProvider { get; }
 	}
 
 	/// <summary>
@@ -111,10 +113,10 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc cref="IBattlePassLogic"/>
 		IBattlePassLogic BattlePassLogic { get; }
-		
+
 		/// <inheritdoc cref="IBattlePassLogic"/>
 		IContentCreatorLogic ContentCreatorLogic { get; }
-		
+
 		/// <inheritdoc cref="ILiveopsLogic"/>
 		ILiveopsLogic LiveopsLogic { get; }
 
@@ -167,7 +169,9 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IContentCreatorDataProvider ContentCreatorDataProvider => ContentCreatorLogic;
-		
+
+		public IRemoteConfigProvider RemoteConfigProvider { get; set; }
+
 		/// <inheritdoc />
 		public ILiveopsDataProvider LiveopsDataProvider => LiveopsLogic;
 
@@ -199,21 +203,22 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IBattlePassLogic BattlePassLogic { get; }
-		
+
 		/// <inheritdoc />
 		public IContentCreatorLogic ContentCreatorLogic { get; }
-		
+
 		/// <inheritdoc />
 		public ILiveopsLogic LiveopsLogic { get; }
 
 		public ICollectionLogic CollectionLogic { get; }
 
-		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider,
+		public GameLogic(IMessageBrokerService messageBroker, IRemoteConfigProvider remoteConfigProvider, ITimeService timeService, IDataProvider dataProvider,
 						 IConfigsProvider configsProvider)
 		{
 			MessageBrokerService = messageBroker;
 			TimeService = timeService;
 			ConfigsProvider = configsProvider;
+			RemoteConfigProvider = remoteConfigProvider;
 
 			AppLogic = new AppLogic(this, dataProvider);
 			UniqueIdLogic = new UniqueIdLogic(this, dataProvider);
@@ -261,7 +266,6 @@ namespace FirstLight.Game.Logic
 		}
 	}
 
-
 	/// <summary>
 	/// Exposes blast royale typed services into generic services container
 	/// </summary>
@@ -281,12 +285,12 @@ namespace FirstLight.Game.Logic
 		{
 			return c.Get<IMessageBrokerService>();
 		}
-		
+
 		public static IItemCatalog<ItemData> CatalogService(this ServiceContainer c)
 		{
 			return c.Get<IItemCatalog<ItemData>>();
 		}
-		
+
 		public static IStoreService StoreService(this ServiceContainer c)
 		{
 			return c.Get<IStoreService>();

@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.Config;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Logic;

@@ -340,7 +340,7 @@ namespace FirstLight.Game.Services
 			if ((relationship == null || hasIncomingRequest) && canUseFriendSystem)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
-					() => FriendsService.Instance.AddFriendHandled(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
+					() => FriendsService.Instance.AddFriendByUnityId(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
 			}
 			else if (relationship is {Type: RelationshipType.FriendRequest} && relationship.IsOutgoingInvite())
 			{

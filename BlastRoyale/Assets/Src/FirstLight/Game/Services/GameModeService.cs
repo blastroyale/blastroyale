@@ -167,9 +167,8 @@ namespace FirstLight.Game.Services
 					SelectedGameMode.Value = firstOrDefault;
 					return;
 				}
-
-				this.SelectDefaultRankedMode();
 			}
+			this.SelectDefaultRankedMode();
 		}
 
 		public async UniTaskVoid CheckEventEnd()
@@ -257,7 +256,7 @@ namespace FirstLight.Game.Services
 
 		private void AutoSelectGameModeForTeamSize(int size, bool forceMinSize = false)
 		{
-			if (SelectedGameMode.Value.Entry.MatchConfig.TeamSize >= size && !forceMinSize)
+			if (SelectedGameMode.Value.Entry != null && SelectedGameMode.Value.Entry.MatchConfig.TeamSize >= size && !forceMinSize)
 			{
 				// Already have a proper selected gamemode
 				return;

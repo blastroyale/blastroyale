@@ -6,6 +6,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -177,6 +178,11 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 			foreach (var gameId in _matchSettings.MetaItemDropOverwrites.Select(a => a.Id).Distinct())
 			{
+				if (RewardLogic.TryGetRewardCurrencyGroupId(gameId, out var _))
+				{
+					continue;
+				}
+				
 				AddEventReward(gameId, "", false);
 			}
 

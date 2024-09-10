@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1095234304140310859}
   - component: {fileID: 2877719543181944878}
   m_Layer: 9
-  m_Name: CollectableNoob
+  m_Name: CollectableNoobRainbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5064,7 +5064,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 696ee43f9cf4863488737d6bdbae19c2, type: 2}
+  - {fileID: 2100000, guid: 5dcc081c8ac32f445b98ca8dfa95763a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

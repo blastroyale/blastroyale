@@ -153,6 +153,18 @@ namespace FirstLight.Game.Logic
 			return (int) Math.Floor(currentValue * mp);
 		}
 
+		public static bool TryGetRewardCurrencyGroupId(GameId rewardId, out GameId groupId)
+		{
+			if (rewardId.IsInGroup(GameIdGroup.NOOBTokens))
+			{
+				groupId = GameId.NOOB;
+				return true;
+			}
+			
+			groupId = rewardId;
+			return false;
+		}
+
 		private bool IsDebug(SimulationMatchConfig matchConfig)
 		{
 			// This is checked on quantum plugin, rooms are not allowed to be created with this config
@@ -309,7 +321,9 @@ namespace FirstLight.Game.Logic
 			foreach (var (id, amt) in collected)
 			{
 				var fixedAmount = GetModifiedReward(amt, id, simConfig, true);
-				rewards.Add(ItemFactory.Currency(id, fixedAmount));
+				var rewardId = TryGetRewardCurrencyGroupId(id, out var groupId) ? groupId : id;
+				
+				rewards.Add(ItemFactory.Currency(rewardId, fixedAmount));
 			}
 		}
 

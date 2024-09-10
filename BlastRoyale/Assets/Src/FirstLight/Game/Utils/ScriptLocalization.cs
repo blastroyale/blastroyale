@@ -1435,6 +1435,8 @@ namespace I2.Loc
 			public static string Multishot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Multishot"); } }
 			public static string NOOB 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOB"); } }
 			public static string NOOBDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOBDescription"); } }
+			public static string NOOBGolden 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOBGolden"); } }
+			public static string NOOBRainbow 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOBRainbow"); } }
 			public static string NOOB_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOB_Plural"); } }
 			public static string NewBRMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NewBRMap"); } }
 			public static string Philadelphia 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Philadelphia"); } }
@@ -4263,6 +4265,8 @@ namespace I2.Loc
 		    public const string Multishot = "GameIds/Multishot";
 		    public const string NOOB = "GameIds/NOOB";
 		    public const string NOOBDescription = "GameIds/NOOBDescription";
+		    public const string NOOBGolden = "GameIds/NOOBGolden";
+		    public const string NOOBRainbow = "GameIds/NOOBRainbow";
 		    public const string NOOB_Plural = "GameIds/NOOB_Plural";
 		    public const string NewBRMap = "GameIds/NewBRMap";
 		    public const string Philadelphia = "GameIds/Philadelphia";

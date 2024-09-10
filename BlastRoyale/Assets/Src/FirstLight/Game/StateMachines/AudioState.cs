@@ -760,6 +760,8 @@ namespace FirstLight.Game.StateMachines
 						audio = isLocal ? AudioId.LargeShieldPickupLocal : AudioId.LargeShieldPickup;
 						break;
 					case GameId.NOOB:
+					case GameId.NOOBRainbow:
+					case GameId.NOOBGolden:
 						audio = isLocal ? AudioId.NoobPickupLocal : AudioId.NoobPickup;
 						break;
 				}

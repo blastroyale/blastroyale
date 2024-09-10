@@ -443,6 +443,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				case GameId.ShieldLarge:
 				case GameId.ShieldSmall:
 				case GameId.NOOB:
+				case GameId.NOOBRainbow:
+				case GameId.NOOBGolden:
 					PlayCollectionVfx(VfxId.ShieldPickupFx, callback);
 					return;
 				case GameId.COIN:

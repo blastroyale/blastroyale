@@ -118,7 +118,7 @@ namespace FirstLight.Game.StateMachines
 				errorMessage = string.Format(ScriptLocalization.UITProfileScreen.username_too_long,
 					GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH);
 			}
-			else if (new Regex("[^a-zA-Z0-9 _-\uA421]+").IsMatch(newNameTrimmed))
+			else if (new Regex("[^a-zA-Z0-9_-\uA421]+").IsMatch(newNameTrimmed))
 			{
 				errorMessage = ScriptLocalization.UITProfileScreen.username_invalid_characters;
 			}
@@ -134,6 +134,8 @@ namespace FirstLight.Game.StateMachines
 				_statechartTrigger(NameSetEvent);
 				return;
 			}
+			
+			newNameTrimmed = newNameTrimmed.Replace(' ', AuthenticationServiceExtensions.SPACE_CHAR_MATCH);
 
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 

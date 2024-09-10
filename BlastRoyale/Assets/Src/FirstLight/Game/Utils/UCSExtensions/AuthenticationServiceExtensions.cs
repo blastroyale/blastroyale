@@ -9,6 +9,8 @@ namespace FirstLight.Game.Utils.UCSExtensions
 	/// </summary>
 	public static class AuthenticationServiceExtensions
 	{
+		public const char SPACE_CHAR_MATCH = '_';
+		
 		/// <summary>
 		/// Returns the local players name without the hashtag and numbers.
 		/// </summary>
@@ -39,6 +41,8 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			{
 				name = name.TrimPlayerNameNumbers();
 			}
+
+			name = name.Replace(SPACE_CHAR_MATCH, ' ');
 
 			return name;
 		}

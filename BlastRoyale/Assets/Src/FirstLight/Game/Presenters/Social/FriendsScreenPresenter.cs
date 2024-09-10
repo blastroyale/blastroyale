@@ -273,7 +273,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenTooltip(VisualElement element, Relationship relationship)
 		{
-			_services.GameSocialService.OpenPlayerOptions(element, Root, relationship.Member.Id, relationship.Member.Profile.Name.TrimPlayerNameNumbers(), new PlayerContextSettings
+			_services.GameSocialService.OpenPlayerOptions(element, Root, relationship.Member.Id, relationship.Member.Profile.Name.TrimPlayerNameNumbers().Replace(AuthenticationServiceExtensions.SPACE_CHAR_MATCH, ' '), new PlayerContextSettings
 			{
 				ShowRemoveFriend = true,
 				ShowBlock = true,

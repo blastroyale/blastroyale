@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -48,9 +49,9 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _worldPositioning;
 		private int _usedCharactersIndex = 0;
 		private Dictionary<int, VisualElement> _playerNames = new ();
-		
+
 		private ScreenHeaderElement _header;
-		
+
 		private void Awake()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
@@ -79,7 +80,7 @@ namespace FirstLight.Game.Presenters
 		protected override async UniTask OnScreenOpen(bool reload)
 		{
 			SetHeaderGameModeInfo();
-			
+
 			await UpdateCharacters();
 
 			AnimateCharacters().Forget();
@@ -88,19 +89,19 @@ namespace FirstLight.Game.Presenters
 		private void SetHeaderGameModeInfo()
 		{
 			var matchConfig = _matchServices.MatchEndDataService.MatchConfig;
-			
+
 			//Check if current ended match was an Event
 			if (matchConfig.MatchType == MatchType.Matchmaking)
 			{
 				var selectedGameMode = _gameServices.GameModeService.SelectedGameMode.Value.Entry;
 
-				if (selectedGameMode.TimedEntry && selectedGameMode.MatchConfig.ConfigId == matchConfig.ConfigId)
+				if (selectedGameMode is EventGameModeEntry ev && selectedGameMode.MatchConfig.UniqueConfigId == matchConfig.UniqueConfigId)
 				{
-					_header.SetSubtitle(selectedGameMode.Visual.TitleTranslationKey.GetText());	
+					_header.SetSubtitle(ev.Title.GetText());
 					return;
 				}
 			}
-			
+
 			var matchConfigTeamSize = _matchServices.MatchEndDataService.MatchConfig.TeamSize;
 			switch (matchConfigTeamSize)
 			{

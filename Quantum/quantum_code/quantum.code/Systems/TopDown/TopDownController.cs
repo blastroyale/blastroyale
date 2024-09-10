@@ -56,7 +56,7 @@ namespace Quantum
         public readonly FP Acceleration = FP._10 * 8;
         public readonly Boolean Debug = false;
         public readonly FP Brake = FP._10 * 8;
-        public readonly Shape2D PlayerFeetShape = Shape2D.CreateCircle(FP._0_20 + FP._0_20); 
+        public readonly Shape2D PlayerFeetShape = Shape2D.CreateCircle(FP._0_20 + FP._0_20 + FP._0_10); 
         
         public void Init(ref TopDownController kcc)
         {

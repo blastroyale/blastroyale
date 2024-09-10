@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
@@ -438,7 +439,7 @@ namespace FirstLight.Game.Utils
 
 		public static void SelectDefaultRankedMode(this IGameModeService service)
 		{
-			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry is {MatchConfig: not null, TimedEntry: false});
+			var gameMode = service.Slots.FirstOrDefault(x => x.Entry is {MatchConfig: not null} and FixedGameModeEntry);
 			service.SelectedGameMode.Value = gameMode;
 		}
 
@@ -492,7 +493,7 @@ namespace FirstLight.Game.Utils
 		{
 			return ModelSerializer.Deserialize<T>(ModelSerializer.Serialize(value).Value);
 		}
-		
+
 		public static IEnumerable<T> Randomize<T>(this IEnumerable<T> source)
 		{
 			return source.OrderBy((_) => Random.value);

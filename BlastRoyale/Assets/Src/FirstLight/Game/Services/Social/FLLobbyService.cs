@@ -401,7 +401,7 @@ namespace FirstLight.Game.Services
 
 			var lobbyName = string.Format(PARTY_LOBBY_NAME, AuthenticationService.Instance.PlayerId);
 			// TODO: Should not have to resolve services here but there's a circular dependency
-			var currentGameMode = MainInstaller.ResolveServices().GameModeService.SelectedGameMode.Value.Entry.MatchConfig.ConfigId;
+			var currentGameMode = MainInstaller.ResolveServices().GameModeService.SelectedGameMode.Value.Entry.MatchConfig.UniqueConfigId;
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = true,

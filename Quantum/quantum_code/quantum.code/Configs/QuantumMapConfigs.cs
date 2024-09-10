@@ -24,23 +24,23 @@ namespace Quantum
 	{
 		public List<QuantumMapConfig> QuantumConfigs = new List<QuantumMapConfig>();
 		
-		private IDictionary<int, QuantumMapConfig> _dictionary;
+		private IDictionary<string, QuantumMapConfig> _dictionary;
 
 		private object _lock = new object();
 		
 		/// <summary>
 		/// Requests the <see cref="QuantumMapConfig"/> from it's <paramref name="id"/>
 		/// </summary>
-		public QuantumMapConfig GetConfig(int id)
+		public QuantumMapConfig GetConfig(string id)
 		{
 			if (_dictionary == null)
 			{
 				lock (_lock)
 				{
-					var dict = new Dictionary<int, QuantumMapConfig>();
+					var dict = new Dictionary<string, QuantumMapConfig>();
 					foreach (var config in QuantumConfigs)
 					{
-						dict.Add((int) config.Map, config);
+						dict.Add(config.Map.ToString(), config);
 					}
 					_dictionary = dict;
 				}

@@ -432,7 +432,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool CheckInvalidTeamSize()
 		{
-			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) > _services.GameModeService.SelectedGameMode.Value.Entry.TeamSize;
+			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) > _services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.TeamSize;
 		}
 
 		private async UniTaskVoid TogglePartyReadyStatus()

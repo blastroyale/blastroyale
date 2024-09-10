@@ -21,7 +21,6 @@ namespace FirstLight.Game.Services
 
 		// Required at creation
 		public string RoomIdentifier = "";
-		public GameModeRotationConfig.PlayfabQueue PlayfabQueue;
 		public SimulationMatchConfig SimulationConfig;
 
 		public byte[] ToByteArray()
@@ -49,8 +48,6 @@ namespace FirstLight.Game.Services
 
 		private bool Serialize(BitStream bitStream)
 		{
-			PlayfabQueue ??= new GameModeRotationConfig.PlayfabQueue();
-
 			var serializeVersion = Version;
 			bitStream.Serialize(ref serializeVersion);
 			if (serializeVersion != Version)
@@ -59,8 +56,6 @@ namespace FirstLight.Game.Services
 			}
 
 			bitStream.Serialize(ref RoomIdentifier);
-			bitStream.Serialize(ref PlayfabQueue.QueueName);
-			bitStream.Serialize(ref PlayfabQueue.TimeoutTimeInSeconds);
 			SimulationConfig ??= new SimulationMatchConfig();
 			SimulationConfig.Serialize(bitStream);
 			return true;

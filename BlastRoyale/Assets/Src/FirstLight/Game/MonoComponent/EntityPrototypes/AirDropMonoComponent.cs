@@ -4,6 +4,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -54,7 +55,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 			
 			var airdropPosition = airDrop.Position.ToUnityVector3();
-			var airplaneDirection = airDrop.Direction.XOY.ToUnityVector3();
+			var airplaneDirection = airDrop.Direction.ToUnityVector3();
 
 			var startingPosition = airdropPosition - airplaneDirection * _airplaneTravelDistance +
 			                       Vector3.up * airDropHeight;
@@ -85,10 +86,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 			
 			_itemRoot.gameObject.SetActive(true);
-
-			var position = gameObject.transform.position;
+			
 			_airdropRadialTransform.parent = null;
-			_airdropRadialTransform.position = new Vector3(position.x, 0.1f, position.z);
+
+			var f = callback.Game.Frames.Verified;
+			var position =  callback.AirDrop.Position;
+			_airdropRadialTransform.position = new Vector3(position.X.AsFloat, 0.1f, position.Y.AsFloat);
 
 			var collectable = _itemRoot.GetComponentInChildren<CollectableViewMonoComponent>();
 			collectable.SetPickupCircleVisibility(false);

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DG.DemiEditor;
 
-namespace FirstLight.Game.Data.Config
+namespace FirstLight.Game.Configs.Remote
 {
 	/// <summary>
 	/// Represents a leaderboard that is displayed in-game.

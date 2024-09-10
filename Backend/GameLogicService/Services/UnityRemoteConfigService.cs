@@ -17,7 +17,6 @@ using static System.String;
 
 namespace GameLogicService.Services;
 
-
 /// <summary>
 /// Responsible for creating a remote config in the server context
 /// </summary>
@@ -46,7 +45,7 @@ public class UnityRemoteConfigResponse
 	public T GetConfig<T>(string key) where T : class
 	{
 		return configs.First().value.Where(v => v.key == key && v.type == "json")
-			.Select(a => ((JObject) a.value).ToObject<T>()).FirstOrDefault();
+			.Select(a => ModelSerializer.Deserialize<T>(a.value.ToString())).FirstOrDefault();
 	}
 }
 

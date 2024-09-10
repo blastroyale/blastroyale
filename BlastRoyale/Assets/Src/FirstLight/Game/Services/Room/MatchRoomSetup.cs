@@ -17,7 +17,7 @@ namespace FirstLight.Game.Services
 	[Serializable]
 	public class MatchRoomSetup
 	{
-		public static byte Version = 1;
+		public static byte Version = 2;
 
 		// Required at creation
 		public string RoomIdentifier = "";

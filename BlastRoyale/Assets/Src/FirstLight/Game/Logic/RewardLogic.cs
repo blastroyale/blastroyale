@@ -155,16 +155,14 @@ namespace FirstLight.Game.Logic
 
 		public static bool TryGetRewardCurrencyGroupId(GameId rewardId, out GameId groupId)
 		{
-			switch (rewardId)
+			if (rewardId.IsInGroup(GameIdGroup.NOOBTokens))
 			{
-				case GameId.NOOBGolden:
-				case GameId.NOOBRainbow:
-					groupId = GameId.NOOB;
-					return true;
-				default:
-					groupId = rewardId;
-					return false;
+				groupId = GameId.NOOB;
+				return true;
 			}
+			
+			groupId = rewardId;
+			return false;
 		}
 
 		private bool IsDebug(SimulationMatchConfig matchConfig)

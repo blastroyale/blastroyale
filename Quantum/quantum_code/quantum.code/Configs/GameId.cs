@@ -101,19 +101,22 @@ namespace Quantum
 				{
 					GameId.NOOB, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.NOOBTokens
 					}.AsReadOnly()
 				},
 				{
 					GameId.NOOBGolden, new List<GameIdGroup>
 					{
-						GameIdGroup.Collectable
+						GameIdGroup.Collectable,
+						GameIdGroup.NOOBTokens
 					}.AsReadOnly()
 				},
 				{
 					GameId.NOOBRainbow, new List<GameIdGroup>
 					{
-						GameIdGroup.Collectable
+						GameIdGroup.Collectable,
+						GameIdGroup.NOOBTokens
 					}.AsReadOnly()
 				},
 				{
@@ -2907,6 +2910,14 @@ namespace Quantum
 					{
 						GameId.AvatarRemote,
 						GameId.AvatarNFTCollection
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.NOOBTokens, new List<GameId>
+					{
+						GameId.NOOB,
+						GameId.NOOBGolden,
+						GameId.NOOBRainbow
 					}.AsReadOnly()
 				},
 				{

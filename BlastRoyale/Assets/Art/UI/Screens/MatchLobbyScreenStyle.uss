@@ -13,6 +13,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    overflow: hidden;
 }
 
 .lobby-screen-header {
@@ -24,18 +25,28 @@
     position: relative;
     left: 0;
     top: -5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -unity-text-overflow-position: end;
 }
 
 .lobby-screen-header .screen-header__title .unity-text-element {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    -unity-text-overflow-position: end;
 }
 
 .lobby-code-container {
-    flex-grow: 0;
     flex-direction: row;
     top: -10px;
+    flex-shrink: 0;
+}
+
+.game-label {
+    white-space: nowrap;
+    flex-grow: 1;
 }
 
 .show-hide-code {
@@ -214,6 +225,7 @@
 
 .left-container {
     flex-grow: 1;
+    width: 0;
 }
 
 .bottom-bar {

@@ -69,6 +69,7 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .screen-header--disable-buttons .screen-header__back {

@@ -82,7 +82,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 			// We always show the local player
 			_localPlayer = new FriendListElement()
 				.SetLocal()
-				.SetPlayerName(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers().Replace(AuthenticationServiceExtensions.SPACE_CHAR_MATCH, ' '), (int) data.PlayerDataProvider.Trophies.Value)
+				.SetPlayerName(AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()), (int) data.PlayerDataProvider.Trophies.Value)
 				.SetAvatar(data.CollectionDataProvider.GetEquippedAvatarUrl())
 				.SetElementClickAction(el =>
 				{

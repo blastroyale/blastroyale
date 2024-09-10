@@ -10,7 +10,12 @@ namespace FirstLight.Game.Utils.UCSExtensions
 	public static class AuthenticationServiceExtensions
 	{
 		public const char SPACE_CHAR_MATCH = '_';
-		
+
+		public static string GetPlayerNameWithSpaces(string playerName)
+		{
+			return playerName.Replace(SPACE_CHAR_MATCH, ' ');
+		}
+
 		/// <summary>
 		/// Returns the local players name without the hashtag and numbers.
 		/// </summary>

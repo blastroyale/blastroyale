@@ -228,7 +228,7 @@ namespace FirstLight.Game.UIElements
 		public FriendListElement SetPlayerName(string playerName)
 		{
 			_trophiesLabel.SetDisplay(false);
-			_nameLabel.text = playerName?.TrimPlayerNameNumbers().Replace(AuthenticationServiceExtensions.SPACE_CHAR_MATCH, ' ');
+			_nameLabel.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(playerName?.TrimPlayerNameNumbers());
 			return this;
 		}
 

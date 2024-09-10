@@ -39,12 +39,13 @@ namespace Quantum.Systems
 					var modifier = FP._1 - (f.Time - drop->StartTime - drop->Delay) / (drop->Duration);
 					transform->Position = drop->Position + FPVector2.Up * f.GameConfig.AirdropHeight * modifier;
 
+					var airdrop = f.Unsafe.GetPointer<AirDrop>(filter.Entity);
 					if (f.Time >= drop->StartTime + drop->Delay + drop->Duration)
 					{
 						drop->Stage = AirDropStage.Dropped;
 						var chestEntity = ChestSystem.SpawnChest(f, drop->Chest, drop->Position);
 						f.Add(chestEntity, *drop);
-						f.Events.OnAirDropLanded(filter.Entity, chestEntity, f.Get<AirDrop>(filter.Entity));
+						f.Events.OnAirDropLanded(filter.Entity, chestEntity, *airdrop);
 						f.Destroy(filter.Entity);
 					}
 

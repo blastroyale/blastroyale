@@ -1,6 +1,8 @@
 using System.Collections;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
+using FirstLight.Game.Utils;
 
 namespace FirstLight.Game.TestCases.Helpers
 {
@@ -14,9 +16,9 @@ namespace FirstLight.Game.TestCases.Helpers
 		{
 			RunWhenAuthenticated(() =>
 			{
-				foreach (var slotWrapper in Services.GameModeService.Slots)
+				foreach (var queuesConfigValue in MainInstaller.ResolveData().RemoteConfigProvider.GetConfig<MatchmakingQueuesConfig>().Values)
 				{
-					slotWrapper.Entry.PlayfabQueue.TimeoutTimeInSeconds = 5;
+					queuesConfigValue.QueueTimeoutTimeInSeconds = 5;
 				}
 			});
 			yield break;

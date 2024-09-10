@@ -103,10 +103,10 @@ namespace FirstLight.Game.Services
 				SimulationConfig = new SimulationMatchConfig()
 				{
 					GameModeID = gameModeId,
-					MapId = GameId.FtueDeck.GetHashCode(),
+					MapId = GameId.FtueDeck.ToString(),
 					MatchType = MatchType.Forced,
 					TeamSize = 1,
-					HasBots = true
+					DisableBots = false
 				},
 				RoomIdentifier = Guid.NewGuid().ToString(),
 			};

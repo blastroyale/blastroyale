@@ -24,7 +24,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		public bool GameStarted => Properties.GameStarted.Value;
 		public bool IsTeamGame => Properties.SimulationMatchConfig.Value.TeamSize > 1;
-		public QuantumMapConfig MapConfig => _roomService.GetMapConfig(Properties.SimulationMatchConfig.Value.MapId.GetHashCode());
+		public QuantumMapConfig MapConfig => _roomService.GetMapConfig(Properties.SimulationMatchConfig.Value.MapId);
 		public QuantumGameModeConfig GameModeConfig => _roomService.GetGameModeConfig(Properties.SimulationMatchConfig.Value.GameModeID);
 		public Dictionary<int, Player> Players => _room.Players;
 		public string Name => _room.Name;
@@ -123,7 +123,7 @@ namespace FirstLight.Game.Services.RoomService
 			var roomSize = GetRealPlayerCapacity();
 			var gameMode = DeterministicGameMode.Multiplayer;
 
-			if (!Properties.SimulationMatchConfig.Value.HasBots)
+			if (Properties.SimulationMatchConfig.Value.DisableBots)
 			{
 				roomSize = playersInRoom;
 			}
@@ -163,7 +163,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			var configProvider = _roomService._configsProvider;
 			var simulationConfig = Properties.SimulationMatchConfig.Value;
-			var map = (GameId) simulationConfig.MapId;
+			var map = Enum.Parse<GameId>(simulationConfig.MapId);
 			if (!configProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
 			{
 				throw new Exception("Asset map config not found for map " + map);

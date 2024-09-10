@@ -91,7 +91,7 @@ namespace FirstLight.Game.Presenters
 			// Add custom game button
 			var gameModeInfo = new GameModeInfo
 			{
-				Entry = new GameModeRotationConfig.GameModeEntry
+				Entry = new FixedGameModeEntry()
 				{
 					MatchConfig = new SimulationMatchConfig
 					{
@@ -99,12 +99,9 @@ namespace FirstLight.Game.Presenters
 						MatchType = MatchType.Custom,
 						TeamSize = 1
 					},
-					Visual = new GameModeRotationConfig.VisualEntryConfig
-					{
-						CardModifier = "custom",
-						TitleTranslationKey = LocalizableString.FromTerm(ScriptTerms.UITGameModeSelection.custom_game_title),
-						DescriptionTranslationKey = LocalizableString.FromTerm(ScriptTerms.UITGameModeSelection.custom_game_description)
-					}
+					CardModifier = "custom",
+					Title = LocalizableString.FromTerm(ScriptTerms.UITGameModeSelection.custom_game_title),
+					Description = LocalizableString.FromTerm(ScriptTerms.UITGameModeSelection.custom_game_description)
 				}
 			};
 			var createGameButton = _buttonAsset.Instantiate();
@@ -132,7 +129,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateMapDropdownVisibility()
 		{
-			_mapButton.SetDisplay(_services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.MapId == (int) GameId.Any);
+			_mapButton.SetDisplay(_services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.MapId == GameId.Any.ToString());
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -171,7 +168,7 @@ namespace FirstLight.Game.Presenters
 			foreach (var view in _buttonViews)
 			{
 				if (view.IsCustomGame()) continue;
-				if (view.GameModeInfo.Entry.PlayfabQueue == null) continue;
+				if (view.GameModeInfo.Entry == null) continue;
 				view.UpdateDisabledStatus();
 			}
 		}

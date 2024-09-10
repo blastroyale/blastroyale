@@ -4,6 +4,8 @@ using System.IO;
 using Backend;
 using Backend.Game;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -70,6 +72,7 @@ public class TestServer
 	}
 
 	public IServerStateService ServerState => GetService<IServerStateService>()!;
+	public InMemoryRemoteConfigService RemoteConfig => (InMemoryRemoteConfigService) GetService<IRemoteConfigService>()!;
 
 	public IServiceProvider Services => _services;
 
@@ -138,6 +141,8 @@ public class TestServer
 		commandData[CommandFields.CommandType] = cmd.GetType().FullName;
 		commandData[CommandFields.ServerConfigurationVersion] = 1.ToString();
 		commandData["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
+		RemoteConfig.SetConfig(new FixedGameModesConfig());
+		RemoteConfig.SetConfig(new EventGameModesConfig());
 		return GetService<GameServer>()?.RunLogic(GetTestPlayerID(), new LogicRequest()
 		{
 			Data = commandData,

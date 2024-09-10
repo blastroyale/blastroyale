@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FirstLight.Game.Data.Config
+namespace FirstLight.Game.Configs.Remote
 {
 	/// <summary>
 	/// Represents a leaderboard that is displayed in-game.

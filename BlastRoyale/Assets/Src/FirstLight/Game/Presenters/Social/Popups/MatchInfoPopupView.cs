@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
@@ -30,6 +31,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private readonly GameModeInfo _entryInfo;
 		private readonly List<string> _friendsPlaying;
 		private readonly Action _clickAction;
+		private EventGameModeEntry _eventEntry => (EventGameModeEntry) _entryInfo.Entry;
 
 		[Q("EventTitle")] private Label _eventTitle;
 		[Q("EventTimer")] private Label _eventTimer;
@@ -49,6 +51,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("AllowedWeaponsContainer")] private VisualElement _allowedWeaponsContainer;
 		[Q("AllowedWeaponsScroll")] private ScrollView _allowedWeapons;
 		[Q("CustomThumbnail")] private VisualElement _customThumbnail;
+
 		public MatchInfoPopupView(GameModeInfo info, Action selectAction)
 		{
 			_clickAction = selectAction;
@@ -90,7 +93,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_mode.SetEnabled(false);
 			_teamSize.SetValue(_matchSettings.TeamSize.ToString());
 			_teamSize.SetEnabled(false);
-			var mapId = (GameId) _matchSettings.MapId;
+			GameId.TryParse<GameId>(_matchSettings.MapId, out var mapId);
 			_map.SetValue(mapId.GetLocalization());
 			_map.SetEnabled(false);
 			_maxPlayers.SetValue(_matchSettings.GetMaxPlayers().ToString());
@@ -124,8 +127,8 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		private void CheckCustomImage()
 		{
-			var url = _entryInfo.Entry.Visual.OverwriteImageURL;
-			if (string.IsNullOrWhiteSpace(_entryInfo.Entry.Visual.OverwriteImageURL))
+			var url = _eventEntry.ImageURL;
+			if (string.IsNullOrWhiteSpace(url))
 			{
 				return;
 			}
@@ -154,16 +157,16 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private void SetupEvent()
 		{
 			_eventTimer.SetTimer(() => _entryInfo.Duration.GetEndsAtDateTime(), "ENDS IN ");
-			_eventTitle.text = _entryInfo.Entry.Visual.TitleTranslationKey.GetText();
-			_summary.text = _entryInfo.Entry.Visual.LongDescriptionTranslationKey.GetText();
+			_eventTitle.text = _entryInfo.Entry.Title.GetText();
+			_summary.text = _entryInfo.Entry.LongDescription.GetText();
 			_actionButton.LocalizationKey = ScriptTerms.UITGameModeSelection.select_event;
 			_actionButton.AddToClassList("button-long--green");
-			
-			if (!string.IsNullOrWhiteSpace(_entryInfo.Entry.Visual.ImageModifier))
+			if (string.IsNullOrWhiteSpace(_eventEntry.ImageURL))
 			{
-				_eventImage.AddToClassList($"event-thumbnail__image--{_entryInfo.Entry.Visual.ImageModifier}");
+				var config = MainInstaller.ResolveServices().GameModeService.GetTeamSizeFor(_eventEntry);
+				_eventImage.AddToClassList($"event-thumbnail__image--{config.EventImageModifierByTeam}");
 			}
-			
+
 			CheckCustomImage();
 			_rewardList.Clear();
 			foreach (var mod in _matchSettings.RewardModifiers)
@@ -204,7 +207,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private void SetupCustom()
 		{
 			_summary.SetDisplay(false);
-			
+
 			_friendsTitle.SetVisibility(_friendsPlaying.Count > 0);
 			_friendsInMatchScrollView.Clear();
 

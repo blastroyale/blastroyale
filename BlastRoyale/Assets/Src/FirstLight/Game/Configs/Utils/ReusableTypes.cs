@@ -36,6 +36,10 @@ namespace FirstLight.Game.Configs.Utils
 		[ShowIf("@!_useLocalization")] [SerializeField]
 		private string _text;
 
+		public string LocalizationTerm => _localizationTerm;
+		public string Text => _text;
+		public bool UseLocalization => _useLocalization;
+
 		public string GetText()
 		{
 			return _useLocalization ? LocalizationManager.GetTranslation(_localizationTerm) : _text;
@@ -63,7 +67,7 @@ namespace FirstLight.Game.Configs.Utils
 	[Serializable]
 	public class DurationConfig
 	{
-		public const string DATE_FORMAT = "dd/MM/yyyy HH:mm";
+		public const string DATE_FORMAT = "dd/MM/yyyy-HH:mm";
 
 		public static DateTime Parse(string datetime)
 		{

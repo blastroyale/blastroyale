@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -43,11 +44,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		private List<QuantumPlayerMatchData> _matchData;
 		private int _executingPlayer;
 
-		private GameModeRotationConfig.GameModeEntry MatchMakingModified = new ()
+		private FixedGameModeEntry MatchMakingModified = new ()
 		{
 			MatchConfig = new SimulationMatchConfig()
 			{
-				ConfigId = "mockedtripletrophies",
+				UniqueConfigId = "mockedtripletrophies",
 				MatchType = MatchType.Matchmaking,
 				GameModeID = "",
 				TeamSize = 1,
@@ -68,20 +69,19 @@ namespace FirstLight.Tests.EditorMode.Logic
 			}
 		};
 
-		private GameModeRotationConfig.GameModeEntry LimitedEvent = new ()
+		private EventGameModeEntry LimitedEvent = new ()
 		{
-			TimedEntry = true,
-			TimedGameModeEntries = new List<DurationConfig>()
+			Schedule = new List<DurationConfig>()
 			{
 				new ()
 				{
-					StartsAt = "20/06/2024 12:35",
-					EndsAt = "20/06/2024 17:35"
+					StartsAt = "20/06/2024-12:35",
+					EndsAt = "20/06/2024-17:35"
 				}
 			},
 			MatchConfig = new SimulationMatchConfig()
 			{
-				ConfigId = "limitedevent",
+				UniqueConfigId = "limitedevent",
 				MatchType = MatchType.Matchmaking,
 				GameModeID = "",
 				TeamSize = 1,
@@ -89,11 +89,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			}
 		};
 
-		private GameModeRotationConfig.GameModeEntry MatchMakingEntry = new ()
+		private FixedGameModeEntry MatchMakingEntry = new ()
 		{
 			MatchConfig = new SimulationMatchConfig()
 			{
-				ConfigId = "mockedmatchmaking",
+				UniqueConfigId = "mockedmatchmaking",
 				MatchType = MatchType.Matchmaking,
 				GameModeID = "",
 				TeamSize = 1,
@@ -102,11 +102,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			}
 		};
 
-		private GameModeRotationConfig.GameModeEntry MatchmakingNoBPP = new ()
+		private FixedGameModeEntry MatchmakingNoBPP = new ()
 		{
 			MatchConfig = new SimulationMatchConfig()
 			{
-				ConfigId = "mockedmatchmakingnobpp",
+				UniqueConfigId = "mockedmatchmakingnobpp",
 				MatchType = MatchType.Matchmaking,
 				GameModeID = "",
 				TeamSize = 1,
@@ -126,27 +126,13 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			_rewardLogic = new RewardLogic(GameLogic, DataService);
 
-			InitConfigData(new GameModeRotationConfig
+			InitRemoteConfigData(new FixedGameModesConfig
 			{
-				Slots = new List<GameModeRotationConfig.SlotWrapper>()
-				{
-					new ()
-					{
-						Entries = new List<GameModeRotationConfig.GameModeEntry>() {MatchMakingEntry}
-					},
-					new ()
-					{
-						Entries = new List<GameModeRotationConfig.GameModeEntry>() {MatchMakingModified}
-					},
-					new ()
-					{
-						Entries = new List<GameModeRotationConfig.GameModeEntry>() {MatchmakingNoBPP}
-					},
-					new ()
-					{
-						Entries = new List<GameModeRotationConfig.GameModeEntry>() {LimitedEvent}
-					}
-				}
+				MatchMakingModified, MatchmakingNoBPP, MatchMakingEntry
+			});
+			InitRemoteConfigData(new EventGameModesConfig()
+			{
+				LimitedEvent
 			});
 			SetupData();
 			_rewardLogic.Init();
@@ -409,7 +395,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_TestLimitedEvent_ValidTime()
 		{
-			var validTime = LimitedEvent.TimedGameModeEntries[0].GetStartsAtDateTime().AddMinutes(30);
+			var validTime = LimitedEvent.Schedule[0].GetStartsAtDateTime().AddMinutes(30);
 			var rewards = SimulateEventWithDate(validTime);
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(10, rewards.Find(data => data.Id == GameId.NOOB).GetMetadata<CurrencyMetadata>().Amount);
@@ -418,11 +404,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_TestLimitedEvent_InvalidTime()
 		{
-			var invalidTime = LimitedEvent.TimedGameModeEntries[0].GetStartsAtDateTime().AddMinutes(-30);
+			var invalidTime = LimitedEvent.Schedule[0].GetStartsAtDateTime().AddMinutes(-30);
 			var rewards = SimulateEventWithDate(invalidTime);
 			Assert.AreEqual(0, rewards.Count);
 
-			invalidTime = LimitedEvent.TimedGameModeEntries[0].GetEndsAtDateTime().AddMinutes(30);
+			invalidTime = LimitedEvent.Schedule[0].GetEndsAtDateTime().AddMinutes(30);
 			rewards = SimulateEventWithDate(invalidTime);
 			Assert.AreEqual(0, rewards.Count);
 		}
@@ -430,11 +416,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_TestLimitedEvent_Buffer()
 		{
-			var validTime = LimitedEvent.TimedGameModeEntries[0].GetStartsAtDateTime().AddMinutes(-5);
+			var validTime = LimitedEvent.Schedule[0].GetStartsAtDateTime().AddMinutes(-5);
 			var rewards = SimulateEventWithDate(validTime);
 			Assert.AreEqual(3, rewards.Count);
 
-			validTime = LimitedEvent.TimedGameModeEntries[0].GetEndsAtDateTime().AddMinutes(5);
+			validTime = LimitedEvent.Schedule[0].GetEndsAtDateTime().AddMinutes(5);
 			rewards = SimulateEventWithDate(validTime);
 			Assert.AreEqual(3, rewards.Count);
 		}
@@ -535,7 +521,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			_matchData = new List<QuantumPlayerMatchData> {new ()};
 			SetPlayerRank(1, 10);
 
-			InitConfigData(new QuantumMapConfig {Map = (GameId) _matchData[_executingPlayer].MapId});
+			InitConfigData(new QuantumMapConfig {Map = Enum.Parse<GameId>(_matchData[_executingPlayer].MapId)});
 
 			InitConfigData(new QuantumGameConfig
 				{TrophiesPerKill = FP._1_50, TrophyEloK = 4, TrophyEloRange = 400, TrophyMinChange = FP._0_05});
@@ -544,7 +530,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			{
 				SecondMatch = new SimulationMatchConfig()
 				{
-					ConfigId = "tutorial"
+					UniqueConfigId = "tutorial"
 				}
 			});
 			InitConfigData(config => config.Placement,
@@ -624,7 +610,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 				_matchData.Add(new QuantumPlayerMatchData
 				{
 					PlayerRank = (uint) i,
-					Data = data
+					Data = data,
+					MapId = GameId.Any.ToString()
 				});
 				_executingPlayer = rank - 1;
 			}

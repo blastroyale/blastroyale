@@ -6,7 +6,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Data.Config;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;

@@ -24,12 +24,12 @@ namespace FirstLight.Game.Data
 		{
 			return new SimulationMatchConfig
 			{
-				MapId = (int) Enum.Parse<GameId>(MapID),
+				MapId = MapID,
 				GameModeID = GameModeID,
 				MatchType = MatchType.Custom,
 				Mutators = Mutators,
 				MaxPlayersOverwrite = MaxPlayers,
-				HasBots = BotDifficulty > 0,
+				DisableBots = BotDifficulty == 0,
 				BotOverwriteDifficulty = BotDifficulty,
 				TeamSize = SquadSize,
 				WeaponsSelectionOverwrite = WeaponFilter.ToArray()

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DG.DemiEditor;
 
 namespace FirstLight.Game.Data.Config
 {

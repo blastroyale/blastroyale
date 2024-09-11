@@ -155,7 +155,7 @@ namespace FirstLight.Game.Logic
 
 		public static bool TryGetRewardCurrencyGroupId(GameId rewardId, out GameId groupId)
 		{
-			if (rewardId.IsInGroup(GameIdGroup.NOOBTokens))
+			if (rewardId.IsInGroup(GameIdGroup.NOOBRareTokens))
 			{
 				groupId = GameId.NOOB;
 				return true;

@@ -262,7 +262,7 @@ namespace FirstLight.Game.Presenters.Store
 
 		private bool IsValidCreatorCode(string creatorCode)
 		{
-			if (_data.AppDataProvider.TitleData.TryGetValue("ACTIVE_CREATORS_CODE", out var activeCreatorsCode))
+			if (_gameServices.GameAppService.AppData.TryGetValue("ACTIVE_CREATORS_CODE", out var activeCreatorsCode))
 			{
 				if (!string.IsNullOrEmpty(activeCreatorsCode))
 				{

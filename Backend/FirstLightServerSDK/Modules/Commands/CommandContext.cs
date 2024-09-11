@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using FirstLight.Server.SDK.Models;
+using FirstLightServerSDK.Services;
 
 namespace FirstLight.Server.SDK.Modules.Commands
 {
@@ -9,13 +11,13 @@ namespace FirstLight.Server.SDK.Modules.Commands
 	/// </summary>
 	public class ObjectContainer
 	{
-		private Dictionary<Type, object> _objects = new ();
+		private Dictionary<Type, object> _objects = new();
 
 		public void Add<T>(T o)
 		{
 			_objects[typeof(T)] = o;
 		}
-		
+
 		public T? Get<T>() where T : class
 		{
 			return _objects[typeof(T)] as T;
@@ -25,12 +27,16 @@ namespace FirstLight.Server.SDK.Modules.Commands
 	/// <summary>
 	/// Type holder to reference all game logic objects
 	/// </summary>
-	public class LogicContainer : ObjectContainer {}
+	public class LogicContainer : ObjectContainer
+	{
+	}
 
 	/// <summary>
 	/// Type holder to reference all game service objects
 	/// </summary>
-	public class ServiceContainer : ObjectContainer {}
+	public class ServiceContainer : ObjectContainer
+	{
+	}
 
 	/// <summary>
 	/// Represents the context of a command execution on a given time
@@ -48,5 +54,4 @@ namespace FirstLight.Server.SDK.Modules.Commands
 			Data = data;
 		}
 	}
-
 }

@@ -38,7 +38,10 @@ namespace Quantum
         public void Move(Frame f, EntityRef entity, FPVector2 direction)
         {
             // TODO: Optimize by removing detailed info on collisions
-            var movement = _settings.ComputeRawMovement(f, entity, direction, f.Context.TargetMapAndPlayersMask, QueryOptions.ComputeDetailedInfo | QueryOptions.HitAll);
+            var isBot = f.Has<BotCharacter>(entity);
+            var layer = isBot ? f.Context.TargetPlayerTriggersLayerIndex : f.Context.TargetMapAndPlayersMask;
+            var flags = isBot ? QueryOptions.HitDynamics : QueryOptions.ComputeDetailedInfo | QueryOptions.HitAll;
+            var movement = _settings.ComputeRawMovement(f, entity, direction, layer, flags);
             _settings.SteerAndMove(f, entity, movement);
         }
     }
@@ -53,7 +56,7 @@ namespace Quantum
         public readonly FP Acceleration = FP._10 * 8;
         public readonly Boolean Debug = false;
         public readonly FP Brake = FP._10 * 8;
-        public readonly Shape2D PlayerFeetShape = Shape2D.CreateCircle(FP._0_20 + FP._0_20); 
+        public readonly Shape2D PlayerFeetShape = Shape2D.CreateCircle(FP._0_20 + FP._0_20 + FP._0_10); 
         
         public void Init(ref TopDownController kcc)
         {

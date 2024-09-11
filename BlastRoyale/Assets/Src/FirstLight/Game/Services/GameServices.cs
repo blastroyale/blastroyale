@@ -238,7 +238,7 @@ namespace FirstLight.Game.Services
 			LeaderboardService = new LeaderboardsService(this);
 			ControlsSetup = new ControlSetupService();
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
-				GameBackendService, ConfigsProvider, LocalPrefsService);
+				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 

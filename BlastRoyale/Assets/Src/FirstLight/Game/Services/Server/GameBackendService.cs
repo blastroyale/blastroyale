@@ -368,7 +368,7 @@ namespace FirstLight.Game.Services
 
 		public bool IsGameInMaintenance()
 		{
-			var titleData = _dataService.GetData<AppData>().TitleData;
+			var titleData = _services.GameAppService.AppData;
 
 			return titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) &&
 				VersionUtils.IsOutdatedVersion(version);
@@ -383,7 +383,7 @@ namespace FirstLight.Game.Services
 
 		public string GetTitleVersion()
 		{
-			var titleData = _dataService.GetData<AppData>().TitleData;
+			var titleData = _services.GameAppService.AppData;
 
 			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
 			{

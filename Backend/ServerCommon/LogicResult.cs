@@ -11,7 +11,10 @@ namespace FirstLight.Game.Logic
 	[Serializable]
 	public class BackendErrorResult : BackendLogicResult
 	{
+		/// Error code for the response
 		public Exception Error;
+
+		public int ErrorCode;
 	}
 	
 	/// <summary>
@@ -34,6 +37,7 @@ namespace FirstLight.Game.Logic
 		/// Extra Data to return back to the client executed from the logic request
 		/// </summary>
 		public Dictionary<string, string> Data;
+
 	}
 
 }

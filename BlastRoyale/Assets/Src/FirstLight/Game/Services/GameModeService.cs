@@ -4,6 +4,8 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
@@ -23,12 +25,12 @@ namespace FirstLight.Game.Services
 {
 	public struct GameModeInfo
 	{
-		public GameModeRotationConfig.GameModeEntry Entry;
+		public IGameModeEntry Entry;
 		public DurationConfig Duration;
 
 		public bool IsFixed => Duration == null;
 
-		public GameModeInfo(GameModeRotationConfig.GameModeEntry entry, DurationConfig duration = null)
+		public GameModeInfo(IGameModeEntry entry, DurationConfig duration = null)
 		{
 			Entry = entry;
 			Duration = duration;
@@ -36,7 +38,7 @@ namespace FirstLight.Game.Services
 
 		public string GetKey()
 		{
-			return Entry.MatchConfig.ConfigId + ":" + Duration?.StartsAt + ":" + Duration?.EndsAt;
+			return Entry.MatchConfig.UniqueConfigId + ":" + Duration?.StartsAt + ":" + Duration?.EndsAt;
 		}
 
 		public override string ToString()
@@ -54,7 +56,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Sets up the initial game mode rotation values - must be called after configs are loaded.
 		/// </summary>
-		void Init(GameModeRotationConfig config = default);
+		void Init();
 
 		/// <summary>
 		/// The currently selected GameMode.
@@ -75,24 +77,10 @@ namespace FirstLight.Game.Services
 		/// Provides a list of currently available game modes which is automatically updated when
 		/// rotating game modes change.
 		/// </summary>
-		IObservableListReader<GameModeInfo> Slots { get; }
+		IReadOnlyList<GameModeInfo> Slots { get; }
 
-		/// <summary>
-		/// Checks if a given game-mode is a valid entry for the rotation.
-		/// Dates could be different hence not using `GameModeInfo` object as the same game mode
-		/// in different "seasons" might apply.
-		/// </summary>
-		bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode);
-
-		/// <summary>
-		/// Gets the current map in the given game mode rotation
-		/// </summary>
-		QuantumMapConfig GetRotationMapConfig(string gameModeId);
-
-		/// <summary>
-		/// Returns the closer event in the configs 
-		/// </summary>
-		public bool TryGetNextEvent(out GameModeInfo next);
+		TeamSizeConfig GetTeamSizeFor(IGameModeEntry entry);
+		TeamSizeConfig GetTeamSizeFor(SimulationMatchConfig simulationMatchConfig);
 	}
 
 	/// <inheritdoc cref="IGameModeService"/>
@@ -105,7 +93,7 @@ namespace FirstLight.Game.Services
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly IRemoteTextureService _remoteTextureService;
 
-		private readonly IObservableList<GameModeInfo> _slots;
+		private readonly List<GameModeInfo> _slots;
 		private GameId _selectedMap;
 
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
@@ -134,7 +122,7 @@ namespace FirstLight.Game.Services
 				{
 					foreach (var mapId in gameModeConfig.AllowedMaps)
 					{
-						var mapConfig = _configsProvider.GetConfig<QuantumMapConfig>((int) mapId);
+						var mapConfig = _configsProvider.GetConfig<QuantumMapConfig>(mapId.ToString());
 						if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
 						{
 							validMaps.Add(mapId);
@@ -146,8 +134,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public IObservableListReader<GameModeInfo> Slots => _slots;
-
 		public GameModeService(IConfigsProvider configsProvider, IFLLobbyService lobbyService,
 							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService, IMessageBrokerService msgBroker)
 		{
@@ -157,53 +143,65 @@ namespace FirstLight.Game.Services
 			_localPrefsService = localPrefsService;
 			_remoteTextureService = remoteTextureService;
 
-			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe(OnGameModeSet);
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyChanged;
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnPartyLocalLobbyJoined;
 		}
 
-		public void Init(GameModeRotationConfig config = default)
+		public void Init()
 		{
-			if (config.Slots == null)
+			foreach (var uniqueUrls in Slots.Where(slot => slot.Entry is EventGameModeEntry).Select(slot => ((EventGameModeEntry) slot.Entry).ImageURL).Distinct())
 			{
-				config = _configsProvider.GetConfig<GameModeRotationConfig>();
+				if (uniqueUrls == null) continue;
+				_remoteTextureService.RequestTexture(uniqueUrls).Forget();
 			}
 
-			_slots.Clear();
-			// Initially add empty objects which get updated by RefreshGameModes
-			for (var i = 0; i < config.Slots.Count; i++)
+			CheckEventEnd().Forget();
+			if (!string.IsNullOrEmpty(_localPrefsService.SelectedGameMode.Value))
 			{
-				_slots.Add(default);
-			}
-
-			RefreshGameModes(true);
-
-			// Try to set the saved game mode
-			var lastGameMode = _localPrefsService.SelectedGameMode.Value;
-			if (!string.IsNullOrEmpty(lastGameMode))
-			{
-				foreach (var gm in _slots)
+				var configId = _localPrefsService.SelectedGameMode.Value;
+				var firstOrDefault = Slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == configId && IsInRotation(a.Entry));
+				if (firstOrDefault.Entry != null)
 				{
-					if (gm.Entry.MatchConfig == null) continue;
-					if (gm.Entry.MatchConfig.ConfigId == lastGameMode && IsInRotation(gm.Entry))
+					SelectedGameMode.Value = firstOrDefault;
+					return;
+				}
+			}
+			this.SelectDefaultRankedMode();
+		}
+
+		public async UniTaskVoid CheckEventEnd()
+		{
+			while (true)
+			{
+				await UniTask.WaitForSeconds(5);
+				if (!IsInRotation(SelectedGameMode.Value.Entry))
+				{
+					if (_lobbyService.CurrentPartyLobby != null && _lobbyService.CurrentPartyLobby.IsLocalPlayerHost())
 					{
-						FLog.Verbose($"Restored selected game mode to: {lastGameMode}");
-						SelectedGameMode.Value = gm;
-						return;
+						AutoSelectGameModeForTeamSize(_lobbyService.CurrentPartyLobby.Players.Count, true);
+					}
+
+					if (_lobbyService.CurrentPartyLobby == null)
+					{
+						AutoSelectGameModeForTeamSize(1, true);
 					}
 				}
 			}
-
-			this.SelectDefaultRankedMode();
 		}
 
 		private void OnGameModeSet(GameModeInfo _, GameModeInfo current)
 		{
+			if (current.Entry == null)
+			{
+				_localPrefsService.SelectedGameMode.Value = null;
+				return;
+			}
+
 			FLog.Info($"Selected GameMode set to: {current}");
 
-			_localPrefsService.SelectedGameMode.Value = current.Entry.MatchConfig.ConfigId;
+			_localPrefsService.SelectedGameMode.Value = current.Entry.MatchConfig.UniqueConfigId;
 			if (_appDataProvider.IsPlayerLoggedIn)
 			{
 				MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
@@ -212,7 +210,7 @@ namespace FirstLight.Game.Services
 			if (_lobbyService.CurrentPartyLobby != null && _lobbyService.CurrentPartyLobby.IsLocalPlayerHost())
 			{
 				// TODO: Should wait for this or something
-				_lobbyService.UpdatePartyMatchmakingGameMode(current.Entry.MatchConfig.ConfigId).Forget();
+				_lobbyService.UpdatePartyMatchmakingGameMode(current.Entry.MatchConfig.UniqueConfigId).Forget();
 			}
 		}
 
@@ -221,7 +219,7 @@ namespace FirstLight.Game.Services
 			if (!lobby.IsLocalPlayerHost())
 			{
 				SelectedGameMode.Value =
-					_slots.FirstOrDefault(a => a.Entry.MatchConfig.ConfigId == lobby.Data[FLLobbyService.KEY_MATCHMAKING_GAMEMODE].Value);
+					_slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == lobby.Data[FLLobbyService.KEY_MATCHMAKING_GAMEMODE].Value);
 			}
 		}
 
@@ -231,7 +229,7 @@ namespace FirstLight.Game.Services
 
 			if (changes.Data.Changed && changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCHMAKING_GAMEMODE, out var gameModeConfig))
 			{
-				SelectedGameMode.Value = _slots.FirstOrDefault(a => a.Entry.MatchConfig.ConfigId == gameModeConfig.Value.Value);
+				SelectedGameMode.Value = _slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == gameModeConfig.Value.Value);
 			}
 
 			if (_lobbyService.CurrentPartyLobby.IsLocalPlayerHost() && (changes.PlayerJoined.Changed || changes.PlayerLeft.Changed))
@@ -240,149 +238,81 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode)
+		public bool IsInRotation(IGameModeEntry gameMode)
 		{
-			if (!gameMode.TimedEntry)
+			if (gameMode is FixedGameModeEntry)
 			{
 				return true;
 			}
 
-			var now = DateTime.UtcNow;
-			return gameMode.TimedGameModeEntries.Any(a => a.Contains(now));
-		}
-
-		/// <summary>
-		/// Returns the current map in rotation, used for creating rooms with maps in rotation
-		/// </summary>
-		public QuantumMapConfig GetRotationMapConfig(string gameModeId)
-		{
-			var services = MainInstaller.ResolveServices();
-			var gameModeConfig = services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
-			var compatibleMaps = new List<QuantumMapConfig>();
-			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
-			var timeSegmentIndex =
-				Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.Balance.MAP_ROTATION_TIME_MINUTES);
-
-			var mapConfigs = services.ConfigsProvider.GetConfigsDictionary<QuantumMapConfig>();
-
-			foreach (var mapId in gameModeConfig.AllowedMaps)
+			if (gameMode is EventGameModeEntry ev)
 			{
-				if (!mapConfigs.TryGetValue((int) mapId, out var mapConfig))
-				{
-					FLog.Error($"Could not find map config for map {mapId} - maybe outdated AppData ?");
-					continue;
-				}
-
-				if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
-				{
-					compatibleMaps.Add(mapConfig);
-				}
+				var now = DateTime.UtcNow;
+				return ev.Schedule.Any(a => a.Contains(now));
 			}
 
-			if (timeSegmentIndex >= compatibleMaps.Count)
-			{
-				timeSegmentIndex %= compatibleMaps.Count;
-			}
-
-			return compatibleMaps[timeSegmentIndex];
+			return false;
 		}
 
 		private void AutoSelectGameModeForTeamSize(int size, bool forceMinSize = false)
 		{
-			if (SelectedGameMode.Value.Entry.TeamSize >= size && !forceMinSize)
+			if (SelectedGameMode.Value.Entry != null && SelectedGameMode.Value.Entry.MatchConfig.TeamSize >= size && !forceMinSize)
 			{
 				// Already have a proper selected gamemode
 				return;
 			}
 
-			var firstThatFits = _slots
-				.Where(a => a.Entry.MatchConfig != null && IsInRotation(a.Entry))
-				.OrderBy(g => g.Entry.TeamSize)
-				.First(g => g.Entry.TeamSize >= size);
+			var firstThatFits = Slots
+				.Where(a => a.Entry.MatchConfig != null && a.Entry is FixedGameModeEntry)
+				.OrderBy(g => g.Entry.MatchConfig.TeamSize)
+				.First(g => g.Entry.MatchConfig.TeamSize >= size);
 
 			SelectedGameMode.Value = firstThatFits;
 		}
 
-		private void RefreshGameModes(bool forceAll)
+		public IReadOnlyList<GameModeInfo> Slots
 		{
-			for (var i = 0; i < _slots.Count; i++)
+			get
 			{
-				var slot = _slots[i];
-				if (forceAll || !slot.IsFixed && slot.Duration.GetEndsAtDateTime() < DateTime.UtcNow)
+				var data = MainInstaller.ResolveData().RemoteConfigProvider;
+				var slots = new List<GameModeInfo>();
+				var eventSlots = data.GetConfig<EventGameModesConfig>();
+				if (TryGetNextEvent(eventSlots, out var foundEvent, out var foundDuration))
 				{
-					RefreshSlot(i);
+					slots.Add(new GameModeInfo(foundEvent, foundDuration));
 				}
-			}
-		}
 
-		private void RefreshSlot(int index)
-		{
-			if (!TryGetGameMode(index, out var entry, out var duration))
-			{
-				_slots[index] = default;
-				return;
-			}
-
-			var info = new GameModeInfo(entry, duration);
-			_slots[index] = info;
-
-			FLog.Info($"GameMode in slot {index} refreshed to {info.ToString()}");
-
-			if (!info.IsFixed)
-			{
-				var diff = (duration.GetEndsAtDateTime() - DateTime.UtcNow).Add(TimeSpan.FromSeconds(1));
-				UpdateGameModes(diff).Forget();
-			}
-
-			// Cache gamemode image on game load
-			if (!string.IsNullOrWhiteSpace(info.Entry.Visual.OverwriteImageURL))
-			{
-				_remoteTextureService.RequestTexture(info.Entry.Visual.OverwriteImageURL).Forget();
-			}
-		}
-
-		private async UniTaskVoid UpdateGameModes(TimeSpan delay)
-		{
-			await UniTask.Delay(delay);
-			RefreshGameModes(false);
-		}
-
-		public bool TryGetNextEvent(out GameModeInfo next)
-		{
-			for (var i = 0; i < _slots.Count; i++)
-			{
-				if (TryGetGameMode(i, out var entry, out var duration))
+				var fixedSlots = data.GetConfig<FixedGameModesConfig>();
+				foreach (var fixedGameModeEntry in fixedSlots)
 				{
-					if (entry.TimedEntry)
-					{
-						next = new GameModeInfo() {Duration = duration, Entry = entry};
-						return true;
-					}
+					slots.Add(new GameModeInfo(fixedGameModeEntry));
 				}
-			}
 
-			next = default;
-			return false;
+				return slots;
+			}
 		}
 
-		private bool TryGetGameMode(
-			int slotIndex, out GameModeRotationConfig.GameModeEntry entry, out DurationConfig duration)
+		public TeamSizeConfig GetTeamSizeFor(IGameModeEntry entry)
 		{
-			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
+			var fixedConfig = MainInstaller.ResolveData().RemoteConfigProvider.GetConfig<MatchmakingQueuesConfig>();
+			return fixedConfig[entry.MatchConfig.TeamSize.ToString()];
+		}
+
+		public TeamSizeConfig GetTeamSizeFor(SimulationMatchConfig simulationMatchConfig)
+		{
+			var fixedConfig = MainInstaller.ResolveData().RemoteConfigProvider.GetConfig<MatchmakingQueuesConfig>();
+			return fixedConfig[simulationMatchConfig.TeamSize.ToString()];
+		}
+
+		private bool TryGetNextEvent(EventGameModesConfig config, out IGameModeEntry entry, out DurationConfig duration)
+		{
 			var now = DateTime.UtcNow;
 
-			GameModeRotationConfig.GameModeEntry closest = default;
+			EventGameModeEntry closest = default;
 			DurationConfig closestDate = null;
-			foreach (var gameModeEntry in config.Slots[slotIndex].Entries)
+			foreach (var gameModeEntry in config)
 			{
-				if (!gameModeEntry.TimedEntry)
-				{
-					duration = null;
-					entry = gameModeEntry;
-					return true;
-				}
-
-				foreach (var timedGameModeEntry in gameModeEntry.TimedGameModeEntries)
+				foreach (var timedGameModeEntry in gameModeEntry.Schedule)
 				{
 					if (timedGameModeEntry.Contains(now))
 					{

@@ -6,6 +6,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -200,7 +201,6 @@ namespace FirstLight.Game.Presenters
 		private SeasonConfig GetViewingSeasonConfig()
 		{
 			return _services.LeaderboardService.GetConfigs().GetConfig(_viewingBoard).GetSeason(_viewingSeason);
-			;
 		}
 
 		private bool HasSeasonConfig()

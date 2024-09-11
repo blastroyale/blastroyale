@@ -9,7 +9,7 @@ namespace FirstLight.Server.SDK.Modules.Commands
 		/// Target player of the commmand, not to be confused with the player running the command
 		/// </summary>
 		public static readonly string PlayerId = nameof(PlayerId);
-		
+
 		/// <summary>
 		/// The command type to be executed
 		/// </summary>
@@ -33,6 +33,11 @@ namespace FirstLight.Server.SDK.Modules.Commands
 		/// <summary>
 		/// Field that represents the client configuration version
 		/// </summary>
-		public static readonly string ConfigurationVersion = nameof(ConfigurationVersion);
+		public static readonly string ServerConfigurationVersion = nameof(ServerConfigurationVersion);
+
+		/// <summary>
+		/// Field that represents the client configuration version
+		/// </summary>
+		public static readonly string ErrorCode = nameof(ErrorCode);
 	}
 }

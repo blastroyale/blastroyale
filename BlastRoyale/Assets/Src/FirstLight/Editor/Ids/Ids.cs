@@ -44,6 +44,7 @@ namespace FirstLight.Editor.Ids
 			Core = 22,
 			IAP = 23,
 			GenericCollectionItem = 39,
+			NOOBTokens = 40,
 
 
 			#region CollectionGroup
@@ -68,7 +69,9 @@ namespace FirstLight.Editor.Ids
 			{"BlastBuck", 105, Currency},
 			{"BLST", 14, Currency},
 			{"Fragments", 112, Currency, Deprecated},
-			{"NOOB", 209, Currency},
+			{"NOOB", 209, Currency, NOOBTokens},
+			{"NOOBGolden", 249, Collectable, NOOBTokens},
+			{"NOOBRainbow", 250, Collectable, NOOBTokens},
 			{"CS", 12, Currency, ResourcePool},
 			{"XP", 3, Resource},
 			{"Trophies", 22, Resource},
@@ -261,7 +264,6 @@ namespace FirstLight.Editor.Ids
 			{"Demon", 25, DeathMarker, BotItem, Collection},
 			{"Superstar", 75, DeathMarker, BotItem, Collection},
 			{"Unicorn", 76, DeathMarker, BotItem, Collection},
-
 			#endregion
 
 			#region MeleeSkins

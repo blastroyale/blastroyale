@@ -94,9 +94,12 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = newName => OnNameSet(newName).Forget()
 			};
 
+			var emptyInputText = !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT) &&
+			!_services.TutorialService.HasCompletedTutorial();
+			
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name,
 				ScriptLocalization.UITHomeScreen.new_name_desc,
-				AuthenticationService.Instance.GetPlayerName(true, false),
+				emptyInputText ? "" : AuthenticationService.Instance.GetPlayerName(true, false),
 				confirmButton, false);
 		}
 

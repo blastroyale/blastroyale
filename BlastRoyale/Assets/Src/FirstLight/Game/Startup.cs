@@ -176,16 +176,17 @@ namespace FirstLight.Game
 			dataService.LoadData<AppData>();
 			var assetResolver = new AssetResolverService();
 			var configsProvider = new ConfigsProvider();
+			var serverConfigProvider = new UnityRemoteConfigProvider();
 			var networkService = new GameNetworkService(configsProvider);
 
-			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider);
+			var gameLogic = new GameLogic(messageBroker, serverConfigProvider, timeService, dataService, configsProvider);
+			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider, gameLogic, assetResolver);
 
 			networkService.StartNetworking(gameLogic, gameServices);
 			networkService.EnableQuantumPingCheck(true);
 
 			MainInstaller.Bind<IWeb3Service>(new NoWeb3());
-			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
 			MainInstaller.Bind<IGameStateMachine>(new GameStateMachine(gameLogic, gameServices, networkService, assetResolver));
 

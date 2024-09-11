@@ -13,7 +13,7 @@ namespace FirstLight.Editor.Inspector
 {
 	public class MetaItemDropOverwriteProcessor : OdinAttributeProcessor<MetaItemDropOverwrite>
 	{
-		private static IEnumerable<GameId> ValidMetaItems = new[] {GameId.NOOB, GameId.COIN, GameId.BPP, GameId.BlastBuck};
+		private static IEnumerable<GameId> ValidMetaItems = new[] {GameId.NOOB, GameId.COIN, GameId.BPP, GameId.BlastBuck, GameId.NOOBGolden, GameId.NOOBRainbow};
 
 		public override void ProcessChildMemberAttributes(InspectorProperty parentProperty, MemberInfo member, List<Attribute> attributes)
 		{
@@ -73,7 +73,7 @@ namespace FirstLight.Editor.Inspector
 					attributes.Add(new ValueDropdownAttribute($"@{className}.{nameof(GetMaxPlayersOverwrite)}()"));
 					break;
 				}
-				case nameof(SimulationMatchConfig.ConfigId):
+				case nameof(SimulationMatchConfig.UniqueConfigId):
 				{
 					attributes.Add(new ReadOnlyAttribute());
 					break;
@@ -92,13 +92,13 @@ namespace FirstLight.Editor.Inspector
 			return values;
 		}
 
-		public static ValueDropdownList<int> GetMapIds()
+		public static ValueDropdownList<string> GetMapIds()
 		{
-			var gms = new ValueDropdownList<int>();
-			gms.Add("Any", GameId.Any.GetHashCode());
+			var gms = new ValueDropdownList<string>();
+			gms.Add("Any", GameId.Any.ToString());
 			foreach (var gm in GameConfigsLoader.EditorConfigProvider.GetProvider().GetConfigsList<QuantumMapConfig>())
 			{
-				gms.Add(gm.Map.ToString(), gm.Map.GetHashCode());
+				gms.Add(gm.Map.ToString(), gm.Map.ToString());
 			}
 
 			return gms;

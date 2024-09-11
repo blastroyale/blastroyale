@@ -38,27 +38,27 @@ namespace Quantum
 		
 		public List<QuantumShrinkingCircleConfig> QuantumConfigs = new List<QuantumShrinkingCircleConfig>();
 		
-		private IDictionary<int, IDictionary<int, QuantumShrinkingCircleConfig>> _dictionary;
+		private IDictionary<string, IDictionary<int, QuantumShrinkingCircleConfig>> _dictionary;
 
 		/// <summary>
 		/// Requests the <see cref="QuantumMapConfig"/> from it's <paramref name="id"/>
 		/// </summary>
-		public IDictionary<int, QuantumShrinkingCircleConfig> GetConfigs(int mapId)
+		public IDictionary<int, QuantumShrinkingCircleConfig> GetConfigs(string mapId)
 		{
 			if (_dictionary == null)
 			{
 				lock (_lock)
 				{
-					var dictionary = new Dictionary<int, IDictionary<int, QuantumShrinkingCircleConfig>>();
+					var dictionary = new Dictionary<string, IDictionary<int, QuantumShrinkingCircleConfig>>();
 					foreach (var config in QuantumConfigs)
 					{
-						if (!dictionary.ContainsKey((int)config.Map))
+						if (!dictionary.ContainsKey(config.Map.ToString()))
 						{
-							dictionary.Add((int)config.Map, new Dictionary<int, QuantumShrinkingCircleConfig>());
+							dictionary.Add(config.Map.ToString(), new Dictionary<int, QuantumShrinkingCircleConfig>());
 						}
 
 						// We do -1 here so dictionary keys can acts as indexes, starting from 0 (as steps in configs start with 1)
-						dictionary[(int)config.Map].Add(config.Step - 1, config);
+						dictionary[config.Map.ToString()].Add(config.Step - 1, config);
 						_dictionary = dictionary;
 					}
 				}

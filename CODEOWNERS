@@ -1,4 +1,4 @@
-@@@ServerNerds @"Carlos" @"Gabriel" @"Miha Krajnc"
+@@@ServerNerds @"Carlos" @"Gabriel"
 
 Quantum/ @@ServerNerds
 
@@ -9,10 +9,6 @@ BlastRoyale/Assets/AddressableResources/Configs/ @@ServerNerds
 BlastRoyale/Assets/Src/FirstLight/Game/Utils/NetworkUtils.cs @@ServerNerds
 BlastRoyale/Assets/Src/FirstLight/Game/StateMachines/NetworkState.cs @@ServerNerds
 BlastRoyale/Assets/Libs/Photon/ @@ServerNerds
-BlastRoyale/Assets/Art/UI/ @"Miha Krajnc"
-BlastRoyale/Assets/Src/FirstLight/Game/Presenter/ @"Miha Krajnc"
-BlastRoyale/Assets/Src/FirstLight/Game/Views/UITK/ @"Miha Krajnc"
-BlastRoyale/Assets/Src/FirstLight/Game/UIElements/ @"Miha Krajnc"
 
 Pipelines/ @"Carlos"
 

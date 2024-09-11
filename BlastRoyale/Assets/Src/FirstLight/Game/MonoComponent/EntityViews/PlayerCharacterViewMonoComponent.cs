@@ -34,7 +34,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
 		private const float SPEED_THRESHOLD_SQUARED = 0.45f * 0.45f; // unity units per second	
 		private const float KNOCKED_OUT_SPEED_THRESHOLD_SQUARED = 0.1f * 0.1f; // unity units per second	
-
+		private Vector3 _clientPredictionDirection;
+		
 		/// <summary>
 		/// Deprecated, should be removed.
 		/// This is only used for buildings.
@@ -121,9 +122,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var move = EntityRef.GetKccMoveDirection(f);
 			var kcc = f.Unsafe.GetPointer<TopDownController>(EntityRef);
 			
-			if (f.Has<BotCharacter>(EntityRef) && kcc->Velocity == FPVector2.Zero)
+			if (f.Has<BotCharacter>(EntityRef))
 			{
-				aiming = true; // so static bot rotates
+				move = _clientPredictionDirection.ToFPVector2();
 			}
 			
 			// Wait to rotate a bit after attack for smoother animation
@@ -442,6 +443,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				case GameId.ShieldLarge:
 				case GameId.ShieldSmall:
 				case GameId.NOOB:
+				case GameId.NOOBRainbow:
+				case GameId.NOOBGolden:
 					PlayCollectionVfx(VfxId.ShieldPickupFx, callback);
 					return;
 				case GameId.COIN:
@@ -631,6 +634,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var knockedOut = ReviveSystem.IsKnockedOut(f, EntityRef);
 			var currentPosition = transform.position;
 			var deltaPosition = currentPosition - _lastPosition;
+			_clientPredictionDirection = deltaPosition.normalized;
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 			var moveDir = EntityRef.GetKccMoveDirection(f);
 			var minSpeed = (ReviveSystem.IsKnockedOut(f, EntityRef) ? KNOCKED_OUT_SPEED_THRESHOLD_SQUARED : SPEED_THRESHOLD_SQUARED);

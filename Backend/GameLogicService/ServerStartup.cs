@@ -66,6 +66,7 @@ namespace Backend
 			services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();
 			services.AddSingleton<UnityAuthService>();
 			services.AddSingleton<UnityCloudService>();
+			services.AddSingleton<IRemoteConfigService, UnityRemoteConfigService>();
 			services.AddHttpClient();
 			services.AddSingleton<IEventManager, PluginEventManager>(p =>
 			{
@@ -86,22 +87,8 @@ namespace Backend
 			var log = services.GetService<ILogger>();
 			var env = services.GetService<IBaseServiceConfiguration>();
 			log.LogInformation("Build commit number is " + env.BuildCommit);
-
 			services.GetService<IPlayfabServer>();
-
-			if (!env.RemoteGameConfiguration)
-			{
-				return new EmbeddedConfigProvider();
-			}
-
-			log.Log(LogLevel.Information, "Downloading remote configurations");
-			var cfgBackend = services.GetService<IConfigBackendService>();
-			var task = cfgBackend.GetRemoteVersion();
-			task.Wait();
-			var version = task.Result;
-			var task2 = cfgBackend.FetchRemoteConfiguration(version);
-			task2.Wait();
-			return task2.Result;
+			return new EmbeddedConfigProvider();
 		}
 	}
 }

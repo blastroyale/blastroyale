@@ -203,7 +203,7 @@ namespace FirstLight.Game.Services.RoomService
 		}
 
 		public QuantumGameModeConfig GetGameModeConfig(string gameModeId) => _configsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
-		public QuantumMapConfig GetMapConfig(int mapId) => _configsProvider.GetConfig<QuantumMapConfig>(mapId);
+		public QuantumMapConfig GetMapConfig(string mapId) => _configsProvider.GetConfig<QuantumMapConfig>(mapId);
 
 		/// <summary>
 		/// Used for joining custom games

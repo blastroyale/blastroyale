@@ -186,7 +186,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 
 		private void RefreshGameMode(GameModeInfo _, GameModeInfo modeInfo)
 		{
-			_gamemodeHeader.text = modeInfo.Entry.Visual.TitleTranslationKey.GetText();
+			_gamemodeHeader.text = modeInfo.Entry.Title.GetText();
 		}
 
 		private void RefreshData()

@@ -10,25 +10,24 @@ namespace Quantum.Systems
 		public LandMine* LandMine;
 	}
 
-	public unsafe class LandMineSystem : SystemMainThreadFilter<LandMineFilter>, ISignalOnTriggerEnter2D, ISignalUseGenericSpecial
+	public unsafe class LandMineSystem : SystemMainThreadFilter<LandMineFilter>, ISignalUseGenericSpecial, ISignalOnFeetCollisionEnter
 	{
 		private FP timeToExplode = FP._1;
 		private uint knockBack = 3;
-
-
-		public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
+		
+		public void OnFeetCollisionEnter(Frame f, EntityRef entity, EntityRef collidedWith, FPVector2 point)
 		{
-			if (!f.Unsafe.TryGetPointer<LandMine>(info.Entity, out var landMine) ||
-				!f.Unsafe.TryGetPointer<Stats>(info.Other, out var damaged)) return;
+			if (!f.Unsafe.TryGetPointer<LandMine>(collidedWith, out var landMine) ||
+				!f.Unsafe.TryGetPointer<Stats>(entity, out var damaged)) return;
 
 			if (landMine->TriggerableAfter == FP._0 || landMine->TriggerableAfter > f.Time) return;
 			
 			// The owner can't trigger the landmine
-			if (landMine->Owner == info.Other) return;
+			if (landMine->Owner == entity) return;
 			
 			// Teammates can't trigger the landmine too
 			if (f.Unsafe.TryGetPointer<Targetable>(landMine->Owner, out var ownerTeam)
-				&& f.Unsafe.TryGetPointer<Targetable>(info.Other, out var collidedTeam))
+				&& f.Unsafe.TryGetPointer<Targetable>(entity, out var collidedTeam))
 			{
 				if (ownerTeam->Team == collidedTeam->Team)
 				{
@@ -37,7 +36,7 @@ namespace Quantum.Systems
 			}
 
 			// Triggers the mine here and wait a few seconds before exploding
-			TriggerLandMine(f, info.Entity, info.Other, landMine);
+			TriggerLandMine(f, collidedWith, entity, landMine);
 		}
 
 		private static void TriggerLandMine(Frame f, EntityRef mineEntity, EntityRef trigerrer, LandMine* landMine)
@@ -105,9 +104,9 @@ namespace Quantum.Systems
 			mineComponent->Owner = attacker;
 			mine.SetPosition(f, position);
 
-			// Check explosiont rigger
+			// Check explosion trigger
 			var hits = f.Physics2D.OverlapShape(position, 0, shape,
-				f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+				f.Context.TargetPlayersHitboxMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			for (var j = 0; j < hits.Count; j++)
 			{
 				if (hits[j].Entity == attacker) continue;

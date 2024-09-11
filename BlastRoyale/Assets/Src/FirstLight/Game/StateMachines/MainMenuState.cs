@@ -333,9 +333,9 @@ namespace FirstLight.Game.StateMachines
 
 		private bool MetaTutorialConditionsCheck()
 		{
-			// If meta/match tutorial not completed, and tutorial not running
-			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH) &&
-				!_services.TutorialService.IsTutorialRunning;
+			// If first enter prompt tutorial not completed, and tutorial is not completed 
+			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT) && 
+				!_services.TutorialService.HasCompletedTutorial();
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -432,7 +432,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool CheckInvalidTeamSize()
 		{
-			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) > _services.GameModeService.SelectedGameMode.Value.Entry.TeamSize;
+			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) > _services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.TeamSize;
 		}
 
 		private async UniTaskVoid TogglePartyReadyStatus()

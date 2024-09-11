@@ -9,7 +9,7 @@ namespace Quantum
 	{
 		public string PlayerName;
 		public uint PlayerRank;
-		public int MapId;
+		public string MapId;
 		public string GameModeId;
 		public PlayerMatchData Data;
 		public bool IsBot;

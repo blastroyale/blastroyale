@@ -44,7 +44,7 @@ namespace FirstLight.Editor.Ids
 			Core = 22,
 			IAP = 23,
 			GenericCollectionItem = 39,
-			NOOBTokens = 40,
+			NOOBRareTokens = 40,
 
 
 			#region CollectionGroup
@@ -69,9 +69,9 @@ namespace FirstLight.Editor.Ids
 			{"BlastBuck", 105, Currency},
 			{"BLST", 14, Currency},
 			{"Fragments", 112, Currency, Deprecated},
-			{"NOOB", 209, Currency, NOOBTokens},
-			{"NOOBGolden", 249, Collectable, NOOBTokens},
-			{"NOOBRainbow", 250, Collectable, NOOBTokens},
+			{"NOOB", 209, Currency},
+			{"NOOBGolden", 249, Collectable, NOOBRareTokens},
+			{"NOOBRainbow", 250, Collectable, NOOBRareTokens},
 			{"CS", 12, Currency, ResourcePool},
 			{"XP", 3, Resource},
 			{"Trophies", 22, Resource},

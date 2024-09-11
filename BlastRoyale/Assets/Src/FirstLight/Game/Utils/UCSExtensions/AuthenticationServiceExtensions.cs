@@ -9,7 +9,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 	/// </summary>
 	public static class AuthenticationServiceExtensions
 	{
-		public const char SPACE_CHAR_MATCH = '_';
+		public const char SPACE_CHAR_MATCH = '^';
 
 		public static string GetPlayerNameWithSpaces(string playerName)
 		{

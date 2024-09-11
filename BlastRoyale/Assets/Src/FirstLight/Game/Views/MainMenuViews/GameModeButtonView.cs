@@ -117,7 +117,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 					return;
 				}
 
-				if (_services.LocalPrefsService.LastSeenEvent != nextEvent.GetKey())
+				if (!_services.GameModeService.HasSeenEvent(nextEvent))
 				{
 					if (_pingAnimationCancel == null)
 					{

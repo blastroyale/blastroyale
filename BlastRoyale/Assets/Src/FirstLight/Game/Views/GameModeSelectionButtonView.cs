@@ -156,10 +156,10 @@ namespace FirstLight.Game.Views
 				_button.AddToClassList(USS_COMING_SOON);
 			}
 
-			var showEventAnimation = !GameModeInfo.IsFixed && GameModeInfo.Duration.Contains(DateTime.UtcNow) && _localPrefs.LastSeenEvent.Value != GameModeInfo.GetKey();
+			var showEventAnimation = !GameModeInfo.IsFixed && GameModeInfo.Duration.Contains(DateTime.UtcNow) && !_gameModeService.HasSeenEvent(GameModeInfo);
 			if (showEventAnimation)
 			{
-				_localPrefs.LastSeenEvent.Value = GameModeInfo.GetKey();
+				_gameModeService.MarkSeen(GameModeInfo);
 				_button.AddToClassList(USS_ANIM_ROOT);
 				Element.schedule.Execute(() =>
 				{
@@ -230,7 +230,7 @@ namespace FirstLight.Game.Views
 				{
 					continue;
 				}
-				
+
 				var icon = new VisualElement();
 				icon.AddToClassList(USS_REWARD_ICON);
 				var viewModel = new CurrencyItemViewModel(ItemFactory.Currency(gameId, 0));

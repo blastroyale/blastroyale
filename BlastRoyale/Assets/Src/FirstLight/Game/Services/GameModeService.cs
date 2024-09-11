@@ -81,6 +81,16 @@ namespace FirstLight.Game.Services
 
 		TeamSizeConfig GetTeamSizeFor(IGameModeEntry entry);
 		TeamSizeConfig GetTeamSizeFor(SimulationMatchConfig simulationMatchConfig);
+
+		/// <summary>
+		/// Check if the local player has seen a given event
+		/// </summary>
+		public bool HasSeenEvent(GameModeInfo info);
+
+		/// <summary>
+		/// Mark an event as seen
+		/// </summary>
+		public void MarkSeen(GameModeInfo info);
 	}
 
 	/// <inheritdoc cref="IGameModeService"/>
@@ -168,6 +178,7 @@ namespace FirstLight.Game.Services
 					return;
 				}
 			}
+
 			this.SelectDefaultRankedMode();
 		}
 
@@ -276,18 +287,10 @@ namespace FirstLight.Game.Services
 			{
 				var data = MainInstaller.ResolveData().RemoteConfigProvider;
 				var slots = new List<GameModeInfo>();
-				var eventSlots = data.GetConfig<EventGameModesConfig>();
-				if (TryGetNextEvent(eventSlots, out var foundEvent, out var foundDuration))
-				{
-					slots.Add(new GameModeInfo(foundEvent, foundDuration));
-				}
-
-				var fixedSlots = data.GetConfig<FixedGameModesConfig>();
-				foreach (var fixedGameModeEntry in fixedSlots)
-				{
-					slots.Add(new GameModeInfo(fixedGameModeEntry));
-				}
-
+				var eventConfigs = data.GetConfig<EventGameModesConfig>();
+				var fixedSlotsConfig = data.GetConfig<FixedGameModesConfig>();
+				slots.AddRange(GetEvents(eventConfigs));
+				slots.AddRange(fixedSlotsConfig.Select(f => new GameModeInfo(f)));
 				return slots;
 			}
 		}
@@ -304,8 +307,22 @@ namespace FirstLight.Game.Services
 			return fixedConfig[simulationMatchConfig.TeamSize.ToString()];
 		}
 
-		private bool TryGetNextEvent(EventGameModesConfig config, out IGameModeEntry entry, out DurationConfig duration)
+		public bool HasSeenEvent(GameModeInfo info)
 		{
+			var value = _localPrefsService.SeenEvents.Value;
+			return value != null && value.Contains(info.GetKey());
+		}
+
+		public void MarkSeen(GameModeInfo info)
+		{
+			var seen = _localPrefsService.SeenEvents.Value;
+			seen.Add(info.GetKey());
+			_localPrefsService.SeenEvents.Value = seen;
+		}
+
+		private List<GameModeInfo> GetEvents(EventGameModesConfig config)
+		{
+			var events = new List<GameModeInfo>();
 			var now = DateTime.UtcNow;
 
 			EventGameModeEntry closest = default;
@@ -316,9 +333,8 @@ namespace FirstLight.Game.Services
 				{
 					if (timedGameModeEntry.Contains(now))
 					{
-						duration = timedGameModeEntry;
-						entry = gameModeEntry;
-						return true;
+						events.Add(new GameModeInfo(gameModeEntry, timedGameModeEntry));
+						break;
 					}
 
 					var starts = timedGameModeEntry.GetStartsAtDateTime();
@@ -332,16 +348,12 @@ namespace FirstLight.Game.Services
 				}
 			}
 
-			if (closestDate != null)
+			if (events.Count == 0 && closestDate != null)
 			{
-				entry = closest;
-				duration = closestDate;
-				return true;
+				events.Add(new GameModeInfo(closest, closestDate));
 			}
 
-			duration = null;
-			entry = default;
-			return false;
+			return events;
 		}
 	}
 }

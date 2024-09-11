@@ -148,7 +148,7 @@ MonoBehaviour:
       IsSetFromSourceCollider: 0
     Layer: 9
     CallbackFlags:
-      Value: 448
+      Value: 0
   PhysicsBody:
     IsEnabled: 0
     Version2D: 0

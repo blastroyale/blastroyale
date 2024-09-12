@@ -67,7 +67,7 @@ namespace FirstLight.Game.Presenters
 			_copyCodeButton.clicked += () =>
 			{
 				UIUtils.SaveToClipboard(_codeLabel.text);
-				_services.NotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
+				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			};
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 		}
@@ -134,7 +134,7 @@ namespace FirstLight.Game.Presenters
 			{
 				if (!_localPlayerHost && !_services.RoomService.InRoom && !_joining)
 				{
-					_services.NotificationService.QueueNotification("Match lobby was closed by the host.");
+					_services.InGameNotificationService.QueueNotification("Match lobby was closed by the host.");
 					Data?.BackClicked?.Invoke();
 				}
 			}
@@ -311,7 +311,7 @@ namespace FirstLight.Game.Presenters
 			{
 				if (!p.IsLocal() && !(p.IsSpectator() || matchGrid.GetPosition(p.Id) == -1) && !p.IsReady())
 				{
-					_services.NotificationService.QueueNotification("Not all players are ready");
+					_services.InGameNotificationService.QueueNotification("Not all players are ready");
 					return;
 				}
 			}

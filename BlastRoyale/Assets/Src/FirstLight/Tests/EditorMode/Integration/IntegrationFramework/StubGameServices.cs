@@ -58,12 +58,14 @@ namespace FirstLight.Tests.EditorMode
 		public INewsService NewsService { get; set; }
 		public LocalPrefsService LocalPrefsService { get; }
 		public IFLLobbyService FLLobbyService { get; }
-		public NotificationService NotificationService { get; }
+		public InGameNotificationService InGameNotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public IGameSocialService GameSocialService { get; set; }
 		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
+		
+		public INotificationService NotificationService { get; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -92,7 +94,7 @@ namespace FirstLight.Tests.EditorMode
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
 			ThreadService = new ThreadService();
 
-			NotificationService = new NotificationService(UIService);
+			InGameNotificationService = new InGameNotificationService(UIService);
 
 			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService);
 

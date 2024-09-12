@@ -530,7 +530,7 @@ namespace FirstLight.Game.Services
 					}
 				})
 				.Forget();
-			_services.NotificationService.Init();
+			_services.InGameNotificationService.Init();
 			_services.RateAndReviewService.Init();
 			onComplete();
 		}

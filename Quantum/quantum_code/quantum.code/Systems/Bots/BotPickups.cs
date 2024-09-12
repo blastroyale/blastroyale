@@ -130,7 +130,7 @@ namespace Quantum.Systems.Bots
 						continue;
 					}
 
-					if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
+					if (!needWeapon && f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
 					{
 						var usefulConsumable = consumable->ConsumableType switch
 						{

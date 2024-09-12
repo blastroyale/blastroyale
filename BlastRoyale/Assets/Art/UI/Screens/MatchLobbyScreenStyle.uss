@@ -33,6 +33,26 @@
     flex-shrink: 0;
 }
 
+.code-copy-button {
+    margin-right: 32px;
+    width: 90px;
+    height: 90px;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-image: var(--sprite-shared__button_square);
+}
+
+.code-copy-button:active {
+    background-image: var(--sprite-home__button-small-purple-pressed);
+}
+
+.code-copy-button-icon {
+    background-image: var(--sprite-shared__copy);
+    width: 50px;
+    height: 50px;
+}
+
 .game-label {
     white-space: nowrap;
     flex-grow: 1;

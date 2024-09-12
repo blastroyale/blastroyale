@@ -123,8 +123,6 @@ namespace FirstLight.Game.UIElements
 		private void Sync()
 		{
 			_internalLabel.text = text;
-			_internalLabel.style.whiteSpace = resolvedStyle.whiteSpace;
-			_internalLabel.style.textOverflow = resolvedStyle.textOverflow;
 			_internalLabel.style.flexDirection = resolvedStyle.flexDirection;
 			_internalLabel.style.alignItems = resolvedStyle.alignItems;
 			_internalLabel.style.alignContent = resolvedStyle.alignContent;

@@ -47,7 +47,7 @@ namespace FirstLight.Game.Presenters
 		[Q("CodeLabel")] private Label _codeLabel;
 		[Q("ShowHideCode")] private ImageButton _showHideCodeLabel;
 		[Q("ShowHideCodeIcon")] private VisualElement _showHideCodeIcon;
-		[Q("CopyCodeButton")] private ButtonOutlined _copyCodeButton;
+		[Q("CopyCodeButton")] private ImageButton _copyCodeButton;
 		[Q("LobbyCodeContainer")] private VisualElement _lobbyCodeContainer;
 		[Q("LobbyHeader")] private VisualElement _lobbyHeader;
 		
@@ -61,7 +61,6 @@ namespace FirstLight.Game.Presenters
 
 		private bool _joining;
 		private bool _localPlayerHost;
-		private bool isCodeShown;
 
 		protected override void QueryElements()
 		{
@@ -82,14 +81,14 @@ namespace FirstLight.Game.Presenters
 			// Adjust the width of the game title based on the width of the code container
 			_lobbyCodeContainer.RegisterCallback<GeometryChangedEvent>((evt) => AdjustRemainingWidth());
 
-			var headerLabel = _header.Q<Label>(className: "screen-header__title");
+			var headerLabel = _header.Q<Label>("title");
 			headerLabel.RegisterCallback<ClickEvent>(evt => headerLabel.OpenTooltip(Root, headerLabel.text, new Vector2(0, 0), TooltipPosition.Bottom));
 		}
 
 		private void AdjustRemainingWidth()
 		{
-			var headerLabel = _header.Q<Label>(className: "screen-header__title");
-			var headerBack = _header.Q<ImageButton>(className: "screen-header__back");
+			var headerLabel = _header.Q<Label>("title");
+			var headerBack = _header.Q<ImageButton>("back");
 
 			var remainingWidth = _lobbyHeader.resolvedStyle.width - _lobbyCodeContainer.resolvedStyle.width - (headerBack.resolvedStyle.width + headerBack.resolvedStyle.marginLeft) + _safeArea.resolvedStyle.marginLeft - 20;
 			headerLabel.style.width = remainingWidth;
@@ -97,20 +96,17 @@ namespace FirstLight.Game.Presenters
 
 		private void HandleShowHideCode()
 		{
-			if (isCodeShown)
+			if (_showHideCodeIcon.ClassListContains("hide-code-icon"))
 			{
 				_codeLabel.text = "CODE HIDDEN";
-				_showHideCodeIcon.AddToClassList("show-code-icon");
-				_showHideCodeIcon.RemoveFromClassList("hide-code-icon");
-				isCodeShown = false;
 			}
 			else
 			{
 				_codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
-				_showHideCodeIcon.AddToClassList("hide-code-icon");
-				_showHideCodeIcon.RemoveFromClassList("show-code-icon");
-				isCodeShown = true;
+
 			}
+
+			_showHideCodeIcon.ToggleInClassList("hide-code-icon");
 		}
 
 		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)

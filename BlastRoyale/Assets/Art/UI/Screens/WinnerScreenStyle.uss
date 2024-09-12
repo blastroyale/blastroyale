@@ -32,8 +32,8 @@
 }
 
 .winner-banner__player-name {
-    width: 260px;
-    top: 150px;
+    width: 715px;
+    top: 111px;
     rotate: -10deg;
     left: 290px;
     text-shadow: 4px 4px 0 rgb(107, 4, 2);

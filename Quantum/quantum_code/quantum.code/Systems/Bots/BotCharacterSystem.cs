@@ -218,6 +218,13 @@ namespace Quantum.Systems.Bots
 
 			// Test change. Bots ALWAYS react on getting damaged
 			//if (f.RNG->NextBool()) return; // 50% chance bots ignore
+			
+			// When bot has only melee and got attacked, something caused the bot sometime to freeze in place
+			// So Nik put an easy solution here - don't react on damage if bot has only melee
+			if (f.Unsafe.GetPointer<PlayerCharacter>(entity)->HasMeleeWeapon(f, entity))
+			{
+				return;
+			}
 
 			BotLogger.LogAction(entity, $"Bot took damage from {attacker}");
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
@@ -251,25 +258,12 @@ namespace Quantum.Systems.Bots
 				}
 				else
 				{
-					// A bot goes to the attacker if a bot has a gun. Otherwise - run away
-					if (!f.Unsafe.GetPointer<PlayerCharacter>(entity)->HasMeleeWeapon(f, entity))
-					{
-						bot->SetHasWaypoint(entity, f);
-						bot->MoveTarget = attacker;
-						bot->SetNextDecisionDelay(f, FP._3);
-						bot->NextLookForTargetsToShootAtTime = f.Time;
-						BotMovement.MoveToLocation(f, entity, attackerLocation->Position);
-						BotLogger.LogAction(entity, $"Attacker too distant, coming closer");
-					}
-					else
-					{
-						var runawayPoint = (attackerLocation->Position - botLocation->Position).Normalized * FP._10;
-						if (BotMovement.MoveToLocation(f, entity, runawayPoint))
-						{
-							bot->SetNextDecisionDelay(f, bot->DecisionInterval);
-							BotLogger.LogAction(entity, $"Attacker too distant, but I have melee; running away");
-						}
-					}
+					bot->SetHasWaypoint(entity, f);
+					bot->MoveTarget = attacker;
+					bot->SetNextDecisionDelay(f, FP._3);
+					bot->NextLookForTargetsToShootAtTime = f.Time;
+					BotMovement.MoveToLocation(f, entity, attackerLocation->Position);
+					BotLogger.LogAction(entity, $"Attacker too distant, coming closer");
 				}
 			}
 			else // bot already has a valid target

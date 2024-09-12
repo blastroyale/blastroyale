@@ -10,7 +10,7 @@ namespace Quantum.Systems
 	/// </summary>
 	public unsafe class CollectableChunkSystem : SystemSignalsOnly, ISignalOnComponentAdded<Collectable>, ISignalOnComponentRemoved<Collectable>
 	{
-		public static FP ChunkSize = FP._10 * FP._3;
+		public static FP ChunkSize = FP._10 + FP._5;
 
 		public override void OnEnabled(Frame f)
 		{

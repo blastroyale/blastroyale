@@ -31,4 +31,4 @@ MonoBehaviour:
       Y:
         RawValue: -6291456
     MinAgentRadius:
-      RawValue: 14417
+      RawValue: 32768

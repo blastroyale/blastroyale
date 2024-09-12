@@ -787,20 +787,6 @@ namespace FirstLight.Game.StateMachines
 			
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 			var weaponIdForAudio = callback.Weapon.GameId;
-			
-			// Special case to cover sounds of certain special melee weapons
-			if (callback.WeaponConfig.IsMeleeWeapon)
-			{
-				var loadout = PlayerLoadout.GetLoadout(callback.Game.Frames.Predicted, callback.PlayerEntity);
-				var meleeSkinId = _services.CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.MeleeSkin);
-
-				switch (meleeSkinId.Id)
-				{
-					case GameId.MeleeSkinKatana:
-						weaponIdForAudio = GameId.MeleeSkinKatana;
-						break;
-				}
-			}
 
 			var weaponAudioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) weaponIdForAudio);
 			var audioClipId = spectatedEntity == callback.PlayerEntity ? weaponAudioConfig.WeaponShotLocalId : weaponAudioConfig.WeaponShotId;

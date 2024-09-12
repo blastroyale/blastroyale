@@ -103,7 +103,6 @@ namespace FirstLight.Game.Services
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly IRemoteTextureService _remoteTextureService;
 
-		private readonly List<GameModeInfo> _slots;
 		private GameId _selectedMap;
 
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
@@ -230,7 +229,7 @@ namespace FirstLight.Game.Services
 			if (!lobby.IsLocalPlayerHost())
 			{
 				SelectedGameMode.Value =
-					_slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == lobby.Data[FLLobbyService.KEY_MATCHMAKING_GAMEMODE].Value);
+					Slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == lobby.Data[FLLobbyService.KEY_MATCHMAKING_GAMEMODE].Value);
 			}
 		}
 
@@ -240,7 +239,7 @@ namespace FirstLight.Game.Services
 
 			if (changes.Data.Changed && changes.Data.Value.TryGetValue(FLLobbyService.KEY_MATCHMAKING_GAMEMODE, out var gameModeConfig))
 			{
-				SelectedGameMode.Value = _slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == gameModeConfig.Value.Value);
+				SelectedGameMode.Value = Slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == gameModeConfig.Value.Value);
 			}
 
 			if (_lobbyService.CurrentPartyLobby.IsLocalPlayerHost() && (changes.PlayerJoined.Changed || changes.PlayerLeft.Changed))

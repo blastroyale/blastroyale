@@ -145,6 +145,108 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PartnerANCIENT8, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerAPECOIN, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerBEAM, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerBLOCKLORDS, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerBLOODLOOP, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerCROSSTHEAGES, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerFARCANA, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerGAM3SGG, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerIMMUTABLE, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerMOCAVERSE, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerNYANHEROES, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerPIRATENATION, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerPIXELMON, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerPLANETMOJO, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerSEEDIFY, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerWILDERWORLD, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerXBORG, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
 					GameId.FloodCity, new List<GameIdGroup>
 					{
 						GameIdGroup.Map,
@@ -2285,7 +2387,24 @@ namespace Quantum
 						GameId.BLST,
 						GameId.Fragments,
 						GameId.NOOB,
-						GameId.CS
+						GameId.CS,
+						GameId.PartnerANCIENT8,
+						GameId.PartnerAPECOIN,
+						GameId.PartnerBEAM,
+						GameId.PartnerBLOCKLORDS,
+						GameId.PartnerBLOODLOOP,
+						GameId.PartnerCROSSTHEAGES,
+						GameId.PartnerFARCANA,
+						GameId.PartnerGAM3SGG,
+						GameId.PartnerIMMUTABLE,
+						GameId.PartnerMOCAVERSE,
+						GameId.PartnerNYANHEROES,
+						GameId.PartnerPIRATENATION,
+						GameId.PartnerPIXELMON,
+						GameId.PartnerPLANETMOJO,
+						GameId.PartnerSEEDIFY,
+						GameId.PartnerWILDERWORLD,
+						GameId.PartnerXBORG
 					}.AsReadOnly()
 				},
 				{

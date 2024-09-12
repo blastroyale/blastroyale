@@ -498,5 +498,10 @@ namespace FirstLight.Game.Utils
 		{
 			return source.OrderBy((_) => Random.value);
 		}
+
+		public static T RandomElement<T>(this IList<T> source)
+		{
+			return source[Random.Range(0, source.Count)];
+		}
 	}
 }

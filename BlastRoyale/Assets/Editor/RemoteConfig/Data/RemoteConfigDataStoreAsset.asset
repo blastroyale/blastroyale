@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4e2c4a08-ed83-448c-a1aa-da940d4af5f0\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"21a8b668-f386-4f3b-bcdb-58a439aab2f9\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShowBetaLabel\",\r\n      \"type\": \"bool\",\r\n     
     \"value\": true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"b43537d8-f10d-4df7-ab75-7c32bc62d435\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"f89a1326-17de-424e-966f-e7be851edf0b\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"EnableCommitVersionLock\",\r\n      \"type\": \"bool\",\r\n      \"value\":
-    true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"f60111d7-61e0-4fce-9442-56422748b056\"\r\n   
+    true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"461daef2-18c4-4fbd-b909-e9a3965bdc3e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShowBugReportButton\",\r\n      \"type\":
     \"bool\",\r\n      \"value\": true\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4e2c4a08-ed83-448c-a1aa-da940d4af5f0\"\r\n   
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"21a8b668-f386-4f3b-bcdb-58a439aab2f9\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShowBetaLabel\",\r\n      \"type\": \"bool\",\r\n     
     \"value\": true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"b43537d8-f10d-4df7-ab75-7c32bc62d435\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"f89a1326-17de-424e-966f-e7be851edf0b\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"EnableCommitVersionLock\",\r\n      \"type\": \"bool\",\r\n      \"value\":
-    true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"f60111d7-61e0-4fce-9442-56422748b056\"\r\n   
+    true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"461daef2-18c4-4fbd-b909-e9a3965bdc3e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShowBugReportButton\",\r\n      \"type\":
     \"bool\",\r\n      \"value\": true\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"***REMOVED***\",\r\n   

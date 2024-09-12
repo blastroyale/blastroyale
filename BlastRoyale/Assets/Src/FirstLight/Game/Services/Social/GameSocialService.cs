@@ -283,7 +283,7 @@ namespace FirstLight.Game.Services
 		{
 			_fakeBotRequests.Add(botName);
 			await UniTask.Delay(124);
-			_services.NotificationService.QueueNotification("Friend request sent");
+			_services.InGameNotificationService.QueueNotification("Friend request sent");
 		}
 
 		public bool IsBotInvited(string botName)

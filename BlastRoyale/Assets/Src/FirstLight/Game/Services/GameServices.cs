@@ -256,7 +256,7 @@ namespace FirstLight.Game.Services
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
 			GameSocialService = new GameSocialService(this, gameLogic);
 			PlayfabUnityBridgeService = new PlayfabUnityBridgeService(ProfileService, MessageBrokerService);
-			NotificationService = new NotificationService(gameLogic.RemoteConfigProvider, MessageBrokerService, gameLogic.PlayerLogic);
+			NotificationService = new NotificationService(gameLogic.RemoteConfigProvider, MessageBrokerService);
 		}
 
 		/// <inheritdoc />

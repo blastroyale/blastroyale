@@ -14,7 +14,6 @@ using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLightServerSDK.Services;
 using Unity.Notifications;
-using Unity.Notifications.Android;
 using Unity.Services.PushNotifications;
 using UnityEngine;
 
@@ -29,18 +28,11 @@ namespace FirstLight.Game.Services
 	public class NotificationService : INotificationService
 	{
 		private IRemoteConfigProvider _remoteConfigProvider;
-		private IPlayerDataProvider _playerDataProvider;
 
-		public NotificationService(IRemoteConfigProvider remoteConfigProvider, IMessageBrokerService msgBroker, IPlayerDataProvider playerDataProvider)
+		public NotificationService(IRemoteConfigProvider remoteConfigProvider, IMessageBrokerService msgBroker)
 		{
 			_remoteConfigProvider = remoteConfigProvider;
-			_playerDataProvider = playerDataProvider;
 			msgBroker.Subscribe<SuccessAuthentication>((_) =>
-			{
-				RefreshEventNotifications();
-			});
-			// If the player unlocks gamemodes after a match
-			msgBroker.Subscribe<GameCompletedRewardsMessage>((_) =>
 			{
 				RefreshEventNotifications();
 			});
@@ -54,11 +46,11 @@ namespace FirstLight.Game.Services
 			args.AndroidChannelDescription = "Main notifications";
 			NotificationCenter.Initialize(args);
 #if UNITY_ANDROID
-			AndroidNotificationCenter.RegisterNotificationChannel(new AndroidNotificationChannel()
+			Unity.Notifications.Android.AndroidNotificationCenter.RegisterNotificationChannel(new Unity.Notifications.Android.AndroidNotificationChannel()
 			{
 				Id = "events",
 				Name = "Events",
-				Importance = Importance.Default,
+				Importance = Unity.Notifications.Android.Importance.Default,
 				Description = "Upcoming events",
 			});
 #endif
@@ -67,11 +59,6 @@ namespace FirstLight.Game.Services
 		public void RefreshEventNotifications()
 		{
 			NotificationCenter.CancelAllScheduledNotifications();
-			if (!_playerDataProvider.HasUnlocked(UnlockSystem.GameModes))
-			{
-				return;
-			}
-
 			var eventConfig = _remoteConfigProvider.GetConfig<EventGameModesConfig>();
 			var notificationConfig = _remoteConfigProvider.GetConfig<EventNotificationConfig>();
 

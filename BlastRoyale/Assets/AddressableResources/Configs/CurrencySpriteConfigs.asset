@@ -71,3 +71,105 @@ MonoBehaviour:
         SpriteByMinAmount:
           _keyData: 
           _valueData: []
+    - Key: 900
+      Value:
+        DefaultSprite: sprite-currencies__partnerancient8-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 901
+      Value:
+        DefaultSprite: sprite-currencies__partnerapecoin-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 902
+      Value:
+        DefaultSprite: sprite-currencies__partnerbeam-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 903
+      Value:
+        DefaultSprite: sprite-currencies__partnerblocklords-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 904
+      Value:
+        DefaultSprite: sprite-currencies__partnerbloodloop-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 905
+      Value:
+        DefaultSprite: sprite-currencies__partnercrosstheages-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 906
+      Value:
+        DefaultSprite: sprite-currencies__partnerfarcana-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 907
+      Value:
+        DefaultSprite: sprite-currencies__partnergam3sgg-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 908
+      Value:
+        DefaultSprite: sprite-currencies__partnerimmutable-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 909
+      Value:
+        DefaultSprite: sprite-currencies__partnermocaverse-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 910
+      Value:
+        DefaultSprite: sprite-currencies__partnernyanheroes-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 911
+      Value:
+        DefaultSprite: sprite-currencies__partnerpiratenation-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 912
+      Value:
+        DefaultSprite: sprite-currencies__partnerpixelmon-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 913
+      Value:
+        DefaultSprite: sprite-currencies__partnerplanetmojo-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 914
+      Value:
+        DefaultSprite: sprite-currencies__partnerseedify-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 915
+      Value:
+        DefaultSprite: sprite-currencies__partnerwilderworld-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 916
+      Value:
+        DefaultSprite: sprite-currencies__partnerxborg-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []

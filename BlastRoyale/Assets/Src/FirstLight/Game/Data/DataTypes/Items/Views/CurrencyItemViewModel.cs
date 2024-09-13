@@ -23,6 +23,23 @@ namespace FirstLight.Game.Data.DataTypes
 			{GameId.BlastBuck, "Blastbuckicon"},
 			{GameId.CS, "CraftSpiceicon"},
 			{GameId.NOOB, "NOOBIcon"},
+			{GameId.PartnerANCIENT8, "PartnerANCIENT8Icon"},
+			{GameId.PartnerAPECOIN, "PartnerAPECOIN"},
+			{GameId.PartnerBEAM, "PartnerBEAM"},
+			{GameId.PartnerBLOCKLORDS, "PartnerBLOCKLORDS"},
+			{GameId.PartnerBLOODLOOP, "PartnerBLOODLOOP"},
+			{GameId.PartnerCROSSTHEAGES, "PartnerCROSSTHEAGES"},
+			{GameId.PartnerFARCANA, "PartnerFARCANA"},
+			{GameId.PartnerGAM3SGG, "PartnerGAM3SGG"},
+			{GameId.PartnerIMMUTABLE, "PartnerIMMUTABLE"},
+			{GameId.PartnerMOCAVERSE, "PartnerMOCAVERSE"},
+			{GameId.PartnerNYANHEROES, "PartnerNYANHEROES"},
+			{GameId.PartnerPIRATENATION, "PartnerPIRATENATION"},
+			{GameId.PartnerPIXELMON, "PartnerPIXELMON"},
+			{GameId.PartnerPLANETMOJO, "PartnerPLANETMOJO"},
+			{GameId.PartnerSEEDIFY, "PartnerSEEDIFY"},
+			{GameId.PartnerWILDERWORLD, "PartnerWILDERWORLD"},
+			{GameId.PartnerXBORG, "PartnerXBORG"}
 		};
 
 

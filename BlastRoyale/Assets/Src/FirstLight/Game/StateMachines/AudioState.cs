@@ -762,6 +762,23 @@ namespace FirstLight.Game.StateMachines
 					case GameId.NOOB:
 					case GameId.NOOBRainbow:
 					case GameId.NOOBGolden:
+					case GameId.PartnerANCIENT8:
+					case GameId.PartnerAPECOIN:
+					case GameId.PartnerBEAM:
+					case GameId.PartnerBLOCKLORDS:
+					case GameId.PartnerBLOODLOOP:
+					case GameId.PartnerCROSSTHEAGES:
+					case GameId.PartnerFARCANA:
+					case GameId.PartnerGAM3SGG:
+					case GameId.PartnerIMMUTABLE:
+					case GameId.PartnerMOCAVERSE:
+					case GameId.PartnerNYANHEROES:
+					case GameId.PartnerPIRATENATION:
+					case GameId.PartnerPIXELMON:
+					case GameId.PartnerPLANETMOJO:
+					case GameId.PartnerSEEDIFY:
+					case GameId.PartnerWILDERWORLD:
+					case GameId.PartnerXBORG:
 						audio = isLocal ? AudioId.NoobPickupLocal : AudioId.NoobPickup;
 						break;
 				}

@@ -156,7 +156,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 		private async UniTaskVoid LeaveParty()
 		{
 			await _services.FLLobbyService.LeaveParty();
-			_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_left_party);
+			_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITParty.notification_left_party);
 		}
 
 		private void OnLobbyChanged(ILobbyChanges m)
@@ -178,7 +178,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 				{
 					_services.FLLobbyService.InviteToParty(relationship).ContinueWith(() =>
 					{
-						_services.NotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
+						_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITParty.notification_invite_sent);
 					});
 				});
 			_elements[relationship.Member.Id] = e;
@@ -186,7 +186,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 
 		private void RefreshGameMode(GameModeInfo _, GameModeInfo modeInfo)
 		{
-			_gamemodeHeader.text = modeInfo.Entry.Visual.TitleTranslationKey.GetText();
+			_gamemodeHeader.text = modeInfo.Entry.Title.GetText();
 		}
 
 		private void RefreshData()
@@ -295,7 +295,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 
 		private void OnCopyCodeClicked()
 		{
-			_services.NotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
+			_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			UIUtils.SaveToClipboard(_services.FLLobbyService.CurrentPartyLobby.LobbyCode);
 		}
 	}

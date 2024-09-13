@@ -86,12 +86,7 @@ public class FootprinterMonoComponent : MonoBehaviour
 
 	private Quaternion GetFootRotation()
 	{
-		var f = QuantumRunner.Default.Game.Frames.Predicted;
-		if (!f.Has<TopDownController>(_view.EntityRef)) // the entity ref is changing to the dead dummies some ugly hack somewhere
-		{
-			return transform.rotation;
-		}
-		return Quaternion.LookRotation(_view.EntityRef.GetKccMoveDirection(f).ToUnityVector3());
+		return transform.rotation;
 	}
 
 	private bool IsValid()

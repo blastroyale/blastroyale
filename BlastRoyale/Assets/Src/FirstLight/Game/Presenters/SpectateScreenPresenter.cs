@@ -123,7 +123,7 @@ namespace FirstLight.Game.Presenters
 			await FriendsService.Instance.AddFriendAsync(unityId).AsUniTask();
 
 			UpdateFriendButton(RelationshipType.FriendRequest);
-			_services.NotificationService.QueueNotification("Friend request sent");
+			_services.InGameNotificationService.QueueNotification("Friend request sent");
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer _, SpectatedPlayer current)

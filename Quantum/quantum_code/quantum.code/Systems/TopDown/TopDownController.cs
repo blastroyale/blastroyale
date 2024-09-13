@@ -39,9 +39,15 @@ namespace Quantum
         {
             // TODO: Optimize by removing detailed info on collisions
             var isBot = f.Has<BotCharacter>(entity);
-            var layer = isBot ? f.Context.TargetPlayerTriggersLayerIndex : f.Context.TargetMapAndPlayersMask;
-            var flags = isBot ? QueryOptions.HitDynamics : QueryOptions.ComputeDetailedInfo | QueryOptions.HitAll;
-            var movement = _settings.ComputeRawMovement(f, entity, direction, layer, flags);
+            var layer = isBot ? f.Context.TargetMapAndPlayersMask : f.Context.TargetMapAndPlayersMask;
+            
+            // TODO: We don't need all this masks, we should optimize collectibles and bushes to be kinematics
+            var query = QueryOptions.HitStatics | QueryOptions.HitKinematics | QueryOptions.HitTriggers;
+            if (!isBot || !QuantumFeatureFlags.BOTS_PHYSICS_IGNORE_OBSTACLES)
+            {
+                query |= QueryOptions.ComputeDetailedInfo;
+            }
+            var movement = _settings.ComputeRawMovement(f, entity, direction, layer, query);
             _settings.SteerAndMove(f, entity, movement);
         }
     }

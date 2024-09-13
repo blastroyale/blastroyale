@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -15,7 +17,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class GameModeButtonView : UIView
 	{
 		public const string USS_EVENT = "game-mode-button--event";
-		
+
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
 		private VisualElement _gameModeIcon;
@@ -47,6 +49,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnLobbyChanged;
 			}
+
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 		}
 
@@ -72,12 +75,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 			FLog.Verbose("Updating game mode button");
 			_updateSchedule?.Pause();
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
-
+			var currentTeamSetting = _services.GameModeService.GetTeamSizeFor(current);
 			var isMemberNotLeader = _services.FLLobbyService.CurrentPartyLobby != null && !_services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost();
-			_gameModeLabel.text = current.Visual.TitleTranslationKey.GetText();
+			_gameModeLabel.text = current.Title.GetText();
 			_gameModeButton.SetEnabled(!isMemberNotLeader);
 			_gameModeIcon.RemoveSpriteClasses();
-			_gameModeIcon.AddToClassList(current.Visual.IconSpriteClass);
+
+			_gameModeIcon.AddToClassList(currentTeamSetting.IconSpriteClass);
 			_updateSchedule = _eventCountDown.schedule.Execute(UpdateEvent)
 				.StartingIn(0)
 				.Every(5000);
@@ -94,14 +98,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 				CancelEventEffects();
 				return;
 			}
-			
-			if (_services.GameModeService.TryGetNextEvent(out var info))
+
+			var nextEvent = _services.GameModeService.Slots.FirstOrDefault(a => a.Entry is EventGameModeEntry);
+			if (nextEvent.Entry != null)
 			{
 				var now = DateTime.UtcNow;
-				if (!info.Duration.Contains(now))
+				if (!nextEvent.Duration.Contains(now))
 				{
 					_nextEventContainer.SetDisplay(true);
-					var diff = info.Duration.GetStartsAtDateTime() - now;
+					var diff = nextEvent.Duration.GetStartsAtDateTime() - now;
 					if (diff.TotalMinutes < 1 && !showSeconds)
 					{
 						showSeconds = true;
@@ -112,7 +117,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 					return;
 				}
 
-				if (_services.LocalPrefsService.LastSeenEvent != info.GetKey())
+				if (!_services.GameModeService.HasSeenEvent(nextEvent))
 				{
 					if (_pingAnimationCancel == null)
 					{
@@ -121,6 +126,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 						_newEventGlow.AnimatePingOpacity(fromAmount: 0.5f, toAmount: 1f, duration: 1000, repeat: true);
 						_newEventShine.AddRotatingEffect(40f, 10);
 					}
+
 					Element.AddToClassList(USS_EVENT);
 				}
 			}
@@ -135,6 +141,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				_pingAnimationCancel();
 				_pingAnimationCancel = null;
 			}
+
 			Element?.RemoveFromClassList(USS_EVENT);
 		}
 	}

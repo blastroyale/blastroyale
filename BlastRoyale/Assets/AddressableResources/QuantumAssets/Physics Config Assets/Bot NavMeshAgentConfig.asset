@@ -21,7 +21,7 @@ MonoBehaviour:
     PathQuality: 0
     CachedWaypointCount: 10
     MaxRepathTimeout:
-      RawValue: 327680
+      RawValue: 163840
     LineOfSightFunneling: 0
     DynamicLineOfSight: 0
     DynamicLineOfSightWaypointRange:
@@ -36,10 +36,10 @@ MonoBehaviour:
       RawValue: 0
     DefaultWaypointDetectionDistance:
       RawValue: 655
-    MovementType: 4
+    MovementType: 1
     VerticalPositioning: 1
     Speed:
-      RawValue: 190054
+      RawValue: 183500
     AngularSpeed:
       RawValue: 3276800
     Acceleration:

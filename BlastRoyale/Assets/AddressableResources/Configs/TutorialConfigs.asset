@@ -17,15 +17,15 @@ MonoBehaviour:
     - Section: 2
       RewardIds: 
     SecondMatch:
-      ConfigId: second-match-id
+      UniqueConfigId: second-match-id
       GameModeID: BattleRoyale First Game
-      MapId: 115
+      MapId: MazeMayhem
       TeamSize: 1
       Mutators: 0
       WeaponsSelectionOverwrite: []
       MetaItemDropOverwrites: []
       RewardModifiers: []
-      HasBots: 1
+      DisableBots: 0
       BotOverwriteDifficulty: -1
       MaxPlayersOverwrite: 0
-      MatchType: 0
+      MatchType: 1

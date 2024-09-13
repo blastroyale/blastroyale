@@ -760,6 +760,25 @@ namespace FirstLight.Game.StateMachines
 						audio = isLocal ? AudioId.LargeShieldPickupLocal : AudioId.LargeShieldPickup;
 						break;
 					case GameId.NOOB:
+					case GameId.NOOBRainbow:
+					case GameId.NOOBGolden:
+					case GameId.PartnerANCIENT8:
+					case GameId.PartnerAPECOIN:
+					case GameId.PartnerBEAM:
+					case GameId.PartnerBLOCKLORDS:
+					case GameId.PartnerBLOODLOOP:
+					case GameId.PartnerCROSSTHEAGES:
+					case GameId.PartnerFARCANA:
+					case GameId.PartnerGAM3SGG:
+					case GameId.PartnerIMMUTABLE:
+					case GameId.PartnerMOCAVERSE:
+					case GameId.PartnerNYANHEROES:
+					case GameId.PartnerPIRATENATION:
+					case GameId.PartnerPIXELMON:
+					case GameId.PartnerPLANETMOJO:
+					case GameId.PartnerSEEDIFY:
+					case GameId.PartnerWILDERWORLD:
+					case GameId.PartnerXBORG:
 						audio = isLocal ? AudioId.NoobPickupLocal : AudioId.NoobPickup;
 						break;
 				}
@@ -785,20 +804,6 @@ namespace FirstLight.Game.StateMachines
 			
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 			var weaponIdForAudio = callback.Weapon.GameId;
-			
-			// Special case to cover sounds of certain special melee weapons
-			if (callback.WeaponConfig.IsMeleeWeapon)
-			{
-				var loadout = PlayerLoadout.GetLoadout(callback.Game.Frames.Predicted, callback.PlayerEntity);
-				var meleeSkinId = _services.CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.MeleeSkin);
-
-				switch (meleeSkinId.Id)
-				{
-					case GameId.MeleeSkinKatana:
-						weaponIdForAudio = GameId.MeleeSkinKatana;
-						break;
-				}
-			}
 
 			var weaponAudioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) weaponIdForAudio);
 			var audioClipId = spectatedEntity == callback.PlayerEntity ? weaponAudioConfig.WeaponShotLocalId : weaponAudioConfig.WeaponShotId;

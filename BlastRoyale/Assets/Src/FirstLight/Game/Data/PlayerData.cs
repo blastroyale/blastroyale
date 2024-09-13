@@ -45,7 +45,24 @@ namespace FirstLight.Game.Data
 			{GameId.COIN, 0},
 			{GameId.Fragments, 0},
 			{GameId.BlastBuck, 0},
-			{GameId.NOOB, 0}
+			{GameId.NOOB, 0},
+			{GameId.PartnerANCIENT8, 0},
+			{GameId.PartnerAPECOIN, 0},
+			{GameId.PartnerBEAM, 0},
+			{GameId.PartnerBLOCKLORDS, 0},
+			{GameId.PartnerBLOODLOOP, 0},
+			{GameId.PartnerCROSSTHEAGES, 0},
+			{GameId.PartnerFARCANA, 0},
+			{GameId.PartnerGAM3SGG, 0},
+			{GameId.PartnerIMMUTABLE, 0},
+			{GameId.PartnerMOCAVERSE, 0},
+			{GameId.PartnerNYANHEROES, 0},
+			{GameId.PartnerPIRATENATION, 0},
+			{GameId.PartnerPIXELMON, 0},
+			{GameId.PartnerPLANETMOJO, 0},
+			{GameId.PartnerSEEDIFY, 0},
+			{GameId.PartnerWILDERWORLD, 0},
+			{GameId.PartnerXBORG, 0}
 		};
 
 		public readonly Dictionary<GameId, uint> CurrenciesSeasons = new (new GameIdComparer())

@@ -1,120 +1,172 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.Globalization;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Presenters;
+using FirstLight.Game.Configs.Remote;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
+using FirstLight.Game.Configs.Utils;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Services.Analytics.Events;
 using FirstLight.Game.Utils;
-using Unity.Services.Friends;
-using Unity.Services.Friends.Notifications;
+using FirstLight.SDK.Services;
+using FirstLightServerSDK.Services;
+using Unity.Notifications;
+using Unity.Services.PushNotifications;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
-	/// <summary>
-	/// Handles showing "async" notifications to the player.
-	/// </summary>
-	public class NotificationService
+	public interface INotificationService
 	{
-		private readonly UIService.UIService _uiService;
+		public UniTask RegisterForNotifications();
+		public void RefreshEventNotifications();
+	}
 
-		private readonly List<string> _messages = new ();
-		private bool _isProcessingQueue;
-		private CancellationTokenSource _currentNotificationToken;
-		private string _currentNotificationMessage;
+	public class NotificationService : INotificationService
+	{
+		private IRemoteConfigProvider _remoteConfigProvider;
 
-		public NotificationService(UIService.UIService uiService)
+		public NotificationService(IRemoteConfigProvider remoteConfigProvider, IMessageBrokerService msgBroker)
 		{
-			_uiService = uiService;
+			_remoteConfigProvider = remoteConfigProvider;
+			msgBroker.Subscribe<SuccessAuthentication>((_) =>
+			{
+				RefreshEventNotifications();
+			});
 		}
 
 		public void Init()
 		{
-			FriendsService.Instance.MessageReceived += OnFriendMessageReceived;
+			var args = NotificationCenterArgs.Default;
+			args.AndroidChannelId = "default";
+			args.AndroidChannelName = "Notifications";
+			args.AndroidChannelDescription = "Main notifications";
+			NotificationCenter.Initialize(args);
+#if UNITY_ANDROID
+			Unity.Notifications.Android.AndroidNotificationCenter.RegisterNotificationChannel(new Unity.Notifications.Android.AndroidNotificationChannel()
+			{
+				Id = "events",
+				Name = "Events",
+				Importance = Unity.Notifications.Android.Importance.Default,
+				Description = "Upcoming events",
+			});
+#endif
 		}
 
-		public void QueueNotification(string message)
+		public void RefreshEventNotifications()
 		{
-			if (_messages.Count > 0 && _messages[^1] == message) return; // Skip duplicates
-			if (_isProcessingQueue && _currentNotificationMessage == message)
+			NotificationCenter.CancelAllScheduledNotifications();
+			var eventConfig = _remoteConfigProvider.GetConfig<EventGameModesConfig>();
+			var notificationConfig = _remoteConfigProvider.GetConfig<EventNotificationConfig>();
+
+			var now = DateTime.UtcNow;
+			foreach (var @event in eventConfig)
 			{
-				// If we are playing the current message already, lets play the popup effect again
-				_currentNotificationToken.Cancel();
-				_messages.Insert(0, message);
-				return;
-			}
-
-			_messages.Add(message);
-			ProcessQueue().Forget();
-		}
-
-		private void OnFriendMessageReceived(IMessageReceivedEvent e)
-		{
-			var message = e.GetAs<FriendMessage>();
-
-			if (message.MessageType == FriendMessage.FriendMessageType.Cancel)
-			{
-				if (_uiService.IsScreenOpen<InvitePopupPresenter>())
+				foreach (var duration in @event.Schedule)
 				{
-					var screen = _uiService.GetScreen<InvitePopupPresenter>();
-					if (screen.LobbyCode == message.LobbyID)
+					if (duration.GetStartsAtDateTime() > now)
 					{
-						_uiService.CloseScreen<InvitePopupPresenter>().Forget();
-						return;
+						var dif = (duration.GetStartsAtDateTime() - now).TotalHours;
+						if (dif > notificationConfig.ScheduleHoursBefore)
+						{
+							break;
+						}
+
+						AddEventNotifications(now, notificationConfig, @event, duration);
 					}
 				}
 			}
+		}
 
-			// We skip inviting to party if the player already has an invite open
-			if (_uiService.IsScreenOpen<InvitePopupPresenter>()) return;
-			var services = MainInstaller.ResolveServices();
-			var dataProvider = MainInstaller.ResolveData();
-			switch (message.MessageType)
+		private void AddEventNotifications(DateTime now,
+										   EventNotificationConfig notificationConfig,
+										   EventGameModeEntry @event,
+										   DurationConfig duration
+		)
+		{
+			foreach (var notificationSchedule in notificationConfig.Notifications)
 			{
-				case FriendMessage.FriendMessageType.Invite:
+				var timeOfNotification = duration.GetStartsAtDateTime() - TimeSpan.FromMinutes(notificationSchedule.TimeBefore);
+				if (timeOfNotification < now)
+				{
+					continue;
+				}
 
-					var isBusy = !services.GameSocialService.GetCurrentPlayerActivity().CanReceiveInvite();
-					var blockTeamInviteByLevel = message.InviteType == FriendMessage.FriendInviteType.Party && !dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Squads);
-					if (isBusy || blockTeamInviteByLevel)
-					{
-						FriendsService.Instance.MessageAsync(e.UserId, FriendMessage.CreateDecline(message.LobbyID, message.InviteType)).AsUniTask().Forget();
-						return;
-					}
+				var randomMessage = notificationSchedule.Messages.RandomElement();
 
-					_uiService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
-					{
-						Type = message.InviteType,
-						SenderID = e.UserId,
-						LobbyCode = message.LobbyID
-					}).Forget();
-					break;
-				case FriendMessage.FriendMessageType.Decline:
-					var callbacks = message.InviteType == FriendMessage.FriendInviteType.Match ? services.FLLobbyService.CurrentMatchCallbacks : services.FLLobbyService.CurrentPartyCallbacks;
-					callbacks.TriggerInviteDeclined(e.UserId);
-					break;
-				case FriendMessage.FriendMessageType.Cancel:
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
+				var title = ReplaceValue(randomMessage.Title, duration, @event);
+				var desc = ReplaceValue(randomMessage.Description, duration, @event);
+				ScheduleNotification(timeOfNotification, "events", title, desc);
 			}
 		}
 
-		private async UniTaskVoid ProcessQueue()
+		private string ReplaceValue(string original, DurationConfig duration, EventGameModeEntry @event)
 		{
-			if (_isProcessingQueue) return;
+			var startsAtDate = duration.GetStartsAtDateTime();
+			var startsAt = startsAtDate.Minute == 0 ? startsAtDate.ToString("hh tt") : startsAtDate.ToString("hh:mm tt");
 
-			_isProcessingQueue = true;
-			while (_messages.Count > 0)
+			return original
+				.Replace("%event_title%", @event.Title.GetText())
+				.Replace("%event_description%", @event.Description.GetText())
+				.Replace("%event_long_description%", @event.LongDescription.GetText())
+				.Replace("%starts_at%", startsAt);
+		}
+
+		public void ScheduleNotification(DateTime dateTime, string category, string title, string body)
+		{
+			FLog.Info("Scheduled notification " + title + " for " + dateTime.ToString(CultureInfo.InvariantCulture));
+			var a = NotificationCenter.ScheduleNotification(new Notification()
 			{
-				_currentNotificationToken = new CancellationTokenSource();
-				_currentNotificationMessage = _messages[0];
-				_messages.RemoveAt(0);
-				// TODO: Not the best since we always destroy and create the screen
-				await _uiService.OpenScreen<NotificationPopupPresenter>(new NotificationPopupPresenter.StateData(_currentNotificationMessage, _currentNotificationToken.Token));
-				await _uiService.CloseScreen<NotificationPopupPresenter>();
+				Title = title,
+				Text = body,
+				ShowInForeground = true,
+			}, category, new NotificationDateTimeSchedule(dateTime));
+		}
+
+		public async UniTask RegisterForNotifications()
+		{
+			Init();
+			await InitRemotePushNotifications();
+			var request = NotificationCenter.RequestPermission();
+
+			while (request.Status == NotificationsPermissionStatus.RequestPending)
+			{
+				await UniTask.Yield();
 			}
 
-			_isProcessingQueue = false;
+			Debug.Log("Permission result: " + request.Status);
+		}
+
+		private async UniTask InitRemotePushNotifications()
+		{
+			if (Application.isEditor) return;
+
+			PushNotificationsService.Instance.OnRemoteNotificationReceived += PushNotificationReceived;
+
+			try
+			{
+				var token = await PushNotificationsService.Instance.RegisterForPushNotificationsAsync().AsUniTask();
+				FLog.Info($"Registered for push notifications with token: {token}");
+			}
+			catch (Exception e)
+			{
+				FLog.Warn("Failed to register for push notifications: ", e);
+			}
+
+			return;
+
+			// Only for testing for now
+			void PushNotificationReceived(Dictionary<string, object> notificationData)
+			{
+				FLog.Info("Notification received!");
+				foreach (var (key, value) in notificationData)
+				{
+					FLog.Info($"Notification data item: {key} - {value}");
+				}
+			}
 		}
 	}
 }

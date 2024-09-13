@@ -72,10 +72,10 @@ namespace FirstLight.Game.Utils
 
 			var services = MainInstaller.ResolveServices();
 			var map = matchConfig.MapId;
-			if (map == (int) GameId.Any)
+			if (map == GameId.Any.ToString())
 			{
 				return services.GameModeService.ValidMatchmakingMaps.Max(
-					(id) => services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) id).MaxPlayers);
+					(id) => services.ConfigsProvider.GetConfig<QuantumMapConfig>(id.ToString()).MaxPlayers);
 			}
 
 			var mapConfig = services.ConfigsProvider.GetConfig<QuantumMapConfig>(map);

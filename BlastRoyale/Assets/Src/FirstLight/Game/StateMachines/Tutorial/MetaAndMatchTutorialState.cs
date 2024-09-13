@@ -67,7 +67,6 @@ namespace FirstLight.Game.StateMachines
 				_services.TutorialService.CompleteTutorialSection(TutorialSection.ENTER_NAME_PROMPT);
 			}).Target(completionCheck);
 			enterName.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
-			enterName.OnExit(OnEnterNameExit);
 			
 			completionCheck.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
 			completionCheck.Transition().Condition(EnterNamePromptConditionsCheck).Target(enterName);
@@ -155,11 +154,7 @@ namespace FirstLight.Game.StateMachines
 			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
 		}
 		
-		private void OnEnterNameExit()
-		{
-			_tutorialOverlay.BlockFullScreen();
-		}
-
+		
 		private void OnPlayGameExit()
 		{
 			CloseTutorialUi();

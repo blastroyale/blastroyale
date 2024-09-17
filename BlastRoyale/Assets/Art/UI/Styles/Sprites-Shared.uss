@@ -72,7 +72,7 @@
 .sprite-shared__background-notification {
     background-image: var(--sprite-shared__background-notification);
     width: 256px;
-    height: 34px;
+    height: 33px;
 }
 
 .sprite-shared__background-rewards-fame {

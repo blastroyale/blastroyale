@@ -47,7 +47,6 @@
     --sprite-home__background-tab-friends-selected: url('/Assets/Art/UI/Sprites/Home/background-tab-friends-selected.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
-    --sprite-home__gbones-season-reward: url('/Assets/Art/UI/Sprites/Home/gbones-season-reward.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
     --sprite-home__button-addbubble: url('/Assets/Art/UI/Sprites/Home/button-addbubble.png');
@@ -117,10 +116,6 @@
     --sprite-home__cross-x-button: url('/Assets/Art/UI/Sprites/Home/cross-x-button.png');
     --sprite-home__customizable-back-part: url('/Assets/Art/UI/Sprites/Home/customizable-back-part.png');
     --sprite-home__dark-pattern-piece: url('/Assets/Art/UI/Sprites/Home/dark-pattern-piece.png');
-    --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
-    --sprite-home__flag-superstar: url('/Assets/Art/UI/Sprites/Home/flag-superstar.png');
-    --sprite-home__flag-tombstone: url('/Assets/Art/UI/Sprites/Home/flag-tombstone.png');
-    --sprite-home__flag-unicorn: url('/Assets/Art/UI/Sprites/Home/flag-unicorn.png');
     --sprite-home__gamemode-border-glow: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-border-glow.png');
     --sprite-home__gamemode-card-blue: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-blue.png');
     --sprite-home__gamemode-card-purple: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-purple.png');
@@ -129,11 +124,12 @@
     --sprite-home__gamemode-coming-soon: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-coming-soon.png');
     --sprite-home__gamemode-custom-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-custom-characters.png');
     --sprite-home__gamemode-duos-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-duos-characters.png');
-    --sprite-home__gamemode-solo-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-solo-event-characters.png');
     --sprite-home__gamemode-duos-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-duos-event-characters.png');
-    --sprite-home__gamemode-quads-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-quads-event-characters.png');
     --sprite-home__gamemode-quads-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-quads-characters.png');
+    --sprite-home__gamemode-quads-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-quads-event-characters.png');
     --sprite-home__gamemode-solo-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-solo-characters.png');
+    --sprite-home__gamemode-solo-event-characters: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-solo-event-characters.png');
+    --sprite-home__gbones-season-reward: url('/Assets/Art/UI/Sprites/Home/gbones-season-reward.png');
     --sprite-home__glider-divinci: url('/Assets/Art/UI/Sprites/Home/glider-divinci.png');
     --sprite-home__glider-falcon: url('/Assets/Art/UI/Sprites/Home/glider-falcon.png');
     --sprite-home__glider-rocket: url('/Assets/Art/UI/Sprites/Home/glider-rocket.png');
@@ -213,6 +209,7 @@
     --sprite-home__icon-tiktok: url('/Assets/Art/UI/Sprites/Home/icon-tiktok.png');
     --sprite-home__icon-youtube: url('/Assets/Art/UI/Sprites/Home/icon-youtube.png');
     --sprite-home__loading_background: url('/Assets/Art/UI/Sprites/Home/loading_background.png');
+    --sprite-home__loading_background_s10: url('/Assets/Art/UI/Sprites/Home/loading_background_s10.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__malepunk-season-reward: url('/Assets/Art/UI/Sprites/Home/malepunk-season-reward.png');
     --sprite-home__news-icon: url('/Assets/Art/UI/Sprites/Home/news-icon.png');
@@ -437,7 +434,7 @@
 
 .sprite-home__background-pending-party-invite {
     background-image: var(--sprite-home__background-pending-party-invite);
-    width: 380px;
+    width: 379px;
     height: 118px;
 }
 
@@ -535,12 +532,6 @@
     background-image: var(--sprite-home__bamboo-season-reward);
     width: 494px;
     height: 760px;
-}
-
-.sprite-home__gbones-season-reward {
-    background-image: var(--sprite-home__gbones-season-reward);
-    width: 510px;
-    height: 719px;
 }
 
 .sprite-home__banner-mapselection {
@@ -913,30 +904,6 @@
     height: 483px;
 }
 
-.sprite-home__flag-demon {
-    background-image: var(--sprite-home__flag-demon);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__flag-superstar {
-    background-image: var(--sprite-home__flag-superstar);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__flag-tombstone {
-    background-image: var(--sprite-home__flag-tombstone);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__flag-unicorn {
-    background-image: var(--sprite-home__flag-unicorn);
-    width: 324px;
-    height: 324px;
-}
-
 .sprite-home__gamemode-border-glow {
     background-image: var(--sprite-home__gamemode-border-glow);
     width: 814px;
@@ -985,22 +952,10 @@
     height: 456px;
 }
 
-.sprite-home__gamemode-solo-event-characters {
-    background-image: var(--sprite-home__gamemode-solo-event-characters);
-    width: 448px;
-    height: 669px;
-}
-
 .sprite-home__gamemode-duos-event-characters {
     background-image: var(--sprite-home__gamemode-duos-event-characters);
     width: 436px;
     height: 531px;
-}
-
-.sprite-home__gamemode-quads-event-characters {
-    background-image: var(--sprite-home__gamemode-quads-event-characters);
-    width: 448px;
-    height: 669px;
 }
 
 .sprite-home__gamemode-quads-characters {
@@ -1009,10 +964,28 @@
     height: 669px;
 }
 
+.sprite-home__gamemode-quads-event-characters {
+    background-image: var(--sprite-home__gamemode-quads-event-characters);
+    width: 448px;
+    height: 669px;
+}
+
 .sprite-home__gamemode-solo-characters {
     background-image: var(--sprite-home__gamemode-solo-characters);
     width: 297px;
     height: 453px;
+}
+
+.sprite-home__gamemode-solo-event-characters {
+    background-image: var(--sprite-home__gamemode-solo-event-characters);
+    width: 448px;
+    height: 669px;
+}
+
+.sprite-home__gbones-season-reward {
+    background-image: var(--sprite-home__gbones-season-reward);
+    width: 510px;
+    height: 719px;
 }
 
 .sprite-home__glider-divinci {
@@ -1479,6 +1452,12 @@
 
 .sprite-home__loading_background {
     background-image: var(--sprite-home__loading_background);
+    width: 2048px;
+    height: 945px;
+}
+
+.sprite-home__loading_background_s10 {
+    background-image: var(--sprite-home__loading_background_s10);
     width: 2048px;
     height: 945px;
 }

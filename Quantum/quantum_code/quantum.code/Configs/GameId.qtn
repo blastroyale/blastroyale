@@ -196,6 +196,7 @@ enum GameId
 	PlayerSkinFemale02 = 246,
 	PlayerSkinMale01 = 247,
 	PlayerSkinMale02 = 248,
+	PlayerSkinGamer = 251,
 	Divinci = 66,
 	Falcon = 67,
 	Rocket = 73,

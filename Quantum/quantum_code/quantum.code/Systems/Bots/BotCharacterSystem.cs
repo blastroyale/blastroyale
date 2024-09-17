@@ -214,6 +214,7 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		public void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
 		{
+			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
 			if (ReviveSystem.IsKnockedOut(f, entity)) return;
 
 			// Test change. Bots ALWAYS react on getting damaged
@@ -227,7 +228,6 @@ namespace Quantum.Systems.Bots
 			}
 
 			BotLogger.LogAction(entity, $"Bot took damage from {attacker}");
-			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
 			if (bot->IsStaticMovement()) return;
 			if (attacker == bot->Target) return;
 			if (!f.Unsafe.TryGetPointer<Transform2D>(attacker, out var attackerLocation)) return;

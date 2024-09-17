@@ -90,7 +90,6 @@
     text-shadow: 3px 4px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    overflow: visible;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
     padding-right: 0;

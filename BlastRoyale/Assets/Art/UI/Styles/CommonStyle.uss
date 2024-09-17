@@ -948,7 +948,14 @@
     background-color: rgb(132, 117, 166);
 }
 
-.unity-text-element {
+.label-outlined {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 8px;
+}
+
+.label-outlined .internal-label {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -960,9 +967,6 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 .game-label {
@@ -1029,7 +1033,6 @@
     align-items: center;
     transition-property: opacity;
     transition-duration: 0.3s;
-    overflow: visible;
     font-size: 54px;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);

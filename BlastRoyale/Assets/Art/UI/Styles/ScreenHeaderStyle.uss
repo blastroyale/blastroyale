@@ -36,12 +36,14 @@
     color: rgb(255, 255, 255);
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
     margin: 0;
-    padding: 0;
+    padding-top: 0;
+    padding-left: 0;
     -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
     -unity-text-align: middle-left;
     padding-bottom: 25px;
     letter-spacing: -1px;
+    width: 1000px;
 }
 
 .screen-header__subtitle {

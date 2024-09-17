@@ -17,6 +17,8 @@ namespace FirstLight.Game.UIElements
 #endif
 		protected void Init()
 		{
+			this.AddToClassList("label-outlined");
+			
 			if (_internalLabel != null)
 			{
 				hierarchy.Remove(_internalLabel);

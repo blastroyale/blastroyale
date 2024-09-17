@@ -71,7 +71,7 @@ namespace FirstLight.Game.Presenters
 			_copyCodeButton.clicked += () =>
 			{
 				UIUtils.SaveToClipboard(_services.FLLobbyService.CurrentMatchLobby.LobbyCode);
-				_services.NotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
+				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			};
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
 

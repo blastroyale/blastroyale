@@ -24,6 +24,7 @@ namespace FirstLight.Game.Utils
 			public const string YOUTUBE_LINK = "https://www.youtube.com/@BlastRoyaleGame/?sub_confirmation=1";
 			public const string INSTAGRAM_LINK = "https://www.instagram.com/blastroyale";
 			public const string TIKTOK_LINK = "https://www.tiktok.com/@blastroyale";
+			public const string TWITTER_LINK = "https://twitter.com/blastroyale";
 
 			public const string APP_STORE_IOS = "https://apps.apple.com/app/blast-royale/id1621071488";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.blastroyale";

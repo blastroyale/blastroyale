@@ -792,6 +792,12 @@
     background-image: var(--sprite-home__icon-tiktok);
 }
 
+.socials-buttons__twitter {
+    width: 48px;
+    height: 48px;
+    background-image: var(--sprite-home__icon-twitter);
+}
+
 .generic-popup {
     min-width: 500px;
     min-height: 400px;

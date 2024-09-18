@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/StoreGameProduct.uss?fileID=7433441132597879392&amp;guid=4f4b019b2a5304c718e1621916865b7a&amp;type=3#StoreGameProduct" />
-    <FirstLight.Game.UIElements.ImageButton class="product-widget-wrapper" name="ProductWidgetWrapper">
+    <FirstLight.Game.UIElements.ImageButton name="ProductWidgetWrapper" class="product-widget-wrapper">
         <ui:VisualElement name="ProductWidget" class="product-widget">
             <ui:VisualElement name="ProductBackgroundImage" class="product-background-image">
                 <ui:VisualElement name="ProductImageGradientBig" class="product-image-gradient-big" />
@@ -16,7 +16,7 @@
             <FirstLight.Game.UIElements.ImageButton name="InformationClickArea" focusable="true" tabindex="1" class="info-click-area">
                 <ui:VisualElement name="InformationIcon" class="info-button" style="display: flex; visibility: visible;" />
             </FirstLight.Game.UIElements.ImageButton>
-            <ui:VisualElement name="OwnedStamp" class="owned-stamp">
+            <ui:VisualElement name="OwnedStamp" class="owned-stamp" style="">
                 <ui:VisualElement name="OwnedBg" class="owned-stamp__bg" style="display: none; visibility: hidden;" />
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/you_own_this_item" name="OwnedText" class="owned-stamp__text" />
             </ui:VisualElement>

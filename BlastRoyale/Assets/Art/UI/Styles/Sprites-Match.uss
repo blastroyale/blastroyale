@@ -20,7 +20,6 @@
     --sprite-match__banner-rainbow: url('/Assets/Art/UI/Sprites/Match/banner-rainbow.png');
     --sprite-match__banner-red: url('/Assets/Art/UI/Sprites/Match/banner-red.png');
     --sprite-match__banner-winner: url('/Assets/Art/UI/Sprites/Match/banner-winner.png');
-    --sprite-match__bullet-shell: url('/Assets/Art/UI/Sprites/Match/bullet-shell.png');
     --sprite-match__button-next: url('/Assets/Art/UI/Sprites/Match/button-next.png');
     --sprite-match__button-next-pressed: url('/Assets/Art/UI/Sprites/Match/button-next-pressed.png');
     --sprite-match__DarkAirstrike: url('/Assets/Art/UI/Sprites/Match/DarkAirstrike.png');
@@ -233,12 +232,6 @@
     background-image: var(--sprite-match__banner-winner);
     width: 1001px;
     height: 434px;
-}
-
-.sprite-match__bullet-shell {
-    background-image: var(--sprite-match__bullet-shell);
-    width: 75px;
-    height: 219px;
 }
 
 .sprite-match__button-next {

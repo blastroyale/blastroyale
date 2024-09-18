@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters.Store
 		private const string USS_GRADIENT_SMALL = "product-image-gradient-small";
 		private const string USS_WIDGET_EFFECTS = "widget-effect";
 		private const string USS_OWNED_STAMP = "owned-stamp";
-		private const string USS_OWNED_STAMP_TEXT = "owned-stamp-text";
+		private const string USS_OWNED_STAMP_TEXT = "owned-stamp__text";
 		private const string USS_OWNED_MODIFIER = "--owned";
 		private const string USS_SPRITE_CURRENCIES_BLASTBUCK = "sprite-currencies__blastbuck-1";
 

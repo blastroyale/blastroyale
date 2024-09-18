@@ -11,7 +11,6 @@ namespace FirstLight.Game.MonoComponent.Collections
 		// ReSharper disable InconsistentNaming
 		private readonly int P_MOVING = Animator.StringToHash("moving");
 		private readonly int P_AIMING = Animator.StringToHash("aiming");
-
 		private readonly int P_ATTACK = Animator.StringToHash("attack");
 		private readonly int P_VICTORY = Animator.StringToHash("victory");
 		private readonly int P_HIT = Animator.StringToHash("hit");
@@ -38,6 +37,7 @@ namespace FirstLight.Game.MonoComponent.Collections
 		[SerializeField] private Transform _rightFootAnchor;
 		[SerializeField] private Animator _animator;
 
+		public event Action OnTriggerFlair;
 		private static RuntimeAnimatorController _animatorController;
 
 		public Transform WeaponAnchor => _weaponAnchor;
@@ -76,7 +76,7 @@ namespace FirstLight.Game.MonoComponent.Collections
 		{
 			set => _animator.enabled = value;
 		}
-		
+
 		public WeaponType WeaponType
 		{
 			set
@@ -97,10 +97,15 @@ namespace FirstLight.Game.MonoComponent.Collections
 		public void TriggerPLF() => _animator.SetTrigger(P_PLF);
 		public void TriggerSkydive() => _animator.SetTrigger(P_SKYDIVE);
 		public void TriggerKnockOut() => _animator.SetTrigger(P_KNOCK_OUT);
-		public void TriggerFlair() => _animator.SetTrigger(P_FLAIR);
 		public void TriggerEquipMelee() => _animator.SetTrigger(P_EQUIP_MELEE);
 		public void TriggerEquipGun() => _animator.SetTrigger(P_EQUIP_GUN);
 		public void TriggerEnter() => _animator.SetTrigger(P_ENTER);
+
+		public void TriggerFlair()
+		{
+			_animator.SetTrigger(P_FLAIR);
+			OnTriggerFlair?.Invoke();
+		}
 
 		#region AnimationClipEvents
 

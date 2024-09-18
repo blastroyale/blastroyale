@@ -21,6 +21,7 @@ namespace FirstLight.Game.Configs.Remote
 	[Serializable]
 	public class EventNotificationConfig
 	{
+		public bool ShowWhenAppIsOpen;
 		public int ScheduleHoursBefore;
 		public EventNotification[] Notifications;
 	}

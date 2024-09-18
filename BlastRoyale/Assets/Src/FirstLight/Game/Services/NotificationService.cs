@@ -58,6 +58,7 @@ namespace FirstLight.Game.Services
 
 		public void RefreshEventNotifications()
 		{
+			if (Application.isEditor) return;
 			NotificationCenter.CancelAllScheduledNotifications();
 			var eventConfig = _remoteConfigProvider.GetConfig<EventGameModesConfig>();
 			var notificationConfig = _remoteConfigProvider.GetConfig<EventNotificationConfig>();
@@ -99,13 +100,13 @@ namespace FirstLight.Game.Services
 
 				var title = ReplaceValue(randomMessage.Title, duration, @event);
 				var desc = ReplaceValue(randomMessage.Description, duration, @event);
-				ScheduleNotification(timeOfNotification, "events", title, desc);
+				ScheduleNotification(timeOfNotification, "events", title, desc, notificationConfig.ShowWhenAppIsOpen);
 			}
 		}
 
 		private string ReplaceValue(string original, DurationConfig duration, EventGameModeEntry @event)
 		{
-			var startsAtDate = duration.GetStartsAtDateTime();
+			var startsAtDate = duration.GetStartsAtDateTime().ToLocalTime();
 			var startsAt = startsAtDate.Minute == 0 ? startsAtDate.ToString("hh tt") : startsAtDate.ToString("hh:mm tt");
 
 			return original
@@ -115,19 +116,22 @@ namespace FirstLight.Game.Services
 				.Replace("%starts_at%", startsAt);
 		}
 
-		public void ScheduleNotification(DateTime dateTime, string category, string title, string body)
+		public void ScheduleNotification(DateTime dateTime, string category, string title, string body, bool showInForeGround)
 		{
+			if (Application.isEditor) return;
+
 			FLog.Info("Scheduled notification " + title + " for " + dateTime.ToString(CultureInfo.InvariantCulture));
 			var a = NotificationCenter.ScheduleNotification(new Notification()
 			{
 				Title = title,
 				Text = body,
-				ShowInForeground = true,
+				ShowInForeground = showInForeGround,
 			}, category, new NotificationDateTimeSchedule(dateTime));
 		}
 
 		public async UniTask RegisterForNotifications()
 		{
+			if (Application.isEditor) return;
 			Init();
 			await InitRemotePushNotifications();
 			var request = NotificationCenter.RequestPermission();

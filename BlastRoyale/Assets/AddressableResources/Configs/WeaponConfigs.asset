@@ -51,7 +51,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 111411
+        RawValue: 65536
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0

@@ -226,7 +226,7 @@ namespace Quantum.Systems
 			if (weaponConfig.IsMeleeWeapon)
 			{
 				despawnTime = f.Time + FP._0_20;
-				projectileStartPosition += shotDirection * range / 2;
+				projectileStartPosition += shotDirection * range / FP._2;
 			}
 		
 			var projectile = new Projectile

@@ -75,7 +75,7 @@ namespace FirstLight.Game.Presenters
 			_addFriendButton = Root.Q<LocalizedButton>("AddFriendButton").Required();
 			_requestsCount = Root.Q<Label>("RequestsCount").Required();
 
-			_addFriendButton.clicked += () => AddFriend(_addFriendIDField.value).Forget();
+			_addFriendButton.clicked += () => AddFriend(AuthenticationServiceExtensions.GetPlayerNameWithSpecialSpaceChar(_addFriendIDField.value)).Forget();
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 
 			_friendsList.bindItem = OnFriendsBindItem;
@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			var appData = _services.DataService.GetData<AppData>();
-			_yourIDField.text = appData.DisplayName;
+			_yourIDField.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(appData.DisplayName);
 			RefreshAll();
 
 			// TODO mihak: Temporary, we just always refresh all lists

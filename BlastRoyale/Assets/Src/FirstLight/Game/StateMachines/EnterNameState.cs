@@ -99,7 +99,7 @@ namespace FirstLight.Game.StateMachines
 			
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name,
 				ScriptLocalization.UITHomeScreen.new_name_desc,
-				emptyInputText ? "" : AuthenticationService.Instance.GetPlayerName(true, false),
+				emptyInputText ? "" : AuthenticationService.Instance.GetPlayerNameWithSpaces(true, false),
 				confirmButton, false);
 		}
 
@@ -129,7 +129,7 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			if (newNameTrimmed == AuthenticationService.Instance.GetPlayerName())
+			if (newNameTrimmed == AuthenticationService.Instance.GetPlayerNameWithSpaces())
 			{
 				_statechartTrigger(NameSetEvent);
 				return;

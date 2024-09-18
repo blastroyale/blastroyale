@@ -220,7 +220,7 @@ namespace FirstLight.Game.UIElements
 		public FriendListElement SetPlayerName(string playerName, int trophies)
 		{
 			_trophiesLabel.SetDisplay(true);
-			_nameLabel.text = playerName?.TrimPlayerNameNumbers();
+			_nameLabel.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(playerName?.TrimPlayerNameNumbers());
 			_trophiesLabel.text = $"<color=#FFC700>{trophies}</color> <size=+2px><sprite name=\"TrophyIcon\"></size>";
 			return this;
 		}

@@ -595,7 +595,7 @@ namespace FirstLight.Game.Services.RoomService
 				return;
 			}
 
-			_networkService.QuantumClient.NickName = AuthenticationService.Instance.GetPlayerName();
+			_networkService.QuantumClient.NickName = AuthenticationService.Instance.GetPlayerNameWithSpaces();
 			var preloadIds = new List<GameId>();
 
 			preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);

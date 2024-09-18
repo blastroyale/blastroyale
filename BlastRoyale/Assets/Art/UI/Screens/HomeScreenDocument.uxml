@@ -136,10 +136,10 @@
         </ui:VisualElement>
         <ui:VisualElement name="SocialsButtons" class="socials-buttons">
             <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="socials-buttons__discord sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s" />
+            <ui:Button display-tooltip-when-elided="true" name="TwitterButton" class="socials-buttons__twitter sfx-click-forwards anim-delay-4 anim-translate anim-translate--down-s" />
             <ui:Button display-tooltip-when-elided="true" name="YoutubeButton" class="socials-buttons__youtube sfx-click-forwards anim-delay-1 anim-translate anim-translate--down-s" />
             <ui:Button display-tooltip-when-elided="true" name="InstagramButton" class="socials-buttons__instagram sfx-click-forwards anim-delay-2 anim-translate anim-translate--down-s" />
             <ui:Button display-tooltip-when-elided="true" name="TiktokButton" class="socials-buttons__tiktok sfx-click-forwards anim-delay-3 anim-translate anim-translate--down-s" />
-            <ui:Button display-tooltip-when-elided="true" name="TwitterButton" class="socials-buttons__twitter sfx-click-forwards anim-delay-4 anim-translate anim-translate--down-s" />
         </ui:VisualElement>
         <ui:VisualElement name="Matchmaking" class="matchmaking-container matchmaking-container--hidden">
             <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent matchmaking-container__safearea">

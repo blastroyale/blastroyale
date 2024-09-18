@@ -38,6 +38,12 @@ namespace FirstLight.Game.Views.UITK
 				services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.TiktokLink);
 				Application.OpenURL(GameConstants.Links.TIKTOK_LINK);
 			};
+			
+			Element.Q<Button>("TwitterButton").Required().clicked += () =>
+			{
+				services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.TwitterLink);
+				Application.OpenURL(GameConstants.Links.TWITTER_LINK);
+			};
 		}
 	}
 }

@@ -1499,6 +1499,8 @@ namespace I2.Loc
 			public static string PlayerSkinPandaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPandaDescription"); } }
 			public static string PlayerSkinPilot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPilot"); } }
 			public static string PlayerSkinPilotDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPilotDescription"); } }
+			public static string PlayerSkinPirate 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPirate"); } }
+			public static string PlayerSkinPirateDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPirateDescription"); } }
 			public static string PlayerSkinPlagueDoctor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPlagueDoctor"); } }
 			public static string PlayerSkinPlagueDoctorDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPlagueDoctorDescription"); } }
 			public static string PlayerSkinPoliceFemale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinPoliceFemale"); } }
@@ -4329,6 +4331,8 @@ namespace I2.Loc
 		    public const string PlayerSkinPandaDescription = "GameIds/PlayerSkinPandaDescription";
 		    public const string PlayerSkinPilot = "GameIds/PlayerSkinPilot";
 		    public const string PlayerSkinPilotDescription = "GameIds/PlayerSkinPilotDescription";
+		    public const string PlayerSkinPirate = "GameIds/PlayerSkinPirate";
+		    public const string PlayerSkinPirateDescription = "GameIds/PlayerSkinPirateDescription";
 		    public const string PlayerSkinPlagueDoctor = "GameIds/PlayerSkinPlagueDoctor";
 		    public const string PlayerSkinPlagueDoctorDescription = "GameIds/PlayerSkinPlagueDoctorDescription";
 		    public const string PlayerSkinPoliceFemale = "GameIds/PlayerSkinPoliceFemale";

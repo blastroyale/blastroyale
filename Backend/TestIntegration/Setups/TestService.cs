@@ -91,6 +91,9 @@ public class TestService<T> : WebApplicationFactory<T> where T : class
 		Environment.SetEnvironmentVariable("API_KEY", "devkey",
 			EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", _cfg.PlayfabTitle, EnvironmentVariableTarget.Process);
+		
+		Environment.SetEnvironmentVariable("PLAGUEDOCTOR_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("GAMESGGGAMERS_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
 		Services.GetService<IPlayfabServer>().CreateServer("integration_test_user");
 	}
 

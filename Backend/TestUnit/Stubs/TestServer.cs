@@ -11,9 +11,6 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Serializers;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using FirstLight.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -172,5 +169,8 @@ public class TestServer
 		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", "***REMOVED***", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("REMOTE_CONFIGURATION", "false", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("APPLICATION_ENVIRONMENT", "dev", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("PLAGUEDOCTOR_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("GAMESGGGAMERS_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
+		
 	}
 }

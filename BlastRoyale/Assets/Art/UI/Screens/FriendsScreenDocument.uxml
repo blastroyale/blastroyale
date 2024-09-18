@@ -33,6 +33,7 @@
                                 <ui:Button display-tooltip-when-elided="true" name="YoutubeButton" class="socials-buttons__youtube sfx-click-forwards" />
                                 <ui:Button display-tooltip-when-elided="true" name="InstagramButton" class="socials-buttons__instagram sfx-click-forwards" />
                                 <ui:Button display-tooltip-when-elided="true" name="TiktokButton" class="socials-buttons__tiktok sfx-click-forwards" />
+                                <ui:Button display-tooltip-when-elided="true" name="TwitterButton" class="socials-buttons__twitter sfx-click-forwards" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:ListView name="FriendsList" virtualization-method="DynamicHeight" selection-type="None" style="display: none;" />

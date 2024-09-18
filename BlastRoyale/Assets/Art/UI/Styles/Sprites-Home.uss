@@ -207,6 +207,7 @@
     --sprite-home__icon-star-gold: url('/Assets/Art/UI/Sprites/Home/icon-star-gold.png');
     --sprite-home__icon-star-silver: url('/Assets/Art/UI/Sprites/Home/icon-star-silver.png');
     --sprite-home__icon-tiktok: url('/Assets/Art/UI/Sprites/Home/icon-tiktok.png');
+    --sprite-home__icon-twitter: url('/Assets/Art/UI/Sprites/Home/icon-twitter.png');
     --sprite-home__icon-youtube: url('/Assets/Art/UI/Sprites/Home/icon-youtube.png');
     --sprite-home__loading_background: url('/Assets/Art/UI/Sprites/Home/loading_background.png');
     --sprite-home__loading_background_s10: url('/Assets/Art/UI/Sprites/Home/loading_background_s10.png');
@@ -1440,6 +1441,12 @@
 
 .sprite-home__icon-tiktok {
     background-image: var(--sprite-home__icon-tiktok);
+    width: 48px;
+    height: 48px;
+}
+
+.sprite-home__icon-twitter {
+    background-image: var(--sprite-home__icon-twitter);
     width: 48px;
     height: 48px;
 }

@@ -29,6 +29,27 @@
     border-width: 0;
 }
 
+.label-outlined {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 8px;
+}
+
+.label-outlined .internal-label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.localized-button {
+    overflow: visible;
+}
+
+.localized-button .internal-label {
+    overflow: visible;
+}
+
 .unity-button {
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
@@ -946,19 +967,6 @@
 
 .unity-toggle__input:disabled .unity-toggle__checkmark {
     background-color: rgb(132, 117, 166);
-}
-
-.label-outlined {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    padding-right: 8px;
-}
-
-.label-outlined .internal-label {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 .internal-label {

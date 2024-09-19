@@ -4,9 +4,9 @@
     --color-highlight: rgb(196, 84, 122);
     --color-default: rgb(144, 98, 227);
     --color-body: rgb(148, 45, 68);
-    --font-bold: url("project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static");
-    --font-italic: url("project://database/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset?fileID=11400000&guid=7832e1fcb057c44e48fbbb2ea5135595&type=2#Stawix-Italic-Static");
-    --font-italic-dynamic: url("project://database/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset?fileID=11400000&guid=e9b95b0e9aa0b48e08bd5e26c6365ddc&type=2#Stawix-Italic-Dynamic");
+    --font-bold: url('project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static');
+    --font-italic: url('project://database/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset?fileID=11400000&guid=7832e1fcb057c44e48fbbb2ea5135595&type=2#Stawix-Italic-Static');
+    --font-italic-dynamic: url('project://database/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset?fileID=11400000&guid=e9b95b0e9aa0b48e08bd5e26c6365ddc&type=2#Stawix-Italic-Dynamic');
     -unity-font-definition: var(--font-italic);
 }
 
@@ -27,6 +27,27 @@
     margin-right: 4px;
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
+}
+
+.label-outlined {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 8px;
+}
+
+.label-outlined .internal-label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.localized-button {
+    overflow: visible;
+}
+
+.localized-button .internal-label {
+    overflow: visible;
 }
 
 .unity-button {
@@ -346,7 +367,6 @@
     background-image: var(--sprite-home__button-long-purple-pressed);
 }
 
-
 .button-long--small-font {
     font-size: 32px;
 }
@@ -657,7 +677,7 @@
 
 .fame-lock__icon {
     background-color: rgba(0, 0, 0, 0);
-    background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-collection-lock.png?fileID=21300000&guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&type=3#icon-collection-lock");
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-collection-lock.png?fileID=21300000&guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&type=3#icon-collection-lock');
     width: 130px;
     height: 136px;
     -unity-background-scale-mode: scale-to-fit;
@@ -678,7 +698,7 @@
 
 .button-party__icon {
     position: absolute;
-    background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-heroes.png?fileID=21300000&guid=270a8fbd99be94e3f866a62bc26685fb&type=3#icon-heroes");
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-heroes.png?fileID=21300000&guid=270a8fbd99be94e3f866a62bc26685fb&type=3#icon-heroes');
     width: 116px;
     height: 80px;
     left: -42px;
@@ -754,7 +774,9 @@
     display: none;
 }
 
-.unity-scroll-view__vertical-scroller > .unity-scroller__slider > .unity-slider__input {
+.unity-scroll-view__vertical-scroller
+    > .unity-scroller__slider
+    > .unity-slider__input {
     background-color: initial;
 }
 
@@ -990,7 +1012,7 @@
     left: -200px;
     height: 108px;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .player-name__add-friend-button {
@@ -1019,7 +1041,6 @@
     align-items: center;
     transition-property: opacity;
     transition-duration: 0.3s;
-    overflow: visible;
     font-size: 54px;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
@@ -1047,7 +1068,6 @@
     -unity-text-outline-width: 1px;
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }
-
 
 .remote-avatar {
     width: 128px;

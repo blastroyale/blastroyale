@@ -50,7 +50,7 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.ResolveServices();
 			
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
-			header.backClicked = Data.BackClicked; 
+			header.backClicked = Data.BackClicked;
 
 			_matchSettings.AttachView(this, out _matchSettingsView);
 			_gamesList.bindItem = BindMatchLobbyItem;

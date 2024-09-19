@@ -25,7 +25,6 @@ namespace BlastRoyaleNFTPlugin
 			{
 				_blockchainApi = new BlockchainApi(baseUrl, apiSecret, context, this);
 			}
-
 			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad, EventPriority.LAST);
 			context.PluginEventManager.RegisterEventListener<InventoryUpdatedEvent>(OnInventoryUpdate);
 		}

@@ -43,7 +43,7 @@ namespace Backend
 			services.AddSingleton<IPluginManager>(f => pluginManager);
 			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, AnalyticsService>();
-			services.AddSingleton<IAnalyticsProvider, PlayfabPlayStreamAnalyticsServiceProvider>();
+			services.AddSingleton<IAnalyticsProvider, AppInsightsAnalyticsProvider>();
 			services.AddSingleton<IAnalyticsProvider, UnityAnalyticsServiceProvider>();
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
 			services.AddSingleton<IServerPlayerProfileService, PlayfabProfileService>();

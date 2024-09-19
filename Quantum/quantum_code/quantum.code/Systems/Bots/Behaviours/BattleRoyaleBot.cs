@@ -8,14 +8,14 @@ namespace Quantum.Systems.Bots
 	public unsafe class BattleRoyaleBot
 	{
 		public static FP MaxDistanceToTryToRevive = FP.FromString("25") * FP.FromString("25");
-		
+
 		internal void Update(Frame f, ref BotCharacterFilter filter, in bool isTakingCircleDamage, in BotUpdateGlobalContext botCtx)
 		{
 			filter.CleanDestroyedWaypointTarget(f);
 
 			if (filter.BotCharacter->TeamSize > 1)
 			{
-				CheckOnTeammates(f, ref filter);
+				CheckOnTeammates(f, filter.Transform, filter.TeamMember, filter.BotCharacter);
 			}
 
 			if (isTakingCircleDamage)
@@ -39,14 +39,20 @@ namespace Quantum.Systems.Bots
 
 			if (ReviveSystem.IsKnockedOut(f, filter.Entity))
 			{
+				// Someone is already reviving the bot so don't move idiot
+				if (ReviveSystem.IsBeingRevived(f, filter.Entity))
+				{
+					return;
+				}
+
 				// hard coded values so the bot will always go to teammate
-				if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, FP._0, false))
+				if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, FP._0, false, realClose: true))
 				{
 					BotLogger.LogAction(ref filter, "stay close to team mate");
 					filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
 					return;
 				}
-				
+
 				return;
 			}
 
@@ -106,15 +112,16 @@ namespace Quantum.Systems.Bots
 					return;
 				}
 			}
+
 			HostProfiler.End();
-			
+
 			// Let it finish the path
 			if (filter.BotCharacter->HasWaypoint(filter.Entity, f) && filter.NavMeshAgent->IsActive)
 			{
 				BotLogger.LogAction(ref filter, "wait for path to finish waypoint. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
 				return;
 			}
-			
+
 			HostProfiler.Start("TryGoForClosestCollectable");
 			if (filter.TryGoForClosestCollectable(f, botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking))
 			{
@@ -122,6 +129,7 @@ namespace Quantum.Systems.Bots
 				HostProfiler.End();
 				return;
 			}
+
 			HostProfiler.End();
 
 			HostProfiler.Start("TryStayCloseToTeammate");
@@ -131,6 +139,7 @@ namespace Quantum.Systems.Bots
 				HostProfiler.End();
 				return;
 			}
+
 			HostProfiler.End();
 
 			HostProfiler.Start("WanderInsideCircle");
@@ -142,6 +151,7 @@ namespace Quantum.Systems.Bots
 				HostProfiler.End();
 				return;
 			}
+
 			HostProfiler.End();
 
 			if (filter.BotCharacter->IsDoingJackShit())
@@ -213,13 +223,14 @@ namespace Quantum.Systems.Bots
 			{
 				filter.SetHasWaypoint(f);
 			}
+
 			HostProfiler.End();
 		}
 
 		// We loop through players to find a reference for alive teammate in case current is dead
-		private void CheckOnTeammates(Frame f, ref BotCharacterFilter filter)
+		public void CheckOnTeammates(Frame f, Transform2D* botTransform, TeamMember* botTeamMember, BotCharacter* botCharacter, bool force = false)
 		{
-			if (!QuantumHelpers.IsDestroyed(f, filter.BotCharacter->RandomTeammate))
+			if (!QuantumHelpers.IsDestroyed(f, botCharacter->RandomTeammate) && !force)
 			{
 				return;
 			}
@@ -227,23 +238,32 @@ namespace Quantum.Systems.Bots
 			HostProfiler.Start("CheckOnTeammates");
 
 			var randomTeammate = EntityRef.None;
-
-			foreach (var candidate in f.ResolveHashSet(filter.TeamMember->TeamMates))
+			var distance = FP.MaxValue;
+			foreach (var candidate in f.ResolveHashSet(botTeamMember->TeamMates))
 			{
-				if (candidate.IsValid && f.Has<AlivePlayerCharacter>(candidate))
+				if (candidate.IsValid && f.Has<AlivePlayerCharacter>(candidate) && f.TryGet<Transform2D>(candidate, out var transform))
 				{
-					randomTeammate = candidate;
-					break;
+					var candidateDistance = FPVector2.DistanceSquared(transform.Position, botTransform->Position);
+					if (candidateDistance < distance)
+					{
+						// We have preference for non knocked out players
+						if (randomTeammate != EntityRef.None && ReviveSystem.IsKnockedOut(f, candidate) && !ReviveSystem.IsKnockedOut(f, randomTeammate))
+						{
+							continue;
+						}
+
+						randomTeammate = candidate;
+					}
 				}
 			}
 
 			// If no teammates are alive then we let a bot think that they are alone in their team to not look for teammates anymore
 			if (randomTeammate == EntityRef.None)
 			{
-				filter.BotCharacter->TeamSize = 1;
+				botCharacter->TeamSize = 1;
 			}
 
-			filter.BotCharacter->RandomTeammate = randomTeammate;
+			botCharacter->RandomTeammate = randomTeammate;
 			HostProfiler.End();
 		}
 
@@ -281,18 +301,23 @@ namespace Quantum.Systems.Bots
 			return false;
 		}
 
-		private bool TryStayCloseToTeammate(Frame f, ref BotCharacterFilter filter, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking)
+		private bool TryStayCloseToTeammate(Frame f, ref BotCharacterFilter filter, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking, bool realClose = false)
 		{
 			if (filter.BotCharacter->TeamSize <= 1 || QuantumHelpers.IsDestroyed(f, filter.BotCharacter->RandomTeammate))
 			{
 				return false;
 			}
+
 			HostProfiler.Start("TryStayCloseToTeammate");
 
 			var teammatePosition = filter.BotCharacter->RandomTeammate.GetPosition(f);
 			var botPosition = filter.Transform->Position;
 			var vectorToTeammate = teammatePosition - botPosition;
 			var maxDistanceSquared = filter.BotCharacter->MaxDistanceToTeammateSquared;
+			if (realClose)
+			{
+				maxDistanceSquared = FP._3;
+			}
 
 			var distance = vectorToTeammate.SqrMagnitude;
 			if (distance < maxDistanceSquared)
@@ -301,7 +326,7 @@ namespace Quantum.Systems.Bots
 				return false;
 			}
 
-			var destination = filter.Transform->Position + vectorToTeammate.Normalized * (vectorToTeammate.Magnitude / FP._2);
+			var destination = teammatePosition - vectorToTeammate.Normalized * (realClose ? FP._1_50 : FP._5);
 			var isGoing = BotState.IsInCircleWithSpareSpace(circleCenter, circleRadius, circleIsShrinking, destination)
 				&& BotMovement.MoveToLocation(f, filter.Entity, destination);
 
@@ -314,5 +339,7 @@ namespace Quantum.Systems.Bots
 			HostProfiler.End();
 			return isGoing;
 		}
+
+		public int RuntimeIndex { get; }
 	}
 }

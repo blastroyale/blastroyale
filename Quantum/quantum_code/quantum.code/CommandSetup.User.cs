@@ -27,6 +27,7 @@ namespace Quantum
 			factories.Add(new TutorialSpawnSpecialCommand());
 			factories.Add(new CheatMoveSpeedCommand());
 			factories.Add(new CheatSpawnAllSpecialsCommand());
+			factories.Add(new CheatKillTeamMatesCommand());
 			factories.Add(new CheatSpawnAllWeaponsCommand());
 		}
 	}

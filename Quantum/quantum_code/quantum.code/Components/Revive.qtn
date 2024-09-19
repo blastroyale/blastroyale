@@ -36,9 +36,9 @@ synced event OnPlayerStopReviving
 }
 
 signal OnPlayerKnockedOut(entity_ref Entity);
-
-
 signal OnPlayerRevived(entity_ref Entity);
+signal OnPlayerStartReviving(entity_ref Entity);
+signal OnPlayerStopReviving(entity_ref Entity);
 
 
 synced event OnPlayerRevived

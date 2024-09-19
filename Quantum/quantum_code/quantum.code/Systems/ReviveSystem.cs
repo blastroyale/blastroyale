@@ -6,8 +6,8 @@ namespace Quantum.Systems
 	/// <summary>
 	/// System handling knockout logic, this contains knocking out the player when he dies, knockout collider, and reviving the player.
 	/// </summary>
-	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>,ISignalOnComponentRemoved<KnockedOut>, 
-									   ISignalPlayerDead, ISignalGameEnded, 
+	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnComponentRemoved<KnockedOut>,
+									   ISignalPlayerDead, ISignalGameEnded,
 									   ISignalOnFeetCollisionEnter, ISignalOnFeetCollisionLeft
 	{
 		public struct KnockedOutFilter
@@ -55,6 +55,7 @@ namespace Quantum.Systems
 					var reviveHealthPercentage = GetConfigForKnockedOut(f, filter.KnockedOut).LifePercentageOnRevived;
 					RevivePlayer(f, filter.Entity, filter.Stats, reviveHealthPercentage);
 				}
+
 				return;
 			}
 
@@ -74,7 +75,7 @@ namespace Quantum.Systems
 					EndTime = FP._0,
 					NextHitTime = FP._0,
 					OriginalHitPosition = filter.Transform->Position,
-					PowerAmount = (uint) FPMath.RoundToInt((FP) filter.Stats->MaxHealth * config.DamagePerTick),
+					PowerAmount = (uint)FPMath.RoundToInt((FP)filter.Stats->MaxHealth * config.DamagePerTick),
 					KnockbackAmount = 0,
 					TeamSource = 0
 				};
@@ -82,7 +83,7 @@ namespace Quantum.Systems
 			}
 		}
 
-		
+
 		public void OnFeetCollisionEnter(Frame f, EntityRef entity, EntityRef collidedWith, FPVector2 point)
 		{
 			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(collidedWith, out var knockedOutCollider))
@@ -117,6 +118,7 @@ namespace Quantum.Systems
 					knockedOut->EndRevivingAt -= knockedOut->BackAtZero - f.Time;
 				}
 
+				f.Signals.OnPlayerStartReviving(knockedOutCollider->KnockedOutEntity);
 				f.Events.OnPlayerStartReviving(knockedOutCollider->KnockedOutEntity);
 			}
 
@@ -131,6 +133,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
+
 			StopRevivingPlayer(f, knockedOut, knockedOutCollider->KnockedOutEntity, entity);
 		}
 
@@ -202,6 +205,16 @@ namespace Quantum.Systems
 			return f.Has<KnockedOut>(player);
 		}
 
+		public static bool IsBeingRevived(Frame f, EntityRef player)
+		{
+			if (f.Unsafe.TryGetPointer<KnockedOut>(player, out var knockedOut))
+			{
+				return f.ResolveHashSet(knockedOut->PlayersReviving).Count > 0;
+			}
+
+			return false;
+		}
+
 		// ReSharper disable once UnusedMember.Global
 		public static FP CalculateRevivePercentage(Frame f, KnockedOut* knockedOut)
 		{
@@ -243,7 +256,7 @@ namespace Quantum.Systems
 
 			if (spell->Id != Spell.KnockedOut)
 			{
-				damage = FPMath.CeilToInt((FP) damage * GetConfigForKnockedOut(f, knockedout).DamagePerShot);
+				damage = FPMath.CeilToInt((FP)damage * GetConfigForKnockedOut(f, knockedout).DamagePerShot);
 				return true;
 			}
 
@@ -310,6 +323,7 @@ namespace Quantum.Systems
 				// Reset damage timer 
 				knockedOut->NextDamageAt = f.Time + config.DamageTickInterval;
 
+				f.Signals.OnPlayerStopReviving(knockedOutEntity);
 				f.Events.OnPlayerStopReviving(knockedOutEntity);
 			}
 		}
@@ -399,7 +413,7 @@ namespace Quantum.Systems
 			if (f.Unsafe.TryGetPointer<Revivable>(player, out var revivable) &&
 				revivable->RecoverMoveSpeedAfter > f.Time)
 			{
-				configIndex = (byte) (revivable->TimesKnockedOut - 1);
+				configIndex = (byte)(revivable->TimesKnockedOut - 1);
 			}
 
 			if (configIndex != 255)

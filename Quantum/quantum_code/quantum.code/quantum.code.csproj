@@ -97,6 +97,7 @@
     <Compile Include="AI\Functions\HFSM.FPVector3SumFunction.cs" />
     <Compile Include="AI\Functions\HFSM.CurrentFrameTimeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
+    <Compile Include="Commands\Cheats\CheatKillTeamMatesCommand.cs" />
     <Compile Include="Commands\Cheats\CheatMoveSpeedCommand.cs" />
     <Compile Include="Commands\Cheats\CheatSpawnAllSpecialsCommand.cs" />
     <Compile Include="Commands\Cheats\CheatSpawnAllWeaponsCommand.cs" />

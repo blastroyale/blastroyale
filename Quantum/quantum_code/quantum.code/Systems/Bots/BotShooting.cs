@@ -13,7 +13,7 @@ namespace Quantum.Systems.Bots
 		/// to create the effect of smoothly aiming
 		/// </summary>
 		private static readonly FP ACCURACY_LERP_TICK = FP._0_01;
-		
+
 		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, PlayerCharacter* pc, Frame f)
 		{
 			if (pc->HasMeleeWeapon(f, entity))
@@ -163,8 +163,7 @@ namespace Quantum.Systems.Bots
 			ReviveSystem.OverwriteMaxMoveSpeed(f, botFilter.Entity, ref speed);
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
-			f.Unsafe.GetPointer<TopDownController>(botFilter.Entity)->MaxSpeed = speed;
-
+			f.Unsafe.GetPointer<NavMeshSteeringAgent>(botFilter.Entity)->MaxSpeed = speed;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botFilter.Entity);
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
 
@@ -182,7 +181,7 @@ namespace Quantum.Systems.Bots
 			ReviveSystem.OverwriteMaxMoveSpeed(f, entity, ref speed);
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
-			f.Unsafe.GetPointer<TopDownController>(entity)->MaxSpeed = speed;
+			f.Unsafe.GetPointer<NavMeshSteeringAgent>(entity)->MaxSpeed = speed;
 
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
@@ -297,6 +296,7 @@ namespace Quantum.Systems.Bots
 			{
 				return false;
 			}
+
 			for (var i = 0; i <= 1; i++)
 			{
 				if (TryUseSpecial(f, inventory, i, botEntity, bot.Target))
@@ -306,6 +306,7 @@ namespace Quantum.Systems.Bots
 					return true;
 				}
 			}
+
 			return false;
 		}
 
@@ -371,7 +372,7 @@ namespace Quantum.Systems.Bots
 					targetPosition,
 					f.Context.TargetPlayerLineOfSightLayerMask, QueryOptions.HitStatics |
 					QueryOptions.HitKinematics);
-				
+
 				if (!hit.HasValue)
 				{
 					targetHit = targetToCheck;
@@ -410,6 +411,7 @@ namespace Quantum.Systems.Bots
 				if (accuracy > 0) accuracy -= ACCURACY_LERP_TICK;
 				else accuracy += ACCURACY_LERP_TICK;
 			}
+
 			perfectAim = (perfectAim.ToRotation() + accuracy).ToDirection();
 			bb->Set(f, Constants.AIM_DIRECTION_KEY, perfectAim);
 			bb->Set(f, Constants.ACCURACY_LERP, accuracy);

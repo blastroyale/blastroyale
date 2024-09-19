@@ -16,7 +16,9 @@ namespace Quantum.Systems.Bots
 											 ISignalAllPlayersSpawned, ISignalOnNavMeshWaypointReached,
 											 ISignalOnNavMeshSearchFailed, ISignalOnComponentRemoved<BotCharacter>,
 											 ISignalOnPlayerRevived,
-											 ISignalOnPlayerKnockedOut
+											 ISignalOnPlayerKnockedOut,
+											 ISignalOnPlayerStartReviving,
+											 ISignalOnPlayerStopReviving
 	{
 		private static int DistributeProcessingFrames = 20;
 
@@ -170,6 +172,7 @@ namespace Quantum.Systems.Bots
 				_wanderAndShootBot.Update(f, ref filter);
 				return;
 			}
+
 			_battleRoyaleBot.Update(f, ref filter, isTakingCircleDamage, botCtx);
 		}
 
@@ -193,7 +196,7 @@ namespace Quantum.Systems.Bots
 				BotLogger.LogAction(entity, $"Resetting waypoints");
 			}
 		}
-		
+
 		public void OnNavMeshSearchFailed(Frame f, EntityRef entity, ref bool resetAgent)
 		{
 			BotLogger.LogAction(entity, "pathfinding failed");
@@ -219,7 +222,7 @@ namespace Quantum.Systems.Bots
 
 			// Test change. Bots ALWAYS react on getting damaged
 			//if (f.RNG->NextBool()) return; // 50% chance bots ignore
-			
+
 			// When bot has only melee and got attacked, something caused the bot sometime to freeze in place
 			// So Nik put an easy solution here - don't react on damage if bot has only melee
 			if (f.Unsafe.GetPointer<PlayerCharacter>(entity)->HasMeleeWeapon(f, entity))
@@ -313,7 +316,9 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+			_battleRoyaleBot.CheckOnTeammates(f, f.Unsafe.GetPointer<Transform2D>(knockedOutEntity), f.Unsafe.GetPointer<TeamMember>(knockedOutEntity), bot, true);
 			// Stop bot path because it will change it speed and behaviour
+			BotShooting.StopAiming(f, bot, knockedOutEntity);
 			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(knockedOutEntity, out var navMeshAgent))
 			{
 				navMeshAgent->Stop(f, knockedOutEntity, true);
@@ -321,7 +326,6 @@ namespace Quantum.Systems.Bots
 				bot->Target = EntityRef.None;
 			}
 
-			BotShooting.StopAiming(f, bot, knockedOutEntity);
 			bot->SetNextDecisionDelay(f, 0);
 
 			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(knockedOutEntity, out var bb))
@@ -338,19 +342,47 @@ namespace Quantum.Systems.Bots
 		/// <summary>
 		///  When a teammate gets knocked out stop everything and go help them
 		/// </summary>
-		private static void OnTeamMateKnockedOut(Frame f, EntityRef knockedOutEntity)
+		private void OnTeamMateKnockedOut(Frame f, EntityRef knockedOutEntity)
 		{
 			if (!f.Unsafe.TryGetPointer<TeamMember>(knockedOutEntity, out var teamMember)) return;
 
 			foreach (var teamMemberEntity in f.ResolveHashSet(teamMember->TeamMates))
 			{
-				if (knockedOutEntity.IsValid && f.Unsafe.TryGetPointer<BotCharacter>(teamMemberEntity, out var teamMateBot) && !ReviveSystem.IsKnockedOut(f, teamMemberEntity))
+				// If my team mate is a bot
+				if (knockedOutEntity.IsValid && f.Unsafe.TryGetPointer<BotCharacter>(teamMemberEntity, out var teamMateBot))
 				{
-					teamMateBot->NextDecisionTime = f.Time;
-					teamMateBot->ResetTargetWaypoint(f);
-					f.Unsafe.GetPointer<NavMeshPathfinder>(teamMemberEntity)->Stop(f, teamMemberEntity);
+					if (!ReviveSystem.IsKnockedOut(f, teamMemberEntity))
+					{
+						teamMateBot->NextDecisionTime = f.Time;
+						teamMateBot->ResetTargetWaypoint(f);
+						f.Unsafe.GetPointer<NavMeshPathfinder>(teamMemberEntity)->Stop(f, teamMemberEntity);
+					}
+					else
+					{
+						// Force looking for a teammate that is not down
+						_battleRoyaleBot.CheckOnTeammates(f,
+							f.Unsafe.GetPointer<Transform2D>(teamMemberEntity),
+							f.Unsafe.GetPointer<TeamMember>(teamMemberEntity),
+							teamMateBot, true);
+					}
 				}
 			}
+		}
+
+		public void OnPlayerStartReviving(Frame f, EntityRef entity)
+		{
+			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
+			bot->NextDecisionTime = f.Time;
+			bot->ResetTargetWaypoint(f);
+			f.Unsafe.GetPointer<NavMeshPathfinder>(entity)->Stop(f, entity);
+		}
+
+		public void OnPlayerStopReviving(Frame f, EntityRef Entity)
+		{
+			if (!f.Unsafe.TryGetPointer<BotCharacter>(Entity, out var bot)) return;
+			bot->NextDecisionTime = f.Time;
+			bot->ResetTargetWaypoint(f);
+			f.Unsafe.GetPointer<NavMeshPathfinder>(Entity)->Stop(f, Entity);
 		}
 	}
 }

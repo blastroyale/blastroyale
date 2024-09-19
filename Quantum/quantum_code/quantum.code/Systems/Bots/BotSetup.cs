@@ -221,6 +221,7 @@ namespace Quantum.Systems.Bots
 				NextLookForTargetsToShootAtTime = FP._0,
 				NextAllowedSpecialUseTime = FP._0,
 				StuckDetectionPosition = FPVector2.Zero,
+				TeamSize = (int)f.GetTeamSize()
 			};
 
 			ctx.BotNamesIndices.Remove(listNamesIndex);
@@ -236,7 +237,7 @@ namespace Quantum.Systems.Bots
 			// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
 			// var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
 			var trophies = (uint)Math.Max(0, ctx.AverageTrophies + f.RNG->Next(-50, 50));
-			
+
 			List<Modifier> modifiers = null;
 
 			if (config.DamageDoneMultiplier != FP._1 || config.DamageTakenMultiplier != FP._1)
@@ -301,7 +302,7 @@ namespace Quantum.Systems.Bots
 
 			SetupBotCosmetics(f, botEntity, spawner.Entity);
 			playerCharacter->Init(f, setup);
-			
+
 			CheckUpdateTutorialRuntimeData(f, spawner.Entity, botEntity);
 			if (f.Unsafe.TryGetPointer<BotLoadout>(spawner.Entity, out var botLoadout))
 			{
@@ -313,7 +314,7 @@ namespace Quantum.Systems.Bots
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
 			var kcc = f.Unsafe.GetPointer<TopDownController>(botEntity);
 			kcc->AimDirection = aim;
-			
+
 			bb->Set(f, Constants.AIM_DIRECTION_KEY, aim);
 
 			f.Destroy(spawner.Entity);

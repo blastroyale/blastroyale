@@ -243,7 +243,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				_nameLabel.text = Data.UnityID == null ? result.Name : result.Name.Remove(result.Name.Length - 5);
+				_nameLabel.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(Data.UnityID == null ? result.Name : result.Name.Remove(result.Name.Length - 5));
 			}
 
 			SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);

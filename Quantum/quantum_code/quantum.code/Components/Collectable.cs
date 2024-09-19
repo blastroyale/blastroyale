@@ -35,15 +35,20 @@ namespace Quantum
 		/// Drops an equipment item (weapon / gear) from <paramref name="equipment"/> in the given <paramref name="position"/>
 		/// </summary>
 		public static void DropEquipment(Frame f, in Equipment equipment, FPVector2 position, int angleDropStep, bool isConsiderNavMesh,
-										 int dropAngles, PlayerRef owner = new PlayerRef())
+										 int dropAngles, PlayerRef owner = new PlayerRef(), FP dropRadius = default)
 		{
+			if (dropRadius == default)
+			{
+				dropRadius = Constants.DROP_OFFSET_RADIUS;
+			}
+
 			if (equipment.IsDefaultItem())
 			{
 				Log.Error($"Trying to drop a default item, skipping: {equipment.GameId}!");
 				return;
 			}
 
-			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles, Constants.DROP_OFFSET_RADIUS);
+			var dropPosition = dropAngles == 1 ? position : GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles, dropRadius);
 
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, 0, position,
@@ -70,16 +75,18 @@ namespace Quantum
 			{
 				return endTime > FP._0;
 			}
+
 			return false;
 		}
-		
-		public bool HasCollector(Frame f, EntityRef collectable, params EntityRef [] entities)
+
+		public bool HasCollector(Frame f, EntityRef collectable, params EntityRef[] entities)
 		{
 			var dict = CollectorsEndTime(f, collectable);
 			foreach (var e in entities)
 			{
 				if (dict.ContainsKey(e)) return true;
 			}
+
 			return false;
 		}
 
@@ -106,6 +113,7 @@ namespace Quantum
 			{
 				return;
 			}
+
 			var collectors = CollectorsEndTime(f, collectable);
 			collectors.Remove(collector);
 			if (collectors.Count == 0)

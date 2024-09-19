@@ -153,13 +153,29 @@ public partial class SROptions
 	}
 
 	[Category("Gameplay")]
-	public void SendTeamPingSelf()
+	public void SpawnWeapons()
 	{
-		QuantumRunner.Default.Game.SendCommand(new TeamPositionPingCommand()
+		var game = QuantumRunner.Default.Game;
+		if (game == null)
 		{
-			Position = MainInstaller.Resolve<IMatchServices>().SpectateService.SpectatedPlayer.Value.Transform.position.ToFPVector2(),
-			Type = TeamPingType.General
-		});
+			Debug.LogWarning("Simulation is not running yet");
+			return;
+		}
+
+		game.SendCommand(new CheatSpawnAllWeaponsCommand());
+	}
+
+	[Category("Gameplay")]
+	public void SpawnGoldenWeapons()
+	{
+		var game = QuantumRunner.Default.Game;
+		if (game == null)
+		{
+			Debug.LogWarning("Simulation is not running yet");
+			return;
+		}
+
+		game.SendCommand(new CheatSpawnAllWeaponsCommand() {Golden = true});
 	}
 
 	[Category("Gameplay")]

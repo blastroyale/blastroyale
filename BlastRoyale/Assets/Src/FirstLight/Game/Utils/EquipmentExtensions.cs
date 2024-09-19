@@ -18,9 +18,9 @@ namespace FirstLight.Game.Utils
 		{
 			return new AnalyticsData()
 			{
-				{ "gameid", equipment.GameId },
-				{ "level", equipment.Level },
-				{ "rarity", equipment.Rarity },
+				{ "gameid", equipment.GameId.ToString() },
+				{ "level", equipment.Level.ToString() },
+				{ "rarity", equipment.Rarity.ToString() },
 			};
 		}
 		

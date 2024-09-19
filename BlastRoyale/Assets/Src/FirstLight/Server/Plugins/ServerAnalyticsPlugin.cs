@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
@@ -26,9 +27,6 @@ namespace Src.FirstLight.Server
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<GameLogicMessageEvent<GameCompletedRewardsMessage>>(OnGameCompleted);
 			evManager.RegisterEventListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassRewards);
-			evManager.RegisterEventListener<GameLogicMessageEvent<ItemScrappedMessage>>(OnItemScrapped);
-			evManager.RegisterEventListener<GameLogicMessageEvent<ItemUpgradedMessage>>(OnItemUpgraded);
-			evManager.RegisterEventListener<GameLogicMessageEvent<ItemRepairedMessage>>(OnItemRepaired);
 			evManager.RegisterEventListener<GameLogicMessageEvent<CurrencyChangedMessage>>(OnCurrencyChanged);
 			evManager.RegisterEventListener<GameLogicMessageEvent<PurchaseClaimedMessage>>(OnPurchasedItemRewarded);
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnGameEndCommand);
@@ -41,10 +39,10 @@ namespace Src.FirstLight.Server
 			var data = new AnalyticsData()
 			{
 				{"match_id", cmd.QuantumValues.MatchId},
-				{"match_type", simulationConfig.MatchType},
+				{"match_type", simulationConfig.MatchType.ToString()},
 				{"game_mode", player.GameModeId},
 				{"map_id", player.MapId},
-				{"players_left", cmd.PlayersMatchData.Count(d => !d.IsBot)},
+				{"players_left", cmd.PlayersMatchData.Count(d => !d.IsBot).ToString()},
 				{"suicide", player.Data.SuicideCount.ToString()},
 				{"kills", player.Data.PlayersKilledCount.ToString()},
 				{"player_rank", player.PlayerRank.ToString()},
@@ -54,12 +52,12 @@ namespace Src.FirstLight.Server
 				{"healing_done", player.Data.HealingDone.ToString() },
 				{"healing_received", player.Data.HealingReceived.ToString() },
 				{"initial_trophies", player.Data.PlayerTrophies.ToString() },
-				{"final_trophies",  state.DeserializeModel<PlayerData>().Trophies },
+				{"final_trophies",  state.DeserializeModel<PlayerData>().Trophies.ToString() },
 				{"first_death_time", player.Data.FirstDeathTime.AsLong.ToString() },
 				{"last_death_position", player.Data.LastDeathPosition.ToString() },
 				{"specials_used", player.Data.SpecialsUsedCount.ToString() },
-				{"team_size", simulationConfig.TeamSize },
-				{"team_id", player.Data.TeamId },
+				{"team_size", simulationConfig.TeamSize.ToString() },
+				{"team_id", player.Data.TeamId.ToString() },
 			};
 			_ctx.Analytics!.EmitUserEvent(userId, $"server_match_end_summary", data);
 			return Task.CompletedTask;
@@ -67,12 +65,12 @@ namespace Src.FirstLight.Server
 
 		private Task OnCurrencyChanged(GameLogicMessageEvent<CurrencyChangedMessage> ev)
 		{
-			var data = new AnalyticsData
+			var data = new AnalyticsData(new Dictionary<string, object>()
 			{
 				{"amount", System.Math.Abs(ev.Message.Change)},
 				{"category", ev.Message.Category},
 				{"balance", ev.Message.NewValue}
-			};
+			});
 
 			// Event name is coin_earning, coin_spending, cs_earning etc...
 			var eventName = ev.Message.Id.ToString().ToLowerInvariant() + "_" +
@@ -93,56 +91,7 @@ namespace Src.FirstLight.Server
 			{
 				data["content_creator_code"] = ev.Message.SupportingContentCreator;
 			}
-
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "purchased_item", data);
-			return Task.CompletedTask;
-		}
-
-
-		private Task OnItemRepaired(GameLogicMessageEvent<ItemRepairedMessage> ev)
-		{
-			var data = new AnalyticsData
-			{
-				{"item_uid", ev.Message.Id},
-				{"item_id", ev.Message.GameId},
-				{"item_name", ev.Message.Name},
-				{"durability", ev.Message.Durability},
-				{"durability_final", ev.Message.DurabilityFinal},
-				{"coin_spending", ev.Message.Price.Value}
-			};
-
-			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "item_repair", data);
-			return Task.CompletedTask;
-		}
-
-		private Task OnItemUpgraded(GameLogicMessageEvent<ItemUpgradedMessage> ev)
-		{
-			var data = new AnalyticsData
-			{
-				{"item_uid", ev.Message.Id},
-				{"item_id", ev.Message.GameId},
-				{"item_name", ev.Message.Name},
-				{"durability", ev.Message.Durability},
-				{"level", ev.Message.Level},
-				{"coin_spending", ev.Message.Price.Value}
-			};
-
-			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "item_upgrade", data);
-			return Task.CompletedTask;
-		}
-
-		private Task OnItemScrapped(GameLogicMessageEvent<ItemScrappedMessage> ev)
-		{
-			var data = new AnalyticsData
-			{
-				{"item_uid", ev.Message.Id},
-				{"item_id", ev.Message.GameId},
-				{"item_name", ev.Message.Name},
-				{"durability", ev.Message.Durability},
-				{"coin_earning", ev.Message.Reward.Value}
-			};
-
-			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "item_scrap", data);
 			return Task.CompletedTask;
 		}
 
@@ -150,8 +99,8 @@ namespace Src.FirstLight.Server
 		{
 			var data = new AnalyticsData
 			{
-				{"trophies_change", ev.Message.TrophiesChange},
-				{"trophies_before_change", ev.Message.TrophiesBeforeChange},
+				{"trophies_change", ev.Message.TrophiesChange.ToString(CultureInfo.InvariantCulture)},
+				{"trophies_before_change", ev.Message.TrophiesBeforeChange.ToString(CultureInfo.InvariantCulture)},
 			};
 			if (ev.Message.Rewards != null)
 			{
@@ -166,7 +115,7 @@ namespace Src.FirstLight.Server
 		{
 			var data = new AnalyticsData
 			{
-				{"new_level", ev.Message.NewLevel},
+				{"new_level", ev.Message.NewLevel.ToString(CultureInfo.InvariantCulture)},
 			};
 			if (ev.Message.Rewards != null)
 			{

@@ -706,7 +706,7 @@ namespace FirstLight.Game.Services
 			Assert.IsNull(CurrentMatchLobby, "Trying to create a match but the player is already in one!");
 
 			var lobbyName = matchOptions.ShowCreatorName
-				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
+				? string.Format(MATCH_LOBBY_NAME, AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
 				: Enum.Parse<GameId>(matchOptions.MapID).GetLocalization();
 
 			var positions = new string[matchOptions.MaxPlayers];
@@ -847,7 +847,7 @@ namespace FirstLight.Game.Services
 				Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
 				var lobbyName = settings.ShowCreatorName
-					? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
+					? string.Format(MATCH_LOBBY_NAME, AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
 					: Enum.Parse<GameId>(settings.MapID).GetLocalization();
 
 				var options = new UpdateLobbyOptions

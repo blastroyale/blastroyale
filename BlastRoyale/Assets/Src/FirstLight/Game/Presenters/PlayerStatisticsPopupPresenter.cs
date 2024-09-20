@@ -144,7 +144,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_nameLabel.text = AuthenticationService.Instance.GetPlayerName();
+			_nameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
 			SetupPopup().Forget();
 			return base.OnScreenOpen(reload);
 		}
@@ -239,11 +239,11 @@ namespace FirstLight.Game.Presenters
 			// TODO mihak: Temporary
 			if (IsLocalPlayer)
 			{
-				_nameLabel.text = AuthenticationService.Instance.GetPlayerName();
+				_nameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
 			}
 			else
 			{
-				_nameLabel.text = Data.UnityID == null ? result.Name : result.Name.Remove(result.Name.Length - 5);
+				_nameLabel.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(Data.UnityID == null ? result.Name : result.Name.Remove(result.Name.Length - 5));
 			}
 
 			SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);

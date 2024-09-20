@@ -356,7 +356,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
 				UnityId = AuthenticationService.Instance.PlayerId,
-				PlayerName = AuthenticationService.Instance.GetPlayerName(),
+				PlayerName = AuthenticationService.Instance.GetPlayerNameWithSpaces(),
 				Cosmetics = equippedCosmetics,
 				DeathFlagID = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.GRAVE)!.Id,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,

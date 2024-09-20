@@ -49,7 +49,7 @@ namespace BlastRoyaleNFTPlugin
 			var collectionsOwned = await FetchAllCollections(playfabId);
 			
 			var corposNfts = collectionsOwned.Where(c => c is Corpos).ToList();
-			var corposTokenIds = collectionsOwned.Select(i => i.TokenId).ToList();
+			var corposTokenIds = corposNfts.Select(i => i.TokenId).ToList();
 			var gamesGGGamersNfts = collectionsOwned.Where(c => c is GamesGGGamers).ToList();
 			var plagueDoctorNfts = collectionsOwned.Where(c => c is PlagueDoctor).ToList();
 			

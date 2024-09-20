@@ -35,6 +35,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		[SerializeField, Required] private Animation _landingAnim;
 		[SerializeField] private int _airplaneTravelDistance = 150;
 		[SerializeField] private float _airplaneTravelDuration = 10f;
+		private Tweener _fallTween;
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
@@ -86,7 +87,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 			
 			_itemRoot.gameObject.SetActive(true);
-			
+			_itemRoot.localPosition = new Vector3(0, 8, 0);
+			_fallTween = _itemRoot.DOLocalMove(new Vector3(0, 0, 0), 16f).SetAutoKill(true);
 			_airdropRadialTransform.parent = null;
 
 			var f = callback.Game.Frames.Verified;
@@ -103,9 +105,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
-			
+
+			if (_fallTween != null && _fallTween.IsPlaying())
+			{
+				_fallTween.Pause();
+				_fallTween.Kill();
+			}
+
+			_itemRoot.transform.localPosition = new Vector3(0, 0, 0);
 			_airdropRadialTransform.SetParent(_itemRoot);
 			_airdropRadialTransform.gameObject.SetActive(false);
+			_landingPS.transform.parent = null;
 			
 			_landingPS.Play();
 			_landingAnim.Play();

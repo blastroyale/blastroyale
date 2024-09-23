@@ -44,7 +44,7 @@ namespace Quantum.Systems.Bots
 				// We need to check also for AlivePlayerCharacter because with respawns we don't destroy Player Entities
 				if (QuantumHelpers.IsDestroyed(f, target) || !f.Has<AlivePlayerCharacter>(target))
 				{
-					BotLogger.LogAction(ref filter, "Target is not valid, stopping");
+					BotLogger.LogAction(f, ref filter, "invalid target stopping");
 					filter.ClearTarget(f);
 				}
 				// Aim at target
@@ -61,12 +61,14 @@ namespace Quantum.Systems.Bots
 						speed *= weaponConfig.AimingMovementSpeed;
 						var kcc = f.Unsafe.GetPointer<TopDownController>(filter.Entity);
 						kcc->MaxSpeed = speedUpMutatorExists ? speed * Constants.MUTATOR_SPEEDUP_AMOUNT : speed;
+						BotLogger.LogAction(f, filter.Entity, "aiming");
 						filter.SetAttackTarget(f, targetHit);
 						target = targetHit;
 					}
 					// Clear target if can't aim at it
 					else
 					{
+						BotLogger.LogAction(f, filter.Entity, "clearing target, cant aim");
 						filter.ClearTarget(f);
 					}
 				}
@@ -91,6 +93,8 @@ namespace Quantum.Systems.Bots
 
 			if (botFilter.BotCharacter->BehaviourType == BotBehaviourType.StaticShooting) return;
 
+			BotLogger.LogAction(f, botFilter.Entity, "looking for targets");
+
 			var target = EntityRef.None;
 			// We do line/shapecasts for enemies in sight
 			// If there is a target in Sight then store this Target into the blackboard variable
@@ -100,10 +104,11 @@ namespace Quantum.Systems.Bots
 			var limitedTargetRange = botFilter.BotCharacter->GetMaxWeaponRange(botFilter.Entity, f);
 			var team = f.Unsafe.GetPointer<Targetable>(botFilter.Entity)->Team;
 
+			// We can optimize this to use shapecasts to get the players around the bot
 			var it = f.Unsafe.FilterStruct<BotTargetFilter>();
 			it.UseCulling = true;
 			var filter = default(BotTargetFilter);
-
+			
 			while (it.Next(&filter))
 			{
 				if (botFilter.TryToAimAtEnemy(f, team, limitedTargetRange, filter.Entity, out var targetHit))
@@ -115,6 +120,7 @@ namespace Quantum.Systems.Bots
 
 			if (target.IsValid && botFilter.BotCharacter->Target != target)
 			{
+				BotLogger.LogAction(f, filter.Entity, "found target " + target);
 				botFilter.SetAttackTarget(f, target);
 			}
 
@@ -145,8 +151,7 @@ namespace Quantum.Systems.Bots
 				// if im not going towards a valid collectible ill re-think my life
 				if (!botFilter.IsGoingTowardsEnemy(f) && !botFilter.IsGoingTowardsValidCollectible(f, out _))
 				{
-					botFilter.BotCharacter->ResetTargetWaypoint(f);
-					botFilter.NavMeshAgent->Stop(f, botFilter.Entity, true);
+					botFilter.BotCharacter->StopMovement(f, botFilter.Entity, botFilter.NavMeshAgent);
 				}
 			}
 
@@ -168,7 +173,7 @@ namespace Quantum.Systems.Bots
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botFilter.Entity);
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
 
-			BotLogger.LogAction(ref botFilter, "[Aim] Cleared Aim");
+			BotLogger.LogAction(f, ref botFilter, "[Aim] Cleared Aim");
 		}
 
 		public static void StopAiming(Frame f, BotCharacter* botCharacter, EntityRef entity)
@@ -188,7 +193,7 @@ namespace Quantum.Systems.Bots
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
 			bb->Set(f, Constants.IS_SHOOTING_KEY, false);
 
-			BotLogger.LogAction(entity, "[Aim] Cleared Aim");
+			BotLogger.LogAction(f, entity, "[Aim] Cleared Aim");
 		}
 
 		/// <summary>
@@ -198,7 +203,7 @@ namespace Quantum.Systems.Bots
 		public static bool TryCombatMovement(this ref BotCharacter bot, in EntityRef e, Frame f, in FPVector2 botPosition, in EntityRef target, in FPVector2 targetPosition, in FP rangeSquared, in FP distanceSquared)
 		{
 			if (bot.IsLowLife(e, f) || bot.IsStaticMovement()) return false;
-			if (!bot.Target.IsValid && bot.HasWaypoint(e, f)) return false; // if im not combating and moving ill ignore
+			if (!(bot.MovementType == BotMovementType.None || bot.MovementType == BotMovementType.Wander || bot.MovementType == BotMovementType.GoToCollectable)) return false; // if im not combating and moving ill ignore
 			if (!bot.GetCanTakeDecision(f)) return false;
 
 			// If bot is too close he will walk randomly around the bot itself 
@@ -206,11 +211,10 @@ namespace Quantum.Systems.Bots
 
 			if (distanceSquared < minCombatDistance)
 			{
-				if (bot.WanderInsideCircle(e, f, botPosition, minCombatDistance))
+				if (bot.WanderInsideCircle(e, f, botPosition, minCombatDistance, BotMovementType.Combat))
 				{
-					BotLogger.LogAction(e, "Moving away from target, too close to him");
-					bot.SetHasWaypoint(e, f);
-					bot.SetNextDecisionDelay(f, FP._1);
+					BotLogger.LogAction(f, e, "Moving away from target, too close to him");
+					bot.SetNextDecisionDelay(e, f, FP._1);
 					bot.SetSearchForEnemyDelay(f);
 					return true;
 				}
@@ -225,11 +229,10 @@ namespace Quantum.Systems.Bots
 					return false;
 				}
 
-				if (bot.WanderInsideCircle(e, f, targetPosition, rangeSquared))
+				if (bot.WanderInsideCircle(e, f, targetPosition, rangeSquared, BotMovementType.Combat))
 				{
-					BotLogger.LogAction(e, "Moving away from target, too close to him");
-					bot.SetHasWaypoint(e, f);
-					bot.SetNextDecisionDelay(f, FP._1);
+					BotLogger.LogAction(f, e, "Moving away from target, too close to him");
+					bot.SetNextDecisionDelay(e, f, FP._1);
 					bot.SetSearchForEnemyDelay(f);
 					return true;
 				}
@@ -275,6 +278,7 @@ namespace Quantum.Systems.Bots
 
 		public static bool TrySwitchToHammer(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
+			BotLogger.LogAction(f, botFilter.Entity, "switch to hammer");
 			botFilter.PlayerCharacter->EquipSlotWeapon(f, botFilter.Entity, Constants.WEAPON_INDEX_DEFAULT);
 			return true;
 		}
@@ -319,6 +323,7 @@ namespace Quantum.Systems.Bots
 			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
 				special.TryActivate(f, PlayerRef.None, entity, FPVector2.Zero, specialIndex))
 			{
+				BotLogger.LogAction(f, entity, "use special " + special.SpecialType.ToString());
 				return true;
 			}
 

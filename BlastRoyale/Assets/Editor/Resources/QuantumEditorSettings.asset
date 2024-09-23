@@ -24,7 +24,7 @@ MonoBehaviour:
   - Assembly-CSharp-Editor-firstpass
   - FirstLight.Editor
   PhysicsGridColor: {r: 0, g: 0.7, b: 1, a: 0}
-  NavMeshGridColor: {r: 0.4, g: 1, b: 0.7, a: 0.2509804}
+  NavMeshGridColor: {r: 0.4, g: 1, b: 0.7, a: 0.16862746}
   GizmoIconScale:
     RawValue: 65536
   GizmoSelectedBrightness: 1.1
@@ -56,8 +56,8 @@ MonoBehaviour:
   DrawPathfinderFunnel: 1
   DrawNavMeshAgents: 1
   NavMeshAgentColor: {r: 0, g: 1, b: 0, a: 1}
-  NavMeshAvoidanceColor: {r: 0, g: 0.5, b: 0, a: 0.5}
-  DrawNavMesh: 0
+  NavMeshAvoidanceColor: {r: 0, g: 0.5, b: 0, a: 0.023529412}
+  DrawNavMesh: 1
   DrawNavMeshBorders: 1
   DrawNavMeshTriangleIds: 0
   DrawNavMeshRegionIds: 0

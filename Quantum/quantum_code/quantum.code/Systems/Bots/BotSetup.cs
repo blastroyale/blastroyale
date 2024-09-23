@@ -10,6 +10,19 @@ namespace Quantum.Systems.Bots
 	/// </summary>
 	public unsafe class BotSetup
 	{
+		public static readonly string FasterIntervalBotConfig = "smarterbot";
+
+		private static readonly WeightedList<GameId> PreferredWeapons = new WeightedList<GameId>()
+		{
+			{ GameId.ApoMinigun, 3 },
+			{ GameId.ModMachineGun, 1 },
+			{ GameId.ModShotgun, 3 },
+			{ GameId.ModRifle, 2 },
+			{ GameId.ModLauncher, 3 },
+			{ GameId.ModPistol, 1 },
+			{ GameId.ModSniper, 3 },
+		};
+
 		private class BotSetupContext
 		{
 			public List<EntityComponentPointerPair<PlayerSpawner>> AllSpawners;
@@ -36,6 +49,7 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+			AddFasterBotAgent(f, f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id));
 			AddBotBehaviourToPlayers(f, baseTrophiesAmount);
 
 			if (!f.Context.GameModeConfig.AllowBots)
@@ -72,6 +86,7 @@ namespace Quantum.Systems.Bots
 		{
 			var botItems = GameIdGroup.BotItem.GetIds();
 			var spawners = GetFreeSpawnPoints(f);
+			var navigation = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id);
 			var ctx = new BotSetupContext()
 			{
 				AvailableSpawners = spawners.ToList(),
@@ -85,12 +100,56 @@ namespace Quantum.Systems.Bots
 				BotConfigs = GetBotConfigsList(f, baseTrophies),
 				AverageTrophies = baseTrophies,
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),
-				NavMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id),
+				NavMeshAgentConfig = navigation,
 				PlayersByTeam = TeamSystem.GetPlayersByTeam(f),
 				TotalTeamsInGameMode = (uint)f.PlayerCount / f.GetTeamSize()
 			};
 			AddBotTeams(ctx);
 			return ctx;
+		}
+
+		private void AddFasterBotAgent(Frame f, NavMeshAgentConfig c)
+		{
+			var newValue = new NavMeshAgentConfig()
+			{
+				Path = FasterIntervalBotConfig,
+				Acceleration = c.Acceleration,
+				MovementType = c.MovementType,
+				Priority = c.Priority,
+				Speed = c.Speed,
+				AvoidanceQuality = c.AvoidanceQuality,
+				PathQuality = c.PathQuality,
+				AvoidanceType = c.AvoidanceType,
+				AngularSpeed = c.AngularSpeed,
+				CachedWaypointCount = c.CachedWaypointCount,
+				AutoBraking = c.AutoBraking,
+				AvoidanceLayer = c.AvoidanceLayer,
+				AvoidanceMask = c.AvoidanceMask,
+				AvoidanceRadius = c.AvoidanceRadius,
+				StoppingDistance = c.StoppingDistance,
+				UpdateInterval = 5,
+				VerticalPositioning = c.VerticalPositioning,
+				AutoBrakingDistance = c.AutoBrakingDistance,
+				ReduceAvoidanceFactor = c.ReduceAvoidanceFactor,
+				AutomaticTargetCorrection = c.AutomaticTargetCorrection,
+				AutomaticTargetCorrectionRadius = c.AutomaticTargetCorrectionRadius,
+				ShowDebugSteering = c.ShowDebugSteering,
+				ShowDebugAvoidance = c.ShowDebugAvoidance,
+				MaxAvoidanceCandidates = c.MaxAvoidanceCandidates,
+				MaxRepathTimeout = c.MaxRepathTimeout,
+				AvoidanceCanReduceSpeed = c.AvoidanceCanReduceSpeed,
+				ClampAgentToNavmesh = c.ClampAgentToNavmesh,
+				DynamicLineOfSight = c.DynamicLineOfSight,
+				EnableWaypointDetectionAxis = c.EnableWaypointDetectionAxis,
+				DefaultWaypointDetectionDistance = c.DefaultWaypointDetectionDistance,
+				LineOfSightFunneling = c.LineOfSightFunneling,
+				ReduceAvoidanceAtWaypoints = c.ReduceAvoidanceAtWaypoints,
+				WaypointDetectionAxisExtend = c.WaypointDetectionAxisExtend,
+				ClampAgentToNavmeshCorrection = c.ClampAgentToNavmeshCorrection,
+				WaypointDetectionAxisOffset = c.WaypointDetectionAxisOffset,
+				DynamicLineOfSightWaypointRange = c.DynamicLineOfSightWaypointRange,
+			};
+			f.DynamicAssetDB.AddAsset(newValue);
 		}
 
 		private void AddBotBehaviourToPlayers(Frame f, uint baseTrophies)
@@ -133,7 +192,7 @@ namespace Quantum.Systems.Bots
 
 			else
 			{
-				BotLogger.LogAction(EntityRef.None,
+				BotLogger.LogAction(f, EntityRef.None,
 					$"Using configs levels {string.Join(",", ctx.BotConfigs.Select(c => c.Difficulty))}");
 			}
 
@@ -221,7 +280,10 @@ namespace Quantum.Systems.Bots
 				NextLookForTargetsToShootAtTime = FP._0,
 				NextAllowedSpecialUseTime = FP._0,
 				StuckDetectionPosition = FPVector2.Zero,
-				TeamSize = (int)f.GetTeamSize()
+				TeamSize = (int)f.GetTeamSize(),
+				MovementType = BotMovementType.None,
+				FavoriteWeapon = PreferredWeapons.Next(f),
+				WillFightInZone = f.RNG->Next() < FP._0_33
 			};
 
 			ctx.BotNamesIndices.Remove(listNamesIndex);
@@ -229,9 +291,10 @@ namespace Quantum.Systems.Bots
 
 			f.Add(botEntity, pathfinder); // Must be defined before the steering agent
 			f.Add(botEntity, new NavMeshSteeringAgent());
+			f.Add(botEntity, new NavMeshAvoidanceAgent());
 			f.Add(botEntity, botCharacter);
-
-			if (realPlayer) return; // wtf ?
+			// We can toggle a flag in the editor to add bot behaviour to the local player, also used in automated tests
+			if (realPlayer) return;
 
 			// Calculate bot trophies
 			// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
@@ -561,7 +624,7 @@ namespace Quantum.Systems.Bots
 
 			if (f.RuntimeConfig.MatchConfigs.BotOverwriteDifficulty != -1)
 			{
-				BotLogger.LogAction(EntityRef.None,
+				BotLogger.LogAction(f, EntityRef.None,
 					"Using config difficulty " + f.RuntimeConfig.MatchConfigs.BotOverwriteDifficulty);
 				var configs = f.BotConfigs.QuantumConfigs;
 				return configs.Where(config =>

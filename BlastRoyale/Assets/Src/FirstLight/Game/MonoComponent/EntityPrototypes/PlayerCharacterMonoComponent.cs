@@ -8,6 +8,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Quantum.Systems;
+using Quantum.Systems.Bots;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Extensions = FirstLight.Game.Utils.Extensions;
@@ -81,6 +82,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			if (HasRenderedView()) return;
 			var frame = game.Frames.Verified;
 			InstantiateAvatar(game, frame, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player).Forget();
+
+			if (BotCharacterSystem.Debug && frame.Has<BotCharacter>(EntityView.EntityRef))
+			{
+				this.gameObject.AddComponent<BotDebugMonoComponent>();
+			}
 		}
 
 		public bool ShouldDisplayColorTag()

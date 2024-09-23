@@ -16,17 +16,16 @@ namespace Quantum
     /// </summary>
     public unsafe class WeightedList<T> : IEnumerable<T>
     {
-        public WeightedList(Frame f)
+        public WeightedList()
         {
-            _frame = f;
         }
         
-        public T Next()
+        public T Next(Frame f)
         {
             if (Count == 0) return default;
-            int nextInt = _frame.RNG->Next(0, Count);
+            int nextInt = f.RNG->Next(0, Count);
             if (_areAllProbabilitiesIdentical) return _list[nextInt];
-            int nextProbability = _frame.RNG->Next(0, _totalWeight);
+            int nextProbability = f.RNG->Next(0, _totalWeight);
             return (nextProbability < _probabilities[nextInt]) ? _list[nextInt] : _list[_alias[nextInt]];
         }
 
@@ -142,7 +141,6 @@ namespace Quantum
         private readonly List<int> _weights = new List<int>();
         private readonly List<int> _probabilities = new List<int>();
         private readonly List<int> _alias = new List<int>();
-        private readonly Frame _frame;
         private int _totalWeight;
         private bool _areAllProbabilitiesIdentical = false;
         private int _minWeight;

@@ -19,23 +19,23 @@ MonoBehaviour:
         Value: 1093005050644660195
     UpdateInterval: 20
     PathQuality: 0
-    CachedWaypointCount: 10
+    CachedWaypointCount: 16
     MaxRepathTimeout:
       RawValue: 163840
     LineOfSightFunneling: 0
     DynamicLineOfSight: 0
     DynamicLineOfSightWaypointRange:
       RawValue: 0
-    AutomaticTargetCorrection: 0
+    AutomaticTargetCorrection: 1
     AutomaticTargetCorrectionRadius:
-      RawValue: 65536
-    EnableWaypointDetectionAxis: 0
+      RawValue: 2621440
+    EnableWaypointDetectionAxis: 1
     WaypointDetectionAxisExtend:
       RawValue: 13107
     WaypointDetectionAxisOffset:
-      RawValue: 0
+      RawValue: 6553
     DefaultWaypointDetectionDistance:
-      RawValue: 655
+      RawValue: 131072
     MovementType: 1
     VerticalPositioning: 1
     Speed:
@@ -49,18 +49,18 @@ MonoBehaviour:
     AutoBraking: 0
     AutoBrakingDistance:
       RawValue: 13107
-    ClampAgentToNavmesh: 0
+    ClampAgentToNavmesh: 1
     ClampAgentToNavmeshCorrection:
-      RawValue: 13107
-    AvoidanceType: 0
+      RawValue: 32768
+    AvoidanceType: 2
     AvoidanceQuality: 1
     Priority: 50
     AvoidanceRadius:
-      RawValue: 13107
+      RawValue: 52428
     AvoidanceLayer: 0
     AvoidanceMask:
-      BitMask: 2871
-    MaxAvoidanceCandidates: 64
+      BitMask: 64
+    MaxAvoidanceCandidates: 4
     ReduceAvoidanceAtWaypoints: 0
     ReduceAvoidanceFactor:
       RawValue: 262144

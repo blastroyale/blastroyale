@@ -22,11 +22,10 @@ namespace Quantum.Systems
 			chest->ChestType = config.ChestType;
 			chest->CollectTime = config.CollectTime;
 			transform->Position = position;
-			f.Add(e,
-				new Collectable
-				{
-					GameId = chestId
-				});
+			f.Add(e, new Collectable
+			{
+				GameId = chestId,
+			});
 			var collider = f.Unsafe.GetPointer<PhysicsCollider2D>(e);
 			collider->Shape.Circle.Radius = config.CollectableChestPickupRadius;
 			return e;
@@ -88,11 +87,11 @@ namespace Quantum.Systems
 				if (droptable.Amount == 0) continue;
 				if (f.RNG->Next() > droptable.Chance) continue;
 				var count = droptable.Amount;
-				var list = new WeightedList<SimulationItemConfig>(f);
+				var list = new WeightedList<SimulationItemConfig>();
 				list.Add(droptable.Pool.Select(s => new WeightItem<SimulationItemConfig>(s.ItemConfig, s.Weight)).ToList());
 				while (list.Count > 0 && count > 0)
 				{
-					var drop = list.Next();
+					var drop = list.Next(f);
 					var item = SimulationItem.FromConfig(drop);
 
 					if (item.ItemType == ItemType.Simple

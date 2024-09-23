@@ -10,6 +10,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
+using Quantum.Systems.Bots;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -113,6 +114,12 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnMatchStarted(MatchStartedMessage obj)
 		{
 			gameObject.SetActive(true);
+
+			if (BotCharacterSystem.Debug)
+			{
+				_adventureCamera.transform.position -= _adventureCamera.transform.forward.normalized * 10;
+				_specialAimCamera.transform.position -= _adventureCamera.transform.forward.normalized * 10;
+			}
 
 			if (obj.IsResync)
 			{

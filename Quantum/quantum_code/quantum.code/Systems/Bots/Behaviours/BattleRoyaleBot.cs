@@ -9,7 +9,7 @@ namespace Quantum.Systems.Bots
 	{
 		public static FP MaxDistanceToTryToRevive = FP.FromString("25") * FP.FromString("25");
 
-		internal void Update(Frame f, ref BotCharacterFilter filter, in bool isTakingCircleDamage, in BotUpdateGlobalContext botCtx)
+		internal void Update(Frame f, ref BotCharacterFilter filter, in BotUpdateGlobalContext botCtx)
 		{
 			filter.CleanDestroyedWaypointTarget(f);
 
@@ -18,10 +18,14 @@ namespace Quantum.Systems.Bots
 				CheckOnTeammates(f, filter.Transform, filter.TeamMember, filter.BotCharacter);
 			}
 
-			if (isTakingCircleDamage)
+			if (filter.AlivePlayerCharacter->TakingCircleDamage)
 			{
-				GoToCenterOfCircle(f, ref filter, botCtx.circleCenter);
-				BotLogger.LogAction(ref filter, "go center of circle because of damage");
+				// The safety of combat in the dead zone is handled at the combat stage, here we just make sure bots keep fighting
+				if (filter.BotCharacter->MovementType != BotMovementType.GoToSafeArea && !filter.BotCharacter->Target.IsValid)
+				{
+					TryGoToSafeArea(f, ref filter, botCtx.circleCenter, botCtx.circleRadius);
+				}
+
 				return;
 			}
 
@@ -35,21 +39,22 @@ namespace Quantum.Systems.Bots
 			///////////////////////////////////////////////////////////
 			// The following code works in Decision time intervals
 			///////////////////////////////////////////////////////////
-			BotLogger.LogAction(ref filter, "Taking decision");
+			BotLogger.LogAction(f, ref filter, "Taking decision");
 
 			if (ReviveSystem.IsKnockedOut(f, filter.Entity))
 			{
 				// Someone is already reviving the bot so don't move idiot
 				if (ReviveSystem.IsBeingRevived(f, filter.Entity))
 				{
+					BotLogger.LogAction(f, filter.Entity, "wait being revived");
 					return;
 				}
 
 				// hard coded values so the bot will always go to teammate
 				if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, FP._0, false, realClose: true))
 				{
-					BotLogger.LogAction(ref filter, "stay close to team mate");
-					filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
+					BotLogger.LogAction(f, ref filter, "go to teammate for help");
+					filter.BotCharacter->SetNextDecisionDelay(filter.Entity, f, filter.BotCharacter->DecisionInterval);
 					return;
 				}
 
@@ -65,12 +70,12 @@ namespace Quantum.Systems.Bots
 				f.TryGet<Collectable>(filter.BotCharacter->MoveTarget, out var collectable) &&
 				collectable.TryGetCollectingEndTime(f, filter.BotCharacter->MoveTarget, filter.Entity, out var collectionTime))
 			{
-				BotLogger.LogAction(ref filter, "is collecting item");
+				BotLogger.LogAction(f, ref filter, "skip: collecting " + collectable.GameId.ToString());
 				filter.BotCharacter->NextDecisionTime = collectionTime + FP._0_10;
 				return;
 			}
 
-			filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
+			filter.BotCharacter->SetNextDecisionDelay(filter.Entity, f, filter.BotCharacter->DecisionInterval);
 
 			// We stop aiming after the use of special because real players can't shoot and use specials at the same time
 			// So we don't allow bots to do it as well
@@ -95,7 +100,7 @@ namespace Quantum.Systems.Bots
 				{
 					if (filter.PlayerCharacter->WeaponSlots[slotIndex].Weapon.IsValid())
 					{
-						BotLogger.LogAction(*filter.BotCharacter, "Equipping weapon");
+						BotLogger.LogAction(f, ref filter, "switch to weapon");
 						filter.PlayerCharacter->EquipSlotWeapon(f, filter.Entity, slotIndex);
 						break;
 					}
@@ -103,11 +108,10 @@ namespace Quantum.Systems.Bots
 			}
 
 			HostProfiler.Start("TryGoToSafeArea");
-			if (!FPMathHelpers.IsPositionInsideCircle(botCtx.circleTargetCenter, botCtx.circleTargetRadius, filter.Transform->Position) && botCtx.circleTimeToShrink < filter.BotCharacter->TimeStartRunningFromCircle)
+			if (!BotState.IsPositionSafe(botCtx, filter, filter.Transform->Position))
 			{
 				if (TryGoToSafeArea(f, ref filter, botCtx.circleTargetCenter, botCtx.circleTargetRadius))
 				{
-					BotLogger.LogAction(ref filter, "go to safe area");
 					HostProfiler.End();
 					return;
 				}
@@ -116,16 +120,15 @@ namespace Quantum.Systems.Bots
 			HostProfiler.End();
 
 			// Let it finish the path
-			if (filter.BotCharacter->HasWaypoint(filter.Entity, f) && filter.NavMeshAgent->IsActive)
+			if (filter.BotCharacter->MovementType != BotMovementType.None && filter.NavMeshAgent->IsActive)
 			{
-				BotLogger.LogAction(ref filter, "wait for path to finish waypoint. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
+				BotLogger.LogAction(f, ref filter, "wait for waypoint " + filter.BotCharacter->MoveTarget);
 				return;
 			}
 
 			HostProfiler.Start("TryGoForClosestCollectable");
-			if (filter.TryGoForClosestCollectable(f, botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking))
+			if (filter.TryGoForClosestCollectable(f, botCtx))
 			{
-				BotLogger.LogAction(ref filter, "go to collectable. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
 				HostProfiler.End();
 				return;
 			}
@@ -135,7 +138,6 @@ namespace Quantum.Systems.Bots
 			HostProfiler.Start("TryStayCloseToTeammate");
 			if (TryStayCloseToTeammate(f, ref filter, botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking))
 			{
-				BotLogger.LogAction(ref filter, "stay close to team mate");
 				HostProfiler.End();
 				return;
 			}
@@ -143,11 +145,9 @@ namespace Quantum.Systems.Bots
 			HostProfiler.End();
 
 			HostProfiler.Start("WanderInsideCircle");
-			if (filter.BotCharacter->WanderInsideCircle(filter.Entity, f, botCtx.circleCenter, botCtx.circleRadius))
+			if (filter.BotCharacter->WanderInsideCircle(filter.Entity, f, botCtx.circleCenter, botCtx.circleRadius, BotMovementType.Wander))
 			{
-				filter.SetHasWaypoint(f);
-				filter.BotCharacter->SetNextDecisionDelay(f, FP._2);
-				BotLogger.LogAction(ref filter, "wander");
+				BotLogger.LogAction(f, ref filter, "wander inside circle");
 				HostProfiler.End();
 				return;
 			}
@@ -156,11 +156,11 @@ namespace Quantum.Systems.Bots
 
 			if (filter.BotCharacter->IsDoingJackShit())
 			{
-				filter.BotCharacter->SetNextDecisionDelay(f, FP._0_05);
-				BotLogger.LogAction(ref filter, "jackshit");
+				filter.BotCharacter->SetNextDecisionDelay(filter.Entity, f, FP._0_05);
+				BotLogger.LogAction(f, ref filter, "jackshit");
 			}
 
-			BotLogger.LogAction(ref filter, "no action");
+			BotLogger.LogAction(f, ref filter, "no action");
 		}
 
 		private static bool TryGoReviveTeamMate(Frame f, ref BotCharacterFilter filter, in BotUpdateGlobalContext botCtx)
@@ -174,7 +174,8 @@ namespace Quantum.Systems.Bots
 					// Already reviving wait for finish
 					if (reviving.Contains(filter.Entity))
 					{
-						filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
+						BotLogger.LogAction(f, filter.Entity, "wait finish reviving");
+						filter.BotCharacter->SetNextDecisionDelay(filter.Entity, f, filter.BotCharacter->DecisionInterval);
 						return true;
 					}
 
@@ -197,11 +198,11 @@ namespace Quantum.Systems.Bots
 
 					var destination = teamMatePosition + (vectorToTeammate.Normalized * FP._0_50);
 
-					filter.BotCharacter->SetNextDecisionDelay(f, filter.BotCharacter->DecisionInterval);
+					filter.BotCharacter->SetNextDecisionDelay(filter.Entity, f, filter.BotCharacter->DecisionInterval);
 
-					if (BotMovement.MoveToLocation(f, filter.Entity, destination))
+					if (BotMovement.MoveToLocation(f, filter.Entity, destination, BotMovementType.GoCloserToTeamMate))
 					{
-						filter.BotCharacter->SetHasWaypoint(entityRef, f);
+						BotLogger.LogAction(f, filter.Entity, "go revive teammate");
 						HostProfiler.End();
 						return true;
 					}
@@ -219,10 +220,8 @@ namespace Quantum.Systems.Bots
 
 			var newPosition = circleCenter;
 			// We try to go into random position OR into circle center (it's good for a very small circle)
-			if (BotMovement.MoveToLocation(f, filter.Entity, newPosition))
-			{
-				filter.SetHasWaypoint(f);
-			}
+			BotMovement.MoveToLocation(f, filter.Entity, newPosition, BotMovementType.GoToSafeArea);
+
 
 			HostProfiler.End();
 		}
@@ -276,25 +275,30 @@ namespace Quantum.Systems.Bots
 				return false;
 			}
 
+			if (filter.BotCharacter->MovementType == BotMovementType.GoToSafeArea)
+			{
+				BotLogger.LogAction(f, ref filter, "keep going safe area");
+				return true;
+			}
+
 			var botPosition = filter.Transform->Position;
 
 			var circleToVector = FPVector2.Normalize(botPosition - circleCenter);
-			var range = circleRadius * (FP._0_75 + f.RNG->NextInclusive(FP._0_10 * FP.Minus_1, FP._0_10));
+			var range = circleRadius * (FP._0_50 + f.RNG->NextInclusive(FP._0_33 * FP.Minus_1, FP._0_33));
 			var intersectionPoint = circleCenter + (circleToVector * range);
 			var newPosition = intersectionPoint;
 
-			if (BotMovement.MoveToLocation(f, filter.Entity, newPosition))
+
+			if (BotMovement.MoveToLocation(f, filter.Entity, newPosition, BotMovementType.GoToSafeArea))
 			{
-				filter.SetHasWaypoint(f);
-				BotLogger.LogAction(ref filter, $"Going towards direction random radius center:{circleCenter} Random:{newPosition} bot:{filter.Transform->Position}");
+				BotLogger.LogAction(f, ref filter, $"going towards circle center + random");
 				return true;
 			}
 
 			// We try to go into random position OR into circle center (it's good for a very small circle)
-			if (BotMovement.MoveToLocation(f, filter.Entity, circleCenter))
+			if (BotMovement.MoveToLocation(f, filter.Entity, circleCenter, BotMovementType.GoToSafeArea))
 			{
-				BotLogger.LogAction(ref filter, $"Going towards center: Center:{circleCenter} Random:{newPosition} bot:{filter.Transform->Position}");
-				filter.SetHasWaypoint(f);
+				BotLogger.LogAction(f, ref filter, $"going towards circle center");
 				return true;
 			}
 
@@ -328,12 +332,11 @@ namespace Quantum.Systems.Bots
 
 			var destination = teammatePosition - vectorToTeammate.Normalized * (realClose ? FP._1_50 : FP._5);
 			var isGoing = BotState.IsInCircleWithSpareSpace(circleCenter, circleRadius, circleIsShrinking, destination)
-				&& BotMovement.MoveToLocation(f, filter.Entity, destination);
+				&& BotMovement.MoveToLocation(f, filter.Entity, destination, BotMovementType.GoCloserToTeamMate);
 
 			if (isGoing)
 			{
-				BotLogger.LogAction(ref filter, $"going to teammate {filter.BotCharacter->RandomTeammate}distance {distance}");
-				filter.SetHasWaypoint(f);
+				BotLogger.LogAction(f, ref filter, $"going to teammate {filter.BotCharacter->RandomTeammate}distance {distance}");
 			}
 
 			HostProfiler.End();

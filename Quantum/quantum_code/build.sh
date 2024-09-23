@@ -9,7 +9,7 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 helpFunction()
 {
    echo ""
-   echo "Usage: $0 debug|bots-debug|release"
+   echo "Usage: $0 debug|bots-debug|release|releasep"
    exit 1 # Exit script after printing help
 }
 
@@ -24,12 +24,12 @@ symbols="TRACE%3BDEBUG"
 if [ "$1" = "release" ]; then
   echo "Release build"
   set -x
-  $command "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=Release -p:RestorePackagesConfig=true -p:DefineConstants=$symbols
+  $command "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=Release -p:RestorePackagesConfig=true
   exit
 elif [ "$1" = "releasep" ]; then
     echo "Release build"
     set -x
-    $command "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=ReleaseProfiler -p:RestorePackagesConfig=true -p:DefineConstants=$symbols
+    $command "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=ReleaseProfiler -p:RestorePackagesConfig=true
     exit
 elif [ "$1" = "bots-debug" ]; then
   symbols="$symbols%3BBOT_DEBUG"

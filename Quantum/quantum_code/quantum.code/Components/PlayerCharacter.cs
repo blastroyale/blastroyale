@@ -294,7 +294,7 @@ namespace Quantum
 		/// <summary>
 		/// Requests if the current weapon equipped by the player is a melee weapon or not
 		/// </summary>
-		public bool HasMeleeWeapon(Frame f, EntityRef e)
+		public static bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
 			return f.Unsafe.GetPointer<AIBlackboardComponent>(e)->GetBoolean(f, Constants.HAS_MELEE_WEAPON_KEY);
 		}

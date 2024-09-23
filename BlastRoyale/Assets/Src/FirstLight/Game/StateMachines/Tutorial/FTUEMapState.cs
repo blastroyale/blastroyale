@@ -533,7 +533,7 @@ namespace FirstLight.Game.StateMachines
 
 			return f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter)
 			       && playerCharacter.CurrentWeapon.IsValid()
-			       && !playerCharacter.HasMeleeWeapon(f, playerEntity);
+			       && !PlayerCharacter.HasMeleeWeapon(f, playerEntity);
 		}
 
 		private bool AreTheFirstBotsDead(Frame f)

@@ -225,7 +225,7 @@ namespace Quantum.Systems.Bots
 
 			// When bot has only melee and got attacked, something caused the bot sometime to freeze in place
 			// So Nik put an easy solution here - don't react on damage if bot has only melee
-			if (f.Unsafe.GetPointer<PlayerCharacter>(entity)->HasMeleeWeapon(f, entity))
+			if (PlayerCharacter.HasMeleeWeapon(f, entity))
 			{
 				return;
 			}
@@ -241,7 +241,7 @@ namespace Quantum.Systems.Bots
 			if (!bot->Target.IsValid)
 			{
 				if (bot->TryUseSpecials(f.Unsafe.GetPointer<PlayerInventory>(entity), entity, f)) return;
-				var botMaxRange = bot->GetMaxWeaponRange(entity, f.Unsafe.GetPointer<PlayerCharacter>(entity), f);
+				var botMaxRange = bot->GetMaxWeaponRange(entity, f);
 
 				BotLogger.LogAction(entity, $"Going to kick {attacker} ass for shooting me from distance");
 

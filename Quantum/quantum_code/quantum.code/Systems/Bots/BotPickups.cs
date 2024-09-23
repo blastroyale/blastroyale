@@ -75,7 +75,7 @@ namespace Quantum.Systems.Bots
 			var currentAmmo = stats->CurrentAmmoPercent;
 			var maxHealth = stats->Values[(int)StatType.Health].StatValue;
 
-			var needWeapon = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) || currentAmmo < FP.SmallestNonZero;
+			var needWeapon = PlayerCharacter.HasMeleeWeapon(f, filter.Entity) || currentAmmo < FP.SmallestNonZero;
 			var needAmmo = currentAmmo < FP._0_99;
 			var needShields = stats->CurrentShield < maxShields;
 			var needHealth = stats->CurrentHealth < maxHealth;

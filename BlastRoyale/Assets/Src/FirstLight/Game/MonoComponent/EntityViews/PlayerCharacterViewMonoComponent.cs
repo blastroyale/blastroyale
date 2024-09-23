@@ -119,12 +119,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var lastShotAt = bb->GetFP(f, Constants.LAST_SHOT_AT);
 			var aiming = bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY);
 			
-			var move = EntityRef.GetKccMoveDirection(f);
+			var dir = EntityRef.GetKccMoveDirection(f);
 			var kcc = f.Unsafe.GetPointer<TopDownController>(EntityRef);
 			
-			if (f.Has<BotCharacter>(EntityRef))
+			if (f.TryGet<BotCharacter>(EntityRef, out var bot))
 			{
-				move = _clientPredictionDirection.ToFPVector2();
+				if (bot.BehaviourType != BotBehaviourType.Static)
+				{
+					dir = _clientPredictionDirection.ToFPVector2();
+				}
+				else
+				{
+					dir = aim;
+				}
 			}
 			
 			// Wait to rotate a bit after attack for smoother animation
@@ -135,7 +142,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			PredictedAimDirection = aiming ? aim : move;
+			PredictedAimDirection = aiming ? aim : dir;
 			if (PredictedAimDirection == FPVector2.Zero)
 			{
 				return;

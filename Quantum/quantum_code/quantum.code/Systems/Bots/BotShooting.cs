@@ -14,9 +14,10 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		private static readonly FP ACCURACY_LERP_TICK = FP._0_01;
 
-		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, PlayerCharacter* pc, Frame f)
+		
+		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, Frame f)
 		{
-			if (pc->HasMeleeWeapon(f, entity))
+			if (PlayerCharacter.HasMeleeWeapon(f, entity))
 			{
 				return Stats.GetStat(f, entity, StatType.AttackRange);
 			}
@@ -50,7 +51,7 @@ namespace Quantum.Systems.Bots
 				else
 				{
 					var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
-					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, filter.PlayerCharacter, f);
+					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, f);
 					var team = f.Unsafe.GetPointer<Targetable>(filter.Entity)->Team;
 					if (filter.TryToAimAtEnemy(f, team, maxRange, target, out var targetHit))
 					{
@@ -96,7 +97,7 @@ namespace Quantum.Systems.Bots
 			// We check enemies one by one until we find a valid enemy in sight
 			// Note: Bots against bots use the full weapon range
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var limitedTargetRange = botFilter.BotCharacter->GetMaxWeaponRange(botFilter.Entity, botFilter.PlayerCharacter, f);
+			var limitedTargetRange = botFilter.BotCharacter->GetMaxWeaponRange(botFilter.Entity, f);
 			var team = f.Unsafe.GetPointer<Targetable>(botFilter.Entity)->Team;
 
 			var it = f.Unsafe.FilterStruct<BotTargetFilter>();

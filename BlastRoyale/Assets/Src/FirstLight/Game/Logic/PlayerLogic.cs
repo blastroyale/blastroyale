@@ -190,7 +190,7 @@ namespace FirstLight.Game.Logic
 
 		public bool HasUnlocked(UnlockSystem unlockSystem)
 		{
-			return GetUnlockSystemLevel(unlockSystem) < Level.Value;
+			return GetUnlockSystemLevel(unlockSystem) <= Level.Value;
 		}
 
 		public List<ItemData> GetRewardsForFameLevel(uint level)

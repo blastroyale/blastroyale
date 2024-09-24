@@ -46,6 +46,7 @@ namespace Quantum.Systems.Bots
 				{
 					BotLogger.LogAction(f, ref filter, "invalid target stopping");
 					filter.ClearTarget(f);
+					filter.StopAiming(f);
 				}
 				// Aim at target
 				else
@@ -70,6 +71,7 @@ namespace Quantum.Systems.Bots
 					{
 						BotLogger.LogAction(f, filter.Entity, "clearing target, cant aim");
 						filter.ClearTarget(f);
+						filter.StopAiming(f);
 					}
 				}
 			}

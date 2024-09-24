@@ -23,6 +23,7 @@ namespace Quantum.Systems.Bots
 				// The safety of combat in the dead zone is handled at the combat stage, here we just make sure bots keep fighting
 				if (filter.BotCharacter->MovementType != BotMovementType.GoToSafeArea && !filter.BotCharacter->Target.IsValid)
 				{
+					filter.StopAiming(f);
 					TryGoToSafeArea(f, ref filter, botCtx.circleCenter, botCtx.circleRadius);
 				}
 
@@ -110,6 +111,7 @@ namespace Quantum.Systems.Bots
 			HostProfiler.Start("TryGoToSafeArea");
 			if (!BotState.IsPositionSafe(botCtx, filter, filter.Transform->Position))
 			{
+				filter.StopAiming(f);
 				if (TryGoToSafeArea(f, ref filter, botCtx.circleTargetCenter, botCtx.circleTargetRadius))
 				{
 					HostProfiler.End();
@@ -129,6 +131,7 @@ namespace Quantum.Systems.Bots
 			HostProfiler.Start("TryGoForClosestCollectable");
 			if (filter.TryGoForClosestCollectable(f, botCtx))
 			{
+				filter.StopAiming(f);
 				HostProfiler.End();
 				return;
 			}

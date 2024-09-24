@@ -18,6 +18,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
+using Unity.Services.Authentication;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -167,7 +168,7 @@ namespace FirstLight.Game.Services
 				{
 					_services.AuthenticationService.SetLinkedDevice(false);
 				}
-
+				AuthenticationService.Instance.SignOut(true);
 				appData.LastEnvironmentName = FLEnvironment.Current.Name;
 
 				_dataService.AddData(appData, true);

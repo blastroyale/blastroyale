@@ -44,7 +44,7 @@ namespace Quantum
 
 			if (equipment.IsDefaultItem())
 			{
-				Log.Error($"Trying to drop a default item, skipping: {equipment.GameId}!");
+				Log.Warn($"Trying to drop a default item, skipping: {equipment.GameId}!");
 				return;
 			}
 

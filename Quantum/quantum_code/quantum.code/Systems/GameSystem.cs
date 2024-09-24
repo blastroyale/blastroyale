@@ -136,7 +136,6 @@ namespace Quantum.Systems
 
 		private void AllPlayersJoined(Frame f, GameContainer* container)
 		{
-			Log.Warn("ALL PLAYERS JOINED");
 			f.Signals.AllPlayersJoined();
 			RefreshTotalTeamCount(f);
 

@@ -5,10 +5,10 @@
         <ui:VisualElement name="Dialog" picking-mode="Ignore" class="fill-parent">
             <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent">
                 <ui:VisualElement name="MaleBubble" picking-mode="Ignore" class="bubble sprite-ftue__background-dialog">
-                    <FirstLight.Game.UIElements.AutoSizeLabel name="MaleLabel" max-font-size="36" picking-mode="Ignore" class="bubble__text" />
+                    <FirstLight.Game.UIElements.AutoSizeLabel name="MaleLabel" max-font-size="36" picking-mode="Ignore" outline-hack="false" class="bubble__text" />
                 </ui:VisualElement>
                 <ui:VisualElement name="FemaleBubble" picking-mode="Ignore" class="bubble sprite-ftue__background-dialog">
-                    <FirstLight.Game.UIElements.AutoSizeLabel name="FemaleLabel" max-font-size="60" picking-mode="Ignore" class="bubble__text" />
+                    <FirstLight.Game.UIElements.AutoSizeLabel name="FemaleLabel" max-font-size="60" picking-mode="Ignore" outline-hack="false" class="bubble__text" />
                 </ui:VisualElement>
                 <ui:VisualElement name="BackAvatarFemale" picking-mode="Ignore" class="sprite-ftue__background-character back_avatar">
                     <ui:VisualElement name="FemaleCharacter" picking-mode="Ignore" />

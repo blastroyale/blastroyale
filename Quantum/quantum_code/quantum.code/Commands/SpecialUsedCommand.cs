@@ -32,14 +32,6 @@ namespace Quantum.Commands
 
 			var aimInputProcessed = AimInput;
 			var special = playerInventory->Specials[SpecialIndex];
-
-			if (aimInputProcessed.SqrMagnitude < FP.SmallestNonZero &&
-				f.TryGet<Transform3D>(characterEntity, out var transform))
-			{
-				aimInputProcessed = (transform.Rotation * FPVector3.Forward).XZ.Normalized *
-					Constants.TAP_TO_USE_SPECIAL_AIMING_OFFSET;
-			}
-
 			special.TryActivate(f, playerRef, characterEntity, aimInputProcessed, SpecialIndex);
 		}
 	}

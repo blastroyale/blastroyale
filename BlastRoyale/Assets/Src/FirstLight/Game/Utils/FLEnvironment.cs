@@ -1,9 +1,18 @@
 using System;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
+using FirstLight.Game.Data;
+using FirstLight.Server.SDK.Modules;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace FirstLight.Game.Utils
 {
 	public static class FLEnvironment
 	{
+		private const string BUILD_FILE_TEMPLATE = "https://cdn.blastroyale.com/builds/{0}.json";
+
 		private const string ENV_KEY = "FLG_ENVIRONMENT";
 
 		public static readonly Definition DEVELOPMENT = new (
@@ -203,6 +212,55 @@ namespace FirstLight.Game.Utils
 			}
 
 			throw new NotSupportedException("Invalid environment type");
+		}
+
+		private static async Task<(bool Success, Definition Definition)> TryGetEnvironmentRedirect(string gameBuild)
+		{
+			var path = string.Format(BUILD_FILE_TEMPLATE, gameBuild);
+			FLog.Info($"Downloading redirect info from {path}");
+			try
+			{
+				var start = Time.time;
+				var req = UnityWebRequest.Get(path);
+				req.timeout = 2000;
+				var response = await req.SendWebRequest().ToUniTask();
+				FLog.Info("Build info download took " + (Time.time - start) + "s");
+				if (response.result == UnityWebRequest.Result.Success)
+				{
+					var text = response.downloadHandler.text;
+					FLog.Info(text);
+					var value = ModelSerializer.Deserialize<RemoteVersionData>(text);
+					if (FLEnvironment.TryGetFromName(value.EnvironmentOverwrite, out var definition))
+					{
+						return (true, definition);
+					}
+				}
+			}
+			catch (UnityWebRequestException ex)
+			{
+				if (ex.ResponseCode == 404)
+				{
+					return (false, default);
+				}
+
+				FLog.Warn("Failed to download build redirect", ex);
+			}
+			catch (Exception ex)
+			{
+				FLog.Warn("Failed to download build redirect", ex);
+			}
+
+			return (false, default);
+		}
+
+		public static async UniTask CheckForEnvironmentRedirect(string gameBuild)
+		{
+			var (success, direction) = await TryGetEnvironmentRedirect(gameBuild);
+			if (success)
+			{
+				FLog.Info("Redirecting to " + direction.Name + " environment!");
+				Current = direction;
+			}
 		}
 
 		#region EditorHelpers

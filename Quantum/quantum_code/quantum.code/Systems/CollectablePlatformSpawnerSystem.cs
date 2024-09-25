@@ -10,7 +10,7 @@ namespace Quantum.Systems
 		public struct SpawnerFilter
 		{
 			public EntityRef Entity;
-			public Transform3D* Transform;
+			public Transform2D* Transform;
 			public CollectablePlatformSpawner* Spawner;
 		}
 

@@ -11127,7 +11127,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MINIGUN
+      - RAMPAGE MINIGUN
       - RAMPAGE MINIGUN
       - Minigun
       - 
@@ -13715,6 +13715,50 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinFemale01
+      TermType: 0
+      Description: 
+      Languages:
+      - SCARLET
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFemale01Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Available to OG players only
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFemale02
+      TermType: 0
+      Description: 
+      Languages:
+      - LUNA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFemale02Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Available to OG players only
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/FemaleAssassin
       TermType: 0
       Description: 
@@ -13752,7 +13796,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Own any female Corpo to unlock
+      - Own any female Corpo NFT to unlock
       - Combat Queen
       - Combat Queen
       - 
@@ -14313,6 +14357,50 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinMale01
+      TermType: 0
+      Description: 
+      Languages:
+      - JOEL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMale01Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Available to OG players only
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMale02
+      TermType: 0
+      Description: 
+      Languages:
+      - BO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMale02Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Available to OG players only
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MaleAssassin
       TermType: 0
       Description: 
@@ -14350,7 +14438,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Own any male Corpo to unlock
+      - Own any male Corpo NFT to unlock
       - El General
       - El General
       - 
@@ -15385,7 +15473,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ROCKET LAUNCHER
+      - QUADZOOKA
       - QUADZOOKA
       - "LAN\xC7ADOR DE GRANADA"
       - 
@@ -15396,7 +15484,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SMG
+      - STINGER SMG
       - STINGER SMG
       - "D\xE9dalo"
       - 
@@ -15407,7 +15495,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PISTOL
+      - PATROL PISTOL
       - PATROL PISTOL
       - PISTOLA
       - 
@@ -15418,7 +15506,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ASSAULT RIFLE
+      - COMBAT AR
       - COMBAT AR
       - CARABINA
       - 
@@ -15429,7 +15517,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SHOTGUN
+      - PUMP SHOTGUN
       - PUMP SHOTGUN
       - ESPINGARDA
       - 
@@ -15440,7 +15528,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SNIPER
+      - RANGER SNIPER
       - RANGER SNIPER
       - ATIRADOR DE ELITE
       - 
@@ -15547,6 +15635,28 @@ MonoBehaviour:
       Flags: 0000000000
       Languages_Touch: []
     - Term: GameIds/NOOB
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/NOOBGolden
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/NOOBRainbow
       TermType: 0
       Description: 
       Languages:
@@ -16055,7 +16165,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Own any Plague Doctor to unlock
+      - Own any Plague Doctor NFT to unlock
       - 
       - 
       - 
@@ -16452,6 +16562,50 @@ MonoBehaviour:
       Description: 
       Languages:
       - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGamer
+      TermType: 0
+      Description: 
+      Languages:
+      - RED FURY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGamerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any GAM3RS NFT to unlock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPirate
+      TermType: 0
+      Description: 
+      Languages:
+      - CAPTAIN PIRATE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPirateDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own a Pirate Nation NFT to unlock
       - 
       - 
       - 
@@ -24408,7 +24562,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Username can only contain letters, numbers, _ and -
+      - Player name can only contain letters, numbers, _ and spaces.
       - Username can only contain letters, numbers, _ and -
       - Username can only contain letters, numbers, _ and -
       - 
@@ -24419,7 +24573,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - The name must not contain profanity!
+      - Player name must not contain profanity!
       - 
       - 
       - 
@@ -24430,7 +24584,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - The name must not exceed {0} characters.
+      - Player name must not exceed {0} characters.
       - "\u0418\u043C\u044F \u043D\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u043F\u0440\u0435\u0432\u044B\u0448\u0430\u0442\u044C
         {0} \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432."
       - "O nome n\xE3o deve exceder os caracteres {0}."
@@ -24442,7 +24596,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - The name must contain at least {0} valid characters.
+      - Player name must contain at least {0} valid characters.
       - "\u0418\u043C\u044F \u0434\u043E\u043B\u0436\u043D\u043E \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C
         \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C {0} \u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u044B\u0445
         \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432."
@@ -27956,9 +28110,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - ASIA
       - Asia2
-      - Asia
-      - "\xC1sia"
+      - Asia2
       - 
       - 
       Flags: 0000000000
@@ -27967,9 +28121,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - ASIA
       - Asia3
-      - Australia
-      - Australia
+      - Asia3
       - 
       - 
       Flags: 0000000000
@@ -27978,9 +28132,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - AMERICA
       - America2
-      - Canada
-      - Canada
+      - America2
       - 
       - 
       Flags: 0000000000
@@ -27989,9 +28143,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - ASIA
       - Asia4
-      - China
-      - China
+      - Asia4
       - 
       - 
       Flags: 0000000000
@@ -28000,9 +28154,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - EUROPE
       - Europe1
-      - Europe
-      - Europa
+      - Europe1
       - 
       - 
       Flags: 0000000000
@@ -28011,9 +28165,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - ASIA
       - Asia1
-      - Hong Kong
-      - Hong Kong
+      - Asia1
       - 
       - 
       Flags: 0000000000
@@ -28022,9 +28176,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - ASIA
       - Asia5
-      - India
-      - India
+      - Asia5
       - 
       - 
       Flags: 0000000000
@@ -28033,9 +28187,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - ASIA
       - Asia6
-      - Japan
-      - Japan
+      - Asia6
       - 
       - 
       Flags: 0000000000
@@ -28044,9 +28198,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - ASIA
       - Asia7
-      - Korea
-      - Korea
+      - Asia7
       - 
       - 
       Flags: 0000000000
@@ -28055,9 +28209,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - AMERICA
       - America3
-      - Sao Paulo
-      - Sao Paulo
+      - America3
       - 
       - 
       Flags: 0000000000
@@ -28066,9 +28220,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - EUROPE
       - Europe2
-      - Turkey
-      - Turkey
+      - Europe2
       - 
       - 
       Flags: 0000000000
@@ -28077,9 +28231,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - AFRICA
       - Africa2
-      - Dubai
-      - Dubai
+      - Africa2
       - 
       - 
       Flags: 0000000000
@@ -28088,9 +28242,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - AMERICA
       - America1
-      - America
-      - "Am\xE9rica"
+      - America1
       - 
       - 
       Flags: 0000000000
@@ -28099,9 +28253,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - AMERICA
       - America5
-      - South US
-      - South US
+      - America5
       - 
       - 
       Flags: 0000000000
@@ -28110,9 +28264,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - AMERICA
       - America4
-      - America West
-      - America West
+      - America4
       - 
       - 
       Flags: 0000000000
@@ -28121,9 +28275,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - AFRICA
       - Africa1
-      - South Africa
-      - South Africa
+      - Africa1
       - 
       - 
       Flags: 0000000000
@@ -28344,6 +28498,17 @@ MonoBehaviour:
       - VIDEOS
       - VIDEOS
       - VIDEOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITShared/accept
+      TermType: 0
+      Description: 
+      Languages:
+      - ACCEPT
+      - ACCEPT
+      - 
       - 
       - 
       Flags: 0000000000
@@ -30151,6 +30316,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/invite_toggle
+      TermType: 0
+      Description: 
+      Languages:
+      - ALLOW TO INVITE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/copy_code
+      TermType: 0
+      Description: 
+      Languages:
+      - SHARE CODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITParty/copy_party_code
       TermType: 0
       Description: 
@@ -30294,17 +30481,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITShared/accept
-      TermType: 0
-      Description: 
-      Languages:
-      - ACCEPT
-      - ACCEPT
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -30329,7 +30505,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1723825543231
+    Google_LastUpdatedVersion: 1726658030700
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

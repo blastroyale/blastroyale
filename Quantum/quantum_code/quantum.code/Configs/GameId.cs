@@ -105,6 +105,20 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.NOOBGolden, new List<GameIdGroup>
+					{
+						GameIdGroup.Collectable,
+						GameIdGroup.NOOBRareTokens
+					}.AsReadOnly()
+				},
+				{
+					GameId.NOOBRainbow, new List<GameIdGroup>
+					{
+						GameIdGroup.Collectable,
+						GameIdGroup.NOOBRareTokens
+					}.AsReadOnly()
+				},
+				{
 					GameId.CS, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency,
@@ -128,6 +142,108 @@ namespace Quantum
 					{
 						GameIdGroup.Resource,
 						GameIdGroup.ResourcePool
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerANCIENT8, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerAPECOIN, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerBEAM, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerBLOCKLORDS, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerBLOODLOOP, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerCROSSTHEAGES, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerFARCANA, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerGAM3SGG, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerIMMUTABLE, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerMOCAVERSE, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerNYANHEROES, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerPIRATENATION, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerPIXELMON, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerPLANETMOJO, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerSEEDIFY, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerWILDERWORLD, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerXBORG, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
 					}.AsReadOnly()
 				},
 				{
@@ -965,7 +1081,6 @@ namespace Quantum
 					GameId.MalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -974,7 +1089,6 @@ namespace Quantum
 					GameId.MaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -1000,7 +1114,6 @@ namespace Quantum
 					GameId.FemalePunk, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Punk,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -1009,7 +1122,6 @@ namespace Quantum
 					GameId.FemaleSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Superstar,
 						GameIdGroup.Collection
 					}.AsReadOnly()
@@ -1043,7 +1155,6 @@ namespace Quantum
 					GameId.PlayerSkinXmasSuperstar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1066,7 +1177,6 @@ namespace Quantum
 					GameId.PlayerSkinCupid, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1086,7 +1196,6 @@ namespace Quantum
 					GameId.PlayerSkinSnowboarder, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1115,7 +1224,8 @@ namespace Quantum
 					GameId.PlayerSkinEGirl, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1208,7 +1318,8 @@ namespace Quantum
 					GameId.PlayerSkinSoldier, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1276,6 +1387,41 @@ namespace Quantum
 				},
 				{
 					GameId.PlayerSkinSkeleton, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinFemale01, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinFemale02, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinMale01, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinMale02, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinGamer, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
 						GameIdGroup.Collection
@@ -2248,7 +2394,24 @@ namespace Quantum
 						GameId.BLST,
 						GameId.Fragments,
 						GameId.NOOB,
-						GameId.CS
+						GameId.CS,
+						GameId.PartnerANCIENT8,
+						GameId.PartnerAPECOIN,
+						GameId.PartnerBEAM,
+						GameId.PartnerBLOCKLORDS,
+						GameId.PartnerBLOODLOOP,
+						GameId.PartnerCROSSTHEAGES,
+						GameId.PartnerFARCANA,
+						GameId.PartnerGAM3SGG,
+						GameId.PartnerIMMUTABLE,
+						GameId.PartnerMOCAVERSE,
+						GameId.PartnerNYANHEROES,
+						GameId.PartnerPIRATENATION,
+						GameId.PartnerPIXELMON,
+						GameId.PartnerPLANETMOJO,
+						GameId.PartnerSEEDIFY,
+						GameId.PartnerWILDERWORLD,
+						GameId.PartnerXBORG
 					}.AsReadOnly()
 				},
 				{
@@ -2562,6 +2725,11 @@ namespace Quantum
 						GameId.PlayerSkinNFL,
 						GameId.PlayerSkinPilot,
 						GameId.PlayerSkinSkeleton,
+						GameId.PlayerSkinFemale01,
+						GameId.PlayerSkinFemale02,
+						GameId.PlayerSkinMale01,
+						GameId.PlayerSkinMale02,
+						GameId.PlayerSkinGamer,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -2713,16 +2881,11 @@ namespace Quantum
 					GameIdGroup.BotItem, new List<GameId>
 					{
 						GameId.MaleAssassin,
-						GameId.MalePunk,
-						GameId.MaleSuperstar,
 						GameId.FemaleAssassin,
-						GameId.FemalePunk,
-						GameId.FemaleSuperstar,
-						GameId.PlayerSkinXmasSuperstar,
-						GameId.PlayerSkinCupid,
-						GameId.PlayerSkinSnowboarder,
+						GameId.PlayerSkinEGirl,
 						GameId.PlayerSkinBrandFemale,
 						GameId.PlayerSkinBrandMale,
+						GameId.PlayerSkinSoldier,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -2771,6 +2934,8 @@ namespace Quantum
 				{
 					GameIdGroup.Collectable, new List<GameId>
 					{
+						GameId.NOOBGolden,
+						GameId.NOOBRainbow,
 						GameId.Health,
 						GameId.AmmoSmall,
 						GameId.ShieldSmall,
@@ -2874,6 +3039,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameIdGroup.NOOBRareTokens, new List<GameId>
+					{
+						GameId.NOOBGolden,
+						GameId.NOOBRainbow
+					}.AsReadOnly()
+				},
+				{
 					GameIdGroup.MeleeSkin, new List<GameId>
 					{
 						GameId.MeleeSkinDefault,
@@ -2960,7 +3132,12 @@ namespace Quantum
 						GameId.PlayerSkinMidas,
 						GameId.PlayerSkinNFL,
 						GameId.PlayerSkinPilot,
-						GameId.PlayerSkinSkeleton
+						GameId.PlayerSkinSkeleton,
+						GameId.PlayerSkinFemale01,
+						GameId.PlayerSkinFemale02,
+						GameId.PlayerSkinMale01,
+						GameId.PlayerSkinMale02,
+						GameId.PlayerSkinGamer
 					}.AsReadOnly()
 				},
 				{

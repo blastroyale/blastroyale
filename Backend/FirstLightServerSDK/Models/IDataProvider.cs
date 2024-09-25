@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FirstLightServerSDK.Modules.RemoteCollection;
 
 namespace FirstLight.Server.SDK.Models
 {
@@ -33,14 +32,6 @@ namespace FirstLight.Server.SDK.Models
 		///  Return all the keys of the present data
 		/// </summary>
 		IEnumerable<Type> GetKeys();
-
-		/// <summary>
-		/// Gets the instance of the data enrichment service.
-		/// This service is the one who knows how to enrich remote collection data
-		/// when models stored in the data provider are flagged as remotely enricheable.
-		/// Only used for "real time" data enrichment.
-		/// </summary>
-		ICollectionEnrichmentService GetEnrichmentService();
 	}
 
 }

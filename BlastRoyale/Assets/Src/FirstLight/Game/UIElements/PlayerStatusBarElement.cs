@@ -13,7 +13,7 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class PlayerStatusBarElement : VisualElement
 	{
-		private const int DAMAGE_NUMBER_MAX_POOL_SIZE = 12;
+		private const int DAMAGE_NUMBER_MAX_POOL_SIZE = 15;
 		private const int DAMAGE_NUMBER_ANIM_DURATION = 1000;
 
 		private const float SMALL_DAMAGE = 32;
@@ -68,7 +68,7 @@ namespace FirstLight.Game.UIElements
 			damageHolder.usageHints = UsageHints.GroupTransform;
 			{
 				float maxOffset = 15;
-				var divisions = 3;
+				var divisions = 5;
 				for (int i = 0; i < DAMAGE_NUMBER_MAX_POOL_SIZE; i++)
 				{
 					// Create damage label

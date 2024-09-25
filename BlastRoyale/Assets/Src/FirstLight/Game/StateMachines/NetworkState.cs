@@ -181,11 +181,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnGameMatched(GameMatched match)
 		{
-			if (match.RoomSetup.SimulationConfig.MapId == (int) GameId.Any)
+			if (match.RoomSetup.SimulationConfig.MapId == GameId.Any.ToString())
 			{
 				var maps = _services.GameModeService.ValidMatchmakingMaps;
 				var index = Random.Range(0, maps.Count);
-				match.RoomSetup.SimulationConfig.MapId = (int) maps[index];
+				match.RoomSetup.SimulationConfig.MapId = maps[index].ToString();
 			}
 
 			_services.RoomService.JoinOrCreateRoom(match.RoomSetup, match.PlayerProperties, match.ExpectedPlayers);
@@ -509,17 +509,16 @@ namespace FirstLight.Game.StateMachines
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 
 			var simulationConfig = selectedGameMode.Entry.MatchConfig.CloneSerializing();
-			if (simulationConfig.MapId == GameId.Any.GetHashCode())
+			if (simulationConfig.MapId == GameId.Any.ToString())
 			{
 				var map = _services.GameModeService.SelectedMap;
-				simulationConfig.MapId = (int) map;
+				simulationConfig.MapId = map.ToString();
 			}
 
 			simulationConfig.MatchType = MatchType.Matchmaking;
 			var matchmakingSetup = new MatchRoomSetup()
 			{
 				SimulationConfig = simulationConfig,
-				PlayfabQueue = selectedGameMode.Entry.PlayfabQueue
 			};
 
 			StartRandomMatchmaking(matchmakingSetup);

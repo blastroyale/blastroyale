@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.UIElements;
@@ -16,10 +18,12 @@ namespace FirstLight.Game.Presenters
 		public class StateData
 		{
 			public readonly string Message;
+			public readonly CancellationToken CancellationToken;
 
-			public StateData(string message)
+			public StateData(string message, CancellationToken cancellationToken)
 			{
 				Message = message;
+				CancellationToken = cancellationToken;
 			}
 		}
 
@@ -40,7 +44,14 @@ namespace FirstLight.Game.Presenters
 
 		protected override async UniTask OnScreenClose()
 		{
-			await UniTask.WaitForSeconds(CLOSE_DELAY);
+			try
+			{
+
+				await UniTask.WaitForSeconds(CLOSE_DELAY, cancellationToken: Data.CancellationToken);
+			}
+			catch (OperationCanceledException)
+			{
+			}
 		}
 	}
 }

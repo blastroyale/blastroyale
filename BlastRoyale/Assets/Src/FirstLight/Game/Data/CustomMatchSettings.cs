@@ -18,17 +18,18 @@ namespace FirstLight.Game.Data
 		public bool PrivateRoom = false;
 		public bool ShowCreatorName = true;
 		public bool RandomizeTeams = false;
+		public bool AllowInvites = true;
 
 		public SimulationMatchConfig ToSimulationMatchConfig()
 		{
 			return new SimulationMatchConfig
 			{
-				MapId = (int) Enum.Parse<GameId>(MapID),
+				MapId = MapID,
 				GameModeID = GameModeID,
 				MatchType = MatchType.Custom,
 				Mutators = Mutators,
 				MaxPlayersOverwrite = MaxPlayers,
-				HasBots = BotDifficulty > 0,
+				DisableBots = BotDifficulty == 0,
 				BotOverwriteDifficulty = BotDifficulty,
 				TeamSize = SquadSize,
 				WeaponsSelectionOverwrite = WeaponFilter.ToArray()

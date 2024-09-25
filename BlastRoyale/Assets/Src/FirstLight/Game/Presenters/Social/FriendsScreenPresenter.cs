@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -10,7 +11,6 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
-using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _requestsEmptyContainer;
 		private VisualElement _blockedEmptyContainer;
 
-		private LocalizedTextField _yourIDField;
+		private Label _yourIDField;
 		private TextField _addFriendIDField;
 		private LocalizedButton _addFriendButton;
 		private Label _requestsCount;
@@ -64,16 +64,18 @@ namespace FirstLight.Game.Presenters
 			_requestsEmptyContainer = Root.Q<VisualElement>("RequestsEmptyContainer").Required();
 			_blockedEmptyContainer = Root.Q<VisualElement>("BlockedEmptyContainer").Required();
 
-			_yourIDField = Root.Q<LocalizedTextField>("YourID").Required();
-			_yourIDField.OnCopied += () =>
+			_yourIDField = Root.Q<Label>("YourID").Required();
+			var copyIdButton = Root.Q<ImageButton>("CopyIDButton").Required();
+			copyIdButton.clicked += () =>
 			{
-				_services.NotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
+				UIUtils.SaveToClipboard(_yourIDField.text);
+				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			};
 			_addFriendIDField = Root.Q<TextField>("AddFriendID").Required();
 			_addFriendButton = Root.Q<LocalizedButton>("AddFriendButton").Required();
 			_requestsCount = Root.Q<Label>("RequestsCount").Required();
 
-			_addFriendButton.clicked += () => AddFriend(_addFriendIDField.value).Forget();
+			_addFriendButton.clicked += () => AddFriend(AuthenticationServiceExtensions.GetPlayerNameWithSpecialSpaceChar(_addFriendIDField.value)).Forget();
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 
 			_friendsList.bindItem = OnFriendsBindItem;
@@ -117,7 +119,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_yourIDField.value = AuthenticationService.Instance.PlayerId;
+			var appData = _services.DataService.GetData<AppData>();
+			_yourIDField.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(appData.DisplayName);
 			RefreshAll();
 
 			// TODO mihak: Temporary, we just always refresh all lists
@@ -270,7 +273,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenTooltip(VisualElement element, Relationship relationship)
 		{
-			_services.GameSocialService.OpenPlayerOptions(element, Root, relationship.Member.Id, relationship.Member.Profile.Name.TrimPlayerNameNumbers(), new PlayerContextSettings
+			_services.GameSocialService.OpenPlayerOptions(element, Root, relationship.Member.Id, AuthenticationServiceExtensions.GetPlayerNameWithSpaces(relationship.Member.Profile.Name.TrimPlayerNameNumbers()), new PlayerContextSettings
 			{
 				ShowRemoveFriend = true,
 				ShowBlock = true,
@@ -289,12 +292,12 @@ namespace FirstLight.Game.Presenters
 				RefreshRequests();
 				RefreshFriends();
 
-				_services.NotificationService.QueueNotification("Friend request accepted");
+				_services.InGameNotificationService.QueueNotification("Friend request accepted");
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error accepting friend request.", e);
-				_services.NotificationService.QueueNotification($"Error accepting friend request, {e.ParseError()}");
+				_services.InGameNotificationService.QueueNotification($"Error accepting friend request, {e.ParseError()}");
 			}
 		}
 
@@ -307,12 +310,12 @@ namespace FirstLight.Game.Presenters
 				FLog.Info($"Friend request deleted: {r.Member.Id}");
 				RefreshRequests();
 
-				_services.NotificationService.QueueNotification("Friend request declined");
+				_services.InGameNotificationService.QueueNotification("Friend request declined");
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error declining friend request", e);
-				_services.NotificationService.QueueNotification($"Error declining friend request, {e.ParseError()}");
+				_services.InGameNotificationService.QueueNotification($"Error declining friend request, {e.ParseError()}");
 			}
 		}
 
@@ -322,7 +325,7 @@ namespace FirstLight.Game.Presenters
 
 			_addFriendButton.SetEnabled(false);
 
-			var success = await FriendsService.Instance.AddFriendHandled(playerID);
+			var success = await FriendsService.Instance.AddFriendByName(playerID);
 
 			if (success)
 			{

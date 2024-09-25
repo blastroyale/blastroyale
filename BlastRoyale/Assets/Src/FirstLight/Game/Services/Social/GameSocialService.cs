@@ -9,10 +9,12 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.Server.SDK.Modules.Commands;
 using I2.Loc;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -122,6 +124,16 @@ namespace FirstLight.Game.Services
 				UpdateCurrentPlayerActivity();
 			};
 			services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnEquippedAvatar);
+			services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnNameChanged);
+		}
+
+		private void OnNameChanged(DisplayNameChangedMessage obj)
+		{
+			// FUCKING HACKS
+			var data = _services.DataService.LoadData<AppData>();
+			data.DisplayName = obj.NewPlayfabDisplayName;
+			_services.DataService.SaveData<AppData>();
+            _services.GameBackendService.CallGenericFunction(CommandNames.SYNC_NAME).Forget();
 		}
 
 		private void OnEquippedAvatar(CollectionItemEquippedMessage msg)
@@ -271,7 +283,7 @@ namespace FirstLight.Game.Services
 		{
 			_fakeBotRequests.Add(botName);
 			await UniTask.Delay(124);
-			_services.NotificationService.QueueNotification("Friend request sent");
+			_services.InGameNotificationService.QueueNotification("Friend request sent");
 		}
 
 		public bool IsBotInvited(string botName)
@@ -328,7 +340,7 @@ namespace FirstLight.Game.Services
 			if ((relationship == null || hasIncomingRequest) && canUseFriendSystem)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Normal, ScriptLocalization.UITFriends.option_send_request,
-					() => FriendsService.Instance.AddFriendHandled(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
+					() => FriendsService.Instance.AddFriendByUnityId(unityId).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
 			}
 			else if (relationship is {Type: RelationshipType.FriendRequest} && relationship.IsOutgoingInvite())
 			{

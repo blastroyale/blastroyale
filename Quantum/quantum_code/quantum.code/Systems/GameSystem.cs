@@ -76,6 +76,7 @@ namespace Quantum.Systems
 			f.SystemDisable(typeof(HazardSystem));
 			f.SystemDisable(typeof(SpellSystem));
 			f.SystemDisable(typeof(ShrinkingCircleSystem));
+			f.SystemDisable(typeof(TopDownSystem));
 		}
 
 		/// <inheritdoc />

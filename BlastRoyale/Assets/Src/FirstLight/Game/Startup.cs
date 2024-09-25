@@ -54,6 +54,8 @@ namespace FirstLight.Game
 			InitGlobalShaderData();
 
 			await ATTrackingUtils.RequestATTPermission();
+			await VersionUtils.LoadVersionDataAsync();
+			await FLEnvironment.CheckForEnvironmentRedirect(VersionUtils.BuildNumber);
 			await InitUnityServices();
 			await InitAnalytics();
 
@@ -67,7 +69,6 @@ namespace FirstLight.Game
 			FLGCustomSerializers.RegisterSerializers();
 			FeatureFlags.ParseLocalFeatureFlags();
 
-			await VersionUtils.LoadVersionDataAsync();
 			// This uglyness is here because we need to show the loading screen before loading configs, which need this tuple
 			var (services, assetResolver, configsProvider) = InitFLGServices();
 			OhYeah();
@@ -76,7 +77,7 @@ namespace FirstLight.Game
 
 			InitSettings();
 			InitAppEventsListener();
-			await InitPushNotifications();
+			await services.NotificationService.RegisterForNotifications();
 
 			StartGameStateMachine();
 
@@ -90,35 +91,6 @@ namespace FirstLight.Game
 			var go = new GameObject("AppEventsListener");
 			go.AddComponent<AppEventsListener>();
 			DontDestroyOnLoad(go);
-		}
-
-		private static async UniTask InitPushNotifications()
-		{
-			if (Application.isEditor) return;
-
-			PushNotificationsService.Instance.OnRemoteNotificationReceived += PushNotificationReceived;
-
-			try
-			{
-				var token = await PushNotificationsService.Instance.RegisterForPushNotificationsAsync().AsUniTask();
-				FLog.Info($"Registered for push notifications with token: {token}");
-			}
-			catch (Exception e)
-			{
-				FLog.Warn("Failed to register for push notifications: ", e);
-			}
-
-			return;
-
-			// Only for testing for now
-			void PushNotificationReceived(Dictionary<string, object> notificationData)
-			{
-				FLog.Info("Notification received!");
-				foreach (var (key, value) in notificationData)
-				{
-					FLog.Info($"Notification data item: {key} - {value}");
-				}
-			}
 		}
 
 		private void InitTaskLogging()
@@ -175,16 +147,17 @@ namespace FirstLight.Game
 			dataService.LoadData<AppData>();
 			var assetResolver = new AssetResolverService();
 			var configsProvider = new ConfigsProvider();
+			var serverConfigProvider = new UnityRemoteConfigProvider();
 			var networkService = new GameNetworkService(configsProvider);
 
-			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider);
+			var gameLogic = new GameLogic(messageBroker, serverConfigProvider, timeService, dataService, configsProvider);
+			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider, gameLogic, assetResolver);
 
 			networkService.StartNetworking(gameLogic, gameServices);
 			networkService.EnableQuantumPingCheck(true);
 
 			MainInstaller.Bind<IWeb3Service>(new NoWeb3());
-			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
 			MainInstaller.Bind<IGameStateMachine>(new GameStateMachine(gameLogic, gameServices, networkService, assetResolver));
 
@@ -195,13 +168,13 @@ namespace FirstLight.Game
 		{
 			var initOpts = new InitializationOptions();
 
+			FLog.Info("Using unity environment: " + FLEnvironment.Current.UCSEnvironmentName);
 			initOpts.SetEnvironmentName(FLEnvironment.Current.UCSEnvironmentName);
 			RemoteConfigService.Instance.SetEnvironmentID(FLEnvironment.Current.UCSEnvironmentID);
 			await UnityServices.InitializeAsync(initOpts).AsUniTask();
 			await Addressables.InitializeAsync().Task.AsUniTask();
 			((ILobbyServiceSDKConfiguration) LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
-			
-			
+
 #if UNITY_EDITOR
 			if (ParrelSync.ClonesManager.IsClone())
 			{

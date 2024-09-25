@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using Src.FirstLight.Game.Utils;
 using Unity.Services.CloudSave;
+using Unity.Services.CloudSave.Models;
+using Unity.Services.CloudSave.Models.Data.Player;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -54,31 +56,63 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// <summary>
 		/// Adds a friend by player id and handles notifications / errors.
 		/// </summary>
-		public static async UniTask<bool> AddFriendHandled(this IFriendsService friendsService, string playerID)
+		public static async UniTask<bool> AddFriendByUnityId(this IFriendsService friendsService, string unityId)
 		{
 			var services = MainInstaller.ResolveServices(); // If a helper need to resolve services then it should be a service itself
 
 			try
 			{
-				FLog.Info($"Sending friend request: {playerID}");
-
-				var playerData = await CloudSaveService.Instance.LoadPlayerDataAsync(playerID);
-				if (playerData?.PlayfabID == null)
-				{
-					services.NotificationService.QueueNotification("Player not found");
-					return false;
-				}
-
-				await friendsService.AddFriendAsync(playerID).AsUniTask();
-
-				FLog.Info($"Friend request sent: {playerID}");
-
-				services.NotificationService.QueueNotification("Friend request sent");
+				await friendsService.AddFriendAsync(unityId).AsUniTask();
+				FLog.Info($"Friend request sent: {unityId}");
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error adding friend.", e);
-				services.NotificationService.QueueNotification($"Error adding friend, {e.ParseError()}");
+				services.InGameNotificationService.QueueNotification($"Error adding friend, {e.ParseError()}");
+				return false;
+			}
+
+			services.InGameNotificationService.QueueNotification("Friend request sent");
+			return true;
+		}
+
+		/// <summary>
+		/// Adds a friend by player name and handles notifications / errors.
+		/// </summary>
+		public static async UniTask<bool> AddFriendByName(this IFriendsService friendsService, string playerName)
+		{
+			var services = MainInstaller.ResolveServices(); // If a helper need to resolve services then it should be a service itself
+
+			try
+			{
+				FLog.Info($"Sending friend request: {playerName}");
+
+				var query = new Query(
+					// The first argument to Query is a list of one or more filters, all must evaluate to true for a result to be included
+					new List<FieldFilter>
+					{
+						new ("player_name", playerName, FieldFilter.OpOptions.EQ, true),
+					}
+				);
+
+				var foundPlayers = await CloudSaveService.Instance.Data.Custom.QueryAsync(query);
+				if (foundPlayers.Count == 0)
+				{
+					services.InGameNotificationService.QueueNotification("Player not found");
+					return false;
+				}
+
+				var playerId = foundPlayers.First().Id.Replace("read-only-", "");
+				FLog.Info("Found player id " + playerId);
+				await friendsService.AddFriendAsync(playerId).AsUniTask();
+				FLog.Info($"Friend request sent: {playerName}");
+
+				services.InGameNotificationService.QueueNotification("Friend request sent");
+			}
+			catch (FriendsServiceException e)
+			{
+				FLog.Warn("Error adding friend.", e);
+				services.InGameNotificationService.QueueNotification($"Error adding friend, {e.ParseError()}");
 				return false;
 			}
 
@@ -112,14 +146,14 @@ namespace FirstLight.Game.Utils.UCSExtensions
 				await UniTask.WhenAll(tasks);
 
 				FLog.Info($"Player blocked: {playerID}");
-				services.NotificationService.QueueNotification("Player blocked");
+				services.InGameNotificationService.QueueNotification("Player blocked");
 				return true;
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error blocking player", e);
 
-				services.NotificationService.QueueNotification($"Error blocking player, {e.ParseError()}");
+				services.InGameNotificationService.QueueNotification($"Error blocking player, {e.ParseError()}");
 				return false;
 			}
 		}
@@ -133,13 +167,13 @@ namespace FirstLight.Game.Utils.UCSExtensions
 				FLog.Info($"Unblocking player: {r.Member.Id}");
 				await friendsService.DeleteBlockAsync(r.Member.Id).AsUniTask();
 				FLog.Info($"Player unblocked: {r.Member.Id}");
-				services.NotificationService.QueueNotification("Player unblocked");
+				services.InGameNotificationService.QueueNotification("Player unblocked");
 				return true;
 			}
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error unblocking player.", e);
-				services.NotificationService.QueueNotification($"Error unblocking player, {e.ParseError()}");
+				services.InGameNotificationService.QueueNotification($"Error unblocking player, {e.ParseError()}");
 				return false;
 			}
 		}
@@ -163,12 +197,12 @@ namespace FirstLight.Game.Utils.UCSExtensions
 					}
 				}
 
-				services.NotificationService.QueueNotification("Player Removed");
+				services.InGameNotificationService.QueueNotification("Player Removed");
 				return true;
 			}
 			catch (FriendsServiceException e)
 			{
-				services.NotificationService.QueueNotification($"Error removing player, {e.ErrorCode.ToStringSeparatedWords()}");
+				services.InGameNotificationService.QueueNotification($"Error removing player, {e.ErrorCode.ToStringSeparatedWords()}");
 				return false;
 			}
 		}

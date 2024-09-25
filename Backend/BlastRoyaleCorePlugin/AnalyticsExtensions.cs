@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Server.SDK.Models;
 using Newtonsoft.Json;
 using Quantum;
@@ -14,17 +15,17 @@ namespace BlastRoyaleNFTPlugin
 		/// </summary>
 		public static AnalyticsData ToAnalyticsData(this Equipment equipment)
 		{
-			return new AnalyticsData()
+			return new AnalyticsData(new Dictionary<string, object>()
 			{
 				{"GameId", equipment.GameId},
-				{"edition", equipment.Edition },
-				{"faction", equipment.Faction },
-				{"rarity", equipment.Rarity },
-				{"adjective", equipment.Adjective },
-				{"material", equipment.Material },
-				{"level", equipment.Level },
+				{"edition", equipment.Edition},
+				{"faction", equipment.Faction},
+				{"rarity", equipment.Rarity},
+				{"adjective", equipment.Adjective},
+				{"material", equipment.Material},
+				{"level", equipment.Level},
 				{"groups", JsonConvert.SerializeObject(equipment.GameId.GetGroups())}
-			};
+			});
 		}
 	}
 }

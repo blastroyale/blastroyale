@@ -21,7 +21,7 @@ public class WipeLeaderboards : PlayfabScript
 	private List<string> wiped = new List<string>();
 	private List<string> error = new List<string>();
 	
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.PROD;
+	public override Environment GetEnvironment() => Environment.PROD;
 	public override void Execute(ScriptParameters parameters)
     {
     	var task = RunAsync();

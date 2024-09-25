@@ -53,6 +53,7 @@ namespace FirstLight.Game.Configs
 			}
 		}
 
+		// TODO: load via addressable bundle in a single go
 		public IEnumerable<IConfigLoadHandler> GetLoadHandlers(IConfigsAdder configsAdder)
 		{
 			return new List<IConfigLoadHandler>
@@ -61,7 +62,7 @@ namespace FirstLight.Game.Configs
 				new ConfigLoadDefinition<LiveopsFeatureFlagConfigs>(_assetLoader, AddressableId.Configs_LiveopsFeatureFlagConfigs, asset => configsAdder.AddConfigs(data => data.UniqueIdentifier(), asset.Configs)),
 				new ConfigLoadDefinition<GameConfigs>(_assetLoader, AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<MapAreaConfigs>(_assetLoader, AddressableId.Configs_MapAreaConfigs, configsAdder.AddSingletonConfig, false),
-				new ConfigLoadDefinition<MapConfigs>(_assetLoader, AddressableId.Configs_QuantumMapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),
+				new ConfigLoadDefinition<MapConfigs>(_assetLoader, AddressableId.Configs_QuantumMapConfigs, asset => configsAdder.AddConfigs(data => data.Map.ToString(), asset.Configs)),
 				new ConfigLoadDefinition<MapAssetConfigs>(_assetLoader, AddressableId.Configs_MapAssetConfigs, configsAdder.AddSingletonConfig),
 				new ConfigLoadDefinition<WeaponConfigs>(_assetLoader, AddressableId.Configs_WeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				new ConfigLoadDefinition<PlayerLevelConfigs>(_assetLoader, AddressableId.Configs_PlayerLevelConfigs, asset => configsAdder.AddConfigs(data => (int) data.LevelStart, asset.Configs)),
@@ -86,7 +87,6 @@ namespace FirstLight.Game.Configs
 				new ConfigLoadDefinition<GradeDataConfigs>(_assetLoader, AddressableId.Configs_GradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Grade, asset.Configs)),
 				new ConfigLoadDefinition<GameModeConfigs>(_assetLoader, AddressableId.Configs_GameModeConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				new ConfigLoadDefinition<ReviveConfigs>(_assetLoader, AddressableId.Configs_ReviveConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<GameModeRotationConfigs>(_assetLoader, AddressableId.Configs_GameModeRotationConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<ScrapConfigs>(_assetLoader, AddressableId.Configs_ScrapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
 				new ConfigLoadDefinition<UpgradeDataConfigs>(_assetLoader, AddressableId.Configs_UpgradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
 				new ConfigLoadDefinition<RepairDataConfigs>(_assetLoader, AddressableId.Configs_RepairDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
@@ -94,6 +94,7 @@ namespace FirstLight.Game.Configs
 				new ConfigLoadDefinition<BotDifficultyConfigs>(_assetLoader, AddressableId.Configs_BotDifficultyConfigs, configsAdder.AddSingletonConfig),
 				new ConfigLoadDefinition<MatchmakingAndRoomConfigs>(_assetLoader, AddressableId.Configs_MatchmakingAndRoomConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<CharacterSkinConfigs>(_assetLoader, AddressableId.Collections_CharacterSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				new ConfigLoadDefinition<FlagSkinConfigs>(_assetLoader, AddressableId.Collections_Flags_FlagSkinConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<WeaponSkinsConfigContainer>(_assetLoader, AddressableId.Collections_WeaponSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<AvatarCollectableConfigs>(_assetLoader, AddressableId.Collections_ProfilePicture_AvatarCollectableConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<CurrencySpriteConfigs>(_assetLoader, AddressableId.Configs_CurrencySpriteConfigs, cfg => configsAdder.AddSingletonConfig(cfg.Config)),

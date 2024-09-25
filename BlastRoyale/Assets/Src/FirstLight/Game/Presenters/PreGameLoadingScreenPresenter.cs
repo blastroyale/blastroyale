@@ -313,10 +313,42 @@ namespace FirstLight.Game.Presenters
 			var simulationConfig = CurrentRoom.Properties.SimulationMatchConfig.Value;
 			var gameModeConfig = CurrentRoom.GameModeConfig;
 			var mapConfig = CurrentRoom.MapConfig;
-
+			var mutators = simulationConfig.Mutators.GetSetFlags();
+			var mutatorsString = "";
+			var subtitlesCounter = 0;
+			
+			// Combining a list of mutators
+			for (int i = 0; i < mutators.Length; i++)
+			{
+				mutatorsString += LocalizationManager.GetTranslation(mutators[i].GetLocalizationKey());
+				mutatorsString += i < (mutators.Length - 1) ? ", " : "";
+				subtitlesCounter++;
+				if (subtitlesCounter == 4)
+				{
+					mutatorsString += "\n";
+				}
+			}
+			
+			// Combining a list of weapons (in case weapon filter is active)
+			for (int i = 0; i < simulationConfig.WeaponsSelectionOverwrite.Length; i++)
+			{
+				if (i == 0 && !string.IsNullOrEmpty(mutatorsString))
+				{
+					mutatorsString += ", ";
+				}
+				mutatorsString += LocalizationUtils.GetTranslationGameIdString(simulationConfig.WeaponsSelectionOverwrite[i]);
+				mutatorsString += i < (simulationConfig.WeaponsSelectionOverwrite.Length - 1) ? ", " : "";
+				subtitlesCounter++;
+				if (subtitlesCounter == 4)
+				{
+					mutatorsString += "\n";
+				}
+			}
+			
 			_mapAreaConfig = _services.ConfigsProvider.GetConfig<MapAreaConfigs>().GetMapAreaConfig(mapConfig.Map);
 			_locationLabel.text = mapConfig.Map.GetLocalization();
 			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, simulationConfig.TeamSize));
+			_header.SetSubtitle(mutatorsString);
 			
 			UpdatePlayerCount();
 			UpdateMasterClient();

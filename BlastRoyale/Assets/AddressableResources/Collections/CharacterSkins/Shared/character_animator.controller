@@ -921,7 +921,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -379691173412345462, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+  m_Motion: {fileID: 7400000, guid: 739c5c4563e0a41f4a9911935de4f733, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1198,13 +1198,13 @@ AnimatorStateMachine:
   - {fileID: -3769457103523731123}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 7840163810359972742}
-    second:
-    - {fileID: -3890465922920977437}
   - first: {fileID: -7687792945197628734}
     second: []
   - first: {fileID: 650447998188526516}
     second: []
+  - first: {fileID: 7840163810359972742}
+    second:
+    - {fileID: -3890465922920977437}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 720, y: 610, z: 0}
   m_EntryPosition: {x: 1410, y: 200, z: 0}
@@ -1283,10 +1283,26 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 785104822939831909, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Threshold: 8
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -8787060716210276804, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Threshold: 9
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 0
-  m_MaxThreshold: 7
+  m_MaxThreshold: 9
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1816,10 +1832,26 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 4920476451848668905, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Threshold: 8
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 5075850231695016430, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Threshold: 9
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 0
-  m_MaxThreshold: 7
+  m_MaxThreshold: 9
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1909,10 +1941,26 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 2923884051967641354, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Threshold: 8
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 9098912595581579306, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Threshold: 9
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 1
-  m_MaxThreshold: 7
+  m_MaxThreshold: 9
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -2402,10 +2450,26 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: weapon_type_float
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -8469005445011477951, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Threshold: 8
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 2123023410134573714, guid: 9a977d17a3bc8473591f4a2193662073, type: 3}
+    m_Threshold: 9
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weapon_type_float
+    m_Mirror: 0
   m_BlendParameter: weapon_type_float
   m_BlendParameterY: weapon_type_float
   m_MinThreshold: 1
-  m_MaxThreshold: 7
+  m_MaxThreshold: 9
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0

@@ -267,7 +267,7 @@ namespace FirstLight.Game.Services
 		private ILobbyEvents _matchLobbyEvents;
 	
 		private readonly IGameDataProvider _dataProvider;
-		private readonly NotificationService _notificationService;
+		private readonly InGameNotificationService _inGameNotificationService;
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly Dictionary<string, PartyInvite> _sentPartyInvites = new ();
 		private readonly List<string> _sentMatchInvites = new ();
@@ -277,11 +277,11 @@ namespace FirstLight.Game.Services
 		private bool _leaving;
 
 		
-		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, NotificationService notificationService,
+		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, InGameNotificationService inGameNotificationService,
 							  LocalPrefsService localPrefsService)
 		{
 			_dataProvider = dataProvider;
-			_notificationService = notificationService;
+			_inGameNotificationService = inGameNotificationService;
 			_localPrefsService = localPrefsService;
 
 			Tick().Forget();
@@ -363,7 +363,7 @@ namespace FirstLight.Game.Services
 				var started = await UniTaskUtils.WaitUntilTimeout(CanStartGame, TimeSpan.FromSeconds(5));
 				if (!started)
 				{
-					services.NotificationService.QueueNotification("Error starting match");
+					services.InGameNotificationService.QueueNotification("Error starting match");
 					return;
 				}
 
@@ -401,7 +401,7 @@ namespace FirstLight.Game.Services
 
 			var lobbyName = string.Format(PARTY_LOBBY_NAME, AuthenticationService.Instance.PlayerId);
 			// TODO: Should not have to resolve services here but there's a circular dependency
-			var currentGameMode = MainInstaller.ResolveServices().GameModeService.SelectedGameMode.Value.Entry.MatchConfig.ConfigId;
+			var currentGameMode = MainInstaller.ResolveServices().GameModeService.SelectedGameMode.Value.Entry.MatchConfig.UniqueConfigId;
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = true,
@@ -424,9 +424,16 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error creating lobby!", e);
-				_notificationService.QueueNotification($"Could not create party, {e.ParseError()}");
+				HandleLobbyError(e, "Could not create party");
 			}
+		}
+
+		private void HandleLobbyError(LobbyServiceException e, string err)
+		{
+			if (!e.ShouldBeVisible()) return;
+			
+			FLog.Warn(err, e);
+			_inGameNotificationService.QueueNotification($"{err}, {e.ParseError()}");
 		}
 
 		public async UniTask JoinParty(string code)
@@ -450,8 +457,8 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
+				HandleLobbyError(e, "Could not join party");
 				FLog.Warn("Error joining party!", e);
-				_notificationService.QueueNotification($"Could not join party {e.ParseError()}");
 			}
 		}
 
@@ -476,7 +483,7 @@ namespace FirstLight.Game.Services
 			catch (FriendsServiceException e)
 			{
 				FLog.Warn("Error sending party invite!", e);
-				_notificationService.QueueNotification($"Could not send party invite: {e.ErrorCode.ToStringSeparatedWords()}");
+				_inGameNotificationService.QueueNotification($"Could not send party invite: {e.ErrorCode.ToStringSeparatedWords()}");
 				_sentPartyInvites.Remove(playerID);
 				CurrentPartyCallbacks.TriggerOnInvitesUpdated();
 			}
@@ -517,7 +524,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error leaving party!", e);
-				_notificationService.QueueNotification($"Could not leave party, {e.ParseError()}");
+				_inGameNotificationService.QueueNotification($"Could not leave party, {e.ParseError()}");
 			}
 		}
 
@@ -534,7 +541,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error kicking player!", e);
-				_notificationService.QueueNotification($"Could not kick player, {e.ParseError()}");
+				_inGameNotificationService.QueueNotification($"Could not kick player, {e.ParseError()}");
 				return false;
 			}
 
@@ -573,8 +580,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn($"Error updating host!", e);
-				_notificationService.QueueNotification($"Could not update host, {e.ParseError()}");
+				HandleLobbyError(e, "Could not update host");
 				return null;
 			}
 		}
@@ -597,8 +603,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error updating lobby!", e);
-				_notificationService.QueueNotification($"Could not update lobby, {e.ParseError()}");
+				HandleLobbyError(e, "Could not update lobby");
 				return false;
 			}
 
@@ -624,7 +629,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error updating lobby!", e);
-				_notificationService.QueueNotification($"Could not update lobby, {e.ParseError()}");
+				_inGameNotificationService.QueueNotification($"Could not update lobby, {e.ParseError()}");
 				return false;
 			}
 
@@ -651,7 +656,7 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Warn("Error updating lobby player!", e);
 				if (silent) return false;
-				_notificationService.QueueNotification($"Could not update player, {e.ParseError()}");
+				_inGameNotificationService.QueueNotification($"Could not update player, {e.ParseError()}");
 				return false;
 			}
 
@@ -690,7 +695,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error fetching match lobbies!", e);
-				_notificationService.QueueNotification($"Could not fetch games, {e.ParseError()}");
+				_inGameNotificationService.QueueNotification($"Could not fetch games, {e.ParseError()}");
 			}
 
 			return null;
@@ -701,7 +706,7 @@ namespace FirstLight.Game.Services
 			Assert.IsNull(CurrentMatchLobby, "Trying to create a match but the player is already in one!");
 
 			var lobbyName = matchOptions.ShowCreatorName
-				? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
+				? string.Format(MATCH_LOBBY_NAME, AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
 				: Enum.Parse<GameId>(matchOptions.MapID).GetLocalization();
 
 			var positions = new string[matchOptions.MaxPlayers];
@@ -736,7 +741,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error creating lobby!", e);
-				_notificationService.QueueNotification($"Error creating match, {e.ParseError()}");
+				_inGameNotificationService.QueueNotification($"Error creating match, {e.ParseError()}");
 				return false;
 			}
 
@@ -761,7 +766,7 @@ namespace FirstLight.Game.Services
 				if(CurrentMatchLobby.GetMatchRegion() != _localPrefsService.ServerRegion.Value)
 				{
 					FLog.Warn("Entered room of another region, leaving");
-					_notificationService.QueueNotification($"Oops it seems you joined a room from another region");
+					_inGameNotificationService.QueueNotification($"Oops it seems you joined a room from another region");
 					await LeaveMatch();
 				}
 				
@@ -770,7 +775,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error joining match!", e);
-				_notificationService.QueueNotification($"Could not join match, {e.ParseError()}");
+				_inGameNotificationService.QueueNotification($"Could not join match, {e.ParseError()}");
 				return false;
 			}
 
@@ -794,7 +799,7 @@ namespace FirstLight.Game.Services
 				_sentMatchInvites.Remove(playerID);
 				CurrentMatchCallbacks.TriggerOnInvitesUpdated();
 				FLog.Warn("Error sending match invite!", e);
-				_notificationService.QueueNotification($"Could not send match invite, {e.ErrorCode.ToStringSeparatedWords()}");
+				_inGameNotificationService.QueueNotification($"Could not send match invite, {e.ErrorCode.ToStringSeparatedWords()}");
 			}
 		}
 
@@ -827,7 +832,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error leaving match lobby!", e);
-				_notificationService.QueueNotification($"Could not leave match lobby, {e.ParseError()}");
+				_inGameNotificationService.QueueNotification($"Could not leave match lobby, {e.ParseError()}");
 			}
 			finally
 			{
@@ -842,7 +847,7 @@ namespace FirstLight.Game.Services
 				Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
 				var lobbyName = settings.ShowCreatorName
-					? string.Format(MATCH_LOBBY_NAME, AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers())
+					? string.Format(MATCH_LOBBY_NAME, AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
 					: Enum.Parse<GameId>(settings.MapID).GetLocalization();
 
 				var options = new UpdateLobbyOptions
@@ -868,8 +873,7 @@ namespace FirstLight.Game.Services
 				}
 				catch (LobbyServiceException e)
 				{
-					FLog.Warn("Error updating match settings!", e);
-					_notificationService.QueueNotification($"Could not update match settings, {e.ParseError()}");
+					HandleLobbyError(e, "Could not update match settings");
 				}
 			});
 			return UniTask.FromResult(false);
@@ -897,8 +901,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error updating match room!", e);
-				_notificationService.QueueNotification($"Could not update match room, {e.ParseError()}");
+				HandleLobbyError(e, "Could not update match room");
 				return false;
 			}
 
@@ -932,8 +935,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error kicking player!", e);
-				_notificationService.QueueNotification($"Could not kick player, {e.ParseError()}");
+				HandleLobbyError(e, "Could not kick player");
 				return false;
 			}
 			return true;
@@ -963,8 +965,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				FLog.Warn("Error setting spectate status!", e);
-				_notificationService.QueueNotification($"Could not set spectate status, {e.ParseError()}");
+				HandleLobbyError(e, "Could not set spectate status");
 				return false;
 			}
 		}
@@ -999,7 +1000,7 @@ namespace FirstLight.Game.Services
 			catch (LobbyServiceException e)
 			{
 				FLog.Warn("Error setting ready status!", e);
-				_notificationService.QueueNotification($"Could not set ready status, {e.ParseError()}");
+				_inGameNotificationService.QueueNotification($"Could not set ready status, {e.ParseError()}");
 			}
 
 			return null;
@@ -1007,8 +1008,8 @@ namespace FirstLight.Game.Services
 
 		public float TickDelay()
 		{
-			if (!MainInstaller.TryResolve<IGameDataProvider>(out var data)) return TICK_DELAY;
-			if (data.AppDataProvider.TitleData.TryGetValue("LOBBY_TICK", out var t) && Int32.TryParse(t, out var intt))
+			if (!MainInstaller.TryResolve<IGameServices>(out var services)) return TICK_DELAY;
+			if (services.GameAppService.AppData.TryGetValue("LOBBY_TICK", out var t) && Int32.TryParse(t, out var intt))
 			{
 				return intt;
 			}
@@ -1114,7 +1115,7 @@ namespace FirstLight.Game.Services
 			var service = MainInstaller.ResolveServices().RoomService;
 			if (!service.InRoom && !service.IsJoiningRoom && !_leaving)
 			{
-				_notificationService.QueueNotification("You have been kicked from the lobby.");
+				_inGameNotificationService.QueueNotification("You have been kicked from the lobby.");
 			}
 
 			_sentMatchInvites.Clear();
@@ -1127,7 +1128,7 @@ namespace FirstLight.Game.Services
 			CurrentPartyLobby = null;
 			if (!PopupPresenter.IsOpen<TeamPopupView>())
 			{
-				_notificationService.QueueNotification($"You left the team");
+				_inGameNotificationService.QueueNotification($"You left the team");
 			}
 
 			_sentPartyInvites.Clear();

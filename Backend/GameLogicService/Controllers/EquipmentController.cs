@@ -10,6 +10,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
 using GameLogicService.Models;
+using GameLogicService.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -31,17 +32,19 @@ namespace ServerCommon.Cloudscript
 		private IServerMutex _mutex;
 		private IServerStateService _state;
 		private IServerAnalytics _analytics;
+		private IRemoteConfigService _remoteConfig;
 
-		public EquipmentController(ILogger log, IServerAnalytics analytics, IServerStateService state, IServerMutex mutex, IGameLogicContextService logicContext, IGameConfigurationService cfg)
+		public EquipmentController(ILogger log, IServerAnalytics analytics, IServerStateService state, IServerMutex mutex, IGameLogicContextService logicContext, IGameConfigurationService cfg, IRemoteConfigService remoteConfig)
 		{
 			_log = log;
 			_configs = cfg;
+			_remoteConfig = remoteConfig;
 			_logicContext = logicContext;
 			_mutex = mutex;
 			_state = state;
 			_analytics = analytics;
 		}
-		
+
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("getstats")]
@@ -51,13 +54,14 @@ namespace ServerCommon.Cloudscript
 			var stats = request.GetStats(gameConfiguration);
 			return Ok(stats);
 		}
-		
+
 		[HttpGet]
 		[RequiresApiKey]
 		[Route("GetEquipment")]
 		public async Task<dynamic> GetEquipment(string playerId)
 		{
-			var ctx = await _logicContext.GetLogicContext(playerId);
+			var (state, remoteConfigs) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, 0);
+			var ctx = await _logicContext.GetLogicContext(playerId, remoteConfigs, state);
 			var inv = ctx.GameLogic.EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.All);
 			return Content(JsonConvert.SerializeObject(
 				inv.Select(i => new
@@ -68,7 +72,7 @@ namespace ServerCommon.Cloudscript
 					Hash = i.Equipment.GetServerHashCode()
 				})), "application/json");
 		}
-		
+
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("RemoveEquipment")]
@@ -78,8 +82,9 @@ namespace ServerCommon.Cloudscript
 			{
 				await _mutex.Lock(playerId);
 				var id = new UniqueId(uniqueId);
-				var playerState = await _state.GetPlayerState(playerId);
-				var ctx = await _logicContext.GetLogicContext(playerId, playerState);
+				var (playerState, remoteConfigs) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, 0);
+
+				var ctx = await _logicContext.GetLogicContext(playerId, remoteConfigs, playerState);
 				if (!ctx.GameLogic.EquipmentLogic.Inventory.TryGetValue(id, out var equipment))
 					return Conflict($"Equipment {uniqueId} not found");
 				if (equipment.GetServerHashCode() != hash)
@@ -100,9 +105,10 @@ namespace ServerCommon.Cloudscript
 			{
 				_mutex.Unlock(playerId);
 			}
+
 			return Ok();
 		}
-		
+
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("AddEquipment")]
@@ -112,7 +118,8 @@ namespace ServerCommon.Cloudscript
 			{
 				var playerId = request.PlayerId;
 				await _mutex.Lock(playerId);
-				var ctx = await _logicContext.GetLogicContext(playerId);
+				var (state, remoteConfigs) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, 0);
+				var ctx = await _logicContext.GetLogicContext(playerId, remoteConfigs, state);
 				var uniqueId = ctx.GameLogic.EquipmentLogic.AddToInventory(request.Equipment);
 				var updatedState = ctx.PlayerData.GetUpdatedState();
 				if (!string.IsNullOrEmpty(request.TokenId))
@@ -125,7 +132,7 @@ namespace ServerCommon.Cloudscript
 					};
 					updatedState.UpdateModel(data);
 				}
-				
+
 				await _state.UpdatePlayerState(playerId, updatedState);
 				var analytics = request.Equipment.GetAnalyticsData();
 				analytics["user"] = request.PlayerId;

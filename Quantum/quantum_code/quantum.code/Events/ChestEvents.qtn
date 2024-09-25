@@ -1,9 +1,9 @@
 synced event OnChestOpened
 {
 	GameId ChestType;
-	FPVector3 ChestPosition;
+	FPVector2 ChestPosition;
 	player_ref Player;
 	entity_ref Entity;
 }
 
-signal ChestOpened(GameId chestType, FPVector3 chestPosition, player_ref player, entity_ref entity);
+signal ChestOpened(GameId chestType, FPVector2 chestPosition, player_ref player, entity_ref entity);

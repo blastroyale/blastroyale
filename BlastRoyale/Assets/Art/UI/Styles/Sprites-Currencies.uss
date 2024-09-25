@@ -16,6 +16,23 @@
     --sprite-currencies__fragments-default: url('/Assets/Art/UI/Sprites/Currencies/fragments-default.png');
     --sprite-currencies__noob-1: url('/Assets/Art/UI/Sprites/Currencies/noob-1.png');
     --sprite-currencies__noob-default: url('/Assets/Art/UI/Sprites/Currencies/noob-default.png');
+    --sprite-currencies__partnerancient8-default: url('/Assets/Art/UI/Sprites/Currencies/partnerancient8-default.png');
+    --sprite-currencies__partnerapecoin-default: url('/Assets/Art/UI/Sprites/Currencies/partnerapecoin-default.png');
+    --sprite-currencies__partnerbeam-default: url('/Assets/Art/UI/Sprites/Currencies/partnerbeam-default.png');
+    --sprite-currencies__partnerblocklords-default: url('/Assets/Art/UI/Sprites/Currencies/partnerblocklords-default.png');
+    --sprite-currencies__partnerbloodloop-default: url('/Assets/Art/UI/Sprites/Currencies/partnerbloodloop-default.png');
+    --sprite-currencies__partnercrosstheages-default: url('/Assets/Art/UI/Sprites/Currencies/partnercrosstheages-default.png');
+    --sprite-currencies__partnerfarcana-default: url('/Assets/Art/UI/Sprites/Currencies/partnerfarcana-default.png');
+    --sprite-currencies__partnergam3sgg-default: url('/Assets/Art/UI/Sprites/Currencies/partnergam3sgg-default.png');
+    --sprite-currencies__partnerimmutable-default: url('/Assets/Art/UI/Sprites/Currencies/partnerimmutable-default.png');
+    --sprite-currencies__partnermocaverse-default: url('/Assets/Art/UI/Sprites/Currencies/partnermocaverse-default.png');
+    --sprite-currencies__partnernyanheroes-default: url('/Assets/Art/UI/Sprites/Currencies/partnernyanheroes-default.png');
+    --sprite-currencies__partnerpiratenation-default: url('/Assets/Art/UI/Sprites/Currencies/partnerpiratenation-default.png');
+    --sprite-currencies__partnerpixelmon-default: url('/Assets/Art/UI/Sprites/Currencies/partnerpixelmon-default.png');
+    --sprite-currencies__partnerplanetmojo-default: url('/Assets/Art/UI/Sprites/Currencies/partnerplanetmojo-default.png');
+    --sprite-currencies__partnerseedify-default: url('/Assets/Art/UI/Sprites/Currencies/partnerseedify-default.png');
+    --sprite-currencies__partnerwilderworld-default: url('/Assets/Art/UI/Sprites/Currencies/partnerwilderworld-default.png');
+    --sprite-currencies__partnerxborg-default: url('/Assets/Art/UI/Sprites/Currencies/partnerxborg-default.png');
 }
 
 .sprite-currencies__blastbuck-1 {
@@ -110,6 +127,108 @@
 
 .sprite-currencies__noob-default {
     background-image: var(--sprite-currencies__noob-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerancient8-default {
+    background-image: var(--sprite-currencies__partnerancient8-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerapecoin-default {
+    background-image: var(--sprite-currencies__partnerapecoin-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerbeam-default {
+    background-image: var(--sprite-currencies__partnerbeam-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerblocklords-default {
+    background-image: var(--sprite-currencies__partnerblocklords-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerbloodloop-default {
+    background-image: var(--sprite-currencies__partnerbloodloop-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnercrosstheages-default {
+    background-image: var(--sprite-currencies__partnercrosstheages-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerfarcana-default {
+    background-image: var(--sprite-currencies__partnerfarcana-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnergam3sgg-default {
+    background-image: var(--sprite-currencies__partnergam3sgg-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerimmutable-default {
+    background-image: var(--sprite-currencies__partnerimmutable-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnermocaverse-default {
+    background-image: var(--sprite-currencies__partnermocaverse-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnernyanheroes-default {
+    background-image: var(--sprite-currencies__partnernyanheroes-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerpiratenation-default {
+    background-image: var(--sprite-currencies__partnerpiratenation-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerpixelmon-default {
+    background-image: var(--sprite-currencies__partnerpixelmon-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerplanetmojo-default {
+    background-image: var(--sprite-currencies__partnerplanetmojo-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerseedify-default {
+    background-image: var(--sprite-currencies__partnerseedify-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerwilderworld-default {
+    background-image: var(--sprite-currencies__partnerwilderworld-default);
+    width: 100px;
+    height: 100px;
+}
+
+.sprite-currencies__partnerxborg-default {
+    background-image: var(--sprite-currencies__partnerxborg-default);
     width: 100px;
     height: 100px;
 }

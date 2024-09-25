@@ -278,7 +278,9 @@
     -unity-text-align: upper-center;
     color: rgb(255, 255, 255);
     margin: 0;
-    padding: 0;
+    padding-top: 0;
+    padding-left: 0;
+    padding-bottom: 0;
 }
 
 .battle-pass-button_reward-title-holder .battle-pass-button__title {

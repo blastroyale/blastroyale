@@ -14,6 +14,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	{
 		[SerializeField, Required] private ParticleSystem _particleSystem;
 		[SerializeField, Required] private int _shells;
+		[SerializeField, Required] private bool _shellsPlaySound;
 		private IGameServices _services;
 
 		public bool ActiveWeapon { get; set; }
@@ -45,7 +46,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_services.VfxService.Spawn(VfxId.Shell).transform.SetPositionAndRotation(t.position, rot);
 			}
 
-			_services.AudioFxService.PlayClip3D(AudioId.Shells, t.position);
+			if (_shellsPlaySound && _shells > 0)
+			{
+				_services.AudioFxService.PlayClip3D(AudioId.Shells, t.position);
+			}
 		}
 
 		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)

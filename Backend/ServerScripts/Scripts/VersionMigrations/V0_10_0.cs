@@ -15,7 +15,7 @@ namespace Scripts.Scripts.VersionMigrations
 	/// </summary>
 	public class V0_10_0 : VersionMigrationScript
 	{
-		public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
+		public override Environment GetEnvironment() => Environment.DEV;
 
 		public override Version VersionApplied() => new Version("0.10.0");
 

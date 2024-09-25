@@ -69,7 +69,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// </summary>
 		public static string GetPlayerName(this Player player)
 		{
-			return player.Data[FLLobbyService.KEY_PLAYER_NAME].Value.TrimPlayerNameNumbers();
+			return AuthenticationServiceExtensions.GetPlayerNameWithSpaces(player.Data[FLLobbyService.KEY_PLAYER_NAME].Value.TrimPlayerNameNumbers());
 		}
 
 		/// <summary>
@@ -201,6 +201,15 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			}
 
 			return e.Reason.ToStringSeparatedWords();
+		}
+		
+		public static bool ShouldBeVisible(this LobbyServiceException e)
+		{
+			if (e.Reason == LobbyExceptionReason.RateLimited || e.Reason == LobbyExceptionReason.UnknownErrorCode)
+			{
+				return false;
+			}
+			return true;
 		}
 
 		/// <summary>

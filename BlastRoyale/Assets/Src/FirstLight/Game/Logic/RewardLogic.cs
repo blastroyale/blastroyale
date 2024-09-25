@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -122,7 +123,7 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IRewardLogic"/>
 	public class RewardLogic : AbstractBaseLogic<PlayerData>, IRewardLogic, IGameLogicInitializer
 	{
-		public const int EXTRA_GAME_MODE_CHECK_MINUTES = 20;
+		public const int EXTRA_GAME_MODE_CHECK_MINUTES = 10;
 
 		private IObservableList<ItemData> _unclaimedRewards;
 
@@ -152,10 +153,22 @@ namespace FirstLight.Game.Logic
 			return (int) Math.Floor(currentValue * mp);
 		}
 
+		public static bool TryGetRewardCurrencyGroupId(GameId rewardId, out GameId groupId)
+		{
+			if (rewardId.IsInGroup(GameIdGroup.NOOBRareTokens))
+			{
+				groupId = GameId.NOOB;
+				return true;
+			}
+			
+			groupId = rewardId;
+			return false;
+		}
+
 		private bool IsDebug(SimulationMatchConfig matchConfig)
 		{
 			// This is checked on quantum plugin, rooms are not allowed to be created with this config
-			return matchConfig.ConfigId?.Contains("debug-") ?? false;
+			return matchConfig.UniqueConfigId?.Contains("debug-") ?? false;
 		}
 
 		public List<SimulationMatchConfig> ValidMatchRewardConfigs()
@@ -165,25 +178,30 @@ namespace FirstLight.Game.Logic
 				GameLogic.ConfigsProvider.GetConfig<TutorialConfig>().SecondMatch
 			};
 
-			var rotationConfigs = GameLogic.ConfigsProvider.GetConfig<GameModeRotationConfig>();
+			var configurableModes = GameLogic.RemoteConfigProvider
+				.GetConfig<FixedGameModesConfig>().Select(fx => (IGameModeEntry) fx)
+				.Concat(GameLogic.RemoteConfigProvider.GetConfig<EventGameModesConfig>().Select(a => (IGameModeEntry) a));
 			var now = GameLogic.TimeService.DateTimeUtcNow;
-			foreach (var gameModeEntry in rotationConfigs.Slots.SelectMany(m => m.Entries))
+			foreach (var gameModeEntry in configurableModes)
 			{
-				if (!gameModeEntry.TimedEntry)
+				if (gameModeEntry is FixedGameModeEntry)
 				{
 					validConfigs.Add(gameModeEntry.MatchConfig);
 					continue;
 				}
 
-				foreach (var timedGameModeEntry in gameModeEntry.TimedGameModeEntries)
+				if (gameModeEntry is EventGameModeEntry ev)
 				{
-					// Lets add some time due to clock desyncs and matchs in progress
-					var starts = timedGameModeEntry.GetStartsAtDateTime().AddMinutes(-EXTRA_GAME_MODE_CHECK_MINUTES);
-					var endsAt = timedGameModeEntry.GetEndsAtDateTime().AddMinutes(EXTRA_GAME_MODE_CHECK_MINUTES);
-					if (starts < now && endsAt > now)
+					foreach (var timedGameModeEntry in ev.Schedule)
 					{
-						validConfigs.Add(gameModeEntry.MatchConfig);
-						break;
+						// Lets add some time due to clock desyncs and matchs in progress
+						var starts = timedGameModeEntry.GetStartsAtDateTime().AddMinutes(-EXTRA_GAME_MODE_CHECK_MINUTES);
+						var endsAt = timedGameModeEntry.GetEndsAtDateTime().AddMinutes(EXTRA_GAME_MODE_CHECK_MINUTES);
+						if (starts < now && endsAt > now)
+						{
+							validConfigs.Add(gameModeEntry.MatchConfig);
+							break;
+						}
 					}
 				}
 			}
@@ -217,7 +235,7 @@ namespace FirstLight.Game.Logic
 				throw new MatchDataEmptyLogicException();
 			}
 
-			var usedSimConfig = ValidMatchRewardConfigs().FirstOrDefault(valid => valid.ConfigId == source.MatchConfig.ConfigId);
+			var usedSimConfig = ValidMatchRewardConfigs().FirstOrDefault(valid => valid.UniqueConfigId == source.MatchConfig.UniqueConfigId);
 
 			if ((!IsEventValid(source, usedSimConfig) && !IsDebug(source.MatchConfig)) || localMatchData.Data.KilledByBeingAFK)
 			{
@@ -303,7 +321,9 @@ namespace FirstLight.Game.Logic
 			foreach (var (id, amt) in collected)
 			{
 				var fixedAmount = GetModifiedReward(amt, id, simConfig, true);
-				rewards.Add(ItemFactory.Currency(id, fixedAmount));
+				var rewardId = TryGetRewardCurrencyGroupId(id, out var groupId) ? groupId : id;
+				
+				rewards.Add(ItemFactory.Currency(rewardId, fixedAmount));
 			}
 		}
 

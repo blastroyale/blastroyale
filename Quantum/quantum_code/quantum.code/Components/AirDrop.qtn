@@ -1,6 +1,6 @@
 component AirDrop
 {
-	FPVector3 Position;
+	FPVector2 Position;
 	FPVector2 Direction;
 	FP StartTime;
 	FP Delay;

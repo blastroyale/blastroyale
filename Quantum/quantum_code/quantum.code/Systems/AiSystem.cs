@@ -23,7 +23,12 @@ namespace Quantum.Systems
 		{
 			foreach (var bb in f.Unsafe.GetComponentBlockIterator<AIBlackboardComponent>())
 			{
+				var kcc = f.Unsafe.GetPointer<TopDownController>(bb.Entity);
 				bb.Component->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
+				bb.Component->Set(f, Constants.AIM_DIRECTION_KEY, FPVector2.Zero); 
+				kcc->MoveDirection = FPVector2.Zero;
+				kcc->AimDirection = FPVector2.Zero;
+
 			}
 		}
 	}

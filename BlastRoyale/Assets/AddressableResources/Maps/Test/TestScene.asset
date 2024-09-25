@@ -42,202 +42,39 @@ MonoBehaviour:
     - Id:
         Value: 4132623271473847115
     Regions: []
-    StaticColliders2D: []
-    StaticColliders3D:
+    StaticColliders2D:
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: -171536
-        Y:
-          RawValue: -36711
-        Z:
-          RawValue: -337395
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
         RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 327680
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 2457600
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Grass
-        Tag: MapPreviewObject
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 0
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: 1150979
-        Y:
-          RawValue: -39332
-        Z:
-          RawValue: -337395
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 327680
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 2457600
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Grass (2)
-        Tag: MapPreviewObject
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 1
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: 488410
-        Y:
-          RawValue: -38021
-        Z:
-          RawValue: -337395
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 334233
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 2457600
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Grass (1)
-        Tag: MapPreviewObject
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 2
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46314
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46367
-      Position:
-        X:
-          RawValue: 488410
-        Y:
-          RawValue: -35400
-        Z:
-          RawValue: -3116122
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 334233
-        Y:
-          RawValue: 32768
-        Z:
-          RawValue: 983040
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: BotGround
-        Tag: MapPreviewObject
-        Layer: 9
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 3
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
       Position:
         X:
           RawValue: 821851
         Y:
-          RawValue: 93107
-        Z:
           RawValue: -2127333
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 17844
         Y:
-          RawValue: 93107
-        Z:
           RawValue: 17844
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Prop_TrafficLight_PRFB
         Tag: Untagged
@@ -246,39 +83,40 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 4
+        ColliderIndex: 0
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
           RawValue: 1358104
         Y:
-          RawValue: 40176
-        Z:
           RawValue: -2118965
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 28283
         Y:
-          RawValue: 40176
-        Z:
           RawValue: 28283
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Prop_TrashCan_PRFB
         Tag: Untagged
@@ -287,39 +125,208 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 5
+        ColliderIndex: 1
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
           RawValue: 743833
         Y:
-          RawValue: 74371
-        Z:
           RawValue: -3435397
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 317430
         Y:
-          RawValue: 74371
-        Z:
           RawValue: 15354
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Wall_Base_Straight_CLLSN
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 2
+        MutableMode: 0
+    - Rotation:
+        RawValue: 0
+      Position:
+        X:
+          RawValue: 743833
+        Y:
+          RawValue: -3435397
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 317430
+        Y:
+          RawValue: 15354
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Wall_Base_Straight_CLLSN
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 3
+        MutableMode: 0
+    - Rotation:
+        RawValue: 0
+      Position:
+        X:
+          RawValue: 119275
+        Y:
+          RawValue: -3435397
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 317430
+        Y:
+          RawValue: 15354
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Wall_Base_Straight_CLLSN
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 4
+        MutableMode: 0
+    - Rotation:
+        RawValue: 0
+      Position:
+        X:
+          RawValue: 119275
+        Y:
+          RawValue: -3435397
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 317430
+        Y:
+          RawValue: 15354
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Wall_Base_Straight_CLLSN
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 5
+        MutableMode: 0
+    - Rotation:
+        RawValue: 0
+      Position:
+        X:
+          RawValue: 946995
+        Y:
+          RawValue: -2798387
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 317430
+        Y:
+          RawValue: 15354
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Wall_Base_Straight_CLLSN
         Tag: Untagged
@@ -330,37 +337,38 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 6
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
-          RawValue: 743833
+          RawValue: 251002
         Y:
-          RawValue: 74371
-        Z:
-          RawValue: -3435397
+          RawValue: -2798387
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 317430
         Y:
-          RawValue: 74371
-        Z:
           RawValue: 15354
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Wall_Base_Straight_CLLSN
         Tag: Untagged
@@ -371,39 +379,40 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 7
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
-          RawValue: 119275
+          RawValue: 1278244
         Y:
-          RawValue: 74371
-        Z:
-          RawValue: -3435397
+          RawValue: -3437414
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 317430
+          RawValue: 220564
         Y:
-          RawValue: 74371
-        Z:
-          RawValue: 15354
-      SmoothSphereMeshCollisions: 0
+          RawValue: 16988
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
-        Name: Wall_Base_Straight_CLLSN
+        Name: Wall_Base_Corner_Short_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -412,39 +421,40 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 8
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
-          RawValue: 119275
+          RawValue: 1481820
         Y:
-          RawValue: 74371
-        Z:
-          RawValue: -3435397
+          RawValue: -3330477
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 317430
+          RawValue: 16988
         Y:
-          RawValue: 74371
-        Z:
-          RawValue: 15354
-      SmoothSphereMeshCollisions: 0
+          RawValue: 123925
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
-        Name: Wall_Base_Straight_CLLSN
+        Name: Wall_Base_Corner_Short_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -453,39 +463,40 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 9
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: -102943
       Position:
         X:
-          RawValue: 946995
+          RawValue: -420137
         Y:
-          RawValue: 74371
-        Z:
-          RawValue: -2798387
+          RawValue: -3237770
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 317430
+          RawValue: 220564
         Y:
-          RawValue: 74371
-        Z:
-          RawValue: 15354
-      SmoothSphereMeshCollisions: 0
+          RawValue: 16988
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
-        Name: Wall_Base_Straight_CLLSN
+        Name: Wall_Base_Corner_Short_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -494,39 +505,40 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 10
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: -102943
       Position:
         X:
-          RawValue: 251002
+          RawValue: -313200
         Y:
-          RawValue: 74371
-        Z:
-          RawValue: -2798387
+          RawValue: -3441346
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 317430
+          RawValue: 16988
         Y:
-          RawValue: 74371
-        Z:
-          RawValue: 15354
-      SmoothSphereMeshCollisions: 0
+          RawValue: 123925
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
-        Name: Wall_Base_Straight_CLLSN
+        Name: Wall_Base_Corner_Short_CLLSN
         Tag: Untagged
         Layer: 8
         Asset:
@@ -535,37 +547,38 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 11
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: -307363
       Position:
         X:
-          RawValue: 1278244
+          RawValue: 1476277
         Y:
-          RawValue: 73658
-        Z:
-          RawValue: -3437414
+          RawValue: -3002892
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 220564
         Y:
-          RawValue: 73658
-        Z:
           RawValue: 16988
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Wall_Base_Corner_Short_CLLSN
         Tag: Untagged
@@ -576,37 +589,38 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 12
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: -307363
       Position:
         X:
-          RawValue: 1481820
+          RawValue: 1364808
         Y:
-          RawValue: 73658
-        Z:
-          RawValue: -3330477
+          RawValue: -2801761
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 16988
         Y:
-          RawValue: 73658
-        Z:
           RawValue: 123925
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Wall_Base_Corner_Short_CLLSN
         Tag: Untagged
@@ -617,37 +631,38 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 13
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46314
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46367
+        RawValue: -205887
       Position:
         X:
-          RawValue: -420137
+          RawValue: -216561
         Y:
-          RawValue: 73658
-        Z:
-          RawValue: -3237770
+          RawValue: -2800957
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 220564
         Y:
-          RawValue: 73658
-        Z:
           RawValue: 16988
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Wall_Base_Corner_Short_CLLSN
         Tag: Untagged
@@ -658,37 +673,38 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 14
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46314
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46367
+        RawValue: -205887
       Position:
         X:
-          RawValue: -313200
+          RawValue: -420137
         Y:
-          RawValue: 73658
-        Z:
-          RawValue: -3441346
+          RawValue: -2907894
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 16988
         Y:
-          RawValue: 73658
-        Z:
           RawValue: 123925
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Wall_Base_Corner_Short_CLLSN
         Tag: Untagged
@@ -699,201 +715,38 @@ MonoBehaviour:
         IsTrigger: 0
         ColliderIndex: 15
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46934
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -45739
-      Position:
-        X:
-          RawValue: 1476277
-        Y:
-          RawValue: 73658
-        Z:
-          RawValue: -3002892
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 220564
-        Y:
-          RawValue: 73658
-        Z:
-          RawValue: 16988
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall_Base_Corner_Short_CLLSN
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 16
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46934
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -45739
-      Position:
-        X:
-          RawValue: 1364808
-        Y:
-          RawValue: 73658
-        Z:
-          RawValue: -2801761
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 16988
-        Y:
-          RawValue: 73658
-        Z:
-          RawValue: 123925
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall_Base_Corner_Short_CLLSN
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 17
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 65535
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 73
-      Position:
-        X:
-          RawValue: -216561
-        Y:
-          RawValue: 73658
-        Z:
-          RawValue: -2800957
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 220564
-        Y:
-          RawValue: 73658
-        Z:
-          RawValue: 16988
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall_Base_Corner_Short_CLLSN
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 18
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 65535
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 73
-      Position:
-        X:
-          RawValue: -420137
-        Y:
-          RawValue: 73658
-        Z:
-          RawValue: -2907894
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 16988
-        Y:
-          RawValue: 73658
-        Z:
-          RawValue: 123925
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall_Base_Corner_Short_CLLSN
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 19
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 41587
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -50650
+        RawValue: -321899
       Position:
         X:
           RawValue: -103229
         Y:
-          RawValue: 44088
-        Z:
           RawValue: -3321191
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 0
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 64880
         Y:
-          RawValue: 44088
-        Z:
           RawValue: 148111
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Car_Convertable_Pink_PRFB
         Tag: Untagged
@@ -902,39 +755,40 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 20
+        ColliderIndex: 16
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
           RawValue: -1399681
         Y:
-          RawValue: -36711
-        Z:
           RawValue: -2185510
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: -36711
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 9
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 472973
         Y:
-          RawValue: 32768
-        Z:
           RawValue: 470949
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Base
         Tag: MapPreviewObject
@@ -943,39 +797,40 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 21
+        ColliderIndex: 17
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
           RawValue: -1016437
         Y:
-          RawValue: -34734
-        Z:
           RawValue: -2213185
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: -34734
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 9
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 73503
         Y:
-          RawValue: 34622
-        Z:
           RawValue: 305895
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Grass (1)
         Tag: MapPreviewObject
@@ -984,39 +839,40 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 22
+        ColliderIndex: 18
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
           RawValue: -1208622
         Y:
-          RawValue: -34734
-        Z:
           RawValue: -2213185
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: -34734
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 9
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 73503
         Y:
-          RawValue: 34622
-        Z:
           RawValue: 305895
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Grass (2)
         Tag: MapPreviewObject
@@ -1025,39 +881,40 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 23
+        ColliderIndex: 19
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
           RawValue: -1400806
         Y:
-          RawValue: -34734
-        Z:
           RawValue: -2213185
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: -34734
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 9
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 73503
         Y:
-          RawValue: 34622
-        Z:
           RawValue: 305895
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Grass (3)
         Tag: MapPreviewObject
@@ -1066,39 +923,40 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 24
+        ColliderIndex: 20
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
           RawValue: -1592990
         Y:
-          RawValue: -34734
-        Z:
           RawValue: -2213185
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: -34734
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 9
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 73503
         Y:
-          RawValue: 34622
-        Z:
           RawValue: 305895
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Grass (4)
         Tag: MapPreviewObject
@@ -1107,39 +965,40 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 25
+        ColliderIndex: 21
         MutableMode: 0
-      MutableMode: 0
     - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
+        RawValue: 0
       Position:
         X:
           RawValue: -1785175
         Y:
-          RawValue: -34734
-        Z:
           RawValue: -2213185
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: -34734
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
-      SphereRadius:
+      Layer: 9
+      ShapeType: 4
+      CircleRadius:
         RawValue: 0
       BoxExtents:
         X:
           RawValue: 73503
         Y:
-          RawValue: 34622
-        Z:
           RawValue: 305895
-      SmoothSphereMeshCollisions: 0
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
       StaticData:
         Name: Grass (3)
         Tag: MapPreviewObject
@@ -1148,9 +1007,9 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 26
+        ColliderIndex: 22
         MutableMode: 0
-      MutableMode: 0
+    StaticColliders3D: []
     MapEntities: []
   Prototypes:
   - AIBlackboardComponent: []
@@ -1166,6 +1025,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -1207,6 +1067,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -1223,23 +1084,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 480247
         Y:
-          RawValue: 0
-        Z:
           RawValue: -1903165
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -1256,6 +1110,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -1297,6 +1152,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -1313,23 +1169,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -1346,6 +1195,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -1387,6 +1237,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -1403,23 +1254,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -1436,6 +1280,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -1477,6 +1322,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -1493,23 +1339,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -1526,6 +1365,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -1567,6 +1407,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -1583,23 +1424,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -1616,6 +1450,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -1657,6 +1492,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -1673,23 +1509,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -1706,6 +1535,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -1747,6 +1577,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -1763,23 +1594,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -1796,6 +1620,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -1837,6 +1662,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -1853,23 +1679,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -1886,6 +1705,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -1927,6 +1747,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -1943,23 +1764,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -1976,6 +1790,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2017,6 +1832,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2033,23 +1849,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2066,6 +1875,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2107,6 +1917,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2123,23 +1934,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2156,6 +1960,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2197,6 +2002,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2213,23 +2019,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2246,6 +2045,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2287,6 +2087,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2303,23 +2104,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2336,6 +2130,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2377,6 +2172,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2393,23 +2189,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2426,6 +2215,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2467,6 +2257,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2483,23 +2274,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2516,6 +2300,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2557,6 +2342,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2573,23 +2359,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2606,6 +2385,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2647,6 +2427,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2663,23 +2444,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2696,6 +2470,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2737,6 +2512,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2753,23 +2529,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2786,6 +2555,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2827,6 +2597,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2843,23 +2614,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2876,6 +2640,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -2917,6 +2682,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -2933,23 +2699,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2966,6 +2725,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3007,6 +2767,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3023,23 +2784,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3056,6 +2810,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3097,6 +2852,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3113,23 +2869,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -167054416
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1175016960
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3146,6 +2895,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -3187,6 +2937,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3203,23 +2954,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -174457360
         Y:
-          RawValue: 0
-        Z:
           RawValue: 1202101632
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3236,6 +2980,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
@@ -3279,6 +3024,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3295,23 +3041,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -221249
         Y:
-          RawValue: 3407
-        Z:
           RawValue: -980943
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 5898240
-        Z:
-          RawValue: 0
+        RawValue: -5898240
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3321,36 +3060,14 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
-    BotLoadout:
-    - Weapon:
-        GameId:
-          Value: 90
-        Rarity:
-          Value: 0
-        Material:
-          Value: 0
-        Level: 1
-        Edition:
-          Value: 0
-        Grade:
-          Value: 0
-        Faction:
-          Value: 0
-        Adjective:
-          Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
+    BotLoadout: []
     Chest: []
     ChestContents: []
     ChunkDebug: []
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
@@ -3394,6 +3111,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3410,23 +3128,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -220201
         Y:
-          RawValue: 3407
-        Z:
           RawValue: -1655177
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 5898240
-        Z:
-          RawValue: 0
+        RawValue: -5898240
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3453,19 +3164,13 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
     Chest: []
     ChestContents: []
     ChunkDebug: []
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
@@ -3509,6 +3214,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3525,23 +3231,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -220201
         Y:
-          RawValue: 3407
-        Z:
           RawValue: -1205862
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 5898240
-        Z:
-          RawValue: 0
+        RawValue: -5898240
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3568,19 +3267,13 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
     Chest: []
     ChestContents: []
     ChunkDebug: []
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
@@ -3624,6 +3317,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3640,23 +3334,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -220201
         Y:
-          RawValue: 3407
-        Z:
           RawValue: -1430257
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 5898240
-        Z:
-          RawValue: 0
+        RawValue: -5898240
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3683,19 +3370,13 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
     Chest: []
     ChestContents: []
     ChunkDebug: []
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
@@ -3739,6 +3420,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3755,23 +3437,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1201143
         Y:
-          RawValue: 3407
-        Z:
           RawValue: -976224
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 17694720
-        Z:
-          RawValue: 0
+        RawValue: -17694720
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3798,19 +3473,13 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
     Chest: []
     ChestContents: []
     ChunkDebug: []
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
@@ -3854,6 +3523,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3870,23 +3540,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1201143
         Y:
-          RawValue: 3407
-        Z:
           RawValue: -1652556
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 17694720
-        Z:
-          RawValue: 0
+        RawValue: -17694720
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3913,19 +3576,13 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
     Chest: []
     ChestContents: []
     ChunkDebug: []
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
@@ -3969,6 +3626,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -3985,23 +3643,111 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1201143
         Y:
-          RawValue: 3407
-        Z:
           RawValue: -1201668
       Rotation:
+        RawValue: -17694720
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    BotLoadout: []
+    Chest: []
+    ChestContents: []
+    ChunkDebug: []
+    Collectable: []
+    CollectableChunks: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 90
+      RarityModifier: 0
+      Disabled:
+        Value: 0
+      DoNotDestroy:
+        Value: 0
+    CollectableTime: []
+    CompoundBTAgent: []
+    Consumable: []
+    CosmeticsHolder: []
+    DeadPlayerCharacter: []
+    DeathFlag: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EntityGroup: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InsideVisibilityArea: []
+    Invisibility: []
+    KnockedOut: []
+    KnockedOutCollider: []
+    LandMine: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerInventory: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Revivable: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    TeamMember: []
+    TopDownController: []
+    Trigger: []
+    TutorialRuntimeData: []
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D:
+    - Position:
         X:
-          RawValue: 0
+          RawValue: -251134
         Y:
-          RawValue: 17694720
-        Z:
-          RawValue: 0
+          RawValue: -1679294
+      Rotation:
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4028,19 +3774,13 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
     Chest: []
     ChestContents: []
     ChunkDebug: []
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder:
@@ -4084,6 +3824,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4100,23 +3841,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1201143
         Y:
-          RawValue: 3407
-        Z:
           RawValue: -1427112
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 17694720
-        Z:
-          RawValue: 0
+        RawValue: -17694720
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4133,6 +3867,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4174,6 +3909,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4190,23 +3926,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 384827
         Y:
-          RawValue: 33030
-        Z:
           RawValue: -3114270
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4223,6 +3952,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4249,7 +3979,7 @@ MonoBehaviour:
     PlayerInventory: []
     PlayerSpawner:
     - SpawnerType:
-        Value: 2
+        Value: 3
       BehaviourType:
         Value: 2
     Projectile: []
@@ -4264,6 +3994,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4280,23 +4011,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1099431
         Y:
-          RawValue: 33030
-        Z:
           RawValue: -3114270
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4313,6 +4037,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4354,6 +4079,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4370,23 +4096,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 753926
         Y:
-          RawValue: 33030
-        Z:
           RawValue: -3114270
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4403,6 +4122,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4444,6 +4164,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4460,23 +4181,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 73400
         Y:
-          RawValue: 33030
-        Z:
           RawValue: -3114270
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4507,6 +4221,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4544,6 +4259,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4560,23 +4276,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -458752
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2580287
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4607,6 +4316,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4644,6 +4354,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4660,23 +4371,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -196608
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2580287
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4707,6 +4411,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4744,6 +4449,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4760,23 +4466,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -327680
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2580287
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4807,6 +4506,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4844,6 +4544,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4860,23 +4561,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -327680
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2449215
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -4907,6 +4601,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -4944,6 +4639,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -4960,23 +4656,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -196608
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2449215
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5007,6 +4696,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5044,6 +4734,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5060,23 +4751,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -65535
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2449215
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5107,6 +4791,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5144,6 +4829,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5160,23 +4846,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 65536
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2449215
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5207,6 +4886,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5244,6 +4924,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5260,23 +4941,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 65536
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2318143
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5307,6 +4981,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5344,6 +5019,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5360,23 +5036,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -65535
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2318143
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5407,6 +5076,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5444,6 +5114,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5460,23 +5131,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -207355
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2318143
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5507,6 +5171,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5544,6 +5209,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5560,23 +5226,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -458751
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2449215
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5607,6 +5266,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5644,6 +5304,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5660,23 +5321,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1310719
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2449215
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5707,6 +5361,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5744,6 +5399,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5760,23 +5416,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 917503
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2580287
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5807,6 +5456,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5844,6 +5494,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5860,23 +5511,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1179648
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2449215
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -5907,6 +5551,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -5944,6 +5589,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -5960,23 +5606,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 917503
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2449215
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -6007,6 +5646,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6044,6 +5684,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -6060,23 +5701,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1310719
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2580287
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -6107,6 +5741,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6144,6 +5779,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -6160,23 +5796,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1048575
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2449215
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -6207,6 +5836,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6244,6 +5874,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -6260,23 +5891,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 1048576
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2580287
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -6307,6 +5931,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6344,6 +5969,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -6360,23 +5986,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -207355
         Y:
-          RawValue: 0
-        Z:
           RawValue: -1867775
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -6407,6 +6026,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6444,6 +6064,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -6460,23 +6081,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -316145
         Y:
-          RawValue: 0
-        Z:
           RawValue: -1607598
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -6507,6 +6121,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6544,6 +6159,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -6560,23 +6176,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 448004
         Y:
-          RawValue: 0
-        Z:
           RawValue: -1578762
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -6607,6 +6216,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6644,6 +6254,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -6660,23 +6271,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: 698352
         Y:
-          RawValue: 0
-        Z:
           RawValue: -2034893
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -6693,6 +6297,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6730,6 +6335,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -6745,60 +6351,51 @@ MonoBehaviour:
     NavMeshSteeringAgent: []
     PhysicsBody2D: []
     PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
+    PhysicsCollider2D:
     - ShapeConfig:
-        ShapeType: 16
-        SphereRadius:
+        ShapeType: 4
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
           RawValue: 0
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 163840
+          Y:
+            RawValue: 163840
         PositionOffset:
           X:
             RawValue: 0
           Y:
             RawValue: 0
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 163840
-          Y:
-            RawValue: 32768
-          Z:
-            RawValue: 163840
         RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
+          RawValue: 0
         UserTag: 0
         IsPersistent: 1
         CompoundShapes:
-        - ShapeType: 2
-          SphereRadius:
+        - ShapeType: 4
+          PolygonCollider:
+            Id:
+              Value: 0
+          CircleRadius:
             RawValue: 0
-          PositionOffset:
-            X:
-              RawValue: 0
-            Y:
-              RawValue: 32768
-            Z:
-              RawValue: 0
+          EdgeExtent:
+            RawValue: 0
           BoxExtents:
             X:
               RawValue: 163840
             Y:
-              RawValue: 32768
-            Z:
               RawValue: 163840
-          RotationOffset:
+          PositionOffset:
             X:
               RawValue: 0
             Y:
               RawValue: 0
-            Z:
-              RawValue: 0
+          RotationOffset:
+            RawValue: 0
           UserTag: 0
           IsSetFromSourceCollider: 0
         IsSetFromSourceCollider: 0
@@ -6807,27 +6404,21 @@ MonoBehaviour:
       PhysicsMaterial:
         Id:
           Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D:
     - CallbackFlags:
         Value: 455
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    PhysicsCallbacks3D: []
+    Transform2D:
     - Position:
         X:
           RawValue: 1302787
         Y:
-          RawValue: 0
-        Z:
           RawValue: -3250925
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -6838,8 +6429,6 @@ MonoBehaviour:
           RawValue: 1333657
         Y:
           RawValue: 0
-        Z:
-          RawValue: -1918894
       Direction:
         X:
           RawValue: 0
@@ -6866,6 +6455,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -6903,6 +6493,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -6915,33 +6506,28 @@ MonoBehaviour:
     NavMeshSteeringAgent: []
     PhysicsBody2D: []
     PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
+    PhysicsCollider2D:
     - ShapeConfig:
         ShapeType: 1
-        SphereRadius:
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
           RawValue: 65536
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
         PositionOffset:
           X:
             RawValue: 0
           Y:
-            RawValue: 65536
-          Z:
             RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 32768
-          Y:
-            RawValue: 32768
-          Z:
-            RawValue: 32768
         RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
+          RawValue: 0
         UserTag: 0
         IsPersistent: 1
         CompoundShapes: []
@@ -6951,27 +6537,21 @@ MonoBehaviour:
       PhysicsMaterial:
         Id:
           Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D:
     - CallbackFlags:
         Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    PhysicsCallbacks3D: []
+    Transform2D:
     - Position:
         X:
           RawValue: 1333657
         Y:
-          RawValue: 1310720
-        Z:
           RawValue: -1918894
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -7002,6 +6582,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7039,6 +6620,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7055,23 +6637,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1197972
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2345568
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -7102,6 +6677,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7139,6 +6715,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7155,23 +6732,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1196006
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2259060
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -7202,6 +6772,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7239,6 +6810,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7255,23 +6827,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1195351
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2177796
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -7302,6 +6867,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7339,6 +6905,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7355,23 +6922,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1195351
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2096531
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -7402,6 +6962,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7439,6 +7000,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7455,23 +7017,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1195351
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2021164
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -7502,6 +7057,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7539,6 +7095,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7555,23 +7112,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1395891
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2345568
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -7602,6 +7152,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7639,6 +7190,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7655,23 +7207,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1393925
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2259060
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -7702,6 +7247,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7739,6 +7285,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7755,23 +7302,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1393269
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2177796
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -7788,6 +7328,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7798,11 +7339,11 @@ MonoBehaviour:
     EntityDestroyer: []
     EntityGroup:
     - Entities:
-      - SceneIndexPlusOne: 65
       - SceneIndexPlusOne: 66
       - SceneIndexPlusOne: 67
-      - SceneIndexPlusOne: 79
+      - SceneIndexPlusOne: 68
       - SceneIndexPlusOne: 80
+      - SceneIndexPlusOne: 81
       EntitiesToKeep: 3
     EquipmentCollectable: []
     GOAPAgent: []
@@ -7832,6 +7373,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7874,6 +7416,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -7884,11 +7427,11 @@ MonoBehaviour:
     EntityDestroyer: []
     EntityGroup:
     - Entities:
-      - SceneIndexPlusOne: 70
       - SceneIndexPlusOne: 71
-      - SceneIndexPlusOne: 77
+      - SceneIndexPlusOne: 72
       - SceneIndexPlusOne: 78
-      - SceneIndexPlusOne: 68
+      - SceneIndexPlusOne: 79
+      - SceneIndexPlusOne: 69
       EntitiesToKeep: 2
     EquipmentCollectable: []
     GOAPAgent: []
@@ -7918,6 +7461,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -7974,6 +7518,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8011,6 +7556,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8027,23 +7573,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1587911
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2345568
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -8074,6 +7613,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8111,6 +7651,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8127,23 +7668,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1783864
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2345568
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -8174,6 +7708,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8211,6 +7746,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8227,23 +7763,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1019059
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2345568
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -8274,6 +7803,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8311,6 +7841,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8327,23 +7858,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1017093
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2259060
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -8374,6 +7898,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8411,6 +7936,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8427,23 +7953,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1016437
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2177796
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -8474,6 +7993,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8511,6 +8031,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8527,23 +8048,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1016437
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2096531
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -8574,6 +8088,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8611,6 +8126,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8627,23 +8143,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1016437
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2021164
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -8660,6 +8169,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8670,11 +8180,11 @@ MonoBehaviour:
     EntityDestroyer: []
     EntityGroup:
     - Entities:
-      - SceneIndexPlusOne: 72
       - SceneIndexPlusOne: 73
       - SceneIndexPlusOne: 74
       - SceneIndexPlusOne: 75
       - SceneIndexPlusOne: 76
+      - SceneIndexPlusOne: 77
       EntitiesToKeep: 1
     EquipmentCollectable: []
     GOAPAgent: []
@@ -8704,6 +8214,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8746,6 +8257,7 @@ MonoBehaviour:
     Collectable: []
     CollectableChunks: []
     CollectablePlatformSpawner: []
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8756,11 +8268,11 @@ MonoBehaviour:
     EntityDestroyer: []
     EntityGroup:
     - Entities:
-      - SceneIndexPlusOne: 60
       - SceneIndexPlusOne: 61
       - SceneIndexPlusOne: 62
       - SceneIndexPlusOne: 63
       - SceneIndexPlusOne: 64
+      - SceneIndexPlusOne: 65
       EntitiesToKeep: 2
     EquipmentCollectable: []
     GOAPAgent: []
@@ -8790,6 +8302,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8846,6 +8359,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8883,6 +8397,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8899,23 +8414,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1393269
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2096531
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -8946,6 +8454,7 @@ MonoBehaviour:
         Value: 0
       DoNotDestroy:
         Value: 0
+    CollectableTime: []
     CompoundBTAgent: []
     Consumable: []
     CosmeticsHolder: []
@@ -8983,6 +8492,7 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     TeamMember: []
+    TopDownController: []
     Trigger: []
     TutorialRuntimeData: []
     UTAgent: []
@@ -8999,23 +8509,16 @@ MonoBehaviour:
     PhysicsCollider3D: []
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
+    Transform2D:
     - Position:
         X:
           RawValue: -1393269
         Y:
-          RawValue: 9633
-        Z:
           RawValue: -2021164
       Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []

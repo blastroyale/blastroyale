@@ -39,19 +39,6 @@ namespace FirstLight.Game.Services.Collection.Handles
 		{
 			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == item.Id);
 			var obj = await _assetResolver.LoadAssetByReference<GameObject>(skin.Prefab, true, instantiate);
-			if (!instantiate) return obj;
-			var level = menuModel ? 0 : 2;
-
-			foreach (var component in obj.GetComponents<Renderer>())
-			{
-				var text = component.material.mainTexture as Texture2D;
-				if (text != null)
-				{
-					text.ClearRequestedMipmapLevel();
-					text.requestedMipmapLevel = level;
-				}
-			}
-
 			return obj;
 		}
 	}

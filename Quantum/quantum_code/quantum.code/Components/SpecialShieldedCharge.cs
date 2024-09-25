@@ -9,9 +9,8 @@ namespace Quantum
 	{
 		public static unsafe bool Use(Frame f, EntityRef e, in Special special, FPVector2 aimInput, FP maxRange)
 		{
-			var targetPosition = FPVector3.Zero;
-			var attackerPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position;
-			attackerPosition.Y += Constants.SPECIAL_CHARGE_Y_OFFSET;
+			var targetPosition = FPVector2.Zero;
+			var attackerPosition = f.Unsafe.GetPointer<Transform2D>(e)->Position;
 
 			if (!f.TryGet<Targetable>(e, out var targetable))
 			{
@@ -30,7 +29,7 @@ namespace Quantum
 						continue;
 					}
 					
-					targetPosition = f.Unsafe.GetPointer<Transform3D>(target.Entity)->Position;
+					targetPosition = f.Unsafe.GetPointer<Transform2D>(target.Entity)->Position;
 					
 					break;
 				}
@@ -38,12 +37,12 @@ namespace Quantum
 				// We make a random deviation based on bot's accuracy with specials
 				var randomDirection = FPVector2.Rotate(FPVector2.Left, f.RNG->Next(FP._0, FP.PiTimes2));
 				var randomDistance = f.RNG->Next(FP._0, bot.SpecialAimingDeviation);
-				targetPosition = targetPosition + randomDirection.XOY * randomDistance;
+				targetPosition = targetPosition + randomDirection * randomDistance;
 			}
 			else
 			{
 				aimInput = FPVector2.ClampMagnitude(aimInput, FP._1);
-				targetPosition = attackerPosition + (aimInput * maxRange).XOY;
+				targetPosition = attackerPosition + (aimInput * maxRange);
 			}
 			
 			// Testing 2 or more positions on the way towards targetPosition to find the last navmesh valid position before unsuitable one
@@ -51,9 +50,10 @@ namespace Quantum
 			var stepsToCheck = FPMath.Max(FPMath.CeilToInt((targetPosition - attackerPosition).Magnitude / Constants.CHARGE_VALIDITY_CHECK_DISTANCE_STEP), FP._2);
 			for (var i = 0; i < stepsToCheck; i++)
 			{
-				var testPos = FPVector3.Lerp(attackerPosition, targetPosition, (FP)i / (stepsToCheck - 1));
+				var testPos = FPVector2.Lerp(attackerPosition, targetPosition, (FP)i / (stepsToCheck - 1));
 				
-				if (f.NavMesh.Contains(testPos, NavMeshRegionMask.Default))
+				// TODO: Verify this
+				if (f.NavMesh.Contains(testPos.XOY, NavMeshRegionMask.Default))
 				{
 					previousTestPos = testPos;
 				}

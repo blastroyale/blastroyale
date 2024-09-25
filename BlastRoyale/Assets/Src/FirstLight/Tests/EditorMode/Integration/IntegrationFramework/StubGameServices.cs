@@ -12,7 +12,6 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UIService;
-using FirstLightServerSDK.Modules.RemoteCollection;	
 using NSubstitute;
 
 namespace FirstLight.Tests.EditorMode
@@ -49,7 +48,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
-		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; set; }
 		public IRoomService RoomService { get; }
@@ -60,12 +58,14 @@ namespace FirstLight.Tests.EditorMode
 		public INewsService NewsService { get; set; }
 		public LocalPrefsService LocalPrefsService { get; }
 		public IFLLobbyService FLLobbyService { get; }
-		public NotificationService NotificationService { get; }
+		public InGameNotificationService InGameNotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
 		public IRewardService RewardService { get; set; }
 		public IGameSocialService GameSocialService { get; set; }
 		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
+		
+		public INotificationService NotificationService { get; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -94,7 +94,7 @@ namespace FirstLight.Tests.EditorMode
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
 			ThreadService = new ThreadService();
 
-			NotificationService = new NotificationService(UIService);
+			InGameNotificationService = new InGameNotificationService(UIService);
 
 			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService);
 
@@ -111,7 +111,7 @@ namespace FirstLight.Tests.EditorMode
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
 			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService, MessageBrokerService);
-			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService, GameBackendService, ConfigsProvider, LocalPrefsService);
+			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService, GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();
@@ -121,7 +121,7 @@ namespace FirstLight.Tests.EditorMode
 			TeamService = Substitute.For<ITeamService>();
 			ServerListService = Substitute.For<IServerListService>();
 			IAPService = Substitute.For<IIAPService>();
-			
+
 			GameSocialService = Substitute.For<IGameSocialService>();
 		}
 	}

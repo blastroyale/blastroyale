@@ -32,7 +32,7 @@ namespace Backend.Game.Services
 		/// Will execute the given command on the given state. Returns an update state after the command execution.
 		/// The returned state has the same reference as the input state.
 		/// </summary>
-		Task<ServerState> ExecuteCommand(string userId, IGameCommand cmd, ServerState currentState);
+		Task<ServerState> ExecuteCommand(string userId, IGameCommand cmd, ServerState currentState, IRemoteConfigProvider remoteConfigProvider);
 
 		/// <summary>
 		/// By a given input call, will try to read the command data from input parameters
@@ -72,9 +72,9 @@ namespace Backend.Game.Services
 		}
 
 		/// <inheritdoc/>
-		public async Task<ServerState> ExecuteCommand(string userId, IGameCommand cmd, ServerState currentState)
+		public async Task<ServerState> ExecuteCommand(string userId, IGameCommand cmd, ServerState currentState, IRemoteConfigProvider remoteConfigProvider)
 		{
-			var logicContext = await _logicContext.GetLogicContext(userId, currentState);
+			var logicContext = await _logicContext.GetLogicContext(userId, remoteConfigProvider, currentState);
 			var serviceContainer = new ServiceContainer();
 			serviceContainer.Add(logicContext.GameLogic.MessageBrokerService);
 			serviceContainer.Add(_catalog);

@@ -6,6 +6,8 @@ using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.EntityPrototypes;
+using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
@@ -53,7 +55,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		[SerializeField, Title("Animation")] private Ease _openCloseEase = Ease.OutSine;
 		[SerializeField, Required] private float _duration = 0.2f;
-		[SerializeField, Required] private float _pingDuration = 1f;
 
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
@@ -131,7 +132,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
-			QuantumEvent.Subscribe<EventOnTeamPositionPing>(this, OnTeamPositionPing);
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
@@ -180,28 +180,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private void OnTeamPositionPing(EventOnTeamPositionPing e)
-		{
-			if (e.TeamId < 0 || _matchServices.SpectateService.SpectatedPlayer.Value.Team == e.TeamId)
-			{
-				var pingPosition = _minimapCamera.WorldToViewportPoint(e.Position.ToUnityVector3());
-
-				var ping = _pingPool.Spawn();
-				ping.ViewportPosition = pingPosition;
-				ping.LateCall(_pingDuration, () => _pingPool.Despawn(ping)).Forget();
-
-				_minimapImage.materialForRendering.SetVector(_pingPositionPID, pingPosition - Vector3.one / 2f);
-
-				_pingTweener?.Kill();
-				_pingTweener = DOVirtual.Float(0f, 1f, 1f,
-					val => _minimapImage.materialForRendering.SetFloat(_pingProgressPID, val));
-
-				// Maybe not the cleanest, that the Minimap spawns the VFX.
-				var pingVfx = _services.VfxService.Spawn(VfxId.Ping);
-				pingVfx.transform.position = e.Position.ToUnityVector3();
-			}
-		}
-
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -231,7 +209,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var f = callback.Game.Frames.Predicted;
 			var spectate = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
-			if (!f.Unsafe.TryGetPointer<Transform3D>(spectate, out var transform3D))
+			if (!f.Unsafe.TryGetPointer<Transform2D>(spectate, out var transform3D))
 			{
 				return;
 			}
@@ -239,11 +217,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(transform3D->Position.ToUnityVector3());
 
 			var transformComponent = *transform3D;
-			UpdatePlayerIndicator(playerViewportPoint, transformComponent);
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(spectate, out var view))
+			{
+				return;
+			}
+
+			var player = view.GetComponent<PlayerCharacterMonoComponent>();
+			UpdatePlayerIndicator(playerViewportPoint, player.PlayerView);
 			UpdateAirdropIndicators(playerViewportPoint, f.Time);
 			UpdateFriendlyIndicators(playerViewportPoint);
 			UpdatePingIndicators(playerViewportPoint);
-			UpdateMap(f, playerViewportPoint, transformComponent);
+			UpdateMap(f, playerViewportPoint, player.PlayerView);
 		}
 
 		private void UpdateMinimapSize(float f)
@@ -266,16 +250,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_currentViewportSize = Mathf.Lerp(_viewportSize, 1f, f);
 		}
 
-		private void UpdatePlayerIndicator(in Vector3 playerViewportPoint, in Transform3D playerTransform)
+		private void UpdatePlayerIndicator(in Vector3 playerViewportPoint, in PlayerCharacterViewMonoComponent view)
 		{
 			// Rotation
-			_playerIndicator.rotation = Quaternion.Euler(0, 0, 360f - playerTransform.Rotation.AsEuler.Y.AsFloat + _cameraAngleOffset);
+			_playerIndicator.rotation = Quaternion.Euler(0, 0, 360f - view.transform.rotation.eulerAngles.y + _cameraAngleOffset);
 
 			// Position (only relevant in opened map)
 			_playerIndicator.anchoredPosition = ViewportToMinimapPosition(playerViewportPoint, playerViewportPoint);
 		}
 
-		private unsafe void UpdateMap(Frame f, in Vector3 playerViewportPoint, in Transform3D playerTransform3D)
+		private unsafe void UpdateMap(Frame f, in Vector3 playerViewportPoint, in PlayerCharacterViewMonoComponent playerTransform3D)
 		{
 			if (!f.Unsafe.TryGetPointerSingleton<ShrinkingCircle>(out var circle))
 			{
@@ -314,9 +298,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_currentViewportSize, _currentViewportSize);
 			_minimapImage.materialForRendering.SetVector(_uvRectPID, uvRect);
 
-			UpdateSafeAreaArrow(playerTransform3D, circle->TargetCircleCenter.ToUnityVector3(),
+			UpdateSafeAreaArrow(playerTransform3D, circle->TargetCircleCenter.ToUnityVector2(),
 				circle->TargetRadius.AsFloat);
-			UpdateRadar(f, playerTransform3D.Position.ToUnityVector3());
+			UpdateRadar(f, playerTransform3D.transform.position);
 		}
 
 		private void UpdateRadar(Frame f, Vector3 playerPosition)
@@ -350,7 +334,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				int index = 0;
 				foreach (var (entity, apc) in f.GetComponentIterator<AlivePlayerCharacter>())
 				{
-					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
+					var pos = f.Get<Transform2D>(entity).Position.ToUnityVector3();
 
 					// Check range
 					if (Vector3.Distance(playerPosition, pos) > _radarRange)
@@ -389,16 +373,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 				targetable.TeamId == spectatePlayer.Team;
 		}
 
-		private void UpdateSafeAreaArrow(Transform3D playerTransform3D, Vector3 circleCenter, float circleRadius)
+		private void UpdateSafeAreaArrow(PlayerCharacterViewMonoComponent view, Vector2 circleCenter, float circleRadius)
 		{
 			if (!_safeAreaSet) return;
 
 			// Calculate and Apply rotation
-			var targetPosLocal = _cameraTransform.InverseTransformPoint(circleCenter);
-			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
+			var playerPos = view.transform.position.ToFPVector2().ToUnityVector2();
+			var targetPosLocal = circleCenter - playerPos;
+			var targetAngle = (-Mathf.Atan2(targetPosLocal.x, targetPosLocal.y)) * Mathf.Rad2Deg + _cameraAngleOffset;
 			var isArrowActive = _safeAreaArrow.gameObject.activeSelf;
 			var circleRadiusSq = circleRadius * circleRadius;
-			var distanceSqrt = (circleCenter - playerTransform3D.Position.ToUnityVector3()).sqrMagnitude;
+			var distanceSqrt = targetPosLocal.sqrMagnitude;
 
 			_safeAreaArrow.anchoredPosition = _playerIndicator.anchoredPosition;
 			_safeAreaArrow.eulerAngles = new Vector3(0, 0, targetAngle);

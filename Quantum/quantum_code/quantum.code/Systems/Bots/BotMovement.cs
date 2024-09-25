@@ -8,13 +8,13 @@ namespace Quantum.Systems.Bots
 		/// <summary>
 		/// It goes around a invisible circle to wonder in the borders
 		/// </summary>
-		public static bool WanderInsideCircle(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in FPVector2 circleCenter, in FP circleRadius)
+		public static bool WanderInsideCircle(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in FPVector2 circleCenter, in FP circleRadius, BotMovementType botMovementType)
 		{
-			if (!bot.TryWanderInsideCircle(botEntity, f, circleCenter, circleRadius, bot.WanderDirection))
+			if (!bot.TryWanderInsideCircle(botEntity, f, circleCenter, circleRadius, bot.WanderDirection, botMovementType))
 			{
 				// If fails to move change direction and try again
 				bot.WanderDirection = !bot.WanderDirection;
-				return bot.TryWanderInsideCircle(botEntity, f, circleCenter, circleRadius, bot.WanderDirection);
+				return bot.TryWanderInsideCircle(botEntity, f, circleCenter, circleRadius, bot.WanderDirection, botMovementType);
 			}
 
 			return true;
@@ -29,9 +29,11 @@ namespace Quantum.Systems.Bots
 			if (filter.BotCharacter->MoveTarget != EntityRef.None &&
 				QuantumHelpers.IsDestroyed(f, filter.BotCharacter->MoveTarget))
 			{
-				filter.BotCharacter->ResetTargetWaypoint(f);
-				filter.NavMeshAgent->Stop(f, filter.Entity, true);
+				BotLogger.LogAction(f, filter.Entity, "cleaning destroyed movetarget");
+				filter.BotCharacter->StopMovement(f, filter.Entity, filter.NavMeshAgent);
+				filter.BotCharacter->MoveTarget = EntityRef.None;
 			}
+
 			HostProfiler.End();
 		}
 
@@ -43,9 +45,9 @@ namespace Quantum.Systems.Bots
 		/// <summary>
 		/// Randomizes a position inside a circle for the bot to move to
 		/// </summary>
-		public static bool TryWanderInsideCircle(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in FPVector2 circleCenter, in FP circleRadius, in bool clockwise)
+		public static bool TryWanderInsideCircle(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in FPVector2 circleCenter, in FP circleRadius, in bool clockwise, BotMovementType movementType)
 		{
-			var position = botEntity.GetPosition(f).XZ;
+			var position = botEntity.GetPosition(f);
 
 			// Player angle in relation to the center of the circle
 			var distanceToCenter = FPVector2.Distance(position, circleCenter);
@@ -64,22 +66,22 @@ namespace Quantum.Systems.Bots
 
 			var x = circleCenter.X + randomizedRadius * FPMath.Cos(randomizedAngle);
 			var y = circleCenter.Y + randomizedRadius * FPMath.Sin(randomizedAngle);
-			BotLogger.LogAction(botEntity, @$"From angle {FP.Rad2Deg * currentAngle} target angle: {FP.Rad2Deg * randomizedAngle}
+			BotLogger.LogAction(f, botEntity, @$"From angle {FP.Rad2Deg * currentAngle} target angle: {FP.Rad2Deg * randomizedAngle}
 From radius {distanceToCenter} to radius {randomizedRadius}
 From position {position} to position ({x},{y})
 ");
-
-			return MoveToLocation(f, botEntity, new FPVector3(x, FP._0, y));
+			return MoveToLocation(f, botEntity, new FPVector2(x, y), movementType);
 		}
 
 		/// <summary>
 		/// Set's the navmesh agent of the given entity's target position to as closest as possible
 		/// </summary>
-		public static bool MoveToLocation(Frame f, in EntityRef e, in FPVector3 destination)
+		public static bool MoveToLocation(Frame f, in EntityRef e, in FPVector2 destination, BotMovementType type)
 		{
 			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(e);
+			f.Unsafe.GetPointer<BotCharacter>(e)->MovementType = type;
 			var navMesh = f.NavMesh;
-			agent->SetTarget(f, destination, navMesh);
+			agent->SetTarget(f, destination.XOY, navMesh);
 			return true;
 		}
 	}

@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
+using Quantum.Systems.Bots;
 using Unity.Services.UserReporting;
 using Unity.Services.UserReporting.Client;
 
@@ -76,6 +77,13 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(internetCheck);
 			initial.OnExit(AccountReadTrick);
 			initial.OnExit(_authenticationState.QuickAsyncLogin);
+			initial.OnExit(() =>
+			{
+				if (BotCharacterSystem.Debug)
+				{
+					_services.UIService.OpenScreen<WorldDebugPresenter>().Forget();
+				}
+			});
 
 			internetCheck.Transition().Condition(NetworkUtils.IsOffline).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(authentication);

@@ -35,6 +35,8 @@ stages:
         --set env.CONNECTION_STRING="$(STAGING-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
         --set env.DEV_MODE=false \
         --set env.NFT_SYNC=true \
+        --set env.PLAGUEDOCTOR_SYNC_ENABLED=true \
+        --set env.GAMESGGGAMERS_SYNC_ENABLED=true \
         --set env.PLAYFAB_DEV_SECRET_KEY=$(STAGING-COMMON-PLAYFAB-SECRET-KEY) \
         --set env.PLAYFAB_SECRET_KEY=$(STAGING-COMMON-PLAYFAB-SECRET-KEY) \
         --set env.PLAYFAB_TITLE=***REMOVED*** \

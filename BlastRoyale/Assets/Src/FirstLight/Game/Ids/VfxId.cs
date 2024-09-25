@@ -6,11 +6,7 @@ namespace FirstLight.Game.Ids
 	public enum VfxId
 	{
 		SplashProjectile = 1,
-		ImpactAirStrike = 2,
 		StatusFxStun = 3,
-		StatusFxStar = 4,
-		StatusFxRage = 5,
-		StatusFxHeal = 6,
 		SpecialReticule = 7,
 		GrenadeParabolic = 8,
 		CollectableIndicator = 9,
@@ -18,9 +14,7 @@ namespace FirstLight.Game.Ids
 		Explosion = 11,
 		ImpactGrenadeStun = 12,
 		EnergyShield = 13,
-		Airstrike = 14,
 		Skybeam = 15,
-		Ping = 16,
 		Radar = 17,
 		LocationPointer = 18,
 		WeaponAim = 19,
@@ -69,9 +63,6 @@ namespace FirstLight.Game.Ids
 		private static readonly Dictionary<StatusModifierType, VfxId> _modifiers =
 			new Dictionary<StatusModifierType, VfxId>
 			{
-				{StatusModifierType.Star, VfxId.StatusFxStar},
-				{StatusModifierType.Regeneration, VfxId.StatusFxHeal},
-				{StatusModifierType.Rage, VfxId.StatusFxRage},
 				{StatusModifierType.Stun, VfxId.StatusFxStun}
 			};
 	}

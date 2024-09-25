@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Photon.Deterministic;
+using Quantum.Systems.Bots;
 
 namespace Quantum
 {
@@ -12,8 +12,6 @@ namespace Quantum
 	/// </summary>
 	public static unsafe class QuantumHelpers
 	{
-		private static readonly FPVector3 LINE_OF_SIGHT_OFFSET = FPVector3.Up / 2;
-
 		/// <summary>
 		/// Requests the math <paramref name="power"/> of the given <paramref name="baseValue"/>
 		/// </summary>
@@ -34,16 +32,7 @@ namespace Quantum
 		/// </summary>
 		public static void LookAt2d(Frame f, in EntityRef e, in EntityRef target, in FP lerpTime)
 		{
-			LookAt2d(f, e, f.Get<Transform3D>(target).Position, lerpTime);
-		}
-
-		/// <inheritdoc cref="LookAt2d(Quantum.Frame,Quantum.EntityRef,Quantum.EntityRef)"/>
-		public static void LookAt2d(Frame f, in EntityRef e, in FPVector3 target, in FP lerpTime)
-		{
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			var direction = target - transform->Position;
-
-			LookAt2d(transform, direction.XZ, lerpTime);
+			LookAt2d(f, e, f.Get<Transform2D>(target).Position, lerpTime);
 		}
 
 		/// <summary>
@@ -51,23 +40,24 @@ namespace Quantum
 		/// </summary>
 		public static void LookAt2d(Frame f, in EntityRef e, in FPVector2 direction, in FP lerpTime)
 		{
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			var transform = f.Unsafe.GetPointer<Transform2D>(e);
 
 			LookAt2d(transform, direction, lerpTime);
 		}
-
-
-		public static FPQuaternion ToRotation(this FPVector2 direction)
+		
+		public static FP ToRotation(this FPVector2 direction)
 		{
-			return FPQuaternion.AngleAxis(FPMath.Atan2(direction.X, direction.Y) * FP.Rad2Deg, FPVector3.Up);
+			return FPMath.Atan2(direction.Y, direction.X) - FP.Rad_90;
+		}
+		
+		public static FPVector2 ToDirection(this FP rad)
+		{
+			rad += FP.Rad_90;
+			return new FPVector2(FPMath.Cos(rad), FPMath.Sin(rad)) ;
 		}
 
-		public static FPVector2 ToDirection(this FPQuaternion rotation)
-		{
-			return (rotation * FPVector3.Forward).XZ.Normalized;
-		}
-
-		public static bool HasLineOfSight(Frame f, in FPVector3 source, in FPVector3 destination, out EntityRef? firstHit)
+		
+		public static bool HasLineOfSight(Frame f, in FPVector2 source, in FPVector2 destination, out EntityRef? firstHit)
 		{
 			return HasLineOfSight(f, source, destination, f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitStatics |
 				QueryOptions.HitKinematics, out firstHit);
@@ -79,17 +69,17 @@ namespace Quantum
 		public static bool HasMapLineOfSight(Frame f, in EntityRef one, in EntityRef two)
 		{
 			if (f.Has<Destructible>(two)) return true;
-			if (f.TryGet<Transform3D>(one, out var onePosition) && f.TryGet<Transform3D>(two, out var twoPosition))
+			if (f.TryGet<Transform2D>(one, out var onePosition) && f.TryGet<Transform2D>(two, out var twoPosition))
 			{
-				return HasLineOfSight(f, onePosition.Position + LINE_OF_SIGHT_OFFSET, twoPosition.Position + LINE_OF_SIGHT_OFFSET, f.Context.TargetMapOnlyLayerMask, QueryOptions.HitStatics, out _);
+				return HasLineOfSight(f, onePosition.Position, twoPosition.Position, f.Context.TargetMapOnlyLayerMask, QueryOptions.HitStatics, out _);
 			}
 
 			return true;
 		}
 
-		public static bool HasLineOfSight(Frame f, FPVector3 source, FPVector3 destination, int layerMask, QueryOptions options, out EntityRef? firstHit)
+		public static bool HasLineOfSight(Frame f, FPVector2 source, FPVector2 destination, int layerMask, QueryOptions options, out EntityRef? firstHit)
 		{
-			var hit = f.Physics3D.Linecast(source,
+			var hit = f.Physics2D.Linecast(source,
 				destination,
 				layerMask,
 				options
@@ -97,31 +87,16 @@ namespace Quantum
 			firstHit = hit?.Entity;
 			return !hit.HasValue;
 		}
-
+		
 		/// <summary>
-		/// Makes the given entity <paramref name="transform"/> rotate in the XZ axis in the given <paramref name="direction"/>
+		/// Makes the given entity <paramref name="transform"/> rotate in the XY axis in the given <paramref name="direction"/>
 		/// </summary>
-		public static void LookAt2d(Transform3D* transform, in FPVector2 direction, in FP lerpAngle)
+		public static void LookAt2d(Transform2D* transform, in FPVector2 direction, in FP lerpAngle)
 		{
-			var targetAngle = FPMath.Atan2(direction.X, direction.Y) * FP.Rad2Deg;
-			if (lerpAngle == FP._0)
-			{
-				transform->Rotation = FPQuaternion.AngleAxis(targetAngle, FPVector3.Up);
-			}
-
-			var currentAngle = transform->Rotation.AsEuler.Y;
-			var deltaAngle = FPMath.AngleBetweenDegrees(targetAngle, currentAngle);
-			if (FPMath.Abs(deltaAngle) < FP._2)
-			{
-				transform->Rotation = FPQuaternion.AngleAxis(targetAngle, FPVector3.Up);
-				return;
-			}
-
-			var diff = FPMath.Abs(deltaAngle);
-			var complementDiff = 360 - diff;
-			var maxAngleDelta = lerpAngle * (diff < complementDiff ? diff : complementDiff);
-			var clampedDeltaAngle = FPMath.Clamp(deltaAngle, -maxAngleDelta, maxAngleDelta);
-			transform->Rotation = FPQuaternion.AngleAxis(currentAngle - clampedDeltaAngle, FPVector3.Up);
+			var targetRotation = direction.Normalized.ToRotation();
+			var currentRotation = transform->Rotation;
+			var delta = targetRotation - currentRotation;
+			transform->Rotation += delta * lerpAngle;
 		}
 
 		/// <summary>
@@ -138,7 +113,7 @@ namespace Quantum
 		/// </summary>
 		public static FP GetDistance(Frame f, in EntityRef e, in EntityRef target)
 		{
-			return FPVector3.DistanceSquared(f.Unsafe.GetPointer<Transform3D>(target)->Position, f.Unsafe.GetPointer<Transform3D>(e)->Position);
+			return FPVector2.DistanceSquared(f.Unsafe.GetPointer<Transform2D>(target)->Position, f.Unsafe.GetPointer<Transform2D>(e)->Position);
 		}
 
 		/// <summary>
@@ -176,8 +151,8 @@ namespace Quantum
 			}
 
 			uint hitCount = 0;
-			var shape = Shape3D.CreateSphere(radius);
-			var hits = f.Physics3D.OverlapShape(spell->OriginalHitPosition, FPQuaternion.Identity, shape,
+			var shape = Shape2D.CreateCircle(radius);
+			var hits = f.Physics2D.OverlapShape(spell->OriginalHitPosition, FP._0, shape,
 				f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 
 			hits.SortCastDistance();
@@ -224,8 +199,8 @@ namespace Quantum
 			}
 
 			if (spell->KnockbackAmount > 0 &&
-				f.Unsafe.TryGetPointer<CharacterController3D>(spell->Victim, out var kcc) &&
-				f.TryGet<Transform3D>(spell->Victim, out var victimTransform))
+				f.Unsafe.TryGetPointer<TopDownController>(spell->Victim, out var kcc) &&
+				f.TryGet<Transform2D>(spell->Victim, out var victimTransform))
 			{
 				var kick = (victimTransform.Position - spell->OriginalHitPosition).Normalized *
 					spell->KnockbackAmount;
@@ -282,7 +257,7 @@ namespace Quantum
 		/// It also activates the return spawn point
 		/// It also changes the bot's Behaviour type if the spawn point has ForceStatic
 		/// </summary>
-		public static EntityComponentPointerPair<Transform3D> GetPlayerSpawnPosition(Frame f, FPVector2 positionToCompare)
+		public static EntityComponentPointerPair<Transform2D> GetPlayerSpawnPosition(Frame f, FPVector2 positionToCompare)
 		{
 			var closest = new EntityComponentPointerPair<PlayerSpawner>();
 			var closestDistance = FP._0;
@@ -294,7 +269,7 @@ namespace Quantum
 					continue;
 				}
 
-				var currentPosition = f.Unsafe.GetPointer<Transform3D>(current.Entity)->Position.XZ;
+				var currentPosition = f.Unsafe.GetPointer<Transform2D>(current.Entity)->Position;
 				var distance = FPVector2.DistanceSquared(currentPosition, positionToCompare);
 				if (!closest.Entity.IsValid || distance < closestDistance)
 				{
@@ -303,39 +278,47 @@ namespace Quantum
 				}
 			}
 
-			return new EntityComponentPointerPair<Transform3D>
+			return new EntityComponentPointerPair<Transform2D>
 			{
-				Component = f.Unsafe.GetPointer<Transform3D>(closest.Entity),
+				Component = f.Unsafe.GetPointer<Transform2D>(closest.Entity),
 				Entity = closest.Entity
 			};
 		}
-
-		/// <summary>
-		/// Tries to find a closest position on NavMesh to <paramref name="initialPosition"/>
-		/// </summary>
-		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, out FPVector3 correctedPosition)
+		
+		public unsafe static bool FindRandomPointOnNavmesh2D(
+			this NavMesh mesh,
+			FPVector2 position,
+			FP radius,
+			RNGSession* rngSession,
+			NavMeshRegionMask regionMask,
+			out FPVector2 result)
 		{
-			var radius = FP._1_50;
-			return TryFindPosOnNavMesh(f, initialPosition, radius, out correctedPosition);
+			FPVector3 result1;
+			bool randomPointOnNavmesh = mesh.FindRandomPointOnNavmesh(position.XOY, radius, rngSession, regionMask, out result1);
+			result.X.RawValue = result1.X.RawValue;
+			result.Y.RawValue = result1.Z.RawValue;
+			return randomPointOnNavmesh;
 		}
 
 		/// <summary>
 		/// Tries to find a random in the circle area with <paramref name="initialPosition"/> and <paramref name="radius"/>
 		/// </summary>
-		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, FP radius, out FPVector3 correctedPosition)
+		public static bool TryFindPosOnNavMesh(Frame f, FPVector2 initialPosition, FP radius, out FPVector2 correctedPosition)
 		{
 			var navMesh = f.NavMesh;
 
-			if (navMesh.FindRandomPointOnNavmesh(initialPosition, radius, f.RNG, NavMeshRegionMask.Default,
+			if (navMesh.FindRandomPointOnNavmesh2D(initialPosition, radius, f.RNG, NavMeshRegionMask.Default,
 					out correctedPosition))
 			{
 				return true;
 			}
 
-			if (navMesh.FindClosestTriangle(initialPosition, radius * 2, NavMeshRegionMask.Default, out var triangle,
-					out correctedPosition))
+			if (navMesh.FindClosestTriangle(initialPosition.XOY, radius * 2, NavMeshRegionMask.Default, out var triangle,
+					out var correctedPosition3))
 			{
-				return navMesh.FindRandomPointOnTriangle(triangle, f.RNG, out correctedPosition);
+				var find = navMesh.FindRandomPointOnTriangle(triangle, f.RNG, out correctedPosition3);
+				correctedPosition = correctedPosition3.XZ;
+				return find;
 			}
 
 			return false;
@@ -352,9 +335,9 @@ namespace Quantum
 		/// <summary>
 		/// Requests the <see cref="Transform3D"/> position of this <paramref name="entity"/>.
 		/// </summary>
-		public static FPVector3 GetPosition(this EntityRef entity, Frame f)
+		public static FPVector2 GetPosition(this EntityRef entity, Frame f)
 		{
-			return f.Unsafe.GetPointer<Transform3D>(entity)->Position;
+			return f.Unsafe.GetPointer<Transform2D>(entity)->Position;
 		}
 
 		/// <summary>
@@ -363,9 +346,9 @@ namespace Quantum
 		/// <param name="entity"></param>
 		/// <param name="f"></param>
 		/// <param name="position"></param>
-		public static void SetPosition(this EntityRef entity, Frame f, FPVector3 position)
+		public static void SetPosition(this EntityRef entity, Frame f, FPVector2 position)
 		{
-			f.Unsafe.GetPointer<Transform3D>(entity)->Position = position;
+			f.Unsafe.GetPointer<Transform2D>(entity)->Position = position;
 		}
 
 		/// <summary>
@@ -392,17 +375,9 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Returns the aiming directionof the player, and the looking direction if you are not aiming
-		/// </summary>
-		public static FPVector2 GetAimDirection(FPVector2 attackDirection, in FPQuaternion rotation)
-		{
-			return attackDirection == FPVector2.Zero ? (rotation * FPVector3.Forward).XZ : attackDirection;
-		}
-
-		/// <summary>
 		/// Used to sort spawners based on relevancy to the type of player that is spawning. If it's a bot, it will first provide spawners specifically for bots, and so on.
 		/// </summary>
-		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, FPVector3 positionToCompare)
+		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, FPVector2 positionToCompare)
 		{
 			return (pair, pointerPair) =>
 			{
@@ -410,11 +385,11 @@ namespace Quantum
 				if (pair.Component->SpawnerType == pointerPair.Component->SpawnerType &&
 					(pair.Component->SpawnerType != SpawnerType.BotOfType || pair.Component->BehaviourType == pointerPair.Component->BehaviourType))
 				{
-					var pos1 = f.Get<Transform3D>(pair.Entity).Position;
-					var pos2 = f.Get<Transform3D>(pointerPair.Entity).Position;
+					var pos1 = f.Get<Transform2D>(pair.Entity).Position;
+					var pos2 = f.Get<Transform2D>(pointerPair.Entity).Position;
 
-					return FPVector3.DistanceSquared(pos1, positionToCompare) <
-						FPVector3.DistanceSquared(pos2, positionToCompare)
+					return FPVector2.DistanceSquared(pos1, positionToCompare) <
+						FPVector2.DistanceSquared(pos2, positionToCompare)
 							? -1
 							: 1;
 				}

@@ -128,16 +128,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTask LoginTask()
 		{
-			var redirectEnvironment = await GetRedirectEnvironment();
-
-			if (redirectEnvironment.success)
-			{
-				_services.GameBackendService.SetupBackendEnvironment(redirectEnvironment.definition);
-			}
-			else
-			{
-				_services.GameBackendService.SetupBackendEnvironment();
-			}
+			FLog.Info("Starting async login");
+			_services.GameBackendService.SetupBackendEnvironment();
 
 			if (HasLinkedDevice())
 			{
@@ -147,43 +139,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				await AsyncGuestLogin();
 			}
-		}
-
-		private async Task<(bool success, FLEnvironment.Definition definition)> GetRedirectEnvironment()
-		{
-			try
-			{
-				var start = Time.time;
-				var req = UnityWebRequest.Get(string.Format(VERSION_FILE_TEMPLATE, Application.version));
-				req.timeout = 2000;
-				var response = await req.SendWebRequest().ToUniTask();
-				FLog.Info("Version info download took " + (Time.time - start) + "s");
-				if (response.result == UnityWebRequest.Result.Success)
-				{
-					var text = response.downloadHandler.text;
-					FLog.Info(text);
-					var value = ModelSerializer.Deserialize<RemoteVersionData>(text);
-					if (FLEnvironment.TryGetFromName(value.EnvironmentOverwrite, out var definition))
-					{
-						return (true, definition);
-					}
-				}
-				
-			}
-			catch (UnityWebRequestException ex)
-			{
-				if (ex.ResponseCode == 404)
-				{
-					return (false, default);
-				}
-				FLog.Warn("Failed to download version redirect", ex);
-			}
-			catch (Exception ex)
-			{
-				FLog.Warn("Failed to download version redirect", ex);
-			}
-
-			return (false, default);
 		}
 
 		private void UnsubscribeEvents()

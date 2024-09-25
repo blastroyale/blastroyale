@@ -2,7 +2,7 @@ synced event OnTeamPositionPing
 {
     entity_ref Entity;
     Int32 TeamId;
-    FPVector3 Position;
+    FPVector2 Position;
     TeamPingType Type;
 }
 

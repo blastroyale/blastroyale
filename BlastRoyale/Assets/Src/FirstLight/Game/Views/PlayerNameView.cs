@@ -88,7 +88,7 @@ namespace FirstLight.Game.Views
 		{
 			_addFriendButton.clicked -= SendInvite;
 			_addFriendButton.SetEnabled(false);
-			FriendsService.Instance.AddFriendHandled(_unityId).Forget();
+			FriendsService.Instance.AddFriendByUnityId(_unityId).Forget();
 		}
 
 		private void FakeAddBot()

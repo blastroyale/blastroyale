@@ -5,7 +5,7 @@ component RaycastShots
 	Int32 TeamSource;
 	list<Int32> LinecastQueries;
 	bool CanHitSameTarget;
-	FPVector3 SpawnPosition;
+	FPVector2 SpawnPosition;
 	FPVector2 Direction;
 	UInt32 PowerAmount;
 	UInt32 KnockbackAmount;
@@ -22,5 +22,5 @@ component RaycastShots
 synced event OnRaycastShotExplosion 
 {
 	GameId sourceId;
-	FPVector3 EndPosition;
+	FPVector2 EndPosition;
 }

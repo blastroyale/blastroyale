@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.SDK.Services;
 
@@ -25,5 +26,6 @@ namespace FirstLight.Game.Messages
 
 	public struct FeatureFlagsReceived : IMessage
 	{
+		public IReadOnlyDictionary<string, string> AppData;
 	}
 }

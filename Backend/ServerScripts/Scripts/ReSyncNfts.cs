@@ -11,7 +11,7 @@ using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
 
 public class ReSyncNfts : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
+	public override Environment GetEnvironment() => Environment.DEV;
 	
 	public override void Execute(ScriptParameters parameters)
 	{

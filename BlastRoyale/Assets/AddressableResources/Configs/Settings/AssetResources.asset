@@ -24,11 +24,6 @@ MonoBehaviour:
         Id:
           Value: 43388560871973795
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_5]
-    - Path: AddressableResources/QuantumAssets/Destructibles/Barrel|EntityPrototype
-      AssetRef:
-        Id:
-          Value: 125091833024730613
-      Address: QuantumAssets/Destructibles/Barrel.prefab[BarrelEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetAmmoCountFunction_13
       AssetRef:
         Id:
@@ -294,11 +289,6 @@ MonoBehaviour:
         Id:
           Value: 994130492505007734
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydiveStopAction_10]
-    - Path: AddressableResources/QuantumAssets/Physics Config Assets/BotCharacterController
-      AssetRef:
-        Id:
-          Value: 1044184774816408002
-      Address: QuantumAssets/Physics Config Assets/BotCharacterController.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardBool_5
       AssetRef:
         Id:
@@ -614,11 +604,6 @@ MonoBehaviour:
         Id:
           Value: 2476499677884316498
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[FPSumFunction_14]
-    - Path: AddressableResources/QuantumAssets/Physics Config Assets/Player CharacterController
-      AssetRef:
-        Id:
-          Value: 2480520579551617486
-      Address: QuantumAssets/Physics Config Assets/Player CharacterController.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_17
       AssetRef:
         Id:
@@ -715,11 +700,6 @@ MonoBehaviour:
         Id:
           Value: 3054022343341149241
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerStopAttackAction_23]
-    - Path: AddressableResources/QuantumAssets/Destructibles/Barrel|EntityView
-      AssetRef:
-        Id:
-          Value: 3059267041051081090
-      Address: QuantumAssets/Destructibles/Barrel.prefab[BarrelEntityView]
     - Path: AddressableResources/Configs/QuantumMapConfigs
       AssetRef:
         Id:

@@ -69,8 +69,13 @@ namespace FirstLight.Tests.EditorMode
 		{
 		}
 
+		public void SetupBackendEnvironment()
+		{
+			throw new NotImplementedException();
+		}
+
 		public void UpdateDisplayNamePlayfab(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null,
-									  Action<PlayFabError> onError = null)
+											 Action<PlayFabError> onError = null)
 		{
 		}
 
@@ -93,6 +98,16 @@ namespace FirstLight.Tests.EditorMode
 		public UniTask<ExecuteFunctionResult> CallFunctionAsync(string functionName, object parameter = null)
 		{
 			return UniTask.FromResult(new ExecuteFunctionResult());
+		}
+
+		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError, Dictionary<string, string> data = null)
+		{
+			throw new NotImplementedException();
+		}
+
+		public UniTask<ExecuteFunctionResult> CallGenericFunction(string functionName, Dictionary<string, string> data = null)
+		{
+			throw new NotImplementedException();
 		}
 
 		public void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError)

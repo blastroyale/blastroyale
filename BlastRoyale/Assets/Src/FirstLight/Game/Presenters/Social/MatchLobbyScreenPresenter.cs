@@ -42,8 +42,16 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[Q("Header")] private ScreenHeaderElement _header;
+		[Q("SafeArea")] private SafeAreaElement _safeArea;
 		[Q("PlayersScrollview")] private ScrollView _playersContainer;
-		[Q("LobbyCode")] private LocalizedTextField _lobbyCode;
+		[Q("CodeLabel")] private Label _codeLabel;
+		[Q("ShowHideCode")] private ImageButton _showHideCodeLabel;
+		[Q("ShowHideCodeIcon")] private VisualElement _showHideCodeIcon;
+		[Q("CopyCodeButton")] private ImageButton _copyCodeButton;
+		[Q("LobbyCodeContainer")] private VisualElement _lobbyCodeContainer;
+		[Q("LobbyHeader")] private VisualElement _lobbyHeader;
+		
+		[Q("InviteToggle")] private Toggle _inviteToggle;
 		[Q("PlayersAmountLabel")] private Label _playersAmount;
 		[Q("InviteFriendsButton")] private LocalizedButton _inviteFriendsButton;
 
@@ -60,8 +68,45 @@ namespace FirstLight.Game.Presenters
 
 			_header.backClicked = () => LeaveMatchLobby().Forget();
 
-			_lobbyCode.value = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
+			_copyCodeButton.clicked += () =>
+			{
+				UIUtils.SaveToClipboard(_services.FLLobbyService.CurrentMatchLobby.LobbyCode);
+				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
+			};
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
+
+			// Show or hide the code label
+			_showHideCodeLabel.clicked += HandleShowHideCode;
+
+			// Adjust the width of the game title based on the width of the code container
+			_lobbyCodeContainer.RegisterCallback<GeometryChangedEvent>((evt) => AdjustRemainingWidth());
+
+			var headerLabel = _header.Q<Label>("title");
+			headerLabel.RegisterCallback<ClickEvent>(evt => headerLabel.OpenTooltip(Root, headerLabel.text, new Vector2(0, 0), TooltipPosition.Bottom));
+		}
+
+		private void AdjustRemainingWidth()
+		{
+			var headerLabel = _header.Q<Label>("title");
+			var headerBack = _header.Q<ImageButton>("back");
+
+			var remainingWidth = _lobbyHeader.resolvedStyle.width - _lobbyCodeContainer.resolvedStyle.width - (headerBack.resolvedStyle.width + headerBack.resolvedStyle.marginLeft) + _safeArea.resolvedStyle.marginLeft - 20;
+			headerLabel.style.width = remainingWidth;
+		}
+
+		private void HandleShowHideCode()
+		{
+			if (_showHideCodeIcon.ClassListContains("hide-code-icon"))
+			{
+				_codeLabel.text = "CODE HIDDEN";
+			}
+			else
+			{
+				_codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
+
+			}
+
+			_showHideCodeIcon.ToggleInClassList("hide-code-icon");
 		}
 
 		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
@@ -95,6 +140,12 @@ namespace FirstLight.Game.Presenters
 				if (!_localPlayerHost) return;
 				_services.FLLobbyService.UpdateMatchLobby(settings).Forget();
 			};
+			_inviteToggle.value = matchLobby.GetMatchSettings().AllowInvites;
+			_inviteToggle.RegisterValueChangedCallback((ev) =>
+			{
+				_matchSettingsView.MatchSettings.AllowInvites = ev.newValue;
+				_services.FLLobbyService.UpdateMatchLobby(_matchSettingsView.MatchSettings).Forget();
+			});
 
 			RefreshData();
 			_updateBuffer.Add(CheckJoiningSpectator);
@@ -120,7 +171,7 @@ namespace FirstLight.Game.Presenters
 			{
 				if (!_localPlayerHost && !_services.RoomService.InRoom && !_joining)
 				{
-					_services.NotificationService.QueueNotification("Match lobby was closed by the host.");
+					_services.InGameNotificationService.QueueNotification("Match lobby was closed by the host.");
 					Data?.BackClicked?.Invoke();
 				}
 			}
@@ -134,7 +185,7 @@ namespace FirstLight.Game.Presenters
 					changes.Data.Value.TryGetValue(FLLobbyService.KEY_LOBBY_MATCH_ROOM_NAME, out var value))
 				{
 					var joinProperties = new PlayerJoinRoomProperties();
-					
+
 					var squadSize = _services.FLLobbyService.CurrentMatchLobby.GetMatchSettings().SquadSize;
 					var localPlayer = _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.Id == AuthenticationService.Instance.PlayerId);
 					var localPlayerPosition = _services.FLLobbyService.CurrentMatchLobby.GetPlayerPosition(localPlayer);
@@ -145,6 +196,7 @@ namespace FirstLight.Game.Presenters
 						joinProperties.Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString();
 						joinProperties.TeamColor = (byte) (localPlayerPosition % squadSize);
 					}
+
 					joinProperties.Spectator = isSpectator;
 					var room = value.Value.Value;
 					JoinRoom(room, joinProperties).Forget();
@@ -199,6 +251,14 @@ namespace FirstLight.Game.Presenters
 
 				_header.SetTitle(_services.FLLobbyService.CurrentMatchLobby.Name);
 
+				var canInvite = _localPlayerHost || matchSettings.AllowInvites;
+				_inviteToggle.SetDisplay(_localPlayerHost);
+				_inviteFriendsButton.SetEnabled(canInvite);
+				if (!canInvite)
+				{
+					_services.UIService.CloseScreen<PopupPresenter>(false);
+				}
+				
 				if (_localPlayerHost)
 				{
 					_matchSettingsView.SetMainAction(ScriptTerms.UITCustomGames.start_match, () => StartMatch().Forget());
@@ -288,7 +348,7 @@ namespace FirstLight.Game.Presenters
 			{
 				if (!p.IsLocal() && !(p.IsSpectator() || matchGrid.GetPosition(p.Id) == -1) && !p.IsReady())
 				{
-					_services.NotificationService.QueueNotification("Not all players are ready");
+					_services.InGameNotificationService.QueueNotification("Not all players are ready");
 					return;
 				}
 			}

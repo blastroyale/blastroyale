@@ -4,14 +4,13 @@ using System.IO;
 using Backend;
 using Backend.Game;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Serializers;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using FirstLight.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -20,6 +19,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
+using GameLogicService.Services;
 using GameLogicService.Services.Providers;
 using Quantum;
 using Environment = System.Environment;
@@ -69,6 +69,7 @@ public class TestServer
 	}
 
 	public IServerStateService ServerState => GetService<IServerStateService>()!;
+	public InMemoryRemoteConfigService RemoteConfig => (InMemoryRemoteConfigService) GetService<IRemoteConfigService>()!;
 
 	public IServiceProvider Services => _services;
 
@@ -114,12 +115,14 @@ public class TestServer
 		{
 			services.RemoveAll(typeof(IServerAnalytics));
 			services.RemoveAll(typeof(IServerStateService));
+			services.RemoveAll(typeof(IRemoteConfigService));
 			services.RemoveAll(typeof(ITestPlayerSetup));
 			services.RemoveAll(typeof(IServerMutex));
 			services.AddSingleton<IServerStateService>(p => new InMemoryPlayerState());
 			services.AddSingleton<ITestPlayerSetup, InMemoryTestSetup>();
 			services.AddSingleton<IServerMutex, InMemoryMutex>();
 			services.AddSingleton<IServerAnalytics, InMemoryAnalytics>();
+			services.AddSingleton<IRemoteConfigService, InMemoryRemoteConfigService>();
 		});
 	}
 
@@ -131,11 +134,14 @@ public class TestServer
 		var commandData = new Dictionary<string, string>();
 		commandData[CommandFields.Timestamp] = "1";
 		commandData[CommandFields.ClientVersion] = GetService<IBaseServiceConfiguration>().MinClientVersion.ToString();
-		commandData[CommandFields.Command] = ModelSerializer.Serialize(cmd).Value;
+		commandData[CommandFields.CommandData] = ModelSerializer.Serialize(cmd).Value;
+		commandData[CommandFields.CommandType] = cmd.GetType().FullName;
+		commandData[CommandFields.ServerConfigurationVersion] = 1.ToString();
 		commandData["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
+		RemoteConfig.SetConfig(new FixedGameModesConfig());
+		RemoteConfig.SetConfig(new EventGameModesConfig());
 		return GetService<GameServer>()?.RunLogic(GetTestPlayerID(), new LogicRequest()
 		{
-			Command = cmd.GetType().FullName,
 			Data = commandData,
 		}).Result;
 	}
@@ -163,5 +169,8 @@ public class TestServer
 		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", "***REMOVED***", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("REMOTE_CONFIGURATION", "false", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("APPLICATION_ENVIRONMENT", "dev", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("PLAGUEDOCTOR_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("GAMESGGGAMERS_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
+		
 	}
 }

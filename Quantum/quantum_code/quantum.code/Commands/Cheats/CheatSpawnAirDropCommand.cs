@@ -24,12 +24,12 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 #if DEBUG
-			var position = FPVector3.Zero;
+			var position = FPVector2.Zero;
 
 			if (OnPlayerPosition)
 			{
 				var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-				position = f.Get<Transform3D>(characterEntity).Position;
+				position = f.Get<Transform2D>(characterEntity).Position;
 			}
 
 			var config = new QuantumShrinkingCircleConfig

@@ -17,7 +17,7 @@ using FirstLight.Server.SDK.Modules;
 /// </summary>
 public class WipeInvalidDataPlayers : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
+	public override Environment GetEnvironment() => Environment.DEV;
 
 	public override void Execute(ScriptParameters parameters)
 	{

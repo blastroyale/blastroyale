@@ -44,6 +44,7 @@ namespace FirstLight.Editor.Ids
 			Core = 22,
 			IAP = 23,
 			GenericCollectionItem = 39,
+			NOOBRareTokens = 40,
 
 
 			#region CollectionGroup
@@ -69,10 +70,29 @@ namespace FirstLight.Editor.Ids
 			{"BLST", 14, Currency},
 			{"Fragments", 112, Currency, Deprecated},
 			{"NOOB", 209, Currency},
+			{"NOOBGolden", 249, Collectable, NOOBRareTokens},
+			{"NOOBRainbow", 250, Collectable, NOOBRareTokens},
 			{"CS", 12, Currency, ResourcePool},
 			{"XP", 3, Resource},
 			{"Trophies", 22, Resource},
 			{"BPP", 26, Resource, ResourcePool},
+			{"PartnerANCIENT8", 900, Currency},
+			{"PartnerAPECOIN", 901, Currency},
+			{"PartnerBEAM", 902, Currency},
+			{"PartnerBLOCKLORDS", 903, Currency},
+			{"PartnerBLOODLOOP", 904, Currency},
+			{"PartnerCROSSTHEAGES", 905, Currency},
+			{"PartnerFARCANA", 906, Currency},
+			{"PartnerGAM3SGG", 907, Currency},
+			{"PartnerIMMUTABLE", 908, Currency},
+			{"PartnerMOCAVERSE", 909, Currency},
+			{"PartnerNYANHEROES", 910, Currency},
+			{"PartnerPIRATENATION", 911, Currency},
+			{"PartnerPIXELMON", 912, Currency},
+			{"PartnerPLANETMOJO", 913, Currency},
+			{"PartnerSEEDIFY", 914, Currency},
+			{"PartnerWILDERWORLD", 915, Currency},
+			{"PartnerXBORG", 916, Currency},
 			{"FloodCity", 137, Map, Deprecated},
 			{"MainDeck", 143, Map},
 			{"FtueDeck", 5, Map},
@@ -192,29 +212,29 @@ namespace FirstLight.Editor.Ids
 			{"Female02Avatar", 58, Deprecated},
 			{"MaleAssassin", 68, PlayerSkin, BotItem, Assassin, Collection},
 			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
-			{"MalePunk", 77, PlayerSkin, BotItem, Punk, Collection},
-			{"MaleSuperstar", 80, PlayerSkin, BotItem, Superstar, Collection},
+			{"MalePunk", 77, PlayerSkin, Punk, Collection},
+			{"MaleSuperstar", 80, PlayerSkin, Superstar, Collection},
 			{"FemaleAssassin", 81, PlayerSkin, BotItem, Assassin, Collection},
 			{"FemaleCorpos", 82, PlayerSkin, Corpo, Collection},
-			{"FemalePunk", 83, PlayerSkin, BotItem, Punk, Collection},
-			{"FemaleSuperstar", 104, PlayerSkin, BotItem, Superstar, Collection},
+			{"FemalePunk", 83, PlayerSkin, Punk, Collection},
+			{"FemaleSuperstar", 104, PlayerSkin, Superstar, Collection},
 			{"TestSkin", 122},
 			{"PlayerSkinDragonBoxer", 148}, // placeholder ID for the future skin
 			{"PlayerSkinTieGuy", 147}, // placeholder ID for the future skin
 			{"PlayerSkinFitnessChick", 146}, // placeholder ID for the future skin
 			{"PlayerSkinSkellyQueen", 145}, // placeholder ID for the future skin
-			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinXmasSuperstar", 149, PlayerSkin, Collection},
 			{"PlayerSkinJodie", 135}, // placeholder ID for the future skin
 			{"PlayerSkinMontyVonCue", 136}, // placeholder ID for the future skin
 			{"PlayerSkinBoudicca", 139}, // placeholder ID for the future skin
-			{"PlayerSkinCupid", 142, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinCupid", 142, PlayerSkin, Collection},
 			{"PlayerSkinPanda", 400, PlayerSkin, Collection},
 			{"PlayerSkinDragon", 402}, // placeholder ID for the future skin
-			{"PlayerSkinSnowboarder", 403, PlayerSkin, BotItem, Collection},
+			{"PlayerSkinSnowboarder", 403, PlayerSkin, Collection},
 			{"PlayerSkinDunePaul", 404, PlayerSkin, Collection},
 			{"PlayerSkinViking", 405, PlayerSkin, Collection},
 			{"PlayerSkinLeprechaun", 401, PlayerSkin, Collection},
-			{"PlayerSkinEGirl", 196, PlayerSkin, Collection},
+			{"PlayerSkinEGirl", 196, PlayerSkin, Collection, BotItem},
 			{"PlayerSkinPoliceFemale", 199, PlayerSkin, Collection},
 			{"PlayerSkinNinja", 201, PlayerSkin, Collection},
 			{"PlayerSkinBrandFemale", 202, PlayerSkin, Collection, BotItem},
@@ -227,7 +247,7 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinLion", 213, PlayerSkin, Collection},
 			{"PlayerSkinSatoshi", 214, PlayerSkin, Collection},
 			{"PlayerSkinSheriff", 215, PlayerSkin, Collection},
-			{"PlayerSkinSoldier", 216, PlayerSkin, Collection},
+			{"PlayerSkinSoldier", 216, PlayerSkin, Collection, BotItem},
 			{"PlayerSkinSwimmer", 217, PlayerSkin, Collection},
 			{"PlayerSkinThief", 218, PlayerSkin, Collection},
 			{"PlayerSkinVR", 219, PlayerSkin, Collection},
@@ -238,6 +258,11 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinNFL", 237, PlayerSkin, Collection},
 			{"PlayerSkinPilot", 241, PlayerSkin, Collection},
 			{"PlayerSkinSkeleton", 242, PlayerSkin, Collection},
+            {"PlayerSkinFemale01", 245, PlayerSkin, Collection},
+            {"PlayerSkinFemale02", 246, PlayerSkin, Collection},
+            {"PlayerSkinMale01", 247, PlayerSkin, Collection},
+            {"PlayerSkinMale02", 248, PlayerSkin, Collection},
+			{"PlayerSkinGamer", 251, PlayerSkin, Collection},
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins
@@ -257,7 +282,6 @@ namespace FirstLight.Editor.Ids
 			{"Demon", 25, DeathMarker, BotItem, Collection},
 			{"Superstar", 75, DeathMarker, BotItem, Collection},
 			{"Unicorn", 76, DeathMarker, BotItem, Collection},
-
 			#endregion
 
 			#region MeleeSkins

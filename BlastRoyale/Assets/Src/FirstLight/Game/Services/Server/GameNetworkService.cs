@@ -462,7 +462,7 @@ namespace FirstLight.Game.Services
 
 			ResetQuantumProperties();
 
-			return QuantumClient.ConnectUsingSettings(settings, AuthenticationService.Instance.GetPlayerName());
+			return QuantumClient.ConnectUsingSettings(settings, AuthenticationService.Instance.GetPlayerNameWithSpaces());
 		}
 
 		public bool ConnectPhotonToRegionMaster(string region)

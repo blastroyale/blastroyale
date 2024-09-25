@@ -84,7 +84,6 @@ namespace FirstLight.Game.Services
 			return invalid;
 		}
 
-
 		/// <summary>
 		/// Adds a given command to the "to send to server queue".
 		/// We send one command at a time to server, this queue ensure that.
@@ -104,7 +103,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-
 		/// <summary>
 		/// Whenever the HTTP request to proccess a command returns 200
 		/// </summary>
@@ -121,7 +119,13 @@ namespace FirstLight.Game.Services
 			// Command returned 200 but a expected logic exception happened due
 			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
 			{
-				OnCommandException(logicException);
+				int code = 0;
+				if (logicResult.Result.Data.TryGetValue(CommandFields.ErrorCode, out var codeString))
+				{
+					int.TryParse(codeString, out code);
+				}
+
+				OnCommandException(logicException, code);
 			}
 
 			var desynchs = GetDesynchedDeltas(current.ClientDelta, logicResult.Result.Data);
@@ -134,7 +138,7 @@ namespace FirstLight.Game.Services
 					SROptions.Current.SendQuietBugReport($"models desynched {string.Join(',', desynchs)}");
 #endif
 
-					OnCommandException($"Models desynched: {string.Join(',', desynchs)}");
+					OnCommandException($"Models desynched: {string.Join(',', desynchs)}", 0);
 					// TODO: Do a json diff and show which data exactly is different
 				}
 			}
@@ -152,13 +156,17 @@ namespace FirstLight.Game.Services
 #endif
 		}
 
-
 		/// <summary>
 		/// When server returns an exception after a command was executed
 		/// </summary>
-		private void OnCommandException(string exceptionMsg)
+		private void OnCommandException(string exceptionMsg, int code)
 		{
 			FLog.Info($"Command exception: {exceptionMsg}");
+			var message = "Server desynch";
+			if (code == CommandErrorCodes.OUTDATED_SERVER_CONFIG)
+			{
+				message = "Please restart the game to update";
+			}
 
 			DebugUtils.SaveState(_gameBackend, _data, () =>
 			{
@@ -170,15 +178,15 @@ namespace FirstLight.Game.Services
 					ButtonOnClick = () =>
 					{
 						_services.QuitGame(exceptionMsg);
-					}
+					},
 				};
-				_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg, false, confirmButton);
+				_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg + "\n" + message, false, confirmButton, () => _services.QuitGame(exceptionMsg));
 #else
 			NativeUiService.ShowAlertPopUp(false, "Error", "Desynch", new AlertButton
 			{
 				Callback = () =>
 				{
-					_services.QuitGame("Server desynch");
+					_services.QuitGame(message);
 				},
 				Style = AlertButtonStyle.Negative,
 				Text = "Quit Game"
@@ -195,37 +203,6 @@ namespace FirstLight.Game.Services
 				var updatedConfig = new ConfigsSerializer().Deserialize<ConfigsProvider>(configString);
 				configAdder.UpdateTo(serverVersion, updatedConfig.GetAllConfigs());
 				FLog.Info($"Updated game configs to version {serverVersion}");
-			}, null);
-		}
-
-		/// <summary>
-		/// Fetches current server state and override client's state.
-		/// Will not cause a UI refresh.
-		/// </summary>
-		private void RollbackToServerState<TCommand>(TCommand lastCommand, List<Type> desynced) where TCommand : IGameCommand
-		{
-			FLog.Warn("Desync caused by config updates - rolling back last command");
-			bool rolledBack = false;
-			_gameBackend.FetchServerState(state =>
-			{
-				foreach (var typeFullName in state.Keys)
-				{
-					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
-					if (desynced.Contains(type))
-					{
-						rolledBack = true;
-						_data.AddData(type, ModelSerializer.DeserializeFromData(type, state));
-					}
-				}
-
-				FLog.Verbose("Fetched user state from server");
-				if (rolledBack)
-				{
-					FLog.Info("Rolling back client UI");
-					_logicInitializer.ReInit();
-				}
-
-				OnServerExecutionFinished();
 			}, null);
 		}
 
@@ -257,21 +234,18 @@ namespace FirstLight.Game.Services
 		private void ExecuteServerCommand(IGameCommand command)
 		{
 			FLog.Verbose($"Sending server command {command.GetType().Name}");
-			var request = new LogicRequest
-			{
-				Command = command.GetType().FullName,
-				Platform = Application.platform.ToString(),
-				Data = new Dictionary<string, string>
-				{
-					{CommandFields.Command, ModelSerializer.Serialize(command).Value},
-					{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
-					{CommandFields.ClientVersion, VersionUtils.VersionExternal},
-					{CommandFields.ConfigurationVersion, _logic.ConfigsProvider.Version.ToString()}
-				}
-			};
-			_gameBackend.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
-		}
 
+			var data = new Dictionary<string, string>
+			{
+				{CommandFields.CommandType, command.GetType().FullName},
+				{CommandFields.CommandData, ModelSerializer.Serialize(command).Value},
+				{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
+				{CommandFields.ClientVersion, VersionUtils.VersionExternal},
+				{CommandFields.ServerConfigurationVersion, _logic.RemoteConfigProvider.GetConfigVersion().ToString()},
+			};
+
+			_gameBackend.CallGenericFunction(CommandNames.EXECUTE_LOGIC, OnCommandSuccess, OnCommandError, data);
+		}
 
 		private class ServerCommandQueueEntry
 		{
@@ -284,7 +258,6 @@ namespace FirstLight.Game.Services
 			/// Command to execute in the server
 			/// </summary>
 			public IGameCommand GameCommand { get; }
-
 
 			public ServerCommandQueueEntry(StateDelta clientDelta, IGameCommand gameCommand)
 			{

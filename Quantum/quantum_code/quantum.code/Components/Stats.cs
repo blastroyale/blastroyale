@@ -299,7 +299,7 @@ namespace Quantum
 		/// </summary>
 		public void Kill(Frame f, EntityRef entityRef, EntityRef attacker, bool canKnockOut = false)
 		{
-			var spell = Spell.CreateInstant(f, entityRef, attacker, EntityRef.None, 9999, 0, FPVector3.Zero, 0);
+			var spell = Spell.CreateInstant(f, entityRef, attacker, EntityRef.None, 9999, 0, FPVector2.Zero, 0);
 			spell.Id = canKnockOut ? Spell.InstantKill : Spell.InstantKillWithoutKnockingOut;
 			ReduceHealth(f, entityRef, &spell);
 		}
@@ -340,8 +340,7 @@ namespace Quantum
 				f.Events.OnDamageBlocked(entity);
 				return;
 			}
-
-
+			
 			// If there's shields and we do not ignore shields in damage, then we reduce it first
 			if (previousShield > 0 && !spell->IgnoreShield && !spell->IsInstantKill())
 			{
@@ -351,11 +350,10 @@ namespace Quantum
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}
 
-
 			if (f.TryGet<PlayerCharacter>(spell->Attacker, out var attacker))
 			{
 				f.Events.OnPlayerAttackHit(attacker.Player, spell->Attacker, attacker.TeamId, spell->Victim,
-					spell->OriginalHitPosition, (uint)totalDamage, previousShield > 0, spell->Id);
+					spell->OriginalHitPosition, (uint)totalDamage, previousShield > 0, spell->Id, spell->ShotNumber);
 			}
 
 			f.Events.OnEntityDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount),

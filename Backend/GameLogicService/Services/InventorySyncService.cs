@@ -131,7 +131,7 @@ namespace GameLogicService.Services
 						_log.LogError($"CRITICAL ON CURRENCY ROLLBACK: Currency {amt} x {currency} to player {player}: {res2.Error.GenerateErrorReport()}");
 						_ctx.Analytics.EmitEvent("Item Vanished", new AnalyticsData()
 						{
-							{ "currency", currency }, { "amount", amt }, { "affectedPlayer", player }
+							{ "currency", currency.ToString() }, { "amount", amt.ToString() }, { "affectedPlayer", player }
 						});
 					}
 				}

@@ -8,7 +8,7 @@ namespace Scripts.Scripts.VersionMigrations
 {
 	public class V0_6_0 : VersionMigrationScript
 	{
-		public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.STAGING;
+		public override Environment GetEnvironment() => Environment.STAGING;
 
 		public override Version VersionApplied() => new Version("0.6.0");
 

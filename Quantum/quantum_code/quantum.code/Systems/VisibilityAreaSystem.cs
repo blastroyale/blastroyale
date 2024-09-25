@@ -1,3 +1,5 @@
+using Photon.Deterministic;
+
 namespace Quantum.Systems
 {
 	public struct VisibilityCheckResult
@@ -17,22 +19,21 @@ namespace Quantum.Systems
 	/// when to display one player for another player.
 	/// </summary>
 	public class VisibilityAreaSystem : SystemSignalsOnly, 
-										ISignalOnTriggerEnter3D, ISignalOnTriggerExit3D,
+										ISignalOnFeetCollisionEnter, ISignalOnFeetCollisionLeft,
 										ISignalOnComponentAdded<VisibilityArea>, ISignalOnComponentRemoved<VisibilityArea>
 	{
-		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+		public void OnFeetCollisionEnter(Frame f, EntityRef entity, EntityRef collidedWith, FPVector2 point)
 		{
-			OnEntityEnterVisibilityArea(ref f, info.Entity, info.Other);
+			OnEntityEnterVisibilityArea(ref f, collidedWith, entity);
 		}
 
-		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
+		public void OnFeetCollisionLeft(Frame f, EntityRef entity, EntityRef collidedWith)
 		{
-			OnExitVisibilityArea(ref f, info.Entity, info.Other);
+			OnExitVisibilityArea(ref f, collidedWith, entity);
 		}
 
 		private void OnEntityEnterVisibilityArea(ref Frame f, in EntityRef areaEntity, in EntityRef entering)
 		{
-			
 			if (f.TryGet<VisibilityArea>(areaEntity, out var area))
 			{
 				if (f.TryGet<InsideVisibilityArea>(entering, out var existingArea))
@@ -91,5 +92,7 @@ namespace Quantum.Systems
 			result.CanSee = result.ViewerArea.Area == result.TargetArea.Area;
 			return result;
 		}
+
+		
 	}
 }

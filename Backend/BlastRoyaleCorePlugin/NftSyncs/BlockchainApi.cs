@@ -15,16 +15,18 @@ namespace BlastRoyaleNFTPlugin
 	public class BlockchainApi
 	{
 		internal PluginContext _ctx;
+		internal BlastRoyalePlugin _blastRoyalePlugin;
 		internal HttpClient _client;
 		internal string _externalUrl;
 		internal string _apiKey;
 		public CollectionsSync CollectionsSync;
 
-		public BlockchainApi(string baseUrl, string apiKey, PluginContext ctx)
+		public BlockchainApi(string baseUrl, string apiKey, PluginContext ctx, BlastRoyalePlugin blastRoyalePlugin)
 		{
 			_client = new HttpClient();
 			_externalUrl = baseUrl;
 			_ctx = ctx;
+			_blastRoyalePlugin = blastRoyalePlugin;
 			_apiKey = apiKey;
 			CollectionsSync = new CollectionsSync(this);
 		}
@@ -40,6 +42,11 @@ namespace BlastRoyaleNFTPlugin
 				return false;
 			}
 			return await CollectionsSync.SyncCollections(playfabId, serverState);
+		}
+
+		public bool CanSyncCollection(string collectionName)
+		{
+			return _blastRoyalePlugin.CanSyncCollection(collectionName);
 		}
 	}
 }

@@ -24,6 +24,7 @@ namespace FirstLight.Game.Utils
 			public const string YOUTUBE_LINK = "https://www.youtube.com/@BlastRoyaleGame/?sub_confirmation=1";
 			public const string INSTAGRAM_LINK = "https://www.instagram.com/blastroyale";
 			public const string TIKTOK_LINK = "https://www.tiktok.com/@blastroyale";
+			public const string TWITTER_LINK = "https://twitter.com/blastroyale";
 
 			public const string APP_STORE_IOS = "https://apps.apple.com/app/blast-royale/id1621071488";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.blastroyale";
@@ -140,7 +141,7 @@ namespace FirstLight.Game.Utils
 			public const float SFX_3D_SPATIAL_BLEND = 1f;
 
 			public const float SFX_3D_MIN_DISTANCE = 0.5f;
-			public const float SFX_3D_MAX_DISTANCE = 16f;
+			public const float SFX_3D_MAX_DISTANCE = 32f;
 
 			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
 			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
@@ -183,8 +184,8 @@ namespace FirstLight.Game.Utils
 
 		public static class PlayerName
 		{
-			public const int PLAYER_NAME_MIN_LENGTH = 3;
-			public const int PLAYER_NAME_MAX_LENGTH = 20;
+			public const int PLAYER_NAME_MIN_LENGTH = 5;
+			public const int PLAYER_NAME_MAX_LENGTH = 12;
 			public const string DEFAULT_PLAYER_NAME = "Player Name";
 			public static readonly Color GOLD_COLOR = new (247 / 255f, 198 / 255f, 46 / 255f);
 			public static readonly Color SILVER_COLOR = new (247 / 255f, 198 / 255f, 46 / 255f);
@@ -215,6 +216,23 @@ namespace FirstLight.Game.Utils
 				GameId.Trophies,
 				GameId.NOOB,
 				GameId.COIN,
+				GameId.PartnerANCIENT8,
+				GameId.PartnerAPECOIN,
+				GameId.PartnerBEAM,
+				GameId.PartnerBLOCKLORDS,
+				GameId.PartnerBLOODLOOP,
+				GameId.PartnerCROSSTHEAGES,
+				GameId.PartnerFARCANA,
+				GameId.PartnerGAM3SGG,
+				GameId.PartnerIMMUTABLE,
+				GameId.PartnerMOCAVERSE,
+				GameId.PartnerNYANHEROES,
+				GameId.PartnerPIRATENATION,
+				GameId.PartnerPIXELMON,
+				GameId.PartnerPLANETMOJO,
+				GameId.PartnerSEEDIFY,
+				GameId.PartnerWILDERWORLD,
+				GameId.PartnerXBORG
 			};
 		}
 

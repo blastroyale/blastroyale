@@ -43,6 +43,7 @@ namespace Quantum
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
 		public bool UseRangedCam;
+		public FP AimDelayTime;
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon
@@ -70,6 +71,8 @@ namespace Quantum
 		Launcher = 5,
 		XLMelee = 6,
 		KnifeMelee = 7,
+		Handgun = 8,
+		Shotgun = 9
 	}
 
 	/// <summary>

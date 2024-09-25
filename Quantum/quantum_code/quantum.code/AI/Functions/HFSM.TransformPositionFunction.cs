@@ -15,7 +15,8 @@ namespace Quantum
 		/// <inheritdoc />
 		public override FPVector3 Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			return f.Unsafe.GetPointer<Transform3D>(e)->Position;
+			Log.Warn("Using reposition function !!");
+			return f.Unsafe.GetPointer<Transform2D>(e)->Position.XOY;
 		}
 	}
 }

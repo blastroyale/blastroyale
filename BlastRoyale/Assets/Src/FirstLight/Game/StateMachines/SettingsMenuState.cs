@@ -7,6 +7,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Statechart;
 using I2.Loc;
 using PlayFab;
@@ -100,7 +101,7 @@ namespace FirstLight.Game.StateMachines
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
 				OnDeleteAccountClicked = () =>
-					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
+					_services.GameBackendService.CallGenericFunction(CommandNames.REMOVE_PLAYER_DATA, OnAccountDeleted, null)
 			};
 
 			_services.UIService.OpenScreen<SettingsScreenPresenter>(data).Forget();

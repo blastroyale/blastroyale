@@ -1,0 +1,60 @@
+component Projectile
+{
+	entity_ref Attacker;
+	entity_ref Target;
+	GameId SourceId;
+	byte TeamSource;
+	FPVector2 SpawnPosition;
+	FPVector2 Direction;
+	FP DespawnTime;
+	byte KnockbackAmount;
+	byte Speed;
+	short RangeSquared;
+	byte DamagePct;
+	byte StunDuration;
+	byte Iteration;
+	byte ShotNumber;
+}
+
+synced event OnProjectileFired
+{
+	entity_ref Projectile;
+	Projectile ProjectileData;
+}
+
+event OnProjectileFiredPredicted
+{
+	entity_ref Projectile;
+	Projectile ProjectileData;
+}
+
+synced event OnProjectileEndOfLife 
+{
+	GameId SourceId;
+	FPVector2 EndPosition;
+	bool Hit;
+	bool SubProjectile;
+}
+
+synced event OnProjectileTargetableHit
+{
+	entity_ref Projectile;
+	entity_ref HitEntity;
+	FPVector2 HitPosition;
+}
+
+event OnProjectileFailedHitPredicted
+{
+    entity_ref ProjectileEntity;
+ 	Projectile Projectile;
+ 	nothashed FPVector2 LastPosition;
+ 	bool HitWall;
+}
+
+event OnProjectileSuccessHitPredicted
+{
+	Projectile Projectile;
+	entity_ref HitEntity;
+	nothashed FPVector2 HitPosition;
+	FP Power;
+}

@@ -19,7 +19,6 @@ public class AnalyticsService : IServerAnalytics
 		_analyticsProviders = analyticsProviders.ToList();
 	}
 	
-	
 	public void EmitEvent(string eventName, AnalyticsData data)
 	{
 		_analyticsProviders.ForEach(p => p.EmitEvent(eventName, data));

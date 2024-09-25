@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Photon.Deterministic;
 using Quantum.Systems;
 using Quantum.Systems.Bots;
@@ -18,10 +19,14 @@ namespace Quantum
 			return bot.MoveTarget == EntityRef.None || f.Time > bot.NextDecisionTime;
 		}
 
-		public static void SetNextDecisionDelay(this ref BotCharacter bot, Frame f, in FP seconds)
+		public static void SetNextDecisionDelay(this ref BotCharacter bot, EntityRef botEntity, Frame f, in FP seconds)
 		{
-			BotLogger.LogAction(bot, $"Adding decision delay: {seconds} seconds");
 			bot.NextDecisionTime = f.Time + seconds;
+		}
+
+		public static void ResetDecisionDelay(this ref BotCharacter bot, Frame f)
+		{
+			bot.NextDecisionTime = f.Time;
 		}
 
 		public static bool IsLowLife(this ref BotCharacter bot, in EntityRef entity, Frame f)
@@ -42,69 +47,42 @@ namespace Quantum
 			bot.NextLookForTargetsToShootAtTime = f.Time + bot.LookForTargetsToShootAtInterval;
 		}
 
-		/// <summary>
-		/// Flags the bot as having a waypoint to go towards
-		/// Will add decision delay to the bot
-		/// </summary>
-		public static void SetHasWaypoint(this ref BotCharacter bot, in EntityRef entity, Frame f)
-		{
-			BotLogger.LogAction(bot, "Set Waypoint");
-			bot.MoveTarget = entity;
-			bot.SetNextDecisionDelay(f, bot.DecisionInterval);
-			bot.StuckDetectionPosition = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
-		}
 
 		/// <summary>
 		/// Resets the bot target waypoint. This is done by setting no MoveTarget and lowering next decision time so next
 		/// decision is done shortly
 		/// </summary>
-		public static void ResetTargetWaypoint(this BotCharacter bot, Frame f)
+		public static void ResetTargetWaypoint(this ref BotCharacter bot, EntityRef botEntity, Frame f)
 		{
-			BotLogger.LogAction(bot, "Clear waypoint");
-			bot.MoveTarget = EntityRef.None;
-			bot.SetNextDecisionDelay(f, 0);
+			BotLogger.LogAction(f, botEntity, "clear waypoint", TraceLevel.Warning);
+			bot.ResetDecisionDelay(f);
 			bot.StuckDetectionPosition = FPVector2.Zero;
+			bot.MovementType = BotMovementType.None;
 		}
 
-		/// <summary>
-		/// Flags the bot as having a waypoint to go towards
-		/// Will add decision delay to the bot
-		/// </summary>
-		public static void SetHasWaypoint(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
+		public static void StopMovement(this ref BotCharacter bot, Frame f, EntityRef entityRef)
 		{
-			botFilter.BotCharacter->SetHasWaypoint(botFilter.Entity, f);
-		}
-
-		/// <summary>
-		/// Checks if the given bot has or not a waypoint (moving)
-		/// </summary>
-		public static bool HasWaypoint(this ref BotCharacter bot, EntityRef entity, Frame f)
-		{
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// This STUCK DETECTION code is HIDING the issue about bots being stuck, it's a WORKAROUND
-			// IF YOU EVER want to remove this code be sure to FIND OUT WHY bots stuck going into walls when they
-			// are trying to Wander or GoToSafeArea; it's not happening really when bots go for Consumables, so potentially
-			// the issue is somewhere where we convert randomly chosen position into navmesh position
-			if (bot.StuckDetectionPosition != FPVector2.Zero
-				&& FPVector2.DistanceSquared(bot.StuckDetectionPosition, f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ)
-				< Constants.BOT_STUCK_DETECTION_SQR_DISTANCE)
+			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(entityRef, out var navMeshAgent))
 			{
-				bot.ResetTargetWaypoint(f);
-				return false;
+				bot.StopMovement(f, entityRef, navMeshAgent);
 			}
-
-			bot.StuckDetectionPosition = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-			return bot.MoveTarget.IsValid;
 		}
+
+		public static void StopMovement(this ref BotCharacter bot, Frame f, EntityRef entityRef, NavMeshPathfinder* pathfinder)
+		{
+			BotLogger.LogAction(f, entityRef, "stop movement", TraceLevel.Warning);
+			pathfinder->Stop(f, entityRef, true);
+			bot.ResetTargetWaypoint(entityRef, f);
+			bot.Target = EntityRef.None;
+		}
+
 
 		/// <summary>
 		/// Checks if a given bot is not doing shit
 		/// </summary>
 		public static bool IsDoingJackShit(this ref BotCharacter bot)
 		{
-			return !bot.MoveTarget.IsValid && !bot.Target.IsValid;
+			return (!bot.MoveTarget.IsValid && !bot.Target.IsValid) || bot.MovementType == BotMovementType.None;
 		}
 
 		/// <summary>
@@ -121,6 +99,7 @@ namespace Quantum
 				var player = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 				var weaponConfig = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
 				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
+				BotLogger.LogAction(f, botEntity, "changing target to" + target);
 			}
 
 			bot.Target = target;
@@ -131,33 +110,65 @@ namespace Quantum
 		{
 			botFilter.BotCharacter->SetAttackTarget(botFilter.Entity, f, target);
 		}
+		
 
-		public static bool IsInCircleWithSpareSpace(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, in BotUpdateGlobalContext botCtx, FPVector3 positionToCheck)
+		public static bool IsInCircleWithSpareSpace(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, in BotUpdateGlobalContext botCtx, FPVector2 positionToCheck)
 		{
 			return IsInCircleWithSpareSpace(botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking, positionToCheck);
 		}
 
-		public static bool IsInCircleWithSpareSpace(FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking, FPVector3 positionToCheck)
+		public static bool IsPositionSafe(in BotUpdateGlobalContext ctx,
+										  in BotCharacterSystem.BotCharacterFilter bot,
+										  FPVector2 position)
 		{
-			// If circle doesn't exist then we always return true
-			if (circleRadius < FP.SmallestNonZero)
+			FPVector2 center;
+			FP radius;
+			if (ctx.circleTimeToShrink < bot.BotCharacter->TimeStartRunningFromCircle)
+			{
+				center = ctx.circleTargetCenter;
+				radius = ctx.circleTargetRadius;
+			}
+			else
+			{
+				radius = ctx.circleRadius;
+				center = ctx.circleCenter;
+				if (ctx.circleIsShrinking)
+				{
+					radius -= FP._10 * FP._2;
+				}
+			}
+
+			if (radius < FP.SmallestNonZero)
 			{
 				return true;
 			}
 
-			var circleRadiusSqr = circleRadius * circleRadius;
-			var distanceSqr = (positionToCheck.XZ - circleCenter).SqrMagnitude;
-
-			// If circle is shrinking then it's risky to get to consumables on the edge so we don't do it
-			if (circleIsShrinking)
-			{
-				return distanceSqr <= circleRadiusSqr * (FP._0_20 + FP._0_10);
-			}
-
-			return distanceSqr <= circleRadiusSqr * (FP._0_75);
+			var circleRadiusSqr = radius * radius;
+			var distanceSqr = (position - center).SqrMagnitude;
+			return distanceSqr <= circleRadiusSqr;
 		}
 
-		public static bool IsInCircle(FPVector2 circleCenter, FP circleRadius, FPVector3 positionToCheck)
+
+		public static bool IsInCircleWithSpareSpace(FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking, FPVector2 positionToCheck)
+		{
+			// If circle doesn't exist then we always return true
+			circleRadius = circleRadius - FP._10 - FP._10;
+			if (circleIsShrinking)
+			{
+				circleRadius -= FP._10;
+			}
+
+			if (circleRadius < FP.SmallestNonZero)
+			{
+				return true;
+			}
+
+			var circleRadiusSqr = circleRadius * circleRadius;
+			var distanceSqr = (positionToCheck - circleCenter).SqrMagnitude;
+			return distanceSqr <= circleRadiusSqr;
+		}
+
+		public static bool IsInCircle(FPVector2 circleCenter, FP circleRadius, FPVector2 positionToCheck)
 		{
 			// If circle doesn't exist then we always return true
 			if (circleRadius < FP.SmallestNonZero)
@@ -166,7 +177,7 @@ namespace Quantum
 			}
 
 			var circleRadiusSqr = circleRadius * circleRadius;
-			var distanceSqr = (positionToCheck.XZ - circleCenter).SqrMagnitude;
+			var distanceSqr = (positionToCheck - circleCenter).SqrMagnitude;
 			return distanceSqr <= circleRadiusSqr;
 		}
 	}

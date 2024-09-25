@@ -57,18 +57,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bd5d2d0f52715473ca58a463cc941357
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorFaceKO.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 180175cdb09ebfa4ab18a10e0596d957
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/CollectableStaticIndicator.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 00d895ccfbba141c19d851d2646007a6
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/BossIndicatorInside.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -87,23 +77,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b3cf5e3cdd4314e8ca4f90d654141bc8
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyIndicatorFace.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 41e813cbb15b2406db58a4022b6efcca
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/LootIndicatorBase.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4cdc926b1dcce4247827b4a62daf35d3
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/ParachuteIcon.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 715dca5ba7c7456438d4c122a0801205
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyRadialIndicator.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -114,21 +89,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8fb0ec6870d0c4c3f89a81afe077ea90
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/TimerBack.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bec95047e2f276844b0419ffbf07b7c4
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/Armour.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 002ac4862f155463fb4d52d5b177e0ce
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorBase.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 33cb72d57497e456cbd2b35f73065735
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyIndicatorBase.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -154,31 +114,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 526a739286f93464497b3041da810a0f
     m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirplaneIcon.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fffcdc323b176c44685847bb11a5ad2b
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/MovementIndicatorStar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d66d92d1e501e4d12b64f78788cdada0
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorFace.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 657537604173846308db848529b8e666
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/BossIndicatorOutside.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a9877810cf8dfcf45a22db5765ea87d1
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/LootIndicatorIcon.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d533b2002939d42b09f93ea5c5640482
-    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/DefaultIndicatorBase.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -229,11 +164,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9703450dfb82ed84cba13dcd159b2bf4
     m_Address: Assets/Art/UI/Sprites/Match/gradientwhiteintense.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 022e85dee57a41549a4592437135d884
-    m_Address: Assets/Art/Models/Weapons/MuzzleFlash_Geo.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -487,11 +417,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fafdf9a4479be944c8e7535404d43e32
-    m_Address: Assets/Art/Materials/Legacy/Forcefields/M_DamageZone.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4da753f5d0c2d2746a3df8bf5096745d
     m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Props_mix_A.mat
     m_ReadOnly: 0
@@ -502,11 +427,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dceb1017b0c3640f9961a442b218de63
-    m_Address: Assets/Art/Materials/Legacy/m_shrinkingDamageCircle.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 54f0c67733e9bfc4a85c9457e0ec8eb8
     m_Address: Assets/Art/AssetPacks/SimpleProps/_Materials/Paper_Box_A.mat
     m_ReadOnly: 0
@@ -514,11 +434,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf75bbe88de8a7e4db86bccf7258ec20
     m_Address: Assets/Art/Materials/M_Water.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9218511aca6af49c0910f11ff14e4199
-    m_Address: Assets/Art/Materials/Legacy/m_shrinkingSafeCircle.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1307,11 +1222,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8f200e224654a3b4a88319b2a990a840
-    m_Address: Assets/Art/Models/Environment/Terrains/M_GroundRoad.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8cfb2472d6ca73d49a503682b1bbc573
     m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/M_Collision.mat
     m_ReadOnly: 0
@@ -1319,16 +1229,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2b070fc2713e7de46a871350bf5c6644
     m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/M_BR_Atlas01.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bc31393375bdcce478995e048d720af2
-    m_Address: Assets/Art/Materials/Legacy/M_EnvironmentProps.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 85819ac46da0acb498e85ac18964f4e7
-    m_Address: Assets/Art/Materials/Legacy/m_RedUnlit.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1404,16 +1304,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 19b5749ff2f988740adad95a10cb2af5
     m_Address: Assets/Art/Textures/Environment/tarmac simple white.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7126f4d5f0c56ec43b81222b6f1e86fd
-    m_Address: Assets/Art/Models/Environment/Terrains/M_GroundUrban.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 712e3bfba0ecb084fac0198914c0d25c
-    m_Address: Assets/Art/Models/Environment/Terrains/M_GroundVolcanic.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

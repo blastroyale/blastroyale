@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformMode: 1
+  TransformMode: 0
   Transform2DVertical:
     IsEnabled: 0
     Height:
@@ -64,7 +64,7 @@ MonoBehaviour:
     SourceCollider: {fileID: 0}
     IsEnabled: 1
     Shape2D:
-      ShapeType: 0
+      ShapeType: 4
       PolygonCollider:
         Id:
           Value: 0
@@ -74,9 +74,9 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 0
+          RawValue: 85196
         Y:
-          RawValue: 0
+          RawValue: 13107
       PositionOffset:
         X:
           RawValue: 0

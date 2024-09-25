@@ -1,11 +1,14 @@
  using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Utils;
+ using FirstLight.Game.MonoComponent.EntityPrototypes;
+ using FirstLight.Game.MonoComponent.EntityViews;
+ using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Photon.Deterministic;
 using Quantum;
-using Quantum.Physics3D;
+ using Quantum.Physics2D;
+ using Quantum.Physics3D;
 using Quantum.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -35,8 +38,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private readonly Color _sideLineEndColor = new (0.02f, 0.02f, 0.02f);
 		private readonly Color _mainLineColor = Color.white;
 
-		private HitCollection3D _hits;
-		private Shape3D _shape;
+		private PlayerCharacterViewMonoComponent _playerView;
+		private HitCollection _hits;
+		private Shape2D _shape;
 		private FP _variationRange;
 		private FP _range;
 		private FP _angleVariation = 0;
@@ -49,6 +53,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_view = view;
 			transform.parent = _view.transform;
+			_playerView = _view.GetComponent<PlayerCharacterMonoComponent>().PlayerView;
 		}
 		
 		void OnEnable()
@@ -74,8 +79,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			AdjustDottedLine(_centerLineRenderer);
 			
 			// X and Y are similar to the main bullet collider
-			var colliderSize = new FPVector3(FP._0_10 + FP._0_01, FP._0_20, _range / FP._2);
-			_shape = Shape3D.CreateBox(colliderSize);
+			var colliderSize = new FPVector2(FP._0_10 + FP._0_01, _range / 2);
+			_shape = Shape2D.CreateBox(colliderSize);
 			
 			if (_angleVariation > _minAngleVariation)
 			{
@@ -147,7 +152,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
 			
-			var f = QuantumRunner.Default.Game.Frames.Predicted;
+			var f = QuantumRunner.Default.Game.Frames.Verified;
 			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(_view.EntityRef, out var playerCharacter))
 			{
 				return;
@@ -155,76 +160,103 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_aim = _aim.Normalized;
 
-			var playerTransform = _view.transform;
-			var origin = playerTransform.position.ToFPVector3();
-			var end = (_aim * _range).XOY;
+			var playerTransform = _playerView.transform;
+			var origin = playerTransform.position.ToFPVector2();
+			var end = (_aim * _range);
 
-			var offset = playerTransform.rotation * playerCharacter->ProjectileSpawnOffset.ToUnityVector3();
-			origin += offset.ToFPVector3();
+			var offset = FPVector2.Rotate(playerCharacter->ProjectileSpawnOffset, playerTransform.rotation.ToFPRotation2D()); // rotates according to view, not simulation
+			origin += offset + ProjectileSystem.CAMERA_CORRECTION;
 
 			DrawAimLine(f, _centerLineRenderer, _view.EntityRef, origin, end);
 			
 			if (_angleVariation > _minAngleVariation)
 			{
-				end = FPVector2.Rotate(_aim, (-_angleVariation / FP._2) * FP.Deg2Rad).XOY * _variationRange;
+				end = FPVector2.Rotate(_aim, (-_angleVariation / FP._2) * FP.Deg2Rad) * _variationRange;
 				DrawAimLine(f, _lowerLineRenderer, _view.EntityRef, origin, end);
 				
-				end = FPVector2.Rotate(_aim, (_angleVariation / FP._2) * FP.Deg2Rad).XOY * _variationRange;
+				end = FPVector2.Rotate(_aim, (_angleVariation / FP._2) * FP.Deg2Rad) * _variationRange;
 				DrawAimLine(f, _upperLineRenderer, _view.EntityRef, origin, end);
 			}
 
 			_lastFrameUpdate = Time.frameCount;
 		}
 
-		private Vector3 GetHit(Frame f, EntityRef entity, FPVector3 origin, FPVector3 direction)
+		/// <summary>
+		/// Replaced by hit aimcast because quantum is not returning the hit point correctly on 2d
+		/// </summary>
+		private FPVector2 GetHit(Frame f, EntityRef entity, FPVector2 origin, FPVector2 direction)
 		{
 			var directionNormalized = direction.Normalized;
-			var centerForShape = origin + (directionNormalized * (_range / FP._2));
+			var centerForShape = origin + (direction / 2);
+
+			var rot = directionNormalized.ToRotation();
 			
-			_hits = f.Physics3D.OverlapShape(centerForShape, FPQuaternion.LookRotation(directionNormalized), _shape, f.Layers.GetLayerMask(PhysicsLayers.PLAYERS, PhysicsLayers.OBSTACLES), _hitQuery);
+			_hits = f.Physics2D.OverlapShape(centerForShape, rot, _shape, f.Layers.GetLayerMask(PhysicsLayers.PLAYERS, PhysicsLayers.OBSTACLES), _hitQuery);
 			
 			if (_hits.Count > 0)
 			{
-				var closestHit = FPVector3.Zero;
+				var closestHit = FPVector2.Zero;
 				var smallestDistanceSqr = FP.MaxValue;
 				for (var i = 0; i < _hits.Count; i++)
 				{
 					var hit = _hits[i];
 					
-					var checkSqrDistance = FPVector3.DistanceSquared(_hits[i].Point, origin);
+					var checkSqrDistance = FPVector2.DistanceSquared(_hits[i].Point, origin);
 					if (checkSqrDistance < smallestDistanceSqr && IsValidRaycastHit(f, &hit, entity))
 					{
 						smallestDistanceSqr = checkSqrDistance;
 						closestHit = _hits[i].Point;
 					}
 				}
-
-				if (closestHit != FPVector3.Zero)
+				if (closestHit != FPVector2.Zero)
 				{
-					return closestHit.ToUnityVector3();
+					return closestHit;
 				}
 			}
-			return Vector3.zero;
+			return FPVector2.Zero;
+		}
+		
+		/// <summary>
+		/// TODO: Remove this method and use the above function when quantum fixes getting the collision point
+		/// </summary>
+		private FPVector2 GetHitLinecast(Frame f, EntityRef entity, FPVector2 origin, FPVector2 direction)
+		{
+			var hit = f.Physics2D.Linecast(origin, origin + direction, f.Layers.GetLayerMask(PhysicsLayers.PLAYERS, PhysicsLayers.OBSTACLES), _hitQuery);
+			if (hit == null)
+			{
+				return FPVector2.Zero;
+			}
+			else
+			{
+				var v = hit.Value;
+				var ptr = &v;
+				if (!IsValidRaycastHit(f, ptr, entity))
+				{
+					return FPVector2.Zero;
+				}
+				return v.Point;
+			}
+			
 		}
 
-		private void DrawAimLine(Frame f, LineRenderer line, EntityRef entity, FPVector3 origin, FPVector3 direction)
+		private void DrawAimLine(Frame f, LineRenderer line, EntityRef entity, FPVector2 origin, FPVector2 direction)
 		{
-			var originUnity = origin.ToUnityVector3();
-			line.SetPosition(0, originUnity);
-			var hit = GetHit(f, entity, origin, direction);
-			var lineEnd = originUnity + direction.ToUnityVector3();
+			var originUnity = origin;
+			line.SetPosition(0, originUnity.ToUnityVector3());
 			
-			if (hit != Vector3.zero)
+			var hit = GetHitLinecast(f, entity, origin, direction);
+			var lineEnd = originUnity + direction;
+
+			if (hit != FPVector2.Zero)
 			{
 				lineEnd = hit;
 			}
-			
-;			line.SetPosition(1, lineEnd);
+;			line.SetPosition(1, lineEnd.ToUnityVector3());
 		}
 
-		private bool IsValidRaycastHit(Frame f, Hit3D* hit, EntityRef shooter)
+		private bool IsValidRaycastHit(Frame f, Hit* hit, EntityRef shooter)
 		{
-			return hit->Point != FPVector3.Zero && (hit->Entity.IsValid && hit->Entity != shooter || !hit->IsDynamic) && (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamSystem.HasSameTeam(f, shooter, hit->Entity));
+			return hit->Point != FPVector2.Zero && (hit->Entity.IsValid && hit->Entity != shooter || !hit->IsDynamic) && (!QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamSystem.HasSameTeam(f, shooter, hit->Entity));
 		}
 	}
 }

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformMode: 1
+  TransformMode: 0
   Transform2DVertical:
     IsEnabled: 0
     Height:
@@ -61,12 +61,12 @@ MonoBehaviour:
     SourceCollider: {fileID: 0}
     IsEnabled: 1
     Shape2D:
-      ShapeType: 4
+      ShapeType: 1
       PolygonCollider:
         Id:
           Value: 0
       CircleRadius:
-        RawValue: 0
+        RawValue: 157286
       EdgeExtent:
         RawValue: 0
       BoxExtents:
@@ -114,7 +114,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 18
+    Layer: 7
     CallbackFlags:
       Value: 1152
   PhysicsBody:
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517af571e6584ef484d5e9e641c705e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vfx: 36
+  _vfx: 11
 --- !u!114 &-8452382852626058855
 MonoBehaviour:
   m_ObjectHideFlags: 0

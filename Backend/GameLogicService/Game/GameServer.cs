@@ -71,22 +71,22 @@ namespace Backend.Game
 					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.CommandData}");
 				}
 
-				if (!requestData.TryGetValue(CommandFields.ServerConfigurationVersion, out var srvCmdVersionString) || !int.TryParse(srvCmdVersionString, out var clientRemoteConfigVersion))
+				var commandInstance = _cmdHandler.BuildCommandInstance(commandData, cmdType);
+				var isService = commandInstance.AccessLevel() == CommandAccessLevel.Service;
+				int clientRemoteConfigVersion = 0;
+				if (!isService && (!requestData.TryGetValue(CommandFields.ServerConfigurationVersion, out var srvCmdVersionString) || !int.TryParse(srvCmdVersionString, out clientRemoteConfigVersion)))
 				{
 					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.ServerConfigurationVersion}");
 				}
 
+				await _mutex.Lock(playerId);
 				var (currentPlayerState, serverConfig) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, clientRemoteConfigVersion);
-
-
-				if (serverConfig.GetConfigVersion() > clientRemoteConfigVersion) // Client is outdated
+				if (!isService && serverConfig.GetConfigVersion() > clientRemoteConfigVersion) // Client is outdated
 				{
 					throw new LogicException("Remote configs outdated", CommandErrorCodes.OUTDATED_SERVER_CONFIG);
 				}
 
 				_log.LogInformation($"{playerId} running {cmdType}");
-				await _mutex.Lock(playerId);
-				var commandInstance = _cmdHandler.BuildCommandInstance(commandData, cmdType);
 				ValidateCommand(currentPlayerState, commandInstance, requestData);
 
 				var newState = await RunCommands(playerId, new[] { commandInstance }, currentPlayerState, serverConfig);

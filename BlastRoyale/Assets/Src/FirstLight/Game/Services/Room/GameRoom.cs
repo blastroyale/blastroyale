@@ -130,7 +130,7 @@ namespace FirstLight.Game.Services.RoomService
 
 			var quitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoomAndBecomeInactive;
 
-			FLog.Verbose($"Starting simulation for {roomSize} players");
+			FLog.Info($"Starting simulation for {roomSize} players");
 
 			if (_room.IsOffline)
 			{

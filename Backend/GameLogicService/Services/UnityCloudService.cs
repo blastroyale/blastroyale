@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FirstLight.Server.SDK.Services;
+using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.AdminModels;
 
@@ -14,9 +15,11 @@ public class UnityCloudService
 {
 	public IBaseServiceConfiguration config;
 	public UnityAuthService unityAuthService;
+	private ILogger _logger;
 
-	public UnityCloudService(IBaseServiceConfiguration config, UnityAuthService unityAuthService)
+	public UnityCloudService(IBaseServiceConfiguration config, UnityAuthService unityAuthService, ILogger logger)
 	{
+		this._logger = logger;
 		this.config = config;
 		this.unityAuthService = unityAuthService;
 	}
@@ -50,12 +53,19 @@ public class UnityCloudService
 	{
 		var url = $"https://services.api.unity.com/cloud-save/v1/data/projects/{UnityAuthService.PROJECT_ID}/environments/{config.UnityCloudEnvironmentID}/custom/{key}/items";
 
-		await unityAuthService.GetServerAuthenticatedClient()
+		var res = await unityAuthService.GetServerAuthenticatedClient()
 			.PostAsJsonAsync(url, new
 			{
 				key = propertyName,
 				value = propertyValue,
 			});
+		if (res.StatusCode != HttpStatusCode.OK)
+		{
+			var body = await res.Content.ReadAsStringAsync();
+			throw new HttpRequestException(res.StatusCode + " " + body);
+		}
+
+		_logger.LogDebug("Setting " + key + " " + propertyName + "=" + propertyValue);
 	}
 
 	public async Task SyncName(string playfabId)
@@ -74,7 +84,12 @@ public class UnityCloudService
 				ShowDisplayName = true
 			}
 		});
-		if (playerName.Error != null) return;
+		if (playerName.Error != null)
+		{
+			_logger.LogError(playerName.Error.GenerateErrorReport());
+			return;
+		}
+
 		var name = playerName.Result.PlayerProfile.DisplayName;
 		var unityId = await unityAuthService.GetUnityId(playfabId);
 		await SetGameData("read-only-" + unityId, "player_name", name);

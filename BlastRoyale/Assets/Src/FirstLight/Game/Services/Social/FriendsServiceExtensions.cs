@@ -103,6 +103,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 				}
 
 				var playerId = foundPlayers.First().Id.Replace("read-only-", "");
+				FLog.Info("Found player id " + playerId);
 				await friendsService.AddFriendAsync(playerId).AsUniTask();
 				FLog.Info($"Friend request sent: {playerName}");
 

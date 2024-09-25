@@ -6,21 +6,20 @@ namespace Quantum.Systems.Bots
 	public static unsafe class BotLogger
 	{
 		[Conditional("BOT_DEBUG")]
-		public static void LogAction(ref BotCharacterSystem.BotCharacterFilter filter, string action)
+		public static void LogAction(Frame f, ref BotCharacterSystem.BotCharacterFilter filter, string action, TraceLevel lvl = TraceLevel.Info)
 		{
-			Log.Warn($"[{DateTime.Now.Ticks}] Bot " + filter.BotCharacter->BotNameIndex + " " + filter.Entity + " took decision " + action);
+			LogAction(f, filter.Entity, action, lvl);
 		}
-		
+
 		[Conditional("BOT_DEBUG")]
-		public static void LogAction(EntityRef entity, string action)
+		public static void LogAction(Frame f, EntityRef entity, string action, TraceLevel lvl = TraceLevel.Info)
 		{
-			Log.Warn($"[{DateTime.Now.Ticks}] Bot " + entity + " took decision " + action);
-		}
-		
-		[Conditional("BOT_DEBUG")]
-		public static void LogAction(in BotCharacter bot, string action)
-		{
-			Log.Warn($"[{DateTime.Now.Ticks}] Bot " + bot.BotNameIndex + " took decision " + action);
+			if (lvl == TraceLevel.Warning || lvl == TraceLevel.Error)
+			{
+				Log.Warn("BOTDEBUG: " + entity + " - " + action);
+			}
+
+			f.Events.BotDebugInfo(entity, action, (byte)lvl);
 		}
 	}
 }

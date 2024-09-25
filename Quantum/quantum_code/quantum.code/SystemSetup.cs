@@ -62,9 +62,6 @@ namespace Quantum
 				new DestructibleSystem(),
 				new TeamSystem(), // needs to be after bots
 
-				// Debugging
-				// new BotSDKDebuggerSystem(),
-
 				// Finalizer systems
 				new GameSystem(),
 				new EntityLateDestroyerSystem()

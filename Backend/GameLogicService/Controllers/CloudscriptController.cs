@@ -81,6 +81,17 @@ namespace ServerCommon.Cloudscript
 			return Task.FromResult<IActionResult>(BadRequest("invalid function argument"));
 		}
 
+		/// <summary>
+		/// Here for backwards compatibility
+		/// </summary>
+		[HttpPost]
+		[RequiresApiKey]
+		[Route("GetPlayerData")]
+		public async Task<IActionResult> GetPlayerDataRoute([FromBody] CloudscriptRequest<LogicRequest> request)
+		{
+			return await GetPlayerData(request);
+		}
+
 		public async Task<IActionResult> ConsumeValidatedPurchaseCommand([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			var itemId = request.FunctionArgument.Data["item_id"];

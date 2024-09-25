@@ -18,8 +18,14 @@ namespace Quantum.Systems.Bots
 											 ISignalOnPlayerRevived,
 											 ISignalOnPlayerKnockedOut,
 											 ISignalOnPlayerStartReviving,
-											 ISignalOnPlayerStopReviving
+											 ISignalOnPlayerStopReviving,
+											 ISignalPlayerDead
 	{
+#if BOT_DEBUG
+		public static readonly bool Debug = true;
+#else
+		public static readonly bool Debug = false;
+#endif
 		private static int DistributeProcessingFrames = 20;
 
 		private BotSetup _botSetup = new BotSetup();
@@ -37,8 +43,22 @@ namespace Quantum.Systems.Bots
 			public PlayerInventory* PlayerInventory;
 			public AlivePlayerCharacter* AlivePlayerCharacter;
 			public NavMeshPathfinder* NavMeshAgent;
-			public TopDownController* Controller;
 			public TeamMember* TeamMember;
+
+			public static BotCharacterFilter FromEntity(Frame f, EntityRef entity)
+			{
+				return new BotCharacterFilter
+				{
+					Entity = entity,
+					Transform = f.Unsafe.GetPointer<Transform2D>(entity),
+					BotCharacter = f.Unsafe.GetPointer<BotCharacter>(entity),
+					PlayerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(entity),
+					PlayerInventory = f.Unsafe.GetPointer<PlayerInventory>(entity),
+					AlivePlayerCharacter = f.Unsafe.GetPointer<AlivePlayerCharacter>(entity),
+					NavMeshAgent = f.Unsafe.GetPointer<NavMeshPathfinder>(entity),
+					TeamMember = f.Unsafe.GetPointer<TeamMember>(entity)
+				};
+			}
 		}
 
 		/// <inheritdoc />
@@ -133,12 +153,14 @@ namespace Quantum.Systems.Bots
 				filter.BotCharacter->IsMoveSpeedReseted = false;
 			}
 
-			bool isTakingCircleDamage = filter.AlivePlayerCharacter->TakingCircleDamage;
-			if (filter.BotCharacter->Target.IsValid && isTakingCircleDamage)
+			bool canFight = filter.BotCharacter->WillFightInZone || BotState.IsPositionSafe(botCtx, filter, filter.Transform->Position);
+			if (filter.BotCharacter->Target.IsValid && !canFight)
 			{
+				BotLogger.LogAction(f, filter.Entity, "stop fighthing taking damage from circle");
 				filter.ClearTarget(f);
+				filter.StopAiming(f);
 			}
-			else
+			else if (canFight)
 			{
 				// The bot will always try to keep aiming at his target
 				// but if his target gets out of range, the target will get cleared
@@ -154,7 +176,7 @@ namespace Quantum.Systems.Bots
 			// Bots look for others to shoot at not on every frame
 			// It only does that when it does not have a target as thats costly on CPU
 			// it can change targets if it gets damaged by another player closer to the bot
-			if (!filter.BotCharacter->Target.IsValid && f.Time > filter.BotCharacter->NextLookForTargetsToShootAtTime)
+			if (!filter.BotCharacter->Target.IsValid && f.Time > filter.BotCharacter->NextLookForTargetsToShootAtTime && canFight)
 			{
 				filter.FindEnemiesToShootAt(f);
 			}
@@ -173,7 +195,7 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
-			_battleRoyaleBot.Update(f, ref filter, isTakingCircleDamage, botCtx);
+			_battleRoyaleBot.Update(f, ref filter, botCtx);
 		}
 
 		public void OnRemoved(Frame f, EntityRef entity, BotCharacter* component)
@@ -185,21 +207,21 @@ namespace Quantum.Systems.Bots
 		public void OnNavMeshWaypointReached(Frame f, EntityRef entity, FPVector3 waypoint,
 											 Navigation.WaypointFlag waypointFlags, ref bool resetAgent)
 		{
-			BotLogger.LogAction(entity, $"Navmesh path ({waypointFlags.ToString()}) reached");
+			BotLogger.LogAction(f, entity, $"Navmesh path ({(waypointFlags.HasFlag(Navigation.WaypointFlag.Target) ? "target" : "")}) reached");
 
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
 
 			// Every waypoint, if its not going towards consumable, bot re-evaluates his life
-			if (bot->MoveTarget == entity || !bot->MoveTarget.IsValid || waypointFlags.HasFlag(Navigation.WaypointFlag.Target))
+			if (!bot->MoveTarget.IsValid || waypointFlags.HasFlag(Navigation.WaypointFlag.Target))
 			{
-				bot->ResetTargetWaypoint(f);
-				BotLogger.LogAction(entity, $"Resetting waypoints");
+				BotLogger.LogAction(f, entity, $"arrived reset target");
+				bot->ResetTargetWaypoint(entity, f);
 			}
 		}
 
 		public void OnNavMeshSearchFailed(Frame f, EntityRef entity, ref bool resetAgent)
 		{
-			BotLogger.LogAction(entity, "pathfinding failed");
+			BotLogger.LogAction(f, entity, "pathfinding failed", TraceLevel.Error);
 			if (f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot))
 			{
 				if (bot->MoveTarget != EntityRef.None && bot->MoveTarget != entity)
@@ -208,7 +230,8 @@ namespace Quantum.Systems.Bots
 					invalid.Add(bot->MoveTarget);
 				}
 
-				bot->ResetTargetWaypoint(f);
+				bot->ResetTargetWaypoint(entity, f);
+				bot->MovementType = BotMovementType.None;
 			}
 		}
 
@@ -225,12 +248,12 @@ namespace Quantum.Systems.Bots
 
 			// When bot has only melee and got attacked, something caused the bot sometime to freeze in place
 			// So Nik put an easy solution here - don't react on damage if bot has only melee
-			if (f.Unsafe.GetPointer<PlayerCharacter>(entity)->HasMeleeWeapon(f, entity))
+			if (PlayerCharacter.HasMeleeWeapon(f, entity))
 			{
+				BotLogger.LogAction(f, entity, "got hit and ignored because don't have gun");
 				return;
 			}
 
-			BotLogger.LogAction(entity, $"Bot took damage from {attacker}");
 			if (bot->IsStaticMovement()) return;
 			if (attacker == bot->Target) return;
 			if (!f.Unsafe.TryGetPointer<Transform2D>(attacker, out var attackerLocation)) return;
@@ -241,9 +264,8 @@ namespace Quantum.Systems.Bots
 			if (!bot->Target.IsValid)
 			{
 				if (bot->TryUseSpecials(f.Unsafe.GetPointer<PlayerInventory>(entity), entity, f)) return;
-				var botMaxRange = bot->GetMaxWeaponRange(entity, f.Unsafe.GetPointer<PlayerCharacter>(entity), f);
+				var botMaxRange = bot->GetMaxWeaponRange(entity, f);
 
-				BotLogger.LogAction(entity, $"Going to kick {attacker} ass for shooting me from distance");
 
 				// If enemy is not further than twice my range ill go for him
 				botMaxRange *= botMaxRange;
@@ -256,17 +278,16 @@ namespace Quantum.Systems.Bots
 				{
 					bot->SetAttackTarget(entity, f, attacker);
 					bot->SetSearchForEnemyDelay(f);
-					bot->SetNextDecisionDelay(f, FP._3);
-					BotLogger.LogAction(entity, "Fighting back");
+					bot->SetNextDecisionDelay(entity, f, FP._3);
+					BotLogger.LogAction(f, entity, "fighting back");
 				}
 				else
 				{
-					bot->SetHasWaypoint(entity, f);
+					bot->SetNextDecisionDelay(entity, f, FP._3);
 					bot->MoveTarget = attacker;
-					bot->SetNextDecisionDelay(f, FP._3);
 					bot->NextLookForTargetsToShootAtTime = f.Time;
-					BotMovement.MoveToLocation(f, entity, attackerLocation->Position);
-					BotLogger.LogAction(entity, $"Attacker too distant, coming closer");
+					BotMovement.MoveToLocation(f, entity, attackerLocation->Position, BotMovementType.Combat);
+					BotLogger.LogAction(f, entity, $"getting closer to shooter");
 				}
 			}
 			else // bot already has a valid target
@@ -283,8 +304,8 @@ namespace Quantum.Systems.Bots
 					distanceToAttacker <
 					FPVector2.DistanceSquared(botLocation->Position, targetLocation->Position))
 				{
-					BotLogger.LogAction(entity, "Changing attacker to nearby attacker");
-					bot->SetNextDecisionDelay(f, FP._3);
+					BotLogger.LogAction(f, entity, "swapping bot target to attacker");
+					bot->SetNextDecisionDelay(entity, f, FP._3);
 					bot->SetSearchForEnemyDelay(f);
 					bot->SetAttackTarget(entity, f, attacker);
 				}
@@ -299,8 +320,9 @@ namespace Quantum.Systems.Bots
 			}
 
 			bot->IsMoveSpeedReseted = true;
-			bot->SetNextDecisionDelay(f, 0);
+			bot->SetNextDecisionDelay(entity, f, 0);
 
+			BotLogger.LogAction(f, entity, "revived force rethink");
 			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bb))
 			{
 				bb->Set(f, Constants.IS_KNOCKED_OUT, false);
@@ -319,14 +341,10 @@ namespace Quantum.Systems.Bots
 			_battleRoyaleBot.CheckOnTeammates(f, f.Unsafe.GetPointer<Transform2D>(knockedOutEntity), f.Unsafe.GetPointer<TeamMember>(knockedOutEntity), bot, true);
 			// Stop bot path because it will change it speed and behaviour
 			BotShooting.StopAiming(f, bot, knockedOutEntity);
-			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(knockedOutEntity, out var navMeshAgent))
-			{
-				navMeshAgent->Stop(f, knockedOutEntity, true);
-				bot->ResetTargetWaypoint(f);
-				bot->Target = EntityRef.None;
-			}
+			BotLogger.LogAction(f, knockedOutEntity, "stop movement knocked out");
+			bot->StopMovement(f, knockedOutEntity);
 
-			bot->SetNextDecisionDelay(f, 0);
+			bot->SetNextDecisionDelay(knockedOutEntity, f, 0);
 
 			if (f.Unsafe.TryGetPointer<AIBlackboardComponent>(knockedOutEntity, out var bb))
 			{
@@ -353,13 +371,14 @@ namespace Quantum.Systems.Bots
 				{
 					if (!ReviveSystem.IsKnockedOut(f, teamMemberEntity))
 					{
+						BotLogger.LogAction(f, knockedOutEntity, "teammate got down, force thinking ");
 						teamMateBot->NextDecisionTime = f.Time;
-						teamMateBot->ResetTargetWaypoint(f);
-						f.Unsafe.GetPointer<NavMeshPathfinder>(teamMemberEntity)->Stop(f, teamMemberEntity);
+						teamMateBot->StopMovement(f, teamMemberEntity);
 					}
 					else
 					{
 						// Force looking for a teammate that is not down
+						BotLogger.LogAction(f, knockedOutEntity, "teammate is down, he may not help me");
 						_battleRoyaleBot.CheckOnTeammates(f,
 							f.Unsafe.GetPointer<Transform2D>(teamMemberEntity),
 							f.Unsafe.GetPointer<TeamMember>(teamMemberEntity),
@@ -372,17 +391,35 @@ namespace Quantum.Systems.Bots
 		public void OnPlayerStartReviving(Frame f, EntityRef entity)
 		{
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
-			bot->NextDecisionTime = f.Time;
-			bot->ResetTargetWaypoint(f);
-			f.Unsafe.GetPointer<NavMeshPathfinder>(entity)->Stop(f, entity);
+			BotLogger.LogAction(f, entity, "force rethink start reviving");
+			bot->StopMovement(f, entity);
 		}
 
 		public void OnPlayerStopReviving(Frame f, EntityRef Entity)
 		{
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(Entity, out var bot)) return;
-			bot->NextDecisionTime = f.Time;
-			bot->ResetTargetWaypoint(f);
-			f.Unsafe.GetPointer<NavMeshPathfinder>(Entity)->Stop(f, Entity);
+			BotLogger.LogAction(f, Entity, "force rethink stop reviving");
+			bot->StopMovement(f, Entity);
+		}
+
+		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
+		{
+			var shouldUseSmart = f.ComponentCount<BotCharacter>() < 15;
+			if (!shouldUseSmart)
+			{
+				return;
+			}
+
+			var config = f.DynamicAssetDB.FindAsset<NavMeshAgentConfig>(BotSetup.FasterIntervalBotConfig);
+			foreach (var (entity, component) in f.Unsafe.GetComponentBlockIterator<NavMeshPathfinder>())
+			{
+				if (component->ConfigId == config.Guid)
+				{
+					continue;
+				}
+
+				component->SetConfig(f, entity, config);
+			}
 		}
 	}
 }

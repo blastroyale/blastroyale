@@ -88,14 +88,14 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 3932
       PowerToDamageRatio:
-        RawValue: 3342
+        RawValue: 2032
       AttackHitSpeed:
         RawValue: 2293760
-      MinAttackAngle: 15
+      MinAttackAngle: 20
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 622592
+        RawValue: 589824
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
@@ -308,7 +308,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 15073
       PowerToDamageRatio:
-        RawValue: 5308
+        RawValue: 4653
       AttackHitSpeed:
         RawValue: 1966080
       MinAttackAngle: 6
@@ -352,7 +352,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 72090
       PowerToDamageRatio:
-        RawValue: 9896
+        RawValue: 15139
       AttackHitSpeed:
         RawValue: 2621440
       MinAttackAngle: 0

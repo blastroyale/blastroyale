@@ -142,7 +142,7 @@ namespace Quantum.Systems
 
 			// Try to drop player weapon
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly &&
-				!playerDead->HasMeleeWeapon(f, entity))
+				!PlayerCharacter.HasMeleeWeapon(f, entity))
 			{
 				equipmentToDrop.Add(playerDead->CurrentWeapon);
 			}

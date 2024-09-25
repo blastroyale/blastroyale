@@ -36,7 +36,7 @@ namespace Quantum
 		internal void Init(Frame f, PlayerCharacterSetup setup)
 		{
 			var blackboard = new AIBlackboardComponent();
-		
+
 			var transform = f.Unsafe.GetPointer<Transform2D>(setup.e);
 
 			Player = setup.playerRef;
@@ -194,6 +194,7 @@ namespace Quantum
 				f.ServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
+		
 
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots
@@ -261,7 +262,7 @@ namespace Quantum
 			{
 				return;
 			}
-			
+
 			var slot = SelectedWeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 
@@ -276,8 +277,8 @@ namespace Quantum
 			{
 				stats->ReduceAmmo(f, e, 1);
 			}
-			
-			if ( stats->GetCurrentAmmo() <= 0 && slot->MagazineShotCount <= 0)
+
+			if (stats->GetCurrentAmmo() <= 0 && slot->MagazineShotCount <= 0)
 			{
 				f.Unsafe.GetPointer<PlayerCharacter>(e)->EquipSlotWeapon(f, e, 0);
 			}
@@ -294,11 +295,22 @@ namespace Quantum
 		/// <summary>
 		/// Requests if the current weapon equipped by the player is a melee weapon or not
 		/// </summary>
-		public bool HasMeleeWeapon(Frame f, EntityRef e)
+		public static bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
 			return f.Unsafe.GetPointer<AIBlackboardComponent>(e)->GetBoolean(f, Constants.HAS_MELEE_WEAPON_KEY);
 		}
-		
+
+		public bool HasGoldenWeapon()
+		{
+			var slot = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY];
+			if (slot.Weapon.IsValid())
+			{
+				return slot.Weapon.Material == EquipmentMaterial.Golden;
+			}
+
+			return false;
+		}
+
 		private int GetWeaponEquipSlot(Frame f, in Equipment weapon, bool primary)
 		{
 			if (f.Context.GameModeConfig.SingleSlotMode)

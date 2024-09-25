@@ -14,10 +14,10 @@ namespace FirstLight.Game.Services.RoomService
 		public QuantumProperty<string> Commit;
 
 		// A list of mutators used in this room
-		public QuantumProperty<SimulationMatchConfig> SimulationMatchConfig;
-		public QuantumProperty<bool> GameStarted;
-		public QuantumProperty<int> LoadingStartServerTime;
-		public QuantumProperty<int> SecondsToStart;
+		public QuantumProperty<SimulationMatchConfig> SimulationMatchConfig { get; private set; }
+		public QuantumProperty<bool> GameStarted{ get; private set; }
+		public QuantumProperty<int> LoadingStartServerTime { get; private set; }
+		public QuantumProperty<int> SecondsToStart { get; private set; }
 
 		// For matchmaking, rooms are segregated by casual/ranked.
 

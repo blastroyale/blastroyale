@@ -6,6 +6,15 @@ enum BotBehaviourType
     StaticShooting,
 }
 
+enum BotMovementType {
+    None,
+    GoToCollectable,
+    GoToSafeArea,
+    Combat,
+    GoCloserToTeamMate,
+    Wander
+}
+
 component BotLoadout {
     Equipment Weapon;
 }
@@ -66,8 +75,10 @@ component BotCharacter
     FP TimeStartRunningFromCircle;
     
     Int32 TeamSize;
-
-    	
+    
+    GameId FavoriteWeapon;	
+    
+    bool WillFightInZone;
     /*
     ===============================================================
      __   __  ___     __              ___     __  ___      ___  ___ 
@@ -94,9 +105,15 @@ component BotCharacter
 	
 	// Flag used to reset bots movement speed after revive
 	bool IsMoveSpeedReseted;
+	
+	BotMovementType MovementType;
 }
 
-
+synced event BotDebugInfo {
+    entity_ref Bot;
+    QString<1024> Action; 
+    byte TraceLevel;
+}
 
 synced event OnDummyCharacterKilled
 {

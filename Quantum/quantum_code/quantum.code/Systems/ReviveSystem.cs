@@ -6,15 +6,15 @@ namespace Quantum.Systems
 	/// <summary>
 	/// System handling knockout logic, this contains knocking out the player when he dies, knockout collider, and reviving the player.
 	/// </summary>
-	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnTriggerEnter3D,
-									   ISignalOnTriggerExit3D, ISignalOnComponentRemoved<KnockedOut>, ISignalPlayerDead,
-									   ISignalGameEnded
+	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnComponentRemoved<KnockedOut>,
+									   ISignalPlayerDead, ISignalGameEnded,
+									   ISignalOnFeetCollisionEnter, ISignalOnFeetCollisionLeft
 	{
 		public struct KnockedOutFilter
 		{
 			public EntityRef Entity;
 			public KnockedOut* KnockedOut;
-			public Transform3D* Transform;
+			public Transform2D* Transform;
 			public Stats* Stats;
 		}
 
@@ -45,8 +45,8 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref KnockedOutFilter filter)
 		{
 			// Move revive collider with player
-			var colliderTransform3D = f.Unsafe.GetPointer<Transform3D>(filter.KnockedOut->ColliderEntity);
-			colliderTransform3D->Position = filter.Transform->Position;
+			var colliderTransform2D = f.Unsafe.GetPointer<Transform2D>(filter.KnockedOut->ColliderEntity);
+			colliderTransform2D->Position = filter.Transform->Position;
 
 			if (f.ResolveHashSet(filter.KnockedOut->PlayersReviving).Count > 0)
 			{
@@ -56,7 +56,6 @@ namespace Quantum.Systems
 					RevivePlayer(f, filter.Entity, filter.Stats, reviveHealthPercentage);
 				}
 
-				// Someone is reviving him so no damage
 				return;
 			}
 
@@ -76,7 +75,7 @@ namespace Quantum.Systems
 					EndTime = FP._0,
 					NextHitTime = FP._0,
 					OriginalHitPosition = filter.Transform->Position,
-					PowerAmount = (uint) FPMath.RoundToInt((FP) filter.Stats->MaxHealth * config.DamagePerTick),
+					PowerAmount = (uint)FPMath.RoundToInt((FP)filter.Stats->MaxHealth * config.DamagePerTick),
 					KnockbackAmount = 0,
 					TeamSource = 0
 				};
@@ -85,22 +84,22 @@ namespace Quantum.Systems
 		}
 
 
-		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+		public void OnFeetCollisionEnter(Frame f, EntityRef entity, EntityRef collidedWith, FPVector2 point)
 		{
-			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(info.Entity, out var knockedOutCollider))
+			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(collidedWith, out var knockedOutCollider))
 			{
 				return;
 			}
 
 			// It needs to be a player to revivew
 			// Knocked out players cant revive other players
-			if (!f.Has<PlayerCharacter>(info.Other) || f.Has<KnockedOut>(info.Other))
+			if (!f.Has<PlayerCharacter>(entity) || f.Has<KnockedOut>(entity))
 			{
 				return;
 			}
 
 			// needs to be in the same team
-			if (!TeamSystem.HasSameTeam(f, info.Other, knockedOutCollider->KnockedOutEntity))
+			if (!TeamSystem.HasSameTeam(f, entity, knockedOutCollider->KnockedOutEntity))
 			{
 				return;
 			}
@@ -119,25 +118,24 @@ namespace Quantum.Systems
 					knockedOut->EndRevivingAt -= knockedOut->BackAtZero - f.Time;
 				}
 
+				f.Signals.OnPlayerStartReviving(knockedOutCollider->KnockedOutEntity);
 				f.Events.OnPlayerStartReviving(knockedOutCollider->KnockedOutEntity);
 			}
 
-			reviving.Add(info.Other);
+			reviving.Add(entity);
 		}
 
-
-		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
+		public void OnFeetCollisionLeft(Frame f, EntityRef entity, EntityRef collidedWith)
 		{
-			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(info.Entity, out var knockedOutCollider)
+			if (!f.Unsafe.TryGetPointer<KnockedOutCollider>(collidedWith, out var knockedOutCollider)
 				|| !f.Unsafe.TryGetPointer<KnockedOut>(knockedOutCollider->KnockedOutEntity, out var knockedOut)
 			   )
 			{
 				return;
 			}
 
-			StopRevivingPlayer(f, knockedOut, knockedOutCollider->KnockedOutEntity, info.Other);
+			StopRevivingPlayer(f, knockedOut, knockedOutCollider->KnockedOutEntity, entity);
 		}
-
 
 		public void OnRemoved(Frame f, EntityRef entity, KnockedOut* component)
 		{
@@ -207,6 +205,16 @@ namespace Quantum.Systems
 			return f.Has<KnockedOut>(player);
 		}
 
+		public static bool IsBeingRevived(Frame f, EntityRef player)
+		{
+			if (f.Unsafe.TryGetPointer<KnockedOut>(player, out var knockedOut))
+			{
+				return f.ResolveHashSet(knockedOut->PlayersReviving).Count > 0;
+			}
+
+			return false;
+		}
+
 		// ReSharper disable once UnusedMember.Global
 		public static FP CalculateRevivePercentage(Frame f, KnockedOut* knockedOut)
 		{
@@ -248,7 +256,7 @@ namespace Quantum.Systems
 
 			if (spell->Id != Spell.KnockedOut)
 			{
-				damage = FPMath.CeilToInt((FP) damage * GetConfigForKnockedOut(f, knockedout).DamagePerShot);
+				damage = FPMath.CeilToInt((FP)damage * GetConfigForKnockedOut(f, knockedout).DamagePerShot);
 				return true;
 			}
 
@@ -275,23 +283,23 @@ namespace Quantum.Systems
 			knockedOutComponent->ConfigIndex = revivable->TimesKnockedOut;
 			var config = GetConfigForKnockedOut(f, knockedOutComponent);
 			var stats = f.Unsafe.GetPointer<Stats>(playerEntityRef);
-			var transform = f.Unsafe.GetPointer<Transform3D>(playerEntityRef);
+			var transform = f.Unsafe.GetPointer<Transform2D>(playerEntityRef);
 			stats->SetCurrentHealthPercentage(f, playerEntityRef, config.LifePercentageOnKnockedOut);
 			knockedOutComponent->NextDamageAt = f.Time + config.DamageTickInterval;
 			// Create collider to detect revive
 			knockedOutComponent->ColliderEntity = f.Create();
 			knockedOutComponent->KnockedOutBy = spell->Attacker;
 
-			var shape3D = Shape3D.CreateSphere(config.ReviveColliderRange);
+			var shape2d = Shape2D.CreateCircle(config.ReviveColliderRange);
 			var colliderEntity = knockedOutComponent->ColliderEntity;
-			f.Add(colliderEntity, Transform3D.Create(transform->Position));
+			f.Add(colliderEntity, Transform2D.Create(transform->Position));
 			f.Add(colliderEntity,
-				PhysicsCollider3D.Create(f, shape3D, null, true, f.Context.TargetPlayerTriggersLayerIndex));
+				PhysicsCollider2D.Create(f, shape2d, null, true, f.Context.TargetPlayerTriggersLayerIndex));
 			f.Add(colliderEntity, new KnockedOutCollider()
 			{
 				KnockedOutEntity = playerEntityRef
 			});
-			f.Physics3D.SetCallbacks(colliderEntity,
+			f.Physics2D.SetCallbacks(colliderEntity,
 				CallbackFlags.OnDynamicTriggerEnter | CallbackFlags.OnDynamicTriggerExit);
 			f.Events.OnPlayerKnockedOut(spell->Attacker, playerEntityRef);
 			f.Signals.OnPlayerKnockedOut(playerEntityRef);
@@ -315,6 +323,7 @@ namespace Quantum.Systems
 				// Reset damage timer 
 				knockedOut->NextDamageAt = f.Time + config.DamageTickInterval;
 
+				f.Signals.OnPlayerStopReviving(knockedOutEntity);
 				f.Events.OnPlayerStopReviving(knockedOutEntity);
 			}
 		}
@@ -404,7 +413,7 @@ namespace Quantum.Systems
 			if (f.Unsafe.TryGetPointer<Revivable>(player, out var revivable) &&
 				revivable->RecoverMoveSpeedAfter > f.Time)
 			{
-				configIndex = (byte) (revivable->TimesKnockedOut - 1);
+				configIndex = (byte)(revivable->TimesKnockedOut - 1);
 			}
 
 			if (configIndex != 255)

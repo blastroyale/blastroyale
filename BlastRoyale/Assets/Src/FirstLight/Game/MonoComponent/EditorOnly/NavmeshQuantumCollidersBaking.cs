@@ -25,6 +25,8 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 		[SerializeField, FoldoutGroup("Config", expanded: false)]
 		private NavMeshCleaner _cleaner;
 
+		[SerializeField, HideInInspector] private Transform _floorObj;
+
 		public void Validate(SelfValidationResult result)
 		{
 #if UNITY_EDITOR
@@ -54,6 +56,7 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 		[Button(ButtonSizes.Small, Name = "Create Colliders", Icon = SdfIconType.PlusCircle)]
 		public void CreateColliders()
 		{
+			CreateFloor();
 			foreach (var groupConfig in _groups)
 			{
 				// Already created
@@ -75,6 +78,11 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 		[Button(ButtonSizes.Small, Name = "Delete Colliders", Icon = SdfIconType.DashCircle)]
 		public void DeleteColliders()
 		{
+			if (_floorObj != null)
+			{
+				DestroyImmediate(_floorObj.gameObject);
+			}
+
 			var children = new List<GameObject>();
 			foreach (var groupConfig in _groups)
 			{
@@ -111,22 +119,42 @@ namespace FirstLight.Game.MonoComponent.EditorOnly
 
 		private void CreateCollidersBasedOn(Transform parentSource, Transform parentDestination, bool walkable)
 		{
-			var colliders = parentSource.GetComponentsInChildren<QuantumStaticBoxCollider3D>();
-			foreach (var q3d in colliders)
+			var colliders = parentSource.GetComponentsInChildren<QuantumStaticBoxCollider2D>();
+			foreach (var boxCollider2D in colliders)
 			{
-				var go = new GameObject("TempCollider " + q3d.gameObject.name, typeof(BoxCollider), typeof(NavMeshModifierVolume));
-				go.transform.position = q3d.transform.position;
-				go.transform.rotation = Quaternion.Euler(q3d.transform.rotation.eulerAngles + q3d.RotationOffset.ToUnityVector3());
-				go.transform.localScale = q3d.transform.localScale;
+				var go = new GameObject("TempCollider " + boxCollider2D.gameObject.name, typeof(BoxCollider), typeof(NavMeshModifierVolume));
+				var goPosition = boxCollider2D.transform.position;
+				goPosition.y = 0;
+				var goScale = boxCollider2D.transform.localScale;
+				goScale.y = 5;
+				go.transform.position = goPosition;
+				go.transform.rotation = Quaternion.Euler(boxCollider2D.transform.rotation.eulerAngles);
+				go.transform.localScale = goScale;
 				var bx = go.GetComponent<BoxCollider>();
-				bx.center = q3d.PositionOffset.ToUnityVector3();
-				bx.size = q3d.Size.ToUnityVector3();
+				var colliderSize = boxCollider2D.Size.ToUnityVector3();
+				colliderSize.y = 5;
+				bx.center = boxCollider2D.PositionOffset.ToUnityVector3();
+				bx.size = colliderSize;
 				var modifierVolume = go.GetComponent<NavMeshModifierVolume>();
 				modifierVolume.center = bx.center;
 				modifierVolume.size = bx.size;
 				modifierVolume.area = walkable ? 0 : 1;
 				go.transform.SetParent(parentDestination);
 			}
+		}
+
+		private void CreateFloor()
+		{
+			if (_floorObj != null)
+			{
+				DestroyImmediate(_floorObj.gameObject);
+			}
+
+			var mapSize = GetComponentInParent<MapData>().Asset.Settings.WorldSize;
+			_floorObj = new GameObject("TempColliderFloor", typeof(BoxCollider),typeof(NavMeshModifier)).transform;
+			_floorObj.parent = this.transform;
+			_floorObj.transform.position = Vector3.zero;
+			_floorObj.transform.localScale = new Vector3(mapSize, 0.01f, mapSize);
 		}
 
 		private async UniTaskVoid Bake(bool applyCleaner)

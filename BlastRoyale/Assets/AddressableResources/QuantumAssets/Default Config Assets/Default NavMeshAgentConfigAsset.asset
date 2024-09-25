@@ -36,7 +36,7 @@ MonoBehaviour:
       RawValue: 0
     DefaultWaypointDetectionDistance:
       RawValue: 655
-    MovementType: 1
+    MovementType: 4
     VerticalPositioning: 1
     Speed:
       RawValue: 229376
@@ -52,8 +52,8 @@ MonoBehaviour:
     ClampAgentToNavmesh: 0
     ClampAgentToNavmeshCorrection:
       RawValue: 16384
-    AvoidanceType: 2
-    AvoidanceQuality: 3
+    AvoidanceType: 0
+    AvoidanceQuality: 1
     Priority: 50
     AvoidanceRadius:
       RawValue: 32768

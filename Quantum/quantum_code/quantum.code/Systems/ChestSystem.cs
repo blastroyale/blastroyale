@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
@@ -13,24 +12,22 @@ namespace Quantum.Systems
 
 	public unsafe class ChestSystem : SystemSignalsOnly, ISignalOnComponentAdded<Chest>
 	{
-		public static EntityRef SpawnChest(Frame f, GameId chestId, FPVector3 position)
+		public static EntityRef SpawnChest(Frame f, GameId chestId, FPVector2 position)
 		{
 			var config = f.ChestConfigs.GetConfig(chestId);
 			var e = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));
 			var chest = f.Unsafe.GetPointer<Chest>(e);
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			var transform = f.Unsafe.GetPointer<Transform2D>(e);
 			chest->Id = config.Id;
 			chest->ChestType = config.ChestType;
 			chest->CollectTime = config.CollectTime;
 			transform->Position = position;
-			transform->Rotation = FPQuaternion.Identity;
-			f.Add(e,
-				new Collectable
-				{
-					GameId = chestId
-				});
-			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
-			collider->Shape.Sphere.Radius = config.CollectableChestPickupRadius;
+			f.Add(e, new Collectable
+			{
+				GameId = chestId,
+			});
+			var collider = f.Unsafe.GetPointer<PhysicsCollider2D>(e);
+			collider->Shape.Circle.Radius = config.CollectableChestPickupRadius;
 			return e;
 		}
 
@@ -90,11 +87,11 @@ namespace Quantum.Systems
 				if (droptable.Amount == 0) continue;
 				if (f.RNG->Next() > droptable.Chance) continue;
 				var count = droptable.Amount;
-				var list = new WeightedList<SimulationItemConfig>(f);
+				var list = new WeightedList<SimulationItemConfig>();
 				list.Add(droptable.Pool.Select(s => new WeightItem<SimulationItemConfig>(s.ItemConfig, s.Weight)).ToList());
 				while (list.Count > 0 && count > 0)
 				{
-					var drop = list.Next();
+					var drop = list.Next(f);
 					var item = SimulationItem.FromConfig(drop);
 
 					if (item.ItemType == ItemType.Simple

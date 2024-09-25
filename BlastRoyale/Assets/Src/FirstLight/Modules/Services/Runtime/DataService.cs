@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Server.SDK.Models;
-using FirstLightServerSDK.Modules.RemoteCollection;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -89,11 +88,6 @@ namespace FirstLight.Services
 		public IEnumerable<Type> GetKeys()
 		{
 			return _data.Keys;
-		}
-
-		public ICollectionEnrichmentService GetEnrichmentService()
-		{
-			throw new NotImplementedException();
 		}
 
 		/// Obtains the client data stored in memory.

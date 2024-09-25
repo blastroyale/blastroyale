@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using FirstLight.Game.Data;
+using FirstLight.Server.SDK.Modules;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,7 +17,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Last seen gamemode event of a player
 		/// </summary>
-		public ObservableField<string> LastSeenEvent { get; } = CreateStringSetting(nameof(LastSeenEvent), string.Empty);
+		public ObservableField<HashSet<string>> SeenEvents { get; } = CreateObjectSetting(nameof(SeenEvents), new HashSet<string>());
 
 		/// <summary>
 		/// Stores the last selected map on gamemode selection screen
@@ -85,7 +88,7 @@ namespace FirstLight.Game.Services
 		/// Number of games played 
 		/// </summary>
 		public ObservableField<int> GamesPlayed { get; } = CreateIntSetting(nameof(GamesPlayed), 0);
-		
+
 		/// <summary>
 		/// The last CustomMatchSettings that were set up when creating a custom game.
 		/// </summary>
@@ -138,7 +141,7 @@ namespace FirstLight.Game.Services
 				PlayerPrefs.Save();
 			}
 		}
-		
+
 		private static ObservableField<T> CreateObjectSetting<T>(string key, T defaultValue)
 		{
 			return new ObservableResolverField<T>(() => GetStruct(key, defaultValue), val => SetStruct(key, val));
@@ -146,12 +149,12 @@ namespace FirstLight.Game.Services
 			static T GetStruct(string key, T defaultValue)
 			{
 				var json = PlayerPrefs.GetString(ConstructKey(key), null);
-				return  string.IsNullOrEmpty(json) ? defaultValue : JsonUtility.FromJson<T>(json);
+				return string.IsNullOrEmpty(json) ? defaultValue : ModelSerializer.Deserialize<T>(json);
 			}
 
 			static void SetStruct(string key, T value)
 			{
-				var json = JsonUtility.ToJson(value);
+				var json = ModelSerializer.Serialize(value).Value;
 				PlayerPrefs.SetString(ConstructKey(key), json);
 				PlayerPrefs.Save();
 			}

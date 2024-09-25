@@ -234,7 +234,7 @@ namespace FirstLight.Game.Presenters
 			
 			UpdatePlayButton();
 
-			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
+			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
 
 			return base.OnScreenOpen(reload);
 		}
@@ -281,7 +281,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
 		{
-			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerName();
+			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)

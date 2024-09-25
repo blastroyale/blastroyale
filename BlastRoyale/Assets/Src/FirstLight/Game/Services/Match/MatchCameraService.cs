@@ -24,6 +24,11 @@ namespace FirstLight.Game.Services
 
 
 		void SetCameras(CinemachineVirtualCamera adventureCamera);
+
+		/// <summary>
+		/// Gets the current camera running
+		/// </summary>
+		CinemachineVirtualCamera GetCamera();
 	}
 
 	/// <inheritdoc />
@@ -128,6 +133,11 @@ namespace FirstLight.Game.Services
 		public void SetCameras(CinemachineVirtualCamera adventureCamera)
 		{
 			_adventureCamera = adventureCamera;
+		}
+
+		public CinemachineVirtualCamera GetCamera()
+		{
+			return _adventureCamera;
 		}
 
 		public void Dispose()

@@ -43,15 +43,14 @@ namespace Quantum.Commands
 			FP offset = FP._1;
 			foreach (var entityRef in spared)
 			{
-				
-				var playerTransform = f.Unsafe.GetPointer<Transform3D>(playerEntity);
-				var botTransform = f.Unsafe.GetPointer<Transform3D>(entityRef);
+				var playerTransform = f.Unsafe.GetPointer<Transform2D>(playerEntity);
+				var botTransform = f.Unsafe.GetPointer<Transform2D>(entityRef);
 				var bot = f.Unsafe.GetPointer<BotCharacter>(entityRef);
-				botTransform->Position = playerTransform->Position + FPVector3.Forward * offset;
+				botTransform->Position = playerTransform->Position * offset;
 				offset += FP._1;
 				// Reset the current action so it does't goes running
 				bot->NextDecisionTime = f.Time;
-				bot->ResetTargetWaypoint(f);
+				bot->ResetTargetWaypoint(entityRef, f);
 				f.Unsafe.GetPointer<NavMeshPathfinder>(entityRef)->Stop(f, entityRef);
 			}
 #else

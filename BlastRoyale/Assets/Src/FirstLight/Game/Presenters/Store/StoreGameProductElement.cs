@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters.Store
 		private const string USS_GRADIENT_SMALL = "product-image-gradient-small";
 		private const string USS_WIDGET_EFFECTS = "widget-effect";
 		private const string USS_OWNED_STAMP = "owned-stamp";
-		private const string USS_OWNED_STAMP_TEXT = "owned-stamp-text";
+		private const string USS_OWNED_STAMP_TEXT = "owned-stamp__text";
 		private const string USS_OWNED_MODIFIER = "--owned";
 		private const string USS_SPRITE_CURRENCIES_BLASTBUCK = "sprite-currencies__blastbuck-1";
 
@@ -77,7 +77,7 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			var treeAsset = Resources.Load<VisualTreeAsset>("StoreGameProductElement");
 			treeAsset.CloneTree(this);
-			_background = this.Q<ImageButton>("ProductBackgroundImage").Required();
+			_background = this.Q<ImageButton>("ProductWidgetWrapper").Required();
 			_background.clicked += () => OnClicked?.Invoke(_product);
 			_name = this.Q<Label>("ProductName").Required();
 			_icon = this.Q("ProductImage").Required();
@@ -89,6 +89,9 @@ namespace FirstLight.Game.Presenters.Store
 			_infoIcon = this.Q("InformationIcon").Required();
 			_ownedOverlay = this.Q("OwnedOverlay").Required();
 			_infoButton.clicked += OnClickInfo;
+
+			// Apply the pop-up effect to the product widget
+			new PopUpEffectAnimation(_background);
 		}
 
 		private void OnClickInfo()
@@ -164,7 +167,7 @@ namespace FirstLight.Game.Presenters.Store
 				foreach (var sizeable in _sizeable)
 				{
 					var element = this.Q(ClassNameToElementName(sizeable));
-					element.AddToClassList($"{sizeable}--small");
+					element?.AddToClassList($"{sizeable}--small");
 				}
 			}
 
@@ -174,7 +177,7 @@ namespace FirstLight.Game.Presenters.Store
 				foreach (var modifiable in _modifiable)
 				{
 					var element = this.Q(ClassNameToElementName(modifiable));
-					element.AddToClassList($"{modifiable}--{customModifier}");
+					element?.AddToClassList($"{modifiable}--{customModifier}");
 				}
 			}
 

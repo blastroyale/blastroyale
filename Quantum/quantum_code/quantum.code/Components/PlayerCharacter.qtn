@@ -38,8 +38,7 @@ component PlayerCharacter
 {
 	AssetRefHFSMRoot HfsmRootRef;
 	AssetRefAIBlackboard BlackboardRef;
-	AssetRefCharacterController3DConfig KccConfigRef;
-	FPVector3 ProjectileSpawnOffset;
+	FPVector2 ProjectileSpawnOffset;
 	[HideInInspector] player_ref Player;
 	[HideInInspector] Int32 TeamId;
 	[HideInInspector] Int32 CurrentWeaponSlot;
@@ -55,8 +54,8 @@ component PlayerInventory {
 
 component PlayerCharging
 {
-	FPVector3 ChargeStartPos;
-	FPVector3 ChargeEndPos;
+	FPVector2 ChargeStartPos;
+	FPVector2 ChargeEndPos;
 	FP ChargeDuration;
 	FP ChargeStartTime;
 	FP PowerAmount;

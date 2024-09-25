@@ -116,7 +116,7 @@ namespace FirstLight.Game.Utils
 			var anim = element.experimental.animation.Start(from, to, duration).OnCompleted(() =>
 			{
 				if (!rewind) return;
-				
+
 				element.experimental.animation.Start(to, from, duration).OnCompleted(() =>
 				{
 					if (repeat)
@@ -153,7 +153,7 @@ namespace FirstLight.Game.Utils
 					return;
 				}
 
-				element.text = $"{prefix}{timeLeft.Display(showSeconds: true, showDays: false).ToLowerInvariant()}";
+				element.text = $"{prefix}{timeLeft.Display(showSeconds: timeLeft.TotalHours < 1, showMinutes: timeLeft.TotalDays < 1, showDays: true).ToLowerInvariant()}";
 			}).Every(1000);
 		}
 	}

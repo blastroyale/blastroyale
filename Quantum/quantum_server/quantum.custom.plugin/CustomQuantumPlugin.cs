@@ -102,13 +102,6 @@ namespace Quantum
 
                 var matchConfig = _roomProps.SimulationMatchConfig.Value;
 
-                if (matchConfig.ConfigId != null && matchConfig.ConfigId.Contains("debug-"))
-                {
-                    info.Fail("Hacking attempt detected!");
-                    Log.Error("Someone is trying to hack match configs!");
-                    return;
-                }
-
                 if (CustomServer.ServerSimulation && matchConfig.MatchType == MatchType.Custom)
                 {
                     if (FlgConfig.DebugMode)

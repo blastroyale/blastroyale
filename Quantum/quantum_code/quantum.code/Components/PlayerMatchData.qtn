@@ -6,7 +6,7 @@ struct PlayerMatchData
 	UInt32 PlayerTrophies;
 	Int32 TeamId;
 	short BotNameIndex;
-	FPVector3 LastDeathPosition;
+	FPVector2 LastDeathPosition;
 	FP FirstDeathTime;
 	UInt16 PlayersKilledCount;
 	UInt32 DamageDone;

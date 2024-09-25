@@ -7,14 +7,14 @@ namespace Quantum.Systems
 	/// <summary>
 	/// TODO: DELETE THE HAZARD SYSTEM
 	/// </summary>
-	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>
+	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>, ISignalOnComponentAdded<Stun>
 	{
 
 		public struct HazardFilter
 		{
 			public EntityRef Entity;
 			public Hazard* Hazard;
-			public Transform3D* Transform;
+			public Transform2D* Transform;
 		}
 
 
@@ -47,8 +47,8 @@ namespace Quantum.Systems
 			
 
 			//check the area when the hazard explodes
-			var shape = Shape3D.CreateSphere(hazard->Radius);
-			var hits = f.Physics3D.OverlapShape(filter.Transform->Position, FPQuaternion.Identity, shape,
+			var shape = Shape2D.CreateCircle(hazard->Radius);
+			var hits = f.Physics2D.OverlapShape(filter.Transform->Position, FP._0, shape,
 				f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			hits.SortCastDistance();
 
@@ -105,6 +105,14 @@ namespace Quantum.Systems
 			}
 
 			f.Events.OnHazardHit(spell->Attacker, spell->Victim, spell->OriginalHitPosition);
+		}
+
+		public void OnAdded(Frame f, EntityRef entity, Stun* component)
+		{
+			if (!f.Unsafe.TryGetPointer<TopDownController>(entity, out var kcc)) return;
+			
+			kcc->AimDirection = FPVector2.Zero;
+			kcc->MoveDirection = FPVector2.Zero;
 		}
 	}
 }

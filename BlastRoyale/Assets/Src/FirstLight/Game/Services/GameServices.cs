@@ -12,7 +12,7 @@ using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLightServerSDK.Modules.RemoteCollection;
+using Unity.Services.RemoteConfig;
 
 namespace FirstLight.Game.Services
 {
@@ -111,7 +111,6 @@ namespace FirstLight.Game.Services
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
 
-		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 
 		public IControlSetupService ControlsSetup { get; }
@@ -125,10 +124,11 @@ namespace FirstLight.Game.Services
 		public INewsService NewsService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
 		public IFLLobbyService FLLobbyService { get; }
-		public NotificationService NotificationService { get; }
+		public InGameNotificationService InGameNotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
 		public IGameSocialService GameSocialService { get; }
 		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
+		public INotificationService NotificationService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -175,7 +175,6 @@ namespace FirstLight.Game.Services
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
-		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; }
 		public IRoomService RoomService { get; }
@@ -187,11 +186,12 @@ namespace FirstLight.Game.Services
 		public IRewardService RewardService { get; }
 		public LocalPrefsService LocalPrefsService { get; }
 		public IFLLobbyService FLLobbyService { get; }
-		public NotificationService NotificationService { get; }
+		public InGameNotificationService InGameNotificationService { get; }
 		public DeepLinkService DeepLinkService { get; }
 		public IGameSocialService GameSocialService { get; }
 
 		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
+		public INotificationService NotificationService { get; }
 
 		public string QuitReason { get; set; }
 
@@ -217,7 +217,7 @@ namespace FirstLight.Game.Services
 
 			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService);
 
-			NotificationService = new NotificationService(UIService);
+			InGameNotificationService = new InGameNotificationService(UIService);
 
 			AnalyticsService = new AnalyticsService(this, gameLogic, UIService);
 
@@ -230,7 +230,7 @@ namespace FirstLight.Game.Services
 			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);
-			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, NotificationService, LocalPrefsService);
+			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, InGameNotificationService, LocalPrefsService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
 			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService, MessageBrokerService);
@@ -240,9 +240,8 @@ namespace FirstLight.Game.Services
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);
 			ControlsSetup = new ControlSetupService();
-			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
-				GameBackendService, ConfigsProvider, LocalPrefsService);
+				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 
@@ -257,6 +256,7 @@ namespace FirstLight.Game.Services
 			CustomerSupportService = new CustomerSupportService(AuthenticationService);
 			GameSocialService = new GameSocialService(this, gameLogic);
 			PlayfabUnityBridgeService = new PlayfabUnityBridgeService(ProfileService, MessageBrokerService);
+			NotificationService = new NotificationService(gameLogic.RemoteConfigProvider, MessageBrokerService);
 		}
 
 		/// <inheritdoc />

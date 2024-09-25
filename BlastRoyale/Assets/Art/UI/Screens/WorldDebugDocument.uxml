@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/WinnersScreenStyle.uss?fileID=7433441132597879392&amp;guid=1b8399f713a08466282bd37caf45866d&amp;type=3#WinnersScreenStyle" />
+    <ui:VisualElement name="root" class="fill-parent" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;" picking-mode="Ignore"/>
+</ui:UXML>

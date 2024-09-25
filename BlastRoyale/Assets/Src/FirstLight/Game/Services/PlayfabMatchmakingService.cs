@@ -83,7 +83,9 @@ namespace FirstLight.Game.Services
 	{
 		public string MasterPlayerId;
 		public string Server;
+
 		public int PlayerCount;
+
 		// Players will only be matched with others who have the same key 
 		public string DistinctionKey;
 
@@ -114,17 +116,18 @@ namespace FirstLight.Game.Services
 	public class PlayfabMatchmakingService : IMatchmakingService
 	{
 		private BufferedQueue _requestBuffer = new (TimeSpan.FromSeconds(1));
-	
+
 		private readonly IGameDataProvider _dataProvider;
 
 		private readonly ICoroutineService _coroutines;
-		
+
 		private readonly IFLLobbyService _lobbyService;
 		private readonly IGameNetworkService _networkService;
 		private readonly IGameBackendService _backendService;
 		private readonly LocalPrefsService _localPrefsService;
 		internal readonly IConfigsProvider _configsProvider;
 		private readonly IDataService _localMatchmakingData;
+		internal readonly IGameModeService _gameModeService;
 		private MatchmakingData _localData;
 		private MatchmakingPooling _pooling;
 		private ObservableField<bool> _isMatchmaking;
@@ -138,7 +141,7 @@ namespace FirstLight.Game.Services
 		public PlayfabMatchmakingService(IGameDataProvider dataProviderProvider, ICoroutineService coroutines, IFLLobbyService lobbyService,
 										 IMessageBrokerService broker,
 										 IGameNetworkService networkService,
-										 IGameBackendService backendService, IConfigsProvider configsProvider, LocalPrefsService localPrefsService)
+										 IGameBackendService backendService, IConfigsProvider configsProvider, LocalPrefsService localPrefsService, IGameModeService gameModeService)
 		{
 			_networkService = networkService;
 			_dataProvider = dataProviderProvider;
@@ -148,6 +151,7 @@ namespace FirstLight.Game.Services
 			_lobbyService = lobbyService;
 			_isMatchmaking = new ObservableField<bool>(false);
 			_localPrefsService = localPrefsService;
+			_gameModeService = gameModeService;
 
 			_localMatchmakingData = new DataService();
 			_localData = _localMatchmakingData.LoadData<MatchmakingData>();
@@ -210,9 +214,10 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
+			var queueName = _gameModeService.GetTeamSizeFor(model.RoomSetup.SimulationConfig).QueueName;
 			var req = new JoinMatchmakingTicketRequest()
 			{
-				QueueName = model.RoomSetup.PlayfabQueue.QueueName,
+				QueueName = queueName,
 				TicketId = model.TicketId,
 				Member = CreateLocalMatchmakingPlayer(model.RoomSetup)
 			};
@@ -309,10 +314,10 @@ namespace FirstLight.Game.Services
 				{
 					Server = _localPrefsService.ServerRegion.Value,
 					// We need to send the map as null so it can be matched with everyone else
-					Map = roomSetup.SimulationConfig.MapId != (int) GameId.Any ? roomSetup.SimulationConfig.MapId.ToString() : null,
+					Map = roomSetup.SimulationConfig.MapId != GameId.Any.ToString() ? roomSetup.SimulationConfig.MapId.ToString() : null,
 					MasterPlayerId = _networkService.UserId,
 					PlayerCount = 1,
-					DistinctionKey = roomSetup.SimulationConfig.ConfigId
+					DistinctionKey = roomSetup.SimulationConfig.UniqueConfigId
 				}.Encode()
 			};
 
@@ -333,11 +338,13 @@ namespace FirstLight.Game.Services
 				}
 
 				FLog.Info($"Creating matchmaking ticket with {members?.Count} members!");
+				var queueConfig = _gameModeService.GetTeamSizeFor(setup.SimulationConfig);
+
 				PlayFabMultiplayerAPI.CreateMatchmakingTicket(new CreateMatchmakingTicketRequest()
 				{
 					MembersToMatchWith = members,
-					QueueName = setup.PlayfabQueue.QueueName,
-					GiveUpAfterSeconds = setup.PlayfabQueue.TimeoutTimeInSeconds,
+					QueueName = queueConfig.QueueName,
+					GiveUpAfterSeconds = queueConfig.QueueTimeoutTimeInSeconds,
 					Creator = CreateLocalMatchmakingPlayer(setup)
 				}, r =>
 				{
@@ -387,7 +394,8 @@ namespace FirstLight.Game.Services
 
 		private void InvokeJoinedMatchmaking(JoinedMatchmaking mm)
 		{
-			_localData.LastQueue = mm.RoomSetup.PlayfabQueue.QueueName;
+			var queueName = _gameModeService.GetTeamSizeFor(mm.RoomSetup.SimulationConfig).QueueName;
+			_localData.LastQueue = queueName;
 			_localMatchmakingData.SaveData<MatchmakingData>();
 			OnMatchmakingJoined?.Invoke(mm);
 			_isMatchmaking.Value = true;
@@ -497,9 +505,9 @@ namespace FirstLight.Game.Services
 				// Select map
 				var map = decodedPlayers
 					.Select(m => m.Map).Distinct()
-					.FirstOrDefault(id => id != ((int) GameId.Any).ToString()) ?? ((int) GameId.Any).ToString();
+					.FirstOrDefault(id => id != GameId.Any.ToString()) ?? GameId.Any.ToString();
 
-				_setup.SimulationConfig.MapId = int.Parse(map);
+				_setup.SimulationConfig.MapId = map;
 				_service.InvokeMatchFound(new GameMatched()
 				{
 					ExpectedPlayers = decodedPlayers
@@ -526,7 +534,8 @@ namespace FirstLight.Game.Services
 			while (_pooling)
 			{
 				yield return waitDelay;
-				_service.GetTicket(Ticket, _setup.PlayfabQueue.QueueName, ticket =>
+				var queueConfig = _service._gameModeService.GetTeamSizeFor(_setup.SimulationConfig);
+				_service.GetTicket(Ticket, queueConfig.QueueName, ticket =>
 				{
 					FLog.Info($"Ticket pooling {ModelSerializer.Serialize(ticket).Value}");
 					// TODO: Check when ticket expired and expose event
@@ -548,7 +557,7 @@ namespace FirstLight.Game.Services
 				// If playfab timeout doesn't work, so the player won't get stuck in the matchmaking screen
 				waiting += delay;
 				FLog.Info($"Already waited {waiting}s for matchmaking!");
-				var maxWait = _setup.PlayfabQueue.TimeoutTimeInSeconds + 15;
+				var maxWait = queueConfig.QueueTimeoutTimeInSeconds + 15;
 				if (waiting >= maxWait)
 				{
 					FLog.Info($"Canceling ticket because it take longer then {maxWait} seconds!");

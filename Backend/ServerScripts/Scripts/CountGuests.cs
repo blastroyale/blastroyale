@@ -18,7 +18,7 @@ public class CountGuests : PlayfabScript
 	private List<PlayerProfile> _guests = new ();
 	private int _nonGuests = 0;
 	
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.PROD;
+	public override Environment GetEnvironment() => Environment.PROD;
 	
 	public override void Execute(ScriptParameters parameters)
 	{

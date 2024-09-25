@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
@@ -15,11 +16,19 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IGameAppService
 	{
+		/// <summary>
+		/// Application data for runtime. Will contain a range of information from
+		/// version locks and feature flags.
+		///
+		/// This is basically the game "input" to run at the moment.
+		/// </summary>
+		IReadOnlyDictionary<string, string> AppData { get; }
 	}
 
 	public class GameAppService : IGameAppService
 	{
 		private IGameServices _services;
+		private IReadOnlyDictionary<string, string> _appData;
 		private static readonly TimeSpan _maxPauseTime = TimeSpan.FromMinutes(5);
 		private DateTime _pauseTime;
 		private bool _paused;
@@ -32,6 +41,7 @@ namespace FirstLight.Game.Services
 
 		private void OnFeatureFlags(FeatureFlagsReceived e)
 		{
+			_appData = e.AppData;
 			Application.runInBackground = !FeatureFlags.GetLocalConfiguration().DisableRunInBackground;
 
 			if (!FeatureFlags.PAUSE_DISCONNECT_DIALOG)
@@ -91,5 +101,6 @@ namespace FirstLight.Game.Services
 		private void OnApplicationFocus(ApplicationFocusMessage msg) => OnPause(!msg.IsFocus);
 
 		private void OnApplicationPause(ApplicationPausedMessage msg) => OnPause(msg.IsPaused);
+		public IReadOnlyDictionary<string, string> AppData => _appData;
 	}
 }

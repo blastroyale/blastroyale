@@ -2,7 +2,11 @@ namespace Quantum
 {
 	public static class QuantumFeatureFlags
 	{
-		public static bool ENERGY_CUBES_REPLACE_SPECIALS = false;
+		/// <summary>
+		/// If true, bots will only respect navmesh and will ignore all obstacles
+		/// They can just pass trough things even tho they should respect navmesh
+		/// </summary>
+		public static bool BOTS_PHYSICS_IGNORE_OBSTACLES = true;
 
 		public static bool FREEZE_BOTS = false;
 

@@ -4,6 +4,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		[SerializeField, Required] private Animation _landingAnim;
 		[SerializeField] private int _airplaneTravelDistance = 150;
 		[SerializeField] private float _airplaneTravelDuration = 10f;
+		private Tweener _fallTween;
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
@@ -54,7 +56,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 			
 			var airdropPosition = airDrop.Position.ToUnityVector3();
-			var airplaneDirection = airDrop.Direction.XOY.ToUnityVector3();
+			var airplaneDirection = airDrop.Direction.ToUnityVector3();
 
 			var startingPosition = airdropPosition - airplaneDirection * _airplaneTravelDistance +
 			                       Vector3.up * airDropHeight;
@@ -85,10 +87,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 			
 			_itemRoot.gameObject.SetActive(true);
-
-			var position = gameObject.transform.position;
+			_itemRoot.localPosition = new Vector3(0, 8, 0);
+			_fallTween = _itemRoot.DOLocalMove(new Vector3(0, 0, 0), 16f).SetAutoKill(true);
 			_airdropRadialTransform.parent = null;
-			_airdropRadialTransform.position = new Vector3(position.x, 0.1f, position.z);
+
+			var f = callback.Game.Frames.Verified;
+			var position =  callback.AirDrop.Position;
+			_airdropRadialTransform.position = new Vector3(position.X.AsFloat, 0.1f, position.Y.AsFloat);
 
 			var collectable = _itemRoot.GetComponentInChildren<CollectableViewMonoComponent>();
 			collectable.SetPickupCircleVisibility(false);
@@ -100,9 +105,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
-			
+
+			if (_fallTween != null && _fallTween.IsPlaying())
+			{
+				_fallTween.Pause();
+				_fallTween.Kill();
+			}
+
+			_itemRoot.transform.localPosition = new Vector3(0, 0, 0);
 			_airdropRadialTransform.SetParent(_itemRoot);
 			_airdropRadialTransform.gameObject.SetActive(false);
+			_landingPS.transform.parent = null;
 			
 			_landingPS.Play();
 			_landingAnim.Play();

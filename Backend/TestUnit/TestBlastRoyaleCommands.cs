@@ -84,7 +84,7 @@ public class TestBlastRoyaleCommands
 		var commandData = new Dictionary<string, string>();
 		commandData[CommandFields.Timestamp] = "1";
 		commandData[CommandFields.ClientVersion] = "10.0.0";
-		commandData[CommandFields.Command] = ModelSerializer.Serialize(command).Value;
+		commandData[CommandFields.CommandType] = ModelSerializer.Serialize(command).Value;
 		var request = new LogicRequest()
 		{
 			Command = command.GetType().FullName,
@@ -143,7 +143,7 @@ public class TestBlastRoyaleCommands
 		{
 			Data = new()
 			{
-				LastDeathPosition = new FPVector3(1, 2, 3)
+				LastDeathPosition = new FPVector2(1, 2)
 			}
 		};
 

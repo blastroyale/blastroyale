@@ -6,9 +6,19 @@ namespace FirstLight.Server.SDK.Modules.Commands
 	public static class CommandFields
 	{
 		/// <summary>
+		/// Target player of the commmand, not to be confused with the player running the command
+		/// </summary>
+		public static readonly string PlayerId = nameof(PlayerId);
+
+		/// <summary>
+		/// The command type to be executed
+		/// </summary>
+		public static readonly string CommandType = nameof(CommandType);
+
+		/// <summary>
 		/// Key where the command data is serialized.
 		/// </summary>
-		public static readonly string Command = nameof(IGameCommand);
+		public static readonly string CommandData = nameof(IGameCommand);
 
 		/// <summary>
 		/// Field containing the client timestamp for when the command was issued.
@@ -23,7 +33,11 @@ namespace FirstLight.Server.SDK.Modules.Commands
 		/// <summary>
 		/// Field that represents the client configuration version
 		/// </summary>
-		public static readonly string ConfigurationVersion = nameof(ConfigurationVersion);
-	}
+		public static readonly string ServerConfigurationVersion = nameof(ServerConfigurationVersion);
 
+		/// <summary>
+		/// Field that represents the client configuration version
+		/// </summary>
+		public static readonly string ErrorCode = nameof(ErrorCode);
+	}
 }

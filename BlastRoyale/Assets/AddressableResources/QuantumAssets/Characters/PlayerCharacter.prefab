@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 672166898487096628}
   - component: {fileID: 8755646374635016916}
   - component: {fileID: 831566930108708915}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformMode: 1
+  TransformMode: 0
   Transform2DVertical:
     IsEnabled: 0
     Height:
@@ -492,29 +492,73 @@ MonoBehaviour:
     SourceCollider: {fileID: 0}
     IsEnabled: 1
     Shape2D:
-      ShapeType: 1
+      ShapeType: 4
       PolygonCollider:
         Id:
           Value: 0
       CircleRadius:
-        RawValue: 32768
+        RawValue: 22937
       EdgeExtent:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 0
+          RawValue: 34734
         Y:
-          RawValue: 0
+          RawValue: 20971
       PositionOffset:
         X:
-          RawValue: 0
+          RawValue: 10485
         Y:
-          RawValue: 0
+          RawValue: 15073
       RotationOffset:
-        RawValue: 0
+        RawValue: -7760773
       UserTag: 0
       IsPersistent: 1
-      CompoundShapes: []
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 26214
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 24903
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 16384
+          Y:
+            RawValue: 28835
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
     Shape3D:
       ShapeType: 1
@@ -545,7 +589,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 6
+    Layer: 12
     CallbackFlags:
       Value: 448
   PhysicsBody:
@@ -632,16 +676,11 @@ MonoBehaviour:
     BlackboardRef:
       Id:
         Value: 2204164627415752385
-    KccConfigRef:
-      Id:
-        Value: 2480520579551617486
     ProjectileSpawnOffset:
       X:
         RawValue: 0
       Y:
-        RawValue: 36044
-      Z:
-        RawValue: 25362
+        RawValue: 26214
     Player:
       _index: 0
     TeamId: 0
@@ -663,13 +702,6 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
       MagazineShotCount: 0
       MagazineSize: 0
       ReloadTime:
@@ -690,13 +722,6 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
       MagazineShotCount: 0
       MagazineSize: 0
       ReloadTime:
@@ -717,13 +742,6 @@ MonoBehaviour:
           Value: 0
         Adjective:
           Value: 0
-        MaxDurability: 0
-        InitialReplicationCounter: 0
-        Tuning: 0
-        Generation: 0
-        ReplicationCounter: 0
-        TotalRestoredDurability: 0
-        LastRepairTimestamp: 0
       MagazineShotCount: 0
       MagazineSize: 0
       ReloadTime:

@@ -14,6 +14,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
 using FirstLight.UIService;
+using FirstLightServerSDK.Services;
 using NUnit.Framework;
 using PlayFab;
 using Src.FirstLight.Server.ServerServices;
@@ -34,6 +35,7 @@ namespace FirstLight.Tests.EditorMode
 		protected string TestPlayerId;
 		protected IGameServices TestServices;
 		protected ITimeManipulator TimeService;
+		protected IRemoteConfigProvider RemoteConfigProvider;
 		protected GameLogic TestLogic;
 		protected DataService TestData;
 		protected ConfigsProvider TestConfigs;
@@ -57,19 +59,19 @@ namespace FirstLight.Tests.EditorMode
 		[SetUp]
 		public void Setup()
 		{
-			
 			var messageBroker = new InMemoryMessageBrokerService();
 			TimeService = new TimeService();
+			RemoteConfigProvider = new UnityRemoteConfigProvider();
 			TestNetwork = new GameNetworkService(TestConfigs);
-			
+
 			TestVfx = new VfxService<VfxId>();
 
 			TestData = SetupPlayer(TestConfigs);
-			TestLogic = new GameLogic(messageBroker, TimeService, TestData, TestConfigs);
+			TestLogic = new GameLogic(messageBroker, RemoteConfigProvider, TimeService, TestData, TestConfigs);
 
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
-			                                    TestConfigs, TestLogic, TestData,
-			                                    TestAssetResolver, TestTutorial, TestVfx);
+				TestConfigs, TestLogic, TestData,
+				TestAssetResolver, TestTutorial, TestVfx);
 			TestNetwork.StartNetworking(TestLogic, TestServices);
 			TestLogic.Init();
 
@@ -93,7 +95,7 @@ namespace FirstLight.Tests.EditorMode
 		public void TearDown()
 		{
 			MainInstaller.Clean<IGameDataProvider>();
-			MainInstaller.Clean<IGameServices>(); 
+			MainInstaller.Clean<IGameServices>();
 		}
 
 		protected async Task WaitFor(Func<bool> condition, int timeoutMillis = 10000)
@@ -118,7 +120,7 @@ namespace FirstLight.Tests.EditorMode
 			data.AddData(new AppData());
 			return data;
 		}
-		
+
 		private void WorkaroundForStateRun()
 		{
 #pragma warning disable CS0612

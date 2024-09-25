@@ -35,6 +35,8 @@ stages:
         --set env.REMOTE_CONFIGURATION=false \
         --set env.DEV_MODE=false \
         --set env.NFT_SYNC=false \
+        --set env.PLAGUEDOCTOR_SYNC_ENABLED=true \
+        --set env.GAMESGGGAMERS_SYNC_ENABLED=true \
         --set env.PLAYFAB_DEV_SECRET_KEY=$(TESTNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
         --set env.PLAYFAB_SECRET_KEY=$(TESTNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
         --set env.PLAYFAB_TITLE=***REMOVED*** \

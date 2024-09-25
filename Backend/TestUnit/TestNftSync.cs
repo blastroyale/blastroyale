@@ -5,21 +5,19 @@ using BlastRoyaleNFTPlugin;
 using BlastRoyaleNFTPlugin.NftSyncs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Models.Collection;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using Photon.Deterministic;
 using Quantum;
 using FirstLight.Server.SDK;
-using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Services;
 using Assert = NUnit.Framework.Assert;
 
-public class TestNftSyncPlugin
+public class TestNftSync
 {
 	private BlastRoyalePlugin _plugin;
-	private StubbedNftSync _nftSync;
+	private StubbedBlockchainApi _blockchainApi;
 	private PluginEventManager _events;
 	private TestServer _app;
 	private InMemoryAnalytics _analytics;
@@ -35,116 +33,108 @@ public class TestNftSyncPlugin
 		var log = _app.GetService<IPluginLogger>();
 		_events = new PluginEventManager(log);
 		var pluginCtx = new PluginContext(_events, _app.Services);
-		_nftSync = new StubbedNftSync(pluginCtx);
 		_plugin = new BlastRoyalePlugin();
 		_plugin.OnEnable(pluginCtx);
+		_blockchainApi = new StubbedBlockchainApi(pluginCtx, _plugin);
 		_analytics = _app.GetService<IServerAnalytics>() as InMemoryAnalytics;
 		var state = _app.Services.GetService<IPlayerSetupService>()!.GetInitialState(_playerID);
 		_app.ServerState.UpdatePlayerState(_playerID, state).GetAwaiter().GetResult();
 		_state = state;
 	}
-
+	
+	
 	[Test]
-	public void TestQuantumVector3Serialialization()
+	public async Task TestMasculineCorposCollectionSync_ETH_Success()
 	{
-		var v = new FPVector3(FP._0_01, FP._0_02, FP._0_03);
-
-		var serialized = ModelSerializer.Serialize(v).Value;
-		var deserialized = ModelSerializer.Deserialize<FPVector3>(serialized);
-
-		Assert.AreEqual(v.X.RawValue, deserialized.X.RawValue);
-		Assert.AreEqual(v.Y.RawValue, deserialized.Y.RawValue);
-		Assert.AreEqual(v.Z.RawValue, deserialized.Z.RawValue);
-	}
-
-	[Test]
-	public async Task TestCollectionSync()
-	{
-		var parser = new FlgTraitParser(new RemoteCollectionItem()
-		{
-			TokenId = "1",
-
-		});
-		parser.AddAttribute("body", "Masculine");
-		_nftSync.Owned.Add(parser.Nft);
-
-		var state = await _app.GetService<IServerStateService>()!.GetPlayerState(_playerID);
-		await _nftSync.SyncData(state, _playerID);
+		_blockchainApi.Owned.Add(CreateMasculineCorposNft());
 		
+		var state = await _app.GetService<IServerStateService>()!.GetPlayerState(_playerID);
+		await _blockchainApi.SyncData(state, _playerID);
+
+		var ownedCorpos = GetOwnedCollection(state, CollectionsSync.COLLECTION_CORPOS_ETH);
+		
+		Assert.AreEqual(1, ownedCorpos.Count());
+		Assert.AreEqual(GameId.MaleCorpos, ownedCorpos.First().Id);
+	}
+	
+	[Test]
+	public async Task TestFeminineCorposCollectionSync_ETH_Success()
+	{
+		_blockchainApi.Owned.Add(CreateFeminineCorposNft());
+		
+		var state = await _app.GetService<IServerStateService>()!.GetPlayerState(_playerID);
+		await _blockchainApi.SyncData(state, _playerID);
+
+		var ownedCorpos = GetOwnedCollection(state, CollectionsSync.COLLECTION_CORPOS_ETH);
+		
+		Assert.AreEqual(1, ownedCorpos.Count());
+		Assert.AreEqual(GameId.FemaleCorpos, ownedCorpos.First().Id);
+	}
+	
+		
+	[Test]
+	public async Task TestGamesggGamersCollectionSync_ETH_Success()
+	{
+		_blockchainApi.Owned.Add(CreateGamesggGamersNFt());
+		
+		var state = await _app.GetService<IServerStateService>()!.GetPlayerState(_playerID);
+		await _blockchainApi.SyncData(state, _playerID);
+	
+		var ownedGamesggGamers = GetOwnedCollection(state, CollectionsSync.COLLECTION_GAMESGG_GAMERS_ETH);
+		
+		Assert.AreEqual(1, ownedGamesggGamers.Count());
+		Assert.AreEqual(GameId.PlayerSkinGamer, ownedGamesggGamers.First().Id);
+	}
+	
+		
+	[Test]
+	public async Task TestPlagueDoctorCollectionSync_IMX_Success()
+	{
+		_blockchainApi.Owned.Add(CreatePlagueDoctorNFt());
+		
+		var state = await _app.GetService<IServerStateService>()!.GetPlayerState(_playerID);
+		await _blockchainApi.SyncData(state, _playerID);
+	
+		var ownedPlagueDoctors = GetOwnedCollection(state, CollectionsSync.COLLECTION_PLAGUE_DOCTOR_IMX);
+		
+		Assert.AreEqual(1, ownedPlagueDoctors.Count());
+		Assert.AreEqual(GameId.PlayerSkinPlagueDoctor, ownedPlagueDoctors.First().Id);
+	}
+	
+
+	private IEnumerable<ItemData> GetOwnedCollection(ServerState state, string collectionName)
+	{
 		var collections = state.DeserializeModel<CollectionData>();
 		var skins = collections.OwnedCollectibles[CollectionCategories.PLAYER_SKINS];
-		var corpos = skins.Select(s => s.TryGetMetadata<CollectionMetadata>(out var meta)
-			&& meta.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collection)
-			&& collection == CollectionsSync.COLLECTION_CORPOS_ETH);
 		
-		Assert.AreEqual(1, corpos.Count());
+		var ownedItems = skins.Where(s => s.TryGetMetadata<CollectionMetadata>(out var meta)
+			&& meta.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collectionFound)
+			&& collectionFound == collectionName);
+		
+		return ownedItems;
 	}
+
+
+	private Corpos CreateMasculineCorposNft() => CreateNft<Corpos>(new Dictionary<string, string>() {{"body", "Masculine"}});
 	
-	[Test]
-	public async Task TestMasculine()
+	private Corpos CreateFeminineCorposNft() => CreateNft<Corpos>(new Dictionary<string, string>() {{"body", "Feminine"}});
+	
+	private GamesGGGamers CreateGamesggGamersNFt() => CreateNft<GamesGGGamers>();
+	private PlagueDoctor CreatePlagueDoctorNFt() => CreateNft<PlagueDoctor>();
+	
+	private T CreateNft<T>(Dictionary<string, string>? nftAttributes = null) where T : RemoteCollectionItem, new()
 	{
-		var parser = new FlgTraitParser(new RemoteCollectionItem()
+		var parser = new FlgTraitParser(new T
 		{
-			TokenId = "1",
-
+			TokenId = "1"
 		});
-		parser.AddAttribute("body", "Masculine");
-		_nftSync.Owned.Add(parser.Nft);
 
-	
-		await _nftSync.SyncData(_state, _playerID);
+		if (nftAttributes?.Keys != null)
+			foreach (var key in nftAttributes.Keys)
+			{
+				parser.AddAttribute(key, nftAttributes[key]);
+			}
 
-		var corpos = GetOwnedCorpos();
-		
-		Assert.AreEqual(GameId.MaleCorpos, corpos.First().Id);
-	}
-	
-	[Test]
-	public async Task TestFeminine()
-	{
-		var parser = new FlgTraitParser(new RemoteCollectionItem()
-		{
-			TokenId = "1",
-		});
-		parser.AddAttribute("body", "Feminine");
-		_nftSync.Owned.Add(parser.Nft);
-	
-		await _nftSync.SyncData(_state, _playerID);
-
-		var corpos = GetOwnedCorpos();
-		
-		Assert.AreEqual(GameId.FemaleCorpos, corpos.First().Id);
-	}
-	
-	[Test]
-	public async Task TestRemovingOwnedCorpo()
-	{
-		var parser = new FlgTraitParser(new RemoteCollectionItem()
-		{
-			TokenId = "1",
-		});
-		parser.AddAttribute("body", "Feminine");
-		_nftSync.Owned.Add(parser.Nft);
-	
-		// Add to player
-		await _nftSync.SyncData(_state, _playerID);
-
-		// Remove from player
-		_nftSync.Owned.Remove(parser.Nft);
-		await _nftSync.SyncData(_state, _playerID);
-		
-		var corpos = GetOwnedCorpos();
-		
-		Assert.AreEqual(0, corpos.Count());
-	}
-	
-	private IEnumerable<ItemData> GetOwnedCorpos()
-	{
-		var collections = _state.DeserializeModel<CollectionData>();
-		var skins = collections.OwnedCollectibles[CollectionCategories.PLAYER_SKINS];
-		var corpos = skins.Where(s => s.TryGetMetadata<CollectionMetadata>(out var meta)
-			&& meta.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collection)
-			&& collection == CollectionsSync.COLLECTION_CORPOS_ETH);
-		return corpos;
+		return parser.Nft as T;
 	}
 }

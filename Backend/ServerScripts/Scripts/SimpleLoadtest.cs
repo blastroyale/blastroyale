@@ -32,7 +32,7 @@ using UpdateUserDataRequest = PlayFab.ServerModels.UpdateUserDataRequest;
 /// </summary>
 public class SimpleLoadtest : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
+	public override Environment GetEnvironment() => Environment.DEV;
 
 	public const int NUMBER_OF_PLAYERS = 3;
 	
@@ -105,7 +105,7 @@ public class SimpleLoadtest : PlayfabScript
 			Command = cmdName,
 			Data = new Dictionary<string, string>
 			{
-				{CommandFields.Command, cmdData},
+				{CommandFields.CommandType, cmdData},
 				{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
 				{CommandFields.ClientVersion, "100000.0.0"}
 			}

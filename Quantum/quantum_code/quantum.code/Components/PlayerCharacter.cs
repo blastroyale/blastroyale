@@ -9,13 +9,12 @@ namespace Quantum
 	{
 		public EntityRef e;
 		public PlayerRef playerRef;
-		public Transform3D spawnPosition;
+		public Transform2D spawnPosition;
 		public uint playerLevel;
 		public uint trophies;
 		public int teamId = -1;
 		public List<Modifier> modifiers = null;
 		public uint minimumHealth = 0;
-		public CharacterController3DConfig KccConfig;
 		public GameId deathFlagID;
 	}
 
@@ -37,15 +36,14 @@ namespace Quantum
 		internal void Init(Frame f, PlayerCharacterSetup setup)
 		{
 			var blackboard = new AIBlackboardComponent();
-			var kcc = new CharacterController3D();
-			var transform = f.Unsafe.GetPointer<Transform3D>(setup.e);
+
+			var transform = f.Unsafe.GetPointer<Transform2D>(setup.e);
 
 			Player = setup.playerRef;
 			TeamId = setup.teamId;
 			CurrentWeaponSlot = 0;
 			LastNoInputTimeSnapshot = FP._0;
 			transform->Position = setup.spawnPosition.Position;
-			transform->Rotation = setup.spawnPosition.Rotation;
 
 			var weaponSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
 			weaponSlot->Weapon = Equipment.Create(f, GameId.Hammer, EquipmentRarity.Common, 1);
@@ -57,12 +55,13 @@ namespace Quantum
 
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, setup);
-			var kccConfig = setup.KccConfig ?? f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id);
-			kcc.Init(f, kccConfig);
+			var kcc = new TopDownController();
+			kcc.Init();
 
-			f.Add(setup.e, blackboard);
+			var speedUpMutatorExists = f.Context.Mutators.HasFlagFast(Mutator.SpeedUp);
+			kcc.MaxSpeed = speedUpMutatorExists ? kcc.MaxSpeed * Constants.MUTATOR_SPEEDUP_AMOUNT : kcc.MaxSpeed;
 			f.Add(setup.e, kcc);
-
+			f.Add(setup.e, blackboard);
 			f.AddOrGet<Stats>(setup.e, out var stats);
 			if (setup.modifiers != null)
 			{
@@ -77,7 +76,7 @@ namespace Quantum
 			f.Add<HFSMAgent>(setup.e);
 			HFSMManager.Init(f, setup.e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
 
-			f.Unsafe.GetPointer<PhysicsCollider3D>(setup.e)->Enabled = false;
+			f.Unsafe.GetPointer<PhysicsCollider2D>(setup.e)->Enabled = false;
 		}
 
 		/// <summary>
@@ -141,7 +140,7 @@ namespace Quantum
 			f.Events.OnPlayerAlive(Player, e, currentHealth, FPMath.RoundToInt(maxHealth));
 			f.Events.OnLocalPlayerAlive(Player, e, currentHealth, FPMath.RoundToInt(maxHealth));
 
-			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
+			f.Unsafe.GetPointer<PhysicsCollider2D>(e)->Enabled = true;
 		}
 
 		/// <summary>
@@ -151,7 +150,7 @@ namespace Quantum
 		{
 			f.TryGet<PlayerCharacter>(attacker, out var killerPlayer);
 
-			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
+			f.Unsafe.GetPointer<PhysicsCollider2D>(e)->Enabled = false;
 
 			var deadPlayer = new DeadPlayerCharacter
 			{
@@ -195,6 +194,7 @@ namespace Quantum
 				f.ServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
+		
 
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots
@@ -218,7 +218,7 @@ namespace Quantum
 				WeaponSlots[slot].Weapon.IsValid() &&
 				WeaponSlots[slot].Weapon.GameId != weapon.GameId)
 			{
-				var dropPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position + FPVector3.Forward;
+				var dropPosition = f.Unsafe.GetPointer<Transform2D>(e)->Position;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true, 1);
 			}
 
@@ -243,23 +243,6 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Tries to set the player's weapon to the given <paramref name="weaponGameId"/> that player already has
-		/// </summary>
-		internal bool TryEquipExistingWeaponId(Frame f, EntityRef e, GameId weaponGameId)
-		{
-			for (int i = 0; i < WeaponSlots.Length; i++)
-			{
-				if (WeaponSlots[i].Weapon.GameId == weaponGameId)
-				{
-					EquipSlotWeapon(f, e, i);
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		/// <summary>
 		/// Requests if entity <paramref name="e"/> has ammo left or not
 		/// </summary>
 		public bool IsAmmoEmpty(Frame f, EntityRef e, bool includeMag = true)
@@ -279,7 +262,7 @@ namespace Quantum
 			{
 				return;
 			}
-			
+
 			var slot = SelectedWeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 
@@ -294,8 +277,8 @@ namespace Quantum
 			{
 				stats->ReduceAmmo(f, e, 1);
 			}
-			
-			if ( stats->GetCurrentAmmo() <= 0 && slot->MagazineShotCount <= 0)
+
+			if (stats->GetCurrentAmmo() <= 0 && slot->MagazineShotCount <= 0)
 			{
 				f.Unsafe.GetPointer<PlayerCharacter>(e)->EquipSlotWeapon(f, e, 0);
 			}
@@ -312,41 +295,20 @@ namespace Quantum
 		/// <summary>
 		/// Requests if the current weapon equipped by the player is a melee weapon or not
 		/// </summary>
-		public bool HasMeleeWeapon(Frame f, EntityRef e)
+		public static bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
 			return f.Unsafe.GetPointer<AIBlackboardComponent>(e)->GetBoolean(f, Constants.HAS_MELEE_WEAPON_KEY);
 		}
 
-		/// <summary>
-		/// Returns the slot index of <paramref name="equipment"/> for <see cref="Gear"/>.
-		/// </summary>
-		public static int GetGearSlot(Equipment* equipment)
+		public bool HasGoldenWeapon()
 		{
-			return equipment->GetEquipmentGroup() switch
+			var slot = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY];
+			if (slot.Weapon.IsValid())
 			{
-				GameIdGroup.Weapon => Constants.GEAR_INDEX_WEAPON,
-				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
-				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
-				GameIdGroup.Armor  => Constants.GEAR_INDEX_ARMOR,
-				GameIdGroup.Shield => Constants.GEAR_INDEX_SHIELD,
-				_                  => throw new NotSupportedException($"Could not find Gear index for GameId({equipment->GameId})")
-			};
-		}
+				return slot.Weapon.Material == EquipmentMaterial.Golden;
+			}
 
-		/// <summary>
-		/// Returns the GameIdGroup index of <paramref name="slot"/> for <see cref="Gear"/>.
-		/// </summary>
-		public static GameIdGroup GetEquipmentGroupForSlot(int slot)
-		{
-			return slot switch
-			{
-				Constants.GEAR_INDEX_WEAPON => GameIdGroup.Weapon,
-				Constants.GEAR_INDEX_HELMET => GameIdGroup.Helmet,
-				Constants.GEAR_INDEX_AMULET => GameIdGroup.Amulet,
-				Constants.GEAR_INDEX_ARMOR  => GameIdGroup.Armor,
-				Constants.GEAR_INDEX_SHIELD => GameIdGroup.Shield,
-				_                           => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
-			};
+			return false;
 		}
 
 		private int GetWeaponEquipSlot(Frame f, in Equipment weapon, bool primary)
@@ -366,24 +328,6 @@ namespace Quantum
 			}
 
 			return primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
-		}
-
-		/// <summary>
-		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
-		/// GameId and Rarity (rarity of equipped item has to be higher).
-		/// </summary>
-		internal bool HasBetterWeaponEquipped(Equipment* equipment)
-		{
-			for (int i = 0; i < WeaponSlots.Length; i++)
-			{
-				var weapon = WeaponSlots[i].Weapon;
-				if (weapon.GameId == equipment->GameId && weapon.Rarity >= equipment->Rarity)
-				{
-					return true;
-				}
-			}
-
-			return false;
 		}
 
 		private QuantumWeaponConfig SetSlotWeapon(Frame f, EntityRef e, int slot)

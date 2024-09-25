@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 
@@ -22,9 +23,8 @@ namespace BlastRoyaleNFTPlugin
 			context.Log?.LogInformation($"Using blockchain URL at {baseUrl}");
 			if (context.ServerConfig.NftSync)
 			{
-				_blockchainApi = new BlockchainApi(baseUrl, apiSecret, context);
+				_blockchainApi = new BlockchainApi(baseUrl, apiSecret, context, this);
 			}
-
 			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad, EventPriority.LAST);
 			context.PluginEventManager.RegisterEventListener<InventoryUpdatedEvent>(OnInventoryUpdate);
 		}
@@ -49,5 +49,15 @@ namespace BlastRoyaleNFTPlugin
 				}
 			});
 		}
+		
+		public bool CanSyncCollection(string collectionName)
+		{
+			var syncEnabledConfig = ReadPluginConfig(string.Concat(collectionName.ToUpperInvariant(), "_SYNC_ENABLED"));
+
+			bool.TryParse(syncEnabledConfig, out var canSync);
+			return canSync;
+		}
+		
+		
 	}
 }

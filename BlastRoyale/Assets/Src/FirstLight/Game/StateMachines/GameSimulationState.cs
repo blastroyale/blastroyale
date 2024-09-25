@@ -178,10 +178,11 @@ namespace FirstLight.Game.StateMachines
 
 		private async UniTaskVoid GameStartAsync(QuantumGame game)
 		{
-			await UniTask.Delay(100); // tech debt, leftover shall eb removed
+			FLog.Info("Game Started Message");
+			//await UniTask.Delay(100); // tech debt, leftover shall eb removed
 			await UniTask.WaitUntil(() => QuantumRunner.Default.IsDefinedAndRunning());
 			PublishMatchStartedMessage(game, false);
-			await UniTask.Delay(1000); // tech debt, leftover shall eb removed
+			//await UniTask.Delay(1000); // tech debt, leftover shall eb removed
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
 			var f = game.Frames.Verified;
@@ -198,7 +199,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnAllPlayersJoined(EventOnAllPlayersJoined callback)
 		{
-			FLog.Verbose("Players Joined");
+			FLog.Info("All Players Joined Event");
 			// paused on Start means waiting for Snapshot
 			if (callback.Game.Session.IsPaused)
 			{
@@ -211,7 +212,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnGameResync(CallbackGameResynced callback)
 		{
-			FLog.Verbose(
+			FLog.Info(
 				$"Game Resync {callback.Game.Frames.Verified.Number} vs {_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value.FrameNumber}");
 
 			ResyncCoroutine().Forget();
@@ -352,11 +353,12 @@ namespace FirstLight.Game.StateMachines
 			var avatarUrl = AvatarHelpers.GetAvatarUrl(_gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE),
 				config);
 			var useBotBehaviour = (FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour) || FeatureFlags.GetLocalConfiguration().UseBotBehaviour;
+			FLog.Info("Sending player runtime data");
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
 				UnityId = AuthenticationService.Instance.PlayerId,
-				PlayerName = AuthenticationService.Instance.GetPlayerName(),
+				PlayerName = AuthenticationService.Instance.GetPlayerNameWithSpaces(),
 				Cosmetics = equippedCosmetics,
 				DeathFlagID = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.GRAVE)!.Id,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,

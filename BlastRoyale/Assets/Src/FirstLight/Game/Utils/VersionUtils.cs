@@ -137,9 +137,9 @@ namespace FirstLight.Game.Utils
 		{
 			string version = $"{Application.version}-{data.BuildNumber}.{data.BranchName}.{data.Commit}";
 
-			if (!string.IsNullOrEmpty(data.Environment))
+			if (!string.IsNullOrEmpty(FLEnvironment.Current.Name))
 			{
-				version += $".{data.Environment}";
+				version += $".{FLEnvironment.Current.Name}";
 			}
 
 			return version;

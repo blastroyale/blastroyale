@@ -43,7 +43,7 @@ namespace FirstLight.Game.Configs
 
 		private void OnValidate()
 		{
-			_config.SecondMatch.ConfigId ??= "second-match-id";
+			_config.SecondMatch.UniqueConfigId = "second-match-id";
 		}
 	}
 }

@@ -301,8 +301,8 @@ public class TestMatchmaking : PlayfabScript
 		}
 	}
 
-	public override PlayfabEnvironment GetEnvironment()
+	public override Environment GetEnvironment()
 	{
-		return PlayfabEnvironment.DEV;
+		return Environment.DEV;
 	}
 }

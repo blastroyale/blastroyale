@@ -2,8 +2,19 @@
     <ui:Template name="MatchSettings" src="project://database/Assets/Art/UI/Templates/MatchSettings.uxml?fileID=9197481963319205126&amp;guid=1e44a74fe2142438a9167c71b2b9e8c9&amp;type=3#MatchSettings" />
     <Style src="project://database/Assets/Art/UI/Screens/MatchLobbyScreenStyle.uss?fileID=7433441132597879392&amp;guid=86bc32e8e558d4dc49c4fd245497e2be&amp;type=3#MatchLobbyScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent" style="align-items: center; justify-content: center;">
-        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
+        <FirstLight.Game.UIElements.SafeAreaElement apply-bottom="false" apply-top="true" name="SafeArea" class="safe-area">
             <ui:VisualElement name="LeftContainer" class="left-container">
+                <ui:VisualElement name="LobbyHeader" class="lobby-header">
+                    <ui:VisualElement name="LobbyCodeContainer" class="lobby-code-container">
+                        <FirstLight.Game.UIElements.ImageButton name="ShowHideCode" tooltip="Hello" class="show-hide-code">
+                            <ui:VisualElement name="ShowHideCodeIcon" class="show-code show-code-icon" />
+                        </FirstLight.Game.UIElements.ImageButton>
+                        <FirstLight.Game.UIElements.LabelOutlined text="CODE HIDDEN" name="CodeLabel" class="game-label game-label--large" style="margin-right: 32px; font-size: 58px;" />
+                        <FirstLight.Game.UIElements.ImageButton name="CopyCodeButton" class="button-long code-copy-button">
+                            <ui:VisualElement name="CopyCodeButtonIcon" class="code-copy-button-icon" />
+                        </FirstLight.Game.UIElements.ImageButton>
+                    </ui:VisualElement>
+                </ui:VisualElement>
                 <ui:ScrollView name="PlayersScrollview" horizontal-scroller-visibility="Hidden" class="players-container">
                     <ui:VisualElement class="players-container__row">
                         <FirstLight.Game.UIElements.MatchLobbyPlayerElement class="match-lobby-player--local match-lobby-player--host" />
@@ -18,15 +29,15 @@
                         <FirstLight.Game.UIElements.MatchLobbyPlayerElement class="match-lobby-player--ready" />
                     </ui:VisualElement>
                 </ui:ScrollView>
-                <ui:VisualElement class="bottom-bar" style="padding-right: 37px;">
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/invite_friends" name="InviteFriendsButton" class="button-long" />
-                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITCustomGames/lobby_code" show-copy-button="true" name="LobbyCode" value="ABC8ET" readonly="true" class="lobby-code" />
+                <ui:VisualElement class="bottom-bar" style="padding-right: 37px; height: 100px; padding-top: 0; padding-bottom: 0; margin-top: 27px;">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCustomGames/invite_friends" name="InviteFriendsButton" class="button-long" style="width: 341px; height: 91px; margin-right: 22px;" />
+                    <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITCustomGames/invite_toggle" name="InviteToggle" />
                     <ui:VisualElement style="flex-grow: 1;" />
                     <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="12/42" name="PlayersAmountLabel" class="player-count" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Instance template="MatchSettings" name="MatchSettingsContainer" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" picking-mode="Ignore" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" picking-mode="Ignore" class="lobby-screen-header" />
     </ui:VisualElement>
 </ui:UXML>

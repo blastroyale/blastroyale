@@ -6,6 +6,8 @@ using PlayFab;
 using PlayFab.ServerModels;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Services;
+using GameLogicService.Services;
 using ServerCommon;
 
 namespace Backend.Game.Services
@@ -33,7 +35,7 @@ namespace Backend.Game.Services
 			{
 				PlayFabId = playerId
 			};
-			
+
 			request.Data = state;
 			var server = _server.CreateServer(playerId);
 			var result = await server.UpdateUserReadOnlyDataAsync(request);
@@ -50,8 +52,8 @@ namespace Backend.Game.Services
 			});
 			_errorService.CheckErrors(result);
 			var fabResult = result.Result.Data.ToDictionary(
-														    entry => entry.Key,
-														    entry => entry.Value.Value);
+				entry => entry.Key,
+				entry => entry.Value.Value);
 			return new ServerState(fabResult);
 		}
 
@@ -68,6 +70,17 @@ namespace Backend.Game.Services
 				PlayFabId = playerId
 			});
 			_errorService.CheckErrors(result);
+		}
+	}
+
+	public static class ServerStateServiceExtensions
+	{
+		public static async Task<(ServerState, IRemoteConfigProvider)> FetchStateAndConfigs(this IServerStateService state, IRemoteConfigService remoteConfigService, string playerId, int clientConfigVersion)
+		{
+			var currentConfigTask = remoteConfigService.FetchConfig(clientConfigVersion);
+			var currentPlayerStateTask = state.GetPlayerState(playerId);
+			await Task.WhenAll(currentConfigTask, currentPlayerStateTask);
+			return (currentPlayerStateTask.Result, currentConfigTask.Result);
 		}
 	}
 }

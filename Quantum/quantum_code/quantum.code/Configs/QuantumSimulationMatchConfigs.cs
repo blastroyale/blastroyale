@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Photon.Deterministic;
 using Quantum.Inspector;
@@ -28,12 +29,12 @@ namespace Quantum
 		public GameId Id;
 		public DropPlace Place;
 		[Range(0, 1)] public FP DropRate;
-		public int MinDropAmount;
-		public int MaxDropAmount;
+		[DefaultValue(1)] public int MinDropAmount = 1;
+		[DefaultValue(1)] public int MaxDropAmount = 1;
 
 		public MetaItemDropOverwrite Clone()
 		{
-			return (MetaItemDropOverwrite) MemberwiseClone();
+			return (MetaItemDropOverwrite)MemberwiseClone();
 		}
 
 		protected bool Equals(MetaItemDropOverwrite other)
@@ -47,15 +48,15 @@ namespace Quantum
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
 			if (obj.GetType() != this.GetType()) return false;
-			return Equals((MetaItemDropOverwrite) obj);
+			return Equals((MetaItemDropOverwrite)obj);
 		}
 
 		public override int GetHashCode()
 		{
 			unchecked
 			{
-				var hashCode = (int) Id;
-				hashCode = (hashCode * 397) ^ (int) Place;
+				var hashCode = (int)Id;
+				hashCode = (hashCode * 397) ^ (int)Place;
 				hashCode = (hashCode * 397) ^ DropRate.GetHashCode();
 				hashCode = (hashCode * 397) ^ MinDropAmount;
 				hashCode = (hashCode * 397) ^ MaxDropAmount;
@@ -73,7 +74,7 @@ namespace Quantum
 
 		public RewardModifier Clone()
 		{
-			return (RewardModifier) MemberwiseClone();
+			return (RewardModifier)MemberwiseClone();
 		}
 
 		protected bool Equals(RewardModifier other)
@@ -87,14 +88,14 @@ namespace Quantum
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
 			if (obj.GetType() != this.GetType()) return false;
-			return Equals((RewardModifier) obj);
+			return Equals((RewardModifier)obj);
 		}
 
 		public override int GetHashCode()
 		{
 			unchecked
 			{
-				var hashCode = (int) Id;
+				var hashCode = (int)Id;
 				hashCode = (hashCode * 397) ^ Multiplier.GetHashCode();
 				hashCode = (hashCode * 397) ^ CollectedInsideGame.GetHashCode();
 				return hashCode;
@@ -105,18 +106,18 @@ namespace Quantum
 	[Serializable]
 	public class SimulationMatchConfig
 	{
-		public string ConfigId;
-		public string GameModeID;
-		public int MapId;
-		public uint TeamSize;
-		public Mutator Mutators;
+		public string UniqueConfigId = "CHANGEMETOSOMETHINGUNIQUE";
+		[DefaultValue("BattleRoyale")] public string GameModeID = "BattleRoyale";
+		[DefaultValue("Any")] public string MapId = GameId.Any.ToString();
+		[DefaultValue(1)] public uint TeamSize = 1;
+		[DefaultValue(Mutator.None)] public Mutator Mutators = Mutator.None;
 		public string[] WeaponsSelectionOverwrite;
 		public MetaItemDropOverwrite[] MetaItemDropOverwrites;
 		public RewardModifier[] RewardModifiers;
-		public bool HasBots;
-		public int BotOverwriteDifficulty;
-		public int MaxPlayersOverwrite;
-		[HideInInspector] public MatchType MatchType;
+		public bool DisableBots;
+		[DefaultValue(-1)] public int BotOverwriteDifficulty = -1;
+		[DefaultValue(0)] public int MaxPlayersOverwrite;
+		[DefaultValue(MatchType.Matchmaking)] public MatchType MatchType = MatchType.Matchmaking;
 
 
 		public byte[] ToByteArray()
@@ -143,15 +144,15 @@ namespace Quantum
 
 		public void Serialize(BitStream stream)
 		{
-			stream.Serialize(ref ConfigId);
-			var matchType = (byte) MatchType;
+			stream.Serialize(ref UniqueConfigId);
+			var matchType = (byte)MatchType;
 			stream.Serialize(ref matchType);
-			MatchType = (MatchType) matchType;
+			MatchType = (MatchType)matchType;
 
 			stream.Serialize(ref GameModeID);
 			stream.Serialize(ref MapId);
 			stream.Serialize(ref TeamSize);
-			stream.Serialize(ref HasBots);
+			stream.Serialize(ref DisableBots);
 			stream.Serialize(ref BotOverwriteDifficulty);
 			stream.Serialize(ref MaxPlayersOverwrite);
 			WeaponsSelectionOverwrite ??= Array.Empty<string>();
@@ -161,9 +162,9 @@ namespace Quantum
 				stream.Serialize(ref WeaponsSelectionOverwrite[i]);
 			}
 
-			var mutators = (int) Mutators;
+			var mutators = (int)Mutators;
 			stream.Serialize(ref mutators);
-			Mutators = (Mutator) mutators;
+			Mutators = (Mutator)mutators;
 
 			MetaItemDropOverwrites ??= Array.Empty<MetaItemDropOverwrite>();
 			stream.SerializeArrayLength(ref MetaItemDropOverwrites);
@@ -174,9 +175,9 @@ namespace Quantum
 
 				stream.Serialize(ref overwrite.Id);
 				stream.Serialize(ref overwrite.DropRate);
-				var intValue = (int) overwrite.Place;
+				var intValue = (int)overwrite.Place;
 				stream.Serialize(ref intValue);
-				overwrite.Place = (DropPlace) intValue;
+				overwrite.Place = (DropPlace)intValue;
 				stream.Serialize(ref overwrite.MinDropAmount);
 				stream.Serialize(ref overwrite.MaxDropAmount);
 			}

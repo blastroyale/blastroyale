@@ -18,7 +18,7 @@ namespace Quantum.Systems
 			}
 		}
 		
-		public void ChestOpened(Frame f, GameId chestType, FPVector3 chestPosition, PlayerRef player, EntityRef entity)
+		public void ChestOpened(Frame f, GameId chestType, FPVector2 chestPosition, PlayerRef player, EntityRef entity)
 		{
 			foreach (var pair in f.Unsafe.GetComponentBlockIterator<Trigger>())
 			{

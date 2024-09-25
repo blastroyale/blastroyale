@@ -9,7 +9,7 @@ namespace Quantum
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
 			var noHealthNoShields = f.Context.Mutators.HasFlagFast(Mutator.Hardcore);
-			var chestPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position;
+			var chestPosition = f.Unsafe.GetPointer<Transform2D>(e)->Position;
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			List<SimulationItem> contents = null;
 			if (f.TryGet<ChestContents>(e, out var chestContents))
@@ -56,8 +56,6 @@ namespace Quantum
 					playerDataPointer->SupplyCrateOpenedCount++;
 				}	
 			}
-
-			
 			
 			f.Signals.ChestOpened(config.Id, chestPosition, playerRef, playerEntity);
 			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity);

@@ -1,6 +1,3 @@
-import Physics3D;
-import String;
-
 synced event OnPlayerLeft
 {
 	remote player_ref Player;
@@ -169,10 +166,11 @@ event OnPlayerAttackHit
 	entity_ref PlayerEntity;
 	Int32 PlayerTeamId;
 	entity_ref HitEntity;
-	nothashed FPVector3 HitPosition;
+	nothashed FPVector2 HitPosition;
 	UInt32 TotalDamage;
 	bool isShieldDmg;
 	byte SpellType;
+	byte ShotNumber;
 }
 
 event OnPlayerStopAttack
@@ -196,7 +194,7 @@ event OnPlayerSpecialUsed
 	entity_ref Entity;
 	Special Special;
 	Int32 SpecialIndex;
-	FPVector3 HitPosition;
+	FPVector2 HitPosition;
 }
 
 // LOCAL PLAYER EVENTS
@@ -272,7 +270,7 @@ event OnLocalPlayerSpecialUsed
 	entity_ref Entity;
 	Special Special;
 	Int32 SpecialIndex;
-	FPVector3 HitPosition;
+	FPVector2 HitPosition;
 }
 
 synced event OnLocalPlayerRoofDetected

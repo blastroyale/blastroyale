@@ -14,11 +14,10 @@ namespace Quantum
 				return false;
 			}
 			
-			var targetPosition = FPVector3.Zero;
-			var attackerPosition = f.Unsafe.GetPointer<Transform3D>(e)->Position;
+			var targetPosition = FPVector2.Zero;
+			var attackerPosition = f.Unsafe.GetPointer<Transform2D>(e)->Position;
 			var team = f.Unsafe.GetPointer<Targetable>(e)->Team;
-			attackerPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-			
+
 			if (f.TryGet<BotCharacter>(e, out var bot))
 			{
 				// Try to find a target in a range automatically
@@ -31,7 +30,7 @@ namespace Quantum
 						continue;
 					}
 					
-					targetPosition = f.Unsafe.GetPointer<Transform3D>(target.Entity)->Position;
+					targetPosition = f.Unsafe.GetPointer<Transform2D>(target.Entity)->Position;
 					
 					break;
 				}
@@ -39,11 +38,11 @@ namespace Quantum
 				// We make a random deviation based on bot's accuracy with specials
 				var randomDirection = FPVector2.Rotate(FPVector2.Left, f.RNG->Next(FP._0, FP.PiTimes2));
 				var randomDistance = f.RNG->Next(FP._0, bot.SpecialAimingDeviation);
-				targetPosition = targetPosition + randomDirection.XOY * randomDistance;
+				targetPosition = targetPosition + randomDirection * randomDistance;
 			}
 			else
 			{
-				targetPosition = attackerPosition + (FPVector2.ClampMagnitude(aimInput, FP._1) * maxRange).XOY;
+				targetPosition = attackerPosition + (FPVector2.ClampMagnitude(aimInput, FP._1) * maxRange);
 			}
 
 			var hazardData = new Hazard

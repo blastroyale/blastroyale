@@ -7,7 +7,7 @@ namespace Quantum.Commands
 	/// </summary>
 	public unsafe class CheatWeaponSpawnCommand : CommandBase
 	{
-		public FPVector3 Position;
+		public FPVector2 Position;
 		public GameId Weapon;
 
 		/// <inheritdoc />
@@ -28,7 +28,7 @@ namespace Quantum.Commands
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 
 			var equipment = Equipment.Create(f, config.Id, EquipmentRarity.Common, 1);
-			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, Position, FPQuaternion.Identity, Position,
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, Position, 0, Position,
 				equipment, EntityRef.None);
 		}
 	}

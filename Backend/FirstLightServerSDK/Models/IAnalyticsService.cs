@@ -18,7 +18,7 @@ namespace FirstLight.Server.SDK.Models
 		void EmitUserEvent(string id, string eventName, AnalyticsData data);
 	}
 
-	public class AnalyticsData : Dictionary<string, object> { 
+	public class AnalyticsData : Dictionary<string, string> { 
 
 		public AnalyticsData() { }
 		public AnalyticsData(Dictionary<string, string> stringDict)
@@ -26,6 +26,14 @@ namespace FirstLight.Server.SDK.Models
 			foreach(var kp in stringDict)
 			{
 				this[kp.Key] = kp.Value;
+			}
+		}
+		
+		public AnalyticsData(Dictionary<string, object> stringDict)
+		{
+			foreach(var kp in stringDict)
+			{
+				this[kp.Key] = kp.Value.ToString();
 			}
 		}
 	}

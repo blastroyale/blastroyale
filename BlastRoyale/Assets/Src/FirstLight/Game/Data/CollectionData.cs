@@ -104,7 +104,7 @@ namespace FirstLight.Game.Data
 			Key = key;
 			Value = value;
 		}
-		
+
 		public override int GetHashCode()
 		{
 			unchecked
@@ -119,7 +119,7 @@ namespace FirstLight.Game.Data
 	/// Some items from the owned can be remotely synced via CollectionItemEnrichmentData
 	/// </summary>
 	[Serializable]
-	public class CollectionData : CollectionItemEnrichmentData
+	public class CollectionData
 	{
 		[JsonProperty] [JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, List<ItemData>>))]
 		public readonly Dictionary<CollectionCategory, List<ItemData>> OwnedCollectibles = new ();
@@ -131,7 +131,6 @@ namespace FirstLight.Game.Data
 		};
 
 		public ulong LastUpdateTimestamp;
-
 
 		/// <summary>
 		/// This is used in the quantum server plugin for validating the skins, if you want to check inside the game do not use this!
@@ -151,20 +150,10 @@ namespace FirstLight.Game.Data
 			{
 				foreach (var item in collection) hash = unchecked(hash * 23 + item.GetHashCode());
 			}
+
 			foreach (var item in Equipped.Values) hash = unchecked(hash * 23 + item.GetHashCode());
 			hash = unchecked(hash * 37 + LastUpdateTimestamp.GetHashCode());
 			return hash;
-		}
-
-		public override Type[] GetEnrichedTypes() => new[] {typeof(Corpos)};
-
-		protected override void EnrichFromType(Type type, RemoteCollectionItem remoteData)
-		{
-			if (type == typeof(Corpos))
-			{
-				var item = ItemFactory.Collection(GameId.MaleCorpos, new CollectionTrait("token_id", remoteData.Identifier));
-				OwnedCollectibles[CollectionCategories.PROFILE_PICTURE].Add(item);
-			}
 		}
 	}
 }

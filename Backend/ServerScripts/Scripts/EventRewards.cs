@@ -16,7 +16,7 @@ using Quantum;
 /// </summary>
 public class EventRewards : PlayfabScript
 {
-   public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.PROD;
+   public override Environment GetEnvironment() => Environment.PROD;
    
    public override void Execute(ScriptParameters parameters)
    {

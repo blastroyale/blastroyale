@@ -72,12 +72,12 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}
 
-			if (!ev.Game.Frames.Predicted.TryGet<Transform3D>(ev.Projectile.Attacker, out var shooterLocation))
+			if (!ev.Game.Frames.Predicted.TryGet<Transform2D>(ev.Projectile.Attacker, out var shooterLocation))
 			{
 				return;
 			}
 
-			if (FPVector3.DistanceSquared(shooterLocation.Position, ev.HitPosition) >= 2)
+			if (FPVector2.DistanceSquared(shooterLocation.Position, ev.HitPosition) >= 2)
 			{
 				PlayHitEffect(ev);
 			}

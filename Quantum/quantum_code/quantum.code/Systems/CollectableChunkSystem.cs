@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Photon.Deterministic;
 
@@ -10,7 +11,7 @@ namespace Quantum.Systems
 	/// </summary>
 	public unsafe class CollectableChunkSystem : SystemSignalsOnly, ISignalOnComponentAdded<Collectable>, ISignalOnComponentRemoved<Collectable>
 	{
-		public static FP ChunkSize = FP._10 * FP._3;
+		public static FP ChunkSize = FP._10 + FP._5;
 
 		public override void OnEnabled(Frame f)
 		{
@@ -34,7 +35,7 @@ namespace Quantum.Systems
 
 		public void OnAdded(Frame f, EntityRef entity, Collectable* component)
 		{
-			var pos = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
+			var pos = f.Unsafe.GetPointer<Transform2D>(entity)->Position;
 			var chunkIndex = GetChunk(f, pos);
 
 			var singleton = f.Unsafe.GetOrAddSingletonPointer<CollectableChunks>();
@@ -51,7 +52,7 @@ namespace Quantum.Systems
 
 		public void OnRemoved(Frame f, EntityRef entity, Collectable* component)
 		{
-			var pos = f.Unsafe.GetPointer<Transform3D>(entity)->Position.XZ;
+			var pos = f.Unsafe.GetPointer<Transform2D>(entity)->Position;
 			var chunkIndex = GetChunk(f, pos);
 
 			var singleton = f.Unsafe.GetOrAddSingletonPointer<CollectableChunks>();

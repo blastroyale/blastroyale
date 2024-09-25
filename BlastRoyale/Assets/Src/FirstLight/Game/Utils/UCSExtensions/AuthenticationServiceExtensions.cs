@@ -9,6 +9,27 @@ namespace FirstLight.Game.Utils.UCSExtensions
 	/// </summary>
 	public static class AuthenticationServiceExtensions
 	{
+		public const char SPACE_CHAR_MATCH = '^';
+
+		public static string GetPlayerNameWithSpaces(string playerName)
+		{
+			return playerName?.Replace(SPACE_CHAR_MATCH, ' ');
+		}
+		
+		public static string GetPlayerNameWithSpecialSpaceChar(string playerName)
+		{
+			return playerName?.Replace(' ', SPACE_CHAR_MATCH);
+		}
+
+		public static string GetPlayerNameWithSpaces(this IAuthenticationService authService, bool trim = true, bool tag = true)
+		{
+			var name = GetPlayerName(authService, trim, tag);
+			
+			name = name?.Replace(SPACE_CHAR_MATCH, ' ');
+
+			return name;
+		}
+
 		/// <summary>
 		/// Returns the local players name without the hashtag and numbers.
 		/// </summary>
@@ -39,7 +60,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			{
 				name = name.TrimPlayerNameNumbers();
 			}
-
+			
 			return name;
 		}
 	}

@@ -36,6 +36,10 @@ namespace FirstLight.Game.Configs.Utils
 		[ShowIf("@!_useLocalization")] [SerializeField]
 		private string _text;
 
+		public string LocalizationTerm => _localizationTerm;
+		public string Text => _text;
+		public bool UseLocalization => _useLocalization;
+
 		public string GetText()
 		{
 			return _useLocalization ? LocalizationManager.GetTranslation(_localizationTerm) : _text;
@@ -63,11 +67,11 @@ namespace FirstLight.Game.Configs.Utils
 	[Serializable]
 	public class DurationConfig
 	{
-		public const string DATE_FORMAT = "dd/MM/yyyy HH:mm";
+		public const string DATE_FORMAT = "dd/MM/yyyy-HH:mm";
 
 		public static DateTime Parse(string datetime)
 		{
-			return DateTime.ParseExact(datetime, DATE_FORMAT, CultureInfo.InvariantCulture);
+			return DateTime.ParseExact(datetime, DATE_FORMAT, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
 		}
 
 		[ValidateInput("IsValidDate", "Invalid date format! Use: '" + DATE_FORMAT + "'")]
@@ -78,7 +82,7 @@ namespace FirstLight.Game.Configs.Utils
 
 		public static bool IsValidDate(string input)
 		{
-			return DateTime.TryParseExact(input, DATE_FORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+			return DateTime.TryParseExact(input, DATE_FORMAT, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out _);
 		}
 
 		public DateTime GetStartsAtDateTime() => Parse(StartsAt);

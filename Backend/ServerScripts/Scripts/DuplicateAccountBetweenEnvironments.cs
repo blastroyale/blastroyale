@@ -27,7 +27,7 @@ public class DuplicateAccountBetweenEnvironments : PlayfabScript
 			GetPlayerStatistics = true
 		};
 
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.PROD;
+	public override Environment GetEnvironment() => Environment.PROD;
 
 	public override void Execute(ScriptParameters parameters)
 	{
@@ -37,14 +37,14 @@ public class DuplicateAccountBetweenEnvironments : PlayfabScript
 
 	public async Task RunAsync()
 	{
-		var availableEnvironments = string.Join(", ", Enum.GetNames<PlayfabEnvironment>());
+		var availableEnvironments = string.Join(", ", Enum.GetNames<Environment>());
 
 		// Source
 		Console.WriteLine();
 		Console.WriteLine("Available Environments: " + availableEnvironments);
 		Console.WriteLine("Input the environment to copy from: ");
 		var targetString = Console.ReadLine();
-		if (!Enum.TryParse<PlayfabEnvironment>(targetString?.Trim().ToUpperInvariant(), out var copyFrom))
+		if (!Enum.TryParse<Environment>(targetString?.Trim().ToUpperInvariant(), out var copyFrom))
 		{
 			Console.WriteLine("Invalid environment, available ones: " + availableEnvironments);
 			return;
@@ -54,7 +54,7 @@ public class DuplicateAccountBetweenEnvironments : PlayfabScript
 		Console.WriteLine();
 		Console.WriteLine("Input the environment to copy to: ");
 		targetString = Console.ReadLine();
-		if (!Enum.TryParse<PlayfabEnvironment>(targetString?.Trim().ToUpperInvariant(), out var copyTo))
+		if (!Enum.TryParse<Environment>(targetString?.Trim().ToUpperInvariant(), out var copyTo))
 		{
 			Console.WriteLine("Invalid environment, available ones: " + availableEnvironments);
 			return;

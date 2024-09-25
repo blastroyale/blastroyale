@@ -13,6 +13,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLightServerSDK.Services;
@@ -373,9 +374,22 @@ namespace FirstLight.Game.Services
 
 			FLog.Info("Using photon with the id " + FLEnvironment.Current.PhotonAppIDRealtime);
 
+			FeatureFlags.ParseFlags(titleData);
+			FeatureFlags.ParseLocalFeatureFlags();
+			_services.MessageBrokerService.Publish(new FeatureFlagsReceived()
+			{
+				AppData = titleData
+			});
+			
+			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out _))
+			{
+				onError?.Invoke(null);
+				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
+			}
+			
 			var requiredServices = 2;
 			var doneServices = 0;
-
+						
 			void OnServiceConnected(LoginData data)
 			{
 				if (++doneServices >= requiredServices)
@@ -384,20 +398,11 @@ namespace FirstLight.Game.Services
 					{
 						TryMigrateData(migrationData);
 					}
-
-					_dataService.SaveData<AppData>();
-					onSuccess(loginData);
 				}
 			}
-
+			
 			AuthenticateGameNetwork(loginData, OnServiceConnected, onError);
 			GetPlayerData(loginData, OnServiceConnected, onError, previouslyLoggedIn);
-
-			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out _))
-			{
-				onError?.Invoke(null);
-				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
-			}
 
 			if (string.IsNullOrWhiteSpace(accountData.DeviceId) ||
 				result.InfoResultPayload.AccountInfo.PrivateInfo.Email != accountData.LastLoginEmail)
@@ -410,10 +415,6 @@ namespace FirstLight.Game.Services
 				UpdateContactEmail(email, null, null);
 			}
 
-			FeatureFlags.ParseFlags(titleData);
-			FeatureFlags.ParseLocalFeatureFlags();
-			_services.MessageBrokerService.Publish(new FeatureFlagsReceived());
-
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
@@ -422,17 +423,22 @@ namespace FirstLight.Game.Services
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
 			accountData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-			appData.TitleData = titleData;
-			OnLogin?.Invoke(result);
-			State.LoggedIn = true;
-			_dataService.SaveData<AppData>();
-			_localAccountData.SaveData<AccountData>();
-			FLog.Verbose("Saved AppData");
+		
+			UniTask.WaitUntil(() => doneServices >= requiredServices).ContinueWith(() =>
+			{
+				FLog.Info("Finalizing login");
+				State.LoggedIn = true;
+				_dataService.SaveData<AppData>();
+				_localAccountData.SaveData<AccountData>();
+				FLog.Verbose("Saved AppData");
+				onSuccess(loginData); // TODO: https://firstlightgames.atlassian.net/browse/BRR-1999
+				OnLogin?.Invoke(result);
+			}).Forget();
 		}
 
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)
 		{
-			_services.GameBackendService.CallFunction("GetPlayerData",
+			_services.GameBackendService.CallGenericFunction(CommandNames.GET_PLAYER_DATA,
 				(res) => { OnPlayerDataObtained(res, loginData, onSuccess, onError, previouslyLoggedIn); },
 				e => { _services.GameBackendService.HandleError(e, onError); });
 		}
@@ -481,7 +487,7 @@ namespace FirstLight.Game.Services
 			{
 				FLog.Info("UnityCloudAuth", "Requesting session token!");
 
-				_services.GameBackendService.CallFunction("AuthenticateUnity",
+				_services.GameBackendService.CallGenericFunction(CommandNames.AUTHENTICATE_UNITY,
 					(res) =>
 					{
 						var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
@@ -508,10 +514,23 @@ namespace FirstLight.Game.Services
 				.WithMemberProfile(true);
 			tasks.Add(FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask());
 			tasks.Add(AuthenticationService.Instance.GetPlayerNameAsync().AsUniTask()); // We fetch the name (which generates a new one) so it's stored in the cache
-			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId)); ;
+			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
 			await UniTask.WhenAll(tasks);
-			CheckNamesUpdates().Forget();
-			_services.NotificationService.Init();
+			CheckNamesUpdates()
+				.ContinueWith(() =>
+				{
+					// GOD FORGIVE ME
+					var dataService = _services.DataService;
+					var migrationData = dataService.LoadData<LocalMigrationData>();
+					if (!migrationData.RanMigrations.Contains(LocalMigrationData.SYNC_NAME))
+					{
+						_services.GameBackendService.CallGenericFunction(CommandNames.SYNC_NAME).Forget();
+						migrationData.RanMigrations.Add(LocalMigrationData.SYNC_NAME);
+						dataService.SaveData<LocalMigrationData>();
+					}
+				})
+				.Forget();
+			_services.InGameNotificationService.Init();
 			_services.RateAndReviewService.Init();
 			onComplete();
 		}
@@ -531,9 +550,13 @@ namespace FirstLight.Game.Services
 				if (appData.IsFirstSession || string.IsNullOrWhiteSpace(playfabName))
 				{
 					FLog.Info("Updating playfab name to auto generated unity one" + unityName);
-					await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
+					var playfabResult = await AsyncPlayfabAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest()
 					{
 						DisplayName = unityName.Length > 25 ? unityName.Substring(0, 25) : unityName
+					});
+					_services.MessageBrokerService.Publish(new DisplayNameChangedMessage()
+					{
+						NewPlayfabDisplayName = playfabResult.DisplayName
 					});
 					return;
 				}
@@ -566,11 +589,6 @@ namespace FirstLight.Game.Services
 					}
 
 					var dataInstance = ModelSerializer.DeserializeFromData(type, state);
-					if (dataInstance is CollectionItemEnrichmentData enrichmentData)
-					{
-						_services.CollectionEnrichnmentService.Enrich(enrichmentData);
-					}
-
 					_dataService.AddData(type, dataInstance);
 				}
 				catch (Exception e)

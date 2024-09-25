@@ -48,7 +48,7 @@ namespace FirstLight.Server.SDK.Services
 		/// Whenever development mode is enabled, permission checks can be bypassed
 		/// </summary>
 		bool DevelopmentMode { get; }
-		
+
 		/// <summary>
 		/// On standalone, no other external dependencies are needed for requests
 		/// like playfab or postgres
@@ -75,20 +75,20 @@ namespace FirstLight.Server.SDK.Services
 		/// Devops build number used to build
 		/// </summary>
 		string BuildNumber { get; }
-		
+
 		/// <summary>
 		/// The basic auth token for the Unity Token Exchange API
 		/// </summary>
-		public string UnityCloudAuthToken {get;}
-		
+		public string UnityCloudAuthToken { get; }
+
 		/// <summary>
 		/// The name of the environment in Unity Cloud (development, staging, production)
 		/// </summary>
-		public string UnityCloudEnvironmentName {get;}
-		
+		public string UnityCloudEnvironmentName { get; }
+
 		/// <summary>
 		/// The ID of the environment in Unity Cloud.
 		/// </summary>
-		public string UnityCloudEnvironmentID {get;}
+		public string UnityCloudEnvironmentID { get; }
 	}
 }

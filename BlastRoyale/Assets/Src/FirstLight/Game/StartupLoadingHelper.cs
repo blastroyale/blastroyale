@@ -75,8 +75,6 @@ namespace FirstLight.Game
 				_configsLoader.LoadConfig<EquipmentRarityAssetConfigs>(AddressableId.Configs_EquipmentRarityAssetConfigs,
 					asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<VideoAssetConfigs>(AddressableId.Configs_VideoAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<PlayerRankAssetConfigs>(AddressableId.Configs_PlayerRankAssetConfigs,
-					asset => _assetService.AddConfigs(asset)),
 			};
 		}
 

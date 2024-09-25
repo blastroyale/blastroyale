@@ -16,7 +16,7 @@ public class FixLevel0Weapons : PlayfabScript
 	
 	private static int BAD = 0;
 	
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
+	public override Environment GetEnvironment() => Environment.DEV;
 	
 	public override void Execute(ScriptParameters parameters)
 	{

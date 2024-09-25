@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -46,6 +48,7 @@ namespace FirstLight.Game.Views
 		private LocalPrefsService _localPrefs;
 		private IRemoteTextureService _remoteTexture;
 		private IFLLobbyService _lobbyService;
+		private IGameModeService _gameModeService;
 
 		private AngledContainerElement _button;
 		private Label _gameModeLabel;
@@ -67,6 +70,7 @@ namespace FirstLight.Game.Views
 			_localPrefs = services.LocalPrefsService;
 			_remoteTexture = services.RemoteTextureService;
 			_lobbyService = services.FLLobbyService;
+			_gameModeService = services.GameModeService;
 			_char = Element.Q<VisualElement>("Char").Required();
 			_button = Element.Q<AngledContainerElement>().Required();
 
@@ -120,19 +124,26 @@ namespace FirstLight.Game.Views
 			GameModeInfo = gameModeInfo;
 
 			RemoveClasses();
-			_button.AddToClassList($"{USS_BASE}--{GameModeInfo.Entry.Visual.CardModifier}");
+			if (gameModeInfo.Entry is FixedGameModeEntry fg)
+			{
+				_button.AddToClassList($"{USS_BASE}--{fg.CardModifier}");
+			}
+			else if (gameModeInfo.Entry is EventGameModeEntry ev)
+			{
+				_button.AddToClassList($"{USS_BASE}--event");
+				if (string.IsNullOrEmpty(ev.ImageURL))
+				{
+					var teamSizeConfig = _gameModeService.GetTeamSizeFor(ev);
+					_button.AddToClassList($"{USS_BASE}--event--" + teamSizeConfig.EventImageModifierByTeam);
+				}
+			}
+
 			UpdateTeamSize(gameModeInfo);
 			UpdateTitleAndDescription();
 			UpdateDisabledStatus();
 			UpdateRewards();
-			
-			if (!string.IsNullOrWhiteSpace(GameModeInfo.Entry.Visual.ImageModifier))
-			{
-				_button.AddToClassList($"{USS_BASE}--{GameModeInfo.Entry.Visual.CardModifier}--{GameModeInfo.Entry.Visual.ImageModifier}");
-			}
-			
 			CheckCustomImage();
-			
+
 			if (gameModeInfo.IsFixed)
 			{
 				return;
@@ -145,10 +156,10 @@ namespace FirstLight.Game.Views
 				_button.AddToClassList(USS_COMING_SOON);
 			}
 
-			var showEventAnimation = !GameModeInfo.IsFixed && GameModeInfo.Duration.Contains(DateTime.UtcNow) && _localPrefs.LastSeenEvent.Value != GameModeInfo.GetKey();
+			var showEventAnimation = !GameModeInfo.IsFixed && GameModeInfo.Duration.Contains(DateTime.UtcNow) && !_gameModeService.HasSeenEvent(GameModeInfo);
 			if (showEventAnimation)
 			{
-				_localPrefs.LastSeenEvent.Value = GameModeInfo.GetKey();
+				_gameModeService.MarkSeen(GameModeInfo);
 				_button.AddToClassList(USS_ANIM_ROOT);
 				Element.schedule.Execute(() =>
 				{
@@ -179,18 +190,21 @@ namespace FirstLight.Game.Views
 
 		private void CheckCustomImage()
 		{
-			var url = GameModeInfo.Entry.Visual.OverwriteImageURL;
-			if (string.IsNullOrWhiteSpace(GameModeInfo.Entry.Visual.OverwriteImageURL))
+			if (GameModeInfo.Entry is EventGameModeEntry ev)
 			{
-				return;
-			}
+				var url = ev.ImageURL;
+				if (string.IsNullOrWhiteSpace(url))
+				{
+					return;
+				}
 
-			var request = _remoteTexture.RequestTexture(url, cancellationToken: Presenter.GetCancellationTokenOnClose());
-			_button.AddToClassList(USS_EVENT_CUSTOM_IMAGE);
-			_button.ListenOnce<GeometryChangedEvent>(() =>
-			{
-				SetTexture(request).Forget();
-			});
+				var request = _remoteTexture.RequestTexture(url, cancellationToken: Presenter.GetCancellationTokenOnClose());
+				_button.AddToClassList(USS_EVENT_CUSTOM_IMAGE);
+				_button.ListenOnce<GeometryChangedEvent>(() =>
+				{
+					SetTexture(request).Forget();
+				});
+			}
 		}
 
 		private async UniTaskVoid SetTexture(UniTask<Texture2D> task)
@@ -212,6 +226,11 @@ namespace FirstLight.Game.Views
 			if (GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites == null) return;
 			foreach (var gameId in GameModeInfo.Entry.MatchConfig.MetaItemDropOverwrites.Select(a => a.Id).Distinct())
 			{
+				if (RewardLogic.TryGetRewardCurrencyGroupId(gameId, out var _))
+				{
+					continue;
+				}
+
 				var icon = new VisualElement();
 				icon.AddToClassList(USS_REWARD_ICON);
 				var viewModel = new CurrencyItemViewModel(ItemFactory.Currency(gameId, 0));
@@ -228,8 +247,9 @@ namespace FirstLight.Game.Views
 		private void UpdateTeamSize(GameModeInfo gameModeInfo)
 		{
 			_teamSizeIcon.RemoveSpriteClasses();
-			_teamSizeIcon.AddToClassList(gameModeInfo.Entry.Visual.IconSpriteClass);
-			_teamSizeLabel.text = gameModeInfo.Entry.TeamSize + "";
+			var size = _gameModeService.GetTeamSizeFor(gameModeInfo.Entry);
+			_teamSizeIcon.AddToClassList(size.IconSpriteClass);
+			_teamSizeLabel.text = gameModeInfo.Entry.MatchConfig.TeamSize + "";
 		}
 
 		public void UpdateDisabledStatus()
@@ -240,7 +260,7 @@ namespace FirstLight.Game.Views
 				return;
 			}
 
-			if (_lobbyService.CurrentPartyLobby != null && GameModeInfo.Entry.TeamSize < _lobbyService.CurrentPartyLobby.Players.Count)
+			if (_lobbyService.CurrentPartyLobby != null && GameModeInfo.Entry.MatchConfig.TeamSize < _lobbyService.CurrentPartyLobby.Players.Count)
 			{
 				Disabled = true;
 				return;
@@ -262,9 +282,9 @@ namespace FirstLight.Game.Views
 
 		private void UpdateTitleAndDescription()
 		{
-			_eventLabel.text = GameModeInfo.Entry.Visual.TitleTranslationKey.GetText();
-			_gameModeLabel.text = GameModeInfo.Entry.Visual.TitleTranslationKey.GetText();
-			_gameModeDescriptionLabel.text = GameModeInfo.Entry.Visual.DescriptionTranslationKey.GetText();
+			_eventLabel.text = GameModeInfo.Entry.Title.GetText();
+			_gameModeLabel.text = GameModeInfo.Entry.Title.GetText();
+			_gameModeDescriptionLabel.text = GameModeInfo.Entry.Description.GetText();
 		}
 	}
 }

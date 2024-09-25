@@ -46,14 +46,15 @@ namespace quantum.custom.plugin
 		{
 			Log.Info($"Sending command {command.GetType()} to {userId}");
 			var data = new Dictionary<string, string>();
-			data[CommandFields.Command] = ModelSerializer.Serialize(command).Value;
+			data[CommandFields.CommandData] = ModelSerializer.Serialize(command).Value;
+			data[CommandFields.CommandType] = command.GetType().FullName;
 			data["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
 			var request = new ExecuteFunctionRequest()
 			{
-				FunctionName = "ExecuteCommand",
+				FunctionName = "Generic",
 				FunctionParameter = new LogicRequest()
 				{
-					Command = command.GetType().FullName,
+					Command = CommandNames.EXECUTE_LOGIC,
 					Data = data
 				},
 				AuthenticationContext = new PlayFabAuthenticationContext()

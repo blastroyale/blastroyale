@@ -3,14 +3,13 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the changes in a <see cref="Destructible"/> entity
 	/// </summary>
-	public unsafe class GateSystem : SystemMainThreadFilter<GateSystem.GateFilter>,
-									 ISignalTriggerActivated
+	public unsafe class GateSystem : SystemMainThreadFilter<GateSystem.GateFilter>, ISignalTriggerActivated
 	{
 		public struct GateFilter
 		{
 			public EntityRef Entity;
 			public Gate* Gate;
-			public PhysicsCollider3D* Collider;
+			public PhysicsCollider2D* Collider;
 		}
 		
 		public override void Update(Frame f, ref GateFilter filter)

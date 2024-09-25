@@ -49,10 +49,17 @@
 }
 
 .not-supporting-text {
+    white-space: normal;
+    overflow: visible;
     color: rgb(231, 59, 59);
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.not-supporting-text .internal-label {
+    white-space: normal;
+    overflow: visible;
 }
 
 .supporting-text {

@@ -7,6 +7,7 @@ using FirstLight.Game.Services;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLightServerSDK.Services;
 using NSubstitute;
 using NUnit.Framework;
 using Photon.Deterministic;
@@ -52,6 +53,7 @@ namespace FirstLight.Tests.EditorMode
 		protected IAssetResolverService AssetResolverService;
 		protected IAudioFxService<AudioId> AudioFxService;
 		protected IConfigsProvider ConfigsProvider;
+		protected IRemoteConfigProvider RemoteConfigProvider;
 
 		// Logic
 		protected IGameLogic GameLogic;
@@ -80,6 +82,7 @@ namespace FirstLight.Tests.EditorMode
 			AssetResolverService = Substitute.For<IAssetResolverService>();
 			AudioFxService = Substitute.For<IAudioFxService<AudioId>>();
 			ConfigsProvider = Substitute.For<IConfigsProvider>();
+			RemoteConfigProvider = Substitute.For<IRemoteConfigProvider>();
 
 			// Services
 			GameLogic = Substitute.For<IGameLogic>();
@@ -105,6 +108,7 @@ namespace FirstLight.Tests.EditorMode
 			GameLogic.MessageBrokerService.Returns(MessageBrokerService);
 			GameLogic.TimeService.Returns(TimeService);
 			GameLogic.ConfigsProvider.Returns(ConfigsProvider);
+			GameLogic.RemoteConfigProvider.Returns(RemoteConfigProvider);
 
 			GameServices.AssetResolverService.Returns(AssetResolverService);
 			GameServices.CommandService.Returns(CommandService);
@@ -136,6 +140,11 @@ namespace FirstLight.Tests.EditorMode
 			ConfigsProvider.GetConfig<T>().Returns(data[0]);
 			ConfigsProvider.GetConfigsList<T>().Returns(list);
 			ConfigsProvider.GetConfigsDictionary<T>().Returns(dictionary);
+		}
+
+		protected void InitRemoteConfigData<T>(T data) where T : class
+		{
+			RemoteConfigProvider.GetConfig<T>().Returns(data);
 		}
 
 		protected void InitConfigData<T>(T data)

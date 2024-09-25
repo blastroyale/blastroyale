@@ -50,7 +50,7 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.ResolveServices();
 			
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
-			header.backClicked = Data.BackClicked; 
+			header.backClicked = Data.BackClicked;
 
 			_matchSettings.AttachView(this, out _matchSettingsView);
 			_gamesList.bindItem = BindMatchLobbyItem;
@@ -141,7 +141,7 @@ namespace FirstLight.Game.Presenters
 			{
 				if(lobby.GetMatchRegion() != _services.LocalPrefsService.ServerRegion.Value)
 				{
-					_services.NotificationService.QueueNotification("Cannot join match from a different region");
+					_services.InGameNotificationService.QueueNotification("Cannot join match from a different region");
 					return;
 				}
 				JoinMatch(lobby.Id, !lobby.HasRoomInGrid()).Forget();

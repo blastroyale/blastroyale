@@ -9,14 +9,14 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Consumable with all the necessary data
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-						   in QuantumConsumableConfig config, EntityRef spawner, FPVector3 originPos)
+		internal void Init(Frame f, EntityRef e, FPVector2 position, FP rotation,
+						   in QuantumConsumableConfig config, EntityRef spawner, FPVector2 originPos)
 		{
 			var collectable = new Collectable
 			{
 				GameId = config.Id
 			};
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			var transform = f.Unsafe.GetPointer<Transform2D>(e);
 
 			ConsumableType = config.ConsumableType;
 
@@ -28,8 +28,8 @@ namespace Quantum
 
 			f.Add(e, collectable);
 
-			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
-			collider->Shape.Sphere.Radius = config.CollectableConsumablePickupRadius;
+			var collider = f.Unsafe.GetPointer<PhysicsCollider2D>(e);
+			collider->Shape.Circle.Radius = config.CollectableConsumablePickupRadius * (FP._0_75 + FP._0_10);
 		}
 		
 		/// <summary>

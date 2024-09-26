@@ -1,0 +1,18 @@
+/*MAKE THIS AUTO GENERATED*/
+.icon--hide {
+    background-image: var(--sprite-kit__hide);
+    width: 56px;
+    height: 46px;
+}
+
+.icon--show {
+    background-image: var(--sprite-kit__show);
+    width: 57px;
+    height: 40px;
+}
+
+.icon--copy {
+    background-image: var(--sprite-kit__copy);
+    width: 40px;
+    height: 43px;
+}

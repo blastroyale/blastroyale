@@ -17,8 +17,6 @@ namespace FirstLight.Game.UIElements
 #endif
 		protected void Init()
 		{
-			this.AddToClassList("label-outlined");
-			
 			if (_internalLabel != null)
 			{
 				hierarchy.Remove(_internalLabel);
@@ -44,6 +42,10 @@ namespace FirstLight.Game.UIElements
 					if (valueChange.target != _internalLabel.parent) return;
 
 					_internalLabel.text = valueChange.newValue;
+					if (resolvedStyle.textOverflow == TextOverflow.Ellipsis)
+					{
+						SetTextEllipticEnd(valueChange.newValue);
+					}
 				});
 				Sync();
 
@@ -125,10 +127,16 @@ namespace FirstLight.Game.UIElements
 		private void Sync()
 		{
 			_internalLabel.text = text;
+			_internalLabel.style.whiteSpace = resolvedStyle.whiteSpace;
+			_internalLabel.style.textOverflow = resolvedStyle.textOverflow;
 			_internalLabel.style.flexDirection = resolvedStyle.flexDirection;
 			_internalLabel.style.alignItems = resolvedStyle.alignItems;
 			_internalLabel.style.alignContent = resolvedStyle.alignContent;
 			_internalLabel.style.justifyContent = resolvedStyle.justifyContent;
+			if (_internalLabel.resolvedStyle.textOverflow == TextOverflow.Ellipsis)
+			{
+				SetTextEllipticEnd(text);
+			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<LabelOutlined, UxmlTraits>

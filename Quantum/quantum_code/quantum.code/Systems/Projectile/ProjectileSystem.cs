@@ -23,7 +23,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref ProjectileFilter filter)
 		{
-			if ((filter.Transform->Position - filter.Projectile->SpawnPosition).SqrMagnitude >= filter.Projectile->RangeSquared)
+			if (filter.Projectile->Blocked || (filter.Transform->Position - filter.Projectile->SpawnPosition).SqrMagnitude >= filter.Projectile->RangeSquared)
 			{
 				if (filter.Projectile->ShouldPerformSubProjectileOnEndOfLifetime(f))
 				{
@@ -56,6 +56,8 @@ namespace Quantum.Systems
 			{
 				return;
 			}
+
+			if (projectile->Blocked) return;
 			
 			if (info.Other.IsValid)
 			{
@@ -75,7 +77,6 @@ namespace Quantum.Systems
 					}
 				}
 			}
-
 			OnProjectileHit(f, info.Other, info.Entity, projectile);
 		}
 
@@ -166,8 +167,6 @@ namespace Quantum.Systems
 		/// <summary>
 		/// Main method. Called when someone shoots.
 		/// </summary>
-		/// <param name="f"></param>
-		/// <param name="e"></param>
 		public static void Shoot(Frame f, in EntityRef e)
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
@@ -175,6 +174,22 @@ namespace Quantum.Systems
 			var transform = f.Unsafe.GetPointer<Transform2D>(e);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var aimDirection = bb->GetVector2(f, Constants.AIM_DIRECTION_KEY);
+			// TODO: Migrate all this outside blackboard
+			if (aimDirection == FPVector2.Zero)
+			{
+				if (!f.Unsafe.TryGetPointer<TopDownController>(e, out var kcc))
+				{
+					return;
+				}
+				else
+				{
+					aimDirection = kcc->AimDirection == FPVector2.Zero ? kcc->AimDirection.Normalized : kcc->MoveDirection.Normalized;
+				}
+				if (aimDirection == FPVector2.Zero) return;
+			}
+			var aimRotation = aimDirection.ToRotation();
+			var cannonEndPosition = transform->Position + FPVector2.Rotate(playerCharacter->ProjectileSpawnOffset * 3, aimRotation);
+			bool blocked = !QuantumHelpers.HasLineOfSight(f, transform->Position, cannonEndPosition, f.Context.TargetMapOnlyLayerMask, QueryOptions.HitStatics, out _);
 			if(f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot) && bot->Target.IsValid && bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY))
 			{
 				if (bot->SharpShootNextShot)
@@ -188,7 +203,6 @@ namespace Quantum.Systems
 				}
 			}
 			
-			var aimRotation = aimDirection.ToRotation();
 			var position = transform->Position + FPVector2.Rotate(playerCharacter->ProjectileSpawnOffset, aimRotation);
 			var rangeStat = f.Unsafe.GetPointer<Stats>(e)->GetStatData(StatType.AttackRange).StatValue;
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
@@ -197,7 +211,7 @@ namespace Quantum.Systems
 			f.Events.OnPlayerAttack(playerCharacter->Player, e, playerCharacter->CurrentWeapon, weaponConfig, aimDirection, rangeStat);
 			if (weaponConfig.NumberOfShots == 1 || weaponConfig.IsMeleeWeapon)
 			{
-				CreateProjectile(f, e, rangeStat, aimDirection, position, weaponConfig, 0);
+				CreateProjectile(f, e, rangeStat, aimDirection, position, weaponConfig, 0, blocked);
 			}
 			else
 			{
@@ -207,13 +221,13 @@ namespace Quantum.Systems
 				for (var x = 0; x < weaponConfig.NumberOfShots; x++)
 				{
 					var burstDirection = FPVector2.Rotate(aimDirection, angle * FP.Deg2Rad).XOY;
-					CreateProjectile(f, e, rangeStat, burstDirection.XZ, position, weaponConfig, (byte)x);
+					CreateProjectile(f, e, rangeStat, burstDirection.XZ, position, weaponConfig, (byte)x, blocked);
 					angle += angleStep;
 				}
 			}
 		}
 	
-		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector2 projectileStartPosition, in QuantumWeaponConfig weaponConfig, byte shotNumber)
+		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector2 projectileStartPosition, in QuantumWeaponConfig weaponConfig, byte shotNumber, bool blocked)
 		{
 			FP accuracyMod = FP._0;
 			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon && !(weaponConfig.NumberOfShots > 1))
@@ -239,7 +253,7 @@ namespace Quantum.Systems
 				DespawnTime = despawnTime,
 				Speed = (byte)weaponConfig.AttackHitSpeed.AsInt,
 				StunDuration = 0,
-				Target = EntityRef.None,
+				Blocked = blocked,
 				Iteration = 0,
 				TeamSource = (byte)f.Unsafe.GetPointer<Targetable>(shooter)->Team,
 				ShotNumber = shotNumber

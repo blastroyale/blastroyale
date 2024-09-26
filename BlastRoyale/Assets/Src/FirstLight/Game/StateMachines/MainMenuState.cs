@@ -198,7 +198,8 @@ namespace FirstLight.Game.StateMachines
 				leaderboard,
 				store,
 				news,
-				friends);
+				friends, 
+				enterNameDialog);
 
 			matchmakingChecks.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
 			matchmakingChecks.Transition().Condition(CheckInvalidTeamSize)

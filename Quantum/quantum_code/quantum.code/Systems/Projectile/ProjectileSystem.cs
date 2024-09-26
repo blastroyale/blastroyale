@@ -56,12 +56,9 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-
-			if (projectile->Blocked) return;
 			
 			if (info.Other.IsValid)
 			{
-				
 				// For melee we need to have LOS between attacker and target
 				if (projectile->ConfigIsMelee(f) && !QuantumHelpers.HasMapLineOfSight(f, projectile->Attacker, info.Other))
 				{
@@ -75,6 +72,10 @@ namespace Quantum.Systems
 					{
 						return;
 					}
+				}
+				else if(projectile->Blocked)
+				{
+					return;
 				}
 			}
 			OnProjectileHit(f, info.Other, info.Entity, projectile);
@@ -220,8 +221,10 @@ namespace Quantum.Systems
 				FP angle = -max/ FP._2;
 				for (var x = 0; x < weaponConfig.NumberOfShots; x++)
 				{
-					var burstDirection = FPVector2.Rotate(aimDirection, angle * FP.Deg2Rad).XOY;
-					CreateProjectile(f, e, rangeStat, burstDirection.XZ, position, weaponConfig, (byte)x, blocked);
+					var burstDirection = FPVector2.Rotate(aimDirection, angle * FP.Deg2Rad);
+					cannonEndPosition = transform->Position + FPVector2.Rotate(playerCharacter->ProjectileSpawnOffset * 3, burstDirection.ToRotation());
+					blocked = !QuantumHelpers.HasLineOfSight(f, transform->Position, cannonEndPosition, f.Context.TargetMapOnlyLayerMask, QueryOptions.HitStatics, out _);
+					CreateProjectile(f, e, rangeStat, burstDirection, position, weaponConfig, (byte)x, blocked);
 					angle += angleStep;
 				}
 			}

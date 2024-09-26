@@ -29,9 +29,12 @@ namespace FirstLight.Game.UIElements
 		private string titleKey { get; set; }
 		private string subtitleKey { get; set; }
 
+		public VisualElement Title => _title;
+
 		private readonly Label _title;
 		private readonly Label _subTitle;
 		private readonly ImageButton _back;
+		private SafeAreaElement _safeAreaContainer;
 
 		public ScreenHeaderElement()
 		{
@@ -43,26 +46,38 @@ namespace FirstLight.Game.UIElements
 			// on the Header element in UXML if you want to have interactive elements behind it.
 			pickingMode = PickingMode.Ignore;
 
-			var safeAreaContainer = new SafeAreaElement(false, false, false, true);
-			safeAreaContainer.AddToClassList(USS_SAFE_AREA_HOLDER);
-			Add(safeAreaContainer);
+			_safeAreaContainer = new SafeAreaElement(false, false, false, true);
+			_safeAreaContainer.AddToClassList(USS_SAFE_AREA_HOLDER);
+			Add(_safeAreaContainer);
 
-			safeAreaContainer.Add(_back = new ImageButton {name = "back"});
+			_safeAreaContainer.Add(_back = new ImageButton {name = "back"});
 			_back.AddToClassList(USS_BACK);
 			_back.AddToClassList(UIService.UIService.SFX_CLICK_BACKWARDS);
 			_back.clicked += () => backClicked?.Invoke();
 
-			safeAreaContainer.Add(_title = new LabelOutlined("Title") {name = "title"});
+			_safeAreaContainer.Add(_title = new LabelOutlined("Title") {name = "title"});
 			_title.AddToClassList(USS_TITLE);
 
-			safeAreaContainer.Add(_subTitle = new LabelOutlined("Subtitle") {name = "subtitle"});
+			_safeAreaContainer.Add(_subTitle = new LabelOutlined("Subtitle") {name = "subtitle"});
 			_subTitle.AddToClassList(USS_SUB_TITLE);
 
 			var centerContent = new VisualElement {name = "separator", pickingMode = PickingMode.Ignore};
 			centerContent.AddToClassList(USS_SEPARATOR);
-			safeAreaContainer.Add(centerContent);
+			_safeAreaContainer.Add(centerContent);
 		}
 
+		public void AdjustLabelWidthConsidering(float offset, params VisualElement[] elements)
+		{
+			var width = resolvedStyle.width - _back.resolvedStyle.width - _back.resolvedStyle.marginLeft + offset;
+			width -= _safeAreaContainer.resolvedStyle.marginLeft;
+			width -= _safeAreaContainer.resolvedStyle.marginRight;
+			foreach (var visualElement in elements)
+			{
+				width -= visualElement.resolvedStyle.width;
+			}
+
+			this._title.style.width = width;
+		}
 		/// <summary>
 		/// Show or hide back button based on the shouldShow parameter
 		/// </summary>
@@ -101,7 +116,7 @@ namespace FirstLight.Game.UIElements
 				_subTitle.text = subtitle;
 			}
 		}
-		
+
 		public new class UxmlFactory : UxmlFactory<ScreenHeaderElement, UxmlTraits>
 		{
 		}

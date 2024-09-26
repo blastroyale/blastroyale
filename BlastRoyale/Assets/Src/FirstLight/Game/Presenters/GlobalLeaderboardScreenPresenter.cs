@@ -18,6 +18,7 @@ using JetBrains.Annotations;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {

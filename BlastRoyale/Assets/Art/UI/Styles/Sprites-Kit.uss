@@ -1,6 +1,11 @@
 /* AUTO GENERATED */
 :root {
     --sprite-kit__avatar-default: url('/Assets/Art/UI/Sprites/Kit/avatar-default.png');
+    --sprite-kit__square: url('/Assets/Art/UI/Sprites/Kit/Button/square.png');
+    --sprite-kit__square-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/square-pressed.png');
+    --sprite-kit__copy: url('/Assets/Art/UI/Sprites/Kit/Icon/copy.png');
+    --sprite-kit__hide: url('/Assets/Art/UI/Sprites/Kit/Icon/hide.png');
+    --sprite-kit__show: url('/Assets/Art/UI/Sprites/Kit/Icon/show.png');
     --sprite-kit__pattern-dots: url('/Assets/Art/UI/Sprites/Kit/pattern-dots.png');
 }
 
@@ -8,6 +13,34 @@
     background-image: var(--sprite-kit__avatar-default);
     width: 125px;
     height: 125px;
+}
+
+.sprite-kit__square {
+    background-image: var(--sprite-kit__square);
+    width: 96px;
+    height: 96px;
+}
+
+.sprite-kit__square:active {
+    background-image: var(--sprite-kit__square-pressed);
+}
+
+.sprite-kit__copy {
+    background-image: var(--sprite-kit__copy);
+    width: 40px;
+    height: 43px;
+}
+
+.sprite-kit__hide {
+    background-image: var(--sprite-kit__hide);
+    width: 56px;
+    height: 46px;
+}
+
+.sprite-kit__show {
+    background-image: var(--sprite-kit__show);
+    width: 57px;
+    height: 40px;
 }
 
 .sprite-kit__pattern-dots {

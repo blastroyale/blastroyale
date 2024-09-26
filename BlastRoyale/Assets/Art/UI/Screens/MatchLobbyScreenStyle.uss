@@ -176,3 +176,6 @@
 #InviteToggle .localized-toggle__label {
     font-size: 38px;
 }
+.match-lobby-header .screen-header__title{
+    text-overflow: ellipsis;
+}

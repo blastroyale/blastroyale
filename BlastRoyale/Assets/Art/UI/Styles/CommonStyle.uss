@@ -1108,3 +1108,14 @@
 .copy-button:active {
     background-image: var(--sprite-home__button-copy-pressed);
 }
+
+.square-button {
+    width: 90px;
+    height: 90px;
+    background-image: var(--sprite-kit__button-square);
+    align-self: auto;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    padding-bottom: 12px;
+}

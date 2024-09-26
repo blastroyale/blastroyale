@@ -8,6 +8,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Social;
 using FirstLight.Game.UIElements;
+using FirstLight.Game.UIElements.Kit;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
@@ -42,10 +43,14 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[Q("Header")] private ScreenHeaderElement _header;
+		[Q("SafeArea")] private SafeAreaElement _safeArea;
 		[Q("PlayersScrollview")] private ScrollView _playersContainer;
 		[Q("CodeLabel")] private Label _codeLabel;
-		[Q("CopyCodeButton")] private ButtonOutlined _copyCodeButton;
-		
+		[Q("LobbyCodeContainer")] private VisualElement _lobbyCodeContainer;
+		[Q("CopyCodeButton")] private KitButton _copyCodeButton;
+		[Q("ShowCodeButton")] private KitButton _codeVisibilityButton;
+		[Q("Tabs")] private VisualElement _tabs;
+
 		[Q("InviteToggle")] private Toggle _inviteToggle;
 		[Q("PlayersAmountLabel")] private Label _playersAmount;
 		[Q("InviteFriendsButton")] private LocalizedButton _inviteFriendsButton;
@@ -62,14 +67,17 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.ResolveServices();
 
 			_header.backClicked = () => LeaveMatchLobby().Forget();
-
 			_codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
 			_copyCodeButton.clicked += () =>
 			{
-				UIUtils.SaveToClipboard(_codeLabel.text);
+				UIUtils.SaveToClipboard(_services.FLLobbyService.CurrentMatchLobby.LobbyCode);
 				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			};
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
+			_codeVisibilityButton.clicked += () => SetCodeVisibility(!IsCodeVisible());
+			// Adjust the width of the game title based on the width of the code container
+			_lobbyCodeContainer.RegisterCallback<GeometryChangedEvent>((evt) => AdjustRemainingWidth());
+			_header.Title.RegisterCallback<ClickEvent>(evt => _header.Title.OpenTooltip(Root, _services.FLLobbyService.CurrentMatchLobby.Name, new Vector2(0, 0), TooltipPosition.Bottom));
 		}
 
 		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)
@@ -109,11 +117,15 @@ namespace FirstLight.Game.Presenters
 				_matchSettingsView.MatchSettings.AllowInvites = ev.newValue;
 				_services.FLLobbyService.UpdateMatchLobby(_matchSettingsView.MatchSettings).Forget();
 			});
-
+			SetCodeVisibility(false);
 			RefreshData();
 			_updateBuffer.Add(CheckJoiningSpectator);
-
 			return base.OnScreenOpen(reload);
+		}
+
+		private void AdjustRemainingWidth()
+		{
+			_header.AdjustLabelWidthConsidering(-100, _lobbyCodeContainer, _tabs);
 		}
 
 		protected override UniTask OnScreenClose()
@@ -165,6 +177,17 @@ namespace FirstLight.Game.Presenters
 					JoinRoom(room, joinProperties).Forget();
 				}
 			}
+		}
+
+		private void SetCodeVisibility(bool visible)
+		{
+			_codeLabel.text = visible ? _services.FLLobbyService.CurrentMatchLobby.LobbyCode : "CODE HIDDEN";
+			_codeVisibilityButton.BtnIcon = visible ? Icon.HIDE : Icon.SHOW;
+		}
+
+		private bool IsCodeVisible()
+		{
+			return _codeVisibilityButton.BtnIcon == Icon.HIDE;
 		}
 
 		private void OnKickedFromLobby()
@@ -221,7 +244,7 @@ namespace FirstLight.Game.Presenters
 				{
 					_services.UIService.CloseScreen<PopupPresenter>(false);
 				}
-				
+
 				if (_localPlayerHost)
 				{
 					_matchSettingsView.SetMainAction(ScriptTerms.UITCustomGames.start_match, () => StartMatch().Forget());

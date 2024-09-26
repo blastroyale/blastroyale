@@ -42,14 +42,9 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[Q("Header")] private ScreenHeaderElement _header;
-		[Q("SafeArea")] private SafeAreaElement _safeArea;
 		[Q("PlayersScrollview")] private ScrollView _playersContainer;
 		[Q("CodeLabel")] private Label _codeLabel;
-		[Q("ShowHideCode")] private ImageButton _showHideCodeLabel;
-		[Q("ShowHideCodeIcon")] private VisualElement _showHideCodeIcon;
-		[Q("CopyCodeButton")] private ImageButton _copyCodeButton;
-		[Q("LobbyCodeContainer")] private VisualElement _lobbyCodeContainer;
-		[Q("LobbyHeader")] private VisualElement _lobbyHeader;
+		[Q("CopyCodeButton")] private ButtonOutlined _copyCodeButton;
 		
 		[Q("InviteToggle")] private Toggle _inviteToggle;
 		[Q("PlayersAmountLabel")] private Label _playersAmount;
@@ -68,45 +63,13 @@ namespace FirstLight.Game.Presenters
 
 			_header.backClicked = () => LeaveMatchLobby().Forget();
 
+			_codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
 			_copyCodeButton.clicked += () =>
 			{
-				UIUtils.SaveToClipboard(_services.FLLobbyService.CurrentMatchLobby.LobbyCode);
+				UIUtils.SaveToClipboard(_codeLabel.text);
 				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITShared.code_copied);
 			};
 			_inviteFriendsButton.clicked += () => PopupPresenter.OpenInviteFriends().Forget();
-
-			// Show or hide the code label
-			_showHideCodeLabel.clicked += HandleShowHideCode;
-
-			// Adjust the width of the game title based on the width of the code container
-			_lobbyCodeContainer.RegisterCallback<GeometryChangedEvent>((evt) => AdjustRemainingWidth());
-
-			var headerLabel = _header.Q<Label>("title");
-			headerLabel.RegisterCallback<ClickEvent>(evt => headerLabel.OpenTooltip(Root, headerLabel.text, new Vector2(0, 0), TooltipPosition.Bottom));
-		}
-
-		private void AdjustRemainingWidth()
-		{
-			var headerLabel = _header.Q<Label>("title");
-			var headerBack = _header.Q<ImageButton>("back");
-
-			var remainingWidth = _lobbyHeader.resolvedStyle.width - _lobbyCodeContainer.resolvedStyle.width - (headerBack.resolvedStyle.width + headerBack.resolvedStyle.marginLeft) + _safeArea.resolvedStyle.marginLeft - 20;
-			headerLabel.style.width = remainingWidth;
-		}
-
-		private void HandleShowHideCode()
-		{
-			if (_showHideCodeIcon.ClassListContains("hide-code-icon"))
-			{
-				_codeLabel.text = "CODE HIDDEN";
-			}
-			else
-			{
-				_codeLabel.text = _services.FLLobbyService.CurrentMatchLobby.LobbyCode;
-
-			}
-
-			_showHideCodeIcon.ToggleInClassList("hide-code-icon");
 		}
 
 		private void OnPlayerJoined(List<LobbyPlayerJoined> joiners)

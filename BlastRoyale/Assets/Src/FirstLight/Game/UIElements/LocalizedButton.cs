@@ -32,7 +32,6 @@ namespace FirstLight.Game.UIElements
 		[Obsolete("Do not use default constructor")]
 		public LocalizedButton()
 		{
-			this.AddToClassList("localized-button");
 		}
 
 		public LocalizedButton(string localizationKey = null, Action action = null) : base(localizationKey, action)

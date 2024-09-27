@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BuffSystem;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
@@ -64,7 +65,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<ItemData> CalculateMatchRewards(RewardSource source, out int trophyChange);
+		MatchRewardsResult CalculateMatchRewards(RewardSource source, out int trophyChange);
 
 		/// <summary>
 		/// Obtains the rewards for a given tutorial step
@@ -84,7 +85,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="RewardSource"/> performance from a game completed
 		/// </summary>
-		List<ItemData> GiveMatchRewards(RewardSource source, out int trophyChange);
+		MatchRewardsResult GiveMatchRewards(RewardSource source, out int trophyChange);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -120,6 +121,20 @@ namespace FirstLight.Game.Logic
 		IReadOnlyCollection<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> configs);
 	}
 
+	public class MatchRewardsResult
+	{
+		/// <summary>
+		/// Contains all rewards obtained on the match
+		/// </summary>
+		public List<ItemData> FinalRewards { get; set; } = new ();
+	
+		/// <summary>
+		/// Holds specifically all the rewards the player collected during the game
+		/// e.g picking dropped coins
+		/// </summary>
+		public Dictionary<GameId, int> CollectedRewards { get; set; } = new ();
+	}
+
 	/// <inheritdoc cref="IRewardLogic"/>
 	public class RewardLogic : AbstractBaseLogic<PlayerData>, IRewardLogic, IGameLogicInitializer
 	{
@@ -146,7 +161,7 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards.InvokeUpdate();
 		}
 
-		public static int GetModifiedReward(int currentValue, GameId id, SimulationMatchConfig config, bool CollectedInGame)
+		public static int GetModifiedReward(int currentValue, GameId id, SimulationMatchConfig config, bool CollectedInGame, BuffVirtualEntity buffs = null)
 		{
 			var mod = config.RewardModifiers.FirstOrDefault(m => m.Id == id && m.CollectedInsideGame == CollectedInGame);
 			var mp = mod == null ? 1 : mod.Multiplier.AsDouble;
@@ -223,12 +238,13 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
-		public List<ItemData> CalculateMatchRewards(RewardSource source, out int trophyChange)
+		public MatchRewardsResult CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
-			var rewards = new List<ItemData>();
+			var result = new MatchRewardsResult();
+
 			var localMatchData = source.MatchData[source.ExecutingPlayer];
 			trophyChange = 0;
-			if (source.MatchConfig.MatchType == MatchType.Custom) return rewards;
+			if (source.MatchConfig.MatchType == MatchType.Custom) return result;
 
 			if (localMatchData.PlayerRank == 0)
 			{
@@ -239,7 +255,7 @@ namespace FirstLight.Game.Logic
 
 			if ((!IsEventValid(source, usedSimConfig) && !IsDebug(source.MatchConfig)) || localMatchData.Data.KilledByBeingAFK)
 			{
-				return rewards;
+				return result;
 			}
 
 			if (IsDebug(source.MatchConfig))
@@ -288,33 +304,71 @@ namespace FirstLight.Game.Logic
 					break;
 				}
 			}
-
+			
 			// We dont give rewards for quitting, but players can loose trophies
-			CalculateTrophiesReward(rewards, usedSimConfig, localMatchData, trophyRewardConfig, out trophyChange);
+			CalculateTrophiesReward(result, usedSimConfig, localMatchData, trophyRewardConfig, out trophyChange);
 			if (source.DidPlayerQuit || source.GamePlayerCount == 1)
 			{
-				return rewards;
+				return result;
 			}
-
-			CalculateBPPReward(rewards, rewardConfig, usedSimConfig);
-			CalculateXPReward(rewards, rewardConfig, usedSimConfig);
-			CalculateCollectedRewards(rewards, source, usedSimConfig);
-			return rewards;
+			
+			CalculateBPPReward(result, rewardConfig, usedSimConfig);
+			CalculateXPReward(result, rewardConfig, usedSimConfig);
+			CalculateCollectedRewards(result, source, usedSimConfig);
+			CalculateBuffs(result);
+			return result;
 		}
 
-		private void CalculateCollectedRewards(List<ItemData> rewards, RewardSource source, SimulationMatchConfig simConfig)
+		private void CalculateBuffs(MatchRewardsResult result)
+		{
+			var buffs = GameLogic.BuffsLogic.CalculateMetaEntity();
+			if (buffs != null)
+			{
+				foreach (var reward in result.FinalRewards)
+				{
+					var id = reward.Id;
+					double mp = 1;
+					switch (id)
+					{
+						case GameId.COIN:
+							mp += buffs.GetStat(BuffStat.PctBonusCoins).AsDouble / 100d;
+							break;
+						case GameId.NOOB:
+							mp += buffs.GetStat(BuffStat.PctBonusNoob).AsDouble / 100d;
+							break;
+						case GameId.XP:
+							mp += buffs.GetStat(BuffStat.PctBonusXP).AsDouble / 100d;
+							break;
+						case GameId.BPP:
+							mp += buffs.GetStat(BuffStat.PctBonusBPP).AsDouble / 100d;
+							break;
+					}
+					// TODo: if id in group crupto, use bonus partner tokens
+					if (mp > 1 && reward.TryGetMetadata<CurrencyMetadata>(out var currency))
+					{
+						currency.Amount = (int) Math.Round(currency.Amount * mp);
+					}
+				}
+			}
+		}
+		
+		private void CalculateCollectedRewards(MatchRewardsResult rewards, RewardSource source, SimulationMatchConfig simConfig)
 		{
 			if (source.CollectedItems == null || source.CollectedItems.Count == 0) return;
 
 			var collected = new Dictionary<GameId, ushort>(source.CollectedItems);
 
-			foreach (var reward in rewards)
+			foreach (var reward in rewards.FinalRewards)
 			{
 				if (collected.TryGetValue(reward.Id, out var collectedAmt))
 				{
 					var amount = GetModifiedReward(collectedAmt, reward.Id, simConfig, true);
 					reward.GetMetadata<CurrencyMetadata>().Amount += amount;
 					collected.Remove(reward.Id);
+					
+					rewards.CollectedRewards.TryGetValue(reward.Id, out var amtCollected);
+					amtCollected += amount;
+					rewards.CollectedRewards[reward.Id] = amtCollected;
 				}
 			}
 
@@ -322,15 +376,15 @@ namespace FirstLight.Game.Logic
 			{
 				var fixedAmount = GetModifiedReward(amt, id, simConfig, true);
 				var rewardId = TryGetRewardCurrencyGroupId(id, out var groupId) ? groupId : id;
-				
-				rewards.Add(ItemFactory.Currency(rewardId, fixedAmount));
+				rewards.FinalRewards.Add(ItemFactory.Currency(rewardId, fixedAmount));
+				rewards.CollectedRewards[rewardId] = fixedAmount;
 			}
 		}
 
-		public List<ItemData> GiveMatchRewards(RewardSource source, out int trophyChange)
+		public MatchRewardsResult GiveMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var rewards = CalculateMatchRewards(source, out trophyChange);
-			foreach (var reward in rewards)
+			foreach (var reward in rewards.FinalRewards)
 			{
 				var rewardData = reward;
 				if (rewardData.Id.IsInGroup(GameIdGroup.ResourcePool) && rewardData.TryGetMetadata<CurrencyMetadata>(out var meta))
@@ -340,7 +394,7 @@ namespace FirstLight.Game.Logic
 				}
 			}
 
-			RewardToUnclaimedRewards(rewards);
+			RewardToUnclaimedRewards(rewards.FinalRewards);
 			return rewards;
 		}
 
@@ -416,7 +470,7 @@ namespace FirstLight.Game.Logic
 			return CreateItemFromConfig(config);
 		}
 
-		private void CalculateBPPReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig, SimulationMatchConfig simulationMatchConfig)
+		private void CalculateBPPReward(MatchRewardsResult rewards, MatchRewardConfig rewardConfig, SimulationMatchConfig simulationMatchConfig)
 		{
 			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
 			{
@@ -428,21 +482,21 @@ namespace FirstLight.Game.Logic
 				withdrawn = Math.Min(withdrawn, remainingPoints);
 				if (withdrawn > 0)
 				{
-					rewards.Add(ItemFactory.Currency(GameId.BPP, withdrawn));
+					rewards.FinalRewards.Add(ItemFactory.Currency(GameId.BPP, withdrawn));
 				}
 			}
 		}
 
-		private void CalculateXPReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig, SimulationMatchConfig usedSimConfig)
+		private void CalculateXPReward(MatchRewardsResult rewards, MatchRewardConfig rewardConfig, SimulationMatchConfig usedSimConfig)
 		{
 			if (rewardConfig.Rewards.TryGetValue(GameId.XP, out var amount))
 			{
 				amount = GetModifiedReward(amount, GameId.XP, usedSimConfig, false);
-				rewards.Add(ItemFactory.Currency(GameId.XP, amount));
+				rewards.FinalRewards.Add(ItemFactory.Currency(GameId.XP, amount));
 			}
 		}
 
-		private void CalculateTrophiesReward(ICollection<ItemData> rewards,
+		private void CalculateTrophiesReward(MatchRewardsResult rewards,
 											 SimulationMatchConfig simulationMatchConfig,
 											 QuantumPlayerMatchData localPlayerData,
 											 TrophyRewardConfig rewardConfig,
@@ -476,7 +530,7 @@ namespace FirstLight.Game.Logic
 
 				finalTrophyChange = GetModifiedReward(finalTrophyChange, GameId.Trophies, simulationMatchConfig, false);
 				trophyChangeOut = finalTrophyChange;
-				rewards.Add(ItemFactory.Currency(GameId.Trophies, finalTrophyChange));
+				rewards.FinalRewards.Add(ItemFactory.Currency(GameId.Trophies, finalTrophyChange));
 			}
 		}
 

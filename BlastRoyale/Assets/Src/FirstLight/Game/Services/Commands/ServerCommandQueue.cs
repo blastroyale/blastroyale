@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using FirstLight.FLogger;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
@@ -17,7 +14,6 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
-using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -80,7 +76,6 @@ namespace FirstLight.Game.Services
 					invalid.Add(modifiedType);
 				}
 			}
-
 			return invalid;
 		}
 

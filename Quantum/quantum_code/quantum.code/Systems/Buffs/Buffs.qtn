@@ -1,0 +1,39 @@
+asset QuantumBuffConfigs;
+
+enum BuffStat : Byte
+{
+    PctBonusCoins,
+    PctBonusBPP,
+    PctBonusXP,
+    PctBonusNoob,
+    PctBonusPartnerToken,
+    PctBonusBurnForRewards
+}
+
+enum BuffId : UInt16
+{
+    OwnsCorpo,
+    OwnsPlagueDoctor
+}
+
+enum BuffOperator : Byte 
+{
+    ADD,
+    MULT,
+    PCT
+}
+
+struct BuffModifier 
+{
+    FP Value;
+    BuffStat Stat;
+    BuffOperator Op;
+}
+
+struct BuffedStat 
+{
+    FP FinalValue;
+    FP Additives;
+    FP Multiplicatives;
+    FP Percentages;
+}

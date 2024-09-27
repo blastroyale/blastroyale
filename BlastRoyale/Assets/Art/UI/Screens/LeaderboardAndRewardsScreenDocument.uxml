@@ -15,7 +15,7 @@
                 <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Elastic" class="leaderboard-entries" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
-            <ui:VisualElement name="RewardsPanel" picking-mode="Ignore" class="rewards-panel">
+            <ui:VisualElement name="RewardsPanel" picking-mode="Ignore" class="rewards-panel" style="top: 0; right: 0;">
                 <ui:VisualElement name="Trophies" class="trophies">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/trophies" class="trophies__title" />
                     <ui:VisualElement name="LogoTop" class="trophies__logo-top" />
@@ -55,6 +55,12 @@
                         <FirstLight.Game.UIElements.LabelOutlined text="/ 100" display-tooltip-when-elided="true" name="TotalWeek" class="game-label bpp__week-info__total-week" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="FoundMap" class="found-map">
+                    <FirstLight.Game.UIElements.LocalizedLabel text="Found on Map" name="Title" localization-key="Found on Map" class="bpp__title" style="top: -26px; left: 169px;" />
+                </ui:VisualElement>
+                <FirstLight.Game.UIElements.LocalizedLabel text="&#10;" name="NftBuffs" outline-hack="false" enable-rich-text="true" class="nft-buffs">
+                    <FirstLight.Game.UIElements.LocalizedLabel text="UITRewards/foundmap" name="Title" localization-key="NFT Buffs" class="bpp__title" style="top: -39px; left: 130px;" />
+                </FirstLight.Game.UIElements.LocalizedLabel>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

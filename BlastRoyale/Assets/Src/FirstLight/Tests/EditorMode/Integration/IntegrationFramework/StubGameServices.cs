@@ -66,6 +66,7 @@ namespace FirstLight.Tests.EditorMode
 		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
 		
 		public INotificationService NotificationService { get; }
+		public IBuffService BuffService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 

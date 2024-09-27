@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -378,9 +379,27 @@ namespace FirstLight.Game.Presenters
 			_selectedItemLabel.text = selectedItem.GetDisplayName();
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
 
-			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
-			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
+			var buffs = _gameDataProvider.BuffsLogic.GetMetaBuffs(selectedItem);
+			if (buffs.Count > 0)
+			{
+				var tooltip = "When Owned: \n\n";
+				foreach (var buff in buffs)
+				{
+					foreach (var mod in buff.Modifiers)
+					{
+						tooltip += $"+{mod.Value.AsInt}% {_services.BuffService.GetName(mod.Stat)}\n";
+					}
+				}
+				_selectedItemLabel.OpenTooltip(Root, tooltip);
+				FLog.Verbose("Item has buffs ! "+tooltip);
+			}
+			
+			var owned = _gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem());
+			_nameLockedIcon.SetDisplay(!owned);
+			_equipButton.SetDisplay(owned);
 		}
+		
+	
 
 		private VisualElement MakeCollectionListItem()
 		{

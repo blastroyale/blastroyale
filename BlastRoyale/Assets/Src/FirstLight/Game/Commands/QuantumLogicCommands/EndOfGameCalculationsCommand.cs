@@ -48,7 +48,7 @@ namespace FirstLight.Game.Commands
 			};
 
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
-
+	
 			ctx.Services.MessageBrokerService().Publish(new GameCompletedRewardsMessage
 			{
 				Rewards = rewards,

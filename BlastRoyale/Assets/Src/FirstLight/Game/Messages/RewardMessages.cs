@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
@@ -55,7 +56,7 @@ namespace FirstLight.Game.Messages
 
 	public struct GameCompletedRewardsMessage : IMessage
 	{
-		public List<ItemData> Rewards;
+		public MatchRewardsResult Rewards;
 		public int TrophiesChange;
 		public uint TrophiesBeforeChange;
 	}

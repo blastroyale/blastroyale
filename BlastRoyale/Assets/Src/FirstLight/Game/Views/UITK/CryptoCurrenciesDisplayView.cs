@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -7,7 +5,6 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using Quantum;
-using Sirenix.Utilities;
 
 namespace FirstLight.Game.Views.UITK
 {

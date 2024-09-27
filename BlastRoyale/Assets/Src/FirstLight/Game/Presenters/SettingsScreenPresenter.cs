@@ -10,6 +10,7 @@ using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Cysharp.Threading.Tasks;
 using FirstLight.UIService;
+using PlayFab;
 using Unity.Services.Authentication;
 using UnityEngine;
 
@@ -192,7 +193,7 @@ namespace FirstLight.Game.Presenters
 				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_connected);
 			}
 			
-			_playerIDField.value = AuthenticationService.Instance.PlayerId+"-"+_gameDataProvider.AppDataProvider.PlayerId;
+			_playerIDField.value = AuthenticationService.Instance.PlayerId+"-"+PlayFabSettings.staticPlayer.PlayFabId;
 		}
 
 		private void OpenCustomizeHud()

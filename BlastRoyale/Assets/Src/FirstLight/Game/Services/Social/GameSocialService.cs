@@ -18,6 +18,7 @@ using FirstLight.Server.SDK.Modules.Commands;
 using I2.Loc;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using PlayFab;
 using Quantum;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
@@ -84,6 +85,7 @@ namespace FirstLight.Game.Services
 		UniTask FakeInviteBot(string botName);
 		bool IsBotInvited(string botName);
 		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName, PlayerContextSettings settings = null);
+		public string PlayerName { get; }
 	}
 
 	public class GameSocialService : IGameSocialService
@@ -94,6 +96,8 @@ namespace FirstLight.Game.Services
 		private HashSet<string> _fakeBotRequests = new ();
 		private FriendActivity _playerActivity = new ();
 
+		public string PlayerName => AuthenticationService.Instance.PlayerName;
+		
 		public GameSocialService(IGameServices services, IGameDataProvider dataProvider)
 		{
 			_services = services;
@@ -126,13 +130,11 @@ namespace FirstLight.Game.Services
 			services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnEquippedAvatar);
 			services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnNameChanged);
 		}
+		
+		
 
 		private void OnNameChanged(DisplayNameChangedMessage obj)
 		{
-			// FUCKING HACKS
-			var data = _services.DataService.LoadData<AppData>();
-			data.DisplayName = obj.NewPlayfabDisplayName;
-			_services.DataService.SaveData<AppData>();
             _services.GameBackendService.CallGenericFunction(CommandNames.SYNC_NAME).Forget();
 		}
 

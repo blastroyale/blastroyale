@@ -421,7 +421,6 @@ namespace FirstLight.Game.Services
 			appData.LoginTime = _services.TimeService.DateTimeUtcNow;
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
-			appData.PlayerId = result.PlayFabId;
 			accountData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 		
 			UniTask.WaitUntil(() => doneServices >= requiredServices).ContinueWith(() =>

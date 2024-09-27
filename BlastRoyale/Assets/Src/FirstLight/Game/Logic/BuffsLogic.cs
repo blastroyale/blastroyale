@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Linq;
 using BuffSystem;
@@ -16,10 +15,9 @@ namespace FirstLight.Game.Logic
 
 		public List<BuffConfig> GetMetaBuffs(ItemData item);
 	}
-	
+
 	public class BuffsLogic : AbstractBaseLogic<CollectionData>, IBuffLogic, IGameLogicInitializer
 	{
-		
 		public BuffsLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
@@ -28,10 +26,11 @@ namespace FirstLight.Game.Logic
 		private IReadOnlyDictionary<BuffId, BuffConfig> GetBuffConfigs()
 		{
 			var d = new Dictionary<BuffId, BuffConfig>();
-			foreach (var b in GameLogic.ConfigsProvider.GetConfig<BuffConfigs>().Configs)
+			foreach (var b in GameLogic.ConfigsProvider.GetConfig<QuantumBuffConfigs>().Buffs)
 			{
 				d[b.Id] = b;
 			}
+
 			return d;
 		}
 
@@ -43,15 +42,17 @@ namespace FirstLight.Game.Logic
 			{
 				return e;
 			}
+
 			// Only skins gives buffs for now
 			var skinIds = skins.Select(skin => skin.Id).ToHashSet();
-			foreach (var buffSource in GameLogic.ConfigsProvider.GetConfig<BuffConfigs>().Settings.Sources)
+			foreach (var buffSource in GameLogic.ConfigsProvider.GetConfig<QuantumBuffConfigs>().Sources)
 			{
 				if (skinIds.Contains(buffSource.Source.SimpleGameId))
 				{
 					e.AddBuff(buffConfigs[buffSource.Buff]);
 				}
 			}
+
 			return e;
 		}
 
@@ -59,24 +60,23 @@ namespace FirstLight.Game.Logic
 		{
 			var buffConfigs = GetBuffConfigs();
 			var buffs = new List<BuffConfig>();
-			foreach (var buffSource in GameLogic.ConfigsProvider.GetConfig<BuffConfigs>().Settings.Sources)
+			foreach (var buffSource in GameLogic.ConfigsProvider.GetConfig<QuantumBuffConfigs>().Sources)
 			{
 				if (item.Id == buffSource.Source.SimpleGameId)
 				{
 					buffs.Add(buffConfigs[buffSource.Buff]);
 				}
 			}
+
 			return buffs;
 		}
 
 		public void Init()
 		{
-			
 		}
 
 		public void ReInit()
 		{
-			
 		}
 	}
 }

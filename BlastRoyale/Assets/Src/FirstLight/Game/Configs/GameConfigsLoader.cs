@@ -99,7 +99,7 @@ namespace FirstLight.Game.Configs
 				new ConfigLoadDefinition<AvatarCollectableConfigs>(_assetLoader, AddressableId.Collections_ProfilePicture_AvatarCollectableConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				new ConfigLoadDefinition<CurrencySpriteConfigs>(_assetLoader, AddressableId.Configs_CurrencySpriteConfigs, cfg => configsAdder.AddSingletonConfig(cfg.Config)),
 				new ConfigLoadDefinition<TutorialConfigs>(_assetLoader, AddressableId.Configs_TutorialConfigs, cfg => configsAdder.AddSingletonConfig(cfg.Config)),
-				new ConfigLoadDefinition<BuffConfigs>(_assetLoader, AddressableId.Configs_BuffConfigs, configsAdder.AddSingletonConfig),
+				new ConfigLoadDefinition<BuffConfigs>(_assetLoader, AddressableId.Configs_BuffConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 			};
 		}
 

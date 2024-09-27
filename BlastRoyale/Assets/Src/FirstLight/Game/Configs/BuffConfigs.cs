@@ -1,19 +1,16 @@
-using System;
 using System.Collections.Generic;
-using FirstLight.GoogleSheetImporter;
 using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Configs
 {
-	[Serializable]
 	[CreateAssetMenu(fileName = "BuffConfigs", menuName = "ScriptableObjects/Configs/BuffConfigs")]
-	public class BuffConfigs : QuantumBuffConfigsAsset, IConfigsContainer<BuffConfig>
+	public class BuffConfigs : QuantumBuffConfigsAsset, ISingleConfigContainer<QuantumBuffConfigs>
 	{
-		public List<BuffConfig> Configs
+		public QuantumBuffConfigs Config
 		{
-			get => Settings.Buffs;
-			set => Settings.Buffs = value;
+			get => Settings;
+			set => Settings = value;
 		}
 	}
 }

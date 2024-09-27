@@ -177,13 +177,13 @@ namespace FirstLight.Game.Services
 				};
 				_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg + "\n" + message, false, confirmButton, () => _services.QuitGame(exceptionMsg));
 #else
-			NativeUiService.ShowAlertPopUp(false, "Error", "Desynch", new AlertButton
+			FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, "Error", "Desynch", new FirstLight.NativeUi.AlertButton
 			{
 				Callback = () =>
 				{
 					_services.QuitGame(message);
 				},
-				Style = AlertButtonStyle.Negative,
+				Style = FirstLight.NativeUi.AlertButtonStyle.Negative,
 				Text = "Quit Game"
 			});
 #endif

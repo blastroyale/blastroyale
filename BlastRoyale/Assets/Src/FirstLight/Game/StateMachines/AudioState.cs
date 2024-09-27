@@ -63,7 +63,8 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("AUDIO - Initial");
 			var final = stateFactory.Final("AUDIO - Final");
 			var audioBase = stateFactory.State("AUDIO - Audio Base");
-			var mainMenu = stateFactory.State("AUDIO - Main Menu");
+			var mainMenuStart = stateFactory.Transition("AUDIO - Main Menu Start");
+			var mainMenuLoop = stateFactory.State("AUDIO - Main Menu Loop");
 			var matchmaking = stateFactory.State("AUDIO - Matchmaking");
 			var gameModeCheck = stateFactory.Choice("AUDIO - Game Mode Check");
 			var battleRoyale = stateFactory.State("AUDIO - Battle Royale");
@@ -74,17 +75,22 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeMessages);
 
-			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
+			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenuStart);
 			audioBase.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
 
-			mainMenu.OnEnter(StopAllSfx);
-			mainMenu.OnEnter(TransitionAudioMixerMain);
-			mainMenu.OnEnter(TryPlayMainMenuMusic);
-			mainMenu.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
-			mainMenu.Event(NetworkState.JoinedPlayfabMatchmaking).Target(matchmaking);
+			mainMenuStart.OnEnter(StopAllSfx);
+			mainMenuStart.OnEnter(TryPlayMainMenuMusic);
+			mainMenuStart.Transition().Target(mainMenuLoop);
+
+			mainMenuLoop.OnEnter(TransitionAudioMixerMain);
+			mainMenuLoop.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			mainMenuLoop.Event(NetworkState.JoinedPlayfabMatchmaking).Target(matchmaking);
+			mainMenuLoop.Event(MainMenuState.CustomGameJoined).Target(matchmaking);
 
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
+			matchmaking.Event(NetworkState.CanceledMatchmakingEvent).Target(mainMenuLoop);
+			matchmaking.Event(MainMenuState.RoomJoinCreateBackClickedEvent).Target(mainMenuLoop);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			matchmaking.Event(GameSimulationState.SimulationStartedEvent).Target(gameModeCheck);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(StopMusicInstant).Target(disconnected);
@@ -104,7 +110,6 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.OnExit(UnsubscribeMatchEvents);
 			battleRoyale.OnExit(() => SetSimulationRunning(false));
 
-
 			postGameSpectatorCheck.Transition().Condition(IsSpectator).OnTransition(StopMusicInstant).Target(audioBase);
 			postGameSpectatorCheck.Transition().Target(postGame);
 			postGameSpectatorCheck.OnExit(StopAllSfx);
@@ -118,7 +123,7 @@ namespace FirstLight.Game.StateMachines
 
 			disconnected.OnEnter(StopAllSfx);
 			disconnected.OnEnter(StopMusicInstant);
-			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
+			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenuStart);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
 			disconnected.Event(NetworkState.JoinedPlayfabMatchmaking).Target(matchmaking);
 		}
@@ -173,7 +178,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.RoomService.IsLocalPlayerSpectator;
 		}
-
 
 		private void SetMatchServices()
 		{
@@ -387,7 +391,6 @@ namespace FirstLight.Game.StateMachines
 			CheckDespawnClips(nameof(EventOnAirDropCollected), callback.Entity);
 		}
 
-
 		private void SetSimulationRunning(bool running)
 		{
 			_gameRunning = running;
@@ -504,7 +507,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			// If not a kill of spectated player, or spectated player committed suicide
@@ -580,7 +582,6 @@ namespace FirstLight.Game.StateMachines
 			// Kill SFX
 			_services.AudioFxService.PlayClip2D(killAudio);
 
-
 			// Multikill announcer
 			if (callback.CurrentMultiKill > 1)
 			{
@@ -638,7 +639,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			PlayExplosionSfx(GameId.SpecialLandmine, callback.Position.ToUnityVector3());
 		}
-
 
 		private void PlayExplosionSfx(GameId sourceId, Vector3 endPosition)
 		{
@@ -801,13 +801,13 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
-			
+
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 			var weaponIdForAudio = callback.Weapon.GameId;
 
 			var weaponAudioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) weaponIdForAudio);
 			var audioClipId = spectatedEntity == callback.PlayerEntity ? weaponAudioConfig.WeaponShotLocalId : weaponAudioConfig.WeaponShotId;
-			
+
 			if (spectatedEntity == callback.PlayerEntity)
 			{
 				// For local player we play 2D sound (as the position of the sound is constant) but in 3D group together with other sounds

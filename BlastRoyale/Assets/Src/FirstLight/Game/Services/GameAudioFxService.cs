@@ -4,15 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
 
 namespace FirstLight.Game.Services
@@ -27,7 +24,7 @@ namespace FirstLight.Game.Services
 		Urban,
 		Water
 	}
-	
+
 	/// <inheritdoc cref="AudioFxService{T}"/>
 	public class GameAudioFxService : AudioFxService<AudioId>, IAudioFxService<AudioId>
 	{
@@ -43,25 +40,25 @@ namespace FirstLight.Game.Services
 		{
 			var mixerConfigs = audioMixers as IReadOnlyDictionary<AudioMixerID, AudioMixerConfig>;
 			var mainMixerConfig = mixerConfigs[AudioMixerID.Default];
-			
+
 			var mixerObject = await mainMixerConfig.AudioMixer.LoadAssetAsync<AudioMixer>().Task;
 
 			_audioMixer = mixerObject;
-			
+
 			_mixerMasterGroupId = mainMixerConfig.MixerMasterKey;
 			_mixerSfx2dGroupId = mainMixerConfig.MixerSfx2dKey;
 			_mixerSfx3dGroupId = mainMixerConfig.MixerSfx3dKey;
 			_mixerMusicGroupId = mainMixerConfig.MixerMusicKey;
 			_mixerDialogueGroupId = mainMixerConfig.MixerVoiceKey;
 			_mixerAmbientGroupId = mainMixerConfig.MixerAmbientKey;
-			
+
 			_mixerGroups.Add(_mixerMasterGroupId, _audioMixer.FindMatchingGroups(_mixerMasterGroupId).First());
 			_mixerGroups.Add(_mixerSfx2dGroupId, _audioMixer.FindMatchingGroups(_mixerSfx2dGroupId).First());
 			_mixerGroups.Add(_mixerSfx3dGroupId, _audioMixer.FindMatchingGroups(_mixerSfx3dGroupId).First());
 			_mixerGroups.Add(_mixerMusicGroupId, _audioMixer.FindMatchingGroups(_mixerMusicGroupId).First());
 			_mixerGroups.Add(_mixerDialogueGroupId, _audioMixer.FindMatchingGroups(_mixerDialogueGroupId).First());
 			_mixerGroups.Add(_mixerAmbientGroupId, _audioMixer.FindMatchingGroups(_mixerAmbientGroupId).First());
-			
+
 			foreach (var snapshotKey in mainMixerConfig.SnapshotKeys)
 			{
 				_mixerSnapshots.Add(snapshotKey, _audioMixer.FindSnapshot(snapshotKey));
@@ -136,12 +133,12 @@ namespace FirstLight.Game.Services
 			}
 
 			var mixerGroupId = mixerGroupOverride ?? _mixerSfx3dGroupId;
-			
+
 			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, clipData, mixerGroupId);
 			var updatedInitData = sourceInitData;
 			updatedInitData.MixerGroupAndId = new Tuple<AudioMixerGroup, string>(GetAudioMixerGroup(mixerGroupId), mixerGroupId);
 			sourceInitData = updatedInitData;
-			
+
 			return PlayClipInternal(worldPosition, sourceInitData);
 		}
 
@@ -154,7 +151,7 @@ namespace FirstLight.Game.Services
 			}
 
 			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
-			
+
 			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData, mixerGroupId);
 			var updatedInitData = sourceInitData;
 			updatedInitData.MixerGroupAndId = new Tuple<AudioMixerGroup, string>(GetAudioMixerGroup(mixerGroupId), mixerGroupId);
@@ -162,7 +159,7 @@ namespace FirstLight.Game.Services
 
 			return PlayClipInternal(Vector3.zero, sourceInitData);
 		}
-		
+
 		/// <inheritdoc />
 		public override void PlayClipQueued2D(AudioId id, string mixerGroupOverride = null)
 		{
@@ -172,7 +169,7 @@ namespace FirstLight.Game.Services
 			}
 
 			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
-			
+
 			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData, mixerGroupId);
 
 			var updatedInitData = sourceInitData;
@@ -184,7 +181,7 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
-		                               bool continueFromCurrentTime = false)
+									   bool continueFromCurrentTime = false)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
@@ -224,8 +221,11 @@ namespace FirstLight.Game.Services
 		public override void PlaySequentialMusicTransition(AudioId transitionClip, AudioId musicClip)
 		{
 			var transition = PlayClip2D(transitionClip, _mixerMusicGroupId);
+			_transitionMusicSource = transition;
+			var version = transition.PlayVersion;
 			transition.SoundPlayedCallback += (source) =>
 			{
+				if (transition.PlayVersion != version) return;
 				PlayMusic(musicClip);
 			};
 		}

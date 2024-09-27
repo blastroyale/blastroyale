@@ -49,9 +49,9 @@ namespace FirstLight.Services
 
 		public Action<AudioSourceMonoComponent> FadeVolumeCallback;
 		public Action<AudioSourceMonoComponent> SoundPlayedCallback;
-		
+
 		public string MixerGroupID { get; private set; }
-		
+
 		private IObjectPool<AudioSourceMonoComponent> _pool;
 		private bool _canDespawn;
 		private Coroutine _playSoundCoroutine;
@@ -59,6 +59,7 @@ namespace FirstLight.Services
 		private Transform _followTarget;
 		private Vector3 _followOffset;
 		private float _pitchModPerLoop;
+		public int PlayVersion { get; private set; } = 0;
 
 		private void Update()
 		{
@@ -73,17 +74,17 @@ namespace FirstLight.Services
 		/// </summary>
 		/// /// <remarks>Note: if initialized with Loop as true, the audio source must be despawned manually.</remarks>
 		public void Play(IObjectPool<AudioSourceMonoComponent> pool,
-		                 Vector3? worldPos, AudioSourceInitData? sourceInitData = null, bool prepareOnly = false)
+						 Vector3? worldPos, AudioSourceInitData? sourceInitData = null, bool prepareOnly = false)
 		{
 			if (sourceInitData == null)
 			{
 				return;
 			}
-			
+
 			SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
 			_pool = pool;
-			
+
 			Source.outputAudioMixerGroup = sourceInitData.Value.MixerGroupAndId.Item1;
 			Source.clip = sourceInitData.Value.Clip;
 			Source.volume = sourceInitData.Value.Volume;
@@ -97,7 +98,7 @@ namespace FirstLight.Services
 			Source.maxDistance = sourceInitData.Value.MaxDistance;
 			_pitchModPerLoop = sourceInitData.Value.PitchModPerLoop;
 			MixerGroupID = sourceInitData.Value.MixerGroupAndId.Item2;
-			
+
 			if (worldPos.HasValue)
 			{
 				transform.position = worldPos.Value;
@@ -144,7 +145,7 @@ namespace FirstLight.Services
 		public void StopAndDespawn()
 		{
 			Source.Stop();
-			
+			PlayVersion++;
 			SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
 			if (_playSoundCoroutine != null)
@@ -156,7 +157,7 @@ namespace FirstLight.Services
 			{
 				StopCoroutine(_fadeVolumeCoroutine);
 			}
-			
+
 			SoundPlayedCallback = null;
 			FadeVolumeCallback = null;
 
@@ -167,7 +168,7 @@ namespace FirstLight.Services
 		/// Starts a coroutine that fades the volume of the audio from X to Y
 		/// </summary>
 		public void FadeVolume(float fromVolume, float toVolume, float fadeDuration,
-		                       Action<AudioSourceMonoComponent> callbackFadeFinished = null)
+							   Action<AudioSourceMonoComponent> callbackFadeFinished = null)
 		{
 			if (_fadeVolumeCoroutine != null)
 			{
@@ -180,6 +181,7 @@ namespace FirstLight.Services
 
 		private IEnumerator FadeVolumeCoroutine(float fromVolume, float toVolume, float fadeDuration)
 		{
+			PlayVersion++;
 			var currentTimeProgress = 0f;
 
 			while (currentTimeProgress < fadeDuration)
@@ -190,7 +192,7 @@ namespace FirstLight.Services
 
 				var fadePercent = currentTimeProgress / fadeDuration;
 				Source.volume = Mathf.Lerp(fromVolume, toVolume,
-				                           fadePercent);
+					fadePercent);
 			}
 
 			if (toVolume <= 0)
@@ -204,6 +206,7 @@ namespace FirstLight.Services
 
 		private IEnumerator PlaySoundCoroutine()
 		{
+			PlayVersion++;
 			Source.Play();
 
 			do
@@ -223,7 +226,7 @@ namespace FirstLight.Services
 	/// </summary>
 	public struct AudioSourceInitData
 	{
-		public Tuple<AudioMixerGroup,string> MixerGroupAndId;
+		public Tuple<AudioMixerGroup, string> MixerGroupAndId;
 		public AudioClip Clip;
 		public float StartTime;
 		public float SpatialBlend;
@@ -252,7 +255,7 @@ namespace FirstLight.Services
 		public float MinPitch;
 		public float MaxPitch;
 		public float PitchModPerLoop;
-		
+
 		public float PlaybackVolume => UnityEngine.Random.Range(MinVol, MaxVol);
 		public float PlaybackPitch => UnityEngine.Random.Range(MinPitch, MaxPitch);
 		public AudioClip PlaybackClip => AudioClips[UnityEngine.Random.Range(0, AudioClips.Count)];

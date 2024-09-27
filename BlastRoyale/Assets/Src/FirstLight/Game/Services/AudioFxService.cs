@@ -439,7 +439,7 @@ namespace FirstLight.Services
 			{
 				return null;
 			}
-
+			
 			var source = _sfxPlayerPool.Spawn();
 			source.Play(_sfxPlayerPool, worldPosition, sourceInitData);
 			return source;
@@ -544,7 +544,7 @@ namespace FirstLight.Services
 			if (fadeOutDuration <= 0)
 			{
 				_activeMusicSource.Source.Stop();
-				_transitionMusicSource.Source.Stop();
+				_transitionMusicSource.StopAndDespawn();
 			}
 			else
 			{

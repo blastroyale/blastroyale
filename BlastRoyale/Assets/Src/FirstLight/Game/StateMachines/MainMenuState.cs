@@ -33,10 +33,11 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent MainMenuLoadedEvent = new StatechartEvent("Main Menu Loaded Event");
 		public static readonly IStatechartEvent PlayClickedEvent = new StatechartEvent("Play Clicked Event");
 		public static readonly IStatechartEvent BattlePassClickedEvent = new StatechartEvent("BattlePass Clicked Event");
+		public static readonly IStatechartEvent RoomJoinCreateBackClickedEvent = new StatechartEvent("Room Join Create Back Button Clicked Event");
+		public static readonly IStatechartEvent CustomGameJoined = new StatechartEvent("Custom Game Joined");
 
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 
-		private readonly IStatechartEvent _customGameJoined = new StatechartEvent("Custom Game Joined");
 		private readonly IStatechartEvent _backButtonClicked = new StatechartEvent("Back Button Clicked");
 		private readonly IStatechartEvent _customGameButtonClicked = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
@@ -47,7 +48,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _gameModeSelectedFinishedEvent = new StatechartEvent("Game Mode Selected Finished Event");
 		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
 		private readonly IStatechartEvent _storeClickedEvent = new StatechartEvent("Store Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateBackClickedEvent = new StatechartEvent("Room Join Create Back Button Clicked Event");
 		private readonly IStatechartEvent _friendsClickedEvent = new StatechartEvent("Friends Button Clicked Event");
 
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
@@ -150,7 +150,7 @@ namespace FirstLight.Game.StateMachines
 					state.Event(NetworkState.JoinedRoomEvent)
 						.Target(final);
 
-					state.Event(_customGameJoined)
+					state.Event(CustomGameJoined)
 						.Target(customGameLobby);
 				}
 			}
@@ -198,7 +198,7 @@ namespace FirstLight.Game.StateMachines
 				leaderboard,
 				store,
 				news,
-				friends, 
+				friends,
 				enterNameDialog);
 
 			matchmakingChecks.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
@@ -228,14 +228,14 @@ namespace FirstLight.Game.StateMachines
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			customGameLobby.OnEnter(OpenCustomGameLobby);
-			customGameLobby.Event(_roomJoinCreateBackClickedEvent).Target(customGamesList);
+			customGameLobby.Event(RoomJoinCreateBackClickedEvent).Target(customGamesList);
 			customGameLobby.Event(NetworkState.JoinedRoomEvent).Target(final);
 			customGameLobby.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGameLobby.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchLobbyScreenPresenter>(false).Forget());
 
 			customGamesList.OnEnter(OpenCustomGameList);
-			customGamesList.Event(_roomJoinCreateBackClickedEvent).Target(chooseGameMode);
+			customGamesList.Event(RoomJoinCreateBackClickedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchListScreenPresenter>(false).Forget());
@@ -292,7 +292,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnJoinedCustomGame(Lobby l)
 		{
-			_statechartTrigger(_customGameJoined);
+			_statechartTrigger(CustomGameJoined);
 		}
 
 		private void MainMenuShouldReloadMessage(MainMenuShouldReloadMessage msg)
@@ -335,7 +335,7 @@ namespace FirstLight.Game.StateMachines
 		private bool MetaTutorialConditionsCheck()
 		{
 			// If first enter prompt tutorial not completed, and tutorial is not completed 
-			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT) && 
+			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT) &&
 				!_services.TutorialService.HasCompletedTutorial();
 		}
 
@@ -510,7 +510,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.UIService.OpenScreen<MatchLobbyScreenPresenter>(new MatchLobbyScreenPresenter.StateData
 			{
-				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),
+				BackClicked = () => _statechartTrigger(RoomJoinCreateBackClickedEvent),
 			}).Forget();
 		}
 
@@ -519,10 +519,10 @@ namespace FirstLight.Game.StateMachines
 			// Leave party if player has one
 			if (_services.FLLobbyService.IsInPartyLobby())
 				_services.FLLobbyService.LeaveParty().Forget();
-			
+
 			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
-				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),
+				BackClicked = () => _statechartTrigger(RoomJoinCreateBackClickedEvent),
 			}).Forget();
 		}
 

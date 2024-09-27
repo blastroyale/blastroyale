@@ -101,7 +101,8 @@ namespace Quantum
 				{
 					GameId.NOOB, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
@@ -147,103 +148,120 @@ namespace Quantum
 				{
 					GameId.PartnerANCIENT8, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerAPECOIN, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerBEAM, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerBLOCKLORDS, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerBLOODLOOP, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerCROSSTHEAGES, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerFARCANA, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerGAM3SGG, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerIMMUTABLE, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerMOCAVERSE, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerNYANHEROES, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerPIRATENATION, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerPIXELMON, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerPLANETMOJO, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerSEEDIFY, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerWILDERWORLD, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.PartnerXBORG, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
@@ -3043,6 +3061,29 @@ namespace Quantum
 					{
 						GameId.NOOBGolden,
 						GameId.NOOBRainbow
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.CryptoCurrency, new List<GameId>
+					{
+						GameId.NOOB,
+						GameId.PartnerANCIENT8,
+						GameId.PartnerAPECOIN,
+						GameId.PartnerBEAM,
+						GameId.PartnerBLOCKLORDS,
+						GameId.PartnerBLOODLOOP,
+						GameId.PartnerCROSSTHEAGES,
+						GameId.PartnerFARCANA,
+						GameId.PartnerGAM3SGG,
+						GameId.PartnerIMMUTABLE,
+						GameId.PartnerMOCAVERSE,
+						GameId.PartnerNYANHEROES,
+						GameId.PartnerPIRATENATION,
+						GameId.PartnerPIXELMON,
+						GameId.PartnerPLANETMOJO,
+						GameId.PartnerSEEDIFY,
+						GameId.PartnerWILDERWORLD,
+						GameId.PartnerXBORG
 					}.AsReadOnly()
 				},
 				{

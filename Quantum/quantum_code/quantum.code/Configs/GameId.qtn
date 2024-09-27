@@ -366,6 +366,7 @@ enum GameIdGroup
 	IAP = 23,
 	GenericCollectionItem = 39,
 	NOOBRareTokens = 40,
+	CryptoCurrency = 41,
 	MeleeSkin = 38,
 	PlayerSkin = 18,
 	Glider = 28,

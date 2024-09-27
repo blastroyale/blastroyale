@@ -25,7 +25,7 @@
     justify-content: flex-end;
 }
 
-.currency-display {
+.currency-display-space {
     margin-right: 50px;
     -unity-text-align: upper-left;
 }

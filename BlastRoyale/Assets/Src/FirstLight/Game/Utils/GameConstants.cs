@@ -232,7 +232,10 @@ namespace FirstLight.Game.Utils
 				GameId.PartnerPLANETMOJO,
 				GameId.PartnerSEEDIFY,
 				GameId.PartnerWILDERWORLD,
-				GameId.PartnerXBORG
+				GameId.PartnerXBORG,
+				GameId.PartnerBREED,
+				GameId.PartnerMEME,
+				GameId.PartnerYGG
 			};
 		}
 

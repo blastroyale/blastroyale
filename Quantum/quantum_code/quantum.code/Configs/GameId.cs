@@ -265,6 +265,27 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PartnerBREED, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerMEME, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
+					}.AsReadOnly()
+				},
+				{
+					GameId.PartnerYGG, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
+					}.AsReadOnly()
+				},
+				{
 					GameId.FloodCity, new List<GameIdGroup>
 					{
 						GameIdGroup.Map,
@@ -2429,7 +2450,10 @@ namespace Quantum
 						GameId.PartnerPLANETMOJO,
 						GameId.PartnerSEEDIFY,
 						GameId.PartnerWILDERWORLD,
-						GameId.PartnerXBORG
+						GameId.PartnerXBORG,
+						GameId.PartnerBREED,
+						GameId.PartnerMEME,
+						GameId.PartnerYGG
 					}.AsReadOnly()
 				},
 				{
@@ -3083,7 +3107,10 @@ namespace Quantum
 						GameId.PartnerPLANETMOJO,
 						GameId.PartnerSEEDIFY,
 						GameId.PartnerWILDERWORLD,
-						GameId.PartnerXBORG
+						GameId.PartnerXBORG,
+						GameId.PartnerBREED,
+						GameId.PartnerMEME,
+						GameId.PartnerYGG
 					}.AsReadOnly()
 				},
 				{

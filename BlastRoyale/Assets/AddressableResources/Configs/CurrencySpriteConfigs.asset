@@ -173,3 +173,21 @@ MonoBehaviour:
         SpriteByMinAmount:
           _keyData: 
           _valueData: []
+    - Key: 917
+      Value:
+        DefaultSprite: sprite-currencies__partnerbreed-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 918
+      Value:
+        DefaultSprite: sprite-currencies__partnermeme-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 919
+      Value:
+        DefaultSprite: sprite-currencies__partnerygg-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []

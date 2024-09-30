@@ -62,7 +62,10 @@ namespace FirstLight.Game.Data
 			{GameId.PartnerPLANETMOJO, 0},
 			{GameId.PartnerSEEDIFY, 0},
 			{GameId.PartnerWILDERWORLD, 0},
-			{GameId.PartnerXBORG, 0}
+			{GameId.PartnerXBORG, 0},
+			{GameId.PartnerBREED, 0},
+			{GameId.PartnerMEME, 0},
+			{GameId.PartnerYGG, 0}
 		};
 
 		public readonly Dictionary<GameId, uint> CurrenciesSeasons = new (new GameIdComparer())

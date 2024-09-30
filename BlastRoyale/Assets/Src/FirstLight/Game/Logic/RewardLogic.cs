@@ -342,6 +342,9 @@ namespace FirstLight.Game.Logic
 						case GameId.BPP:
 							mp += buffs.GetStat(BuffStat.PctBonusBPP).AsDouble / 100d;
 							break;
+						case GameId.BlastBuck:
+							mp += buffs.GetStat(BuffStat.PctBonusBBs).AsDouble / 100d;
+							break;
 					}
 					// TODo: if id in group crupto, use bonus partner tokens
 					if (mp > 1 && reward.TryGetMetadata<CurrencyMetadata>(out var currency))

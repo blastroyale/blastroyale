@@ -779,6 +779,9 @@ namespace FirstLight.Game.StateMachines
 					case GameId.PartnerSEEDIFY:
 					case GameId.PartnerWILDERWORLD:
 					case GameId.PartnerXBORG:
+					case GameId.PartnerBREED:
+					case GameId.PartnerMEME:
+					case GameId.PartnerYGG:
 						audio = isLocal ? AudioId.NoobPickupLocal : AudioId.NoobPickup;
 						break;
 				}

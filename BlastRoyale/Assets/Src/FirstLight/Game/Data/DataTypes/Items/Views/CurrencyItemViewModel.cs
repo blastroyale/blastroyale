@@ -39,7 +39,10 @@ namespace FirstLight.Game.Data.DataTypes
 			{GameId.PartnerPLANETMOJO, "PartnerPLANETMOJO"},
 			{GameId.PartnerSEEDIFY, "PartnerSEEDIFY"},
 			{GameId.PartnerWILDERWORLD, "PartnerWILDERWORLD"},
-			{GameId.PartnerXBORG, "PartnerXBORG"}
+			{GameId.PartnerXBORG, "PartnerXBORG"},
+			{GameId.PartnerBREED, "PartnerBREED"},
+			{GameId.PartnerMEME, "PartnerMEME"},
+			{GameId.PartnerYGG, "PartnerYGG"}
 		};
 
 

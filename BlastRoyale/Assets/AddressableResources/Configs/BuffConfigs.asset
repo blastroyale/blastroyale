@@ -22,18 +22,44 @@ MonoBehaviour:
       Modifiers:
       - Op: 0
         Value:
-          RawValue: 983040
-        Stat: 1
+          RawValue: 6553600
+        Stat: 6
       - Op: 0
         Value:
-          RawValue: 983040
+          RawValue: 6553600
         Stat: 0
+      - Op: 0
+        Value:
+          RawValue: 6553600
+        Stat: 3
     - Id: 1
       Modifiers:
       - Op: 0
         Value:
-          RawValue: 327680
+          RawValue: 1310720
+        Stat: 6
+      - Op: 0
+        Value:
+          RawValue: 1310720
         Stat: 0
+      - Op: 0
+        Value:
+          RawValue: 1310720
+        Stat: 3
+    - Id: 2
+      Modifiers:
+      - Op: 0
+        Value:
+          RawValue: 655360
+        Stat: 6
+      - Op: 0
+        Value:
+          RawValue: 655360
+        Stat: 0
+      - Op: 0
+        Value:
+          RawValue: 655360
+        Stat: 3
     Sources:
     - Buff: 0
       Source:
@@ -62,6 +88,18 @@ MonoBehaviour:
     - Buff: 1
       Source:
         SimpleGameId: 205
+        EquipmentMetadata:
+          Adjective: 0
+          Edition: 0
+          Faction: 0
+          GameId: 0
+          Grade: 0
+          Level: 0
+          Material: 0
+          Rarity: 0
+    - Buff: 2
+      Source:
+        SimpleGameId: 251
         EquipmentMetadata:
           Adjective: 0
           Edition: 0

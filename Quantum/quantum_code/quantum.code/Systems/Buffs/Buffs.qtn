@@ -7,13 +7,15 @@ enum BuffStat : Byte
     PctBonusXP,
     PctBonusNoob,
     PctBonusPartnerToken,
-    PctBonusBurnForRewards
+    PctBonusBurnForRewards,
+    PctBonusBBs
 }
 
 enum BuffId : UInt16
 {
     OwnsCorpo,
-    OwnsPlagueDoctor
+    OwnsPlagueDoctor,
+    OwnsGamesGG
 }
 
 enum BuffOperator : Byte 

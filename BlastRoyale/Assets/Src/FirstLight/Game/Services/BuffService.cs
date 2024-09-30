@@ -39,6 +39,7 @@ namespace FirstLight.Game.Services
 			if (stat == BuffStat.PctBonusBPP) return "Bpp";
 			if (stat == BuffStat.PctBonusNoob) return "Noob";
 			if (stat == BuffStat.PctBonusPartnerToken) return "Crypto";
+			if (stat == BuffStat.PctBonusBBs) return "Blast Bucks";
 			return "Goo";
 		}
 

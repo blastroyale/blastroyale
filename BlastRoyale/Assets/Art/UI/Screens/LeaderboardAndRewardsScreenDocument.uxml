@@ -55,12 +55,15 @@
                         <FirstLight.Game.UIElements.LabelOutlined text="/ 100" display-tooltip-when-elided="true" name="TotalWeek" class="game-label bpp__week-info__total-week" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="FoundMap" class="found-map">
-                    <FirstLight.Game.UIElements.LocalizedLabel text="Found on Map" name="Title" localization-key="Found on Map" class="bpp__title" style="top: -26px; left: 169px;" />
+                <ui:VisualElement name="EventRewardsContainer" style="flex-grow: 1; position: absolute; top: 760px; left: 133px; height: auto; width: 604px;">
+                    <ui:VisualElement name="FoundMap" class="found-map" style="position: relative; left: auto; top: auto; width: 100%; height: auto; flex-direction: column;">
+                        <FirstLight.Game.UIElements.LocalizedLabel text="Found on Map" name="Title" localization-key="Found on Map" class="bpp__title" style="position: relative; left: auto; top: auto; padding-bottom: 7px;" />
+                        <ui:VisualElement name="RewardContainer" style="flex-grow: 0; flex-direction: row; justify-content: center; width: 100%; height: auto;" />
+                    </ui:VisualElement>
+                    <FirstLight.Game.UIElements.LocalizedLabel text="&#10;" name="NftBuffs" outline-hack="false" enable-rich-text="true" class="nft-buffs" style="position: relative; left: auto; top: auto; justify-content: flex-start; align-self: auto; width: 100%; height: auto; align-items: center;">
+                        <FirstLight.Game.UIElements.LocalizedLabel text="UITRewards/foundmap" name="Title" localization-key="NFT Buffs" class="bpp__title" style="top: auto; left: auto; position: relative;" />
+                    </FirstLight.Game.UIElements.LocalizedLabel>
                 </ui:VisualElement>
-                <FirstLight.Game.UIElements.LocalizedLabel text="&#10;" name="NftBuffs" outline-hack="false" enable-rich-text="true" class="nft-buffs">
-                    <FirstLight.Game.UIElements.LocalizedLabel text="UITRewards/foundmap" name="Title" localization-key="NFT Buffs" class="bpp__title" style="top: -39px; left: 130px;" />
-                </FirstLight.Game.UIElements.LocalizedLabel>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

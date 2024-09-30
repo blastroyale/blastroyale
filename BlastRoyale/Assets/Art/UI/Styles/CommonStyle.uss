@@ -1119,3 +1119,9 @@
     margin-bottom: 0;
     padding-bottom: 12px;
 }
+
+.generated-icon {
+    -unity-background-scale-mode: scale-to-fit;
+    width: 64px;
+    height: 64px;
+}

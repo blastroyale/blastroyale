@@ -78,13 +78,15 @@ public partial class SROptions
 			category,
 			sort
 		);
-		container.AddOption(input);
 
+		container.AddOption(input);
 		var values = new Dictionary<GameId, Action<IGameLogic>>()
 		{
 			{GameId.COIN, null},
 			{GameId.BlastBuck, null},
 			{GameId.NOOB, null},
+			{GameId.PartnerANCIENT8, null},
+			{GameId.PartnerGAM3SGG, null},
 			{GameId.BPP, l => l.BattlePassLogic.AddBPP(_currencyValue)},
 			{GameId.XP, l => l.PlayerLogic.AddXP(_currencyValue)},
 			{GameId.Trophies, l => l.PlayerLogic.UpdateTrophies((int) _currencyValue)},

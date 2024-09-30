@@ -516,8 +516,10 @@
     border-bottom-width: 1px;
     border-left-width: 1px;
     border-radius: 10px;
-    margin-right: 50px;
-    padding-right: 0;
+    margin-left: 28px;
+}
+.found-reward--first {
+    margin-left: 0px;
 }
 
 .found-reward--item {
@@ -556,7 +558,7 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     width: 434px;
-    height: 100px;
+    height: 150px;
     background-color: rgba(45, 41, 80, 0);
     align-items: flex-start;
     align-self: auto;
@@ -572,11 +574,18 @@
     position: absolute;
 }
 
-.nft-buff__item {
-    height: 90px;
-    max-height: 60px;
+.nft-buff__label {
     width: 100%;
-    align-self: auto;
-    -unity-text-align: upper-center;
-    align-items: auto;
+    -unity-text-align: middle-center;
+}
+
+.nft-buff__container {
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 48px;
+}
+
+.nft-buff__icon {
 }

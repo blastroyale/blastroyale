@@ -45,7 +45,6 @@ namespace FirstLight.Game.Data.DataTypes
 			{GameId.PartnerYGG, "PartnerYGG"}
 		};
 
-
 		public ItemData Item { get; }
 		public GameId GameId => _gameId;
 		public uint Amount => _amount;
@@ -61,32 +60,50 @@ namespace FirstLight.Game.Data.DataTypes
 
 		public string GetRichTextIcon()
 		{
-			if (!_richTextIcons.TryGetValue(Item.Id, out var iconName))
-			{
-				FLog.Error($"Could not read rich text icon for {Item.Id}");
-				iconName = _richTextIcons[GameId.COIN];
-			}
-
-			return $"<sprite name=\"{iconName}\">";
+			return GetRichTextIcon(_gameId);
 		}
 
 		public void DrawIcon(VisualElement icon)
+		{
+			DrawIconInternal(icon, GameId, Amount);
+		}
+
+		private static void DrawIconInternal(VisualElement icon, GameId gameId, uint amount)
 		{
 			if (MainInstaller.TryResolve<IGameServices>(out var services))
 			{
 				var config = services.ConfigsProvider.GetConfig<CurrencySpriteConfig>();
 
-				if (config.TryGetConfig(GameId, out var entry))
+				if (config.TryGetConfig(gameId, out var entry))
 				{
-					var clazz = entry.GetClassForAmount(Amount);
+					var clazz = entry.GetClassForAmount(amount);
 					icon.style.backgroundImage = StyleKeyword.Null;
 					icon.RemoveSpriteClasses();
 					icon.AddToClassList(clazz);
 					return;
 				}
 
-				throw new Exception("Unable to set icon for currency " + GameId);
+				throw new Exception("Unable to set icon for currency " + gameId);
 			}
+		}
+
+		public static VisualElement CreateIcon(GameId id, uint amount = 0)
+		{
+			var icon = new VisualElement() {name = "icon-" + id.ToString().ToLowerInvariant()};
+			icon.AddToClassList("generated-icon");
+			DrawIconInternal(icon, id, amount);
+			return icon;
+		}
+
+		public static string GetRichTextIcon(GameId id)
+		{
+			if (!_richTextIcons.TryGetValue(id, out var iconName))
+			{
+				FLog.Error($"Could not read rich text icon for {id}");
+				iconName = _richTextIcons[GameId.COIN];
+			}
+
+			return $"<sprite name=\"{iconName}\">";
 		}
 
 		public override string ToString() => GetRichTextIcon();

@@ -37,6 +37,12 @@ public class UnityServerRemoteConfigProvider : IRemoteConfigProvider
 		return value;
 	}
 
+	// Only implemented on client
+	public bool ValidateConfig(Type type)
+	{
+		return true;
+	}
+
 	public int GetConfigVersion()
 	{
 		return _unityRemoteConfigResponse.ConfigVersion;

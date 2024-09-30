@@ -172,8 +172,8 @@ namespace Quantum.Systems.Bots
 
 		public static void StopAiming(Frame f, BotCharacter* botCharacter, EntityRef entity)
 		{
-			BotState.UpdateBotSpeed(f, entity);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
+			BotState.UpdateBotSpeed(f, entity);
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
 			bb->Set(f, Constants.IS_SHOOTING_KEY, false);
 

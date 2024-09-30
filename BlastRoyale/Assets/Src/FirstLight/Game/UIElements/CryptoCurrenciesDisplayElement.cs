@@ -21,17 +21,17 @@ namespace FirstLight.Game.UIElements
 		private const string USS_CURRENCY_LABEL = USS_BLOCK + "__label";
 		private const string USS_BLOCK_PLUSSIGN = USS_BLOCK + USS_PLUSSIGN_MODIFIER;
 		private const string USS_MULTIPLE_CURRENCY_LABEL = USS_CURRENCY_LABEL + USS_PLUSSIGN_MODIFIER;
-		
+
 		//Crypto Currency
 		private const string USS_CRYPTO_CURRENCY_BLOCK = "crypto-currencies-display";
 		private const string USS_CRYPTO_CURRENCY_BLOCK_ARROW = USS_CRYPTO_CURRENCY_BLOCK + "__arrow";
 		private const string USS_INNER_ELEMENT_CRYPTO_CURRENCY_BLOCK = USS_BLOCK + "__inner-element-crypto-currency";
 		private const string USS_CRYPTO_CURRENCY_COLUMN = "crypto-currencies-column";
 		private const string USS_CRYPTO_CURRENCY_SCROLLVIEW_CONTAINER = USS_CRYPTO_CURRENCY_BLOCK + "__scrollview-content-container";
-		
+
 		/*Modifier Constant*/
 		private const string USS_PLUSSIGN_MODIFIER = "__plussign";
-		
+
 		/* UXML attributes */
 		public GameId MainCurrency { get; private set; }
 
@@ -42,9 +42,7 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _partnerCryptoCurrenciesContainer;
 		private readonly VisualElement _partnerCryptoCurrenciesArrow;
 
-		
 		private Action OnClickedAction;
-
 
 		/* The internal structure of the element is created in the constructor. */
 		public CryptoCurrenciesDisplayElement()
@@ -65,7 +63,7 @@ namespace FirstLight.Game.UIElements
 			_mainCryptoCurrencyAmount = new LabelOutlined("1234") {name = "MainCurrencyAmount"};
 			_mainCryptoCurrencyAmount.AddToClassList(USS_CURRENCY_LABEL);
 			Add(_mainCryptoCurrencyAmount);
-			
+
 			// Multiple Currencies Container Arrow
 			_partnerCryptoCurrenciesArrow = new VisualElement() {name = "PartnerCryptoCurrenciesArrow"};
 			_partnerCryptoCurrenciesArrow.AddToClassList(USS_CRYPTO_CURRENCY_BLOCK_ARROW);
@@ -77,7 +75,6 @@ namespace FirstLight.Game.UIElements
 			Add(_partnerCryptoCurrenciesContainer);
 
 			_partnerCryptoCurrenciesContainer.SetVisibility(false);
-			
 		}
 
 		private void SetMainCurrency(GameId gameId)
@@ -86,8 +83,6 @@ namespace FirstLight.Game.UIElements
 			UpdateMainCurrencyView();
 		}
 
-		
-		
 		private void OnClicked(ClickEvent evt)
 		{
 			OpenCryptoTokenContainer();
@@ -101,17 +96,16 @@ namespace FirstLight.Game.UIElements
 		private void UpdateMainCurrencyView()
 		{
 			var mainCurrencyViewModel = (CurrencyItemViewModel) ItemFactory.Currency(MainCurrency, 0).GetViewModel();
-		
+
 			_mainCryptoCurrencyIcon.ClearClassList();
 			_mainCryptoCurrencyIcon.AddToClassList(USS_ICON);
 			mainCurrencyViewModel.DrawIcon(_mainCryptoCurrencyIcon);
-		
+
 			_mainCryptoCurrencyIconOutline.ClearClassList();
 			_mainCryptoCurrencyIconOutline.AddToClassList(USS_ICON_OUTLINE);
 			mainCurrencyViewModel.DrawIcon(_mainCryptoCurrencyIconOutline);
 		}
-		
-	
+
 		public void SetData(Dictionary<GameId, ulong> playerCryptoCurrenciesDict)
 		{
 			var shouldHideElement = playerCryptoCurrenciesDict.Count == 0;
@@ -132,14 +126,14 @@ namespace FirstLight.Game.UIElements
 				_mainCryptoCurrencyAmount.text = cryptoCurrenciesDict[MainCurrency].ToString();
 				return;
 			}
-			
+
 			//Start Setting Up Tooltip with Multiples Crypto Tokens
 			AddToClassList(USS_BLOCK_PLUSSIGN);
 			_mainCryptoCurrencyAmount.AddToClassList(USS_MULTIPLE_CURRENCY_LABEL);
 			_mainCryptoCurrencyAmount.text = "+";
-			
+
 			RegisterCallback<ClickEvent>(OnClicked);
-			
+
 			if (cryptoCurrenciesDict.Count <= 8)
 			{
 				SetupCryptoTokenColumns(cryptoCurrenciesDict);
@@ -147,61 +141,62 @@ namespace FirstLight.Game.UIElements
 			}
 
 			SetupCryptoTokenScrollView(cryptoCurrenciesDict);
-			
-			
 		}
 
 		private void SetupCryptoTokenScrollView(Dictionary<GameId, ulong> cryptoCurrenciesDict)
 		{
+			_partnerCryptoCurrenciesContainer.Clear();
 			var cryptoTokenScrollView = new ScrollView();
 			cryptoTokenScrollView.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
 			cryptoTokenScrollView.verticalScrollerVisibility = ScrollerVisibility.Hidden;
-			
+
 			cryptoTokenScrollView.contentContainer.AddToClassList(USS_CRYPTO_CURRENCY_SCROLLVIEW_CONTAINER);
-			
-			foreach (var cryptoCurrency in cryptoCurrenciesDict) {
-				
+
+			foreach (var cryptoCurrency in cryptoCurrenciesDict)
+			{
 				var currencyDisplayElement = new CurrencyDisplayElement();
 				currencyDisplayElement.AddToClassList(USS_INNER_ELEMENT_CRYPTO_CURRENCY_BLOCK);
 				currencyDisplayElement.SetCurrency(cryptoCurrency.Key, cryptoCurrency.Value);
 				cryptoTokenScrollView.Add(currencyDisplayElement);
 			}
-			
+
 			_partnerCryptoCurrenciesContainer.Add(cryptoTokenScrollView);
 		}
 
 		private void SetupCryptoTokenColumns(Dictionary<GameId, ulong> cryptoCurrenciesDict)
 		{
+			_partnerCryptoCurrenciesContainer.Clear();
 			VisualElement currentCryptoTokenColumn = null;
 			var cryptoTokensAdded = 0;
-			
-			foreach (var cryptoCurrency in cryptoCurrenciesDict) {
-			
-				if (cryptoTokensAdded % 4 == 0) {
-					if (currentCryptoTokenColumn != null) {
-						_partnerCryptoCurrenciesContainer.Add(currentCryptoTokenColumn); 
+
+			foreach (var cryptoCurrency in cryptoCurrenciesDict)
+			{
+				if (cryptoTokensAdded % 4 == 0)
+				{
+					if (currentCryptoTokenColumn != null)
+					{
+						_partnerCryptoCurrenciesContainer.Add(currentCryptoTokenColumn);
 					}
 
 					currentCryptoTokenColumn = new VisualElement();
-					currentCryptoTokenColumn.AddToClassList(USS_CRYPTO_CURRENCY_COLUMN); 
+					currentCryptoTokenColumn.AddToClassList(USS_CRYPTO_CURRENCY_COLUMN);
 				}
 
 				var currencyDisplayElement = new CurrencyDisplayElement();
 				currencyDisplayElement.AddToClassList(USS_INNER_ELEMENT_CRYPTO_CURRENCY_BLOCK);
 				currencyDisplayElement.SetCurrency(cryptoCurrency.Key, cryptoCurrency.Value);
-				
+
 				currentCryptoTokenColumn.Add(currencyDisplayElement);
 
 				cryptoTokensAdded++;
 			}
-			
+
 			// Make sure to add the last group if it hasn't been added yet
-			if (currentCryptoTokenColumn != null) {
+			if (currentCryptoTokenColumn != null)
+			{
 				_partnerCryptoCurrenciesContainer.Add(currentCryptoTokenColumn);
 			}
 		}
-		
-
 
 		/* The factory is at the bottom - this allows you to use the element in UXML with it's C# class name */
 		public new class UxmlFactory : UxmlFactory<CryptoCurrenciesDisplayElement, UxmlTraits>

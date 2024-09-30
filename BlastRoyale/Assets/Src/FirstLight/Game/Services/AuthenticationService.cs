@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
@@ -380,16 +381,16 @@ namespace FirstLight.Game.Services
 			{
 				AppData = titleData
 			});
-			
+
 			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out _))
 			{
 				onError?.Invoke(null);
 				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
 			}
-			
+
 			var requiredServices = 2;
 			var doneServices = 0;
-						
+
 			void OnServiceConnected(LoginData data)
 			{
 				if (++doneServices >= requiredServices)
@@ -400,7 +401,7 @@ namespace FirstLight.Game.Services
 					}
 				}
 			}
-			
+
 			AuthenticateGameNetwork(loginData, OnServiceConnected, onError);
 			GetPlayerData(loginData, OnServiceConnected, onError, previouslyLoggedIn);
 
@@ -422,7 +423,7 @@ namespace FirstLight.Game.Services
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			accountData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-		
+
 			UniTask.WaitUntil(() => doneServices >= requiredServices).ContinueWith(() =>
 			{
 				FLog.Info("Finalizing login");
@@ -480,7 +481,7 @@ namespace FirstLight.Game.Services
 				await AuthenticationService.Instance.SignInAnonymouslyAsync();
 				FLog.Info("UnityCloudAuth", "Cached user sign in succeeded!");
 
-				await PostUnityAuth(onSuccess);
+				await PostUnityAuth(onSuccess, onError);
 			}
 			else
 			{
@@ -496,42 +497,63 @@ namespace FirstLight.Game.Services
 
 						AuthenticationService.Instance.ProcessAuthenticationTokens(data["idToken"], data["sessionToken"]);
 
-						PostUnityAuth(onSuccess).Forget();
+						PostUnityAuth(onSuccess, onError).Forget();
 					},
 					e => { _services.GameBackendService.HandleError(e, onError); });
 			}
 		}
 
-		private async UniTask PostUnityAuth(Action onComplete)
+		private async UniTask PostUnityAuth(Action onComplete, Action<PlayFabError> onError)
 		{
-			var tasks = new List<UniTask>();
+			try
+			{
+				var tasks = new List<UniTask>();
 
-			tasks.Add(RemoteConfigs.Init());
-			var friendsInitOpts = new InitializeOptions()
-				.WithEvents(true)
-				.WithMemberPresence(true)
-				.WithMemberProfile(true);
-			tasks.Add(FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask());
-			tasks.Add(AuthenticationService.Instance.GetPlayerNameAsync().AsUniTask()); // We fetch the name (which generates a new one) so it's stored in the cache
-			tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
-			await UniTask.WhenAll(tasks);
-			CheckNamesUpdates()
-				.ContinueWith(() =>
-				{
-					// GOD FORGIVE ME
-					var dataService = _services.DataService;
-					var migrationData = dataService.LoadData<LocalMigrationData>();
-					if (!migrationData.RanMigrations.Contains(LocalMigrationData.SYNC_NAME))
+				tasks.Add(RemoteConfigs.Init());
+				var friendsInitOpts = new InitializeOptions()
+					.WithEvents(true)
+					.WithMemberPresence(true)
+					.WithMemberProfile(true);
+				tasks.Add(FriendsService.Instance.InitializeAsync(friendsInitOpts).AsUniTask());
+				tasks.Add(AuthenticationService.Instance.GetPlayerNameAsync()
+					.AsUniTask()); // We fetch the name (which generates a new one) so it's stored in the cache
+				tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
+				await UniTask.WhenAll(tasks);
+				CheckNamesUpdates()
+					.ContinueWith(() =>
 					{
-						_services.GameBackendService.CallGenericFunction(CommandNames.SYNC_NAME).Forget();
-						migrationData.RanMigrations.Add(LocalMigrationData.SYNC_NAME);
-						dataService.SaveData<LocalMigrationData>();
-					}
-				})
-				.Forget();
-			_services.InGameNotificationService.Init();
-			_services.RateAndReviewService.Init();
-			onComplete();
+						// GOD FORGIVE ME
+						var dataService = _services.DataService;
+						var migrationData = dataService.LoadData<LocalMigrationData>();
+						if (!migrationData.RanMigrations.Contains(LocalMigrationData.SYNC_NAME))
+						{
+							_services.GameBackendService.CallGenericFunction(CommandNames.SYNC_NAME).Forget();
+							migrationData.RanMigrations.Add(LocalMigrationData.SYNC_NAME);
+							dataService.SaveData<LocalMigrationData>();
+						}
+					})
+					.Forget();
+				_services.InGameNotificationService.Init();
+				_services.RateAndReviewService.Init();
+				RemoteConfigValidator.ValidateConfigs(this._dataProvider.RemoteConfigProvider);
+				onComplete();
+			}
+			catch (Exception exception)
+			{
+				var message = "Failed to authenticate";
+				if (exception is ConfigParseException)
+				{
+					message = exception.Message;
+				}
+
+				FLog.Error("Failed to PostUnityAuth", exception);
+				var err = new PlayFabError
+				{
+					Error = PlayFabErrorCode.Unknown,
+					ErrorMessage = message
+				};
+				onError(err);
+			}
 		}
 
 		private async UniTask CheckNamesUpdates()

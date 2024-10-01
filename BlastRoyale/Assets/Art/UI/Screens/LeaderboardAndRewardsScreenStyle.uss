@@ -104,6 +104,10 @@
     transition-duration: 0.3s;
     transition-delay: 0.3s;
     transition-property: opacity;
+    top: 0; 
+}
+.rewards-panel--buffs {
+    top: -66px;
 }
 
 .trophies {
@@ -518,8 +522,9 @@
     border-radius: 10px;
     margin-left: 28px;
 }
+
 .found-reward--first {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .found-reward--item {
@@ -575,7 +580,7 @@
 }
 
 .nft-buff__label {
-    width: 100%;
+    width: auto;
     -unity-text-align: middle-center;
 }
 
@@ -587,5 +592,64 @@
     height: 48px;
 }
 
+.nft-buff {
+    background-color: rgb(45, 41, 80);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-radius: 5px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
 .nft-buff__icon {
+    width: 32px;
+    height: 32px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.nft-buff__label {
+    width: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-size: 24px;
+    position: absolute;
+    right: -5px;
+    bottom: -8px;
+    top: 0;
+    left: 0;
+    -unity-text-align: lower-right;
+}
+
+.buff-tooltip {
+}
+
+.buff-tooltip__label {
+    font-size: 32px;
+    -unity-font-style: normal;
+}
+
+.buff-tooltip__holder {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+.buff-tooltip__icon {
+    width: 42px;
+    height: 42px;
+    margin-left: 10px;
 }

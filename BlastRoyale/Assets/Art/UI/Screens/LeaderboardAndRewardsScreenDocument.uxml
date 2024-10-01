@@ -15,7 +15,7 @@
                 <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Elastic" class="leaderboard-entries" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
-            <ui:VisualElement name="RewardsPanel" picking-mode="Ignore" class="rewards-panel" style="top: 0; right: 0;">
+            <ui:VisualElement name="RewardsPanel" picking-mode="Ignore" class="rewards-panel" style="">
                 <ui:VisualElement name="Trophies" class="trophies">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/trophies" class="trophies__title" />
                     <ui:VisualElement name="LogoTop" class="trophies__logo-top" />
@@ -61,7 +61,28 @@
                         <ui:VisualElement name="RewardContainer" style="flex-grow: 0; flex-direction: row; justify-content: center; width: 100%; height: auto;" />
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedLabel text="&#10;" name="NftBuffs" outline-hack="false" enable-rich-text="true" class="nft-buffs" style="position: relative; left: auto; top: auto; justify-content: flex-start; align-self: auto; width: 100%; height: auto; align-items: center;">
-                        <FirstLight.Game.UIElements.LocalizedLabel text="UITRewards/foundmap" name="Title" localization-key="NFT Buffs" class="bpp__title" style="top: auto; left: auto; position: relative;" />
+                        <ui:VisualElement name="TitleContainer" style="flex-grow: 1; flex-direction: row; margin-bottom: 7px;">
+                            <FirstLight.Game.UIElements.LocalizedLabel text="UITRewards/foundmap" name="Title" localization-key="NFT Buffs" class="bpp__title" style="top: auto; left: auto; position: relative;" />
+                            <ui:VisualElement name="InfoButton" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/button-info-round.png?fileID=2800000&amp;guid=fdd5bc71789ed4bf6927548edc3e109d&amp;type=3#button-info-round&quot;); flex-shrink: 0; width: 38px; height: 38px; margin-left: 14px; align-self: center;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="BuffsHolder" style="flex-grow: 1; flex-direction: row;">
+                            <ui:VisualElement name="Buff" class="nft-buff">
+                                <FirstLight.Game.UIElements.LabelOutlined text="5" class="nft-buff__label" />
+                                <ui:VisualElement name="Coin" class="nft-buff__icon" style="background-image: url(&quot;project://database/Assets/AddressableResources/AdventureAssets/Collectables/Materials/Coin.png?fileID=2800000&amp;guid=e6552bef687fa47ad8c11230a4fdefda&amp;type=3#Coin&quot;);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Buff" class="nft-buff">
+                                <FirstLight.Game.UIElements.LabelOutlined text="5" class="nft-buff__label" />
+                                <ui:VisualElement name="Coin" class="nft-buff__icon" style="background-image: url(&quot;project://database/Assets/AddressableResources/AdventureAssets/Collectables/Materials/Coin.png?fileID=2800000&amp;guid=e6552bef687fa47ad8c11230a4fdefda&amp;type=3#Coin&quot;);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Buff" class="nft-buff">
+                                <FirstLight.Game.UIElements.LabelOutlined text="5" class="nft-buff__label" />
+                                <ui:VisualElement name="Coin" class="nft-buff__icon" style="background-image: url(&quot;project://database/Assets/AddressableResources/AdventureAssets/Collectables/Materials/Coin.png?fileID=2800000&amp;guid=e6552bef687fa47ad8c11230a4fdefda&amp;type=3#Coin&quot;);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Buff" class="nft-buff">
+                                <FirstLight.Game.UIElements.LabelOutlined text="5" class="nft-buff__label" />
+                                <ui:VisualElement name="Coin" class="nft-buff__icon" style="background-image: url(&quot;project://database/Assets/AddressableResources/AdventureAssets/Collectables/Materials/Coin.png?fileID=2800000&amp;guid=e6552bef687fa47ad8c11230a4fdefda&amp;type=3#Coin&quot;);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
                     </FirstLight.Game.UIElements.LocalizedLabel>
                 </ui:VisualElement>
             </ui:VisualElement>

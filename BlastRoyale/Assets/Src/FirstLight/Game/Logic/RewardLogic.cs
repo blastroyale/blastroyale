@@ -133,6 +133,11 @@ namespace FirstLight.Game.Logic
 		/// Only for display purposes not used for logic!
 		/// </summary>
 		public Dictionary<GameId, int> CollectedRewards { get; set; } = new ();
+
+		/// <summary>
+		/// Bonuses
+		/// </summary>
+		public Dictionary<GameId, int> Bonuses { get; set; } = new ();
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -341,7 +346,10 @@ namespace FirstLight.Game.Logic
 					// TODo: if id in group crupto, use bonus partner tokens
 					if (mp > 1 && reward.TryGetMetadata<CurrencyMetadata>(out var currency))
 					{
-						currency.Amount = (int) Math.Round(currency.Amount * mp);
+						var newValue = (int) Math.Round(currency.Amount * mp);
+						result.Bonuses.TryGetValue(reward.Id, out var currentValue);
+						result.Bonuses[reward.Id] = currentValue + (newValue - currency.Amount);
+						currency.Amount = newValue;
 					}
 				}
 			}
@@ -390,6 +398,7 @@ namespace FirstLight.Game.Logic
 					meta.Amount =
 						(int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.Id, (uint) meta.Amount);
 				}
+
 			}
 
 			RewardToUnclaimedRewards(rewards.FinalRewards);

@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BuffSystem;
-using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Models;
@@ -392,8 +390,6 @@ namespace FirstLight.Game.Logic
 					meta.Amount =
 						(int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.Id, (uint) meta.Amount);
 				}
-
-				FLog.Info($"Rewarding {(reward.TryGetMetadata<CurrencyMetadata>(out var tempMeta) ? tempMeta.Amount : 1)}x{reward.Id} ");
 			}
 
 			RewardToUnclaimedRewards(rewards.FinalRewards);

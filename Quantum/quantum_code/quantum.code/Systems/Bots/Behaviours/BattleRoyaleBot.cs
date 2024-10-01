@@ -151,7 +151,6 @@ namespace Quantum.Systems.Bots
 			if (filter.BotCharacter->WanderInsideCircle(filter.Entity, f, botCtx.circleCenter, botCtx.circleRadius, BotMovementType.Wander))
 			{
 				BotLogger.LogAction(f, ref filter, "wander inside circle");
-				filter.ClearTarget(f);
 				HostProfiler.End();
 				return;
 			}

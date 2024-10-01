@@ -367,6 +367,7 @@ namespace FirstLight.Game.Services
 			FLog.Info($"Logged in. PlayfabId={result.PlayFabId} Title={PlayFabSettings.TitleId}");
 
 			_lastPlayfabLogin = result;
+			PlayfabNickname = result.InfoResultPayload.PlayerProfile?.DisplayName;
 			var accountData = GetDeviceSavedAccountData();
 			var appData = _dataService.GetData<AppData>();
 			var tutorialData = _dataService.GetData<TutorialData>();

@@ -129,6 +129,8 @@ namespace FirstLight.Game.Services
 		/// Event called after players logs in
 		/// </summary>
 		event Action<LoginResult> OnLogin;
+		
+		public string PlayfabNickname { get; }
 	}
 
 	public interface IInternalAuthenticationService : IAuthenticationService
@@ -564,7 +566,7 @@ namespace FirstLight.Game.Services
 			{
 				await UniTask.WaitUntil(() => _lastPlayfabLogin != null);
 				var appData = _dataService.GetData<AppData>();
-				var playfabName = _lastPlayfabLogin.InfoResultPayload.PlayerProfile.DisplayName;
+				var playfabName = _lastPlayfabLogin.InfoResultPayload?.PlayerProfile?.DisplayName;
 				playfabName = playfabName == null || string.IsNullOrWhiteSpace(playfabName) ||
 					playfabName.Length < 5
 						? ""
@@ -578,13 +580,15 @@ namespace FirstLight.Game.Services
 					{
 						DisplayName = unityName.Length > 25 ? unityName.Substring(0, 25) : unityName
 					});
+					PlayfabNickname = playfabResult.DisplayName;
 					_services.MessageBrokerService.Publish(new DisplayNameChangedMessage()
 					{
 						NewPlayfabDisplayName = playfabResult.DisplayName
 					});
+				
 					return;
 				}
-
+				
 				// Handle old user accounts
 				if (!playfabName.Equals(unityName))
 				{
@@ -731,6 +735,8 @@ namespace FirstLight.Game.Services
 		{
 			_services.CommandService.ExecuteCommand(new MigrateGuestDataCommand {GuestMigrationData = migrationData});
 		}
+
+		public string PlayfabNickname { get; set; }
 
 		public void AttachLoginDataToAccount(string email, string username, string password,
 											 Action<LoginData> onSuccess = null,

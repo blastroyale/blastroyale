@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_yourIDField.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(_services.GameSocialService.PlayerName);
+			_yourIDField.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(_services.AuthenticationService.PlayfabNickname);
 			RefreshAll();
 
 			// TODO mihak: Temporary, we just always refresh all lists

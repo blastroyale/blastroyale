@@ -16,6 +16,7 @@ namespace FirstLight.Game.UIElements
 		/* Class names are at the top in const fields */
 		//Default Currency
 		private const string USS_BLOCK = "currency-display";
+		private const string USS_BLOCK_CRYPTO_MODIFIER = USS_BLOCK + "--crypto";
 		private const string USS_ICON = USS_BLOCK + "__icon";
 		private const string USS_ICON_OUTLINE = USS_BLOCK + "__icon-outline";
 		private const string USS_CURRENCY_LABEL = USS_BLOCK + "__label";
@@ -23,6 +24,9 @@ namespace FirstLight.Game.UIElements
 		private const string USS_MULTIPLE_CURRENCY_LABEL = USS_CURRENCY_LABEL + USS_PLUSSIGN_MODIFIER;
 
 		//Crypto Currency
+
+		private const string USS_CRYPTO_PARENT = "crypto-currencies-parent";
+		private const string USS_CRYPTO_PARENT_PLUS = "crypto-currencies-parent"+USS_PLUSSIGN_MODIFIER;
 		private const string USS_CRYPTO_CURRENCY_BLOCK = "crypto-currencies-display";
 		private const string USS_CRYPTO_CURRENCY_BLOCK_ARROW = USS_CRYPTO_CURRENCY_BLOCK + "__arrow";
 		private const string USS_INNER_ELEMENT_CRYPTO_CURRENCY_BLOCK = USS_BLOCK + "__inner-element-crypto-currency";
@@ -43,26 +47,32 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _partnerCryptoCurrenciesArrow;
 
 		private Action OnClickedAction;
+		private VisualElement _buttonView;
 
 		/* The internal structure of the element is created in the constructor. */
 		public CryptoCurrenciesDisplayElement()
 		{
-			AddToClassList(USS_BLOCK);
+			AddToClassList(USS_CRYPTO_PARENT);
+			{
+				_buttonView = new VisualElement();
+				_buttonView.AddToClassList(USS_BLOCK);
+				_buttonView.AddToClassList(USS_BLOCK_CRYPTO_MODIFIER);
+				// Icon outline
+				_mainCryptoCurrencyIconOutline = new VisualElement() {name = "MainCurrencyIconContainer"};
+				_mainCryptoCurrencyIconOutline.AddToClassList(USS_ICON_OUTLINE);
+				_buttonView.Add(_mainCryptoCurrencyIconOutline);
 
-			// Icon outline
-			_mainCryptoCurrencyIconOutline = new VisualElement() {name = "MainCurrencyIconContainer"};
-			_mainCryptoCurrencyIconOutline.AddToClassList(USS_ICON_OUTLINE);
-			Add(_mainCryptoCurrencyIconOutline);
+				// Currency icon
+				_mainCryptoCurrencyIcon = new VisualElement() {name = "MainCurrencyIcon"};
+				_mainCryptoCurrencyIcon.AddToClassList(USS_ICON);
+				_mainCryptoCurrencyIconOutline.Add(_mainCryptoCurrencyIcon);
 
-			// Currency icon
-			_mainCryptoCurrencyIcon = new VisualElement() {name = "MainCurrencyIcon"};
-			_mainCryptoCurrencyIcon.AddToClassList(USS_ICON);
-			_mainCryptoCurrencyIconOutline.Add(_mainCryptoCurrencyIcon);
-
-			// Currency label
-			_mainCryptoCurrencyAmount = new LabelOutlined("1234") {name = "MainCurrencyAmount"};
-			_mainCryptoCurrencyAmount.AddToClassList(USS_CURRENCY_LABEL);
-			Add(_mainCryptoCurrencyAmount);
+				// Currency label
+				_mainCryptoCurrencyAmount = new LabelOutlined("1234") {name = "MainCurrencyAmount"};
+				_mainCryptoCurrencyAmount.AddToClassList(USS_CURRENCY_LABEL);
+				_buttonView.Add(_mainCryptoCurrencyAmount);
+				Add(_buttonView);
+			}
 
 			// Multiple Currencies Container Arrow
 			_partnerCryptoCurrenciesArrow = new VisualElement() {name = "PartnerCryptoCurrenciesArrow"};
@@ -128,11 +138,12 @@ namespace FirstLight.Game.UIElements
 			}
 
 			//Start Setting Up Tooltip with Multiples Crypto Tokens
-			AddToClassList(USS_BLOCK_PLUSSIGN);
+			AddToClassList(USS_CRYPTO_PARENT_PLUS);
+			_buttonView.AddToClassList(USS_BLOCK_PLUSSIGN);
 			_mainCryptoCurrencyAmount.AddToClassList(USS_MULTIPLE_CURRENCY_LABEL);
 			_mainCryptoCurrencyAmount.text = "+";
 
-			RegisterCallback<ClickEvent>(OnClicked);
+			_buttonView.RegisterCallback<ClickEvent>(OnClicked);
 
 			if (cryptoCurrenciesDict.Count <= 8)
 			{
@@ -146,6 +157,7 @@ namespace FirstLight.Game.UIElements
 		private void SetupCryptoTokenScrollView(Dictionary<GameId, ulong> cryptoCurrenciesDict)
 		{
 			_partnerCryptoCurrenciesContainer.Clear();
+			_partnerCryptoCurrenciesContainer.Add(_partnerCryptoCurrenciesArrow);
 			var cryptoTokenScrollView = new ScrollView();
 			cryptoTokenScrollView.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
 			cryptoTokenScrollView.verticalScrollerVisibility = ScrollerVisibility.Hidden;
@@ -166,6 +178,7 @@ namespace FirstLight.Game.UIElements
 		private void SetupCryptoTokenColumns(Dictionary<GameId, ulong> cryptoCurrenciesDict)
 		{
 			_partnerCryptoCurrenciesContainer.Clear();
+			_partnerCryptoCurrenciesContainer.Add(_partnerCryptoCurrenciesArrow);
 			VisualElement currentCryptoTokenColumn = null;
 			var cryptoTokensAdded = 0;
 

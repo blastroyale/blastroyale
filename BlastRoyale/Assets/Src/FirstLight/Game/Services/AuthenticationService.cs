@@ -183,6 +183,7 @@ namespace FirstLight.Game.Services
 		private IGameDataProvider _dataProvider;
 		private IConfigsAdder _configsAdder;
 		private readonly DataService _localAccountData;
+		private LoginResult _lastPlayfabLogin;
 
 		private GetPlayerCombinedInfoRequestParams StandardLoginInfoRequestParams =>
 			new ()
@@ -363,6 +364,7 @@ namespace FirstLight.Game.Services
 
 			FLog.Info($"Logged in. PlayfabId={result.PlayFabId} Title={PlayFabSettings.TitleId}");
 
+			_lastPlayfabLogin = result;
 			var accountData = GetDeviceSavedAccountData();
 			var appData = _dataService.GetData<AppData>();
 			var tutorialData = _dataService.GetData<TutorialData>();
@@ -371,6 +373,7 @@ namespace FirstLight.Game.Services
 			var emails = result.InfoResultPayload.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
 			var migrationData = new MigrationData {TutorialSections = tutorialData.TutorialSections};
+		
 			_networkService.UserId.Value = result.PlayFabId;
 
 			FLog.Info("Using photon with the id " + FLEnvironment.Current.PhotonAppIDRealtime);
@@ -417,7 +420,6 @@ namespace FirstLight.Game.Services
 			}
 
 			_networkService.UserId.Value = result.PlayFabId;
-			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
 			appData.LoginTime = _services.TimeService.DateTimeUtcNow;
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
@@ -522,7 +524,7 @@ namespace FirstLight.Game.Services
 				CheckNamesUpdates()
 					.ContinueWith(() =>
 					{
-						// GOD FORGIVE ME
+						// GOD FORGIVE ME - GOD MIGHT BUT I WONT :L
 						var dataService = _services.DataService;
 						var migrationData = dataService.LoadData<LocalMigrationData>();
 						if (!migrationData.RanMigrations.Contains(LocalMigrationData.SYNC_NAME))
@@ -560,8 +562,9 @@ namespace FirstLight.Game.Services
 		{
 			try
 			{
+				await UniTask.WaitUntil(() => _lastPlayfabLogin != null);
 				var appData = _dataService.GetData<AppData>();
-				var playfabName = appData.DisplayName;
+				var playfabName = _lastPlayfabLogin.InfoResultPayload.PlayerProfile.DisplayName;
 				playfabName = playfabName == null || string.IsNullOrWhiteSpace(playfabName) ||
 					playfabName.Length < 5
 						? ""

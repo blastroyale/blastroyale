@@ -26,7 +26,6 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class AppData
 	{
-		public string DisplayName;
 		public DateTime FirstLoginTime;
 		public DateTime LastLoginTime;
 		public DateTime LoginTime;

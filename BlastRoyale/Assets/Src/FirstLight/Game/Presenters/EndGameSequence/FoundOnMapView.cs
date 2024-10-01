@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
@@ -40,8 +41,12 @@ namespace FirstLight.Game.Presenters
 			var foundInMap = CreateItemList(temp, "Collected in Map");
 			tooltip.Add(foundInMap);
 
-			var nftBonus = CreateItemList(_rewards.CollectedBonuses, "NFT Buffs");
-			tooltip.Add(nftBonus);
+			var hasAnyNftBonus = _rewards.CollectedBonuses.Any(kv => kv.Value > 0);
+			if (hasAnyNftBonus)
+			{
+				var nftBonus = CreateItemList(_rewards.CollectedBonuses, "NFT Buffs");
+				tooltip.Add(nftBonus);
+			}
 
 			_rewardContainer.OpenTooltip(Presenter.Root, tooltip);
 		}

@@ -129,7 +129,7 @@ namespace FirstLight.Game.Logic
 
 		/// <summary>
 		/// Holds specifically all the rewards the player collected during the game
-		/// e.g picking dropped coins
+		/// e.g picking dropped coins, It contains the buffs values
 		/// Only for display purposes not used for logic!
 		/// </summary>
 		public Dictionary<GameId, int> CollectedRewards { get; set; } = new ();
@@ -137,7 +137,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Bonuses
 		/// </summary>
-		public Dictionary<GameId, int> Bonuses { get; set; } = new ();
+		public Dictionary<GameId, int> CollectedBonuses { get; set; } = new ();
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -343,12 +343,16 @@ namespace FirstLight.Game.Logic
 							break;
 					}
 
+					if (result.CollectedRewards.TryGetValue(reward.Id, out var collected))
+					{
+						result.CollectedBonuses[reward.Id] = (int) Math.Round(collected * mp) - collected;
+						result.CollectedRewards[reward.Id] = (int) Math.Round(collected * mp);
+					}
+
 					// TODo: if id in group crupto, use bonus partner tokens
 					if (mp > 1 && reward.TryGetMetadata<CurrencyMetadata>(out var currency))
 					{
 						var newValue = (int) Math.Round(currency.Amount * mp);
-						result.Bonuses.TryGetValue(reward.Id, out var currentValue);
-						result.Bonuses[reward.Id] = currentValue + (newValue - currency.Amount);
 						currency.Amount = newValue;
 					}
 				}
@@ -398,7 +402,6 @@ namespace FirstLight.Game.Logic
 					meta.Amount =
 						(int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.Id, (uint) meta.Amount);
 				}
-
 			}
 
 			RewardToUnclaimedRewards(rewards.FinalRewards);

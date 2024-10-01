@@ -57,7 +57,6 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _bpp;
 		private VisualElement _fame;
 
-		private BuffsView _buffsView;
 		private FoundOnMapView _foundMapView;
 		private RewardPanelView _trophiesView;
 		private RewardLevelPanelView _bppView;
@@ -101,7 +100,6 @@ namespace FirstLight.Game.Presenters
 			_trophies.AttachView(this, out _trophiesView);
 
 			_rewardsPanel.Q("FoundMap").AttachView(this, out _foundMapView);
-			_rewardsPanel.Q("NftBuffs").AttachView(this, out _buffsView);
 
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
 			_bpp.AttachView(this, out _bppView);
@@ -152,7 +150,6 @@ namespace FirstLight.Game.Presenters
 			await _trophiesView.Animate();
 			await _bppView.Animate();
 			await _foundMapView.Animate();
-			await _buffsView.Animate();
 			// animate other two views
 		}
 
@@ -195,22 +192,13 @@ namespace FirstLight.Game.Presenters
 			if (allRewards != null && allRewards.CollectedRewards.Count > 0)
 			{
 				var rewardArray = allRewards.CollectedRewards.Select(kp => (kp.Key, (ushort) kp.Value)).ToArray();
-				_foundMapView.SetRewards(rewardArray);
+				_foundMapView.SetRewards(allRewards);
 			}
 			else
 			{
 				_foundMapView.SetRewards(null);
 			}
-
-			if (allRewards?.Bonuses.Count > 0)
-			{
-				_rewardPanel.AddClass("rewards-panel--buffs");
-				_buffsView.SetBuffs(_gameServices.BuffService.MetaEntity, allRewards);
-			}
-			else
-			{
-				_buffsView.Element.SetDisplay(false);
-			}
+			
 		}
 
 		private void SetLevelReward(Dictionary<GameId, int> rewards)

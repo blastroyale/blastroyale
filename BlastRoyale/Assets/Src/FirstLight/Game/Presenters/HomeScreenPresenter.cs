@@ -138,9 +138,8 @@ namespace FirstLight.Game.Presenters
 			Root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
-			Root.Q<CurrencyDisplayElement>("NOOBCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
+			Root.Q<CryptoCurrenciesDisplayElement>("CryptoCurrency")
+				.AttachView(this, out CryptoCurrenciesDisplayView _);
 
 			Root.Q<VisualElement>("PartyMemberNames").Required()
 				.AttachExistingView(this, _homePartyCharacterView);

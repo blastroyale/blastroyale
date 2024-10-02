@@ -11,6 +11,7 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
+using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -119,8 +120,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			var appData = _services.DataService.GetData<AppData>();
-			_yourIDField.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(appData.DisplayName);
+			_yourIDField.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(_services.AuthenticationService.PlayfabNickname);
 			RefreshAll();
 
 			// TODO mihak: Temporary, we just always refresh all lists

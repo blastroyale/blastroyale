@@ -7,6 +7,7 @@ using FirstLight.UiService;
 using FirstLight.UIService;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Views.UITK
 {

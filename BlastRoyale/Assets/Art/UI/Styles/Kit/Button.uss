@@ -1,0 +1,43 @@
+﻿.flg-btn {
+
+}
+
+.flg-btn-icon {
+    width: 56px;
+    height: 56px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.flg-btn-square.flg-btn-solid {
+    width: 98px;
+    height: 98px;
+    background-image: var(--sprite-kit__square);
+    align-self: auto;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 12px;
+}
+
+.flg-btn-square.flg-btn-solid:active {
+    background-image: var(--sprite-kit__square-pressed);
+    padding-bottom: 3px;
+}
+
+.flg-btn-solid {
+
+}
+
+.flg-btn-square.flg-btn-transparent {
+    width: 87px;
+    height: 87px;
+    background-color: rgba(15, 36, 80, 0.6);
+    border-radius: 11px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s;
+}
+
+.flg-btn-primary {
+    /*Only one color so far so ignore it*/
+}
+

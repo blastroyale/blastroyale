@@ -18,8 +18,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_BUTTON_RIGHT = USS_BUTTON + "--right";
 
 		private readonly Label _tooltipLabel;
-		private readonly Button _leftButton;
-		private readonly Button _rightButton;
+		private readonly UnityEngine.UIElements.Button _leftButton;
+		private readonly UnityEngine.UIElements.Button _rightButton;
 
 		private string _tooltipFormat = "{0}";
 		private bool _usePlusMinusSymbol;
@@ -71,14 +71,14 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(USS_BLOCK);
 			{
-				_leftButton = new Button(() => value = Math.Max(value - 1, lowValue)) {name = "LeftButton"};
+				_leftButton = new UnityEngine.UIElements.Button(() => value = Math.Max(value - 1, lowValue)) {name = "LeftButton"};
 				_leftButton.AddToClassList(USS_BUTTON);
 				_leftButton.AddToClassList(USS_BUTTON_LEFT);
 				_leftButton.text = "0";
 				Insert(0, _leftButton);
 			}
 			{
-				_rightButton = new Button(() => value = Math.Min(value + 1, highValue)) {name = "RightButton"};
+				_rightButton = new UnityEngine.UIElements.Button(() => value = Math.Min(value + 1, highValue)) {name = "RightButton"};
 				_rightButton.AddToClassList(USS_BUTTON);
 				_rightButton.AddToClassList(USS_BUTTON_RIGHT);
 				_rightButton.text = "99";

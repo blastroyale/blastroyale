@@ -9,7 +9,7 @@
         <ui:VisualElement name="Categories" class="categories" style="width: 100%;" />
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITStore/shop" name="Header">
             <ui:VisualElement name="Currencies" class="currency-display-holder">
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="NOOBTokens" currency="NOOB" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CryptoCurrency" currency="NOOB" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="Coins" currency="COIN" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBucks" currency="BlastBuck" />
             </ui:VisualElement>

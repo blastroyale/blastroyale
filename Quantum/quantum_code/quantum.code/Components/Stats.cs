@@ -199,12 +199,6 @@ namespace Quantum
 			// Do not do reduce if your weapon does not consume ammo
 			if (weapon.MaxAmmo != -1)
 			{
-				// If it's a bot then don't reduce ammo below threshold
-				if (f.Unsafe.TryGetPointer<BotCharacter>(e, out _) && CurrentAmmoPercent < Constants.BOT_AMMO_REDUCE_THRESHOLD)
-				{
-					return;
-				}
-
 				SetCurrentAmmo(f, player, e, (GetCurrentAmmo() - numShots) / GetStatData(StatType.AmmoCapacity).StatValue);
 			}
 		}

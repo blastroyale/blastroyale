@@ -212,10 +212,6 @@ namespace FirstLight.Game.Services
 			FLog.Info($"Selected GameMode set to: {current}");
 
 			_localPrefsService.SelectedGameMode.Value = current.Entry.MatchConfig.UniqueConfigId;
-			if (_appDataProvider.IsPlayerLoggedIn)
-			{
-				MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
-			}
 
 			if (_lobbyService.CurrentPartyLobby != null && _lobbyService.CurrentPartyLobby.IsLocalPlayerHost())
 			{

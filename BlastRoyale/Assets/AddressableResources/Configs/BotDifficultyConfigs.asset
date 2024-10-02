@@ -37,14 +37,14 @@ MonoBehaviour:
       MaxTrophies: 499
       BotDifficulty: 5
     - MinTrophies: 500
-      MaxTrophies: 999
-      BotDifficulty: 6
-    - MinTrophies: 1000
-      MaxTrophies: 1499
-      BotDifficulty: 7
-    - MinTrophies: 1500
       MaxTrophies: 1999
-      BotDifficulty: 8
+      BotDifficulty: 6
     - MinTrophies: 2000
+      MaxTrophies: 4999
+      BotDifficulty: 7
+    - MinTrophies: 5000
+      MaxTrophies: 9999
+      BotDifficulty: 8
+    - MinTrophies: 10000
       MaxTrophies: 999999
       BotDifficulty: 9

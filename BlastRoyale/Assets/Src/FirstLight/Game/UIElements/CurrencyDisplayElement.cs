@@ -3,13 +3,11 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -75,6 +73,13 @@ namespace FirstLight.Game.UIElements
 			Currency = gameId;
 			UpdateCurrencyView();
 		}
+		
+		public void SetCurrency(GameId gameId, ulong amount)
+		{
+			Currency = gameId;
+			UpdateCurrencyView();
+			_label.text = amount.ToString();
+		}
 
 		private void UpdateCurrencyView()
 		{
@@ -84,8 +89,7 @@ namespace FirstLight.Game.UIElements
 			_icon.AddToClassList(UssIcon);
 			_currencyView.DrawIcon(_icon);
 
-			_iconOutline.ClearClassList();
-			_iconOutline.AddToClassList(UssIconOutline);
+			_iconOutline.ClearClassList(); _iconOutline.AddToClassList(UssIconOutline);
 			_currencyView.DrawIcon(_iconOutline);
 		}
 

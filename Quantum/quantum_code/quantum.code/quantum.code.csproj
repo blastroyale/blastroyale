@@ -291,6 +291,8 @@
     <Compile Include="Systems\Bots\BotSetup.cs" />
     <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\Bots\BotUpdateContext.cs" />
+    <Compile Include="Systems\Buffs\VirtualEntity.cs" />
+    <Compile Include="Systems\Buffs\QuantumBuffConfigs.cs" />
     <Compile Include="Systems\Projectile\Projectile.cs" />
     <Compile Include="Systems\Projectile\ProjectileSystem.cs" />
     <Compile Include="Systems\SpellSystem.cs" />
@@ -394,6 +396,7 @@
     <Content Include="Events\ChestEvents.qtn" />
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
+    <Content Include="Systems\Buffs\Buffs.qtn" />
     <Content Include="Systems\Projectile\Projectile.qtn" />
     <Content Include="Systems\TopDown\TopDown.qtn" />
     <EmbeddedResource Include="db.json" />

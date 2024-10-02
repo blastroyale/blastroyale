@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
@@ -14,6 +15,7 @@ using FirstLight.Game.Views;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using QuickEye.UIToolkit;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -44,6 +46,7 @@ namespace FirstLight.Game.Presenters
 		private ICollectionService _collectionService;
 		private IGameDataProvider _gameDataProvider;
 
+		[Q("RewardsPanel")] private VisualElement _rewardPanel;
 		private LocalizedButton _nextButton;
 		private VisualElement _leaderboardPanel;
 		private ScrollView _leaderboardScrollView;
@@ -54,6 +57,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _bpp;
 		private VisualElement _fame;
 
+		private FoundOnMapView _foundMapView;
 		private RewardPanelView _trophiesView;
 		private RewardLevelPanelView _bppView;
 		private RewardLevelPanelView _levelView;
@@ -94,6 +98,9 @@ namespace FirstLight.Game.Presenters
 			_rewardsPanel = Root.Q<VisualElement>("RewardsPanel").Required();
 			_trophies = _rewardsPanel.Q<VisualElement>("Trophies").Required();
 			_trophies.AttachView(this, out _trophiesView);
+
+			_rewardsPanel.Q("FoundMap").AttachView(this, out _foundMapView);
+
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
 			_bpp.AttachView(this, out _bppView);
 
@@ -142,6 +149,8 @@ namespace FirstLight.Game.Presenters
 			await _levelView.Animate();
 			await _trophiesView.Animate();
 			await _bppView.Animate();
+			await _foundMapView.Animate();
+			// animate other two views
 		}
 
 		private void UpdateRewards()
@@ -152,14 +161,17 @@ namespace FirstLight.Game.Presenters
 				FLog.Warn("For some reason CachedRewards was null");
 				return;
 			}
+
 			if (_matchServices.MatchEndDataService.JoinedAsSpectator)
 			{
 				_trophiesView.Element.SetVisibility(false);
 				_bppView.Element.SetVisibility(false);
 				_levelView.Element.SetVisibility(false);
+				_foundMapView.Element.SetVisibility(false);
 				return;
 			}
 
+			var allRewards = _matchServices.MatchEndDataService.CachedRewards?.ReceivedInCommand;
 			var rewards = ProcessRewards();
 
 			// Trophies
@@ -176,6 +188,17 @@ namespace FirstLight.Game.Presenters
 
 			// Level (Fame)
 			SetLevelReward(rewards);
+
+			if (allRewards != null && allRewards.CollectedRewards.Count > 0)
+			{
+				var rewardArray = allRewards.CollectedRewards.Select(kp => (kp.Key, (ushort) kp.Value)).ToArray();
+				_foundMapView.SetRewards(allRewards);
+			}
+			else
+			{
+				_foundMapView.SetRewards(null);
+			}
+			
 		}
 
 		private void SetLevelReward(Dictionary<GameId, int> rewards)
@@ -303,7 +326,8 @@ namespace FirstLight.Game.Presenters
 				playerPrefix = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
 			}
 
-			var rankColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) localPlayerData.QuantumPlayerMatchData.LeaderboardRank);
+			var rankColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked,
+				(int) localPlayerData.QuantumPlayerMatchData.LeaderboardRank);
 			var playerName = localPlayerData.QuantumPlayerMatchData.GetPlayerName();
 			var playerNameEl = _playerNameTemplate.CloneTree();
 			playerNameEl.AttachView<VisualElement, PlayerNameView>(this, out var view);
@@ -325,12 +349,14 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var playerEntry in entries)
 			{
-				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) playerEntry.LeaderboardRank);
+				var borderColor =
+					_gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) playerEntry.LeaderboardRank);
 
 				var leaderboardEntry = _leaderboardEntryAsset.Instantiate();
 				leaderboardEntry.AttachView(this, out LeaderboardEntryView leaderboardEntryView);
 				var isLocal = _matchServices.MatchEndDataService.LocalPlayer == playerEntry.Data.Player;
-				leaderboardEntryView.SetData((int) playerEntry.PlayerRank, playerEntry.GetPlayerName(), (int) playerEntry.Data.PlayersKilledCount, (int) playerEntry.Data.PlayerTrophies, isLocal, null, borderColor);
+				leaderboardEntryView.SetData((int) playerEntry.PlayerRank, playerEntry.GetPlayerName(), (int) playerEntry.Data.PlayersKilledCount,
+					(int) playerEntry.Data.PlayerTrophies, isLocal, null, borderColor);
 				if (!isLocal)
 				{
 					leaderboardEntryView.SetOptions((el) =>
@@ -359,10 +385,10 @@ namespace FirstLight.Game.Presenters
 		{
 			var dictionary = new Dictionary<GameId, int>();
 			var rewards = _matchServices.MatchEndDataService.CachedRewards?.ReceivedInCommand ?? new (); // TODO: Nullref on reconnection
-			for (var i = 0; i < rewards.Count; i++)
+			for (var i = 0; i < rewards.FinalRewards.Count; i++)
 			{
-				var id = rewards[i].Id;
-				if (!rewards[i].TryGetMetadata<CurrencyMetadata>(out var meta)) continue;
+				var id = rewards.FinalRewards[i].Id;
+				if (!rewards.FinalRewards[i].TryGetMetadata<CurrencyMetadata>(out var meta)) continue;
 				if (!dictionary.ContainsKey(id))
 				{
 					dictionary.Add(id, 0);

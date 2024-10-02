@@ -6,6 +6,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Serializers;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
+using Newtonsoft.Json;
 using Photon.Deterministic;
 using Photon.Deterministic.Protocol;
 using Photon.Deterministic.Server;
@@ -335,23 +336,32 @@ namespace Quantum
         /// </summary>
         public override bool OnDeterministicPlayerDataSet(DeterministicPluginClient client, SetPlayerData clientPlayerData)
         {
-            if (_validPlayers.ContainsKey(client.ActorNr))
-                return true;
-
             var clientPlayer = RuntimePlayer.FromByteArray(clientPlayerData.Data);
-            _receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
-            _actorNrToIndex[client.ActorNr] = clientPlayerData.Index;
-            
-            // Remote playfab validation disabled until we minimize serialization/data traffic usage
-            // to ensure scale
-            //Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
-
-            if (FlgConfig.DebugMode)
+            try
             {
-                Log.Info($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
-            }
+                if (_validPlayers.ContainsKey(client.ActorNr))
+                    return true;
+                
+                _receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
+                _actorNrToIndex[client.ActorNr] = clientPlayerData.Index;
 
-            return MinimalAntiHackValidation(clientPlayer); 
+                // Remote playfab validation disabled until we minimize serialization/data traffic usage
+                // to ensure scale
+                //Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
+
+                if (FlgConfig.DebugMode)
+                {
+                    Log.Info(
+                        $"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
+                }
+
+                return MinimalAntiHackValidation(clientPlayer);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not read RuntimeData of player playfab {clientPlayer.PlayerId} name={clientPlayer.PlayerName}", e);
+                return false;
+            }
         }
 
         /// <summary>

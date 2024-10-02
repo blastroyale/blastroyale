@@ -10,7 +10,8 @@ pr:
     include:
     - master
     - develop
-    - releases/*
+    - release/*
+    - hotfix/*
 parameters:
   - name: param_clean_library
     displayName: Clean Library Folder

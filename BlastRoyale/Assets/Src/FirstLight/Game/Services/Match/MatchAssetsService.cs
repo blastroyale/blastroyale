@@ -11,6 +11,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using Photon.Realtime;
+using PlayFab;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -102,7 +103,7 @@ namespace FirstLight.Game.Services
 				{"client_version", VersionUtils.VersionInternal},
 				{"total_time", Time.realtimeSinceStartup - time},
 				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
-				{"playfab_player_id", _data.AppDataProvider.PlayerId}
+				{"playfab_player_id", PlayFabSettings.staticPlayer.PlayFabId}
 			};
 			FLog.Verbose("Completed loading all core assets");
 			_services.MessageBrokerService.Publish(new BenchmarkLoadedMandatoryMatchAssets());

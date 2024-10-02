@@ -70,6 +70,11 @@ public partial class SROptions
 		var category = "Currencies";
 		var sort = 10;
 		var container = new SRDebugger.DynamicOptionContainer();
+		container.AddOption(SRDebugger.OptionDefinition.FromMethod("FAME LEVEL UP", () =>
+		{
+			var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+			gameLogic.PlayerLogic.AddXP(2000);
+		}, category, sort));
 		// Create a mutable option
 		var input = SRDebugger.OptionDefinition.Create(
 			"Currency Amount",
@@ -78,13 +83,20 @@ public partial class SROptions
 			category,
 			sort
 		);
-		container.AddOption(input);
 
+		container.AddOption(input);
 		var values = new Dictionary<GameId, Action<IGameLogic>>()
 		{
 			{GameId.COIN, null},
 			{GameId.BlastBuck, null},
 			{GameId.NOOB, null},
+			{GameId.PartnerANCIENT8, null},
+			{GameId.PartnerGAM3SGG, null},
+			{GameId.PartnerBEAM, null},
+			{GameId.PartnerMEME, null},
+			{GameId.PartnerBREED, null},
+			{GameId.PartnerPIXELMON, null},
+			{GameId.PartnerIMMUTABLE, null},
 			{GameId.BPP, l => l.BattlePassLogic.AddBPP(_currencyValue)},
 			{GameId.XP, l => l.PlayerLogic.AddXP(_currencyValue)},
 			{GameId.Trophies, l => l.PlayerLogic.UpdateTrophies((int) _currencyValue)},
@@ -141,10 +153,8 @@ public partial class SROptions
 			UnlockCollectionItem(glider, gameLogic, services);
 		}
 
-
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-
 
 	[Sort(30)]
 	[Category("Logging")]

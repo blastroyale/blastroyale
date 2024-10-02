@@ -104,7 +104,7 @@ namespace FirstLight.Game.Services
 	{
 		public PlayerData Before = new ();
 		public Tuple<uint, uint> BattlePassBefore = new (0, 0);
-		public List<ItemData> ReceivedInCommand { get; set; } = new ();
+		public MatchRewardsResult ReceivedInCommand { get; set; } = new ();
 	}
 
 	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService

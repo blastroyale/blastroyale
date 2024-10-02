@@ -14,7 +14,7 @@ namespace Quantum.Systems.Bots
 		/// </summary>
 		private static readonly FP ACCURACY_LERP_TICK = FP._0_01;
 
-		
+
 		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, Frame f)
 		{
 			if (PlayerCharacter.HasMeleeWeapon(f, entity))
@@ -110,7 +110,7 @@ namespace Quantum.Systems.Bots
 			var it = f.Unsafe.FilterStruct<BotTargetFilter>();
 			it.UseCulling = true;
 			var filter = default(BotTargetFilter);
-			
+
 			while (it.Next(&filter))
 			{
 				if (botFilter.TryToAimAtEnemy(f, team, limitedTargetRange, filter.Entity, out var targetHit))
@@ -160,38 +160,20 @@ namespace Quantum.Systems.Bots
 			botFilter.BotCharacter->Target = EntityRef.None;
 		}
 
+
 		public static void StopAiming(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
-			var speed = f.Unsafe.GetPointer<Stats>(botFilter.Entity)->Values[(int)StatType.Speed].StatValue;
-			speed *= botFilter.BotCharacter->MovementSpeedMultiplier;
-
-			var speedUpMutatorExists = f.Context.Mutators.HasFlagFast(Mutator.SpeedUp);
-			speed = speedUpMutatorExists ? speed * Constants.MUTATOR_SPEEDUP_AMOUNT : speed;
-
-			ReviveSystem.OverwriteMaxMoveSpeed(f, botFilter.Entity, ref speed);
-			// When we clear the target we also return speed to normal
-			// because without a target bots don't shoot
-			f.Unsafe.GetPointer<NavMeshSteeringAgent>(botFilter.Entity)->MaxSpeed = speed;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botFilter.Entity);
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
+			BotState.UpdateBotSpeed(f, botFilter.Entity);
 
 			BotLogger.LogAction(f, ref botFilter, "[Aim] Cleared Aim");
 		}
 
 		public static void StopAiming(Frame f, BotCharacter* botCharacter, EntityRef entity)
 		{
-			var speed = f.Unsafe.GetPointer<Stats>(entity)->Values[(int)StatType.Speed].StatValue;
-			speed *= botCharacter->MovementSpeedMultiplier;
-
-			var speedUpMutatorExists = f.Context.Mutators.HasFlagFast(Mutator.SpeedUp);
-			speed = speedUpMutatorExists ? speed * Constants.MUTATOR_SPEEDUP_AMOUNT : speed;
-
-			ReviveSystem.OverwriteMaxMoveSpeed(f, entity, ref speed);
-			// When we clear the target we also return speed to normal
-			// because without a target bots don't shoot
-			f.Unsafe.GetPointer<NavMeshSteeringAgent>(entity)->MaxSpeed = speed;
-
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
+			BotState.UpdateBotSpeed(f, entity);
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, false);
 			bb->Set(f, Constants.IS_SHOOTING_KEY, false);
 

@@ -1,90 +1,9 @@
 .players-container {
     flex-grow: 1;
+    margin-top: 97px;
     padding-right: 42px;
     flex-basis: 1px;
-    margin-top: 20px;
     margin-bottom: 0;
-}
-
-.lobby-header {
-    margin-top: 10px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.lobby-screen-header .screen-header__title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    -unity-text-overflow-position: end;
-}
-
-.lobby-screen-header .screen-header__title .unity-text-element {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    -unity-text-overflow-position: end;
-}
-
-.lobby-code-container {
-    flex-direction: row;
-    margin-left: 10px;
-    flex-shrink: 0;
-}
-
-.code-copy-button {
-    margin-right: 32px;
-    width: 90px;
-    height: 90px;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-image: var(--sprite-shared__button_square);
-}
-
-.code-copy-button:active {
-    background-image: var(--sprite-home__button-small-purple-pressed);
-}
-
-.code-copy-button-icon {
-    background-image: var(--sprite-shared__copy);
-    width: 50px;
-    height: 50px;
-}
-
-.game-label {
-    white-space: nowrap;
-    flex-grow: 1;
-}
-
-.show-hide-code {
-    width: 90px;
-    height: 90px;
-    background-color: rgba(15, 36, 80, 0.6);
-    border-radius: 11px;
-    margin-right: 25px;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.1s;
-}
-
-.show-hide-code:active {
-    scale: 0.9 0.9;
-}
-
-.show-code-icon {
-    background-image: var(--sprite-shared__code-hidden);
-}
-
-.hide-code-icon {
-    background-image: var(--sprite-shared__hide-code);
-}
-
-.show-code {
-    width: 46.73px;
-    height: 39.75px;
-    background-size: contain;
 }
 
 .players-container__row {
@@ -234,7 +153,6 @@
 
 .left-container {
     flex-grow: 1;
-    width: 0;
 }
 
 .bottom-bar {
@@ -257,4 +175,7 @@
 
 #InviteToggle .localized-toggle__label {
     font-size: 38px;
+}
+.match-lobby-header .screen-header__title{
+    text-overflow: ellipsis;
 }

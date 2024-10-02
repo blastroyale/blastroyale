@@ -94,9 +94,10 @@ namespace Quantum
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, true);
+			var player = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
+			UpdateBotSpeed(f, botEntity);
 			if (bot.Target != target)
 			{
-				var player = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 				var weaponConfig = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
 				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
 				BotLogger.LogAction(f, botEntity, "changing target to" + target);
@@ -110,7 +111,31 @@ namespace Quantum
 		{
 			botFilter.BotCharacter->SetAttackTarget(botFilter.Entity, f, target);
 		}
-		
+
+		public static void UpdateBotSpeed(Frame f, EntityRef entity)
+		{
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
+			var botCharacter = f.Unsafe.GetPointer<BotCharacter>(entity);
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(entity);
+			var shooting = bb->GetBoolean(f, Constants.IS_AIM_PRESSED_KEY);
+
+			var speed = f.Unsafe.GetPointer<Stats>(entity)->Values[(int)StatType.Speed].StatValue;
+			speed *= botCharacter->MovementSpeedMultiplier;
+
+			var speedUpMutatorExists = f.Context.Mutators.HasFlagFast(Mutator.SpeedUp);
+			speed = speedUpMutatorExists ? speed * Constants.MUTATOR_SPEEDUP_AMOUNT : speed;
+
+			if (shooting)
+			{
+				var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
+				speed *= weaponConfig.AimingMovementSpeed;
+			}
+
+			ReviveSystem.OverwriteMaxMoveSpeed(f, entity, ref speed);
+			// When we clear the target we also return speed to normal
+			// because without a target bots don't shoot
+			f.Unsafe.GetPointer<NavMeshSteeringAgent>(entity)->MaxSpeed = speed;
+		}
 
 		public static bool IsInCircleWithSpareSpace(this ref BotCharacterSystem.BotCharacterFilter filter, Frame f, in BotUpdateGlobalContext botCtx, FPVector2 positionToCheck)
 		{

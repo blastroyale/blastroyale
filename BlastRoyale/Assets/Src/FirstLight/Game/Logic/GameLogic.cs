@@ -69,6 +69,7 @@ namespace FirstLight.Game.Logic
 		IContentCreatorDataProvider ContentCreatorDataProvider { get; }
 
 		IRemoteConfigProvider RemoteConfigProvider { get; }
+		IBuffLogic BuffsLogic { get; }
 	}
 
 	/// <summary>
@@ -171,6 +172,7 @@ namespace FirstLight.Game.Logic
 		public IContentCreatorDataProvider ContentCreatorDataProvider => ContentCreatorLogic;
 
 		public IRemoteConfigProvider RemoteConfigProvider { get; set; }
+		public IBuffLogic BuffsLogic { get; set; }
 
 		/// <inheritdoc />
 		public ILiveopsDataProvider LiveopsDataProvider => LiveopsLogic;
@@ -232,6 +234,7 @@ namespace FirstLight.Game.Logic
 			ContentCreatorLogic = new ContentCreatorLogic(this, dataProvider);
 			LiveopsLogic = new LiveopsLogic(this, dataProvider);
 			CollectionLogic = new CollectionLogic(this, dataProvider);
+			BuffsLogic = new BuffsLogic(this, dataProvider);
 			_logicInitializers = new List<IGameLogicInitializer>();
 
 			_logicInitializers.Add(UniqueIdLogic as IGameLogicInitializer);
@@ -244,6 +247,7 @@ namespace FirstLight.Game.Logic
 			_logicInitializers.Add(ContentCreatorLogic as IGameLogicInitializer);
 			_logicInitializers.Add(LiveopsLogic as IGameLogicInitializer);
 			_logicInitializers.Add(CollectionLogic as IGameLogicInitializer);
+			_logicInitializers.Add(BuffsLogic as IGameLogicInitializer);
 		}
 
 		/// <inheritdoc />
@@ -315,6 +319,7 @@ namespace FirstLight.Game.Logic
 			container.Add(logic.LiveopsLogic);
 			container.Add(logic.CollectionLogic);
 			container.Add(logic.RngLogic);
+			container.Add(logic.BuffsLogic);
 			return container;
 		}
 
@@ -329,5 +334,6 @@ namespace FirstLight.Game.Logic
 		public static ILiveopsLogic LiveopsLogic(this LogicContainer c) => c.Get<ILiveopsLogic>();
 		public static ICollectionLogic CollectionLogic(this LogicContainer c) => c.Get<ICollectionLogic>();
 		public static IRngLogic RngLogic(this LogicContainer c) => c.Get<IRngLogic>();
+		public static IBuffLogic BuffLogic(this LogicContainer c) => c.Get<IBuffLogic>();
 	}
 }

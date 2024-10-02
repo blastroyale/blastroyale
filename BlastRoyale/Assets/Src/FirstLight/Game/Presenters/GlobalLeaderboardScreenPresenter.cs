@@ -15,9 +15,11 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Game.Views;
 using FirstLight.UIService;
 using JetBrains.Annotations;
+using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -188,7 +190,7 @@ namespace FirstLight.Game.Presenters
 			var leaderboardEntryView = _leaderboardEntryMap[element];
 			var leaderboardEntry = _playfabLeaderboardEntries[index];
 
-			var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId;
+			var isLocalPlayer = leaderboardEntry.PlayFabId == PlayFabSettings.staticPlayer.PlayFabId;
 
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
@@ -281,7 +283,7 @@ namespace FirstLight.Game.Presenters
 			FLog.Verbose($"Displaying Leaderboard for metric {board.MetricName}");
 			for (int i = 0; i < resultPos; i++)
 			{
-				if (result.Leaderboard[i].PlayFabId == _dataProvider.AppDataProvider.PlayerId)
+				if (result.Leaderboard[i].PlayFabId == PlayFabSettings.staticPlayer.PlayFabId)
 				{
 					_localPlayerPos = i;
 				}

@@ -150,7 +150,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
@@ -168,7 +168,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
 				MatchConfig = MatchMakingEntry.MatchConfig,
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
@@ -186,7 +186,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
@@ -204,7 +204,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
@@ -223,7 +223,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
 				MatchConfig = MatchMakingEntry.MatchConfig,
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(1, rewards.Count);
 		}
@@ -238,7 +238,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = true,
 				GamePlayerCount = _matchData.Count,
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(1, rewards.Count);
 		}
@@ -257,7 +257,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = true,
 				GamePlayerCount = _matchData.Count,
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(0, rewards.Count);
 		}
@@ -277,7 +277,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(0, rewards.Count);
 		}
@@ -293,7 +293,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(1, rewards.Count);
 			Assert.True(rewards.All(data => data.Id != GameId.BPP));
@@ -310,7 +310,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count,
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT1_Trophies * 3, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
@@ -333,8 +333,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 				}
 			}, out _);
 
-			Assert.AreEqual(3, rewards.Count);
-			Assert.AreEqual(10, rewards.Find(data => data.Id == GameId.COIN).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(10, rewards.CollectedRewards[GameId.COIN]);
+			Assert.AreEqual(3, rewards.FinalRewards.Count);
+			Assert.AreEqual(10, rewards.FinalRewards.Find(data => data.Id == GameId.COIN).GetMetadata<CurrencyMetadata>().Amount);
 		}
 
 		[Test]
@@ -352,7 +353,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				{
 					{GameId.COIN, 10}
 				}
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(30, rewards.Find(data => data.Id == GameId.COIN).GetMetadata<CurrencyMetadata>().Amount);
@@ -387,7 +388,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				{
 					{GameId.COIN, 500}
 				}
-			}, out _);
+			}, out _).FinalRewards;
 
 			Assert.AreEqual(0, rewards.Count);
 		}
@@ -440,7 +441,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				{
 					{GameId.NOOB, 10}
 				}
-			}, out _);
+			}, out _).FinalRewards;
 		}
 
 		[Test]

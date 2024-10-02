@@ -128,6 +128,23 @@ namespace FirstLight.Game.Utils
 			anim.Start();
 			return anim;
 		}
+		
+		public static IValueAnimation AnimateOpacity(this VisualElement element, float fromAmount = 0f, float toAmount = 1f, int duration = 150)
+		{
+			var from = new StyleValues
+			{
+				opacity = fromAmount
+			};
+
+			var to = new StyleValues
+			{
+				opacity = toAmount
+			};
+
+			var anim = element.experimental.animation.Start(from, to, duration);
+			anim.Start();
+			return anim;
+		}
 
 		/// <summary>
 		/// Rotates element slowly. Can be used to let elements rotating forever.

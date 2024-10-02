@@ -12,6 +12,7 @@ using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Utils
 {

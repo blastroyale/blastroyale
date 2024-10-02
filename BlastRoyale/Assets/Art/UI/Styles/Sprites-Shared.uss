@@ -7,16 +7,13 @@
     --sprite-shared__background-rewards-fame: url('/Assets/Art/UI/Sprites/Shared/background-rewards-fame.png');
     --sprite-shared__background-stat: url('/Assets/Art/UI/Sprites/Shared/background-stat.png');
     --sprite-shared__background-stat-dark: url('/Assets/Art/UI/Sprites/Shared/background-stat-dark.png');
-    --sprite-shared__button_square: url('/Assets/Art/UI/Sprites/Shared/button_square.png');
     --sprite-shared__cloud-left: url('/Assets/Art/UI/Sprites/Shared/cloud-left.png');
-    --sprite-shared__code-hidden: url('/Assets/Art/UI/Sprites/Shared/code-hidden.png');
-    --sprite-shared__copy: url('/Assets/Art/UI/Sprites/Shared/copy.png');
     --sprite-shared__copy-icon: url('/Assets/Art/UI/Sprites/Shared/copy-icon.png');
-    --sprite-shared__hide-code: url('/Assets/Art/UI/Sprites/Shared/hide-code.png');
     --sprite-shared__highlight-leaderboard-localplayer: url('/Assets/Art/UI/Sprites/Shared/highlight-leaderboard-localplayer.png');
     --sprite-shared__icon_edit: url('/Assets/Art/UI/Sprites/Shared/icon_edit.png');
     --sprite-shared__icon-arrow-current: url('/Assets/Art/UI/Sprites/Shared/icon-arrow-current.png');
     --sprite-shared__icon-back: url('/Assets/Art/UI/Sprites/Shared/icon-back.png');
+    --sprite-shared__icon-box-arrow: url('/Assets/Art/UI/Sprites/Shared/icon-box-arrow.png');
     --sprite-shared__icon-bpp-xp: url('/Assets/Art/UI/Sprites/Shared/icon-bpp-xp.png');
     --sprite-shared__icon-bug: url('/Assets/Art/UI/Sprites/Shared/icon-bug.png');
     --sprite-shared__icon-currency-blastbuck: url('/Assets/Art/UI/Sprites/Shared/icon-currency-blastbuck.png');
@@ -97,40 +94,16 @@
     height: 52px;
 }
 
-.sprite-shared__button_square {
-    background-image: var(--sprite-shared__button_square);
-    width: 96px;
-    height: 96px;
-}
-
 .sprite-shared__cloud-left {
     background-image: var(--sprite-shared__cloud-left);
     width: 120px;
     height: 98px;
 }
 
-.sprite-shared__code-hidden {
-    background-image: var(--sprite-shared__code-hidden);
-    width: 56px;
-    height: 46px;
-}
-
-.sprite-shared__copy {
-    background-image: var(--sprite-shared__copy);
-    width: 65px;
-    height: 69px;
-}
-
 .sprite-shared__copy-icon {
     background-image: var(--sprite-shared__copy-icon);
     width: 40px;
     height: 43px;
-}
-
-.sprite-shared__hide-code {
-    background-image: var(--sprite-shared__hide-code);
-    width: 57px;
-    height: 40px;
 }
 
 .sprite-shared__highlight-leaderboard-localplayer {
@@ -155,6 +128,12 @@
     background-image: var(--sprite-shared__icon-back);
     width: 63px;
     height: 75px;
+}
+
+.sprite-shared__icon-box-arrow {
+    background-image: var(--sprite-shared__icon-box-arrow);
+    width: 125px;
+    height: 125px;
 }
 
 .sprite-shared__icon-bpp-xp {

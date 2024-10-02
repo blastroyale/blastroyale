@@ -124,6 +124,7 @@ namespace FirstLight.Game.StateMachines
 			randomLeftRoom.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
 			randomLeftRoom.Transition().Target(transitionToMenu);
 			checkInactivePlayer.Transition().Condition(() => !_services.RoomService.InRoom).Target(transitionToMenu);
+			checkInactivePlayer.Transition().Condition(() => !_services.RoomService.InRoom).Target(transitionToMenu);
 			checkInactivePlayer.Transition().Target(openHud);
 
 			openHud.WaitingFor(OpenHUD).Target(gameSimulation);

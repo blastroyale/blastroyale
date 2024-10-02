@@ -55,6 +55,15 @@
                         <FirstLight.Game.UIElements.LabelOutlined text="/ 100" display-tooltip-when-elided="true" name="TotalWeek" class="game-label bpp__week-info__total-week" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="EventRewardsContainer" style="flex-grow: 1; position: absolute; top: 760px; left: 133px; height: auto; width: 604px;">
+                    <ui:VisualElement name="FoundMap" class="found-map" style="position: relative; left: auto; top: auto; width: 100%; height: auto; flex-direction: column;">
+                        <ui:VisualElement name="TitleContainer" style="flex-grow: 1; flex-direction: row; margin-bottom: 7px;">
+                            <FirstLight.Game.UIElements.LocalizedLabel text="Rewards" name="Title" class="bpp__title" style="top: auto; left: auto; position: relative;" />
+                            <ui:VisualElement name="InfoButton" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/button-info-round.png?fileID=2800000&amp;guid=fdd5bc71789ed4bf6927548edc3e109d&amp;type=3#button-info-round&quot;); flex-shrink: 0; width: 38px; height: 38px; margin-left: 14px; align-self: center;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="RewardContainer" style="flex-grow: 0; flex-direction: row; justify-content: center; width: 100%; height: auto;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

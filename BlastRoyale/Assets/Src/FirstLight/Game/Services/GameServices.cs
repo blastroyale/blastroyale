@@ -129,6 +129,7 @@ namespace FirstLight.Game.Services
 		public IGameSocialService GameSocialService { get; }
 		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
 		public INotificationService NotificationService { get; }
+		public IBuffService BuffService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -192,6 +193,7 @@ namespace FirstLight.Game.Services
 
 		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
 		public INotificationService NotificationService { get; }
+		public IBuffService BuffService { get; }
 
 		public string QuitReason { get; set; }
 
@@ -236,6 +238,7 @@ namespace FirstLight.Game.Services
 			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService, MessageBrokerService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
+			BuffService = new BuffService(this, gameLogic);
 			RewardService = new RewardService(this, gameLogic);
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);

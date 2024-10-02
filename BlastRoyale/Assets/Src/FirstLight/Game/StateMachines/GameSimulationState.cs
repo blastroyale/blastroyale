@@ -13,9 +13,11 @@ using FirstLight.Game.Services;
 using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Deterministic;
+using PlayFab;
 using Quantum;
 using Quantum.Commands;
 using Unity.Services.Authentication;
@@ -274,6 +276,8 @@ namespace FirstLight.Game.StateMachines
 				startParams.GameMode = DeterministicGameMode.Spectating;
 			}
 
+			FLog.Verbose("Starting " + ModelSerializer.Serialize(startParams.RuntimeConfig.MatchConfigs).Value);
+
 			var snapShot = _gameDataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			if (snapShot is {FrameNumber: > 0, Offline: true} && _services.RoomService.CurrentRoom.IsOffline)
 			{
@@ -352,11 +356,12 @@ namespace FirstLight.Game.StateMachines
 			var config = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
 			var avatarUrl = AvatarHelpers.GetAvatarUrl(_gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE),
 				config);
-			var useBotBehaviour = (FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour) || FeatureFlags.GetLocalConfiguration().UseBotBehaviour;
+			var useBotBehaviour = (FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour) ||
+				FeatureFlags.GetLocalConfiguration().UseBotBehaviour;
 			FLog.Info("Sending player runtime data");
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
-				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
+				PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
 				UnityId = AuthenticationService.Instance.PlayerId,
 				PlayerName = AuthenticationService.Instance.GetPlayerNameWithSpaces(),
 				Cosmetics = equippedCosmetics,

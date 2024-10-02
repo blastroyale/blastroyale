@@ -23,17 +23,6 @@ namespace FirstLight.Game.Logic
 		/// Requests the information if the game was or not yet reviewed
 		/// </summary>
 		bool IsGameReviewed { get; }
-
-		/// <summary>
-		/// Requests the player's title display name (excluding appended numbers)
-		/// </summary>
-		[Obsolete("Use AuthenticationService.Instance.PlayerName instead")]
-		string DisplayName { get; }
-
-		/// <summary>
-		/// Obtains the player unique id
-		/// </summary>
-		string PlayerId { get; }
 		
 		/// <summary>
 		/// Returns the last ranked map user has selected
@@ -54,12 +43,6 @@ namespace FirstLight.Game.Logic
 		/// Last time player snapshotted a frame
 		/// </summary>
 		IObservableField<FrameSnapshot> LastFrameSnapshot { get; }
-
-		/// <summary>
-		/// Checks if player has logged in in this or other session
-		/// This ensures his app data is enriched with his player data
-		/// </summary>
-		bool IsPlayerLoggedIn { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -71,11 +54,7 @@ namespace FirstLight.Game.Logic
 	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic
 	{
 		private readonly DateTime _defaultZeroTime = new (2020, 1, 1);
-
-		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
-		public bool AngleTapShoot { get; set; }
-		public bool StopShootingShake { get; set; }
-
+		
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
 
@@ -92,13 +71,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
-
-		/// <inheritdoc />
-		public string DisplayName => Data.DisplayName;
-
-		/// <inheritdoc />
-		public string PlayerId => Data.PlayerId;
-
+		
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider) :
 			base(gameLogic, dataProvider)
 		{

@@ -900,8 +900,12 @@
     -unity-text-outline-color: rgb(24, 18, 54);
     text-shadow: 3px 3px 0 rgb(24, 18, 54);
     left: 136px;
-    margin: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
     padding-top: 0;
+    padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
     -unity-text-align: lower-left;

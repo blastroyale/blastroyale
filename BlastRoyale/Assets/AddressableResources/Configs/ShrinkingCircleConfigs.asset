@@ -1057,7 +1057,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3342
+        RawValue: 3998
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1082,7 +1082,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3342
+        RawValue: 3998
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1107,7 +1107,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3998
+        RawValue: 5308
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1132,7 +1132,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3998
+        RawValue: 5308
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1157,7 +1157,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3998
+        RawValue: 5308
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1182,7 +1182,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3998
+        RawValue: 5308
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -1207,7 +1207,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 131072
       MaxHealthDamage:
-        RawValue: 3998
+        RawValue: 6619
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:

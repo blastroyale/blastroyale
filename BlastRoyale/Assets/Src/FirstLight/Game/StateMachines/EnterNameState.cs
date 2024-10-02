@@ -146,6 +146,8 @@ namespace FirstLight.Game.StateMachines
 				{
 					DisplayName = newNameTrimmed
 				});
+				// TODO: Rework how this works
+				((PlayfabAuthenticationService) _services.AuthenticationService).PlayfabNickname = playfabResponse.DisplayName;
 			}
 			catch (WrappedPlayFabException ex)
 			{

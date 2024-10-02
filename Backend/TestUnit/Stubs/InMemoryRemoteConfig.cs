@@ -25,6 +25,11 @@ class InMemoryRemoteConfigProvider : IRemoteConfigProvider
 		return (T) _service._configs[typeof(T)];
 	}
 
+	public bool ValidateConfig(Type type)
+	{
+		return true;
+	}
+
 	public int GetConfigVersion()
 	{
 		return _service._version;

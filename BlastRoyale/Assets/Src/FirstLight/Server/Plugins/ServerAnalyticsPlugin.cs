@@ -102,9 +102,9 @@ namespace Src.FirstLight.Server
 				{"trophies_change", ev.Message.TrophiesChange.ToString(CultureInfo.InvariantCulture)},
 				{"trophies_before_change", ev.Message.TrophiesBeforeChange.ToString(CultureInfo.InvariantCulture)},
 			};
-			if (ev.Message.Rewards != null)
+			if (ev.Message.Rewards.FinalRewards != null)
 			{
-				data["rewards"] = JsonConvert.SerializeObject(ev.Message.Rewards);
+				data["rewards"] = JsonConvert.SerializeObject(ev.Message.Rewards.FinalRewards);
 			}
 
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "game_completed_rewards", data);

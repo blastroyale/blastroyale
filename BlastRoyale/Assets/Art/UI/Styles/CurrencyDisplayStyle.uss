@@ -1,3 +1,6 @@
+/*
+ * Shares the same USS for CurrencyDisplayElement and CryptoCurrencyDisplay Element
+ */
 .currency-display {
     width: 200px;
     height: 45px;
@@ -39,3 +42,67 @@
     white-space: nowrap;
     min-width: 132px;
 }
+
+.currency-display__plussign {
+    width: 150px;
+}
+
+.currency-display__label__plussign {
+    font-size: 65px;
+    top: -5px;
+    left: 25px;
+    align-self: center;
+}
+
+
+.crypto-currencies-display {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    max-height: 320px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background-color: rgba(23, 20, 38, 0.41);
+
+    display: flex;
+    flex-direction: row-reverse; 
+    justify-content: flex-start;
+    padding: 20px 15px 25px 30px;
+}
+
+.crypto-currencies-display__arrow {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-image: var(--sprite-shared__icon-box-arrow);
+    -unity-background-image-tint-color: rgba(23, 20, 38, 0.41);
+    top: -35px; 
+    right: 40px; 
+}
+
+.currency-display__inner-element-crypto-currency {
+    margin: 10px;
+}
+
+.crypto-currencies-column {
+    flex-basis: 40%;
+    flex-grow: 1;
+    margin: 0 5px;
+}
+
+.crypto-currencies-container-blocker {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+}
+
+.crypto-currencies-display__scrollview-content-container {
+    width: 240px;
+    align-items: center;
+}
+

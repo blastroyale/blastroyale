@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Collections;
@@ -20,7 +22,6 @@ using SRF;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
-
 
 namespace FirstLight.Game.Presenters
 {
@@ -50,6 +51,7 @@ namespace FirstLight.Game.Presenters
 		private Label _selectedItemDescription;
 		private LocalizedButton _equipButton;
 		private PriceButton _buyButton;
+		private ImageButton _infoButton;
 		private VisualElement _nameLockedIcon;
 		private VisualElement _renderTexture;
 		private VisualElement _categoriesRoot;
@@ -96,7 +98,8 @@ namespace FirstLight.Game.Presenters
 			_selectedItemLabel = Root.Q<Label>("ItemName").Required();
 			_selectedItemDescription = Root.Q<Label>("ItemDescription").Required();
 			_nameLockedIcon = Root.Q<VisualElement>("ItemNameLocked").Required();
-
+			_infoButton = Root.Q<ImageButton>("InfoButton").Required();
+			_infoButton.clicked += OnInfoClicked;
 			_equipButton = Root.Q<LocalizedButton>("EquipButton").Required();
 			_equipButton.clicked += OnEquipClicked;
 
@@ -378,8 +381,30 @@ namespace FirstLight.Game.Presenters
 			_selectedItemLabel.text = selectedItem.GetDisplayName();
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
 
-			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
-			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
+			var buffs = _gameDataProvider.BuffsLogic.GetMetaBuffs(selectedItem);
+			var owned = _gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem());
+			_nameLockedIcon.SetDisplay(!owned);
+			_equipButton.SetDisplay(owned);
+			_infoButton.SetDisplay(buffs.Count > 0 && selectedItem.IsNft());
+		}
+
+		private void OnInfoClicked()
+		{
+			var selectedItem = GetSelectedItem();
+			if (selectedItem == null)
+			{
+				return;
+			}
+
+			var buffs = _gameDataProvider.BuffsLogic.GetMetaBuffs(selectedItem);
+			if (buffs.Count > 0)
+			{
+				var tooltip = "When Owned: \n\n";
+				tooltip += string.Join("\n", buffs.SelectMany(buff => buff.Modifiers)
+					.Select(mod => $"+{mod.Value.AsInt}% {_services.BuffService.GetDisplayString(mod.Stat)}"));
+				_infoButton.OpenTooltip(Root, tooltip);
+				FLog.Verbose("Item has buffs ! " + tooltip);
+			}
 		}
 
 		private VisualElement MakeCollectionListItem()
@@ -406,7 +431,6 @@ namespace FirstLight.Game.Presenters
 
 			return row;
 		}
-
 
 		private void BindCollectionListItem(VisualElement visualElement, int rowNumber)
 		{
@@ -446,6 +470,7 @@ namespace FirstLight.Game.Presenters
 				card.SetIsOwned(owned);
 				card.SetIsEquipped(equipped != null && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);
+				card.SetIsNft(selectedItem.IsNft());
 				card.SetNotificationPip(isUnseenItem);
 			}
 		}

@@ -67,7 +67,7 @@ namespace FirstLight.Game.Presenters.Store
 			_scroll = Root.Q<ScrollView>("ProductScrollView").Required();
 			_header.backClicked = Data.OnBackClicked;
 
-			Root.Q<CurrencyDisplayElement>("NOOBTokens")
+			Root.Q<CurrencyDisplayElement>("CryptoCurrency")
 				.AttachView(this, out CurrencyDisplayView _);
 
 			Root.Q<CurrencyDisplayElement>("Coins")

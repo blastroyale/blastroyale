@@ -28,7 +28,7 @@ stages:
         --set autoscaling.targetCPUUtilizationPercentage=190 \
         --set autoscaling.targetMemoryUtilizationPercentage=230 \
         --set env.API_KEY=$(MAINNET-PROD-COMMON-API-KEY) \
-        --set env.API_URL=https://mainnet-prod-hub-blockchain-service.blastroyale.com \
+        --set env.API_URL="http://hub-blockchain-service.hub-blockchain-service.svc.cluster.local:3000" \
         --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(MAINNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
         --set env.APPLICATION_ENVIRONMENT=mainnet-prod \
         --set env.REMOTE_CONFIGURATION=false \

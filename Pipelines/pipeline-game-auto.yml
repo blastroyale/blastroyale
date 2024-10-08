@@ -7,23 +7,34 @@ trigger:
   batch: true
   branches:
     include:
-    - 'develop'
-    - 'release/*'
-    - 'hotfix/*'
-    - 'master'
+      - 'develop'
+      - 'release/*'
+      - 'hotfix/*'
+      - 'master'
 pr: none
 
 resources:
   repositories:
-  - repository: self
-  - repository: templates
-    type: git
-    ref: main
-    name: Infrastructure/core-templates
+    - repository: self
+    - repository: templates
+      type: git
+      ref: main
+      name: Infrastructure/core-templates
 
 parameters:
   - name: param_dev_build
-    displayName: Development Build
+    displayName: Unity Dev Build
+    type: boolean
+    default: true
+  - name: param_quantum_configuration
+    displayName: Quantum Configuration
+    type: string
+    default: Debug
+    values:
+      - Debug
+      - Release
+  - name: param_srdebugger
+    displayName: Enable SR Debugger
     type: boolean
     default: true
   - name: param_environment
@@ -39,14 +50,10 @@ parameters:
     displayName: Platforms
     type: string
     default: All
-    values:  
+    values:
       - All
       - iOS
       - Android
-  - name: param_remote_addressables
-    displayName: Use Remote Addressables
-    type: boolean
-    default: false
   - name: param_run_unity_tests
     displayName: Run Unit Tests
     type: boolean
@@ -62,62 +69,89 @@ parameters:
   - name: param_deploy_quantum_plugin
     displayName: "[CD] Deploy Quantum Plugin"
     type: boolean
-    default: false  
+    default: false
 
 variables:
-- group: Secrets
-- group: Non-secrets
-- name: unity_password
-  value: $(UNITY-PASSWORD)
-- name: unity_serial
-  value: $(UNITY-SERIAL)
-- name: unity_email
-  value: $(UNITY-EMAIL)
-- name: branchName
-  value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
-- name: slackToken
-  value: $(SLACK-BOT-TOKEN)
-- name: isQuantumPluginBumpVersion
-  value: ${{ or(eq(variables['Build.Reason'], 'BatchedCI'), eq(parameters['param_deploy_quantum_plugin'], 'True')) }}
-  # Auto setup
-- ${{ if ne(variables['Build.Reason'], 'Manual') }}:
-    - name: configuration
-      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-        value: "Debug"
-      ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))  }}:
-        value: "Release"
-    - name: dev_build
-      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-        value: true
-      ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))  }}:
-        value: false
-    - name: environment
-      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
-        value: "production"
-      ${{ else }}:
-        value: "development"
-    - name: runTestLab
-      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-        value: true
-      ${{ else }}:
-        value: false
-  # Manual setup
-- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-    - ${{  if eq(lower(parameters['param_dev_build']), 'true') }}:
-        - name: configuration
-          value: "Debug"
-    - ${{  if eq(lower(parameters['param_dev_build']), 'false') }}:
-        - name: configuration
-          value: "Release"
-    - name: dev_build
-      value: ${{ parameters.param_dev_build }}
-    - name: environment
-      value: ${{ parameters.param_environment }}
-    - name: runUnitTests
-      value: ${{ parameters.param_run_unity_tests }} 
-    - name: runTestLab
-      value: ${{ parameters.param_run_testlab }}
-
+  - group: Secrets
+  - group: Non-secrets
+  - name: unity_password
+    value: $(UNITY-PASSWORD)
+  - name: unity_serial
+    value: $(UNITY-SERIAL)
+  - name: unity_email
+    value: $(UNITY-EMAIL)
+  - name: branchName
+    value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
+  - name: slackToken
+    value: $(SLACK-BOT-TOKEN)
+    # Auto setup
+  - ${{ if ne(variables['Build.Reason'], 'Manual') }}:
+      # Production
+      - ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+          - name: quantum_configuration
+            value: "Release"
+          - name: unity_dev_build
+            value: false
+          - name: environment
+            value: "production"
+          - name: runTestLab
+            value: false
+          - name: enableSrDebugger
+            value: false
+          - name: deploy_quantum_plugin
+            value: true
+          - name: deploy_game_logic
+            value: true
+      # Staging
+      - ${{  elseif or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/'))  }}:
+          - name: quantum_configuration
+            value: "Release"
+          - name: unity_dev_build
+            value: true
+          - name: environment
+            value: "staging"
+          - name: runTestLab
+            value: false
+          - name: enableSrDebugger
+            value: true
+          - name: deploy_game_logic
+            value: true
+          - name: deploy_quantum_plugin
+            value: true
+      # Dev
+      - ${{ else }}:
+          - name: quantum_configuration
+            value: "Debug"
+          - name: unity_dev_build
+            value: true
+          - name: environment
+            value: "development"
+          - name: runTestLab
+            value: true
+          - name: enableSrDebugger
+            value: true
+          - name: deploy_game_logic
+            value: true
+          - name: deploy_quantum_plugin
+            value: false
+    # Manual setup
+  - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
+      - name: quantum_configuration
+        value: ${{ parameters.param_quantum_configuration }}
+      - name: unity_dev_build
+        value: ${{ parameters.param_dev_build }}
+      - name: environment
+        value: ${{ parameters.param_environment }}
+      - name: runUnitTests
+        value: ${{ parameters.param_run_unity_tests }}
+      - name: runTestLab
+        value: ${{ parameters.param_run_testlab }}
+      - name: enableSrDebugger
+        value: ${{ parameters.param_srdebugger }}
+      - name: deploy_quantum_plugin
+        value: ${{ parameters.param_deploy_quantum_plugin }}
+      - name: deploy_game_logic
+        value: ${{ parameters.param_deploy_game_logic }}
 pool: macos
 
 stages:
@@ -128,107 +162,95 @@ stages:
         pool:
           vmImage: "ubuntu-latest"
         steps:
-        - checkout: none
-        - bash: |
-            echo "Build Reason: $(Build.Reason)"
-            echo "Environment: $(environment)"
-            echo "Development build: $(dev_build)"
-            echo "Configuration: $(configuration)"
-            echo "Android File Type: $(androidFileType)"
-            echo "Use Accelerator: $(useAccelerator)"
-            echo "Run TestLabs: $(runTestLab)"
-            echo "Run Tests: $(runUnitTests)"
-            echo "Configuration: $(configuration)"
-          displayName: "Print variables"
-        # This step adds a tag to the build, the Game Logic CD uses it to decide if should run or not
-        # So we just want to run for automatic builds or if manually ticked 
-        - bash: |
-            if [ "${{ parameters.param_deploy_game_logic }}" == "True" ] || [ "$(Build.Reason)" == "BatchedCI" ]; then
-              echo "##vso[build.addbuildtag]DeployGameLogic"
-              echo "##vso[task.setvariable variable=deploy_game_logic;]true"
-            else
-              echo "##vso[task.setvariable variable=deploy_game_logic;]false"
-            fi
-            echo "##vso[build.addbuildtag]ENV-$(environment)"
+          - checkout: none
+          # This step adds a tag to the build, the Game Logic CD uses it to decide if should run or not
+          # So we just want to run for automatic builds or if manually ticked 
+          - bash: |
+              echo "##vso[build.addbuildtag]quantum_config-$(quantum_configuration)"
+              echo "##vso[build.addbuildtag]unity_dev_build-$(unity_dev_build)"
+              echo "##vso[build.addbuildtag]sr_debugger-$(enableSrDebugger)"
+              echo "##vso[build.addbuildtag]deploy_environment-$(environment)"
+              echo "##vso[build.addbuildtag]deploy_game_logic-$(deploy_game_logic)"
+              echo "##vso[build.addbuildtag]deploy_quantum_plugin-$(deploy_quantum_plugin)"
+              echo "##vso[build.addbuildtag]run_test_lab-$(runTestLab)"
+            displayName: "Add Tags"
+          - powershell: |
+              $json = @"
+              {
+              "environment": "$(environment)",
+              "dev_build": "$(unity_dev_build)",
+              "deploy_game_logic": "$(deploy_game_logic)",
+              "deploy_quantum_server": "$(deploy_quantum_plugin)",
+              "run_test_lab": "$(runTestLab)",
+              "sr_debugger":"$(enableSrDebugger)",
+              "quantum_config": "$(quantum_configuration)"
+              
+              }
+              "@
+              $json | Out-File $(Build.ArtifactStagingDirectory)\parameters.json
+              Get-Content $(Build.ArtifactStagingDirectory)\parameters.json       
+            displayName: "Print Build Parameters"
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'parameters'
+
+          - template: tasks/send-slack-template.yml@templates
+            parameters:
+              messageIdArtifact: slackbuildmessage
+              slackToken: $(slackToken)
+              templateUrl: https://prodflgbuildstorage.blob.core.windows.net/public/slack-base.json
 
 
-            if [ "$(configuration)" == "True" ]; then
-              echo "##vso[build.addbuildtag]DEVELOPMENT_BUILD"
-            else
-              echo "##vso[build.addbuildtag]RELEASE_BUILD"
-            fi
-          displayName: "Add Tags"
-        - powershell: |
-            $json = @"
-            {
-            "environment": "$(environment)",
-            "dev_build": "$(dev_build)",
-            "deploy_game_logic": "$(deploy_game_logic)",
-            "run_test_lab": "$(runTestLab)"
-            }
-            "@
-            $json | Out-File $(Build.ArtifactStagingDirectory)\parameters.json
-            Get-Content $(Build.ArtifactStagingDirectory)\parameters.json                
-        - task: PublishBuildArtifacts@1
-          inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-            ArtifactName: 'parameters'
-
-        - template: tasks/send-slack-template.yml@templates
-          parameters:
-            messageIdArtifact: slackbuildmessage                    
-            slackToken: $(slackToken)
-            templateUrl: https://prodflgbuildstorage.blob.core.windows.net/public/slack-base.json          
-
-          
       - job: EditorTests
         displayName: Run Editor Test Suite
         condition: eq('${{ lower(variables.runUnitTests) }}', 'true')
         steps:
-        - checkout: self
-          lfs: true
-          submodules: true
-        - template: unity-tests.yml
-          parameters:
-            testPlatform: EditMode 
-        dependsOn: DisplayAndTagBuild  
-          
+          - checkout: self
+            lfs: true
+            submodules: true
+          - template: unity-tests.yml
+            parameters:
+              testPlatform: EditMode
+        dependsOn: DisplayAndTagBuild
+
       - job: AndroidBuild
         timeoutInMinutes: 90
-        dependsOn:  EditorTests
+        dependsOn: EditorTests
         displayName: Android Build
         condition: and(in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'),not(or(failed(), canceled())),ne('${{ parameters.param_platforms }}', 'iOS'))
         steps:
-        - template:  tasks/update-slack-message.yml@templates
-          parameters:
-            slackToken: $(slackToken)
-            messageIdArtifact: slackbuildmessage  
-            update:
-              - blockId: android
-                path: text.text
-                value: '*:android: Android :android:*#n*Status:* Dowloading code :downloading:'
-                operation: replace
-        - checkout: self
-          lfs: true
-          fetchTags: false
-        - template: unity-build.yml
-          parameters:
-            configuration: $(configuration)
-            platform: Android
-            unity_username: $(unity_email)
-            unity_password: $(unity_password)
-            unity_serial: $(unity_serial)
-            workingDirectory: .
-            branchName: $(branchName)
-            slackToken: $(slackToken)
-            publishDlls: true
-            environment: ${{ variables.environment }}
-            dev_build: ${{ variables.dev_build }}
-            remote_addressables: ${{ parameters.param_remote_addressables }}
+          - template: tasks/update-slack-message.yml@templates
+            parameters:
+              slackToken: $(slackToken)
+              messageIdArtifact: slackbuildmessage
+              update:
+                - blockId: android
+                  path: text.text
+                  value: '*:android: Android :android:*#n*Status:* Dowloading code :downloading:'
+                  operation: replace
+          - checkout: self
+            lfs: true
+            fetchTags: false
+          - template: unity-build.yml
+            parameters:
+              quantum_configuration: $(quantum_configuration)
+              platform: Android
+              unity_username: $(unity_email)
+              unity_password: $(unity_password)
+              unity_serial: $(unity_serial)
+              workingDirectory: .
+              branchName: $(branchName)
+              slackToken: $(slackToken)
+              publishDlls: true
+              environment: ${{ variables.environment }}
+              unity_dev_build: ${{ variables.unity_dev_build }}
+              enable_sr_debugger: ${{ variables.enableSrDebugger }}
+              remote_addressables: false
 
       - job: iOSBuild
         timeoutInMinutes: 90
-        dependsOn:  EditorTests
+        dependsOn: EditorTests
         displayName: iOS Build
         condition: |
           and(
@@ -237,35 +259,36 @@ stages:
             not(or(failed(), canceled()))
           )
         steps:
-        - template: tasks/update-slack-message.yml@templates
-          parameters:
-            slackToken: $(slackToken)
-            messageIdArtifact: slackbuildmessage  
-            update:
-              - blockId: ios
-                path: text.text
-                value: '*:ios: iOS :ios:*#n*Status:* Dowloading code :downloading:'
-                operation: replace
-                
-        - checkout: self
-          lfs: true
-          fetchTags: false
-        - template: unity-build.yml
-          parameters:
-            configuration: $(configuration)
-            platform: iOS
-            unity_username: $(unity_email)
-            unity_password: $(unity_password)
-            unity_serial: $(unity_serial)
-            workingDirectory: .
-            branchName: $(branchName)
-            slackToken: $(slackToken)
-            publishDlls: ${{ eq(parameters.param_platforms, 'iOS') }}
-            environment: ${{ variables.environment }}
-            dev_build: ${{ variables.dev_build }}
-            remote_addressables: ${{ parameters.param_remote_addressables }}
+          - template: tasks/update-slack-message.yml@templates
+            parameters:
+              slackToken: $(slackToken)
+              messageIdArtifact: slackbuildmessage
+              update:
+                - blockId: ios
+                  path: text.text
+                  value: '*:ios: iOS :ios:*#n*Status:* Dowloading code :downloading:'
+                  operation: replace
 
-# GAME LOGIC
+          - checkout: self
+            lfs: true
+            fetchTags: false
+          - template: unity-build.yml
+            parameters:
+              quantum_configuration: $(quantum_configuration)
+              platform: iOS
+              unity_username: $(unity_email)
+              unity_password: $(unity_password)
+              unity_serial: $(unity_serial)
+              workingDirectory: .
+              branchName: $(branchName)
+              slackToken: $(slackToken)
+              publishDlls: ${{ eq(parameters.param_platforms, 'iOS') }}
+              environment: ${{ variables.environment }}
+              unity_dev_build: ${{ variables.unity_dev_build }}
+              remote_addressables: false
+              enable_sr_debugger: ${{ variables.enableSrDebugger }}
+      
+      # GAME LOGIC
       - job: BuildAndPushGameLogic
         pool:
           vmImage: "ubuntu-latest"
@@ -281,7 +304,7 @@ stages:
               commit: $(Build.SourceVersion)
               bitbucketToken: $(BITBUCKET-BLAST-ROYALE-ACCESS-TOKEN)
               directory: 'Backend/'
-              
+
           - download: current
             artifact: 'GameDlls'
           - bash: |
@@ -289,46 +312,9 @@ stages:
               
               dllDir=$(Pipeline.Workspace)/GameDlls
               ls -la $dllDir
-            
+              
               cp -vf $dllDir/*.dll "$(System.DefaultWorkingDirectory)/Backend/Lib/"
               cp -vf $dllDir/*.dll "$(System.DefaultWorkingDirectory)/Backend/UnityLib/"
               cp -vf $dllDir/*.json "$(System.DefaultWorkingDirectory)/Backend/ServerCommon/Resources/"
             displayName: Copy the Dlls
-          - template: pipelines/game-logic-build-push.yml@templates  
-           
-            
-## Quantum Plugin Build
-      - job: BuildQuantumPlugin
-        displayName: Build/Push Quantum Plugin
-        pool:
-          vmImage: 'windows-latest'
-        # Run just for staging from now
-        dependsOn: AndroidBuild
-        condition: |
-          and(
-              eq('${{ variables.environment }}', 'STAGE_SERVER'),
-              eq(dependencies.AndroidBuild.result, 'Succeeded')
-          )
-        steps:
-          - checkout: none
-            # Sparse checkout is a lot faster
-          - template: pipelines/bitbucket-sparse-checkout.yml@templates
-            parameters:
-              repositoryName: blast-royale
-              commit: $(Build.SourceVersion)
-              bitbucketToken: $(BITBUCKET-BLAST-ROYALE-ACCESS-TOKEN)
-              directory: 'Quantum/quantum_server'
-          
-          - download: current
-            artifact: 'GameDlls'
-            displayName: Download game dlls
-            
-          - template: pipelines/quantum-plugin-build-push.yml@templates  
-            parameters:
-              gameDllsDir: $(Pipeline.Workspace)/GameDlls
-              photonCustomer: FirstLightDev
-              photonKey: $(STAGING-QUANTUM-SERVER-KEY)
-              photonAppId: ***REMOVED***
-              # Only bump version on Automatic triggers or manually inputted
-              bumpVersion: ${{ variables.isQuantumPluginBumpVersion }}
-    
+          - template: pipelines/game-logic-build-push.yml@templates    

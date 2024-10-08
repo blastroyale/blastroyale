@@ -71,6 +71,7 @@ namespace FirstLight.Game.StateMachines
 			var postGame = stateFactory.State("AUDIO - Post Game");
 			var disconnected = stateFactory.State("AUDIO - Disconnected");
 			var postGameSpectatorCheck = stateFactory.Choice("AUDIO - Spectator Check");
+			var customGameCheck = stateFactory.Choice("AUDIO - Custom Game Check");
 
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeMessages);
@@ -90,12 +91,17 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(NetworkState.CanceledMatchmakingEvent).Target(mainMenuLoop);
-			matchmaking.Event(MainMenuState.RoomJoinCreateBackClickedEvent).Target(mainMenuLoop);
+			matchmaking.Event(MainMenuState.RoomJoinCreateBackClickedEvent).Target(customGameCheck);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			matchmaking.Event(GameSimulationState.SimulationStartedEvent).Target(gameModeCheck);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(StopMusicInstant).Target(disconnected);
 			matchmaking.OnExit(TransitionAudioMixerMain);
 
+			customGameCheck.Transition()
+				.Condition(() => _services.RoomService.InRoom || _services.RoomService.IsJoiningRoom)
+				.Target(matchmaking);
+			customGameCheck.Transition().Target(mainMenuLoop);
+			
 			gameModeCheck.OnEnter(SetMatchServices);
 			gameModeCheck.OnEnter(SubscribeMatchEvents);
 			gameModeCheck.OnEnter(PrepareForMatchMusic);

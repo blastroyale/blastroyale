@@ -13,7 +13,19 @@ resources:
       type: git
       ref: main
       name: Infrastructure/core-templates
-
+parameters:
+  - name: serverEnvironment
+    displayName: Select Target Server Environment
+    type: string
+    default: DEVELOPMENT_SERVER
+    values:
+      - DEVELOPMENT_SERVER
+      - STAGE_SERVER
+      - LIVE_TESTNET_SERVER
+      - LIVE_SERVER
+  - name: dockerImage
+    displayName: Docker Image to be Deployed
+    type: string
 variables:
   # Variable called 'image_manual_override' is defined for optional per-run manual override.
   - group: Secrets
@@ -27,29 +39,47 @@ variables:
 
 
 pool: linux-k8s
-
 stages:
-  - template: deploy-game-logic-dev.yml
-    parameters:
-      helmRepoPassword: $(HELM-REPO-PASSWORD)
-      autoDeployIfServer: development
-      dockerImage:
-      
-  - template: deploy-game-logic-testnet.yml
-    parameters:
-      helmRepoPassword: $(HELM-REPO-PASSWORD)
-      autoDeployIfServer: LIVE_TESTNET_SERVER
-      dockerImage: 
-        
-  - template: deploy-game-logic-staging.yml
-    parameters:
-      helmRepoPassword: $(HELM-REPO-PASSWORD)
-      autoDeployIfServer: staging
-      dockerImage:
-        
-  - template: deploy-game-logic-prod.yml
-    parameters:
-      helmRepoPassword: $(HELM-REPO-PASSWORD)
-      autoDeployIfServer: production
-      dockerImage:
+  - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
+    - ${{ if eq(parameters.serverEnvironment, 'LIVE_TESTNET_SERVER') }}:
+        - template: deploy-game-logic-testnet.yml
+          parameters:
+            helmRepoPassword: $(HELM-REPO-PASSWORD)
+            dockerImage: ${{parameters.dockerImage}}
+    - ${{ elseif eq(parameters.serverEnvironment, 'STAGE_SERVER') }}:
+        - template: deploy-game-logic-staging.yml
+          parameters:
+            helmRepoPassword: $(HELM-REPO-PASSWORD)
+            dockerImage: ${{parameters.dockerImage}}
+    - ${{ elseif eq(parameters.serverEnvironment, 'LIVE_SERVER') }}:
+        - template: deploy-game-logic-prod.yml
+          parameters:
+            helmRepoPassword: $(HELM-REPO-PASSWORD)
+            dockerImage: ${{parameters.dockerImage}}
+    - ${{ else }}:
+        - template: deploy-game-logic-dev.yml
+          parameters:
+            helmRepoPassword: $(HELM-REPO-PASSWORD)
+            dockerImage: ${{parameters.dockerImage}}
 
+  - ${{else}}:        
+    - template: deploy-game-logic-dev.yml
+      parameters:
+        helmRepoPassword: $(HELM-REPO-PASSWORD)
+        autoDeployIfServer: development
+        dockerImage:
+    - template: deploy-game-logic-testnet.yml
+      parameters:
+        helmRepoPassword: $(HELM-REPO-PASSWORD)
+        autoDeployIfServer: LIVE_TESTNET_SERVER
+        dockerImage:
+    - template: deploy-game-logic-staging.yml
+      parameters:
+        helmRepoPassword: $(HELM-REPO-PASSWORD)
+        autoDeployIfServer: staging
+        dockerImage:
+    - template: deploy-game-logic-prod.yml
+      parameters:
+        helmRepoPassword: $(HELM-REPO-PASSWORD)
+        autoDeployIfServer: production
+        dockerImage:   

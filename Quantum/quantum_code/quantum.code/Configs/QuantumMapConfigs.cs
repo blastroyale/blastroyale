@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -26,25 +27,21 @@ namespace Quantum
 		
 		private IDictionary<string, QuantumMapConfig> _dictionary;
 
-		private object _lock = new object();
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			_dictionary = new Dictionary<string, QuantumMapConfig>();
+			for (var i = 0; i < QuantumConfigs.Count; i++)
+			{
+				_dictionary.Add(QuantumConfigs[i].Map.ToString(), QuantumConfigs[i]);
+			}
+		}
+
 		
 		/// <summary>
 		/// Requests the <see cref="QuantumMapConfig"/> from it's <paramref name="id"/>
 		/// </summary>
 		public QuantumMapConfig GetConfig(string id)
 		{
-			if (_dictionary == null)
-			{
-				lock (_lock)
-				{
-					var dict = new Dictionary<string, QuantumMapConfig>();
-					foreach (var config in QuantumConfigs)
-					{
-						dict.Add(config.Map.ToString(), config);
-					}
-					_dictionary = dict;
-				}
-			}
 			return _dictionary[id];
 		}
 	}

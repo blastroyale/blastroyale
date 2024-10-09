@@ -291,6 +291,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				var camera = _matchServices.MatchCameraService.GetCamera();
 				await UniTask.NextFrame();
+				if (!CanUpdate()) return;
 				
 				// Magical camera effect hack
 				var follow = camera.Follow;
@@ -299,6 +300,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				camera.Follow = null;
 				camera.LookAt = null;
 				await Task.Delay(TimeSpan.FromSeconds(1));
+				if (!CanUpdate()) return;
 				camera.transform.position += Vector3.up * 20;
 				FLGCamera.Instance.CinemachineBrain.m_DefaultBlend.m_Time = blendTime;
 				camera.Follow = follow;
@@ -308,8 +310,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				var endPosition = _skin.transform.localPosition;
 				var startPosition = endPosition + new Vector3(0, 2, 0);
 				await UniTask.NextFrame();
+				if (!CanUpdate()) return;
 				_skin.transform.localPosition = startPosition;
 				await UniTask.NextFrame();
+				if (!CanUpdate()) return;
 				_skin.transform.DOLocalMove(endPosition, 5f);
 			}
 		}
@@ -344,12 +348,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
 		}
 
+		public bool CanUpdate() => QuantumRunner.Default.IsDefinedAndRunning() && !transform.IsDestroyed();
+
 		private IEnumerator AttackWithinVisVolumeCoroutine()
 		{
 			SetRenderContainerVisible(true);
 
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_BUSH_ATTACK_REVEAL_SECONDS);
-
+			if (!CanUpdate()) yield break;
+		
 			if (IsInInvisibilityArea())
 			{
 				SetRenderContainerVisible(MatchServices.EntityVisibilityService.CanSpectatedPlayerSee(EntityRef));

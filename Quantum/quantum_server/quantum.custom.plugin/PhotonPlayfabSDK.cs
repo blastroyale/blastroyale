@@ -1,10 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
 using Photon.Hive.Plugin;
@@ -89,17 +89,28 @@ namespace quantum.custom.plugin
 
 		private void OnPlayfabCommand(IHttpResponse response, object userId)
 		{
-			if (response.HttpCode >= 400)
+			try
 			{
-				var dataString = response.ResponseData?.Length > 0 ? Encoding.UTF8.GetString(response.ResponseData) : "";
-				Log.Error($"Invalid PlayFab response to url {response.Request.Url} status {response.Status} data {dataString} text {response.ResponseText}");
-			}
-			else
-			{
-				if (FlgConfig.DebugMode)
+				if (response.HttpCode >= 400)
 				{
-					Log.Debug($"Request from {userId} OK");
+					var dataString = response.ResponseData?.Length > 0
+						? Encoding.UTF8.GetString(response.ResponseData)
+						: "";
+					Log.Error(
+						$"Invalid PlayFab response to url {response.Request.Url} status {response.Status} data {dataString} text {response.ResponseText}");
 				}
+				else
+				{
+					if (FlgConfig.DebugMode)
+					{
+						Log.Debug($"Request from {userId} OK");
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Log.Error(
+					$"Invalid PlayFab response to url {response.Request.Url} status {response.Status} text {response.ResponseText}");
 			}
 		}
 	}

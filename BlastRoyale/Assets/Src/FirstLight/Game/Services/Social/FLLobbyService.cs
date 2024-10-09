@@ -312,6 +312,7 @@ namespace FirstLight.Game.Services
 			_sentMatchInvites.Remove(playerId);
 			CurrentMatchCallbacks.TriggerOnInvitesUpdated(FLLobbyEventCallbacks.InviteUpdateType.Declined);
 		}
+		
 		private void OnMatchPlayerLeft(List<int> playerIds)
 		{
 			_grid.EnqueueGridSync(CurrentMatchLobby);
@@ -1009,7 +1010,7 @@ namespace FirstLight.Game.Services
 		public float TickDelay()
 		{
 			if (!MainInstaller.TryResolve<IGameServices>(out var services)) return TICK_DELAY;
-			if (services.GameAppService.AppData.TryGetValue("LOBBY_TICK", out var t) && Int32.TryParse(t, out var intt))
+			if (services.GameAppService.AppData != null && services.GameAppService.AppData.TryGetValue("LOBBY_TICK", out var t) && Int32.TryParse(t, out var intt))
 			{
 				return intt;
 			}

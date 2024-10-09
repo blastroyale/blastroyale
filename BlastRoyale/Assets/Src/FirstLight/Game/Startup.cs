@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using Facebook.Unity;
 using Firebase;
 using Firebase.Analytics;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Presenters;
 using FirstLight.Game.Serializers;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
@@ -22,7 +22,6 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
 using Unity.Services.Lobbies;
-using Unity.Services.PushNotifications;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -241,5 +240,7 @@ namespace FirstLight.Game
 				Application.targetFrameRate = limitEnabled ? 30 : 60;
 			});
 		}
+		
+
 	}
 }

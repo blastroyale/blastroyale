@@ -20,42 +20,28 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = true)]
 	public partial class QuantumStatConfigs
 	{
-		private object _lock = new object();
-		
 		public List<QuantumStatConfig> QuantumConfigs = new List<QuantumStatConfig>();
 
 		private Dictionary<StatType, QuantumStatConfig> _dictionary = null;
 
-		/// <summary>
-		/// The dictionary of stats in a <see cref="IReadOnlyDictionary{TKey,TValue}"/> format to avoid potential
-		/// external manipulations
-		/// </summary>
-		public IReadOnlyDictionary<StatType, QuantumStatConfig> Dictionary
+		public Dictionary<StatType, QuantumStatConfig> Dictionary => _dictionary;
+			
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
 		{
-			get
+			var dictionary = new Dictionary<StatType, QuantumStatConfig>();
+			for (var i = 0; i < QuantumConfigs.Count; i++)
 			{
-				if (_dictionary == null)
-				{
-					lock (_lock)
-					{
-						var dictionary = new Dictionary<StatType, QuantumStatConfig>();
-						for (var i = 0; i < QuantumConfigs.Count; i++)
-						{
-							dictionary.Add(QuantumConfigs[i].StatType, QuantumConfigs[i]);
-						}
-						_dictionary = dictionary;
-					}
-				}
-				return _dictionary;
+				dictionary.Add(QuantumConfigs[i].StatType, QuantumConfigs[i]);
 			}
+			_dictionary = dictionary;
 		}
-
+		
 		/// <summary>
 		/// Requests the <see cref="QuantumBaseEquipmentStatConfig"/> defined by the given <paramref name="id"/>
 		/// </summary>
 		public QuantumStatConfig GetConfig(StatType type)
 		{
-			return Dictionary[type];
+			return _dictionary[type];
 		}
 	}
 }

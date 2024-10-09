@@ -4,9 +4,7 @@ using System.IO;
 using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Serializers;
-using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
-using Newtonsoft.Json;
 using Photon.Deterministic;
 using Photon.Deterministic.Protocol;
 using Photon.Deterministic.Server;
@@ -25,7 +23,7 @@ namespace Quantum
         private static ResourceManagerStaticPreloaded _resourceManager;
         private static QuantumAssetSerializer _serializer = new QuantumAssetSerializer();
         private static Object _initializationLock = new Object();
-        
+
         private DeterministicSessionConfig _config;
         private RuntimeConfig _runtimeConfig;
         private readonly Dictionary<String, String> _photonConfig;
@@ -108,9 +106,12 @@ namespace Quantum
             var events = new EventDispatcher();
             events.Subscribe<EventFireQuantumServerCommand>(this, OnServerCommand);
             var configsFile = new ReplayFile();
+            _config.ChecksumInterval = 0;
             configsFile.DeterministicConfig = _config;
+            configsFile.DeterministicConfig.ChecksumInterval = 0;
+            SetDeterministicSessionConfig(configsFile.DeterministicConfig);
             configsFile.RuntimeConfig = _runtimeConfig;
-            
+
             var gameFlags = 0;
             gameFlags |= QuantumGameFlags.Server; // ignore non-server events
             gameFlags |= QuantumGameFlags.DisableInterpolatableStates; // no extra frame to interpolate movements
@@ -174,12 +175,14 @@ namespace Quantum
                         }
                         else
                         {
-                            PluginHost.LogError($"The file '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}' is empty.");
+                            PluginHost.LogError(
+                                $"The file '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}' is empty.");
                         }
                     }
                     else
                     {
-                        PluginHost.LogError($"Failed to find the Quantum AssetDB resource from '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}'. Here are all resources found inside the assembly:");
+                        PluginHost.LogError(
+                            $"Failed to find the Quantum AssetDB resource from '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}'. Here are all resources found inside the assembly:");
                         foreach (var name in typeof(QuantumGame).Assembly.GetManifestResourceNames())
                         {
                             PluginHost.LogInfo(name);
@@ -191,17 +194,19 @@ namespace Quantum
             return assetDBFileContent;
         }
 
-		/// <summary>
-		/// Method responsible for receiving client inputs and forwarding them to the server simulation
-		/// </summary>
-		public override void OnDeterministicInputConfirmed(DeterministicPluginClient client, int tick, int playerIndex, DeterministicTickInput input)
-		{
-			if (!ServerSimulation)
-			{
-				return;
-			}
-			inputProvider.InjectInput(input, true);
-		}
+        /// <summary>
+        /// Method responsible for receiving client inputs and forwarding them to the server simulation
+        /// </summary>
+        public override void OnDeterministicInputConfirmed(DeterministicPluginClient client, int tick, int playerIndex,
+            DeterministicTickInput input)
+        {
+            if (!ServerSimulation)
+            {
+                return;
+            }
+
+            inputProvider.InjectInput(input, true);
+        }
 
         /// <summary>
         /// Method called when ticking the simulation.
@@ -213,11 +218,12 @@ namespace Quantum
             {
                 return;
             }
+
             if (gameSession == null)
             {
                 return;
             }
-            
+
             try
             {
                 if (gameSession.Session.FrameVerified != null)
@@ -290,7 +296,8 @@ namespace Quantum
             _config = configData.Config;
         }
 
-        public override void OnDeterministicRuntimeConfig(DeterministicPluginClient client, Photon.Deterministic.Protocol.RuntimeConfig configData)
+        public override void OnDeterministicRuntimeConfig(DeterministicPluginClient client,
+            Photon.Deterministic.Protocol.RuntimeConfig configData)
         {
             base.OnDeterministicRuntimeConfig(client, configData);
             _runtimeConfig = RuntimeConfig.FromByteArray(configData.Config);
@@ -329,19 +336,25 @@ namespace Quantum
             return null;
         }
 
+        public override void OnDeterministicClientJoinedSession(DeterministicPluginClient client)
+        {
+            base.OnDeterministicClientJoinedSession(client);
+        }
+
         /// <summary>
         /// Override method that will block adding any player data from to the relay stream by direct client input.
         /// Will call external services via HTTP to validate if the client input is correct, and only after
         /// verification it will add the RuntimePlayer serialized object to relay BitStream.
         /// </summary>
-        public override bool OnDeterministicPlayerDataSet(DeterministicPluginClient client, SetPlayerData clientPlayerData)
+        public override bool OnDeterministicPlayerDataSet(DeterministicPluginClient client,
+            SetPlayerData clientPlayerData)
         {
             var clientPlayer = RuntimePlayer.FromByteArray(clientPlayerData.Data);
             try
             {
                 if (_validPlayers.ContainsKey(client.ActorNr))
                     return true;
-                
+
                 _receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
                 _actorNrToIndex[client.ActorNr] = clientPlayerData.Index;
 
@@ -359,7 +372,9 @@ namespace Quantum
             }
             catch (Exception e)
             {
-                Log.Error($"Could not read RuntimeData of player playfab {clientPlayer.PlayerId} name={clientPlayer.PlayerName}", e);
+                Log.Error(
+                    $"Could not read RuntimeData of player playfab {clientPlayer.PlayerId} name={clientPlayer.PlayerName}",
+                    e);
                 return false;
             }
         }

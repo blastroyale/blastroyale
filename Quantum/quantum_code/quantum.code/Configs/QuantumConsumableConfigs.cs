@@ -25,28 +25,29 @@ namespace Quantum
 
 		internal IDictionary<ConsumableType, QuantumConsumableConfig> _byConsumableId = null;
 		internal IDictionary<GameId, QuantumConsumableConfig> _byGameId = null; // TODO: Remove
+
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			var dict = new Dictionary<ConsumableType, QuantumConsumableConfig>();
+			for (var i = 0; i < QuantumConfigs.Count; i++)
+			{
+				dict[QuantumConfigs[i].ConsumableType] = QuantumConfigs[i];
+			}
+			_byConsumableId = dict;
+			
+			var dict2 = new Dictionary<GameId, QuantumConsumableConfig>();
+			for (var i = 0; i < QuantumConfigs.Count; i++)
+			{
+				dict2.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+			}
+			_byGameId = dict2;
+		}		
 		
-		private object _lock = new object();
-
-
 		/// <summary>
 		/// Requests the <see cref="QuantumConsumableConfig"/> defined by the given <paramref name="id"/>
 		/// </summary>
 		public QuantumConsumableConfig GetConfig(ConsumableType id)
 		{
-			if (_byConsumableId == null)
-			{
-				lock (_lock)
-				{
-					var dict = new Dictionary<ConsumableType, QuantumConsumableConfig>();
-
-					for (var i = 0; i < QuantumConfigs.Count; i++)
-					{
-						dict[QuantumConfigs[i].ConsumableType] = QuantumConfigs[i];
-					}
-					_byConsumableId = dict;
-				}
-			}
 			_byConsumableId.TryGetValue(id, out var cfg);
 			return cfg;
 		}
@@ -56,18 +57,6 @@ namespace Quantum
 		/// </summary>
 		public QuantumConsumableConfig GetConfig(GameId id)
 		{
-			if (_byGameId == null)
-			{
-				lock (_lock)
-				{
-					var dict = new Dictionary<GameId, QuantumConsumableConfig>();
-					for (var i = 0; i < QuantumConfigs.Count; i++)
-					{
-						dict.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
-					}
-					_byGameId = dict;
-				}
-			}
 			_byGameId.TryGetValue(id, out var cfg);
 			return cfg;
 		}

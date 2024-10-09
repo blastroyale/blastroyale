@@ -639,7 +639,12 @@ namespace FirstLight.Game.Services
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
 			var request = new GetPhotonAuthenticationTokenRequest {PhotonApplicationId = appId};
-
+			
+#if DEBUG
+			config.DeterministicSessionConfigAsset.Config.ChecksumInterval = 60;
+#else 
+			config.DeterministicSessionConfigAsset.Config.ChecksumInterval = 0;
+#endif
 			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthSuccess, onError);
 
 			void OnAuthSuccess(GetPhotonAuthenticationTokenResult result)

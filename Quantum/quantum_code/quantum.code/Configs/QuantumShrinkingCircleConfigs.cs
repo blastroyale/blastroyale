@@ -34,36 +34,31 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = false)]
 	public partial class QuantumShrinkingCircleConfigs
 	{
-		private object _lock = new object();
-		
 		public List<QuantumShrinkingCircleConfig> QuantumConfigs = new List<QuantumShrinkingCircleConfig>();
 		
 		private IDictionary<string, IDictionary<int, QuantumShrinkingCircleConfig>> _dictionary;
 
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			var dictionary = new Dictionary<string, IDictionary<int, QuantumShrinkingCircleConfig>>();
+			foreach (var config in QuantumConfigs)
+			{
+				if (!dictionary.ContainsKey(config.Map.ToString()))
+				{
+					dictionary.Add(config.Map.ToString(), new Dictionary<int, QuantumShrinkingCircleConfig>());
+				}
+
+				// We do -1 here so dictionary keys can acts as indexes, starting from 0 (as steps in configs start with 1)
+				dictionary[config.Map.ToString()].Add(config.Step - 1, config);
+			}
+			_dictionary = dictionary;
+		}
+		
 		/// <summary>
 		/// Requests the <see cref="QuantumMapConfig"/> from it's <paramref name="id"/>
 		/// </summary>
 		public IDictionary<int, QuantumShrinkingCircleConfig> GetConfigs(string mapId)
 		{
-			if (_dictionary == null)
-			{
-				lock (_lock)
-				{
-					var dictionary = new Dictionary<string, IDictionary<int, QuantumShrinkingCircleConfig>>();
-					foreach (var config in QuantumConfigs)
-					{
-						if (!dictionary.ContainsKey(config.Map.ToString()))
-						{
-							dictionary.Add(config.Map.ToString(), new Dictionary<int, QuantumShrinkingCircleConfig>());
-						}
-
-						// We do -1 here so dictionary keys can acts as indexes, starting from 0 (as steps in configs start with 1)
-						dictionary[config.Map.ToString()].Add(config.Step - 1, config);
-						_dictionary = dictionary;
-					}
-				}
-			}
-			
 			if (_dictionary.TryGetValue(mapId,out var configs))
 			{
 				return configs;

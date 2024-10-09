@@ -59,30 +59,20 @@ namespace Quantum
 
 		private Dictionary<EquipmentMaterialStatsKey, QuantumEquipmentMaterialStatConfig> _dictionary = null;
 
-		private object _lock = new object();
-
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			_dictionary = new Dictionary<EquipmentMaterialStatsKey, QuantumEquipmentMaterialStatConfig>();
+			for (var i = 0; i < QuantumConfigs.Count; i++)
+			{
+				_dictionary.Add(new EquipmentMaterialStatsKey(QuantumConfigs[i].Category, QuantumConfigs[i].Material), QuantumConfigs[i]);
+			}
+		}
+		
 		/// <summary>
 		/// Requests the <see cref="QuantumEquipmentMaterialStatConfig"/> of the given <paramref name="equipment"/>
 		/// </summary>
 		public QuantumEquipmentMaterialStatConfig GetConfig(Equipment equipment)
 		{
-			if (_dictionary == null)
-			{
-				lock (_lock)
-				{
-					var dict = new Dictionary<EquipmentMaterialStatsKey, QuantumEquipmentMaterialStatConfig>();
-
-					foreach (var statsConfig in QuantumConfigs)
-					{
-						dict
-							.Add(new EquipmentMaterialStatsKey(statsConfig.Category, statsConfig.Material), statsConfig);
-					}
-
-					_dictionary = dict;
-				}
-			}
-
-
 			return _dictionary[equipment.GetMaterialStatsKey()];
 		}
 	}

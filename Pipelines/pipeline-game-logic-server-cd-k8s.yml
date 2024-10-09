@@ -26,6 +26,7 @@ parameters:
   - name: dockerImage
     displayName: Docker Image to be Deployed
     type: string
+    default: ''
 variables:
   # Variable called 'image_manual_override' is defined for optional per-run manual override.
   - group: Secrets

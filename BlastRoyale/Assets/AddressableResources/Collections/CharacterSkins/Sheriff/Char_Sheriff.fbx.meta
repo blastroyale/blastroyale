@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0008f30a8a0964321b0f9d1dcc5e330b
+guid: 8ff4312f608183f45b2ebb8e9afea125
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Sheriff
-    second: {fileID: 2100000, guid: 7dccebe1f214f42a28abacdb8bbd7ec3, type: 2}
+    second: {fileID: 2100000, guid: b5ccfa55698807d4fa607e304f006cb0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

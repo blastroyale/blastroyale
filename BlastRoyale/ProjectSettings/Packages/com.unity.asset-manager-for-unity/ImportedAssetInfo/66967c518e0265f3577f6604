@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "aac9a533f97bad84f916c1d46b57575f",
+            "Guid": "486b0d8cd401b5b4ba8a39d4bd8ba0b6",
             "OriginalPath": "Icon_Char_Gamer.png"
         },
         {
-            "Guid": "233aa37fa5ea5914f91098b896c30954",
+            "Guid": "09ff2c20c6cbf6e4e8434ff630522f32",
             "OriginalPath": "Char_Gamer.fbx"
         }
     ],
@@ -25,8 +25,8 @@
                 "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66967c518e0265f3577f6604\\\",\\\"assetVersion\\\":\\\"a834599f-5e8b-4be2-bff8-ddff7115862a\\\"}\",\"data\":{\"assetId\":\"66967c518e0265f3577f6604\",\"assetVersion\":\"a834599f-5e8b-4be2-bff8-ddff7115862a\",\"isFrozen\":true,\"versionNumber\":6,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":5,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-09-09T13:27:01.082Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-09-09T13:27:52.269Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Gamer\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66967c518e0265f3577f6604\\\",\\\"assetVersion\\\":\\\"3ae8281f-c3ac-47b1-8ac7-cbd1327c7a42\\\"}\",\"data\":{\"assetId\":\"66967c518e0265f3577f6604\",\"assetVersion\":\"3ae8281f-c3ac-47b1-8ac7-cbd1327c7a42\",\"isFrozen\":true,\"versionNumber\":7,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":6,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-09-28T00:30:15.767Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-09-28T00:32:17.255Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Gamer\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 2,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
                     "m_UVCSFiles": [],

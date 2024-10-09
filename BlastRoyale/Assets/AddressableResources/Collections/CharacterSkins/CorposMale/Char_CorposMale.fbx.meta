@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cb6cc9f2f7c91429e940eed10dc30e11
+guid: 4135a321bd828ba4aa36b6ffcca81308
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_CorposMale
-    second: {fileID: 2100000, guid: 38bb892a7c2e64a0e9fcc7816205f8cf, type: 2}
+    second: {fileID: 2100000, guid: dde7cbcf3c119cc489134bab91155aed, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

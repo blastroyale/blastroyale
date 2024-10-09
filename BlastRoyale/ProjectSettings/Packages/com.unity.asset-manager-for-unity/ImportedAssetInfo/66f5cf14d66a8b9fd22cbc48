@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "16191761906df0c4288ceef13262d767",
+            "OriginalPath": "Melee_BananaHammer.fbx"
+        },
+        {
+            "Guid": "22b58137504386c418cc4e76b882d22d",
+            "OriginalPath": "Icon_Melee_Bananahammer.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f5cf14d66a8b9fd22cbc48\\\",\\\"assetVersion\\\":\\\"a38fad33-05ef-4c5d-94eb-a88ce29cbbc5\\\"}\",\"data\":{\"assetId\":\"66f5cf14d66a8b9fd22cbc48\",\"assetVersion\":\"a38fad33-05ef-4c5d-94eb-a88ce29cbbc5\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-26T21:16:04.691Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-01T12:24:46.822Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Bananahammer.png\",\"name\":\"Melee_BananaHammer\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

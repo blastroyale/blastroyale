@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "73978fd631562d3468fa1c1752c6d7a9",
+            "OriginalPath": "Melee_Baguette.fbx"
+        },
+        {
+            "Guid": "5ca6cf88a50a3a049ade588d9ef068dd",
+            "OriginalPath": "Icon_Melee_Baguette.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f5cf149400edbc05dc055c\\\",\\\"assetVersion\\\":\\\"9dd9d4c2-9217-4eaa-b7b0-eb4374e3bb96\\\"}\",\"data\":{\"assetId\":\"66f5cf149400edbc05dc055c\",\"assetVersion\":\"9dd9d4c2-9217-4eaa-b7b0-eb4374e3bb96\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-26T21:16:04.622Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-01T12:23:51.58Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Baguette.png\",\"name\":\"Melee_Baguette\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

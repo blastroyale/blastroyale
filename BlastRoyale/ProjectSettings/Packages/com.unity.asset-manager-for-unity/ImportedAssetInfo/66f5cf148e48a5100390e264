@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "9076d768c94487542a50d44d3612a633",
+            "OriginalPath": "Melee_FirefighterAxe.fbx"
+        },
+        {
+            "Guid": "ed533b60f53a34141892f1ea41e99068",
+            "OriginalPath": "Icon_Melee_Firefighteraxe.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f5cf148e48a5100390e264\\\",\\\"assetVersion\\\":\\\"adc64fe9-b54a-47e7-a435-89e85a98a4c7\\\"}\",\"data\":{\"assetId\":\"66f5cf148e48a5100390e264\",\"assetVersion\":\"adc64fe9-b54a-47e7-a435-89e85a98a4c7\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-26T21:16:04.749Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-01T12:25:52.898Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Firefighteraxe.png\",\"name\":\"Melee_FirefighterAxe\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

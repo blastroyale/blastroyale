@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6342df1a201a3494587723a1ce115c43
+guid: 773ff6bedfac8c44b9e696b8faff5ab9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Skeleton
-    second: {fileID: 2100000, guid: c61afe755d6800b41be21094b5272976, type: 2}
+    second: {fileID: 2100000, guid: cbf91d5863279bb4da3021a5908da01d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

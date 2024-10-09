@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "3cd4ed21c673d24428305433cfc88945",
+            "OriginalPath": "Char_Vikingfemale.fbx"
+        },
+        {
+            "Guid": "f054e834c99fe2848b86d9f71610fc88",
+            "OriginalPath": "Icon_Char_Vikingfemale.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f49a568e48a5100390b37d\\\",\\\"assetVersion\\\":\\\"0d4becda-8c78-454f-9214-418d3d8241ba\\\"}\",\"data\":{\"assetId\":\"66f49a568e48a5100390b37d\",\"assetVersion\":\"0d4becda-8c78-454f-9214-418d3d8241ba\",\"isFrozen\":true,\"versionNumber\":2,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-10-04T17:00:09.726Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-04T17:00:55.652Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Vikingfemale\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

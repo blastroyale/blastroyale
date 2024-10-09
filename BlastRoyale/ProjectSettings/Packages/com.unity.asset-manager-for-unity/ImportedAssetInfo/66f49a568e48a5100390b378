@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "9698897487280c640a1037b47fd11b3e",
+            "OriginalPath": "Char_Firefighter.fbx"
+        },
+        {
+            "Guid": "75712e4c7e6ae0f4395eec372cdd38db",
+            "OriginalPath": "Icon_Char_Firefighter.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f49a568e48a5100390b378\\\",\\\"assetVersion\\\":\\\"50724b4a-ccae-4a4d-8774-495d5b9a1c82\\\"}\",\"data\":{\"assetId\":\"66f49a568e48a5100390b378\",\"assetVersion\":\"50724b4a-ccae-4a4d-8774-495d5b9a1c82\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-25T23:18:46.043Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-09-28T00:34:52.104Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_front.png\",\"name\":\"Char_Firefighter\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

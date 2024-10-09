@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e832d2f17c87c4eb29f613acab05db4f
+guid: 3f7445b9946e2e24d906d28b213080a7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Leprechaun
-    second: {fileID: 2100000, guid: 89ccfd1e84691428cb9ae67cc6d38a0f, type: 2}
+    second: {fileID: 2100000, guid: b57dd259fa8b0c54aa7d64a3e873a6b8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0618fe8c2608a4aa3a67356b74f3b077
+guid: 25db3f52043e94e4daa064450d7217d4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_GearedApe
-    second: {fileID: 2100000, guid: 4472e079fe527403cb6fa87b9462ca59, type: 2}
+    second: {fileID: 2100000, guid: 28b0fee0b442dc94f8ddc90063d9740a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

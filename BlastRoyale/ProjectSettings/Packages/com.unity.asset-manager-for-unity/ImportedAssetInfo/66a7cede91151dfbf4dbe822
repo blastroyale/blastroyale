@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "eea6b909ac1804b6b9b8e207020a9191",
+            "Guid": "d202a5673e9323d46bb96c810db59d55",
             "OriginalPath": "Char_Aura.fbx"
         },
         {
-            "Guid": "32936b59f4a964517bae79806e8b0df8",
+            "Guid": "67c102d45be5bad469cdbe8c83c3c7e5",
             "OriginalPath": "Icon_Char_Aura.png"
         }
     ],
@@ -23,79 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede91151dfbf4dbe822\\\",\\\"assetVersion\\\":\\\"e1e29ec6-1068-4d3a-8432-f396164a473f\\\"}\",\"data\":{\"assetId\":\"66a7cede91151dfbf4dbe822\",\"assetVersion\":\"e1e29ec6-1068-4d3a-8432-f396164a473f\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-07-29T17:18:22.182Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-31T17:35:00.284Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy84OTc4YjgwYS01YTg4LTRkZGItYmUyNC1mZTY2Y2ZjY2ZlYzAvOTVlNjNhZWI1NWE3ZTQ2ZWNmMDNiNGQwYjJkODhiYjQvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-29T21:02:21Z&ske=2024-08-01T21:02:21Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-01T21:02:21Z&sr=b&sp=r&sig=P10J3Vh4Oj2kAt3yji46yrIfulM7ctdgCRUOuOAfydI%3D\",\"name\":\"Char_Aura\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy84OTc4YjgwYS01YTg4LTRkZGItYmUyNC1mZTY2Y2ZjY2ZlYzAvOTVlNjNhZWI1NWE3ZTQ2ZWNmMDNiNGQwYjJkODhiYjQvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-29T21:02:21Z&ske=2024-08-01T21:02:21Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-01T21:02:21Z&sr=b&sp=r&sig=P10J3Vh4Oj2kAt3yji46yrIfulM7ctdgCRUOuOAfydI%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        },
-                        {
-                            "rid": 1002
-                        }
-                    ],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Char_Aura.fbx",
-                    "m_Available": true,
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 1049548,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Icon_Char_Aura.png",
-                    "m_Available": true,
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 270588,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1003,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede91151dfbf4dbe822\\\",\\\"assetVersion\\\":\\\"e1e29ec6-1068-4d3a-8432-f396164a473f\\\"}\",\"data\":{\"assetId\":\"66a7cede91151dfbf4dbe822\",\"assetVersion\":\"e1e29ec6-1068-4d3a-8432-f396164a473f\",\"isFrozen\":true,\"versionNumber\":1,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[\"Latest\"],\"archivedLabels\":[\"Pending\"],\"status\":\"Approved\",\"created\":\"2024-07-29T17:18:22.182Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-31T17:35:00.284Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Aura\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede91151dfbf4dbe822\\\",\\\"assetVersion\\\":\\\"1023ee2f-4216-4ef0-b931-3c67c59467e2\\\"}\",\"data\":{\"assetId\":\"66a7cede91151dfbf4dbe822\",\"assetVersion\":\"1023ee2f-4216-4ef0-b931-3c67c59467e2\",\"isFrozen\":true,\"versionNumber\":2,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-09-27T23:23:33.214Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-09-27T23:24:07.13Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Aura\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 2,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
                     "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        }
-                    ]
+                    "m_Versions": []
                 }
             }
         ]

@@ -267,6 +267,15 @@ namespace FirstLight.Editor.Ids
             {"PlayerSkinMale01", 247, PlayerSkin, Collection},
             {"PlayerSkinMale02", 248, PlayerSkin, Collection},
 			{"PlayerSkinGamer", 251, PlayerSkin, Collection},
+			{"PlayerSkinFarmer", 252, PlayerSkin, Collection},
+			{"PlayerSkinFirefighter", 253, PlayerSkin, Collection},
+			{"PlayerSkinGingerbread", 254, PlayerSkin, Collection},
+			{"PlayerSkinIceking", 255, PlayerSkin, Collection},
+			{"PlayerSkinMechapilot", 256, PlayerSkin, Collection},
+			{"PlayerSkinPirateCaptain", 257, PlayerSkin, Collection},
+			{"PlayerSkinRenny", 258, PlayerSkin, Collection},
+			{"PlayerSkinRobot", 259, PlayerSkin, Collection},
+			{"PlayerSkinVikingfemale", 260, PlayerSkin, Collection},
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins
@@ -331,6 +340,14 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinPickaxe", 243, MeleeSkin, Collection},
 			{"MeleeSkinLollipop", 244, MeleeSkin, Collection},
 			{"MeleeSkinDoctorStaff", 236, MeleeSkin, Collection},
+			{"MeleeSkinBaguette", 261, MeleeSkin, Collection},
+			{"MeleeSkinBananaHammer", 262, MeleeSkin, Collection},
+			{"MeleeSkinFirefighterAxe", 263, MeleeSkin, Collection},
+			{"MeleeSkinNoobHammer", 264, MeleeSkin, Collection},
+			{"MeleeSkinRollingPin", 265, MeleeSkin, Collection},
+			{"MeleeSkinRoyalStaff", 266, MeleeSkin, Collection},
+			{"MeleeSkinStopSign", 267, MeleeSkin, Collection},
+			{"MeleeSkinVikingAxe", 268, MeleeSkin, Collection},
 			// WEAPON GENERATION TOKEN KEEP THIS HERE
 			
 			#endregion

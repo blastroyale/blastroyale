@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c3898296ec524174a62b8a35d0eeef6
+guid: 3600f8975118fc84eab3b18109225a99
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Panda
-    second: {fileID: 2100000, guid: babea532c22df45fcb9e6125c8a07c86, type: 2}
+    second: {fileID: 2100000, guid: a388eda9b607cf549b274b69181aa302, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

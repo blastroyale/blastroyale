@@ -61,7 +61,8 @@
         "Unity.Notifications.Unified",
         "Unity.Notifications.Android",
         "Unity.Notifications.iOS",
-        "GUID:4c25c05f410a3a447a75c3b0909152ef"
+        "GUID:4c25c05f410a3a447a75c3b0909152ef",
+        "GUID:1d516b886d9db401ea62daad275f3915"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

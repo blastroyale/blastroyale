@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 186dea9c17d3349aaa8006f7f244f5cc
+guid: 0e1f9bf5c4509dd4d90404103e862c1a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Lincoln
-    second: {fileID: 2100000, guid: cec21865bbcd14b1d83f7a2077a96535, type: 2}
+    second: {fileID: 2100000, guid: 18b1451028c722e469d56e5f8fc1d361, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

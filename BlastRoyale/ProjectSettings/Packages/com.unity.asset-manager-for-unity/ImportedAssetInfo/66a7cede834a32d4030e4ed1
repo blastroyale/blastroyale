@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "feac80a0dbc4c4e3588050ec8a1fffb5",
+            "Guid": "45ea878688e4f5a44a6b6ecee4f7a9b1",
             "OriginalPath": "Char_Hazmat.fbx"
         },
         {
-            "Guid": "d6ce9352004834b2b9bb52c3b932ec0d",
+            "Guid": "8847db349d28541408866960cdafe242",
             "OriginalPath": "Icon_Char_Hazmat.png"
         }
     ],
@@ -25,8 +25,8 @@
                 "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede834a32d4030e4ed1\\\",\\\"assetVersion\\\":\\\"4e92b55e-b0ae-49a1-ae9a-adde15e89009\\\"}\",\"data\":{\"assetId\":\"66a7cede834a32d4030e4ed1\",\"assetVersion\":\"4e92b55e-b0ae-49a1-ae9a-adde15e89009\",\"isFrozen\":true,\"versionNumber\":2,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-07-31T17:36:00.951Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-31T17:36:05.677Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Hazmat\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede834a32d4030e4ed1\\\",\\\"assetVersion\\\":\\\"95c9ee69-16b6-48a3-92d3-2666b2db11df\\\"}\",\"data\":{\"assetId\":\"66a7cede834a32d4030e4ed1\",\"assetVersion\":\"95c9ee69-16b6-48a3-92d3-2666b2db11df\",\"isFrozen\":true,\"versionNumber\":3,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-09-28T00:22:18.762Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-09-28T00:26:06.367Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Hazmat\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 2,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
                     "m_UVCSFiles": [],

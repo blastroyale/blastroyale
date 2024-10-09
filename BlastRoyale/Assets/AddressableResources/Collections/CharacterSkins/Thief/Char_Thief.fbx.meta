@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cd0a1f81f83144719a45d0aafb76f635
+guid: ee041d0893f083f4cb3f63cf7a8c3a81
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Thief
-    second: {fileID: 2100000, guid: 9df054c2eb41447aa87da42ff383dc22, type: 2}
+    second: {fileID: 2100000, guid: 8eebfebf1878c7647988b46759abb711, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

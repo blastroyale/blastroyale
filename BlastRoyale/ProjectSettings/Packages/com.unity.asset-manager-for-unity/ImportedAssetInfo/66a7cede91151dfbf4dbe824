@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "d970e498d9b864a52b45a2a4ac864c3a",
+            "Guid": "4b0735181ac89c846a34c2ef788880f9",
             "OriginalPath": "Char_Pilot.fbx"
         },
         {
-            "Guid": "8f871127e6a944b31b026203c5e9fef6",
+            "Guid": "a616ac13305eb2c4ca0a8e79d5034e5f",
             "OriginalPath": "Icon_Char_Pilot.png"
         }
     ],
@@ -23,147 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede91151dfbf4dbe824\\\",\\\"assetVersion\\\":\\\"e8eb6c05-51ce-49bd-84c8-e93ddeb744ec\\\"}\",\"data\":{\"assetId\":\"66a7cede91151dfbf4dbe824\",\"assetVersion\":\"e8eb6c05-51ce-49bd-84c8-e93ddeb744ec\",\"isFrozen\":true,\"versionNumber\":2,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-07-31T17:35:04.671Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-31T17:35:10.115Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy83OThhYzUwYS0xYzI5LTQ4YzQtYTk4My0zZDAwODNjYTNhZjEvMmMwY2FiZmM3YjY5NGVmYjk5YmYzZGJlNDIzMDVkM2MvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-31T17:35:05Z&ske=2024-08-03T17:35:05Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-03T17:35:05Z&sr=b&sp=r&sig=zMHytwO3ZeIaqQYfhEGEML6DAa%2BAgzWswYzhNNbJhww%3D\",\"name\":\"Char_Pilot\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy83OThhYzUwYS0xYzI5LTQ4YzQtYTk4My0zZDAwODNjYTNhZjEvMmMwY2FiZmM3YjY5NGVmYjk5YmYzZGJlNDIzMDVkM2MvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-31T17:35:05Z&ske=2024-08-03T17:35:05Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-08-03T17:35:05Z&sr=b&sp=r&sig=zMHytwO3ZeIaqQYfhEGEML6DAa%2BAgzWswYzhNNbJhww%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        },
-                        {
-                            "rid": 1002
-                        }
-                    ],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        },
-                        {
-                            "rid": 1004
-                        },
-                        {
-                            "rid": 1005
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Char_Pilot.fbx",
-                    "m_Available": true,
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 897324,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Icon_Char_Pilot.png",
-                    "m_Available": true,
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 274868,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1003,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede91151dfbf4dbe824\\\",\\\"assetVersion\\\":\\\"e8eb6c05-51ce-49bd-84c8-e93ddeb744ec\\\"}\",\"data\":{\"assetId\":\"66a7cede91151dfbf4dbe824\",\"assetVersion\":\"e8eb6c05-51ce-49bd-84c8-e93ddeb744ec\",\"isFrozen\":true,\"versionNumber\":2,\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[\"Latest\"],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-07-31T17:35:04.671Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-31T17:35:10.115Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Pilot\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede91151dfbf4dbe824\\\",\\\"assetVersion\\\":\\\"f4a6a263-53e4-4597-b89d-7fccbde1b487\\\"}\",\"data\":{\"assetId\":\"66a7cede91151dfbf4dbe824\",\"assetVersion\":\"f4a6a263-53e4-4597-b89d-7fccbde1b487\",\"isFrozen\":true,\"versionNumber\":3,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-09-28T00:11:28.286Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-09-28T00:17:06.391Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Pilot\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 2,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
                     "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        },
-                        {
-                            "rid": 1004
-                        },
-                        {
-                            "rid": 1005
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1004,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_PrimaryExtension": "",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede91151dfbf4dbe824\\\",\\\"assetVersion\\\":\\\"cee14d66-0b86-470e-99d2-35f41d38025f\\\"}\",\"data\":{\"assetId\":\"66a7cede91151dfbf4dbe824\",\"assetVersion\":\"cee14d66-0b86-470e-99d2-35f41d38025f\",\"isFrozen\":true,\"versionNumber\":1,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\",\"Pending\"],\"status\":\"Draft\",\"created\":\"2024-07-29T17:18:22.186Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-29T21:05:19.629Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Pilot\",\"description\":\"\",\"tags\":[],\"primaryType\":\"2D Asset\"}}",
-                    "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "",
-                    "m_SourceFiles": [],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        },
-                        {
-                            "rid": 1004
-                        },
-                        {
-                            "rid": 1005
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1005,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_PrimaryExtension": "",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66a7cede91151dfbf4dbe824\\\",\\\"assetVersion\\\":\\\"7cded5b5-b797-4b91-afa8-c675deb505e3\\\"}\",\"data\":{\"assetId\":\"66a7cede91151dfbf4dbe824\",\"assetVersion\":\"7cded5b5-b797-4b91-afa8-c675deb505e3\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-31T17:35:14.402Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-31T17:35:14.477Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Pilot\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "",
-                    "m_SourceFiles": [],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        },
-                        {
-                            "rid": 1004
-                        },
-                        {
-                            "rid": 1005
-                        }
-                    ]
+                    "m_Versions": []
                 }
             }
         ]

@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "964dc1f0b74ad4f0c848bbbf95569ff9",
+            "Guid": "dcaa8a0cbc8c8f44387b6f0bbd97a929",
             "OriginalPath": "Char_FootballGuy.fbx"
         },
         {
-            "Guid": "275e740d3221948e3b1c1e9a63bcf33c",
+            "Guid": "67ad10b89e1d56d45aef166675f5a08d",
             "OriginalPath": "Icon_Char_FootballGuy.png"
         }
     ],
@@ -23,50 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
+                    "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66608b9aff09186ea375deed\\\",\\\"assetVersion\\\":\\\"ac5726e8-6cc0-476a-8253-28ebccfec67d\\\"}\",\"data\":{\"assetId\":\"66608b9aff09186ea375deed\",\"assetVersion\":\"ac5726e8-6cc0-476a-8253-28ebccfec67d\",\"isFrozen\":false,\"versionNumber\":0,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-06-13T11:59:21.019Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T11:59:34.292Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9hZGNiZDVmYS00ZWJmLTRiMzQtOWI2OC1lYTY1YjgyNjFkMjYvNjUwNWUwZjRlNzdkMjIwOTVhMzdjMWJhZWM4NDJjNzEvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T11:59:22Z&ske=2024-06-16T11:59:22Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T11:59:22Z&sr=b&sp=r&sig=e%2F8%2FVrd7sbr6uz9v3tawgY0fjwJWbfXXUhAK6tHqgOI%3D\",\"files\":[{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:32.611Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:50.277Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/595a8111-ef67-41fd-b86e-6fa0ea364bb3/cc5c78e46a17566478ca4c3bcb1c7c3d/Char_FootballGuy.fbx?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:12Z&ske=2024-06-13T12:17:12Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:12Z&sr=b&sp=r&sig=5Bq77qGKDuOtF7rojzZnDxtUvdnOB%2Fh0Y0Ebx%2Bjnxls%3D\",\"filePath\":\"Char_FootballGuy.fbx\",\"fileSize\":839868,\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:49.857Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:49.857Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/0c8732a7-cba2-46c6-aa6b-90eedcf15ac0/72f9ee4e81d031b1e93613e51b82ff6d/metadata.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:12Z&ske=2024-06-13T12:17:12Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:12Z&sr=b&sp=r&sig=zsPyZd53QaEjpEYObNndK%2BW5fe5kzqSYqzbnGaMWJhI%3D\",\"filePath\":\"metadata.json\",\"fileSize\":547,\"userChecksum\":\"468457e7bff230242da6aeb76e81439a\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:50.083Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:50.721Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/84d7533c-00fc-42aa-8035-b9eb3c539d28/b36df48b94705dd90cf99d80daf38baa/preview.glb?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:12Z&ske=2024-06-13T12:17:12Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:12Z&sr=b&sp=r&sig=O1dJjcelJBoA5k8QN4BFGh%2BkiZkGYOszNjdKw%2FGVRyg%3D\",\"filePath\":\"preview.glb\",\"fileSize\":1003880,\"userChecksum\":\"2532fb125a11f2bcb2499e3a0f341a28\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:50.088Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:50.088Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/84d7533c-00fc-42aa-8035-b9eb3c539d28/ff1b55709809de926371a84f40bcc075/preview_glb_preview.json?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:12Z&ske=2024-06-13T12:17:12Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:12Z&sr=b&sp=r&sig=hHOYDSaj89llGfA1YJ80hJw%2BxaayAvAMhl8vroQeBoc%3D\",\"filePath\":\"preview_glb_preview.json\",\"fileSize\":29,\"userChecksum\":\"85dbd80c9633bf923c397d3d05ed0974\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:56.917Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:57.24Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/adcbd5fa-4ebf-4b34-9b68-ea65b8261d26/59435764c80cc2f830f9f93ee6e0b444/preview_front.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:12Z&ske=2024-06-13T12:17:12Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:12Z&sr=b&sp=r&sig=1v8GvdOMYBZtBN%2Fr29fNbd3js%2BH3njTkIJZWijrypo0%3D\",\"filePath\":\"preview_front.png\",\"fileSize\":288587,\"userChecksum\":\"6d91f3cf21b7d85be487985250263ca7\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:56.925Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:57.466Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/adcbd5fa-4ebf-4b34-9b68-ea65b8261d26/7fc5636b22a5c1d143cefa4ba72d25f9/preview_left.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:12Z&ske=2024-06-13T12:17:12Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:12Z&sr=b&sp=r&sig=ofZj0tij%2BCNNBrK8lJ%2BPf%2FZ3xdYcmvKnIegfjP8JmGQ%3D\",\"filePath\":\"preview_left.png\",\"fileSize\":225524,\"userChecksum\":\"6cf804cf619b826a2a693724ffb2cabb\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:56.933Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:57.692Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/adcbd5fa-4ebf-4b34-9b68-ea65b8261d26/6505e0f4e77d22095a37c1baec842c71/preview_persFrontLeftTop.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:12Z&ske=2024-06-13T12:17:12Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:12Z&sr=b&sp=r&sig=MyySt6lp8lSQiEHocjj3bS3iL28zwh96CDgxMzDVj2I%3D\",\"filePath\":\"preview_persFrontLeftTop.png\",\"fileSize\":229705,\"userChecksum\":\"2e8674460488030d9bea2ef34f3e8b68\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:56.941Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:57.975Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/adcbd5fa-4ebf-4b34-9b68-ea65b8261d26/6892251cad905471181f0ba1d4b90a5c/preview_top.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:12Z&ske=2024-06-13T12:17:12Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:12Z&sr=b&sp=r&sig=iB%2FPObaLfZmWBcohJREvs65re%2BMM%2Bpzh0fQ9GNgbrKM%3D\",\"filePath\":\"preview_top.png\",\"fileSize\":169112,\"userChecksum\":\"df4db0f3d0afde2e970ef9012323ee2b\",\"description\":\"\",\"metadata\":{}},{\"createdBy\":\"6872339273432\",\"created\":\"2024-06-13T11:59:28.242Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T11:59:30.512Z\",\"downloadURL\":\"https://storage.transformation.unity.com/workspace/datasets/595a8111-ef67-41fd-b86e-6fa0ea364bb3/4135bf02f404c10b7059a76ad014d578/Icon_Char_FootballGuy.png?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T12:07:12Z&ske=2024-06-13T12:17:12Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-13T12:17:12Z&sr=b&sp=r&sig=YOExJwnc5ND2nH5pnOUcB3xYhyJ31B91RPdnXYh%2BMSI%3D\",\"filePath\":\"Icon_Char_FootballGuy.png\",\"fileSize\":186564,\"description\":\"\",\"metadata\":{}}],\"datasets\":[{\"datasetId\":\"595a8111-ef67-41fd-b86e-6fa0ea364bb3\",\"systemTags\":[\"Source\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:26.548Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-13T11:59:30.592Z\",\"filesOrder\":[],\"isVisible\":true,\"name\":\"Source\",\"metadata\":{}},{\"datasetId\":\"602cc373-c31a-4d54-a6a8-fcbeae2cffca\",\"systemTags\":[\"Preview\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:26.555Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:59.763Z\",\"filesOrder\":[\"preview.glb\",\"preview_persFrontLeftTop.png\",\"preview_front.png\",\"preview_left.png\",\"preview_top.png\"],\"isVisible\":true,\"name\":\"Preview\",\"metadata\":{}},{\"datasetId\":\"adcbd5fa-4ebf-4b34-9b68-ea65b8261d26\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:34.829Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:56.949Z\",\"workflowName\":\"thumbnail-generator\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"thumbnail-generator-output\",\"metadata\":{}},{\"datasetId\":\"84d7533c-00fc-42aa-8035-b9eb3c539d28\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:35.408Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:50.094Z\",\"workflowName\":\"glb-preview\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"glb-preview-output\",\"metadata\":{}},{\"datasetId\":\"0c8732a7-cba2-46c6-aa6b-90eedcf15ac0\",\"systemTags\":[\"TransformationOutput\"],\"status\":\"Committed\",\"createdBy\":\"6872339273432\",\"created\":\"2024-06-05T16:00:35.926Z\",\"updatedBy\":\"6872339273432\",\"updated\":\"2024-06-05T16:00:49.866Z\",\"workflowName\":\"metadata-extraction\",\"filesOrder\":[],\"isVisible\":false,\"name\":\"metadata-extraction-output\",\"metadata\":{}}],\"name\":\"Char_FootballGuy\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 1,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9hZGNiZDVmYS00ZWJmLTRiMzQtOWI2OC1lYTY1YjgyNjFkMjYvNjUwNWUwZjRlNzdkMjIwOTVhMzdjMWJhZWM4NDJjNzEvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-06-13T11:59:22Z&ske=2024-06-16T11:59:22Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-06-16T11:59:22Z&sr=b&sp=r&sig=e%2F8%2FVrd7sbr6uz9v3tawgY0fjwJWbfXXUhAK6tHqgOI%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        },
-                        {
-                            "rid": 1002
-                        }
-                    ],
-                    "m_UVCSFiles": []
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Char_FootballGuy.fbx",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 839868,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Icon_Char_FootballGuy.png",
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 186564,
-                    "m_Guid": ""
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66608b9aff09186ea375deed\\\",\\\"assetVersion\\\":\\\"506e03d5-5770-423a-b648-e5ee3aa635ef\\\"}\",\"data\":{\"assetId\":\"66608b9aff09186ea375deed\",\"assetVersion\":\"506e03d5-5770-423a-b648-e5ee3aa635ef\",\"isFrozen\":true,\"versionNumber\":3,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-09-27T23:06:15.681Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-09-27T23:07:23.236Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_FootballGuy\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 2,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
                 }
             }
         ]

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e612d6391ebee4234be4b4b9618bdc6c
+guid: f3adb62168948a949acb1dc139b12ebd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Midas
-    second: {fileID: 2100000, guid: 368c3222c96e941d9a92602b63b1a5cf, type: 2}
+    second: {fileID: 2100000, guid: 630dc352e78a98846aae450158ec7871, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

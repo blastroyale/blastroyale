@@ -17,8 +17,8 @@ stages:
       helmRepoPassword: ${{ parameters.helmRepoPassword }}     
       environment: mainnet-prod
       system: mainnetprod
-      minReplicas: 1
-      maxReplicas: 2
+      minReplicas: 4
+      maxReplicas: 6
       cpu: 1
       memory: 2Gi
       ipwhitelist: 0.0.0.0/0

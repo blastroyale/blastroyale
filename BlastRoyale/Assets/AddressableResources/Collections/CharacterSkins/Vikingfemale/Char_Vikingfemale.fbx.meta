@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3cd4ed21c673d24428305433cfc88945
+guid: 6748d58f996fe944c9dca165cd8776af
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Vikingfemale
-    second: {fileID: 2100000, guid: 77c5102c6a0326b4b97cbe923d8031b3, type: 2}
+    second: {fileID: 2100000, guid: 039e6f566eb2ae849abeadd53e0f2c96, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

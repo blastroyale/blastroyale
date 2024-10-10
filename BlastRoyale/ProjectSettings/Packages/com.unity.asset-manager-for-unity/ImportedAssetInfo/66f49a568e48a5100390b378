@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "9698897487280c640a1037b47fd11b3e",
+            "Guid": "7df528cf4ae96574098ccaca1e547c47",
             "OriginalPath": "Char_Firefighter.fbx"
         },
         {
-            "Guid": "75712e4c7e6ae0f4395eec372cdd38db",
+            "Guid": "710c14deef7bbd14a9292b3fd81532ca",
             "OriginalPath": "Icon_Char_Firefighter.png"
         }
     ],
@@ -25,7 +25,7 @@
                 "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f49a568e48a5100390b378\\\",\\\"assetVersion\\\":\\\"50724b4a-ccae-4a4d-8774-495d5b9a1c82\\\"}\",\"data\":{\"assetId\":\"66f49a568e48a5100390b378\",\"assetVersion\":\"50724b4a-ccae-4a4d-8774-495d5b9a1c82\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-25T23:18:46.043Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-09-28T00:34:52.104Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_front.png\",\"name\":\"Char_Firefighter\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f49a568e48a5100390b378\\\",\\\"assetVersion\\\":\\\"8677577a-1c22-4e33-a76d-39e8c7e26e07\\\"}\",\"data\":{\"assetId\":\"66f49a568e48a5100390b378\",\"assetVersion\":\"8677577a-1c22-4e33-a76d-39e8c7e26e07\",\"isFrozen\":true,\"versionNumber\":2,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-10-10T11:58:45.79Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-10T11:59:49.353Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_Firefighter\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
                     "m_AssetComparisonResult": 0,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],

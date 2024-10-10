@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9698897487280c640a1037b47fd11b3e
+guid: 7df528cf4ae96574098ccaca1e547c47
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Firefighter
-    second: {fileID: 2100000, guid: c8863dbb718b4274aa14126e877cd534, type: 2}
+    second: {fileID: 2100000, guid: 42badcd86bd95bd459321fe2870b386a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

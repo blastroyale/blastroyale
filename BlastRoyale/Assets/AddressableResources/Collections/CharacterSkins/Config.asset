@@ -170,12 +170,12 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 253
       Prefab:
-        m_AssetGUID: 2863322404c6cd743ae777bc799a9da0
+        m_AssetGUID: b33d184b7a47fc04ca8a29fafdf238f8
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 75712e4c7e6ae0f4395eec372cdd38db
+        m_AssetGUID: 710c14deef7bbd14a9292b3fd81532ca
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -566,12 +566,12 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 260
       Prefab:
-        m_AssetGUID: dd7c604320b37694c9f0eaac21de1cc3
+        m_AssetGUID: 5e1723c75e626664d9b0fc706dd0d8fb
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: f054e834c99fe2848b86d9f71610fc88
+        m_AssetGUID: 8f7e4907e66306b4eb3ecf116697c581
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

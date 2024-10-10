@@ -348,6 +348,17 @@ enum GameId
 	AvatarNflarmed = 527,
 	AvatarPilotarmed = 528,
 	AvatarWitch = 529,
+	AvatarIceking = 530,
+	AvatarBanana = 531,
+	AvatarFarmer = 532,
+	AvatarFirefighter = 533,
+	AvatarGingerbread = 534,
+	AvatarMechapilot = 535,
+	AvatarPirate = 536,
+	AvatarRennyBest = 537,
+	AvatarRennyBanana = 538,
+	AvatarRobot = 539,
+	AvatarVikingfemale = 540,
 	FootprintDot = 111,
 }
 

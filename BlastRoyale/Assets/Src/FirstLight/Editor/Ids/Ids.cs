@@ -436,6 +436,17 @@ namespace FirstLight.Editor.Ids
 			{"AvatarNflarmed", 527, ProfilePicture, Collection},
 			{"AvatarPilotarmed", 528, ProfilePicture, Collection},
 			{"AvatarWitch", 529, ProfilePicture, Collection},
+			{"AvatarIceking", 530, ProfilePicture, Collection},
+			{"AvatarBanana", 531, ProfilePicture, Collection},
+			{"AvatarFarmer", 532, ProfilePicture, Collection},
+			{"AvatarFirefighter", 533, ProfilePicture, Collection},
+			{"AvatarGingerbread", 534, ProfilePicture, Collection},
+			{"AvatarMechapilot", 535, ProfilePicture, Collection},
+			{"AvatarPirate", 536, ProfilePicture, Collection},
+			{"AvatarRennyBest", 537, ProfilePicture, Collection},
+			{"AvatarRennyBanana", 538, ProfilePicture, Collection},
+			{"AvatarRobot", 539, ProfilePicture, Collection},
+			{"AvatarVikingfemale", 540, ProfilePicture, Collection},
 
 			#endregion
 

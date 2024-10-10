@@ -2525,6 +2525,83 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarIceking, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarBanana, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFarmer, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFirefighter, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarGingerbread, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMechapilot, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPirate, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRennyBest, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRennyBanana, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRobot, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarVikingfemale, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -3038,7 +3115,18 @@ namespace Quantum
 						GameId.AvatarAuraarmed,
 						GameId.AvatarNflarmed,
 						GameId.AvatarPilotarmed,
-						GameId.AvatarWitch
+						GameId.AvatarWitch,
+						GameId.AvatarIceking,
+						GameId.AvatarBanana,
+						GameId.AvatarFarmer,
+						GameId.AvatarFirefighter,
+						GameId.AvatarGingerbread,
+						GameId.AvatarMechapilot,
+						GameId.AvatarPirate,
+						GameId.AvatarRennyBest,
+						GameId.AvatarRennyBanana,
+						GameId.AvatarRobot,
+						GameId.AvatarVikingfemale
 					}.AsReadOnly()
 				},
 				{
@@ -3463,7 +3551,18 @@ namespace Quantum
 						GameId.AvatarAuraarmed,
 						GameId.AvatarNflarmed,
 						GameId.AvatarPilotarmed,
-						GameId.AvatarWitch
+						GameId.AvatarWitch,
+						GameId.AvatarIceking,
+						GameId.AvatarBanana,
+						GameId.AvatarFarmer,
+						GameId.AvatarFirefighter,
+						GameId.AvatarGingerbread,
+						GameId.AvatarMechapilot,
+						GameId.AvatarPirate,
+						GameId.AvatarRennyBest,
+						GameId.AvatarRennyBanana,
+						GameId.AvatarRobot,
+						GameId.AvatarVikingfemale
 					}.AsReadOnly()
 				},
 				{

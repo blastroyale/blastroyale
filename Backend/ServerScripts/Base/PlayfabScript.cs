@@ -273,17 +273,52 @@ public abstract class PlayfabScript : IScript
 		Console.WriteLine($"Processing {segmentResult.Result.PlayerProfiles.Count} Players");
 		return segmentResult.Result.PlayerProfiles;
 	}
-
+	
+	
+	
 	protected async Task<List<PlayerProfile>> GetPlayerSegmentByName(string segmentName)
 	{
-		var segmentId = await GetSegmentID(segmentName);
-		if (segmentId == null)
-		{
-			throw new Exception($"Segment {segmentName} not found!");
-		}
+		const uint MAX_BATCH_SIZE = 10000;
+		
+		var allPlayerProfiles = new List<PlayerProfile>();
+		string continuationToken = null;
 
-		return await GetPlayerSegment(segmentId);
+		Console.WriteLine($"Starting to retrieve players for segment: {segmentName}");
+
+		do
+		{
+			var segmentResult = await PlayFabServerAPI.GetPlayersInSegmentAsync(new GetPlayersInSegmentRequest()
+			{
+				SegmentId = await GetSegmentID(segmentName),
+				MaxBatchSize = MAX_BATCH_SIZE,
+				ContinuationToken = continuationToken
+			});
+
+			HandleError(segmentResult.Error);
+
+			if (segmentResult.Result.PlayerProfiles != null)
+			{
+				allPlayerProfiles.AddRange(segmentResult.Result.PlayerProfiles);
+			}
+
+			continuationToken = segmentResult.Result.ContinuationToken;
+
+			if (!string.IsNullOrEmpty(continuationToken))
+			{
+				Console.WriteLine($"Continuation token present on Playfab Response. Proceeding to next batch of {MAX_BATCH_SIZE} players...");
+			}
+			else
+			{
+				Console.WriteLine($"No more continuation token. All players have been retrieved for Segment {segmentName}.");
+			}
+
+		} while (!string.IsNullOrEmpty(continuationToken)); 
+
+		Console.WriteLine($"Completed retrieving players for segment: {segmentName}. Total players: {allPlayerProfiles.Count}");
+
+		return allPlayerProfiles;
 	}
+
 
 	protected async Task<string?> GetPlayfabID(string email)
 	{

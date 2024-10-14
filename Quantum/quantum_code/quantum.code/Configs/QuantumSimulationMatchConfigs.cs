@@ -66,6 +66,41 @@ namespace Quantum
 	}
 
 	[Serializable]
+	public class GameModeReward
+	{
+		public GameId Id;
+		public int Amount;
+		
+		public GameModeReward Clone()
+		{
+			return (GameModeReward)MemberwiseClone();
+		}
+
+		protected bool Equals(GameModeReward other)
+		{
+			return Id == other.Id && Amount.Equals(other.Amount);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != this.GetType()) return false;
+			return Equals((GameModeReward)obj);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				var hashCode = (int)Id;
+				hashCode = (hashCode * 397) ^ Amount.GetHashCode();
+				return hashCode;
+			}
+		}
+	}
+
+	[Serializable]
 	public class RewardModifier
 	{
 		public GameId Id;
@@ -113,6 +148,7 @@ namespace Quantum
 		[DefaultValue(Mutator.None)] public Mutator Mutators = Mutator.None;
 		public string[] WeaponsSelectionOverwrite;
 		public MetaItemDropOverwrite[] MetaItemDropOverwrites;
+		public GameModeReward[] WinRewardBonus;
 		public RewardModifier[] RewardModifiers;
 		public bool DisableBots;
 		[DefaultValue(-1)] public int BotOverwriteDifficulty = -1;
@@ -142,6 +178,9 @@ namespace Quantum
 			return simulationConfig;
 		}
 
+		/// <summary>
+		/// If you change this need to bump version in MatchRoomSetup
+		/// </summary>
 		public void Serialize(BitStream stream)
 		{
 			stream.Serialize(ref UniqueConfigId);
@@ -191,6 +230,16 @@ namespace Quantum
 				stream.Serialize(ref overwrite.Id);
 				stream.Serialize(ref overwrite.Multiplier);
 				stream.Serialize(ref overwrite.CollectedInsideGame);
+			}
+			
+			WinRewardBonus ??= Array.Empty<GameModeReward>();
+			stream.SerializeArrayLength(ref WinRewardBonus);
+			for (var i = 0; i < WinRewardBonus.Length; i++)
+			{
+				WinRewardBonus[i] ??= new GameModeReward();
+				var reward = WinRewardBonus[i];
+				stream.Serialize(ref reward.Id);
+				stream.Serialize(ref reward.Amount);
 			}
 		}
 	}

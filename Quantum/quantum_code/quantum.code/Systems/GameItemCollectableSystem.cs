@@ -7,13 +7,20 @@ namespace Quantum.Systems
 		{
 			if (consumableType != ConsumableType.GameItem) return;
 
+			AddToMetaCollectedItems(f, collectableGameId, player, 1);
+			f.Events.GameItemCollected(entity, player, collectableGameId, 1);
+		}
+		
+		public static void AddToMetaCollectedItems(Frame f, GameId id, PlayerRef player , ushort amount)
+		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var collectedItems = gameContainer->PlayersData[player].CollectedMetaItems;
 			var dict = f.ResolveDictionary(collectedItems);
-			dict.TryGetValue(collectableGameId, out var collected);
-			collected += 1;
-			dict[collectableGameId] = collected;
-			f.Events.GameItemCollected(entity, player, collectableGameId, 1);
+			dict.TryGetValue(id, out var collected);
+			collected += amount;
+			dict[id] = collected;
 		}
 	}
+	
+	
 }

@@ -134,6 +134,11 @@ namespace Quantum.Systems
 
 			playerDead->Dead(f, entity, attacker, fromRoofDamage);
 
+			if (playerDead->IsAfk(f))
+			{
+				return;
+			}
+			
 			// Don't drop items for last player dead
 			if (f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameGoingToEndWithKill(f, entity))
 			{
@@ -174,7 +179,7 @@ namespace Quantum.Systems
 							break;
 					}
 				}
-
+				
 				foreach (var metaItemDropOverwrite in f.RuntimeConfig.MatchConfigs.MetaItemDropOverwrites
 							 .Where(d => d.Place == DropPlace.Player))
 				{
@@ -366,7 +371,7 @@ namespace Quantum.Systems
 		{
 			if (filter.Player->InputSnapshot == inputHashCode)
 			{
-				if (f.Time - filter.Player->LastNoInputTimeSnapshot > f.GameConfig.NoInputKillTime)
+				if (filter.Player->IsAfk(f))
 				{
 					f.Signals.PlayerKilledByBeingAFK(filter.Player->Player);
 					f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);

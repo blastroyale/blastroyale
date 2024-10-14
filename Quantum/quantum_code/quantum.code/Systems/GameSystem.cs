@@ -56,7 +56,7 @@ namespace Quantum.Systems
 
 			gameContainer->GameOverTime = f.Time;
 			gameContainer->IsGameOver = true;
-
+			
 			foreach (var livingPlayer in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
 				if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter) && !f.Has<BotCharacter>(livingPlayer.Entity))

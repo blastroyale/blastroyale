@@ -134,7 +134,7 @@ namespace Quantum.Systems
 
 			playerDead->Dead(f, entity, attacker, fromRoofDamage);
 
-			if (playerDead->IsAfk(f))
+			if (playerDead->IsAfk(f) && !f.Has<BotCharacter>(entity))
 			{
 				return;
 			}

@@ -1,3 +1,6 @@
+using FirstLight.Game.Utils;
+using Unity.Services.Authentication;
+
 namespace FirstLight.Game.Services.Analytics.Events
 {
 	/// <summary>
@@ -14,6 +17,7 @@ namespace FirstLight.Game.Services.Analytics.Events
 			SetParameter(AnalyticsParameters.MUTATORS, mutators);
 			SetParameter(AnalyticsParameters.MAP_ID, mapId);
 			SetParameter(AnalyticsParameters.ITEM_TYPE, itemType);
+			SetParameter(AnalyticsParameters.USER_IP, NetworkExtensions.GetLocalIPAddress());
 		}
 	}
 }

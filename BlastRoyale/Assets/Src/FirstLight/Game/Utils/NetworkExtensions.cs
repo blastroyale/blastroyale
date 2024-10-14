@@ -1,4 +1,8 @@
+using System;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using FirstLight.FLogger;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules;
@@ -76,6 +80,25 @@ namespace FirstLight.Game.Utils
 		{
 			return runner.Game.Frames.Verified;
 		}
-		
+        
+		public static string GetLocalIPAddress()
+		{
+			try
+			{
+				var host = Dns.GetHostEntry(Dns.GetHostName());
+				foreach (var ip in host.AddressList)
+				{
+					if (ip.AddressFamily == AddressFamily.InterNetwork)
+					{
+						return ip.ToString();
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				FLog.Error("Error reading user local ip", e);
+			}
+			return "127.0.0.1";
+		}
 	}
 }

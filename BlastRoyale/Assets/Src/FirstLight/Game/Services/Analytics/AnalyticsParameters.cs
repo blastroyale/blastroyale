@@ -5,6 +5,8 @@ namespace FirstLight.Game.Services.Analytics
 	/// </summary>
 	public static class AnalyticsParameters
 	{
+		public const string USER_IP = "user_ip"; // string
+		
 		#region Tutorial
 
 		public const string TUTORIAL_STEP_NAME = "tutorial_step_name"; // string

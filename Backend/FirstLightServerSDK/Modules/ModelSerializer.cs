@@ -12,6 +12,8 @@ namespace FirstLight.Server.SDK.Modules
 	/// </summary>
 	public static class ModelSerializer
 	{
+		private static object _lock = new object();
+		
 		public static JsonSerializerSettings _settings = new JsonSerializerSettings()
 		{
 			NullValueHandling = NullValueHandling.Ignore,
@@ -21,12 +23,16 @@ namespace FirstLight.Server.SDK.Modules
 
 		public static void RegisterConverter(JsonConverter converter)
 		{
-			if (_settings.Converters.Any(c => c.GetType() == converter.GetType()))
+			if (_settings.Converters.All(c => c.GetType() != converter.GetType()))
 			{
-				return;
+				lock (_lock)
+				{
+					if (_settings.Converters.All(c => c.GetType() != converter.GetType()))
+					{
+						_settings.Converters.Add(converter);
+					}
+				}
 			}
-
-			_settings.Converters.Add(converter);
 		}
 
 		/// <summary>

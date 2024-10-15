@@ -67,12 +67,5 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		services.NetworkService.QuantumClient.Disconnect(DisconnectCause.DisconnectByClientLogic);
 	}
-
-
-	[Category("Network")]
-	public bool EnableCommitRoomLock
-	{
-		get => RemoteConfigs.Instance != null && RemoteConfigs.Instance.EnableCommitVersionLock;
-		set => RemoteConfigs.Instance.EnableCommitVersionLock = value;
-	}
+	
 }

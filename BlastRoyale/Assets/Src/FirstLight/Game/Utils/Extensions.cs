@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;

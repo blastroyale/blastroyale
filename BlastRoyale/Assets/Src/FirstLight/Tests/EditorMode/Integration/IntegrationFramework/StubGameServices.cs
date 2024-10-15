@@ -64,7 +64,7 @@ namespace FirstLight.Tests.EditorMode
 		public IRewardService RewardService { get; set; }
 		public IGameSocialService GameSocialService { get; set; }
 		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
-		
+
 		public INotificationService NotificationService { get; }
 		public IBuffService BuffService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
@@ -97,7 +97,7 @@ namespace FirstLight.Tests.EditorMode
 
 			InGameNotificationService = new InGameNotificationService(UIService);
 
-			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService);
+			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService, gameLogic.RemoteConfigProvider);
 
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
@@ -110,9 +110,11 @@ namespace FirstLight.Tests.EditorMode
 			FLLobbyService = new StubFLLobbyService();
 			CoroutineService = new StubCoroutineService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
-			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService, MessageBrokerService);
-			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService, GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
+			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService, gameLogic.RemoteConfigProvider);
+			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService,
+				MessageBrokerService);
+			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
+				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();

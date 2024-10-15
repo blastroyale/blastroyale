@@ -28,6 +28,11 @@ namespace FirstLight.Tests.EditorMode
 			return false;
 		}
 
+		public bool IsGameOutdated(out string message)
+		{
+			throw new NotImplementedException();
+		}
+
 		public string GetTitleVersion()
 		{
 			return null;
@@ -56,6 +61,15 @@ namespace FirstLight.Tests.EditorMode
 		}
 
 		public bool ForcedEnvironment => false;
+		public bool IsGameInMaintenanceOrOutdated(bool openPopups)
+		{
+			return false;
+		}
+
+		public UniTask<bool> UpdateConfigs(params Type[] types)
+		{
+			throw new NotImplementedException();
+		}
 
 		public void SetupBackendEnvironment(FLEnvironment.Definition? force)
 		{
@@ -67,6 +81,11 @@ namespace FirstLight.Tests.EditorMode
 
 		public void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError)
 		{
+		}
+
+		public bool IsGameInMaintenance(out string message)
+		{
+			throw new NotImplementedException();
 		}
 
 		public void SetupBackendEnvironment()

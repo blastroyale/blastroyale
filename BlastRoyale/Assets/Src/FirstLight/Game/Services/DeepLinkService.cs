@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
+using FirstLightServerSDK.Services;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -14,12 +16,14 @@ namespace FirstLight.Game.Services
 	public class DeepLinkService
 	{
 		private readonly UIService.UIService _uiService;
+		private readonly IRemoteConfigProvider _remoteConfigProvider;
 
 		private string _deepLink;
 
-		public DeepLinkService(IMessageBrokerService messageBrokerService, UIService.UIService uiService)
+		public DeepLinkService(IMessageBrokerService messageBrokerService, UIService.UIService uiService, IRemoteConfigProvider remoteConfigProvider)
 		{
 			_uiService = uiService;
+			_remoteConfigProvider = remoteConfigProvider;
 			_deepLink = Application.absoluteURL;
 
 			Application.deepLinkActivated += OnDeepLinkActivated;
@@ -41,7 +45,7 @@ namespace FirstLight.Game.Services
 
 		private void ProcessDeepLink()
 		{
-			if (!RemoteConfigs.Instance.EnableDeepLinking) return;
+			if (!_remoteConfigProvider.GetConfig<GeneralConfig>().EnableDeepLinking) return;
 
 			var split = _deepLink.Replace("blastroyale://", string.Empty).Split('/');
 			var type = split[0];

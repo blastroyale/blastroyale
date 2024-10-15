@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLightServerSDK.Services;
 
 namespace FirstLight.Game.Configs.Remote
@@ -21,7 +20,9 @@ namespace FirstLight.Game.Configs.Remote
 			typeof(EventNotificationConfig),
 			typeof(FixedGameModesConfig),
 			typeof(LeaderboardSeasons),
-			typeof(MatchmakingQueuesConfig)
+			typeof(MatchmakingQueuesConfig),
+			typeof(GeneralConfig),
+			typeof(GameMaintenanceConfig)
 		};
 
 		public static void ValidateConfigs(IRemoteConfigProvider configProvider)

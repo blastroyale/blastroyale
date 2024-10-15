@@ -18,7 +18,7 @@ namespace FirstLight.NativeUi
 		public AlertButtonStyle Style;
 		public Action Callback;
 	}
-	
+
 	/// <summary>
 	/// This service provides the functionality to call native UI screens
 	/// </summary>
@@ -35,6 +35,15 @@ namespace FirstLight.NativeUi
 		public static void ShowAlertPopUp(bool isAlertSheet, string title, string message, params AlertButton[] buttons)
 		{
 #if UNITY_EDITOR
+			var ok = buttons.Length > 0 ? buttons[0].Text : "";
+			var cancel = buttons.Length > 1 ? buttons[1].Text : "";
+			var index = UnityEditor.EditorUtility.DisplayDialog(title, message, ok, cancel) ? 0 : 1;
+			if (buttons.Length > index)
+			{
+				buttons[index].Callback();
+			}
+
+
 			Debug.Log($"Show Alert Pop Up is not available in the editor and was triggered with: {title} - {message}");
 #elif UNITY_IOS
 			_currentButtons = buttons ?? throw new ArgumentException("The buttons count must be higher than zero");
@@ -101,7 +110,7 @@ namespace FirstLight.NativeUi
 			throw new SystemException("Show a Toast message is only available for iOS and Android platforms");
 #endif
 		}
-		
+
 #if UNITY_IOS
 		internal delegate void AlertButtonDelegate(string buttonText);
 		
@@ -135,7 +144,7 @@ namespace FirstLight.NativeUi
 		private class AndroidButtonCallback : AndroidJavaProxy
 		{
 			private readonly Action _callback;
-			
+
 			public AndroidButtonCallback(Action callback) : base("android.content.DialogInterface$OnClickListener")
 			{
 				_callback = callback;

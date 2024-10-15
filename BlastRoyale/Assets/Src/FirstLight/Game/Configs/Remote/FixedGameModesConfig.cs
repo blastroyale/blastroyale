@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
-using Newtonsoft.Json;
+using FirstLight.Game.Configs.Remote;
 using Quantum;
-using UnityEngine;
 using FirstLight.Game.Configs.Utils;
 
-namespace FirstLight.Game.Configs
+namespace FirstLight.Game.Configs.Remote
 {
 	[Serializable]
 	public class FixedGameModeEntry : IGameModeEntry

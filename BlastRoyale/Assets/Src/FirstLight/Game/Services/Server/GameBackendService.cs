@@ -5,15 +5,18 @@ using System.Net;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
+using FirstLight.NativeUi;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
+using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -37,11 +40,13 @@ namespace FirstLight.Game.Services
 		/// Updates the user nickname in playfab.
 		/// </summary>
 		void UpdateDisplayNamePlayfab(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError);
-		
+
 		/// <summary>
 		/// Execute a function using the generic endcpoint, to see current values look at <see cref="FirstLight.Server.SDK.Modules.Commands"/>
 		/// </summary>
-		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError, Dictionary<string, string> data = null);
+		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError,
+										Dictionary<string, string> data = null);
+
 		/// <summary>
 		/// Same as <see cref="CallGenericFunction"/>
 		/// </summary>
@@ -74,12 +79,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests to check if the game is currently in maintenance
 		/// </summary>
-		bool IsGameInMaintenance();
+		bool IsGameInMaintenance(out string message);
 
 		/// <summary>
 		/// Requests to check if the current game version is outdated
 		/// </summary>
-		bool IsGameOutdated();
+		bool IsGameOutdated(out string message);
 
 		/// <summary>
 		/// Requests the title version downloaded at authentication time
@@ -115,6 +120,14 @@ namespace FirstLight.Game.Services
 		/// If the environment was forced by a redirect
 		/// </summary>
 		public bool ForcedEnvironment { get; }
+
+		/// <summary>
+		/// Return true if the game is outdated or in maintanance
+		/// </summary>
+		public bool IsGameInMaintenanceOrOutdated(bool openPopups);
+
+		/// <see cref="UnityRemoteConfigProvider.UpdateConfigWhenExpired"/>
+		public UniTask<bool> UpdateConfigs(params Type[] types);
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -131,6 +144,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameServices _services;
 
 		public bool ForcedEnvironment { get; private set; }
+
 		private readonly string _leaderboardLadderName;
 
 		public GameBackendService(IMessageBrokerService msgBroker, IGameDataProvider dataProvider, IGameServices services, IDataService dataService,
@@ -168,6 +182,7 @@ namespace FirstLight.Game.Services
 				{
 					_services.AuthenticationService.SetLinkedDevice(false);
 				}
+
 				AuthenticationService.Instance.SignOut(true);
 				appData.LastEnvironmentName = FLEnvironment.Current.Name;
 
@@ -219,7 +234,8 @@ namespace FirstLight.Game.Services
 			});
 		}
 
-		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError, Dictionary<string, string> data = null)
+		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError,
+										Dictionary<string, string> data = null)
 		{
 			CallFunction("Generic", onSuccess, onError, new LogicRequest()
 			{
@@ -242,7 +258,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		/// <inheritdoc />
 		private void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
-								 Action<PlayFabError> onError, object parameter = null)
+								  Action<PlayFabError> onError, object parameter = null)
 		{
 			var request = new ExecuteFunctionRequest
 			{
@@ -367,31 +383,92 @@ namespace FirstLight.Game.Services
 			}, e => { HandleError(e, onError); });
 		}
 
-		public bool IsGameInMaintenance()
+		public bool IsGameInMaintenance(out string message)
 		{
-			var titleData = _services.GameAppService.AppData;
+			var cfg = _dataProvider.RemoteConfigProvider.GetConfig<GameMaintenanceConfig>();
 
-			return titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) &&
-				VersionUtils.IsOutdatedVersion(version);
+			if (cfg.Maintenance)
+			{
+				message = cfg.MaintenanceMessage;
+				return true;
+			}
+
+			message = null;
+			return false;
 		}
 
-		public bool IsGameOutdated()
+		public bool IsGameOutdated(out string message)
 		{
-			var titleVersion = GetTitleVersion();
-
-			return VersionUtils.IsOutdatedVersion(titleVersion);
+			var cfg = _dataProvider.RemoteConfigProvider.GetConfig<GameMaintenanceConfig>();
+			message = cfg.VersionBlockMessage;
+			return VersionUtils.IsOutdatedVersion(cfg.AllowedVersion);
 		}
 
 		public string GetTitleVersion()
 		{
-			var titleData = _services.GameAppService.AppData;
+			return _dataProvider.RemoteConfigProvider.GetConfig<GameMaintenanceConfig>().AllowedVersion;
+		}
 
-			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
+		public async UniTask<bool> UpdateConfigs(params Type[] types)
+		{
+			var serv = ((IGameRemoteConfigProvider) _dataProvider.RemoteConfigProvider);
+			var secondsTtl = serv.GetConfig<GeneralConfig>().ConfigCacheInSeconds;
+			return await serv.UpdateConfigWhenExpired(TimeSpan.FromSeconds(secondsTtl), types);
+		}
+
+		public bool IsGameInMaintenanceOrOutdated(bool openPopups)
+		{
+			string msg;
+			if (IsGameInMaintenance(out msg))
 			{
-				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
+				OpenMaintenanceDialog(msg);
 			}
 
-			return titleVersion;
+			if (IsGameOutdated(out msg))
+			{
+				OpenGameUpdateDialog(msg);
+				return true;
+			}
+
+			return false;
+		}
+
+		private void OpenGameUpdateDialog(string msg)
+		{
+			var confirmButton = new AlertButton
+			{
+				Text = ScriptLocalization.General.Confirm,
+				Style = AlertButtonStyle.Positive,
+				Callback = OpenStore
+			};
+
+			var message = string.Format(msg, VersionUtils.VersionExternal,
+				_services.GameBackendService.GetTitleVersion());
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NewGameUpdate, message, confirmButton);
+
+			void OpenStore()
+			{
+#if UNITY_IOS
+				Application.OpenURL(GameConstants.Links.APP_STORE_IOS);
+#elif UNITY_ANDROID
+				Application.OpenURL(GameConstants.Links.APP_STORE_GOOGLE_PLAY);
+#endif
+				_services.QuitGame("Closing game blocked dialog");
+			}
+		}
+
+		private void OpenMaintenanceDialog(string msg)
+		{
+			var confirmButton = new AlertButton
+			{
+				Text = ScriptLocalization.General.Confirm,
+				Style = AlertButtonStyle.Default,
+				Callback = () => { _services.QuitGame("Closing game blocked dialog"); }
+			};
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance,
+				msg, confirmButton);
 		}
 	}
 }

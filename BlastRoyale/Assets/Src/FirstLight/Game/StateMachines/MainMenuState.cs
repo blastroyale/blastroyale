@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -234,7 +235,7 @@ namespace FirstLight.Game.StateMachines
 			customGameLobby.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchLobbyScreenPresenter>(false).Forget());
 
-			customGamesList.OnEnter(OpenCustomGameList);
+			customGamesList.OnEnter(() => OpenCustomGameList().Forget());
 			customGamesList.Event(RoomJoinCreateBackClickedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
@@ -433,7 +434,8 @@ namespace FirstLight.Game.StateMachines
 
 		private bool CheckInvalidTeamSize()
 		{
-			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) > _services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.TeamSize;
+			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) >
+				_services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.TeamSize;
 		}
 
 		private async UniTaskVoid TogglePartyReadyStatus()
@@ -514,16 +516,22 @@ namespace FirstLight.Game.StateMachines
 			}).Forget();
 		}
 
-		private void OpenCustomGameList()
+		private async UniTaskVoid OpenCustomGameList()
 		{
 			// Leave party if player has one
 			if (_services.FLLobbyService.IsInPartyLobby())
 				_services.FLLobbyService.LeaveParty().Forget();
 
-			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
+			await _services.GameBackendService.UpdateConfigs(typeof(GameMaintenanceConfig));
+			if (_services.GameBackendService.IsGameInMaintenanceOrOutdated(true))
+			{
+				return;
+			}
+
+			await _services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
 				BackClicked = () => _statechartTrigger(RoomJoinCreateBackClickedEvent),
-			}).Forget();
+			});
 		}
 
 		private async UniTaskVoid OpenHomeScreen()

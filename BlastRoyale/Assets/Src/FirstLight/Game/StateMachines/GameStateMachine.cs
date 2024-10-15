@@ -1,10 +1,12 @@
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
+using FirstLightServerSDK.Services;
 using I2.Loc;
 using Quantum.Systems.Bots;
 using Unity.Services.UserReporting;
@@ -121,7 +123,7 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic.Init();
 			_services.GameModeService.Init();
 			_services.IAPService.Init();
-			InitUserReporting(_services).Forget(); // TODO: Move this to Startup when we can await for auth there
+			InitUserReporting(_services, _gameLogic.RemoteConfigProvider).Forget(); // TODO: Move this to Startup when we can await for auth there
 		}
 
 		private void OpenNoInternetPopUp()
@@ -148,9 +150,9 @@ namespace FirstLight.Game.StateMachines
 #endif
 		}
 
-		private static async UniTaskVoid InitUserReporting(IGameServices services)
+		private static async UniTaskVoid InitUserReporting(IGameServices services, IRemoteConfigProvider remoteConfig)
 		{
-			if (!RemoteConfigs.Instance.ShowBugReportButton) return;
+			if (!remoteConfig.GetConfig<GeneralConfig>().ShowBugReportButton) return;
 
 			var customConfig = new UserReportingClientConfiguration(100, 300, 60, 1);
 			UserReportingService.Instance.Configure(customConfig);

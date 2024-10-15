@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -214,7 +215,7 @@ namespace FirstLight.Game.Presenters
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
-			_betaLabel.SetDisplay(RemoteConfigs.Instance.ShowBetaLabel);
+			_betaLabel.SetDisplay(_dataProvider.RemoteConfigProvider.GetConfig<GeneralConfig>().ShowBetaLabel);
 			
 			RefreshOnlineFriends();
 			UpdatePFP();

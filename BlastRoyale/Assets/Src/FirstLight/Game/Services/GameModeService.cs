@@ -5,13 +5,8 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
-using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
-using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
@@ -19,7 +14,6 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -91,6 +85,13 @@ namespace FirstLight.Game.Services
 		/// Mark an event as seen
 		/// </summary>
 		public void MarkSeen(GameModeInfo info);
+
+		/// <summary>
+		/// Check if a given simulation match config is a valid event, it compares every field
+		/// </summary>
+		public bool IsInRotation(SimulationMatchConfig matchConfig);
+
+		public void SelectValidGameMode();
 	}
 
 	/// <inheritdoc cref="IGameModeService"/>
@@ -144,7 +145,8 @@ namespace FirstLight.Game.Services
 		}
 
 		public GameModeService(IConfigsProvider configsProvider, IFLLobbyService lobbyService,
-							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService, IMessageBrokerService msgBroker)
+							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService,
+							   IMessageBrokerService msgBroker)
 		{
 			_configsProvider = configsProvider;
 			_lobbyService = lobbyService;
@@ -160,7 +162,8 @@ namespace FirstLight.Game.Services
 
 		public void Init()
 		{
-			foreach (var uniqueUrls in Slots.Where(slot => slot.Entry is EventGameModeEntry).Select(slot => ((EventGameModeEntry) slot.Entry).ImageURL).Distinct())
+			foreach (var uniqueUrls in Slots.Where(slot => slot.Entry is EventGameModeEntry)
+						 .Select(slot => ((EventGameModeEntry) slot.Entry).ImageURL).Distinct())
 			{
 				if (uniqueUrls == null) continue;
 				_remoteTextureService.RequestTexture(uniqueUrls).Forget();
@@ -242,6 +245,31 @@ namespace FirstLight.Game.Services
 			{
 				AutoSelectGameModeForTeamSize(_lobbyService.CurrentPartyLobby.Players.Count);
 			}
+		}
+
+		public bool IsInRotation(SimulationMatchConfig matchConfig)
+		{
+			var match = matchConfig.ToByteArray();
+			foreach (var gameModeInfo in Slots)
+			{
+				if (IsInRotation(gameModeInfo.Entry) && matchConfig.UniqueConfigId == gameModeInfo.Entry.MatchConfig.UniqueConfigId)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public void SelectValidGameMode()
+		{
+			if (_lobbyService.IsInPartyLobby())
+			{
+				AutoSelectGameModeForTeamSize(_lobbyService.CurrentPartyLobby.Players.Count);
+				return;
+			}
+
+			AutoSelectGameModeForTeamSize(1);
 		}
 
 		public bool IsInRotation(IGameModeEntry gameMode)

@@ -142,7 +142,7 @@ namespace FirstLight.Game.Services.RoomService
 		private readonly IGameBackendService _backendService;
 		internal readonly IConfigsProvider _configsProvider;
 		private readonly ICoroutineService _coroutineService;
-		private readonly IGameDataProvider _dataProvider;
+		internal readonly IGameDataProvider _dataProvider;
 		private readonly ILeaderboardService _leaderboardService;
 		private readonly HashSet<ClientState> _joiningStates = new (new[] {ClientState.Joining, ClientState.Joined, ClientState.JoinedLobby, ClientState.JoiningLobby});
 		public bool IsJoiningRoom => _joiningStates.Contains(_networkService.QuantumClient.State);

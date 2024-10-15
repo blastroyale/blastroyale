@@ -11,7 +11,7 @@ namespace FirstLight.Game.Utils
 {
 	public static class FLEnvironment
 	{
-		private const string BUILD_FILE_TEMPLATE = "https://cdn.blastroyale.com/builds/{0}.json";
+		private const string BUILD_FILE_TEMPLATE = "https://cdn.blastroyale.com/builds/{0}_{1}.json";
 
 		private const string ENV_KEY = "FLG_ENVIRONMENT";
 
@@ -216,7 +216,7 @@ namespace FirstLight.Game.Utils
 
 		private static async Task<(bool Success, Definition Definition)> TryGetEnvironmentRedirect(string gameBuild)
 		{
-			var path = string.Format(BUILD_FILE_TEMPLATE, gameBuild);
+			var path = string.Format(BUILD_FILE_TEMPLATE, Application.platform.ToString(), gameBuild);
 			FLog.Info($"Downloading redirect info from {path}");
 			try
 			{

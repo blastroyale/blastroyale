@@ -26,6 +26,8 @@ component DeadPlayerCharacter
 	FP TimeOfDeath;
 }
 
+component AfkPlayer { }
+
 struct WeaponSlot
 {
 	Equipment Weapon;

@@ -134,7 +134,7 @@ namespace Quantum.Systems
 
 			playerDead->Dead(f, entity, attacker, fromRoofDamage);
 
-			if (playerDead->IsAfk(f) && !f.Has<BotCharacter>(entity))
+			if (f.Has<AfkPlayer>(entity))
 			{
 				return;
 			}
@@ -373,6 +373,7 @@ namespace Quantum.Systems
 			{
 				if (filter.Player->IsAfk(f))
 				{
+					f.Add<AfkPlayer>(filter.Entity);
 					f.Signals.PlayerKilledByBeingAFK(filter.Player->Player);
 					f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);
 				}

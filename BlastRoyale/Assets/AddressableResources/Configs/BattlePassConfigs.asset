@@ -69,7 +69,7 @@ MonoBehaviour:
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 01/09/2024
-      EndsAt: 01/10/2024
+      EndsAt: 31/10/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__gbones-season-reward
       EndGraphicName: G BONES
@@ -78,7 +78,7 @@ MonoBehaviour:
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
-      StartsAt: 02/10/2024
+      StartsAt: 01/11/2024
       EndsAt: 31/12/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__iceking-season-reward

@@ -36,15 +36,15 @@ MonoBehaviour:
       Modifiers:
       - Op: 0
         Value:
-          RawValue: 1310720
+          RawValue: 2621440
         Stat: 6
       - Op: 0
         Value:
-          RawValue: 1310720
+          RawValue: 2621440
         Stat: 0
       - Op: 0
         Value:
-          RawValue: 1310720
+          RawValue: 2621440
         Stat: 3
     - Id: 2
       Modifiers:

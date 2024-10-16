@@ -109,7 +109,17 @@ namespace FirstLight.Game.Services
 	public class JoinedMatchmaking
 	{
 		public string TicketId;
-		public MatchRoomSetup RoomSetup;
+		public string RoomSetupBase64;
+
+		public MatchRoomSetup DeserializeRoomSetup() 
+		{
+			var bytes = Convert.FromBase64String(RoomSetupBase64);
+			if (!MatchRoomSetup.TryParseMatchRoomSetup(bytes, out var setup))
+			{
+				throw new Exception("Could not deserialize MatchRoomSetup");
+			}
+			return setup;
+		}
 	}
 
 	/// <inheritdoc cref="IMatchmakingService"/>
@@ -214,12 +224,13 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			var queueName = _gameModeService.GetTeamSizeFor(model.RoomSetup.SimulationConfig).QueueName;
+			var roomSetup = model.DeserializeRoomSetup();
+			var queueName = _gameModeService.GetTeamSizeFor(roomSetup.SimulationConfig).QueueName;
 			var req = new JoinMatchmakingTicketRequest()
 			{
 				QueueName = queueName,
 				TicketId = model.TicketId,
-				Member = CreateLocalMatchmakingPlayer(model.RoomSetup)
+				Member = CreateLocalMatchmakingPlayer(roomSetup)
 			};
 			PlayFabMultiplayerAPI.JoinMatchmakingTicket(req, result =>
 			{
@@ -236,7 +247,7 @@ namespace FirstLight.Game.Services
 				_pooling.Stop();
 			}
 
-			_pooling = new MatchmakingPooling(mm.TicketId, mm.RoomSetup, this, _coroutines);
+			_pooling = new MatchmakingPooling(mm.TicketId, mm.DeserializeRoomSetup(), this, _coroutines);
 			_pooling.Start();
 			FLog.Info("Started polling");
 		}
@@ -349,11 +360,11 @@ namespace FirstLight.Game.Services
 				}, r =>
 				{
 					FLog.Info($"Matchmaking ticket {r.TicketId} created!");
-
+					
 					var mm = new JoinedMatchmaking
 					{
 						TicketId = r.TicketId,
-						RoomSetup = setup
+						RoomSetupBase64 = Convert.ToBase64String(setup.ToByteArray())
 					};
 					if (partyLobby != null && partyLobby.IsLocalPlayerHost())
 					{
@@ -394,7 +405,7 @@ namespace FirstLight.Game.Services
 
 		private void InvokeJoinedMatchmaking(JoinedMatchmaking mm)
 		{
-			var queueName = _gameModeService.GetTeamSizeFor(mm.RoomSetup.SimulationConfig).QueueName;
+			var queueName = _gameModeService.GetTeamSizeFor(mm.DeserializeRoomSetup().SimulationConfig).QueueName;
 			_localData.LastQueue = queueName;
 			_localMatchmakingData.SaveData<MatchmakingData>();
 			OnMatchmakingJoined?.Invoke(mm);

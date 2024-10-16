@@ -422,6 +422,7 @@ namespace FirstLight.Game.Services
 			if (IsGameInMaintenance(out msg))
 			{
 				OpenMaintenanceDialog(msg);
+				return true;
 			}
 
 			if (IsGameOutdated(out msg))
@@ -435,17 +436,10 @@ namespace FirstLight.Game.Services
 
 		private void OpenGameUpdateDialog(string msg)
 		{
-			var confirmButton = new AlertButton
-			{
-				Text = ScriptLocalization.General.Confirm,
-				Style = AlertButtonStyle.Positive,
-				Callback = OpenStore
-			};
-
 			var message = string.Format(msg, VersionUtils.VersionExternal,
 				_services.GameBackendService.GetTitleVersion());
 
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NewGameUpdate, message, confirmButton);
+			NativeUiService.ShowAlertPopUp(ScriptLocalization.General.NewGameUpdate, message, ScriptLocalization.General.Confirm, OpenStore);
 
 			void OpenStore()
 			{
@@ -460,15 +454,14 @@ namespace FirstLight.Game.Services
 
 		private void OpenMaintenanceDialog(string msg)
 		{
-			var confirmButton = new AlertButton
-			{
-				Text = ScriptLocalization.General.Confirm,
-				Style = AlertButtonStyle.Default,
-				Callback = () => { _services.QuitGame("Closing game blocked dialog"); }
-			};
+			var cfg = _dataProvider.RemoteConfigProvider.GetConfig<GameMaintenanceConfig>();
 
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance,
-				msg, confirmButton);
+			NativeUiService.ShowAlertPopUp(ScriptLocalization.General.Maintenance, msg, cfg.MaintenanceButtonText, () =>
+			{
+				Application.OpenURL(cfg.MaintenanceButtonLink);
+				_services.QuitGame("Closing game blocked dialog");
+				OpenMaintenanceDialog(msg);
+			});
 		}
 	}
 }

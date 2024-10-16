@@ -24,6 +24,16 @@ namespace FirstLight.NativeUi
 	/// </summary>
 	public static class NativeUiService
 	{
+		public static void ShowAlertPopUp(string title, string message, string buttonText, Action onConfirmOrClose)
+		{
+			ShowAlertPopUp(false, title, message, new AlertButton()
+			{
+				Callback = onConfirmOrClose,
+				Style = AlertButtonStyle.Default,
+				Text = buttonText
+			});
+		}
+
 		/// <summary>
 		/// Shows an alert native OS message popup with the given <paramref name="title"/>, <paramref name="message"/>
 		/// and the <paramref name="buttons"/> ordered from left to right.
@@ -43,7 +53,6 @@ namespace FirstLight.NativeUi
 				buttons[index].Callback();
 			}
 
-
 			Debug.Log($"Show Alert Pop Up is not available in the editor and was triggered with: {title} - {message}");
 #elif UNITY_IOS
 			_currentButtons = buttons ?? throw new ArgumentException("The buttons count must be higher than zero");
@@ -59,22 +68,23 @@ namespace FirstLight.NativeUi
 
 			AlertMessage(isAlertSheet, title, message, buttonsText, buttonsStyle, buttons.Length, AlertButtonCallback);
 #elif UNITY_ANDROID
-			using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-			using (var unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
-			using (var alertDialogBuilder = new AndroidJavaObject("android.app.AlertDialog$Builder", unityActivity))
-			using (var alertDialog = alertDialogBuilder.Call<AndroidJavaObject>("create"))
-			{
-				alertDialog.Call("setTitle", title);
-				alertDialog.Call("setMessage", message);
-				
-				for (var i = 0; i < buttons.Length; i++) 
-				{
-					alertDialog.Call("setButton", ConvertToAndroidStyle(buttons[i].Style), 
-						buttons[i].Text, new AndroidButtonCallback(buttons[i].Callback));
-				}
-				
-				alertDialog.Call("show");
-			}
+	using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+				using (var unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+					using (var alertDialogBuilder = new AndroidJavaObject("android.app.AlertDialog$Builder", unityActivity))
+						using (var alertDialog = alertDialogBuilder.Call<AndroidJavaObject>("create"))
+						{
+							alertDialog.Call("setTitle", title);
+							alertDialog.Call("setMessage", message);
+							alertDialog.Call("setCanceledOnTouchOutside", false);
+							for (var i = 0; i < buttons.Length; i++)
+							{
+								alertDialog.Call("setButton", ConvertToAndroidStyle(buttons[i].Style),
+									buttons[i].Text, new AndroidButtonCallback(buttons[i].Callback));
+							}
+
+							alertDialog.Call("show");
+						}
+
 #else
 			throw new SystemException("Show an alert Pop Up is only available for iOS and Android platforms");
 #endif

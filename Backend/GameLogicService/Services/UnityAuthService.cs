@@ -43,7 +43,8 @@ public class UnityAuthService
 		_authenticatedClient = clientFactory.CreateClient("UnityTokenExchange");
 		_authenticatedClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", config.UnityCloudAuthToken);
 		_authenticatedClient.DefaultRequestHeaders.Add("ProjectId", PROJECT_ID);
-
+		_authenticatedClient.DefaultRequestHeaders.Add("x-project-id", PROJECT_ID); // magical undocumented header to increase RateLimit
+		
 		_customIDClient = clientFactory.CreateClient("UnityCustomID");
 		_customIDClient.DefaultRequestHeaders.Add("UnityEnvironment", _config.UnityCloudEnvironmentName);
 	}
@@ -74,7 +75,7 @@ public class UnityAuthService
 			}
 
 			_unityAccessToken = JsonConvert.DeserializeObject<TokenExchangeResponse>(tokenExchangeResponseStr)!.accessToken;
-			_unityAccessTokenExpiration = DateTime.Now.AddMinutes(45);
+			_unityAccessTokenExpiration = DateTime.Now.AddMinutes(40);
 			_customIDClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _unityAccessToken);
 		}
 	}

@@ -20,6 +20,10 @@ namespace Quantum
     /// </summary>
     public class CustomQuantumServer : DeterministicServer, IDisposable
     {
+        static CustomQuantumServer() {
+            FLGCustomSerializers.RegisterSerializers();
+        }
+        
         private static ResourceManagerStaticPreloaded _resourceManager;
         private static QuantumAssetSerializer _serializer = new QuantumAssetSerializer();
         private static Object _initializationLock = new Object();
@@ -44,7 +48,6 @@ namespace Quantum
             _receivedPlayers = new Dictionary<string, SetPlayerData>();
             _validPlayers = new Dictionary<int, SetPlayerData>();
             _actorNrToIndex = new Dictionary<int, int>();
-            FLGCustomSerializers.RegisterSerializers();
             if (photonConfig.TryGetValue("simulation", out var runSim) && runSim == "false")
             {
                 ServerSimulation = false;

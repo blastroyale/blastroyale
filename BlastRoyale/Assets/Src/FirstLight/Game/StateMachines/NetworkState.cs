@@ -216,14 +216,17 @@ namespace FirstLight.Game.StateMachines
 
 			FLog.Verbose("Using playfab matchmaking!");
 			_networkService.LastUsedSetup.Value = setup;
-			ValidateConfigs(setup).ContinueWith((valid) =>
+			IsCurrentConfigsValid(setup).ContinueWith((valid) =>
 			{
-				if (!valid) return;
+				if (!valid) {
+					_statechartTrigger(CanceledMatchmakingEvent);
+					return;
+				}
 				_services.MatchmakingService.JoinMatchmaking(setup);
 			}).Forget();
 		}
 
-		private async UniTask<bool> ValidateConfigs(MatchRoomSetup setup)
+		private async UniTask<bool> IsCurrentConfigsValid(MatchRoomSetup setup)
 		{
 			var remote = _gameDataProvider.RemoteConfigProvider;
 			var beforeVersion = remote.GetConfigVersion();
@@ -245,7 +248,6 @@ namespace FirstLight.Game.StateMachines
 				return true;
 			}
 
-			_statechartTrigger(CanceledMatchmakingEvent);
 			_services.GenericDialogService.OpenSimpleMessage("Error", "Invalid game mode, please try again!").Forget();
 			_services.GameModeService.SelectValidGameMode();
 			return false;

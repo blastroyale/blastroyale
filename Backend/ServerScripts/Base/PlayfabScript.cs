@@ -386,6 +386,15 @@ public abstract class PlayfabScript : IScript
 		return result.Result.Leaderboard;
 	}
 
+	protected async Task TagPlayer(PlayerProfile profile, string tagName)
+	{
+		await PlayFabAdminAPI.AddPlayerTagAsync(new AddPlayerTagRequest()
+		{
+			PlayFabId = profile.PlayerId,
+			TagName = tagName
+		});
+	}
+
 	public void HandleError(PlayFabError? error)
 	{
 		if (error == null)

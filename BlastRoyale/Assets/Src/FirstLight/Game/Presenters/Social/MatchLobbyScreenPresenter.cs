@@ -358,7 +358,7 @@ namespace FirstLight.Game.Presenters
 			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			await _services.FLLobbyService.LeaveMatch();
-			await _services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>();
+			FLog.Info("Left match");
 		}
 
 		private void OnSpotClicked(VisualElement source, int index)

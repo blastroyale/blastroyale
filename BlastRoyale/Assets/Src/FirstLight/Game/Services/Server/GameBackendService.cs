@@ -409,11 +409,11 @@ namespace FirstLight.Game.Services
 			return _dataProvider.RemoteConfigProvider.GetConfig<GameMaintenanceConfig>().AllowedVersion;
 		}
 
-		public async UniTask<bool> UpdateConfigs(params Type[] types)
+		public UniTask<bool> UpdateConfigs(params Type[] types)
 		{
 			var serv = ((IGameRemoteConfigProvider) _dataProvider.RemoteConfigProvider);
 			var secondsTtl = serv.GetConfig<GeneralConfig>().ConfigCacheInSeconds;
-			return await serv.UpdateConfigWhenExpired(TimeSpan.FromSeconds(secondsTtl), types);
+			return serv.UpdateConfigWhenExpired(TimeSpan.FromSeconds(secondsTtl), types);
 		}
 
 		public bool IsGameInMaintenanceOrOutdated(bool openPopups)

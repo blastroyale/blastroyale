@@ -233,13 +233,25 @@ namespace FirstLight.Game.StateMachines
 			customGameLobby.Event(NetworkState.JoinedRoomEvent).Target(final);
 			customGameLobby.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGameLobby.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
-			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchLobbyScreenPresenter>(false).Forget());
+			customGameLobby.OnExit(OnCustomGameLobbyExit);
 
-			customGamesList.OnEnter(() => OpenCustomGameList().Forget());
+			customGamesList.OnEnter(OpenCustomGameList);
 			customGamesList.Event(RoomJoinCreateBackClickedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
-			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchListScreenPresenter>(false).Forget());
+			customGamesList.OnExit(OnCustomGameListExit);
+		}
+		
+		private void OnCustomGameListExit()
+		{
+			_services.UIService.CloseScreen<MatchLobbyScreenPresenter>(false).Forget();
+			_services.UIService.CloseScreen<MatchListScreenPresenter>(false).Forget();
+		}
+
+		private void OnCustomGameLobbyExit()
+		{
+			FLog.Info("Lobby Exited");
+			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>(false).Forget();
 		}
 
 		private async UniTaskVoid OpenFriends(IWaitActivity wait)
@@ -516,22 +528,22 @@ namespace FirstLight.Game.StateMachines
 			}).Forget();
 		}
 
-		private async UniTaskVoid OpenCustomGameList()
+		private void OpenCustomGameList()
 		{
 			// Leave party if player has one
 			if (_services.FLLobbyService.IsInPartyLobby())
 				_services.FLLobbyService.LeaveParty().Forget();
-
-			await _services.GameBackendService.UpdateConfigs(typeof(GameMaintenanceConfig));
-			if (_services.GameBackendService.IsGameInMaintenanceOrOutdated(true))
+			
+			_services.GameBackendService.UpdateConfigs(typeof(GameMaintenanceConfig)).ContinueWith((_) =>
 			{
-				return;
-			}
-
-			await _services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
+				// Remove this hack please
+				_services.GameBackendService.IsGameInMaintenanceOrOutdated(true);
+			}).Forget();
+			
+			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
 				BackClicked = () => _statechartTrigger(RoomJoinCreateBackClickedEvent),
-			});
+			}).Forget();
 		}
 
 		private async UniTaskVoid OpenHomeScreen()

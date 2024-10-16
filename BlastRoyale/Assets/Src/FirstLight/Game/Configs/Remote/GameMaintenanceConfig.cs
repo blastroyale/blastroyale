@@ -9,6 +9,8 @@ namespace FirstLight.Game.Configs.Remote
 	{
 		public bool Maintenance;
 		public string MaintenanceMessage;
+		public string MaintenanceButtonText;
+		public string MaintenanceButtonLink;
 		public string AllowedVersion;
 		public string VersionBlockMessage;
 	}

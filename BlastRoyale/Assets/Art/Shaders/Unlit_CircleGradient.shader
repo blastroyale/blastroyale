@@ -13,9 +13,12 @@ Shader "FLG/Unlit/CircleGradient"
             "RenderType" = "Opaque"
             "RenderPipeline" = "UniversalPipeline"
         }
-
+        
         Pass
         {
+            ZWrite On
+            ZTest LEqual
+            
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag

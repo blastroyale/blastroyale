@@ -238,7 +238,6 @@ namespace FirstLight.Services
 			{
 				UnityEngine.Object.Destroy(Container.gameObject);
 			}
-			
 		}
 		
 		private Vfx<T> Instantiator(Vfx<T> entityRef)

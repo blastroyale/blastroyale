@@ -80,6 +80,25 @@ namespace Quantum
 
             StartServerSimulation();
         }
+        
+        public unsafe int GetTTLWhenLastPlayerQuits()
+        {
+            if (gameSession == null || gameSession.Session == null) return 0;
+            
+            if (gameSession.Session.FrameVerified == null) return 0;
+
+            var f = gameSession.Game.Session.FrameVerified as Frame;
+            if (f == null)
+            {
+                Log.Error("Frame was null something odd");
+                return 0;
+            }
+            if (!f.Unsafe.TryGetPointerSingleton<GameContainer>(out var container) || container->IsGameOver)
+            {
+                return 0;
+            }
+            return 1000 * 60 * 1; // 1 minute
+        }
 
         /// <summary>
         /// Called whenever the simulation fires a command that should be directed to the server

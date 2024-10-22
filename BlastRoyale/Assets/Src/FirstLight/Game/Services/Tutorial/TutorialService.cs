@@ -1,15 +1,14 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using UnityEngine;
+
 
 namespace FirstLight.Game.Services
 {
@@ -143,6 +142,10 @@ namespace FirstLight.Game.Services
 
 		public bool HasCompletedTutorialSection(TutorialSection section)
 		{
+			if (section == TutorialSection.META_GUIDE_AND_MATCH && !FeatureFlags.TUTORIAL_BATTLE)
+			{
+				return true;
+			}
 			return !FeatureFlags.TUTORIAL || _dataProvider.PlayerDataProvider.HasTutorialSection(section);
 		}
 

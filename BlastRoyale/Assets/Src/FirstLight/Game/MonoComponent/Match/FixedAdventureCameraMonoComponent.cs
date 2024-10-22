@@ -1,11 +1,13 @@
 using System;
 using System.Linq;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -161,7 +163,26 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
 
+			SetCameraAfterSkydive().Forget();
+		}
+
+		/// <summary>
+		/// Skydive can happen before the scene is loaded if player lags too much
+		/// So we wait for everything to be ready to continue
+		/// </summary>
+		private async UniTask SetCameraAfterSkydive()
+		{
+			if(!await UniTaskUtils.WaitUntilTimeout(IsCameraReady, TimeSpan.FromSeconds(10)))
+			{
+				FLog.Error("Error setting up camera. Simulation was not ready on device.");
+				return;
+			}
 			SetActiveCamera(_adventureCamera);
+		}
+
+		private bool IsCameraReady()
+		{
+			return !_services.UIService.IsScreenOpen<SwipeTransitionScreenPresenter>();
 		}
 
 		private void RefreshSpectator(Transform t)

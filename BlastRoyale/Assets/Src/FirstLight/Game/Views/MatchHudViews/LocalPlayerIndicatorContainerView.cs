@@ -90,14 +90,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
 		{
-			if (!IsInitialized()) return;
 			_localPlayerLanded = true;
+			if (!IsInitialized()) return;
+		
 			GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(1, -1, -1);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
 			_localPlayerDropped = true;
+			if (!IsInitialized()) return;
 			GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(0, -1, -1);
 		}
 
@@ -151,6 +153,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			((SafeAreaIndicatorMonoComponent) _indicators[(int) IndicatorVfxId.SafeArea])?.SetSafeArea(
 				_shrinkCircleCenter, _shrinkingCircleRadius, _shrinkingCircleStartTime);
+
+			if (_localPlayerDropped)
+			{
+				GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(0, -1, -1);
+			}
+
+			if (_localPlayerLanded)
+			{
+				GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(1, -1, -1);
+			}
 		}
 
 		/// <summary>

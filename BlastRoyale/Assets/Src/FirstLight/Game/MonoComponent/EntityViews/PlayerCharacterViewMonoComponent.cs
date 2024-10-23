@@ -687,7 +687,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			// TODO mihak: ???
 			//AnimatorWrapper.SetBool(Bools.Flying, false);
-
 			_characterView.DestroyGlider();
 		}
 

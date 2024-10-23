@@ -50,7 +50,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameDataProvider _dataProvider;
 
 		private Quantum.Input _quantumInput;
-
+		
 		private Vector2 _direction;
 		private Vector2 _aim;
 		private bool _shooting;
@@ -71,16 +71,9 @@ namespace FirstLight.Game.Services
 		{
 			Input.Enable();
 			QuantumCallback.SubscribeManual<CallbackPollInput>(this, PollInput);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 			QuantumEvent.SubscribeManual<EventOnPlayerKnockedOut>(OnPlayerKnockedOut);
 			QuantumEvent.SubscribeManual<EventOnPlayerRevived>(OnPlayerRevived);
-
-			if (!isReconnect)
-			{
-				DisableSkydivingControls(true);
-			}
 		}
-
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
@@ -93,36 +86,7 @@ namespace FirstLight.Game.Services
 		{
 			Input.Dispose();
 		}
-
-		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
-		{
-			DisableSkydivingControls(false);
-		}
-
-		private void DisableSkydivingControls(bool disable)
-		{
-			if (disable)
-			{
-				Input.Gameplay.Aim.Disable();
-				Input.Gameplay.SpecialAim.Disable();
-				Input.Gameplay.SpecialButton0.Disable();
-				Input.Gameplay.SpecialButton1.Disable();
-				Input.Gameplay.SwitchWeaponButton.Disable();
-				Input.Gameplay.CancelButton.Disable();
-				Input.Gameplay.Move.Disable();
-			}
-			else
-			{
-				Input.Gameplay.Aim.Enable();
-				Input.Gameplay.SpecialAim.Enable();
-				Input.Gameplay.SpecialButton0.Enable();
-				Input.Gameplay.SpecialButton1.Enable();
-				Input.Gameplay.SwitchWeaponButton.Enable();
-				Input.Gameplay.CancelButton.Enable();
-				Input.Gameplay.Move.Enable();
-			}
-		}
-
+		
 		public void OnMove(InputAction.CallbackContext context)
 		{
 			_direction = context.ReadValue<Vector2>();
@@ -228,9 +192,8 @@ namespace FirstLight.Game.Services
 		{
 			if (OverwriteCallbackInput == null)
 			{
-				float moveSpeedPercentage = 100;
 				_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting,
-					FP.FromFloat_UNSAFE(moveSpeedPercentage));
+					100);
 			}
 			else
 			{

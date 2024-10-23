@@ -24,7 +24,7 @@ MonoBehaviour:
   m_Match: 0
   m_SortingOrder: 5
   m_TargetDisplay: 0
-  m_ClearDepthStencil: 1
+  m_ClearDepthStencil: 0
   m_ClearColor: 0
   m_ColorClearValue: {r: 0, g: 0, b: 0, a: 0}
   m_DynamicAtlasSettings:

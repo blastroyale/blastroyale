@@ -261,7 +261,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					if (frame.Context.GameModeConfig.SkydiveSpawn)
 					{
 						_skin.TriggerSkydive();
-						SkydiveAnimationHack().Forget();
 					}
 				}
 				else
@@ -280,44 +279,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				}
 			}
 		}
-
-		/// <summary>
-		/// Non intrusive way of doing skydive animation.
-		/// Needa to wait a frame because it needs quantum to set the object position first
-		/// </summary>
-		private async UniTaskVoid SkydiveAnimationHack()
-		{
-			if (IsLocalPlayer)
-			{
-				var camera = _matchServices.MatchCameraService.GetCamera();
-				await UniTask.NextFrame();
-				if (!CanUpdate()) return;
-				
-				// Magical camera effect hack
-				var follow = camera.Follow;
-				var blendTime = FLGCamera.Instance.CinemachineBrain.m_DefaultBlend.m_Time;
-				FLGCamera.Instance.CinemachineBrain.m_DefaultBlend.m_Time = 0;
-				camera.Follow = null;
-				camera.LookAt = null;
-				await Task.Delay(TimeSpan.FromSeconds(1));
-				if (!CanUpdate()) return;
-				camera.transform.position += Vector3.up * 20;
-				FLGCamera.Instance.CinemachineBrain.m_DefaultBlend.m_Time = blendTime;
-				camera.Follow = follow;
-				camera.LookAt = follow;
-				
-				// Position hack
-				var endPosition = _skin.transform.localPosition;
-				var startPosition = endPosition + new Vector3(0, 2, 0);
-				await UniTask.NextFrame();
-				if (!CanUpdate()) return;
-				_skin.transform.localPosition = startPosition;
-				await UniTask.NextFrame();
-				if (!CanUpdate()) return;
-				_skin.transform.DOLocalMove(endPosition, 5f);
-			}
-		}
-
+		
 		protected override void OnAvatarEliminated(QuantumGame game)
 		{
 			if (_attackHideRendererCoroutine != null)
@@ -348,7 +310,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
 		}
 
-		public bool CanUpdate() => QuantumRunner.Default.IsDefinedAndRunning() && !transform.IsDestroyed();
+		public bool CanUpdate() => QuantumRunner.Default.IsDefinedAndRunning(false) && !transform.IsDestroyed();
 
 		private IEnumerator AttackWithinVisVolumeCoroutine()
 		{

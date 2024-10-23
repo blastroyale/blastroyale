@@ -117,6 +117,9 @@ namespace FirstLight.Game.Services
 
 		public void CreateJoinSecondTutorialRoom()
 		{
+			// Normal play button behaviour will handle it
+			if (!FeatureFlags.TUTORIAL_BATTLE) return;
+			
 			var config = _configsProvider.GetConfig<TutorialConfig>().SecondMatch.CloneSerializing();
 			config.MatchType = MatchType.Forced;
 			var setup = new MatchRoomSetup()
@@ -142,10 +145,6 @@ namespace FirstLight.Game.Services
 
 		public bool HasCompletedTutorialSection(TutorialSection section)
 		{
-			if (section == TutorialSection.META_GUIDE_AND_MATCH && !FeatureFlags.TUTORIAL_BATTLE)
-			{
-				return true;
-			}
 			return !FeatureFlags.TUTORIAL || _dataProvider.PlayerDataProvider.HasTutorialSection(section);
 		}
 

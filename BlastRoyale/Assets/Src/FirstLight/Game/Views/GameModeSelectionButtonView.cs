@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;

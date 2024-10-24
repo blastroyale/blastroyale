@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -12,7 +13,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Statechart;
 using I2.Loc;
-using Photon.Deterministic;
 using Photon.Realtime;
 using PlayFab;
 using Quantum;
@@ -195,7 +195,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnMatchmakingJoined(JoinedMatchmaking match)
 		{
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
-			_networkService.LastUsedSetup.Value = match.RoomSetup;
+			_networkService.LastUsedSetup.Value = match.DeserializeRoomSetup();
 			_statechartTrigger(JoinedPlayfabMatchmaking);
 		}
 
@@ -216,7 +216,41 @@ namespace FirstLight.Game.StateMachines
 
 			FLog.Verbose("Using playfab matchmaking!");
 			_networkService.LastUsedSetup.Value = setup;
-			_services.MatchmakingService.JoinMatchmaking(setup);
+			IsCurrentConfigsValid(setup).ContinueWith((valid) =>
+			{
+				if (!valid) {
+					_statechartTrigger(CanceledMatchmakingEvent);
+					return;
+				}
+				_services.MatchmakingService.JoinMatchmaking(setup);
+			}).Forget();
+		}
+
+		private async UniTask<bool> IsCurrentConfigsValid(MatchRoomSetup setup)
+		{
+			var remote = _gameDataProvider.RemoteConfigProvider;
+			var beforeVersion = remote.GetConfigVersion();
+			await _services.GameBackendService.UpdateConfigs(typeof(GameMaintenanceConfig), typeof(EventGameModesConfig));
+
+			// Don't let players use outdated versions or if the game is in maintance
+			if (_services.GameBackendService.IsGameInMaintenanceOrOutdated(true))
+			{
+				return false;
+			}
+
+			if (beforeVersion == remote.GetConfigVersion()) return true;
+			if (_services.GameModeService.IsInRotation(setup.SimulationConfig))
+			{
+				// Use the new config simulation match config to match server
+				setup.SimulationConfig = _services.GameModeService.Slots
+					.FirstOrDefault((f) => f.Entry.MatchConfig.UniqueConfigId == setup.SimulationConfig.UniqueConfigId).Entry.MatchConfig
+					.CloneSerializing();
+				return true;
+			}
+
+			_services.GenericDialogService.OpenSimpleMessage("Error", "Invalid game mode, please try again!").Forget();
+			_services.GameModeService.SelectValidGameMode();
+			return false;
 		}
 
 		private void LockRoom()
@@ -311,7 +345,8 @@ namespace FirstLight.Game.StateMachines
 			var room = _services.RoomService.CurrentRoom;
 			if (_networkService.JoinSource.Value == JoinRoomSource.FirstJoin)
 			{
-				var isSpectator = _services.FLLobbyService.CurrentMatchLobby != null && _services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.IsLocal()).IsSpectator();
+				var isSpectator = _services.FLLobbyService.CurrentMatchLobby != null &&
+					_services.FLLobbyService.CurrentMatchLobby.Players.First(p => p.IsLocal()).IsSpectator();
 
 				if (!isSpectator && _services.RoomService.CurrentRoom.GetRealPlayerAmount() >
 					_services.RoomService.CurrentRoom.GetRealPlayerCapacity())
@@ -468,7 +503,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnected)
 			{
-				FLog.Error($"Network action on connection state {_networkService.QuantumClient.State} on server {_networkService.QuantumClient.Server}");
+				FLog.Error(
+					$"Network action on connection state {_networkService.QuantumClient.State} on server {_networkService.QuantumClient.Server}");
 				_statechartTrigger(PhotonCriticalDisconnectedEvent);
 			}
 		}

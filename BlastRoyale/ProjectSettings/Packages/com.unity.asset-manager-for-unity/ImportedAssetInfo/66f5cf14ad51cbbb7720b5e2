@@ -1,0 +1,103 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "936f10a1a06dcc5469f50f0c874ffa1b",
+            "OriginalPath": "Melee_StopSign.fbx"
+        },
+        {
+            "Guid": "e0789f0fc7f705f4f89f2db6615938aa",
+            "OriginalPath": "Icon_Melee_Stopsign.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": ".fbx",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f5cf14ad51cbbb7720b5e2\\\",\\\"assetVersion\\\":\\\"d5248d34-0a4e-439a-92fd-1555b665e6f0\\\"}\",\"data\":{\"assetId\":\"66f5cf14ad51cbbb7720b5e2\",\"assetVersion\":\"d5248d34-0a4e-439a-92fd-1555b665e6f0\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-26T21:16:04.822Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-01T12:28:58.458Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Stopsign.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9lYmEyZjQ5Yy05ZTI5LTQ1YjYtYjQwNC05MjYxMjQ3ZWNlNDUvOWI3ZjBiMmU1NDgxZGM4NTRjOGU2NjNjZjRmZjY1ZDAvSWNvbl9NZWxlZV9TdG9wc2lnbi5wbmc%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-10-01T12:28:48Z&ske=2024-10-04T12:28:48Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-10-04T12:28:48Z&sr=b&sp=r&sig=C0LV5cYhwLDA4o0I2nxFq3m%2Bc%2F6QfSo2OlRT%2Fewf3M0%3D\",\"name\":\"Melee_StopSign\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy9lYmEyZjQ5Yy05ZTI5LTQ1YjYtYjQwNC05MjYxMjQ3ZWNlNDUvOWI3ZjBiMmU1NDgxZGM4NTRjOGU2NjNjZjRmZjY1ZDAvSWNvbl9NZWxlZV9TdG9wc2lnbi5wbmc%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-10-01T12:28:48Z&ske=2024-10-04T12:28:48Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-10-04T12:28:48Z&sr=b&sp=r&sig=C0LV5cYhwLDA4o0I2nxFq3m%2Bc%2F6QfSo2OlRT%2Fewf3M0%3D",
+                    "m_SourceFiles": [
+                        {
+                            "rid": 1001
+                        },
+                        {
+                            "rid": 1002
+                        }
+                    ],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        }
+                    ]
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Melee_StopSign.fbx",
+                    "m_Available": true,
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 32412,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "AssetDataFile",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_Path": "Icon_Melee_Stopsign.png",
+                    "m_Available": true,
+                    "m_Description": "",
+                    "m_Tags": [],
+                    "m_FileSize": 90571,
+                    "m_Guid": ""
+                }
+            },
+            {
+                "rid": 1003,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f5cf14ad51cbbb7720b5e2\\\",\\\"assetVersion\\\":\\\"d5248d34-0a4e-439a-92fd-1555b665e6f0\\\"}\",\"data\":{\"assetId\":\"66f5cf14ad51cbbb7720b5e2\",\"assetVersion\":\"d5248d34-0a4e-439a-92fd-1555b665e6f0\",\"isFrozen\":true,\"versionNumber\":1,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[\"Latest\"],\"archivedLabels\":[\"Pending\"],\"status\":\"Approved\",\"created\":\"2024-09-26T21:16:04.822Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-01T12:28:58.458Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Stopsign.png\",\"name\":\"Melee_StopSign\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": [
+                        {
+                            "rid": 1003
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "3241d7e972780854abe25d19e8759694",
+            "OriginalPath": "Char_Renny.fbx"
+        },
+        {
+            "Guid": "4857dcc78e416504da6a46bcc9bcc377",
+            "OriginalPath": "Icon_Char_Renny.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f49a567827567b18ee818e\\\",\\\"assetVersion\\\":\\\"bba9f89d-4982-4421-9bd9-d9b9d0d276bc\\\"}\",\"data\":{\"assetId\":\"66f49a567827567b18ee818e\",\"assetVersion\":\"bba9f89d-4982-4421-9bd9-d9b9d0d276bc\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-25T23:18:46.406Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-09-28T00:43:13.344Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_front.png\",\"name\":\"Char_Renny\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

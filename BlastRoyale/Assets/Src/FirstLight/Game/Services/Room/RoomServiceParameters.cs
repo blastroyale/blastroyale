@@ -1,4 +1,5 @@
 ﻿using FirstLight.FLogger;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Utils;
 using Photon.Realtime;
 using Quantum;
@@ -11,6 +12,8 @@ namespace FirstLight.Game.Services.RoomService
 		private static string[] _expectedCustomRoomProperties = new RoomProperties().GetExposedPropertiesIds();
 
 		private RoomService _service;
+
+		private bool EnableCommitLock => _service._dataProvider.RemoteConfigProvider.GetConfig<GeneralConfig>().EnableCommitVersionLock;
 
 		public RoomServiceParameters(RoomService service)
 		{
@@ -66,7 +69,7 @@ namespace FirstLight.Game.Services.RoomService
 			// In offline games we need to create the room with the correct TTL as we cannot update TTL
 			// mid games. If we don't we won't be able to reconnect to the room unless we use a frame snapshot which is tricky.
 			var emptyTtl = offline ? GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS : 0;
-			if (RemoteConfigs.Instance.EnableCommitVersionLock)
+			if (EnableCommitLock)
 			{
 				roomNameFinal += RoomCommitLockData;
 			}
@@ -114,7 +117,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			var roomNameFinal = roomName;
 
-			if (RemoteConfigs.Instance.EnableCommitVersionLock)
+			if (EnableCommitLock)
 			{
 				roomNameFinal += RoomCommitLockData;
 			}

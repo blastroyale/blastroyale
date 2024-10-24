@@ -45,26 +45,21 @@ namespace Quantum
 		
 		private IDictionary<GameId, QuantumSpecialConfig> _dictionary = null;
 
-		private object _lock = new object();
-
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			var dictionary = new Dictionary<GameId, QuantumSpecialConfig>();
+			foreach (var config in QuantumConfigs)
+			{
+				dictionary.Add(config.Id, config);
+			}
+			_dictionary = dictionary;
+		}
+		
 		/// <summary>
 		/// Requests the <see cref="QuantumSpecialConfig"/> of the given enemy <paramref name="gameId"/>
 		/// </summary>
 		public QuantumSpecialConfig GetConfig(GameId gameId)
 		{
-			if (_dictionary == null)
-			{
-				lock (_lock)
-				{
-					var dictionary = new Dictionary<GameId, QuantumSpecialConfig>();
-					foreach (var config in QuantumConfigs)
-					{
-						dictionary.Add(config.Id, config);
-					}
-					_dictionary = dictionary;
-				}
-			}
-
 			return _dictionary[gameId];
 		}
 	}

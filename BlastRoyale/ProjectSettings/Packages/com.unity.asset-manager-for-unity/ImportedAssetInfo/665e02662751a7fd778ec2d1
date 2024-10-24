@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "4ac708a43d8257d4585deea4ab69bb4d",
+            "Guid": "046f6efc341dc934cbd14080d44e8931",
             "OriginalPath": "Icon_Char_VR.png"
         },
         {
-            "Guid": "f14f8384aa958134cbd9e9382b90fa3b",
+            "Guid": "ee0f2e7a2b0632d4eafc0956cb8d31f6",
             "OriginalPath": "Char_VR.fbx"
         }
     ],
@@ -23,190 +23,14 @@
                     "asm": "Unity.AssetManager.Editor"
                 },
                 "data": {
-                    "m_PrimaryExtension": ".fbx",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"665e02662751a7fd778ec2d1\\\",\\\"assetVersion\\\":\\\"0aad3cd7-5651-4e23-b7f9-f6e07554549e\\\"}\",\"data\":{\"assetId\":\"665e02662751a7fd778ec2d1\",\"assetVersion\":\"0aad3cd7-5651-4e23-b7f9-f6e07554549e\",\"isFrozen\":true,\"versionNumber\":4,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":3,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-26T16:26:20.798Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-26T16:27:09.119Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"previewFileUrl\":\"https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy83Njg1M2FmZC01YTZmLTQ5YjYtYjczNS1jMmM4YWQyZTg4ZDYvZDVkZjBhNGNkODk4YWI2M2UyZjI3OGNkNzQzMmY4NTQvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-26T16:26:22Z&ske=2024-07-29T16:26:22Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-29T16:26:22Z&sr=b&sp=r&sig=ian%2FzrU8k68lJqs7stD1b0qlCZ3b8LiowgPdbg2tsl0%3D\",\"name\":\"Char_VR\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "https://storage.transformation.unity.com/workspace-images/L3dvcmtzcGFjZS9kYXRhc2V0cy83Njg1M2FmZC01YTZmLTQ5YjYtYjczNS1jMmM4YWQyZTg4ZDYvZDVkZjBhNGNkODk4YWI2M2UyZjI3OGNkNzQzMmY4NTQvcHJldmlld19wZXJzRnJvbnRMZWZ0VG9wLnBuZw%3D%3D-512?skoid=50dbe40a-5f31-48b6-bb7d-8e88e50a27f4&sktid=45b9a1d4-a8af-40da-8eca-96bebddf6fc7&skt=2024-07-26T16:26:22Z&ske=2024-07-29T16:26:22Z&sks=b&skv=2021-12-02&sv=2021-12-02&se=2024-07-29T16:26:22Z&sr=b&sp=r&sig=ian%2FzrU8k68lJqs7stD1b0qlCZ3b8LiowgPdbg2tsl0%3D",
-                    "m_SourceFiles": [
-                        {
-                            "rid": 1001
-                        },
-                        {
-                            "rid": 1002
-                        }
-                    ],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        },
-                        {
-                            "rid": 1004
-                        },
-                        {
-                            "rid": 1005
-                        },
-                        {
-                            "rid": 1006
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Icon_Char_VR.png",
-                    "m_Available": true,
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 227838,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "AssetDataFile",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_Path": "Char_VR.fbx",
-                    "m_Available": true,
-                    "m_Description": "",
-                    "m_Tags": [],
-                    "m_FileSize": 1786956,
-                    "m_Guid": ""
-                }
-            },
-            {
-                "rid": 1003,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"665e02662751a7fd778ec2d1\\\",\\\"assetVersion\\\":\\\"0aad3cd7-5651-4e23-b7f9-f6e07554549e\\\"}\",\"data\":{\"assetId\":\"665e02662751a7fd778ec2d1\",\"assetVersion\":\"0aad3cd7-5651-4e23-b7f9-f6e07554549e\",\"isFrozen\":true,\"versionNumber\":4,\"paraentAssetVersion\":null,\"parentVersionNumber\":3,\"systemTags\":[],\"labels\":[\"Latest\"],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-26T16:26:20.798Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-26T16:27:09.119Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_VR\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"665e02662751a7fd778ec2d1\\\",\\\"assetVersion\\\":\\\"6b9077a5-e07e-4f52-9d1c-e195f053e02e\\\"}\",\"data\":{\"assetId\":\"665e02662751a7fd778ec2d1\",\"assetVersion\":\"6b9077a5-e07e-4f52-9d1c-e195f053e02e\",\"isFrozen\":true,\"versionNumber\":5,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":4,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-09-27T23:17:25.374Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-09-27T23:23:21.486Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_VR\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
                     "m_AssetComparisonResult": 0,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],
                     "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        },
-                        {
-                            "rid": 1004
-                        },
-                        {
-                            "rid": 1005
-                        },
-                        {
-                            "rid": 1006
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1004,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_PrimaryExtension": "",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"665e02662751a7fd778ec2d1\\\",\\\"assetVersion\\\":\\\"cca07d9b-dde6-4a00-8f25-6f4dff4d80c4\\\"}\",\"data\":{\"assetId\":\"665e02662751a7fd778ec2d1\",\"assetVersion\":\"cca07d9b-dde6-4a00-8f25-6f4dff4d80c4\",\"isFrozen\":true,\"versionNumber\":3,\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-07-26T12:04:02.474Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-26T12:04:45.327Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_VR\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "",
-                    "m_SourceFiles": [],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        },
-                        {
-                            "rid": 1004
-                        },
-                        {
-                            "rid": 1005
-                        },
-                        {
-                            "rid": 1006
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1005,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_PrimaryExtension": "",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"665e02662751a7fd778ec2d1\\\",\\\"assetVersion\\\":\\\"5360aa33-bb7a-4ee8-9029-a4a370798dbd\\\"}\",\"data\":{\"assetId\":\"665e02662751a7fd778ec2d1\",\"assetVersion\":\"5360aa33-bb7a-4ee8-9029-a4a370798dbd\",\"isFrozen\":true,\"versionNumber\":2,\"paraentAssetVersion\":null,\"parentVersionNumber\":1,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\"],\"status\":\"Draft\",\"created\":\"2024-06-13T12:03:32.235Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-13T12:03:54.544Z\",\"updatedBy\":\"6872339273432\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_VR\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "",
-                    "m_SourceFiles": [],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        },
-                        {
-                            "rid": 1004
-                        },
-                        {
-                            "rid": 1005
-                        },
-                        {
-                            "rid": 1006
-                        }
-                    ]
-                }
-            },
-            {
-                "rid": 1006,
-                "type": {
-                    "class": "AssetData",
-                    "ns": "Unity.AssetManager.Editor",
-                    "asm": "Unity.AssetManager.Editor"
-                },
-                "data": {
-                    "m_PrimaryExtension": "",
-                    "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"665e02662751a7fd778ec2d1\\\",\\\"assetVersion\\\":\\\"8ba02e11-db91-4052-a257-f8b5ae09dd54\\\"}\",\"data\":{\"assetId\":\"665e02662751a7fd778ec2d1\",\"assetVersion\":\"8ba02e11-db91-4052-a257-f8b5ae09dd54\",\"isFrozen\":true,\"versionNumber\":1,\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[\"Latest\",\"Pending\"],\"status\":\"Draft\",\"created\":\"2024-06-03T17:50:30.173Z\",\"createdBy\":\"6872339273432\",\"updated\":\"2024-06-12T17:03:50.336Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_VR\",\"description\":\"\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
-                    "m_AssetComparisonResult": 0,
-                    "m_ThumbnailUrl": "",
-                    "m_SourceFiles": [],
-                    "m_UVCSFiles": [],
-                    "m_Versions": [
-                        {
-                            "rid": 1003
-                        },
-                        {
-                            "rid": 1004
-                        },
-                        {
-                            "rid": 1005
-                        },
-                        {
-                            "rid": 1006
-                        }
-                    ]
+                    "m_Versions": []
                 }
             }
         ]

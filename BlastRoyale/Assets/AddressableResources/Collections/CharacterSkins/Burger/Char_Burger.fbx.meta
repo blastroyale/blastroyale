@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 90f10c15b2e6c4b1fb3ac1a070c8cbb1
+guid: dddd92c8dbabb9d4caa560b1e6bdcaad
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Burger
-    second: {fileID: 2100000, guid: d621ec9cbf9424745bd6c7610488118a, type: 2}
+    second: {fileID: 2100000, guid: 306967e55688f1241afcdd780f18caeb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

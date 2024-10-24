@@ -5,7 +5,7 @@ using Backend;
 using Backend.Game;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;

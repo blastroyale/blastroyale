@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: eea6b909ac1804b6b9b8e207020a9191
+guid: d202a5673e9323d46bb96c810db59d55
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Aura
-    second: {fileID: 2100000, guid: fd325c38123f844c4a2068c79b2f61ee, type: 2}
+    second: {fileID: 2100000, guid: b4545b01f41cdfe4eac20f99fa1c4a8f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

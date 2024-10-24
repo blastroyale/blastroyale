@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Photon.Deterministic;
 using Sirenix.OdinInspector;
 
 namespace Quantum
@@ -184,25 +185,20 @@ namespace Quantum
 
 		private IDictionary<string, QuantumGameModeConfig> _dictionary;
 
-		private object _lock = new object();
-
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			_dictionary = new Dictionary<string, QuantumGameModeConfig>();
+			for (var i = 0; i < QuantumConfigs.Count; i++)
+			{
+				_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+			}
+		}
+		
 		/// <summary>
 		/// Requests the <see cref="QuantumGameModeConfig"/> defined by the given <paramref name="name"/>
 		/// </summary>
 		public QuantumGameModeConfig GetConfig(string name)
 		{
-			if (_dictionary == null)
-			{
-				lock (_lock)
-				{
-					var dictionary = new Dictionary<string, QuantumGameModeConfig>();
-					for (var i = 0; i < QuantumConfigs.Count; i++)
-					{
-						dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
-					}
-					_dictionary = dictionary;
-				}
-			}
 			return _dictionary[name];
 		}
 	}

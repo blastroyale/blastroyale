@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -19,10 +21,10 @@ namespace BlastRoyaleNFTPlugin
 		public const string COLLECTION_GAMESGG_GAMERS_ETH = "GamesGGGamers";
 		public const string COLLECTION_PLAGUE_DOCTOR_IMX = "PlagueDoctor";
 		
+		protected BlockchainApi BlockchainApi;
+		
 		private static readonly CollectionFetchResponse _EMPTY_COLLECTION = new()
 			{Owned = new List<RemoteCollectionItem>()};
-
-		protected BlockchainApi BlockchainApi;
 
 		public CollectionsSync(BlockchainApi blockchainApi)
 		{
@@ -36,35 +38,56 @@ namespace BlastRoyaleNFTPlugin
 			var c3 = RequestCollection<GamesGGGamers>(playfabId, COLLECTION_GAMESGG_GAMERS_ETH, BlockchainApi.CanSyncCollection(COLLECTION_GAMESGG_GAMERS_ETH));
 			var c4 = RequestCollection<PlagueDoctor>(playfabId, COLLECTION_PLAGUE_DOCTOR_IMX, BlockchainApi.CanSyncCollection(COLLECTION_PLAGUE_DOCTOR_IMX));
 			await Task.WhenAll(c1, c2, c3, c4);
+
+			if (c1.Status == TaskStatus.Faulted || c2.Status == TaskStatus.Faulted || c3.Status == TaskStatus.Faulted ||
+				c4.Status == TaskStatus.Faulted)
+			{
+				throw new Exception("Error syncing collections for user " + playfabId);
+			}
+			
 			return c1.Result.Owned.Concat(c2.Result.Owned.Concat(c3.Result.Owned.Concat(c4.Result.Owned)));
 		}
 
 		/// <summary>
 		/// Should only sync in memory and not do any playfab requests
 		/// </summary>
-		public async Task<bool> SyncCollections(string playfabId, ServerState serverState)
+		public async Task<bool> SyncCollections(string playfabId, ServerState serverState, bool isRetry = false)
 		{
 			var collectionData = serverState.DeserializeModel<CollectionData>();
 			var collectionInitialHash = collectionData.GetHashCode();
-			var collectionsOwned = await FetchAllCollections(playfabId);
 			
-			var corposNfts = collectionsOwned.Where(c => c is Corpos).ToList();
-			var corposTokenIds = corposNfts.Select(i => i.TokenId).ToList();
-			var gamesGGGamersNfts = collectionsOwned.Where(c => c is GamesGGGamers).ToList();
-			var plagueDoctorNfts = collectionsOwned.Where(c => c is PlagueDoctor).ToList();
-			
-			
-			SyncCorposProfilePictures(playfabId, corposTokenIds, collectionData);
-			SyncCorposSkins(playfabId, corposNfts, collectionData);
-			SyncGamesGGGamers(playfabId, gamesGGGamersNfts, collectionData);
-			SyncPlagueDoctor(playfabId, plagueDoctorNfts, collectionData);
-			
-			if (collectionData.GetHashCode() != collectionInitialHash)
+			try
 			{
-				serverState.UpdateModel(collectionData);
+				var collectionsOwned = await FetchAllCollections(playfabId);
+				var corposNfts = collectionsOwned.Where(c => c is Corpos).ToList();
+				var corposTokenIds = corposNfts.Select(i => i.TokenId).ToList();
+				var gamesGGGamersNfts = collectionsOwned.Where(c => c is GamesGGGamers).ToList();
+				var plagueDoctorNfts = collectionsOwned.Where(c => c is PlagueDoctor).ToList();
+				
+				SyncCorposProfilePictures(playfabId, corposTokenIds, collectionData);
+				SyncCorposSkins(playfabId, corposNfts, collectionData);
+				SyncGamesGGGamers(playfabId, gamesGGGamersNfts, collectionData);
+				SyncPlagueDoctor(playfabId, plagueDoctorNfts, collectionData);
+
+				if (collectionData.GetHashCode() != collectionInitialHash)
+				{
+					serverState.UpdateModel(collectionData);
+				}
+				return true;
 			}
-			
-			return true;
+			catch (Exception e)
+			{
+				if (!isRetry)
+				{
+					isRetry = true;
+					BlockchainApi._ctx.Log!.LogInformation($"Retrying to fetch user collections for player {playfabId}");
+					return await SyncCollections(playfabId, serverState, isRetry);
+				}
+				var error = "Failed to sync nfts for user " + playfabId;
+				BlockchainApi._ctx.Log!.LogError($"{e.Message}");
+				BlockchainApi._ctx.Metrics!.EmitException(e, error);
+				return false;
+			}
 		}
 
 		private void SyncGamesGGGamers(string playfabId, List<RemoteCollectionItem>  nfts, CollectionData collectionData)
@@ -329,7 +352,6 @@ namespace BlastRoyaleNFTPlugin
 		/// </summary>
 		public async Task<CollectionFetchResponse> RequestCollection<T>(string playerId, string collectionName, bool canSync = false) where T : RemoteCollectionItem
 		{
-
 			if (!canSync)
 			{
 				return _EMPTY_COLLECTION;
@@ -341,9 +363,9 @@ namespace BlastRoyaleNFTPlugin
 
 			if (response.StatusCode != HttpStatusCode.OK)
 			{
-				BlockchainApi._ctx.Log.LogError(
-					$"Error obtaining indexed Collection Response {response.StatusCode.ToString()} - {responseString}");
-				return _EMPTY_COLLECTION;
+				var error = $"Error obtaining indexed Collection {collectionName} from {playerId} Response {response.StatusCode.ToString()} - {responseString}";
+				BlockchainApi._ctx.Metrics!.EmitMetric($"error_sync_{collectionName}", 1);
+				throw new Exception(error);
 			}
 
 			var list = ModelSerializer.Deserialize<List<T>>(responseString);

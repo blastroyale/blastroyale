@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -232,13 +233,25 @@ namespace FirstLight.Game.StateMachines
 			customGameLobby.Event(NetworkState.JoinedRoomEvent).Target(final);
 			customGameLobby.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGameLobby.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
-			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchLobbyScreenPresenter>(false).Forget());
+			customGameLobby.OnExit(OnCustomGameLobbyExit);
 
 			customGamesList.OnEnter(OpenCustomGameList);
 			customGamesList.Event(RoomJoinCreateBackClickedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
-			customGamesList.OnExit(() => _services.UIService.CloseScreen<MatchListScreenPresenter>(false).Forget());
+			customGamesList.OnExit(OnCustomGameListExit);
+		}
+		
+		private void OnCustomGameListExit()
+		{
+			_services.UIService.CloseScreen<MatchLobbyScreenPresenter>(false).Forget();
+			_services.UIService.CloseScreen<MatchListScreenPresenter>(false).Forget();
+		}
+
+		private void OnCustomGameLobbyExit()
+		{
+			FLog.Info("Lobby Exited");
+			_services.UIService.CloseScreen<LoadingSpinnerScreenPresenter>(false).Forget();
 		}
 
 		private async UniTaskVoid OpenFriends(IWaitActivity wait)
@@ -433,7 +446,8 @@ namespace FirstLight.Game.StateMachines
 
 		private bool CheckInvalidTeamSize()
 		{
-			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) > _services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.TeamSize;
+			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) >
+				_services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.TeamSize;
 		}
 
 		private async UniTaskVoid TogglePartyReadyStatus()
@@ -519,7 +533,13 @@ namespace FirstLight.Game.StateMachines
 			// Leave party if player has one
 			if (_services.FLLobbyService.IsInPartyLobby())
 				_services.FLLobbyService.LeaveParty().Forget();
-
+			
+			_services.GameBackendService.UpdateConfigs(typeof(GameMaintenanceConfig)).ContinueWith((_) =>
+			{
+				// Remove this hack please
+				_services.GameBackendService.IsGameInMaintenanceOrOutdated(true);
+			}).Forget();
+			
 			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
 				BackClicked = () => _statechartTrigger(RoomJoinCreateBackClickedEvent),

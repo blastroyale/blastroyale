@@ -183,7 +183,7 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("Game Started Message");
 			//await UniTask.Delay(100); // tech debt, leftover shall eb removed
 			await UniTask.WaitUntil(() => QuantumRunner.Default.IsDefinedAndRunning());
-			PublishMatchStartedMessage(game, false);
+			await PublishMatchStartedMessage(game, false);
 			//await UniTask.Delay(1000); // tech debt, leftover shall eb removed
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
@@ -225,7 +225,7 @@ namespace FirstLight.Game.StateMachines
 			await UniTask.WaitUntil(() => QuantumRunner.Default.IsDefinedAndRunning());
 			_statechartTrigger(SimulationStartedEvent);
 
-			PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
+			await PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
 			WaitForCamera().Forget();
@@ -327,15 +327,40 @@ namespace FirstLight.Game.StateMachines
 			_services.VfxService.DespawnAll();
 		}
 
-		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
+		private async UniTask PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
 			if (!isResync)
 			{
 				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData(game);
 			}
+			await UniTask.WaitUntil(IsSimulationReady);
 
 			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});
+		}
+
+		private unsafe bool IsSimulationReady()
+		{
+			if (!QuantumRunner.Default.IsDefinedAndRunning()) return false;
+			var game = QuantumRunner.Default.Game;
+
+			if (game.GetLocalPlayers().Length == 0 ||
+				game.Frames.Verified == null || game.Frames.Verified.Number == 0)
+			{
+				return false;
+			}
+
+			if (!game.Frames.Verified.Unsafe.TryGetPointerSingleton<GameContainer>(out var container))
+			{
+				return false;
+			}
+
+			if (!container->PlayersData[game.GetLocalPlayerRef()].IsValid)
+			{
+				return false;
+			}
+
+			return true;
 		}
 
 		private void SetPlayerMatchData(QuantumGame game)
@@ -358,6 +383,7 @@ namespace FirstLight.Game.StateMachines
 				config);
 			var useBotBehaviour = (FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour) ||
 				FeatureFlags.GetLocalConfiguration().UseBotBehaviour;
+
 			FLog.Info("Sending player runtime data");
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{

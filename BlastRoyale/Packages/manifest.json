@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.annulusgames.debug-ui": "https://github.com/AnnulusGames/DebugUI.git?path=src/DebugUI/Assets/DebugUI",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.google.android.appbundle": "https://github.com/google-unity/android-app-bundle.git#1.9.0",
     "com.google.external-dependency-manager": "file:com.google.external-dependency-manager-1.2.179.tgz",

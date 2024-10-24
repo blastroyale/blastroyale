@@ -69,14 +69,12 @@ namespace Quantum
 
 		private IDictionary<GameId, QuantumChestConfig> _dictionary = null;
 
-		private object _lock = new object();
 
 		/// <summary>
 		/// Checks if this has the given config
 		/// </summary>
 		public bool HasConfig(GameId id)
 		{
-			EnsureCreated();
 			return _dictionary.ContainsKey(id);
 		}
 		
@@ -85,30 +83,17 @@ namespace Quantum
 		/// </summary>
 		public QuantumChestConfig GetConfig(GameId id)
 		{
-			EnsureCreated();
 			return _dictionary[id];
 		}
-
-		/// <summary>
-		/// Ensures the cache is created.
-		/// TODO: REMOVE ALL CACHES FROM ALL CONFIGS !!
-		/// </summary>
-		private void EnsureCreated()
+		
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
 		{
-			if (_dictionary == null)
+			_dictionary = new Dictionary<GameId, QuantumChestConfig>();
+			for (var i = 0; i < QuantumConfigs.Count; i++)
 			{
-				lock (_lock)
-				{
-					var dict = new Dictionary<GameId, QuantumChestConfig>();
-					for (var i = 0; i < QuantumConfigs.Count; i++)
-					{
-						dict.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
-					}
-
-					_dictionary = dict;
-				}
+				_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
 			}
-		}
+		}		
 
 		/// <summary>
 		/// Requests the <see cref="QuantumChestConfig"/> defined by the given <paramref name="type"/>

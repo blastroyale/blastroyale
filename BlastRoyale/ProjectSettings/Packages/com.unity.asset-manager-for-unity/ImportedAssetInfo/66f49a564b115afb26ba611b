@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "b7ff015d8ddae3849ad2537fba122b86",
+            "OriginalPath": "Char_Mechapilot.fbx"
+        },
+        {
+            "Guid": "9bcfea4106a9e6b45bc07107da9c06ad",
+            "OriginalPath": "Icon_Char_Mechapilot.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f49a564b115afb26ba611b\\\",\\\"assetVersion\\\":\\\"05942d17-fcc9-485e-9de7-89670bc8835d\\\"}\",\"data\":{\"assetId\":\"66f49a564b115afb26ba611b\",\"assetVersion\":\"05942d17-fcc9-485e-9de7-89670bc8835d\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-25T23:18:46.14Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-09-28T00:38:35.081Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_front.png\",\"name\":\"Char_Mechapilot\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

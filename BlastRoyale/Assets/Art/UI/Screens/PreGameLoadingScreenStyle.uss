@@ -337,13 +337,13 @@
 }
 
 .map-marker-party .in-game-avatar__pfp-mask {
-    width: 111%;
-    height: 137%;
+    width: 100%;
+    height: 100%;
 }
 
 .map-marker-party .in-game-avatar__pfp {
-    width: 128%;
-    height: 96%;
+    width: 100%;
+    height: 100%;
 }
 
 .party-markers {

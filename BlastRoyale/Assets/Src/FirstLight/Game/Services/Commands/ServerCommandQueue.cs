@@ -76,6 +76,7 @@ namespace FirstLight.Game.Services
 					invalid.Add(modifiedType);
 				}
 			}
+
 			return invalid;
 		}
 
@@ -175,7 +176,8 @@ namespace FirstLight.Game.Services
 						_services.QuitGame(exceptionMsg);
 					},
 				};
-				_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg + "\n" + message, false, confirmButton, () => _services.QuitGame(exceptionMsg));
+				_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg + "\n" + message, false, confirmButton,
+					() => _services.QuitGame(exceptionMsg));
 #else
 			FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, "Error", "Desynch", new FirstLight.NativeUi.AlertButton
 			{
@@ -188,17 +190,6 @@ namespace FirstLight.Game.Services
 			});
 #endif
 			});
-		}
-
-		private void UpdateConfiguration(ulong serverVersion, ServerCommandQueueEntry lastCommand)
-		{
-			var configAdder = _logic.ConfigsProvider as IConfigsAdder;
-			_gameBackend.GetTitleData(PlayfabConfigKeys.ConfigName, configString =>
-			{
-				var updatedConfig = new ConfigsSerializer().Deserialize<ConfigsProvider>(configString);
-				configAdder.UpdateTo(serverVersion, updatedConfig.GetAllConfigs());
-				FLog.Info($"Updated game configs to version {serverVersion}");
-			}, null);
 		}
 
 		/// <summary>

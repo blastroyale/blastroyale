@@ -129,7 +129,7 @@ namespace FirstLight.Game.Services
 		/// Event called after players logs in
 		/// </summary>
 		event Action<LoginResult> OnLogin;
-		
+
 		public string PlayfabNickname { get; }
 	}
 
@@ -376,7 +376,7 @@ namespace FirstLight.Game.Services
 			var emails = result.InfoResultPayload.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
 			var migrationData = new MigrationData {TutorialSections = tutorialData.TutorialSections};
-		
+
 			_networkService.UserId.Value = result.PlayFabId;
 
 			FLog.Info("Using photon with the id " + FLEnvironment.Current.PhotonAppIDRealtime);
@@ -387,12 +387,6 @@ namespace FirstLight.Game.Services
 			{
 				AppData = titleData
 			});
-
-			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out _))
-			{
-				onError?.Invoke(null);
-				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
-			}
 
 			var requiredServices = 2;
 			var doneServices = 0;
@@ -514,7 +508,7 @@ namespace FirstLight.Game.Services
 			{
 				var tasks = new List<UniTask>();
 
-				tasks.Add(RemoteConfigs.Init());
+				tasks.Add(((IGameRemoteConfigProvider) _dataProvider.RemoteConfigProvider).Init());
 				var friendsInitOpts = new InitializeOptions()
 					.WithEvents(true)
 					.WithMemberPresence(true)
@@ -524,6 +518,9 @@ namespace FirstLight.Game.Services
 					.AsUniTask()); // We fetch the name (which generates a new one) so it's stored in the cache
 				tasks.Add(CloudSaveService.Instance.SavePlayfabIDAsync(PlayFabSettings.staticPlayer.PlayFabId));
 				await UniTask.WhenAll(tasks);
+				
+				RemoteConfigValidator.ValidateConfigs(_dataProvider.RemoteConfigProvider);
+
 				CheckNamesUpdates()
 					.ContinueWith(() =>
 					{
@@ -540,7 +537,6 @@ namespace FirstLight.Game.Services
 					.Forget();
 				_services.InGameNotificationService.Init();
 				_services.RateAndReviewService.Init();
-				RemoteConfigValidator.ValidateConfigs(this._dataProvider.RemoteConfigProvider);
 				onComplete();
 			}
 			catch (Exception exception)
@@ -586,10 +582,10 @@ namespace FirstLight.Game.Services
 					{
 						NewPlayfabDisplayName = playfabResult.DisplayName
 					});
-				
+
 					return;
 				}
-				
+
 				// Handle old user accounts
 				if (!playfabName.Equals(unityName))
 				{
@@ -640,6 +636,11 @@ namespace FirstLight.Game.Services
 			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
 			var request = new GetPhotonAuthenticationTokenRequest {PhotonApplicationId = appId};
 
+#if DEBUG
+			config.DeterministicSessionConfigAsset.Config.ChecksumInterval = 60;
+#else
+			config.DeterministicSessionConfigAsset.Config.ChecksumInterval = 0;
+#endif
 			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthSuccess, onError);
 
 			void OnAuthSuccess(GetPhotonAuthenticationTokenResult result)

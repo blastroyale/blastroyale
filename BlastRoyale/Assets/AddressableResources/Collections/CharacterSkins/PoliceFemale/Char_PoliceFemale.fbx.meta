@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 43374c17de9d44ceda8d5578dd72c32f
+guid: 97ee3267106125e4fa1846940c839699
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_PoliceFemale
-    second: {fileID: 2100000, guid: 28198443b480d46b0b240030b32c0395, type: 2}
+    second: {fileID: 2100000, guid: 005f0651129ba214bb6434da366ba86b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

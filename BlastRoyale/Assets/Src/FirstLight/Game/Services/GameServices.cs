@@ -217,7 +217,7 @@ namespace FirstLight.Game.Services
 			UIVFXService = new UIVFXService(this, assetResolverService);
 			UIVFXService.Init().Forget();
 
-			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService);
+			DeepLinkService = new DeepLinkService(MessageBrokerService, UIService, gameLogic.RemoteConfigProvider);
 
 			InGameNotificationService = new InGameNotificationService(UIService);
 
@@ -234,8 +234,9 @@ namespace FirstLight.Game.Services
 				configsProvider);
 			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, InGameNotificationService, LocalPrefsService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
-			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService);
-			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService, MessageBrokerService);
+			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService, gameLogic.RemoteConfigProvider);
+			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService,
+				MessageBrokerService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			BuffService = new BuffService(this, gameLogic);

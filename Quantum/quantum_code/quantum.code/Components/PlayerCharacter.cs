@@ -121,6 +121,11 @@ namespace Quantum
 			f.Remove<DeadPlayerCharacter>(e);
 		}
 
+		public bool IsAfk(Frame f)
+		{
+			return f.Time - LastNoInputTimeSnapshot > f.GameConfig.NoInputKillTime;
+		}
+
 		/// <summary>
 		/// Sets the player alive for the very first time after they have been spawned.
 		/// </summary>

@@ -202,10 +202,6 @@ namespace Src.FirstLight.Server
 			CalculateMatchPlayedAndWinStatistics(toSend, firstPlacePlayerData, thisPlayerData, simulationConfig.TeamSize);
 			CalculatePersistentStatistics(toSend, thisPlayerData, simulationConfig.TeamSize);
 			await CalculateSeasonStatistics(toSend, userId, state,  thisPlayerData, simulationConfig.TeamSize);
-			
-			
-			toSend.Add((GameConstants.Stats.NOOB_TOTAL, await UpdatePlayerDataCurrencySeasonAndReset(userId, state, GameConstants.Stats.NOOB_TOTAL, GameId.NOOB)));
-			
 			await _ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
 		}
 
@@ -324,6 +320,7 @@ namespace Src.FirstLight.Server
 			var playerData = state.DeserializeModel<PlayerData>();
 			playerData.Currencies.TryGetValue(GameId.CS, out var cs);
 			playerData.Currencies.TryGetValue(GameId.COIN, out var coins);
+			playerData.Currencies.TryGetValue(GameId.NOOB, out var noobs);
 
 			var newTrophies = await CheckUpdateTrophiesState(playerLoadEvent.PlayerId, state);
 			// TODO: Check possible bug here, i think we are duplicating the trophies
@@ -332,11 +329,10 @@ namespace Src.FirstLight.Server
 				playerData.Trophies = newTrophies;
 				state.UpdateModel(playerData);
 			}
-
-			var newNoobies = await UpdatePlayerDataCurrencySeasonAndReset(playerLoadEvent.PlayerId, state, GameConstants.Stats.NOOB_TOTAL, GameId.NOOB);
+			
 			await _ctx.Statistics.UpdateStatistics(playerLoadEvent.PlayerId,
 				(GameConstants.Stats.COINS_TOTAL, (int) coins),
-				(GameConstants.Stats.NOOB_TOTAL, newNoobies),
+				(GameConstants.Stats.NOOB_TOTAL, (int) noobs),
 				(GameConstants.Stats.FAME, (int) playerData.Level)
 			);
 		}

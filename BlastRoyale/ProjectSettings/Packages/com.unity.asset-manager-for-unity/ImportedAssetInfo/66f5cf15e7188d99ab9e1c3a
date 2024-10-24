@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "6476c80538bd595448eea9a85b7f14c8",
+            "OriginalPath": "Melee_VikingAxe.fbx"
+        },
+        {
+            "Guid": "c82c8fa8a4d3c7f41af5ca6e9b556b56",
+            "OriginalPath": "Icon_Melee_Vikingaxe.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f5cf15e7188d99ab9e1c3a\\\",\\\"assetVersion\\\":\\\"7e6cf8b8-d09c-4e50-ac7b-a894ddbf866e\\\"}\",\"data\":{\"assetId\":\"66f5cf15e7188d99ab9e1c3a\",\"assetVersion\":\"7e6cf8b8-d09c-4e50-ac7b-a894ddbf866e\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-26T21:16:05.007Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-01T12:30:37.864Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Vikingaxe.png\",\"name\":\"Melee_VikingAxe\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

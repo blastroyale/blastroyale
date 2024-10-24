@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;

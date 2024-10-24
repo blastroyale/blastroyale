@@ -30,6 +30,12 @@ namespace Quantum
             _cmdHandler = new QuantumCommandHandler(this);
             CustomServer.OnSimulationCommand = _cmdHandler.DispatchLogicCommandFromQuantumEvent;
         }
+        
+        public override void BeforeCloseGame(IBeforeCloseGameCallInfo info)
+        {
+            info.Request.EmptyRoomTTL = CustomServer.GetTTLWhenLastPlayerQuits();
+            info.Continue();
+        }
 
         /// <summary>
         /// Called whenever any client sends an event
@@ -74,11 +80,6 @@ namespace Quantum
         {
             try
             {
-                if (FlgConfig.DebugMode)
-                {
-                    Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");
-                }
-
                 if (!info.CreateOptions.TryGetValue("CustomProperties", out var propsObject))
                 {
                     base.OnCreateGame(info);
@@ -112,11 +113,7 @@ namespace Quantum
                     CustomServer.ServerSimulation = false;
                 }
 
-                if (FlgConfig.DebugMode)
-                {
-                    Log.Info($"Created {matchConfig.MatchType} game");
-                }
-
+                LogWarning($"{info.Nickname} {info.UserId} created {matchConfig.MatchType}");
                 base.OnCreateGame(info);
             }
             catch (Exception ex)

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: feac80a0dbc4c4e3588050ec8a1fffb5
+guid: 45ea878688e4f5a44a6b6ecee4f7a9b1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Hazmat
-    second: {fileID: 2100000, guid: f85119af58bad4797b22aae660a962f8, type: 2}
+    second: {fileID: 2100000, guid: 4c98cb17d1e02754ba5f8cbfbaeded32, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

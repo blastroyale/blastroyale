@@ -143,6 +143,7 @@
     --sprite-home__header-popup-equipment: url('/Assets/Art/UI/Sprites/Home/header-popup-equipment.png');
     --sprite-home__header-profile: url('/Assets/Art/UI/Sprites/Home/header-profile.png');
     --sprite-home__header-profile-pressed: url('/Assets/Art/UI/Sprites/Home/header-profile-pressed.png');
+    --sprite-home__iceking-season-reward: url('/Assets/Art/UI/Sprites/Home/iceking-season-reward.png');
     --sprite-home__icon_premium-pass_no_gradient: url('/Assets/Art/UI/Sprites/Home/icon_premium-pass_no_gradient.png');
     --sprite-home__icon-airplane: url('/Assets/Art/UI/Sprites/Home/icon-airplane.png');
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
@@ -1059,6 +1060,12 @@
 
 .sprite-home__header-profile:active {
     background-image: var(--sprite-home__header-profile-pressed);
+}
+
+.sprite-home__iceking-season-reward {
+    background-image: var(--sprite-home__iceking-season-reward);
+    width: 510px;
+    height: 719px;
 }
 
 .sprite-home__icon_premium-pass_no_gradient {

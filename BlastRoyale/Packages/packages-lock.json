@@ -6,6 +6,12 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.annulusgames.debug-ui": {
+      "version": "file:com.annulusgames.debug-ui@eadce6b060",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.bakery": {
       "version": "file:Bakery",
       "depth": 0,

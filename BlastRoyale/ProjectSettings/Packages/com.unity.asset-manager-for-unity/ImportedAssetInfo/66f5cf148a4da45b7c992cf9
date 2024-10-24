@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "68e8b92e784c0bf44a09bd33280841c0",
+            "OriginalPath": "Melee_NoobHammer.fbx"
+        },
+        {
+            "Guid": "a18d1ea2b683a6f40939a6b7217d1063",
+            "OriginalPath": "Icon_Melee_Noobhammer.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f5cf148a4da45b7c992cf9\\\",\\\"assetVersion\\\":\\\"042c7d2c-2b29-48a4-b562-bcb2b3a2320a\\\"}\",\"data\":{\"assetId\":\"66f5cf148a4da45b7c992cf9\",\"assetVersion\":\"042c7d2c-2b29-48a4-b562-bcb2b3a2320a\",\"isFrozen\":true,\"versionNumber\":1,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":0,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Approved\",\"created\":\"2024-09-26T21:16:04.759Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-01T12:26:43.542Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"Icon_Melee_Noobhammer.png\",\"name\":\"Melee_NoobHammer\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

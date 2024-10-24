@@ -12601,7 +12601,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Appears in the Shop
       - 
       - 
       - 
@@ -12954,6 +12954,248 @@ MonoBehaviour:
       Description: 
       Languages:
       - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarIceking
+      TermType: 0
+      Description: 
+      Languages:
+      - ROYALE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarIcekingDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBanana
+      TermType: 0
+      Description: 
+      Languages:
+      - BANANA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBananaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFarmer
+      TermType: 0
+      Description: 
+      Languages:
+      - BULLISH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFarmerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFirefighter
+      TermType: 0
+      Description: 
+      Languages:
+      - BURNING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFirefighterDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarGingerbread
+      TermType: 0
+      Description: 
+      Languages:
+      - CELEBRATE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarGingerbreadDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMechapilot
+      TermType: 0
+      Description: 
+      Languages:
+      - CHARGING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMechapilotDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPirate
+      TermType: 0
+      Description: 
+      Languages:
+      - AHOY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPirateDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - TBD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRennyBest
+      TermType: 0
+      Description: 
+      Languages:
+      - THE BEST
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRennyBestDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRennyBanana
+      TermType: 0
+      Description: 
+      Languages:
+      - BLASTREAM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRennyBananaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRobot
+      TermType: 0
+      Description: 
+      Languages:
+      - LOCK-N-LOAD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRobotDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarVikingfemale
+      TermType: 0
+      Description: 
+      Languages:
+      - BERSERK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarVikingfemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
       - 
       - 
       - 
@@ -15458,6 +15700,182 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinBaguette
+      TermType: 0
+      Description: 
+      Languages:
+      - BAGUETTE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBaguetteDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBananaHammer
+      TermType: 0
+      Description: 
+      Languages:
+      - BANANA HAMMER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBananaHammerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFirefighterAxe
+      TermType: 0
+      Description: 
+      Languages:
+      - FIREFIGHTER AXE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFirefighterAxeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinNoobHammer
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB HAMMER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinNoobHammerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinRollingPin
+      TermType: 0
+      Description: 
+      Languages:
+      - ROLLING PIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinRollingPinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinRoyalStaff
+      TermType: 0
+      Description: 
+      Languages:
+      - ROYAL STAFF
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinRoyalStaffDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinStopSign
+      TermType: 0
+      Description: 
+      Languages:
+      - STOP SIGN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinStopSignDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinVikingAxe
+      TermType: 0
+      Description: 
+      Languages:
+      - VIKING AXE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinVikingAxeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/ModHeavyMachineGun
       TermType: 0
       Description: 
@@ -16209,7 +16627,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Appears in the Shop
       - 
       - 
       - 
@@ -16590,7 +17008,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinPirate
+    - Term: GameIds/PlayerSkinPirateCaptain
       TermType: 0
       Description: 
       Languages:
@@ -16601,11 +17019,187 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinPirateDescription
+    - Term: GameIds/PlayerSkinPirateCaptainDescription
       TermType: 0
       Description: 
       Languages:
       - Own a Pirate Nation NFT to unlock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFirefighter
+      TermType: 0
+      Description: 
+      Languages:
+      - SAM BLAZE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFirefighterDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGingerbread
+      TermType: 0
+      Description: 
+      Languages:
+      - NINJABREAD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGingerbreadDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinIceking
+      TermType: 0
+      Description: 
+      Languages:
+      - FROST LORD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinIcekingDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMechapilot
+      TermType: 0
+      Description: 
+      Languages:
+      - NYRA-X
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMechapilotDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinRobot
+      TermType: 0
+      Description: 
+      Languages:
+      - CRANK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinRobotDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinRenny
+      TermType: 0
+      Description: 
+      Languages:
+      - RENNY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinRennyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFarmer
+      TermType: 0
+      Description: 
+      Languages:
+      - HANK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFarmerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinVikingfemale
+      TermType: 0
+      Description: 
+      Languages:
+      - FREYA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinVikingfemaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Beta Season 12
       - 
       - 
       - 
@@ -30505,7 +31099,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1726658030700
+    Google_LastUpdatedVersion: 1729004926730
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -771,6 +771,11 @@ MonoBehaviour:
         Id:
           Value: 3252184656170638239
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Gun Raise_1]
+    - Path: AddressableResources/Configs/BuffConfigs
+      AssetRef:
+        Id:
+          Value: 3261590140356491151
+      Address: Configs/BuffConfigs.asset
     - Path: AddressableResources/QuantumAssets/Projectiles/RocketBullet|EntityView
       AssetRef:
         Id:

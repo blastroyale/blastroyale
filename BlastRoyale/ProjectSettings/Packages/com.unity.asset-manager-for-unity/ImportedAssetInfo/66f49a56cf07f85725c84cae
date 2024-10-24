@@ -1,0 +1,38 @@
+{
+    "AssetData": {
+        "rid": 1000
+    },
+    "FileInfos": [
+        {
+            "Guid": "cbb0bc46c73a8b249a8ab281bc428adf",
+            "OriginalPath": "Char_PirateCaptain.fbx"
+        },
+        {
+            "Guid": "b68f48d03f21f1f46b09aff5f6a0df04",
+            "OriginalPath": "Icon_Char_Piratecaptain.png"
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "AssetData",
+                    "ns": "Unity.AssetManager.Editor",
+                    "asm": "Unity.AssetManager.Editor"
+                },
+                "data": {
+                    "m_PrimaryExtension": "",
+                    "m_DependencyAssets": [],
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"66f49a56cf07f85725c84cae\\\",\\\"assetVersion\\\":\\\"fd73efb5-4cbc-4f27-ae96-dfb07d1082d9\\\"}\",\"data\":{\"assetId\":\"66f49a56cf07f85725c84cae\",\"assetVersion\":\"fd73efb5-4cbc-4f27-ae96-dfb07d1082d9\",\"isFrozen\":true,\"versionNumber\":3,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-10-01T13:54:59.306Z\",\"createdBy\":\"4673229443388\",\"updated\":\"2024-10-01T13:55:34.66Z\",\"updatedBy\":\"4673229443388\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_PirateCaptain\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_AssetComparisonResult": 0,
+                    "m_ThumbnailUrl": "",
+                    "m_SourceFiles": [],
+                    "m_UVCSFiles": [],
+                    "m_Versions": []
+                }
+            }
+        ]
+    }
+}

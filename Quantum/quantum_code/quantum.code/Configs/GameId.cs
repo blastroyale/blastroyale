@@ -1467,6 +1467,69 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinFarmer, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinFirefighter, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinGingerbread, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinIceking, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinMechapilot, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinPirateCaptain, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinRenny, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinRobot, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinVikingfemale, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
@@ -1824,6 +1887,62 @@ namespace Quantum
 				},
 				{
 					GameId.MeleeSkinDoctorStaff, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinBaguette, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinBananaHammer, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinFirefighterAxe, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinNoobHammer, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinRollingPin, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinRoyalStaff, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinStopSign, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinVikingAxe, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
 						GameIdGroup.Collection
@@ -2406,6 +2525,83 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarIceking, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarBanana, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFarmer, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFirefighter, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarGingerbread, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMechapilot, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPirate, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRennyBest, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRennyBanana, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRobot, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarVikingfemale, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -2772,6 +2968,15 @@ namespace Quantum
 						GameId.PlayerSkinMale01,
 						GameId.PlayerSkinMale02,
 						GameId.PlayerSkinGamer,
+						GameId.PlayerSkinFarmer,
+						GameId.PlayerSkinFirefighter,
+						GameId.PlayerSkinGingerbread,
+						GameId.PlayerSkinIceking,
+						GameId.PlayerSkinMechapilot,
+						GameId.PlayerSkinPirateCaptain,
+						GameId.PlayerSkinRenny,
+						GameId.PlayerSkinRobot,
+						GameId.PlayerSkinVikingfemale,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -2821,6 +3026,14 @@ namespace Quantum
 						GameId.MeleeSkinPickaxe,
 						GameId.MeleeSkinLollipop,
 						GameId.MeleeSkinDoctorStaff,
+						GameId.MeleeSkinBaguette,
+						GameId.MeleeSkinBananaHammer,
+						GameId.MeleeSkinFirefighterAxe,
+						GameId.MeleeSkinNoobHammer,
+						GameId.MeleeSkinRollingPin,
+						GameId.MeleeSkinRoyalStaff,
+						GameId.MeleeSkinStopSign,
+						GameId.MeleeSkinVikingAxe,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -2902,7 +3115,18 @@ namespace Quantum
 						GameId.AvatarAuraarmed,
 						GameId.AvatarNflarmed,
 						GameId.AvatarPilotarmed,
-						GameId.AvatarWitch
+						GameId.AvatarWitch,
+						GameId.AvatarIceking,
+						GameId.AvatarBanana,
+						GameId.AvatarFarmer,
+						GameId.AvatarFirefighter,
+						GameId.AvatarGingerbread,
+						GameId.AvatarMechapilot,
+						GameId.AvatarPirate,
+						GameId.AvatarRennyBest,
+						GameId.AvatarRennyBanana,
+						GameId.AvatarRobot,
+						GameId.AvatarVikingfemale
 					}.AsReadOnly()
 				},
 				{
@@ -3156,7 +3380,15 @@ namespace Quantum
 						GameId.MeleeSkinSickle,
 						GameId.MeleeSkinPickaxe,
 						GameId.MeleeSkinLollipop,
-						GameId.MeleeSkinDoctorStaff
+						GameId.MeleeSkinDoctorStaff,
+						GameId.MeleeSkinBaguette,
+						GameId.MeleeSkinBananaHammer,
+						GameId.MeleeSkinFirefighterAxe,
+						GameId.MeleeSkinNoobHammer,
+						GameId.MeleeSkinRollingPin,
+						GameId.MeleeSkinRoyalStaff,
+						GameId.MeleeSkinStopSign,
+						GameId.MeleeSkinVikingAxe
 					}.AsReadOnly()
 				},
 				{
@@ -3205,7 +3437,16 @@ namespace Quantum
 						GameId.PlayerSkinFemale02,
 						GameId.PlayerSkinMale01,
 						GameId.PlayerSkinMale02,
-						GameId.PlayerSkinGamer
+						GameId.PlayerSkinGamer,
+						GameId.PlayerSkinFarmer,
+						GameId.PlayerSkinFirefighter,
+						GameId.PlayerSkinGingerbread,
+						GameId.PlayerSkinIceking,
+						GameId.PlayerSkinMechapilot,
+						GameId.PlayerSkinPirateCaptain,
+						GameId.PlayerSkinRenny,
+						GameId.PlayerSkinRobot,
+						GameId.PlayerSkinVikingfemale
 					}.AsReadOnly()
 				},
 				{
@@ -3310,7 +3551,18 @@ namespace Quantum
 						GameId.AvatarAuraarmed,
 						GameId.AvatarNflarmed,
 						GameId.AvatarPilotarmed,
-						GameId.AvatarWitch
+						GameId.AvatarWitch,
+						GameId.AvatarIceking,
+						GameId.AvatarBanana,
+						GameId.AvatarFarmer,
+						GameId.AvatarFirefighter,
+						GameId.AvatarGingerbread,
+						GameId.AvatarMechapilot,
+						GameId.AvatarPirate,
+						GameId.AvatarRennyBest,
+						GameId.AvatarRennyBanana,
+						GameId.AvatarRobot,
+						GameId.AvatarVikingfemale
 					}.AsReadOnly()
 				},
 				{

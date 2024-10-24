@@ -4,11 +4,11 @@
     },
     "FileInfos": [
         {
-            "Guid": "dbee6ab2350c1124f8dc503251413108",
+            "Guid": "d047e3ab13945a846a519ca54cd5e712",
             "OriginalPath": "Icon_Char_PunkMale.png"
         },
         {
-            "Guid": "076bb7c18d7694942b90a59d9cf25f97",
+            "Guid": "415f7b4954c694e4c9329c1523dbb244",
             "OriginalPath": "Char_PunkMale.fbx"
         }
     ],
@@ -25,7 +25,7 @@
                 "data": {
                     "m_PrimaryExtension": "",
                     "m_DependencyAssets": [],
-                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"663e1b13e7400e518b1b7a8e\\\",\\\"assetVersion\\\":\\\"2f4a1b83-89ed-4f4a-b5f1-86638db14f20\\\"}\",\"data\":{\"assetId\":\"663e1b13e7400e518b1b7a8e\",\"assetVersion\":\"2f4a1b83-89ed-4f4a-b5f1-86638db14f20\",\"isFrozen\":true,\"versionNumber\":3,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":2,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-07-22T16:33:39.292Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-07-22T16:34:02.655Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_persFrontLeftTop.png\",\"name\":\"Char_PunkMale\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
+                    "m_JsonAssetSerialized": "{\"type\":\"Unity.Cloud.Assets.AssetDataWithIdentifiers\",\"descriptor\":\"{\\\"projectDescriptor\\\":{\\\"organizationId\\\":\\\"5772581095989\\\",\\\"projectId\\\":\\\"***REMOVED***\\\"},\\\"assetId\\\":\\\"663e1b13e7400e518b1b7a8e\\\",\\\"assetVersion\\\":\\\"55044f49-0263-43fa-818f-ee9463a34428\\\"}\",\"data\":{\"assetId\":\"663e1b13e7400e518b1b7a8e\",\"assetVersion\":\"55044f49-0263-43fa-818f-ee9463a34428\",\"isFrozen\":true,\"versionNumber\":4,\"changeLog\":\"\",\"paraentAssetVersion\":null,\"parentVersionNumber\":3,\"systemTags\":[],\"labels\":[],\"archivedLabels\":[],\"status\":\"Draft\",\"created\":\"2024-09-27T23:09:06.888Z\",\"createdBy\":\"10170938524830\",\"updated\":\"2024-09-27T23:10:15.36Z\",\"updatedBy\":\"10170938524830\",\"sourceProjectId\":\"***REMOVED***\",\"projectIds\":[\"***REMOVED***\"],\"previewFile\":\"preview_front.png\",\"name\":\"Char_PunkMale\",\"tags\":[],\"primaryType\":\"3D Model\"}}",
                     "m_AssetComparisonResult": 0,
                     "m_ThumbnailUrl": "",
                     "m_SourceFiles": [],

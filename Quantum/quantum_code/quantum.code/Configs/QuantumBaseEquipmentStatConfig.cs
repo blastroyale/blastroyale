@@ -55,32 +55,25 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = true)]
 	public partial class QuantumBaseEquipmentStatConfigs
 	{
-		private object _lock = new object();
-
 		public List<QuantumBaseEquipmentStatConfig> QuantumConfigs = new List<QuantumBaseEquipmentStatConfig>();
 
 		private IDictionary<GameId, QuantumBaseEquipmentStatConfig> _dictionary = null;
 
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			var dict = new Dictionary<GameId, QuantumBaseEquipmentStatConfig>();
+			for (var i = 0; i < QuantumConfigs.Count; i++)
+			{
+				dict.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
+			}
+			_dictionary = dict;
+		}
+		
 		/// <summary>
 		/// Requests the <see cref="QuantumBaseEquipmentStatConfig"/> defined by the given <paramref name="id"/>
 		/// </summary>
 		public QuantumBaseEquipmentStatConfig GetConfig(GameId id)
 		{
-			if (_dictionary == null)
-			{
-				lock (_lock)
-				{
-					var dict = new Dictionary<GameId, QuantumBaseEquipmentStatConfig>();
-
-					for (var i = 0; i < QuantumConfigs.Count; i++)
-					{
-						dict.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
-					}
-
-					_dictionary = dict;
-				}
-			}
-
 			return _dictionary[id];
 		}
 	}

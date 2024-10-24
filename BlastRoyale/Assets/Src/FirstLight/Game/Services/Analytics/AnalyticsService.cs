@@ -1,3 +1,4 @@
+using Facebook.Unity;
 using Firebase.Analytics;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.Analytics.Events;
@@ -47,10 +48,18 @@ namespace FirstLight.Game.Services.Analytics
 			if (!ATTrackingUtils.IsTrackingAllowed()) return;
 
 			// Unity
-			Unity.Services.Analytics.AnalyticsService.Instance.RecordEvent(e);
+			Unity.Services.Analytics.AnalyticsService.Instance?.RecordEvent(e);
 
+			var eventName = e.ToEventName();
+			
 			// Firebase
-			FirebaseAnalytics.LogEvent(e.ToFirebaseEventName(), e.ToFirebaseParameters());
+			FirebaseAnalytics.LogEvent(eventName, e.ToFirebaseParameters());
+			
+			// Facebook
+			if (FB.IsInitialized)
+			{
+				FB.LogAppEvent(eventName, parameters: e.ToFacebookParameters());	
+			}
 		}
 	}
 }

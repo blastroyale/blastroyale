@@ -8,9 +8,7 @@ using Quantum;
 using Scripts.Base;
 using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
 
-/// <summary>
-/// Script to wipe BPP
-/// </summary>
+
 public class GenerateNoobTokenReport : PlayfabScript
 {
 	public override Environment GetEnvironment() => Environment.DEV;
@@ -33,7 +31,7 @@ public class GenerateNoobTokenReport : PlayfabScript
 	{
 		var tasks = new List<Task>();
 		var batchSize = 10000;
-		var playerList = await GetPlayerSegmentByName("OwnNoobs");
+		var playerList = await GetPlayerSegmentByName("NOOB Total > 0");
 		foreach (var player in playerList)
 		{
 			tasks.Add(Process(player));

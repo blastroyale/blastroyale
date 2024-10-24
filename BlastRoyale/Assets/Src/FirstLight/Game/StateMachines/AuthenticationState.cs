@@ -63,8 +63,7 @@ namespace FirstLight.Game.StateMachines
 			var authFail = stateFactory.State("Authentication Fail Dialog");
 			var postAuthCheck = stateFactory.Choice("Post Authentication Checks");
 			var accountDeleted = stateFactory.Wait("Account Deleted Dialog");
-			var gameBlocked = stateFactory.State("Game Blocked Dialog");
-			var gameUpdate = stateFactory.State("Game Update Dialog");
+			var gameMaintenance = stateFactory.State("Game Blocked Dialog");
 			var asyncLoginWait = stateFactory.TaskWait("Async Login Wait");
 
 			initial.Transition().Target(asyncLoginWait);
@@ -81,15 +80,12 @@ namespace FirstLight.Game.StateMachines
 
 			postAuthCheck.Transition().Condition(() => _services.AuthenticationService.State.LastAttemptFailed).Target(authFail);
 			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
-			postAuthCheck.Transition().Condition(IsGameInMaintenance).Target(gameBlocked);
-			postAuthCheck.Transition().Condition(IsGameOutdated).Target(gameUpdate);
+			postAuthCheck.Transition().Condition(IsGameOutdatedOrMaintenance).Target(gameMaintenance);
 			postAuthCheck.Transition().Target(final);
 
 			accountDeleted.WaitingFor(OpenAccountDeletedDialog).Target(authLoginGuest);
 
-			gameBlocked.OnEnter(OpenGameBlockedDialog);
-
-			gameUpdate.OnEnter(OpenGameUpdateDialog);
+			gameMaintenance.OnEnter(OpenMaintenanceDialog);
 
 			final.OnEnter(PublishAuthenticationSuccessMessage);
 			final.OnEnter(UnsubscribeEvents);
@@ -151,24 +147,19 @@ namespace FirstLight.Game.StateMachines
 			return _services.AuthenticationService.IsAccountDeleted();
 		}
 
-		private bool IsGameInMaintenance()
+		private bool IsGameOutdatedOrMaintenance()
 		{
-			return _services.GameBackendService.IsGameInMaintenance();
+			return _services.GameBackendService.IsGameInMaintenance(out _) || _services.GameBackendService.IsGameOutdated(out _);
 		}
 
 		private bool IsGameOutdated()
 		{
-			return _services.GameBackendService.IsGameOutdated();
+			return _services.GameBackendService.IsGameOutdated(out _);
 		}
 
 		private bool HasLinkedDevice()
 		{
 			return !string.IsNullOrWhiteSpace(_services.AuthenticationService.GetDeviceSavedAccountData().DeviceId);
-		}
-
-		private void SetupBackendEnvironmentData()
-		{
-			_services.GameBackendService.SetupBackendEnvironment();
 		}
 
 		private void LoginWithDevice()
@@ -275,41 +266,9 @@ namespace FirstLight.Game.StateMachines
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 		}
 
-		private void OpenGameUpdateDialog()
+		private void OpenMaintenanceDialog()
 		{
-			var confirmButton = new AlertButton
-			{
-				Text = ScriptLocalization.General.Confirm,
-				Style = AlertButtonStyle.Positive,
-				Callback = OpenStore
-			};
-
-			var message = string.Format(ScriptLocalization.General.UpdateGame, VersionUtils.VersionExternal,
-				_services.GameBackendService.GetTitleVersion());
-
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NewGameUpdate, message, confirmButton);
-
-			void OpenStore()
-			{
-#if UNITY_IOS
-				Application.OpenURL(GameConstants.Links.APP_STORE_IOS);
-#elif UNITY_ANDROID
-				Application.OpenURL(GameConstants.Links.APP_STORE_GOOGLE_PLAY);
-#endif
-			}
-		}
-
-		private void OpenGameBlockedDialog()
-		{
-			var confirmButton = new AlertButton
-			{
-				Text = ScriptLocalization.General.Confirm,
-				Style = AlertButtonStyle.Default,
-				Callback = () => { _services.QuitGame("Closing game blocked dialog"); }
-			};
-
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance,
-				ScriptLocalization.General.MaintenanceDescription, confirmButton);
+			_services.GameBackendService.IsGameInMaintenanceOrOutdated(true);
 		}
 
 		private void PublishAuthenticationSuccessMessage()

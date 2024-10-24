@@ -34,5 +34,10 @@ namespace Quantum
 		public bool FullyDisable;
 		public FP ReviveAnimationDuration;
 		public QuantumPerGameModeConfig<GameModeReviveConfig> PerGameMode = new QuantumPerGameModeConfig<GameModeReviveConfig>();
+		
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			PerGameMode.CreateCache();
+		}
 	}
 }

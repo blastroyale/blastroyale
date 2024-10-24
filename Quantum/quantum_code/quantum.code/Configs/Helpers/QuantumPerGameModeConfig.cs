@@ -30,8 +30,6 @@ namespace Quantum
 		public List<GameModePair<TValue>> Values = new List<GameModePair<TValue>>();
 		private IDictionary<string, TValue> _cacheDictionary;
 
-		private object _cacheLock = new object();
-
 		/// <summary>
 		/// Returns the default value of this pair.
 		/// </summary>
@@ -40,21 +38,14 @@ namespace Quantum
 			return Default;
 		}
 
-		private void CheckCache()
+		public void CreateCache()
 		{
-			if (_cacheDictionary == null)
+			var dict = new Dictionary<string, TValue>();
+			foreach (var config in Values)
 			{
-				lock (_cacheLock)
-				{
-					var dict = new Dictionary<string, TValue>();
-					foreach (var config in Values)
-					{
-						dict.Add(config.Key, config.Value);
-					}
-
-					_cacheDictionary = dict;
-				}
+				dict.Add(config.Key, config.Value);
 			}
+			_cacheDictionary = dict;
 		}
 
 		/// <summary>
@@ -62,12 +53,10 @@ namespace Quantum
 		/// </summary>
 		public TValue Get(string gameModeId)
 		{
-			CheckCache();
 			if (_cacheDictionary.TryGetValue(gameModeId, out var config))
 			{
 				return config;
 			}
-
 			return Default;
 		}
 

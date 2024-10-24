@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FirstLight.FLogger;
-using FirstLight.Game.Configs.Remote.FirstLight.Game.Configs.Remote;
-using FirstLight.Game.Messages;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -10,7 +9,6 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.UIService;
 using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {

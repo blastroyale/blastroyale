@@ -702,7 +702,6 @@ namespace FirstLight.Game.StateMachines
 
 			_services.AudioFxService.DetachAudioListener();
 
-			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());

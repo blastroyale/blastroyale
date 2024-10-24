@@ -8,7 +8,7 @@ namespace FirstLight.Game.Services.Match
 	{
 	}
 
-	public class HapticsService : IHapticsService, MatchServices.IMatchService
+	public class HapticsService : IHapticsService, IMatchService
 	{
 		private EntityRef _localPlayerEntity;
 

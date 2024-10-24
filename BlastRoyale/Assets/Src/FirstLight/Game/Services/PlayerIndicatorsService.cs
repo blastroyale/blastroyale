@@ -16,7 +16,7 @@ namespace FirstLight.Game.Services
 	{
 	}
 
-	public class PlayerIndicatorsService : IPlayerIndicatorService, MatchServices.IMatchService
+	public class PlayerIndicatorsService : IPlayerIndicatorService, IMatchService
 	{
 		private readonly IGameServices _services;
 		private readonly IMatchServices _matchServices;

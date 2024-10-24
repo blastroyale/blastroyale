@@ -179,7 +179,6 @@ namespace FirstLight.Services
 			_instantiator = instantiator;
 			_stack = new Stack<T>((int) initSize);
 
-			FLog.Info("Initializing VFX Pools");
 			for (var i = 0; i < initSize; i++)
 			{
 				var entity = instantiator.Invoke(SampleEntity);

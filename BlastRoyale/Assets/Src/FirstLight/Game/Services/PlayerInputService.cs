@@ -39,7 +39,7 @@ namespace FirstLight.Game.Services
 		QuantumInputSent OnQuantumInputSent { get; set; }
 	}
 
-	public class PlayerInputService : IPlayerInputService, MatchServices.IMatchService, LocalInput.IGameplayActions
+	public class PlayerInputService : IPlayerInputService, IMatchService, LocalInput.IGameplayActions
 	{
 		public LocalInput Input { get; }
 		public IPlayerInputService.SetQuantumInput OverwriteCallbackInput { get; set; }

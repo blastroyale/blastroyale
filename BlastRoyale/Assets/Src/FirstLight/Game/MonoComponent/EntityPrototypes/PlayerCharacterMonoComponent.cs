@@ -171,13 +171,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			});
 		}
 
+		/*
 		protected override string GetName(QuantumGame game)
 		{
 			var pc = GetComponentData<PlayerCharacter>(game);
 			return (pc.RealPlayer ? "[Player]" : "[Bot]")
 				+ " - " + Extensions.GetPlayerName(GetFrame(game), EntityView.EntityRef, pc)
 				+ " - " + EntityView.EntityRef;
-		}
+		}*/
 
 		protected override string GetGroup(QuantumGame game)
 		{

@@ -11,17 +11,18 @@ namespace FirstLight.Game.Services.Match
 {
 	public interface IWeaponCustomizationService
 	{
-		
 	}
-	
-	public class WeaponCustomizationService : IWeaponCustomizationService, MatchServices.IMatchService
+
+	public class WeaponCustomizationService : IWeaponCustomizationService, IMatchService
 	{
 		private IGameServices _services;
+		private readonly IMatchVfxService _matchVfxService;
 		private Material _goldenMaterial;
-		
-		public WeaponCustomizationService(IGameServices services)
+
+		public WeaponCustomizationService(IGameServices services, IMatchVfxService matchVfxService)
 		{
 			_services = services;
+			_matchVfxService = matchVfxService;
 			_services.MessageBrokerService.Subscribe<EquipmentInstantiatedMessage>(OnEquipmentInstantiate);
 		}
 
@@ -41,14 +42,15 @@ namespace FirstLight.Game.Services.Match
 			}
 
 			if (o == null) return;
-			
+
 			var renderers = o.GetComponentsInChildren<MeshRenderer>();
 			foreach (var rend in renderers)
 			{
 				rend.material = _goldenMaterial;
 			}
+
 			var gunRenderer = o.GetComponentInChildren<RenderersContainerMonoComponent>();
-			var vfx = MainInstaller.ResolveServices().VfxService.Spawn(VfxId.GoldenEffect);
+			var vfx = _matchVfxService.Spawn(VfxId.GoldenEffect);
 			vfx.transform.SetParent(gunRenderer.transform, false);
 			gunRenderer.UpdateRenderers();
 		}
@@ -60,7 +62,6 @@ namespace FirstLight.Game.Services.Match
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
-			
 		}
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)

@@ -42,7 +42,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private readonly Dictionary<EntityRef, CollectingData> _collectors = new ();
 		private EntityRef _displayedCollector;
-		private CollectableIndicatorVfxMonoComponent _collectingVfx;
+		private CollectableIndicatorVfxMonoBehaviour _collectingVfx;
 
 		/// <summary>
 		/// Sets the visibility of the static Pickup Circle to provided value
@@ -302,6 +302,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (_collectingVfx != null)
 			{
 				_collectingVfx.Despawn();
+				_collectingVfx = null;
 			}
 
 			transform.parent = null;
@@ -344,7 +345,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				var vfxId = collectingData.IsLargeCollectable
 					? VfxId.CollectableIndicatorLarge
 					: VfxId.CollectableIndicator;
-				_collectingVfx = (CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(vfxId);
+				_collectingVfx = (CollectableIndicatorVfxMonoBehaviour) MatchServices.VfxService.Spawn(vfxId);
 				
 				UpdateVfxPosition();
 				_collectingVfx.transform.rotation = Quaternion.AngleAxis(145, Vector3.up);

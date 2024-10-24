@@ -1,6 +1,8 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -12,12 +14,11 @@ namespace FirstLight.Game.MonoComponent
 	{
 		[Required] [SerializeField] private Transform _visualTransform;
 		[Required] [SerializeField] private Transform _circle;
-		[Required] [SerializeField] private Transform _explosion;
-		
+
 		private EntityView _view;
 		private Animator _animator;
 		private static readonly int _moveTrigger = Animator.StringToHash("Move");
-		
+
 		private void Awake()
 		{
 			_view = GetComponent<EntityView>();
@@ -35,31 +36,20 @@ namespace FirstLight.Game.MonoComponent
 		{
 			if (callback.Entity == _view.EntityRef)
 			{
-				var x = callback.Radius.AsFloat*2;
+				var x = callback.Radius.AsFloat * 2;
 				_circle.gameObject.SetActive(true);
 				_circle.localScale = new Vector3(x, x, x);
 				_animator.SetTrigger(_moveTrigger);
 			}
 		}
 
-		private async UniTaskVoid DeleteVfx()
-		{
-			await UniTask.WaitForSeconds(4);
-			if (_explosion != null)
-			{
-				Destroy(_explosion.gameObject);
-			}
-		}
-
 		private void OnMineExploded(EventLandMineExploded callback)
 		{
-			if (callback.Entity == _view.EntityRef)
-			{
-				_explosion.transform.SetParent(null, true);
-				_explosion.gameObject.SetActive(true);
-				_visualTransform.gameObject.SetActive(false);
-				DeleteVfx().Forget();
-			}
+			if (callback.Entity != _view.EntityRef) return;
+			var exp = MainInstaller.ResolveMatchServices()
+				.VfxService.Spawn(VfxId.Explosion);
+			exp.transform.position = _visualTransform.position;
+			_visualTransform.gameObject.SetActive(false);
 		}
 	}
 }

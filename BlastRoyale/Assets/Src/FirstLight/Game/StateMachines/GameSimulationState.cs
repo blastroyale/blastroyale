@@ -79,7 +79,6 @@ namespace FirstLight.Game.StateMachines
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
-			battleRoyale.OnExit(CleanUpMatch);
 
 			simulationInitializationError.Transition().OnTransition(() => _ = MatchError()).Target(final);
 
@@ -322,11 +321,6 @@ namespace FirstLight.Game.StateMachines
 			_services.RoomService.LeaveRoom(false);
 		}
 
-		private void CleanUpMatch()
-		{
-			_services.VfxService.DespawnAll();
-		}
-
 		private async UniTask PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
 			if (!isResync)
@@ -334,6 +328,7 @@ namespace FirstLight.Game.StateMachines
 				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData(game);
 			}
+
 			await UniTask.WaitUntil(IsSimulationReady);
 
 			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});

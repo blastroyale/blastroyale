@@ -107,7 +107,7 @@ namespace FirstLight.Game.Services
 		public MatchRewardsResult ReceivedInCommand { get; set; } = new ();
 	}
 
-	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService
+	public class MatchEndDataService : IMatchEndDataService, IMatchService
 	{
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
 		public bool LeftBeforeMatchFinished { get; set; }

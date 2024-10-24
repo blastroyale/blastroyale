@@ -344,7 +344,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			HandleParabolicUsed(callback.HazardData.EndTime,
 				time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun).Forget();
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoBehaviour) _matchServices.VfxService.Spawn(VfxId.SpecialReticule);
 
 			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
 
@@ -361,7 +361,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			HandleParabolicUsed(callback.HazardData.EndTime,
 				time, targetPosition, VfxId.GrenadeParabolic, VfxId.Explosion).Forget();
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoBehaviour) _matchServices.VfxService.Spawn(VfxId.SpecialReticule);
 
 			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
 
@@ -378,7 +378,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var parabolic = (ParabolicVfxMonoComponent) Services.VfxService.Spawn(parabolicVfxId);
+			var parabolic = (ParabolicVfxMonoBehaviour) _matchServices.VfxService.Spawn(parabolicVfxId);
 
 			parabolic.transform.position = transform.position;
 			parabolic.GetComponent<Rigidbody>().position = transform.position;
@@ -393,12 +393,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			Services.VfxService.Spawn(impactVfxId).transform.position = targetPosition;
+			_matchServices.VfxService.Spawn(impactVfxId).transform.position = targetPosition;
 		}
 
 		private void PlayCollectionVfx(VfxId id, EventOnCollectableCollected ev)
 		{
-			var vfx = Services.VfxService.Spawn(id).transform;
+			var vfx = _matchServices.VfxService.Spawn(id).transform;
 			vfx.position = ev.CollectablePosition.ToUnityVector3();
 		}
 
@@ -465,7 +465,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (callback.CollectableId.IsInGroup(GameIdGroup.Special) || callback.CollectableId.IsInGroup(GameIdGroup.Weapon))
 			{
-				var chestPickupVfx = Services.VfxService.Spawn(VfxId.SpecialAndWeaponPickupFx).transform;
+				var chestPickupVfx = _matchServices.VfxService.Spawn(VfxId.SpecialAndWeaponPickupFx).transform;
 				chestPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
 			}
 		}
@@ -558,7 +558,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			await Task.Delay((int) (delayTime * 1000));
 
-			Services.VfxService.Spawn(explosionVfxId).transform.position = targetPosition;
+			_matchServices.VfxService.Spawn(explosionVfxId).transform.position = targetPosition;
 		}
 
 		private void HandleOnShieldedChargeUsed(EventOnShieldedChargeUsed callback)
@@ -568,14 +568,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = (MutableTimeVfxMonoComponent) Services.VfxService.Spawn(VfxId.EnergyShield);
+			var vfx = _matchServices.VfxService.Spawn(VfxId.EnergyShield);
 			var vfxTransform = vfx.transform;
 			vfxTransform.SetParent(transform);
 			vfxTransform.localPosition = Vector3.zero;
 			vfxTransform.localScale = Vector3.one;
 			vfxTransform.localRotation = Quaternion.identity;
 
-			vfx.StartDespawnTimer(callback.ChargeDuration.AsFloat);
+			vfx.StartDespawnTimer(callback.ChargeDuration.AsFloat + 1); // +1 to let particles disappear
 		}
 
 		private void HandleOnSkyBeamUsed(EventOnSkyBeamUsed callback)
@@ -585,7 +585,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoBehaviour) _matchServices.VfxService.Spawn(VfxId.SpecialReticule);
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
@@ -602,7 +602,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			Services.VfxService.Spawn(VfxId.Radar).transform.position = transform.position;
+			_matchServices.VfxService.Spawn(VfxId.Radar).transform.position = transform.position;
 		}
 
 		private unsafe void HandleUpdateView(CallbackUpdateView callback)

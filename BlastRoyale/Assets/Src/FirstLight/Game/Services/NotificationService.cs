@@ -1,17 +1,19 @@
-﻿using System;
+﻿#if UNITY_IOS || UNITY_ANDROID
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
-using FirstLight.SDK.Services;
-using FirstLightServerSDK.Services;
 using Unity.Notifications;
 using Unity.Services.PushNotifications;
+using FirstLight.Game.Configs.Remote;
 using UnityEngine;
+#endif
+using FirstLight.Game.Messages;
+using FirstLightServerSDK.Services;
+using FirstLight.SDK.Services;
+using Cysharp.Threading.Tasks;
 
 namespace FirstLight.Game.Services
 {
@@ -36,6 +38,7 @@ namespace FirstLight.Game.Services
 
 		public void Init()
 		{
+#if UNITY_IOS || UNITY_ANDROID
 			var args = NotificationCenterArgs.Default;
 			args.AndroidChannelId = "default";
 			args.AndroidChannelName = "Notifications";
@@ -50,10 +53,12 @@ namespace FirstLight.Game.Services
 				Description = "Upcoming events",
 			});
 #endif
+#endif
 		}
 
 		public void RefreshEventNotifications()
 		{
+#if UNITY_IOS || UNITY_ANDROID
 			if (Application.isEditor) return;
 			NotificationCenter.CancelAllScheduledNotifications();
 			var eventConfig = _remoteConfigProvider.GetConfig<EventGameModesConfig>();
@@ -76,8 +81,29 @@ namespace FirstLight.Game.Services
 					}
 				}
 			}
+#endif
 		}
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+		public async UniTask RegisterForNotifications()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+		{
+#if UNITY_IOS || UNITY_ANDROID
+			if (Application.isEditor) return;
+			Init();
+			await InitRemotePushNotifications();
+			var request = NotificationCenter.RequestPermission();
+
+			while (request.Status == NotificationsPermissionStatus.RequestPending)
+			{
+				await UniTask.Yield();
+			}
+
+			Debug.Log("Permission result: " + request.Status);
+#endif
+		}
+
+#if UNITY_IOS || UNITY_ANDROID
 		private void AddEventNotifications(DateTime now,
 										   EventNotificationConfig notificationConfig,
 										   EventGameModeEntry @event,
@@ -125,20 +151,7 @@ namespace FirstLight.Game.Services
 			}, category, new NotificationDateTimeSchedule(dateTime));
 		}
 
-		public async UniTask RegisterForNotifications()
-		{
-			if (Application.isEditor) return;
-			Init();
-			await InitRemotePushNotifications();
-			var request = NotificationCenter.RequestPermission();
 
-			while (request.Status == NotificationsPermissionStatus.RequestPending)
-			{
-				await UniTask.Yield();
-			}
-
-			Debug.Log("Permission result: " + request.Status);
-		}
 
 		private async UniTask InitRemotePushNotifications()
 		{
@@ -168,5 +181,6 @@ namespace FirstLight.Game.Services
 				}
 			}
 		}
+#endif
 	}
 }

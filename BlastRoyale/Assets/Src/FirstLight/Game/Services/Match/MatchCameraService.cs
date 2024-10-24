@@ -33,7 +33,7 @@ namespace FirstLight.Game.Services
 	}
 
 	/// <inheritdoc />
-	public class MatchCameraService : IMatchCameraService, MatchServices.IMatchService
+	public class MatchCameraService : IMatchCameraService, IMatchService
 	{
 		
 		private IGameDataProvider _gameDataProvider;

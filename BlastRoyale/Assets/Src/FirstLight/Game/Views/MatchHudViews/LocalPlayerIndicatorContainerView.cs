@@ -18,6 +18,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class LocalPlayerIndicatorContainerView : IDisposable
 	{
 		private readonly IGameServices _services;
+		
 		private EntityRef _localPlayerEntity;
 		private EntityView _playerView;
 		private QuantumWeaponConfig _weaponConfig;
@@ -43,7 +44,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public LocalPlayerIndicatorContainerView()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, HandleOnLocalPlayerAmmoEmpty);
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
@@ -135,7 +135,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_localPlayerEntity = playerView.EntityRef;
 			_playerView = playerView;
-			var aim = _services.VfxService.Spawn(VfxId.WeaponAim);
+			var aim = MainInstaller.ResolveMatchServices().VfxService.Spawn(VfxId.WeaponAim);
 			_weaponAim = aim.GetComponent<WeaponAim>();
 			_weaponAim.SetView(playerView);
 			_weaponAim.gameObject.SetActive(false);
@@ -316,7 +316,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			else
 			{
 				// Handling wind up and down sounds here; e.g. Minigun
-				if (_weaponAudioConfig.WeaponShotWindUpId != AudioId.None)//(_weaponConfig.Id == GameId.ApoMinigun)
+				if (_weaponAudioConfig.WeaponShotWindUpId != AudioId.None) //(_weaponConfig.Id == GameId.ApoMinigun)
 				{
 					if (shooting & !_weaponAim.gameObject.activeSelf)
 					{
@@ -327,7 +327,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 						_services.AudioFxService.PlayClip2D(_weaponAudioConfig.WeaponShotWindDownId, GameConstants.Audio.MIXER_GROUP_SFX_3D_ID);
 					}
 				}
-				
+
 				_weaponAim.gameObject.SetActive(shooting);
 				if (shooting)
 				{

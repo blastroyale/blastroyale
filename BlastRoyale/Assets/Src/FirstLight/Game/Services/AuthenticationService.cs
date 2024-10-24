@@ -665,7 +665,7 @@ namespace FirstLight.Game.Services
 
 		public void LinkDeviceID(Action onSuccess = null, Action<PlayFabError> onError = null)
 		{
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
 			var link = new LinkCustomIDRequest
 			{
 				CustomId = ParrelHelpers.DeviceID(),
@@ -704,7 +704,7 @@ namespace FirstLight.Game.Services
 
 		public void UnlinkDeviceID(Action onSuccess = null, Action<PlayFabError> errorCallback = null)
 		{
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
 			var unlinkRequest = new UnlinkCustomIDRequest
 			{
 				CustomId = ParrelHelpers.DeviceID()

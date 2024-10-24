@@ -342,14 +342,14 @@ namespace FirstLight.Game.StateMachines
 				.AddComponent<EntityViewUpdaterService>();
 			_matchServices = new MatchServices(entityService, _services, _dataProvider, _dataService);
 			MainInstaller.Bind(_matchServices);
-			await _matchServices.MatchAssetService.LoadMandatoryAssets();
-			_matchServices.MatchAssetService.LoadOptionalAssets().Forget(); // Don't wait for optional assets
+			await _matchServices.LoadMandatoryAssets();
+			_matchServices.LoadOptionalAssets().Forget(); // Don't wait for optional assets
 		}
 
 		private async UniTask UnloadAllMatchAssets()
 		{
 			if (_matchServices == null) return;
-			await _matchServices.MatchAssetService.UnloadAllMatchAssets();
+			await _matchServices.UnloadAssets();
 			_statechartTrigger(MatchUnloadedEvent);
 		}
 

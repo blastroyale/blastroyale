@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using FirstLight.Game.Domains.VFX;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.Services;
@@ -24,11 +25,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private Image _rangeIndicator;
 
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 		private EntityView _view;
 		private TweenerCore<Vector3, Vector3, VectorOptions> _tweener;
 		private bool _circleActive;
 		private Quaternion _vfxInitialRotation;
-		private Vfx<VfxId> _revivingFX;
+		private AbstractVfx<VfxId> _revivingFX;
 
 		private EntityRef _entityRef => _view.EntityRef;
 		private CharacterSkinMonoComponent _skin => GetComponentInChildren<CharacterSkinMonoComponent>(); // TODO: BAD!
@@ -37,6 +39,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void Awake()
 		{
 			_services = MainInstaller.ResolveServices();
+			_matchServices = MainInstaller.ResolveMatchServices();
 			_view = GetComponent<EntityView>();
 			_view.OnEntityInstantiated.AddListener(OnEntityInstantiated);
 			_vfxInitialRotation = _indicatorsRoot.transform.rotation;
@@ -74,13 +77,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			SetProgress(ReviveSystem.CalculateRevivePercentage(f, knockedOut).AsFloat);
 		}
 
-
 		private void SetProgress(float fp)
 		{
 			_reviveProgressIndicator.fillAmount = fp;
 			_rangeIndicator.fillAmount = 1 - fp;
 		}
-
 
 		private void KnockoutPlayer()
 		{
@@ -108,11 +109,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_indicatorsRoot.SetActive(false);
 			_skin.TriggerRestore();
-			_services.VfxService.Spawn(VfxId.Revived).transform.position = transform.position + Vector3.up;
+			_matchServices.VfxService.Spawn(VfxId.Revived).transform.position = transform.position + Vector3.up;
 			_view.GetComponentInChildren<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
 			EnableRevivingFX(false);
 		}
-
 
 		private void ToggleOffCircle()
 		{
@@ -148,12 +148,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (callback.Entity != _entityRef) return;
 			KnockoutPlayer();
-			
+
 			// Only team mates can hear knocked down sound
 			if (!_services.TeamService.IsSameTeamAsSpectator(callback.Entity))
 			{
 				return;
 			}
+
 			// This is a general notification about the event, that's why it's not in 3D space
 			_services.AudioFxService.PlayClip2D(AudioId.TeammateKnockedDown, GameConstants.Audio.MIXER_GROUP_SFX_2D_ID);
 		}
@@ -186,13 +187,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (enable)
 			{
 				if (_revivingFX != null) return;
-				_revivingFX = _services.VfxService.Spawn(VfxId.Reviving);
+				_revivingFX = _matchServices.VfxService.Spawn(VfxId.Reviving);
 				_revivingFX.transform.SetParent(transform, false);
 			}
 			else
 			{
 				if (_revivingFX == null) return;
-				_services.VfxService.Despawn(_revivingFX);
+				_matchServices.VfxService.Despawn(_revivingFX);
 				_revivingFX = null;
 			}
 		}

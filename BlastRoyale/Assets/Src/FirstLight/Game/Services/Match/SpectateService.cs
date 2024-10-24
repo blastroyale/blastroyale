@@ -81,7 +81,7 @@ namespace FirstLight.Game.Services
 		public EntityRef GetSpectatedEntity();
 	}
 
-	public class SpectateService : ISpectateService, MatchServices.IMatchService
+	public class SpectateService : ISpectateService, IMatchService
 	{
 		private readonly IGameServices _gameServices;
 		private readonly IMatchServices _matchServices;

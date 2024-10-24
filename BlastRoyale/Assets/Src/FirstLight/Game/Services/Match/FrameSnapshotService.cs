@@ -66,7 +66,7 @@ namespace FirstLight.Game.Services
 		}
 	}
 
-	public class FrameSnapshotService : IFrameSnapshotService, MatchServices.IMatchService
+	public class FrameSnapshotService : IFrameSnapshotService, IMatchService
 	{
 		private readonly IDataService _dataService;
 		private readonly IGameServices _services;

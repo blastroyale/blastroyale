@@ -33,8 +33,7 @@ namespace FirstLight.Game.Ids
 		CoinPickupFx = 32,
 		BppPickupFx = 33,
 		Revived = 34,
-		Reviving = 35,
-		RocketExplosion = 36,
+		Reviving = 35
 	}
 	
 	/// <summary>

@@ -20,7 +20,6 @@ using Quantum.Commands;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
 namespace FirstLight.Game.StateMachines
 {
 	public class FirstGameTutorialState
@@ -43,10 +42,9 @@ namespace FirstLight.Game.StateMachines
 		private TutorialOverlayPresenter _tutorialOverlay;
 		private HUDScreenPresenter _hud;
 		private Dictionary<string, GameObject> _tutorialObjectRefs = new ();
-		private List<LocationPointerVfxMonoComponent> _activeLocationPointers = new ();
+		private List<LocationPointerVfxMonoBehaviour> _activeLocationPointers = new ();
 		private MetaTutorialSequence _sequence;
 		private GameplayProceedEventData _currentGameplayProceedData;
-
 
 		public FirstGameTutorialState(IGameServices services, Action<IStatechartEvent> statechartTrigger)
 		{
@@ -139,7 +137,6 @@ namespace FirstLight.Game.StateMachines
 			kill2Bots.Event(MatchState.MatchUnloadedEvent).Target(final);
 			kill2Bots.Event(ProceedTutorialEvent).Target(pickupSpecial);
 
-
 			pickupSpecial.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PickupSpecial); });
 			pickupSpecial.OnEnter(OnEnterPickupSpecial);
 			pickupSpecial.Event(MatchState.MatchUnloadedEvent).Target(final);
@@ -177,7 +174,6 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
-
 
 		private void OnUpdateSimulation(CallbackUpdateView callback)
 		{
@@ -229,7 +225,6 @@ namespace FirstLight.Game.StateMachines
 			return entityView;
 		}
 
-
 		private void SubscribeMessages()
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
@@ -237,7 +232,6 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateSimulation);
 			_services.MessageBrokerService.Subscribe<PlayerEnteredMessageVolume>(OnPlayerEnteredMessageVolume);
 		}
-
 
 		private void DespawnPointers()
 		{
@@ -249,7 +243,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SpawnNewPointer(Vector3 spawnLocation, Transform followTransform)
 		{
-			var pointerFx = _services.VfxService.Spawn(VfxId.LocationPointer) as LocationPointerVfxMonoComponent;
+			var pointerFx = MainInstaller.ResolveMatchServices().VfxService.Spawn(VfxId.LocationPointer) as LocationPointerVfxMonoBehaviour;
 			pointerFx.SetFollowedObject(followTransform);
 			pointerFx.transform.position = spawnLocation;
 			_activeLocationPointers.Add(pointerFx);
@@ -271,7 +265,6 @@ namespace FirstLight.Game.StateMachines
 			CheckGameplayProceedConditions(typeof(EventOnLocalPlayerAlive));
 		}
 
-
 		private async void OnHazardLand(EventOnHazardLand callback)
 		{
 			await Task.Yield();
@@ -282,7 +275,6 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 		}
-
 
 		private void UnsubscribeMessages()
 		{
@@ -311,7 +303,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterStartedSimulation()
 		{
-			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.welcome_to_wastelands, CharacterType.Female, CharacterDialogMoodType.Happy,
+			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.welcome_to_wastelands, CharacterType.Female,
+				CharacterDialogMoodType.Happy,
 				CharacterDialogPosition.TopLeft);
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
@@ -330,7 +323,8 @@ namespace FirstLight.Game.StateMachines
 		private async UniTask OnEnterMoveJoystickAsync()
 		{
 			_matchServices.PlayerInputService.OnQuantumInputSent += OnInput;
-			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female,
+				CharacterDialogMoodType.Neutral);
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 			_hud = _services.UIService.GetScreen<HUDScreenPresenter>();
 			SetFingerPosition(_hud.MovementJoystick);
@@ -374,7 +368,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterDestroyBarrier()
 		{
-			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.shoot_barrier, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.shoot_barrier, CharacterType.Female,
+				CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, GetLocalPlayerView().transform);
 			SetFingerPosition(_hud.ShootingJoystick, 90);
@@ -387,7 +382,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterPickupWeapon()
 		{
-			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_weapon, CharacterType.Female,
+				CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_FIRST_WEAPON].transform.position, GetLocalPlayerView().transform);
 			_tutorialOverlay.HideGuideHand();
@@ -400,7 +396,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterMoveToDummyArea()
 		{
-			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_dummy_area, CharacterType.Female, CharacterDialogMoodType.Shocked);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_dummy_area, CharacterType.Female,
+				CharacterDialogMoodType.Shocked);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT_AREA].transform.position, GetLocalPlayerView().transform);
 
@@ -428,13 +425,13 @@ namespace FirstLight.Game.StateMachines
 			});
 		}
 
-
 		private void OnEnterPickupSpecial()
-		{			
+		{
 			if (GetLocalPlayerView() == null) return; // reconnection edge case
-			
+
 			QuantumRunner.Default.Game.SendCommand(new TutorialSpawnSpecialCommand());
-			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_special, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_special, CharacterType.Female,
+				CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			var position = GetLocalPlayerView().transform;
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_SPECIAL_PICKUP].transform.position, position);
@@ -449,7 +446,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterKill1BotSpecial()
 		{
 			if (GetLocalPlayerView() == null) return; // reconnection edge case
-			
+
 			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.use_grenade, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, GetLocalPlayerView().transform);
@@ -466,7 +463,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterMoveToGateArea()
 		{
-			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.proceed_iron_gate, CharacterType.Female, CharacterDialogMoodType.Happy);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.proceed_iron_gate, CharacterType.Female,
+				CharacterDialogMoodType.Happy);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_IRON_GATE].transform.position, GetLocalPlayerView().transform);
 			_tutorialOverlay.HideGuideHand();
@@ -477,7 +475,7 @@ namespace FirstLight.Game.StateMachines
 				EventMetaId = GameConstants.Tutorial.TRIGGER_GATE_AREA
 			};
 		}
-		
+
 		private void OnEnterOpenBox()
 		{
 			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.open_chest, CharacterType.Female, CharacterDialogMoodType.Happy);
@@ -492,7 +490,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterKillFinalBot()
 		{
-			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.drop_down_to_arena, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialOverlay.Dialog.ContinueDialog(ScriptLocalization.UITTutorial.drop_down_to_arena, CharacterType.Female,
+				CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_ARENA_DROPDOWN].transform.position, GetLocalPlayerView().transform);
 
@@ -509,7 +508,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterWaitMatchFinish()
 		{
 			_currentGameplayProceedData = new GameplayProceedEventData();
-			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.you_made_it_look_easy, CharacterType.Female, CharacterDialogMoodType.Happy,
+			_tutorialOverlay.Dialog.ShowDialog(ScriptLocalization.UITTutorial.you_made_it_look_easy, CharacterType.Female,
+				CharacterDialogMoodType.Happy,
 				CharacterDialogPosition.TopLeft);
 		}
 
@@ -532,8 +532,8 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			return f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter)
-			       && playerCharacter.CurrentWeapon.IsValid()
-			       && !PlayerCharacter.HasMeleeWeapon(f, playerEntity);
+				&& playerCharacter.CurrentWeapon.IsValid()
+				&& !PlayerCharacter.HasMeleeWeapon(f, playerEntity);
 		}
 
 		private bool AreTheFirstBotsDead(Frame f)
@@ -555,13 +555,11 @@ namespace FirstLight.Game.StateMachines
 			return true;
 		}
 
-
 		private bool HasSpecial(Frame f)
 		{
 			var localPlayer = _matchServices.SpectateService.GetSpectatedEntity();
 			return f.TryGet<PlayerInventory>(localPlayer, out var inventory) && inventory.HasAnySpecial();
 		}
-
 
 		private bool IsGrenadeFlying(Frame f)
 		{
@@ -582,7 +580,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return f.ComponentCount<Chest>() == 0;
 		}
-
 
 		private bool IsPlayerAlive(Frame f, EntityRef entityRef)
 		{

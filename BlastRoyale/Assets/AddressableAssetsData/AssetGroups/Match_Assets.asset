@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Match_Assets
+  m_EditorClassIdentifier: 
+  m_GroupName: Match_Assets
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 999777a24f8cfb14fac815876431de4a
+  m_SerializeEntries:
+  - m_GUID: 11d57e767718d493580978f3366fb7b5
+    m_Address: AdventureAssets
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb2c68c2697e4e4428ad4dddf3390ba4
+    m_Address: Assets/AddressableResources/QuantumAssets
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: dd879f602e894c74bad3a0c13c031f2b, type: 2}
+    - {fileID: 11400000, guid: f781254ccf7f28a4d9e8a82b708e8241, type: 2}

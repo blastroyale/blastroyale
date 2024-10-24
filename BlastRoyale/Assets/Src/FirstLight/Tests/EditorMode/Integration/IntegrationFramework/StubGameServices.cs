@@ -1,3 +1,4 @@
+using FirstLight.Game.Domains.VFX;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -32,7 +33,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IAssetResolverService AssetResolverService { get; }
 		public virtual IAnalyticsService AnalyticsService { get; }
 		public virtual IGenericDialogService GenericDialogService { get; }
-		public virtual IVfxService<VfxId> VfxService { get; }
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
 		public virtual IGameBackendService GameBackendService { get; }
 		public virtual IPlayerProfileService ProfileService { get; }
@@ -77,8 +77,7 @@ namespace FirstLight.Tests.EditorMode
 		public StubGameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 								ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
 								IGameLogic gameLogic, IDataProvider dataProvider,
-								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService,
-								IVfxService<VfxId> vfxService)
+								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
@@ -89,7 +88,6 @@ namespace FirstLight.Tests.EditorMode
 			AssetResolverService = assetResolverService;
 			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);
 			TutorialService = tutorialService;
-			VfxService = vfxService;
 			GameLogic = gameLogic;
 			LocalPrefsService = new LocalPrefsService();
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);

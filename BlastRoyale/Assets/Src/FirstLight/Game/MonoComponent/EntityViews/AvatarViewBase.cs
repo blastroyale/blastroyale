@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using FirstLight.Game.Domains.VFX;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Collections;
@@ -24,10 +25,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected CharacterSkinMonoComponent _skin;
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 		private Coroutine _stunCoroutine;
 		private Coroutine _materialsCoroutine;
-		private Vfx<VfxId> _statusVfx;
-	
+		private AbstractVfx<VfxId> _statusAbstractVfx;
 
 		/// <summary>
 		/// The readonly <see cref="AnimatorWrapper"/> to play the avatar animations
@@ -43,13 +44,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_skin = GetComponent<CharacterSkinMonoComponent>();
 			_services = MainInstaller.ResolveServices();
-			
+			_matchServices = MainInstaller.ResolveMatchServices();
+
 			QuantumEvent.Subscribe<EventOnHealthIsZeroFromAttacker>(this, HandleOnHealthIsZeroFromAttacker);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, HandleOnStatusModifierCancelled);
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, HandleOnStatusModifierFinished);
 		}
-		
+
 		/// <summary>
 		/// Sets the modifier effect for the player
 		/// </summary>
@@ -67,17 +69,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			else if (statusType.TryGetVfx(out VfxId vfx))
 			{
-				if (_statusVfx != null)
+				if (_statusAbstractVfx != null)
 				{
-					_statusVfx.Despawn();
-					_statusVfx = null;
+					_statusAbstractVfx.Despawn();
+					_statusAbstractVfx = null;
 				}
 
-				_statusVfx = Services.VfxService.Spawn(vfx);
+				_statusAbstractVfx = _matchServices.VfxService.Spawn(vfx);
 
-				var cachedTransform = _statusVfx.transform;
+				var cachedTransform = _statusAbstractVfx.transform;
 
-				_statusVfx.GetComponent<MutableTimeVfxMonoComponent>().StartDespawnTimer(duration);
+				_statusAbstractVfx.StartDespawnTimer(duration);
 				cachedTransform.SetParent(transform);
 
 				cachedTransform.localPosition = Vector3.zero;
@@ -90,7 +92,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (!Culled)
 			{
-				_services.VfxService.Spawn(VfxId.DeathEffect).transform.position = transform.position + Vector3.up;
+				_matchServices.VfxService.Spawn(VfxId.DeathEffect).transform.position = transform.position + Vector3.up;
 			}
 
 			_skin.TriggerDie();
@@ -159,10 +161,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void CleanUp()
 		{
-			if (_statusVfx != null)
+			if (_statusAbstractVfx != null)
 			{
-				_statusVfx.Despawn();
-				_statusVfx = null;
+				_statusAbstractVfx.Despawn();
+				_statusAbstractVfx = null;
 			}
 
 			if (_materialsCoroutine != null)

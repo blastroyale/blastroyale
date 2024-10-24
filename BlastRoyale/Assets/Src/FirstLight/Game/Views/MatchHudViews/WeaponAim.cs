@@ -1,5 +1,6 @@
  using System.Linq;
 using FirstLight.FLogger;
+using FirstLight.Game.Domains.VFX;
 using FirstLight.Game.Ids;
  using FirstLight.Game.MonoComponent.EntityPrototypes;
  using FirstLight.Game.MonoComponent.EntityViews;
@@ -25,7 +26,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// The aux lines are in local space and are only meant to give the player an idea on the max range variation
 	/// of his weapon. This is so we don't need to keep updating the variation lines every frame.
 	/// </summary>
-	public unsafe class WeaponAim : Vfx<VfxId>
+	public unsafe class WeaponAim : VfxMonoBehaviour
 	{
 		private const QueryOptions _hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics | QueryOptions.ComputeDetailedInfo;
 	

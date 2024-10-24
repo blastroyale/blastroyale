@@ -22,31 +22,11 @@ namespace FirstLight.Game.Services
 	/// <summary>
 	/// Responsible for asset loading before the match
 	/// </summary>
-	public interface IMatchAssetsService
+	public interface IMatchAssetsService : IMatchServiceAssetLoader
 	{
-		/// <summary>
-		/// Loads assets that are mandatory to the game to boot.
-		/// The simulation can only start after this assets are ready.
-		/// This can be loaded in background during matchmaking, just need to ensure
-		/// all players loaded before starting the game
-		/// </summary>
-		UniTask LoadMandatoryAssets();
-
-		/// <summary>
-		/// This method will start loading the optional assets, and hopefully the game starts when all are loaded.
-		/// Not loading all optional assets is just fine, and starting the game while one asset is in the middle
-		/// of the load is also ok.
-		/// In case they are not loaded the game will run just fine and assets will be loaded during the game.
-		/// </summary>
-		UniTask LoadOptionalAssets();
-
-		/// <summary>
-		/// Unloads all loaded assets
-		/// </summary>
-		UniTask UnloadAllMatchAssets();
 	}
 
-	public class MatchAssetsService : IMatchAssetsService, MatchServices.IMatchService
+	public class MatchAssetsService : IMatchAssetsService, IMatchService
 	{
 		private readonly IGameServices _services;
 		private readonly IAssetAdderService _assetAdderService;
@@ -71,7 +51,6 @@ namespace FirstLight.Game.Services
 
 			await _assetAdderService.LoadAllAssets<MaterialVfxId, Material>();
 			await _assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>();
-			await _assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>();
 			await _services.AssetResolverService.RequestAsset<GameId, GameObject>(GameId.Hammer, true, false);
 
 			await LoadOptionalGroup<GameObject>(GameIdGroup.Collectable);
@@ -114,7 +93,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public async UniTask UnloadAllMatchAssets()
+		public async UniTask UnloadAssets()
 		{
 			var start = DateTime.UtcNow;
 			FLog.Info("Unloading Match Assets");
@@ -131,9 +110,7 @@ namespace FirstLight.Game.Services
 				break;
 			}
 
-			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
-			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets<MaterialVfxId, Material>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());

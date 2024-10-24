@@ -16,6 +16,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private int _shells;
 		[SerializeField, Required] private bool _shellsPlaySound;
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 
 		public bool ActiveWeapon { get; set; }
 
@@ -23,6 +24,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_particleSystem.Stop();
 			_services = MainInstaller.ResolveServices();
+			_matchServices = MainInstaller.ResolveMatchServices();
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
@@ -43,7 +45,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				var currentEuler = t.rotation.eulerAngles;
 				var rot = Quaternion.Euler(currentEuler.x, currentEuler.y + 65, currentEuler.z);
-				_services.VfxService.Spawn(VfxId.Shell).transform.SetPositionAndRotation(t.position, rot);
+				_matchServices.VfxService.Spawn(VfxId.Shell).transform.SetPositionAndRotation(t.position, rot);
 			}
 
 			if (_shellsPlaySound && _shells > 0)

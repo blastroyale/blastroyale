@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Domains.VFX;
 using FirstLight.Game.Logic;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
@@ -66,9 +67,6 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IGenericDialogService"/>
 		IGenericDialogService GenericDialogService { get; }
-
-		/// <inheritdoc cref="IVfxService{T}"/>
-		IVfxService<VfxId> VfxService { get; }
 
 		/// <inheritdoc cref="IAudioFxService{T}"/>
 		IAudioFxService<AudioId> AudioFxService { get; }
@@ -159,7 +157,6 @@ namespace FirstLight.Game.Services
 		public IAssetResolverService AssetResolverService { get; }
 		public IAnalyticsService AnalyticsService { get; }
 		public IGenericDialogService GenericDialogService { get; }
-		public IVfxService<VfxId> VfxService { get; }
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		public IGameBackendService GameBackendService { get; }
 		public IGameAppService GameAppService { get; }
@@ -210,7 +207,6 @@ namespace FirstLight.Game.Services
 			AssetResolverService = assetResolverService;
 			LocalPrefsService = new LocalPrefsService();
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
-			VfxService = new VfxService<VfxId>();
 
 			UIService = new UIService.UIService();
 			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);

@@ -202,12 +202,6 @@ namespace FirstLight.Game.TestCases
 
 		public void CheckAutomations()
 		{
-#if UNITY_EDITOR
-			if (FeatureFlags.GetLocalConfiguration().StartTestGameAutomatically)
-			{
-				RunInsideCoroutine(new JoinTestRoom());
-			}
-#endif
 		}
 
 		public void BeforeGameAwaken()

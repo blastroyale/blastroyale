@@ -8,12 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_GroundRoad
-  m_Shader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
+  m_Shader: {fileID: 4800000, guid: b6e721c850e845908724637f718a62a5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _FLIPBOOKBLENDING_OFF
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -129,7 +128,7 @@ Material:
     - Color_CB1CA255: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_FD0C58A4: {r: 0.3, g: 0.3, b: 1, a: 1}
     - Vector4_F799D26D: {r: 1, g: 1, b: 0, a: 90}
-    - _BaseColor: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
+    - _BaseColor: {r: 0.23037556, g: 0.24072176, b: 0.2924528, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}

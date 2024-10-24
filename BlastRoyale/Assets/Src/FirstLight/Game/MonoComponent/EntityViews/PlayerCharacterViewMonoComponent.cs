@@ -267,6 +267,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				{
 					// TODO: No spawn animation - probably not needed
 					//AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
+					_characterView.DestroyGlider();
 				}
 			}
 			else

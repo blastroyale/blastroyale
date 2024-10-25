@@ -19,6 +19,7 @@ using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
@@ -34,7 +35,7 @@ namespace FirstLight.Game.Presenters
 	{
 		private const string USS_MAP_MARKER_LEFT = "map-marker--left";
 		private const string USS_TEAM_MEMBER_MARKER = "map-marker-party";
-		
+
 		private const int TIMER_PADDING_MS = 2000;
 		private const int MOVE_LOCATION_LEFT = -375;
 
@@ -66,10 +67,13 @@ namespace FirstLight.Game.Presenters
 		private bool _matchStarting;
 
 		private List<Player> _squadMembers = new ();
-		private MapAreaConfig _mapAreaConfig;
+
+		private MapAssetConfig _mapAssetConfig;
+		private Texture2D _mapAreaTexture;
+		private Sprite _mapSprite;
+
 		private Vector2 _markerLocalPosition;
 		private Dictionary<int, CancellationTokenSource> _popMarkerAnimations = new ();
-
 
 		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
@@ -129,7 +133,6 @@ namespace FirstLight.Game.Presenters
 
 			RefreshPartyList();
 			UpdateMasterClient();
-
 			return base.OnScreenOpen(reload);
 		}
 
@@ -197,7 +200,7 @@ namespace FirstLight.Game.Presenters
 				_services.CollectionService.GetCosmeticForGroup(loadout.Value.ToArray(),
 					GameIdGroup.PlayerSkin)).ContinueWith(element.SetPfpImage);
 		}
-		
+
 		private void RefreshPartyMarkers()
 		{
 			var isSquadGame = CurrentRoom.IsTeamGame;
@@ -217,7 +220,7 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < players.Count(); i++)
 			{
 				var squadMember = players[i];
-				
+
 				var partyMarker = _partyMarkers[i];
 				partyMarker.visible = true;
 
@@ -272,29 +275,6 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private async UniTask LoadMapAsset(QuantumMapConfig mapConfig)
-		{
-			if (_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
-			{
-				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
-				_mapImage.style.backgroundImage = new StyleBackground(sprite);
-				var halfWidth = Screen.width / 2;
-
-				if (halfWidth >= Screen.height)
-				{
-					_mapHolder.style.width = _mapImage.worldBound.height;
-				}
-				else
-				{
-					_mapHolder.style.height = _mapImage.worldBound.width;
-				}
-			}
-			else
-			{
-				FLog.Warn("Map sprite for map " + mapConfig.Map + " not found");
-			}
-		}
-
 		// TODO: Should not be here, should only have a listener to timer events
 		private void StartLabelTimerCoroutine()
 		{
@@ -316,7 +296,7 @@ namespace FirstLight.Game.Presenters
 			var mutators = simulationConfig.Mutators.GetSetFlags();
 			var mutatorsString = "";
 			var subtitlesCounter = 0;
-			
+
 			// Combining a list of mutators
 			for (int i = 0; i < mutators.Length; i++)
 			{
@@ -328,7 +308,7 @@ namespace FirstLight.Game.Presenters
 					mutatorsString += "\n";
 				}
 			}
-			
+
 			// Combining a list of weapons (in case weapon filter is active)
 			for (int i = 0; i < simulationConfig.WeaponsSelectionOverwrite.Length; i++)
 			{
@@ -336,6 +316,7 @@ namespace FirstLight.Game.Presenters
 				{
 					mutatorsString += ", ";
 				}
+
 				mutatorsString += LocalizationUtils.GetTranslationGameIdString(simulationConfig.WeaponsSelectionOverwrite[i]);
 				mutatorsString += i < (simulationConfig.WeaponsSelectionOverwrite.Length - 1) ? ", " : "";
 				subtitlesCounter++;
@@ -344,12 +325,11 @@ namespace FirstLight.Game.Presenters
 					mutatorsString += "\n";
 				}
 			}
-			
-			_mapAreaConfig = _services.ConfigsProvider.GetConfig<MapAreaConfigs>().GetMapAreaConfig(mapConfig.Map);
+
 			_locationLabel.text = mapConfig.Map.GetLocalization();
 			_header.SetTitle(LocalizationUtils.GetTranslationForGameModeAndTeamSize(gameModeConfig.Id, simulationConfig.TeamSize));
 			_header.SetSubtitle(mutatorsString);
-			
+
 			UpdatePlayerCount();
 			UpdateMasterClient();
 			StartLabelTimerCoroutine();
@@ -358,7 +338,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_mapMarker.SetDisplay(false);
 				_mapTitleBg.SetDisplay(false);
-				LoadMapAsset(mapConfig).Forget();
+				LoadMapAssets(mapConfig.Map).Forget();
 
 				return;
 			}
@@ -370,8 +350,37 @@ namespace FirstLight.Game.Presenters
 				OnWaitingMandatoryMatchAssets();
 			}
 
-			await LoadMapAsset(mapConfig);
+			await LoadMapAssets(mapConfig.Map);
 			InitSkydiveSpawnMapData();
+		}
+
+		private async UniTask LoadMapAssets(GameId map)
+		{
+			if (!_services.ConfigsProvider.GetConfig<MapAssetConfigIndex>().TryGetConfigForMap(map, out var mapAssetRef))
+			{
+				throw new Exception("Map assets not found for " + map);
+			}
+
+			_mapAssetConfig = await mapAssetRef.LoadAssetAsync();
+			var mapPreviewRef = _mapAssetConfig.MapPreview.Clone();
+			var mapAreasRef = _mapAssetConfig.MapAreas.AreaTextureRef.Clone();
+			// Load into memory
+			_mapAreaTexture = await mapAreasRef.LoadAssetAsync();
+			_mapSprite = await mapPreviewRef.LoadAssetAsync();
+
+			AddAutoReleaseAsset(mapAssetRef, mapAreasRef, mapPreviewRef);
+
+			_mapImage.style.backgroundImage = new StyleBackground(_mapSprite);
+			var halfWidth = Screen.width / 2;
+
+			if (halfWidth >= Screen.height)
+			{
+				_mapHolder.style.width = _mapImage.worldBound.height;
+			}
+			else
+			{
+				_mapHolder.style.height = _mapImage.worldBound.width;
+			}
 		}
 
 		private void InitSkydiveSpawnMapData()
@@ -417,7 +426,6 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!_services.RoomService.InRoom) return false;
 			if (!_dropSelectionAllowed) return false;
-
 			var mapWidth = _mapImage.contentRect.width;
 			var mapHeight = _mapImage.contentRect.height;
 			var mapWidthHalf = mapWidth / 2;
@@ -429,9 +437,9 @@ namespace FirstLight.Game.Presenters
 				return false;
 			}
 
-			if (_mapAreaConfig != null)
+			if (_mapAssetConfig)
 			{
-				var areaName = _mapAreaConfig.GetAreaName(mapAreaPosition);
+				var areaName = _mapAssetConfig.MapAreas.GetAreaName(_mapAreaTexture, mapAreaPosition);
 
 				// No area name means invalid area
 				if (string.IsNullOrEmpty(areaName))
@@ -558,7 +566,6 @@ namespace FirstLight.Game.Presenters
 				}
 
 				var timeLeft = CurrentRoom.TimeLeftToGameStart().Add(TimeSpan.FromMilliseconds(-TIMER_PADDING_MS));
-				
 
 				if (timeLeft.Milliseconds < 0)
 				{

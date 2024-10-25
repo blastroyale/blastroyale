@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.Modules.UIService.Runtime;
 using QuickEye.UIToolkit;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 
 namespace FirstLight.UIService
@@ -22,6 +23,7 @@ namespace FirstLight.UIService
 		private readonly List<UIView> _views = new ();
 		private bool _enableTriggered;
 		private CancellationTokenSource _cancellationTokenSource;
+		private List<AssetReference> _dynamicUsedAssets = new ();
 
 		private void OnEnable()
 		{
@@ -92,8 +94,11 @@ namespace FirstLight.UIService
 		internal async UniTask OnScreenClosedInternal()
 		{
 			_cancellationTokenSource.Cancel();
-
 			await OnScreenClose();
+			foreach (var dynamicUsedAsset in _dynamicUsedAssets)
+			{
+				dynamicUsedAsset.ReleaseAsset();
+			}
 
 			foreach (var view in _views)
 			{
@@ -104,6 +109,11 @@ namespace FirstLight.UIService
 			{
 				Root.EnableInClassList(UIService.CLASS_HIDDEN, true);
 			}
+		}
+
+		public void AddAutoReleaseAsset(params AssetReference[] assetRef)
+		{
+			_dynamicUsedAssets.AddRange(assetRef);
 		}
 
 		/// <summary>

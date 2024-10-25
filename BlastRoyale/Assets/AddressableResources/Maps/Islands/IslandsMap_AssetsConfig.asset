@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87748ec297e468d8c996980a88d3c98, type: 3}
+  m_Name: IslandsMap_AssetsConfig
+  m_EditorClassIdentifier: 
+  Scene:
+    m_AssetGUID: 540f3d4d7c97bf74aa43ed1ecdfc1ab0
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  QuantumMap:
+    m_AssetGUID: e580edb6d7f1bdc46929e14e6f38d6e9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapPreview:
+    m_AssetGUID: a36684f0683815640a73d55373cc481e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapAreas:
+    AreaTextureRef:
+      m_AssetGUID: 54ced749cf8ac8b4f8a23547a5eafda8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    Areas:
+    - Color:
+        serializedVersion: 2
+        rgba: 4278251263
+      Name: MAZE
+    - Color:
+        serializedVersion: 2
+        rgba: 4278231551
+      Name: SOUTH PARK
+    - Color:
+        serializedVersion: 2
+        rgba: 4278215167
+      Name: SOUTH TOWN
+    - Color:
+        serializedVersion: 2
+        rgba: 4286775551
+      Name: CONTROL POINT
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901879
+      Name: WAREHOUSE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294902010
+      Name: NORTH TOWN
+    - Color:
+        serializedVersion: 2
+        rgba: 4278195711
+      Name: OUTSKIRTS
+    - Color:
+        serializedVersion: 2
+        rgba: 4294909964
+      Name: NORTH PARK

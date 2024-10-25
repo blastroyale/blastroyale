@@ -9,6 +9,7 @@ using Quantum;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using FirstLight.AssetImporter;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs.AssetConfigs;
 using UnityEngine.Video;
 using static FirstLight.Game.Ids.AddressableId;
@@ -117,8 +118,7 @@ namespace FirstLight.Game.Configs
 				AddWrappedSingleton<CharacterSkinConfigs, CharacterSkinsConfig>(Collections_CharacterSkins_Config),
 				// Others
 				AddWrappedSingleton<CurrencySpriteConfigs, CurrencySpriteConfig>(Configs_CurrencySpriteConfigs),
-				AddSingleton<MapAreaConfigs>(Configs_MapAreaConfigs),
-				AddSingleton<MapAssetConfigs>(Configs_MapAssetConfigs),
+				AddSingleton<MapAssetConfigIndex>(Configs_MapAssetConfigs),
 				AddSingleton<AudioMixerConfigs>(Configs_AudioMixerConfigs),
 				AddSingleton<AudioMatchAssetConfigs>(Configs_AudioMatchAssetConfigs),
 				AddSingleton<AudioMainMenuAssetConfigs>(Configs_AudioMainMenuAssetConfigs),

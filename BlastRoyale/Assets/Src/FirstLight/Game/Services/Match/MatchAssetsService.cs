@@ -14,6 +14,7 @@ using Photon.Realtime;
 using PlayFab;
 using Quantum;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -31,6 +32,8 @@ namespace FirstLight.Game.Services
 		private readonly IGameServices _services;
 		private readonly IAssetAdderService _assetAdderService;
 		private readonly IGameDataProvider _data;
+		private LinkedList<AssetReference> _loadedAssets = new ();
+		private MapAssetConfig _mapAssetConfig;
 
 		public MatchAssetsService()
 		{
@@ -38,6 +41,19 @@ namespace FirstLight.Game.Services
 			_assetAdderService = _services.AssetResolverService as IAssetAdderService;
 			_data = MainInstaller.Resolve<IGameDataProvider>();
 			_services.RoomService.OnPlayersChange += OnRoomPlayersChange;
+		}
+
+		private UniTask<T> LoadAutoClean<T>(AssetReferenceT<T> @ref) where T : Object
+		{
+			// Cloning because when loading scriptable objects they share the same assetreferences, and we can only load once for each reference
+			var newAssetRef = @ref.Clone();
+			_loadedAssets.AddLast(newAssetRef);
+			return newAssetRef.LoadAssetAsync().ToUniTask();
+		}
+
+		private UniTask<Object> LoadAutoClean(string address)
+		{
+			return LoadAutoClean(new AssetReferenceT<Object>(address));
 		}
 
 		public async UniTask LoadOptionalAssets()
@@ -56,6 +72,8 @@ namespace FirstLight.Game.Services
 			await LoadOptionalGroup<GameObject>(GameIdGroup.Collectable);
 			await LoadOptionalGroup<GameObject>(GameIdGroup.Weapon);
 			await LoadOptionalGroup<Sprite>(GameIdGroup.Weapon);
+			
+			
 			//await LoadOptionalGroup<GameObject>(GameIdGroup.BotItem);
 			_services.MessageBrokerService.Publish(new BenchmarkLoadedOptionalMatchAssets());
 		}
@@ -72,9 +90,17 @@ namespace FirstLight.Game.Services
 				Map = map.ToString()
 			});
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
-			_services.RoomService.CurrentRoom.SetRuntimeConfig();
-			await LoadQuantumAssets(map);
-			await LoadScene(map);
+
+			if (!_services.ConfigsProvider.GetConfig<MapAssetConfigIndex>().TryGetConfigForMap(map, out var mapAssetConfigRef))
+			{
+				throw new Exception("Failed to find map asset config for " + map);
+			}
+
+			_mapAssetConfig = await LoadAutoClean(mapAssetConfigRef);
+			var quantumMapAsset = await LoadAutoClean(_mapAssetConfig.QuantumMap);
+			_services.RoomService.CurrentRoom.SetRuntimeConfig(quantumMapAsset);
+			await LoadQuantumAssets(_mapAssetConfig);
+			await LoadScene(_mapAssetConfig);
 			await _services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
 
 			var dic = new Dictionary<string, object>
@@ -98,7 +124,6 @@ namespace FirstLight.Game.Services
 			var start = DateTime.UtcNow;
 			FLog.Info("Unloading Match Assets");
 			var configProvider = _services.ConfigsProvider;
-
 			_services.AudioFxService.DetachAudioListener();
 
 			var sceneCount = SceneManager.sceneCount;
@@ -115,6 +140,12 @@ namespace FirstLight.Game.Services
 			_services.AssetResolverService.UnloadAssets<MaterialVfxId, Material>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
 
+			foreach (var assetReference in _loadedAssets)
+			{
+				assetReference.ReleaseAsset();
+			}
+
+			UnityDB.Dispose();
 			await Resources.UnloadUnusedAssets().ToUniTask();
 			FLog.Verbose($"Unloading match assets took {(DateTime.UtcNow - start).TotalMilliseconds} ms");
 		}
@@ -140,14 +171,9 @@ namespace FirstLight.Game.Services
 			await UniTask.WhenAll(loadTasks);
 		}
 
-		private async UniTask LoadScene(GameId map)
+		private async UniTask LoadScene(MapAssetConfig map)
 		{
-			if (!_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
-			{
-				throw new Exception("Asset map config not found for map " + map);
-			}
-
-			var sceneTask = _assetAdderService.LoadSceneAsync(config.Scene, LoadSceneMode.Additive);
+			var sceneTask = _assetAdderService.LoadSceneAsync(map.Scene, LoadSceneMode.Additive);
 			SceneManager.SetActiveScene(await sceneTask);
 		}
 
@@ -171,26 +197,20 @@ namespace FirstLight.Game.Services
 			await UniTask.WhenAll(loadTasks);
 		}
 
-		private async UniTask LoadQuantumAssets(GameId map)
+		private async UniTask LoadQuantumAssets(MapAssetConfig config)
 		{
-			var loadTasks = new List<UniTask<AssetBase>>();
-
-			if (_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
-			{
-				loadTasks.Add(_assetAdderService.LoadAssetAsync<AssetBase>(config.QuantumMap));
-			}
-
+			var loadTasks = new List<UniTask>();
 			var assets = UnityDB.CollectAddressableAssets();
 			foreach (var asset in assets)
 			{
-				if (asset.Item1.Contains("Settings") || (asset.Item1.StartsWith("Maps/") && !asset.Item1.Contains(map.ToString())) ||
+				if (asset.Item1.Contains("Settings") || (asset.Item1.StartsWith("Maps/")) ||
 					asset.Item1.Contains("CircuitExport"))
 				{
 					continue;
 				}
 
 				FLog.Verbose("Preloading Quantum Asset " + asset.Item1);
-				loadTasks.Add(_assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1));
+				loadTasks.Add(LoadAutoClean(asset.Item1));
 			}
 
 			await UniTask.WhenAll(loadTasks);

@@ -129,6 +129,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9837a814bf9778419a7704da8edf350
+    m_Address: Assets/TestValue.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dcd6238cca50f4181b0953d56e9abee6
     m_Address: Assets/BattlePassLevelBar.uxml
     m_ReadOnly: 0

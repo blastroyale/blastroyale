@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87748ec297e468d8c996980a88d3c98, type: 3}
+  m_Name: Fortress_AssetsConfig
+  m_EditorClassIdentifier: 
+  Scene:
+    m_AssetGUID: 0d2e7a79f30e53f45878b92ecc13c1ed
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  QuantumMap:
+    m_AssetGUID: c574b52272fab56478a156045fbe9bf3
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapPreview:
+    m_AssetGUID: 9ebcf9e905339b141992a4faf91cfacf
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapAreas:
+    AreaTextureRef:
+      m_AssetGUID: 9802b56e07040564d9df05e7400d9996
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    Areas:
+    - Color:
+        serializedVersion: 2
+        rgba: 4291494143
+      Name: SOUTHGATE
+    - Color:
+        serializedVersion: 2
+        rgba: 4278215167
+      Name: GARDEN
+    - Color:
+        serializedVersion: 2
+        rgba: 4281532671
+      Name: LIBRARY
+    - Color:
+        serializedVersion: 2
+        rgba: 4278251263
+      Name: CITADEL
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901883
+      Name: EASTGATE
+    - Color:
+        serializedVersion: 2
+        rgba: 4286316288
+      Name: WESTGATE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294933248
+      Name: MAZE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294902784
+      Name: MARKET SQUARE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294961408
+      Name: ARMOURY

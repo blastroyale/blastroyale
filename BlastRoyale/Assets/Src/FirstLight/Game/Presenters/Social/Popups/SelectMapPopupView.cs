@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -9,6 +10,7 @@ using FirstLight.UIService;
 using Quantum;
 using QuickEye.UIToolkit;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK.Popups
@@ -44,6 +46,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		{
 			var mapScroller = _mapScrollView.Required();
 			mapScroller.Clear();
+			var mapAssetConfigIndex = _services.ConfigsProvider.GetConfig<MapAssetConfigIndex>();
 			foreach (var mapConfig in _options)
 			{
 				var element = new MatchSettingsSelectionElement(mapConfig.GetLocalizationKey(), mapConfig.GetDescriptionLocalizationKey());
@@ -55,13 +58,32 @@ namespace FirstLight.Game.Views.UITK.Popups
 				}
 
 				mapScroller.Add(element);
-				LoadMapPicture(mapConfig, element).Forget();
+				if (mapConfig == GameId.Any)
+				{
+					LoadAnyPicture(element).Forget();
+					continue;
+				}
+				if (mapAssetConfigIndex.TryGetConfigForMap(mapConfig, out var mapAssetConfig))
+				{
+					LoadMapPicture(mapAssetConfig, element).Forget();
+				}
 			}
 		}
 
-		private async UniTaskVoid LoadMapPicture(GameId mapID, MatchSettingsSelectionElement element)
+		private async UniTaskVoid LoadMapPicture(AssetReferenceT<MapAssetConfig> mapConfigRef, MatchSettingsSelectionElement element)
 		{
-			var mapImage = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapID, false);
+			var mapAssetConfig = await mapConfigRef.LoadAssetAsync();
+			var mapPreviewRef = mapAssetConfig.MapPreview.Clone();
+			Presenter.AddAutoReleaseAsset(mapConfigRef, mapPreviewRef);
+			var mapImage = await mapPreviewRef.LoadAssetAsync();
+			await UniTask.NextFrame(); // Need to wait a frame to make sure the element is attached
+			if (element.panel == null) return;
+			element.SetImage(mapImage);
+		}
+
+		private async UniTaskVoid LoadAnyPicture(MatchSettingsSelectionElement element)
+		{
+			var mapImage = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(GameId.Any, false);
 			await UniTask.NextFrame(); // Need to wait a frame to make sure the element is attached
 			if (element.panel == null) return;
 			element.SetImage(mapImage);

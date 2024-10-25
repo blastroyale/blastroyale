@@ -186,6 +186,8 @@ namespace FirstLight.Game.StateMachines
 			//await UniTask.Delay(1000); // tech debt, leftover shall eb removed
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
+			
 			var f = game.Frames.Verified;
 			var entityRef = game.GetLocalPlayerEntityRef();
 			if (f != null && entityRef.IsValid && f.TryGet<PlayerCharacter>(entityRef, out var pc))

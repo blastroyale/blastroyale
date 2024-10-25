@@ -96,6 +96,8 @@ namespace FirstLight.Game.Views.UITK
 
 		public void UpdateFromLatestVerifiedFrame()
 		{
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
+			
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
 

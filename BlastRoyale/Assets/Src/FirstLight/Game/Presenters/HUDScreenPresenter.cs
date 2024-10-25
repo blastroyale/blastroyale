@@ -195,7 +195,7 @@ namespace FirstLight.Game.Presenters
 			_menuButton.SetVisibility(IsMenuVisible());
 			MainInstaller.ResolveMatchServices().RunOnMatchStart((isReconnect) =>
 			{
-				if (!isReconnect) return;
+				if (!isReconnect || QuantumRunner.Default.IsDefinedAndRunning(false)) return;
 				var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 				// player died
 				var f = QuantumRunner.Default.Game.Frames.Verified;
@@ -256,14 +256,14 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayerRevived(EventOnPlayerRevived callback)
 		{
-			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			var playerEntity = callback.Game.GetLocalPlayerEntityRef();
 			if (callback.Entity != playerEntity) return;
 			SetKnockedOutStatus(false);
 		}
 
 		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
 		{
-			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			var playerEntity = callback.Game.GetLocalPlayerEntityRef();
 			if (callback.Entity != playerEntity) return;
 			SetKnockedOutStatus(true);
 		}

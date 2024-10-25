@@ -109,14 +109,14 @@ namespace FirstLight.Game.Services
 
 		private void OnPlayerRevived(EventOnPlayerRevived callback)
 		{
-			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			var playerEntity = callback.Game.GetLocalPlayerEntityRef();
 			if (callback.Entity != playerEntity) return;
 			Input.Gameplay.Aim.Enable();
 		}
 
 		private void OnPlayerKnockedOut(EventOnPlayerKnockedOut callback)
 		{
-			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			var playerEntity = callback.Game.GetLocalPlayerEntityRef();
 			if (callback.Entity != playerEntity) return;
 			Input.Gameplay.Aim.Disable();
 		}

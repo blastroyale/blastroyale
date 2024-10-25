@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Ids;
@@ -362,8 +363,13 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static unsafe ref PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
 		{
-			var localPlayers = game.GetLocalPlayers();
 			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
+			if (game.Frames.Verified == null || game.IsSessionDestroyed)
+			{
+				FLog.Warn("Trying to access simulation data without simulation running.");
+				return ref _defaultPlayerMatchDataReference;
+			}
+			var localPlayers = game.GetLocalPlayers();
 			if (localPlayers.Length == 0) return ref _defaultPlayerMatchDataReference;
 			return ref *f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData.GetPointer(localPlayers[0]);
 		}
@@ -375,7 +381,6 @@ namespace FirstLight.Game.Utils
 		public static PlayerRef GetLocalPlayerRef(this QuantumGame game)
 		{
 			var localPlayers = game.GetLocalPlayers();
-
 			return localPlayers.Length == 0 ? PlayerRef.None : localPlayers[0];
 		}
 

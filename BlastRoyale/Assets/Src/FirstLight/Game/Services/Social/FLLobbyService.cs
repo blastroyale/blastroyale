@@ -329,13 +329,15 @@ namespace FirstLight.Game.Services
 			var matchSettings = msg.Settings;
 			var matchLobby = CurrentMatchLobby;
 			await _matchUpdateQueue.Dispose();
+			await _grid.Dispose();
 			
 			var matchGrid = matchLobby.GetPlayerGrid();
 			
-			if (matchSettings.RandomizeTeams)
+			if (matchSettings.RandomizeTeams && matchSettings.SquadSize > 1)
 			{
 				matchGrid.ShuffleStack();
 				await UpdateMatchLobby(matchSettings, matchGrid, true);
+				await _matchUpdateQueue.Dispose();
 			}
 
 			var services = MainInstaller.ResolveServices();
@@ -1100,11 +1102,6 @@ namespace FirstLight.Game.Services
 			CurrentMatchCallbacks.TriggerLocalLobbyUpdated(changes);
 			if (CurrentMatchLobby != null)
 			{
-				if (CurrentMatchLobby.IsLocalPlayerHost())
-				{
-					_grid.EnqueueGridSync(CurrentMatchLobby);
-				}
-
 				_grid.HandleLobbyUpdates(CurrentMatchLobby, changes).Forget();
 			}
 		}

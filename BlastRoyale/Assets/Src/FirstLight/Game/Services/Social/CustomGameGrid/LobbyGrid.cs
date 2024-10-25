@@ -17,12 +17,45 @@ namespace FirstLight.Game.Services.Social
 	/// </summary>
 	public class LobbyGrid
 	{
-		private readonly AsyncBufferedQueue _gridUpdates = new (TimeSpan.FromSeconds(0.3f), true);
+		private readonly AsyncBufferedQueue _gridUpdates = new (TimeSpan.FromSeconds(1f), true);
 
 		public async UniTaskVoid HandleLobbyUpdates(Lobby lobby, ILobbyChanges changes)
 		{
+			var gridChanged = changes.Data.ChangeType != LobbyValueChangeType.Unchanged && changes.Data.Value.ContainsKey(FLLobbyService.KEY_LOBBY_MATCH_PLAYER_POSITIONS);
+			var relevantChange = !changes.PlayerData.Changed || changes.PlayerData.Added;
+			var spectatorChanged = false;
+			var positionRequest = false;
+			
+			if (!relevantChange && changes.PlayerData.Changed)
+			{
+				foreach (var p in changes.PlayerData.Value.Values)
+				{
+					if (p.ChangedData.Added || p.ChangedData.Changed)
+					{
+						if (p.ChangedData.Value.TryGetValue(FLLobbyService.KEY_POSITION_REQUEST, out var posReq) && !posReq.Removed)
+						{
+							positionRequest = true;
+							break;
+						}
+						if (p.ChangedData.Value.TryGetValue(FLLobbyService.KEY_SPECTATOR, out var spec) && !spec.Removed)
+						{
+							relevantChange = true;
+							spectatorChanged = true;
+							break;
+						}
+					}
+				}
+			}
+
+			relevantChange = relevantChange || spectatorChanged || positionRequest;
+			
+			if (lobby.IsLocalPlayerHost() && !gridChanged && relevantChange)
+			{
+				EnqueueGridSync(lobby);
+			}
+			
 			// only grid updates
-			if (!changes.Data.Changed || !changes.Data.Value.ContainsKey(FLLobbyService.KEY_LOBBY_MATCH_PLAYER_POSITIONS)) return;
+			if (!changes.Data.Changed || !gridChanged) return;
 			
 			var localPlayer = lobby.Players.First(p => p.IsLocal());
 			var expectedPosition = localPlayer.GetProperty(FLLobbyService.KEY_POSITION_REQUEST);
@@ -36,7 +69,8 @@ namespace FirstLight.Game.Services.Social
 			if (currentPosition == Int32.Parse(expectedPosition))
 			{
 				FLog.Verbose("Cleaning position request, i reached my ultimate goal !!!");
-				await MainInstaller.ResolveServices().FLLobbyService.SetMatchPlayerProperty(FLLobbyService.KEY_POSITION_REQUEST, "");
+				localPlayer.Data[FLLobbyService.KEY_POSITION_REQUEST] = null;
+				await MainInstaller.ResolveServices().FLLobbyService.SetMatchPlayerProperty(FLLobbyService.KEY_POSITION_REQUEST, null);
 			}
 		}
 		
@@ -91,13 +125,12 @@ namespace FirstLight.Game.Services.Social
 			});
 		}
 
+		public UniTask Dispose() => _gridUpdates.Dispose();
+
 		public void RequestToGoToPosition(Lobby lobby, int position)
 		{
-			_gridUpdates.Add(async () =>
-			{
-				await MainInstaller.ResolveServices().FLLobbyService
-					.SetMatchPlayerProperty(FLLobbyService.KEY_POSITION_REQUEST, position.ToString());
-			});
+			MainInstaller.ResolveServices().FLLobbyService
+				.SetMatchPlayerProperty(FLLobbyService.KEY_POSITION_REQUEST, position.ToString()).Forget();
 		}	
 	}
 }

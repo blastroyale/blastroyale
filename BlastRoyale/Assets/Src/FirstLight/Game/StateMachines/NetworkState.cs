@@ -536,7 +536,7 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose("Received play ready matchmaking at network state");
 			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
 			// This is the same flow as the first match setup
-			if (_services.TutorialService.IsTutorialRunning)
+			if (_services.TutorialService.IsTutorialRunning && FeatureFlags.TUTORIAL_BATTLE)
 			{
 				FLog.Verbose("Tutorial running!");
 				return;

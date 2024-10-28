@@ -47,7 +47,7 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    InitialPoolCount: 1
+    InitialPoolCount: 0
   - Id: 10
     AssetRef:
       m_AssetGUID: a18c1b7dcd911c14fb08ea22ce339f94
@@ -110,7 +110,7 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    InitialPoolCount: 1
+    InitialPoolCount: 0
   - Id: 21
     AssetRef:
       m_AssetGUID: a34399b4f9df6f445aa2ff5718622143

@@ -102,11 +102,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1087ffab35ea5b14bbeda6d7181e943b
-    m_Address: Assets/Art/Materials/M_Vfx_Shrinking_Circle_Fire.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1105428c826cc384fa89378551c684e7
     m_Address: Assets/Art/AssetPacks/SimpleTemple/Models/ST_Prop_Stone_Coffin_01.fbx
     m_ReadOnly: 0
@@ -960,11 +955,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb5d8b8d5eaee224cb6e86243cc0d3a2
     m_Address: Assets/Art/AssetPacks/SimplePort/Models/Vehicle_FishingBoat_06.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bc161db0b1f3af84bbab07ec2e5dade7
-    m_Address: Assets/Art/Textures/Particles/Vfx_Flames.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

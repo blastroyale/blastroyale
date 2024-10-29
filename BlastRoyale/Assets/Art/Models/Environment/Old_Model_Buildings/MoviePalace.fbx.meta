@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["MoviePalace_Base_GEO","Top"],"padding":[9,8],"unwrapper":[0,0]}'
+    - '#BAKERY{"meshName":["MoviePalace_Base_GEO","Top"],"padding":[9,6],"unwrapper":[0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["CCT3"],"padding":[66],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["CCT3"],"padding":[40],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

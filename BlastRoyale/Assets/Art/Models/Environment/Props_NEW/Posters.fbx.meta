@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Poster_CupsAndCakes_GEO","Poster_Rebels_GEO","Poster_Teeth","Poster_WantedFemale_GEO","Poster_WantedMale_GEO"],"padding":[198,228,255,256,256],"unwrapper":[0,0,0,0,0]}'
+    - '#BAKERY{"meshName":["Poster_CupsAndCakes_GEO","Poster_Rebels_GEO","Poster_Teeth","Poster_WantedFemale_GEO","Poster_WantedMale_GEO"],"padding":[92,137,255,256,256],"unwrapper":[0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

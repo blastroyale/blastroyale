@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Maps_Dev
+  m_EditorClassIdentifier: 
+  m_GroupName: Maps_Dev
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 7437b5c3b8c32b340b1b09e9e0b0ff22
+  m_SerializeEntries:
+  - m_GUID: 7b3535dbef15ef944b6d2f6e7c355c22
+    m_Address: Maps/Test
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8d0bc8be52498a47b1a12a78ad5fe93
+    m_Address: Maps/TestAssets
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d9323c827844c83498cbdc1582428704, type: 2}
+    - {fileID: 11400000, guid: e20c67f0ddc9d4c4c9e780f414607757, type: 2}

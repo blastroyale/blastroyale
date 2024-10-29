@@ -117,11 +117,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 140f88d6751587c429b2fe791155636e
-    m_Address: Assets/BakeryLightmaps/DistrictScene_LM0_final.hdr
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15e31e7f45956fb42a3c7b91add8ddae
     m_Address: Assets/Art/AssetPacks/SimpleFarm/Models/Buildings/Building_Windmill.fbx
     m_ReadOnly: 0
@@ -370,11 +365,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 46feca0ce87f8884cab4320db188303f
     m_Address: Assets/Art/AssetPacks/SimpleProps/_Textures/VendingMachine_01.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 475e095e62bc2194b824e7569c627c36
-    m_Address: Assets/BakeryLightmaps/DistrictScene_LMA1_final.hdr
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

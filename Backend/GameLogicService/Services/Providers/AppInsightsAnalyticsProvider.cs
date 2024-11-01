@@ -1,10 +1,7 @@
-using System;
 using FirstLight.Server.SDK.Models;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Logging;
-using PlayFab;
-using PlayFab.ServerModels;
 
 namespace GameLogicService.Services.Providers
 {

@@ -33,7 +33,7 @@ public class TestNftSync
 		var log = _app.GetService<IPluginLogger>();
 		_events = new PluginEventManager(log);
 		var pluginCtx = new PluginContext(_events, _app.Services);
-		_plugin = new BlastRoyalePlugin();
+		_plugin = new BlastRoyalePlugin(_app.GetService<IUserMutex>());
 		_plugin.OnEnable(pluginCtx);
 		_blockchainApi = new StubbedBlockchainApi(pluginCtx, _plugin);
 		_analytics = _app.GetService<IServerAnalytics>() as InMemoryAnalytics;

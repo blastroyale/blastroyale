@@ -1,5 +1,4 @@
 using System.Data;
-using Backend.Game;
 using Login.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +22,6 @@ namespace Backend.Db
 				throw new DataException("Database not configured. Please set 'CONNECTION_STRING' env var");
 			}
 			services.AddDbContext<PlayersContext>(o => o.UseNpgsql(config.DbConnectionString));
-			services.AddSingleton<IServerMutex, PostgresMutex>();
 		}
 	}
 }

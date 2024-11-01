@@ -1,16 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Models;
-using PlayFab;
-using PlayFab.AdminModels;
-using PlayFab.ServerModels;
-using Quantum;
 using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
 
 /// <summary>

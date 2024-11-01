@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Services;
 
 // TODO: Implement properly, this is throw-away test code
 public class ServerTestData : IDataProvider

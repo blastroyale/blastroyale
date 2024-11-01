@@ -1,6 +1,5 @@
 using System;
 using FirstLight.Server.SDK.Services;
-using Microsoft.AspNetCore.Hosting.Server;
 
 namespace Tests.Stubs
 {
@@ -22,5 +21,6 @@ namespace Tests.Stubs
 		public string UnityCloudAuthToken { get; }
 		public string UnityCloudEnvironmentName { get; }
 		public string UnityCloudEnvironmentID { get; }
+		public string RedisLockConnectionString { get; set; }
 	}
 }

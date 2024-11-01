@@ -1,22 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using FirstLight.Game.Logic;
 using FirstLight.Server.SDK.Services;
-using GameLogicService.Game;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Protocols;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using PlayFab;
-using PlayFab.AuthenticationModels;
 
 namespace GameLogicService.Services;
 

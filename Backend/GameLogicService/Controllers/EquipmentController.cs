@@ -29,18 +29,20 @@ namespace ServerCommon.Cloudscript
 		private IGameConfigurationService _configs;
 		private IGameLogicContextService _logicContext;
 		private ILogger _log;
-		private IServerMutex _mutex;
+		private IUserMutex _userMutex;
 		private IServerStateService _state;
 		private IServerAnalytics _analytics;
 		private IRemoteConfigService _remoteConfig;
 
-		public EquipmentController(ILogger log, IServerAnalytics analytics, IServerStateService state, IServerMutex mutex, IGameLogicContextService logicContext, IGameConfigurationService cfg, IRemoteConfigService remoteConfig)
+		public EquipmentController(ILogger log, IServerAnalytics analytics, IServerStateService state,
+								   IUserMutex userMutex, IGameLogicContextService logicContext,
+								   IGameConfigurationService cfg, IRemoteConfigService remoteConfig)
 		{
 			_log = log;
 			_configs = cfg;
 			_remoteConfig = remoteConfig;
 			_logicContext = logicContext;
-			_mutex = mutex;
+			_userMutex = userMutex;
 			_state = state;
 			_analytics = analytics;
 		}
@@ -68,7 +70,9 @@ namespace ServerCommon.Cloudscript
 				{
 					UniqueId = i.Id,
 					i.Equipment,
-					TokenId = ctx.GameLogic.EquipmentLogic.NftInventory.TryGetValue(i.Id, out var nft) ? nft.TokenId : null,
+					TokenId = ctx.GameLogic.EquipmentLogic.NftInventory.TryGetValue(i.Id, out var nft)
+						? nft.TokenId
+						: null,
 					Hash = i.Equipment.GetServerHashCode()
 				})), "application/json");
 		}
@@ -78,32 +82,30 @@ namespace ServerCommon.Cloudscript
 		[Route("RemoveEquipment")]
 		public async Task<dynamic> RemoveEquipment(string playerId, uint uniqueId, int hash)
 		{
-			try
+			await using (await _userMutex.LockUser(playerId))
 			{
-				await _mutex.Lock(playerId);
-				var id = new UniqueId(uniqueId);
-				var (playerState, remoteConfigs) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, 0);
+				try
+				{
+					var id = new UniqueId(uniqueId);
+					var (playerState, remoteConfigs) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, 0);
 
-				var ctx = await _logicContext.GetLogicContext(playerId, remoteConfigs, playerState);
-				if (!ctx.GameLogic.EquipmentLogic.Inventory.TryGetValue(id, out var equipment))
-					return Conflict($"Equipment {uniqueId} not found");
-				if (equipment.GetServerHashCode() != hash)
-					return Conflict($"Hash not matching");
-				ctx.GameLogic.EquipmentLogic.RemoveFromInventory(id);
-				var updatedState = playerState.GetOnlyUpdatedState();
-				await _state.UpdatePlayerState(playerId, updatedState);
-				var analytics = equipment.GetAnalyticsData();
-				analytics["user"] = playerId;
-				_analytics.EmitEvent("API Item Removed", analytics);
-			}
-			catch (Exception e)
-			{
-				_log.LogError(e, "Error Removing Item from Player");
-				return Problem(e.Message);
-			}
-			finally
-			{
-				_mutex.Unlock(playerId);
+					var ctx = await _logicContext.GetLogicContext(playerId, remoteConfigs, playerState);
+					if (!ctx.GameLogic.EquipmentLogic.Inventory.TryGetValue(id, out var equipment))
+						return Conflict($"Equipment {uniqueId} not found");
+					if (equipment.GetServerHashCode() != hash)
+						return Conflict($"Hash not matching");
+					ctx.GameLogic.EquipmentLogic.RemoveFromInventory(id);
+					var updatedState = playerState.GetOnlyUpdatedState();
+					await _state.UpdatePlayerState(playerId, updatedState);
+					var analytics = equipment.GetAnalyticsData();
+					analytics["user"] = playerId;
+					_analytics.EmitEvent("API Item Removed", analytics);
+				}
+				catch (Exception e)
+				{
+					_log.LogError(e, "Error Removing Item from Player");
+					return Problem(e.Message);
+				}
 			}
 
 			return Ok();
@@ -117,36 +119,34 @@ namespace ServerCommon.Cloudscript
 			try
 			{
 				var playerId = request.PlayerId;
-				await _mutex.Lock(playerId);
-				var (state, remoteConfigs) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, 0);
-				var ctx = await _logicContext.GetLogicContext(playerId, remoteConfigs, state);
-				var uniqueId = ctx.GameLogic.EquipmentLogic.AddToInventory(request.Equipment);
-				var updatedState = ctx.PlayerData.GetUpdatedState();
-				if (!string.IsNullOrEmpty(request.TokenId))
+				await using (await _userMutex.LockUser(playerId))
 				{
-					var data = updatedState.DeserializeModel<EquipmentData>();
-					data.NftInventory[uniqueId] = new NftEquipmentData()
+					var (state, remoteConfigs) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, 0);
+					var ctx = await _logicContext.GetLogicContext(playerId, remoteConfigs, state);
+					var uniqueId = ctx.GameLogic.EquipmentLogic.AddToInventory(request.Equipment);
+					var updatedState = ctx.PlayerData.GetUpdatedState();
+					if (!string.IsNullOrEmpty(request.TokenId))
 					{
-						InsertionTimestamp = DateTime.UtcNow.Ticks,
-						TokenId = request.TokenId
-					};
-					updatedState.UpdateModel(data);
-				}
+						var data = updatedState.DeserializeModel<EquipmentData>();
+						data.NftInventory[uniqueId] = new NftEquipmentData()
+						{
+							InsertionTimestamp = DateTime.UtcNow.Ticks,
+							TokenId = request.TokenId
+						};
+						updatedState.UpdateModel(data);
+					}
 
-				await _state.UpdatePlayerState(playerId, updatedState);
-				var analytics = request.Equipment.GetAnalyticsData();
-				analytics["user"] = request.PlayerId;
-				_analytics.EmitEvent("API Item Added", analytics);
-				return Ok(uniqueId);
+					await _state.UpdatePlayerState(playerId, updatedState);
+					var analytics = request.Equipment.GetAnalyticsData();
+					analytics["user"] = request.PlayerId;
+					_analytics.EmitEvent("API Item Added", analytics);
+					return Ok(uniqueId);
+				}
 			}
 			catch (Exception e)
 			{
 				_log.LogError(e, "Error Removing Item from Player");
 				return Problem(e.Message);
-			}
-			finally
-			{
-				_mutex.Unlock(request.PlayerId);
 			}
 		}
 	}

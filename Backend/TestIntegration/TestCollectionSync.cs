@@ -33,7 +33,7 @@ namespace IntegrationTests
 			var pluginLogger = _server.Services.GetService<IPluginLogger>();
 			var eventManager = new PluginEventManager(pluginLogger);
 			var pluginSetup = new PluginContext(eventManager, _server.Services);
-			blastRoyalePlugin = new BlastRoyalePlugin();
+			blastRoyalePlugin = new BlastRoyalePlugin(_server.Services.GetService<IUserMutex >());
 			blastRoyalePlugin.OnEnable(pluginSetup);
 			
 			NftSync = new BlockchainApi("***REMOVED***", "devkey", pluginSetup, blastRoyalePlugin);

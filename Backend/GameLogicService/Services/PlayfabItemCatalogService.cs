@@ -6,9 +6,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLightServerSDK.Services;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using PlayFab;
-using PlayFab.ServerModels;
 
 namespace GameLogicService.Services;
 

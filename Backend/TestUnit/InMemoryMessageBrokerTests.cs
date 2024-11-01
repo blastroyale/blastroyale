@@ -2,8 +2,6 @@ using FirstLight.SDK.Modules;
 using FirstLight.SDK.Services;
 using NSubstitute;
 using NUnit.Framework;
-using PlayFab;
-using System.Threading.Tasks;
 
 namespace Tests
 {

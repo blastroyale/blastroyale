@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Backend.Game;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Game.Utils;
 using NUnit.Framework;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
@@ -25,7 +24,9 @@ public class TestCommandValidation
 		configuration.ApplicationEnvironment = env;
 		configuration.MinClientVersion = new Version("1.0.0");
 		_state = new ServerState();
-		_gameServer = new TestServer(configuration).GetService<GameServer>();
+		var testServer = new TestServer(configuration);
+		testServer.SetupInMemoryServer();
+		_gameServer = testServer.GetService<GameServer>();
 	}
 
 	private void SetupCommand(IGameCommand? cmd = null)
@@ -118,6 +119,7 @@ public class TestCommandValidation
 		SetupCommand(cmd);
 		RunAndAssertException("Insuficient permissions to run command");
 	}
+
 	[Test]
 	public void TestInitializationCommand()
 	{

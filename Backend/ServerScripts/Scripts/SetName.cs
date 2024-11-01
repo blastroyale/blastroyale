@@ -1,14 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using FirstLight.Game.Data;
-using PlayFab;
-using PlayFab.AdminModels;
 using Unity.Services.CloudSave.Admin.Model;
-using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
 
 /// <summary>
 /// Script to count guest players

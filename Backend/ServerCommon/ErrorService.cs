@@ -1,6 +1,5 @@
 using FirstLight.Game.Logic.RPC;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.Internal;
 

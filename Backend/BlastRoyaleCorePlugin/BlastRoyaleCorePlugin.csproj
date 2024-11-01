@@ -38,9 +38,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
       <PackageReference Include="PlayFabAllSDK" Version="1.108.220118" />
+        <PackageReference Include="DistributedLock.Core" Version="1.0.7" />
+
     </ItemGroup>
 
 </Project>

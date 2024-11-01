@@ -1,29 +1,13 @@
 using System;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
-using Azure.Core.Serialization;
-using Backend;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Server.SDK;
-using FirstLight.Server.SDK.Events;
-using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Services;
-using FirstLightServerSDK.Services;
-using GameLogicService.Game;
-using GameLogicService.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PlayFab;
 using PlayFab.CloudScriptModels;
-using PlayFab.Json;
-using ServerCommon.Authentication.ApiKey;
 
 namespace ServerCommon.Cloudscript
 {

@@ -1,10 +1,7 @@
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK;
-using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
 
 namespace BlastRoyaleNFTPlugin

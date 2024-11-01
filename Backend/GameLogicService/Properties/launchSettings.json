@@ -26,7 +26,8 @@
         "APPLICATION_ENVIRONMENT": "dev",
         "UNITY_CLOUD_AUTH_TOKEN": "***REMOVED***",
         "UNITY_CLOUD_ENVIRONMENT_NAME": "development",
-        "UNITY_CLOUD_ENVIRONMENT_ID": "***REMOVED***"
+        "UNITY_CLOUD_ENVIRONMENT_ID": "***REMOVED***",
+        "REDIS_LOCK_CONNECTION_STRING": "***REMOVED***"
       },
       "IIS Express": {
         "commandName": "IISExpress",

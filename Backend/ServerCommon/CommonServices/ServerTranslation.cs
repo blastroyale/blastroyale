@@ -1,4 +1,3 @@
-using System;
 using FirstLight.Game.Infos;
 using I2.Loc;
 using Quantum;

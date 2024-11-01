@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
+using FirstLight.Server.SDK.Models;
 
 namespace BlastRoyaleNFTPlugin
 {
@@ -9,8 +9,14 @@ namespace BlastRoyaleNFTPlugin
 	/// Server plugin to sync inventories../// </summary>
 	public class BlastRoyalePlugin : ServerPlugin
 	{
+		private readonly IUserMutex _userMutex;
 		private PluginContext _ctx;
 		private BlockchainApi _blockchainApi;
+
+		public BlastRoyalePlugin(IUserMutex userMutex)
+		{
+			this._userMutex = userMutex;
+		}
 
 		/// <summary>
 		/// Server override called whenever the plugin is loaded.
@@ -25,6 +31,7 @@ namespace BlastRoyaleNFTPlugin
 			{
 				_blockchainApi = new BlockchainApi(baseUrl, apiSecret, context, this);
 			}
+
 			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad, EventPriority.LAST);
 			context.PluginEventManager.RegisterEventListener<InventoryUpdatedEvent>(OnInventoryUpdate);
 		}
@@ -39,7 +46,7 @@ namespace BlastRoyaleNFTPlugin
 
 		private async Task OnInventoryUpdate(InventoryUpdatedEvent onLoad)
 		{
-			await _ctx.PlayerMutex.Transaction(onLoad.PlayerId, async () =>
+			await using (await _userMutex.LockUser(onLoad.PlayerId))
 			{
 				var state = await _ctx.ServerState.GetPlayerState(onLoad.PlayerId);
 				await _ctx.InventorySync!.SyncData(state, onLoad.PlayerId);
@@ -47,9 +54,9 @@ namespace BlastRoyaleNFTPlugin
 				{
 					await _ctx.ServerState.UpdatePlayerState(onLoad.PlayerId, state.GetOnlyUpdatedState());
 				}
-			});
+			}
 		}
-		
+
 		public bool CanSyncCollection(string collectionName)
 		{
 			var syncEnabledConfig = ReadPluginConfig(string.Concat(collectionName.ToUpperInvariant(), "_SYNC_ENABLED"));
@@ -57,7 +64,5 @@ namespace BlastRoyaleNFTPlugin
 			bool.TryParse(syncEnabledConfig, out var canSync);
 			return canSync;
 		}
-		
-		
 	}
 }

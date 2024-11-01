@@ -41,6 +41,7 @@ stages:
         --set env.PLAYFAB_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
+        --set env.REDIS_LOCK_CONNECTION_STRING="$(MAINNET-PROD-REDIS-LOCK-CONNECTION-STRING)" \
         --set env.UNITY_CLOUD_AUTH_TOKEN="$(UNITY-CLOUD-JWT)" \
         --set env.UNITY_CLOUD_ENVIRONMENT_NAME="production" \
         --set env.UNITY_CLOUD_ENVIRONMENT_ID="***REMOVED***"

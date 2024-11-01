@@ -90,5 +90,7 @@ namespace FirstLight.Server.SDK.Services
 		/// The ID of the environment in Unity Cloud.
 		/// </summary>
 		public string UnityCloudEnvironmentID { get; }
+
+		string RedisLockConnectionString { get; }
 	}
 }

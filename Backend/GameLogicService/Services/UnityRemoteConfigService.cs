@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
+﻿using System;
 using System.Linq;
-using System.Net.Http.Json;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using FirstLight.Server.SDK.Modules;
@@ -11,8 +7,6 @@ using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using static System.String;
 
 namespace GameLogicService.Services;
@@ -51,7 +45,9 @@ public class UnityRemoteConfigResponse
 
 public class UnityRemoteConfigService : IRemoteConfigService
 {
-	private const string GET_CONFIG_URL = "https://services.api.unity.com/remote-config/v1/projects/{0}/environments/{1}/configs";
+	private const string GET_CONFIG_URL =
+		"https://services.api.unity.com/remote-config/v1/projects/{0}/environments/{1}/configs";
+
 	private UnityAuthService _unityAuthService;
 	private IBaseServiceConfiguration _serviceConfiguration;
 	private ILogger _logger;
@@ -61,7 +57,8 @@ public class UnityRemoteConfigService : IRemoteConfigService
 	private SemaphoreSlim _configSemaphore = new(1);
 
 
-	public UnityRemoteConfigService(UnityAuthService unityAuthService, IBaseServiceConfiguration serviceConfiguration, ILogger logger)
+	public UnityRemoteConfigService(UnityAuthService unityAuthService, IBaseServiceConfiguration serviceConfiguration,
+									ILogger logger)
 	{
 		_unityAuthService = unityAuthService;
 		_serviceConfiguration = serviceConfiguration;
@@ -71,10 +68,19 @@ public class UnityRemoteConfigService : IRemoteConfigService
 
 	private async Task<UnityRemoteConfigResponse> GetConfigs()
 	{
-		var rawJson = await _unityAuthService.GetServerAuthenticatedClient()
-			.GetStringAsync(Format(GET_CONFIG_URL, UnityAuthService.PROJECT_ID, _serviceConfiguration.UnityCloudEnvironmentID));
-		var cfg = ModelSerializer.Deserialize<UnityRemoteConfigResponse>(rawJson);
-		cfg.ConfigVersion = cfg.configs.SelectMany(a => a.value).Where(a => a.key == CommandFields.ServerConfigurationVersion).Select(a => (int) (long) a.value).FirstOrDefault();
+
+		var url = Format(GET_CONFIG_URL, UnityAuthService.PROJECT_ID, _serviceConfiguration.UnityCloudEnvironmentID);
+		var response = await _unityAuthService.GetServerAuthenticatedClient().GetAsync(url);
+		if (!response.IsSuccessStatusCode)
+		{
+			_logger.LogError("Failed: "+response.StatusCode+" - "+await response.Content.ReadAsStringAsync());
+			throw new Exception("Failed to load remote configs!");
+		}
+
+		var cfg = ModelSerializer.Deserialize<UnityRemoteConfigResponse>(await response.Content.ReadAsStringAsync());
+		cfg.ConfigVersion = cfg.configs.SelectMany(a => a.value)
+			.Where(a => a.key == CommandFields.ServerConfigurationVersion).Select(a => (int) (long) a.value)
+			.FirstOrDefault();
 		return cfg;
 	}
 
@@ -96,7 +102,8 @@ public class UnityRemoteConfigService : IRemoteConfigService
 				}
 
 				_cachedUnityRemoteConfig = await GetConfigs();
-				_logger.LogInformation($"Downloaded config version {_cachedUnityRemoteConfig.ConfigVersion} from unity!");
+				_logger.LogInformation(
+					$"Downloaded config version {_cachedUnityRemoteConfig.ConfigVersion} from unity!");
 			}
 
 			return new UnityServerRemoteConfigProvider(_cachedUnityRemoteConfig);

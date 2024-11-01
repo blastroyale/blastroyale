@@ -2,18 +2,16 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using Backend;
 using Backend.Game.Services;
 using FirstLight.Server.SDK.Services;
 using IntegrationTests.Setups;
-using Microsoft.AspNetCore.Http;
+using Medallion.Threading;
+using Medallion.Threading.FileSystem;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using PlayFab;
 using Tests.Stubs;
 
 /// <summary>
@@ -45,18 +43,17 @@ public class TestService<T> : WebApplicationFactory<T> where T : class
 		var responseString = response.Content.ReadAsStringAsync().Result;
 		return responseString;
 	}
-	
+
 	public ResponseType Post<ResponseType>(string url, object param)
 	{
 		return JsonConvert.DeserializeObject<ResponseType>(Post(url, param))!;
 	}
-	
+
 	public dynamic PostGetDynamic(string url, object param)
 	{
 		return JsonConvert.DeserializeObject(Post(url, param))!;
 	}
 
-	
 
 	/// <summary>
 	/// Performs a post request to webservice.
@@ -91,7 +88,7 @@ public class TestService<T> : WebApplicationFactory<T> where T : class
 		Environment.SetEnvironmentVariable("API_KEY", "devkey",
 			EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", _cfg.PlayfabTitle, EnvironmentVariableTarget.Process);
-		
+
 		Environment.SetEnvironmentVariable("PLAGUEDOCTOR_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("GAMESGGGAMERS_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
 		Services.GetService<IPlayfabServer>().CreateServer("integration_test_user");
@@ -101,8 +98,14 @@ public class TestService<T> : WebApplicationFactory<T> where T : class
 	{
 		builder.ConfigureServices(services =>
 		{
-			services.RemoveAll(typeof(IServerMutex));
-			services.AddSingleton<IServerMutex, InMemoryMutex>();
+			services.RemoveAll(typeof(IDistributedLockProvider));
+			services.AddSingleton<IDistributedLockProvider, FileDistributedSynchronizationProvider>(_ =>
+			{
+				var lockFileDirectory =
+					new DirectoryInfo(Environment.CurrentDirectory +
+						"/Temp_Locks"); // choose where the lock files will live
+				return new FileDistributedSynchronizationProvider(lockFileDirectory);
+			});
 			services.RemoveAll(typeof(IBaseServiceConfiguration));
 			services.AddSingleton<IBaseServiceConfiguration>(p => _cfg);
 		});

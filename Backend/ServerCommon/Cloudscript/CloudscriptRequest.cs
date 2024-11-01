@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK.Modules;
 using FirstLightServerSDK.Modules;
 using PlayFab;

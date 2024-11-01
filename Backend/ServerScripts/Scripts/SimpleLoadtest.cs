@@ -1,29 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CsvHelper;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using PlayFab;
-using PlayFab.AuthenticationModels;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
-using PlayFab.ServerModels;
-using Quantum;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
-using EntityKey = PlayFab.AuthenticationModels.EntityKey;
-using EntityTokenResponse = PlayFab.ClientModels.EntityTokenResponse;
 using GetPlayerCombinedInfoRequestParams = PlayFab.ClientModels.GetPlayerCombinedInfoRequestParams;
-using GetUserDataRequest = PlayFab.ServerModels.GetUserDataRequest;
-using UpdateUserDataRequest = PlayFab.ServerModels.UpdateUserDataRequest;
 
 /// <summary>
 /// This is the minimal form of a loadtest. This was done as opposed to implementing it via JMX file due to

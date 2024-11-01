@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Backend.Game;
 using Backend.Game.Services;
-using FirstLight.Game.Logic;
 using Microsoft.Extensions.DependencyInjection;
 using PlayFab;
 using PlayFab.ClientModels;

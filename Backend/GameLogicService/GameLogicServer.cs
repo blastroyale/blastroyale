@@ -11,7 +11,6 @@ using PlayFab;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
@@ -55,19 +54,21 @@ namespace Backend
 		private readonly GameServer _server;
 		private readonly IEventManager _eventManager;
 		private readonly IStatisticsService _statistics;
-		private readonly IServerMutex _mutex;
+		private readonly IUserMutex _userMutex;
 		private readonly IMetricsService _metrics;
 		private readonly IRemoteConfigService _remoteConfigService;
 
 		public GameLogicWebWebService(IEventManager eventManager, ILogger log,
 									  IPlayerSetupService service, IServerStateService stateService, GameServer server,
-									  IBaseServiceConfiguration serviceConfiguration, IServerMutex mutex, IMetricsService metricsService, IRemoteConfigService remoteConfigService)
+									  IBaseServiceConfiguration serviceConfiguration,
+									  IUserMutex userMutex, IMetricsService metricsService,
+									  IRemoteConfigService remoteConfigService)
 		{
 			_setupService = service;
 			_stateService = stateService;
 			_server = server;
 			_serviceConfiguration = serviceConfiguration;
-			_mutex = mutex;
+			_userMutex = userMutex;
 			_eventManager = eventManager;
 			_log = log;
 			_metrics = metricsService;
@@ -89,39 +90,38 @@ namespace Backend
 
 		public async Task<PlayFabResult<BackendLogicResult>> GetPlayerData(string playerId)
 		{
-			try
+			await using (await _userMutex.LockUser(playerId))
 			{
-				await _mutex.Lock(playerId);
-				var (state, serverConfig) = await _stateService.FetchStateAndConfigs(_remoteConfigService, playerId, 0);
-				if (!_setupService.IsSetup(state))
+				try
 				{
-					_log.LogInformation($"Setting up player {playerId}");
-					await SetupPlayer(playerId);
-				}
+					var (state, serverConfig) =
+						await _stateService.FetchStateAndConfigs(_remoteConfigService, playerId, 0);
+					if (!_setupService.IsSetup(state))
+					{
+						_log.LogInformation($"Setting up player {playerId}");
+						await SetupPlayer(playerId);
+					}
 
-				state = await _server.RunInitializationCommands(playerId, state, serverConfig);
-				await _eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
-				if (state.HasDelta())
-				{
-					await _stateService.UpdatePlayerState(playerId, state.GetOnlyUpdatedState());
-				}
+					state = await _server.RunInitializationCommands(playerId, state, serverConfig);
+					await _eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
+					if (state.HasDelta())
+					{
+						await _stateService.UpdatePlayerState(playerId, state.GetOnlyUpdatedState());
+					}
 
-				_metrics.EmitMetric("RouteGetPlayerData", 1);
-				return Playfab.Result(playerId, new Dictionary<string, string>
+					_metrics.EmitMetric("RouteGetPlayerData", 1);
+					return Playfab.Result(playerId, new Dictionary<string, string>
+					{
+						{ "BuildNumber", _serviceConfiguration.BuildNumber },
+						{ "BuildCommit", _serviceConfiguration.BuildCommit },
+					});
+				}
+				catch (Exception e)
 				{
-					{ "BuildNumber", _serviceConfiguration.BuildNumber },
-					{ "BuildCommit", _serviceConfiguration.BuildCommit },
-				});
-			}
-			catch (Exception e)
-			{
-				var errorResult = _server.GetErrorResult(null, e);
-				_metrics.EmitException(e, "GetPlayerData");
-				return GetPlayfabError(errorResult);
-			}
-			finally
-			{
-				_mutex.Unlock(playerId);
+					var errorResult = _server.GetErrorResult(null, e);
+					_metrics.EmitException(e, "GetPlayerData");
+					return GetPlayfabError(errorResult);
+				}
 			}
 		}
 

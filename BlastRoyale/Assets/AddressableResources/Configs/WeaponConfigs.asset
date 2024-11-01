@@ -444,8 +444,8 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 2293760
       MinAttackAngle: 6
-      NumberOfShots: 3
-      NumberOfBursts: 1
+      NumberOfShots: 1
+      NumberOfBursts: 3
       AttackRange:
         RawValue: 458850
       CanHitSameTarget: 0

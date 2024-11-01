@@ -18,9 +18,11 @@ namespace Quantum.Systems.Bots
 			{ GameId.ModMachineGun, 1 },
 			{ GameId.ModShotgun, 3 },
 			{ GameId.ModRifle, 2 },
+			{ GameId.GunARBurst, 2 },
 			{ GameId.ModLauncher, 3 },
 			{ GameId.ModPistol, 1 },
 			{ GameId.ModSniper, 3 },
+			{ GameId.GunSniperHeavy, 2 },
 		};
 
 		private class BotSetupContext

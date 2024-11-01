@@ -84,6 +84,8 @@ enum GameId
 	SciSniper = 100,
 	SciCannon = 101,
 	SciMelter = 103,
+	GunSniperHeavy = 269,
+	GunARBurst = 270,
 	MouseAmulet = 38,
 	RiotAmulet = 39,
 	SoldierAmulet = 40,

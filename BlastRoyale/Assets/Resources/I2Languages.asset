@@ -11189,6 +11189,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/GunSniperHeavy
+      TermType: 0
+      Description: 
+      Languages:
+      - HUNTER SNIPER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/GunARBurst
+      TermType: 0
+      Description: 
+      Languages:
+      - BURST AR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Armor
       TermType: 0
       Description: 
@@ -17177,7 +17199,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Blast Pass - Beta Season 12
+      - Appears in the Shop
       - 
       - 
       - 
@@ -31099,7 +31121,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1729004926730
+    Google_LastUpdatedVersion: 1730648428363
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

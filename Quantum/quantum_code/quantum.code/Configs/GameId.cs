@@ -646,6 +646,20 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.GunSniperHeavy, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.GunARBurst, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
 					GameId.MouseAmulet, new List<GameIdGroup>
 					{
 						GameIdGroup.Amulet,
@@ -2737,6 +2751,8 @@ namespace Quantum
 						GameId.SciSniper,
 						GameId.SciCannon,
 						GameId.SciMelter,
+						GameId.GunSniperHeavy,
+						GameId.GunARBurst,
 						GameId.MouseAmulet,
 						GameId.RiotAmulet,
 						GameId.SoldierAmulet,
@@ -2825,7 +2841,9 @@ namespace Quantum
 						GameId.SciRifle,
 						GameId.SciSniper,
 						GameId.SciCannon,
-						GameId.SciMelter
+						GameId.SciMelter,
+						GameId.GunSniperHeavy,
+						GameId.GunARBurst
 					}.AsReadOnly()
 				},
 				{

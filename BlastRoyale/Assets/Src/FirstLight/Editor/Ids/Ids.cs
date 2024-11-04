@@ -146,6 +146,8 @@ namespace FirstLight.Editor.Ids
 			{"SciSniper", 100, Weapon, Equipment, Deprecated},
 			{"SciCannon", 101, Weapon, Equipment, Deprecated},
 			{"SciMelter", 103, Weapon, Equipment, Deprecated},
+			{"GunSniperHeavy", 269, Weapon, Equipment},
+			{"GunARBurst", 270, Weapon, Equipment},
 			{"MouseAmulet", 38, Amulet, Equipment, Gear, Simple, Deprecated},
 			{"RiotAmulet", 39, Amulet, Equipment, Gear, Deprecated},
 			{"SoldierAmulet", 40, Amulet, Equipment, Gear, Deprecated},

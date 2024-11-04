@@ -116,6 +116,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.19f);
 							break;
+						case GameId.GunSniperHeavy:
 						case GameId.ModSniper:
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.07f);
@@ -136,6 +137,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							_itemGameObject.transform.localScale = new Vector3(2.3f, 2.3f, 2.5f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.8f, -0.08f);
 							break;
+						case GameId.GunARBurst:
 						case GameId.ModRifle:
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.75f, -0.23f);

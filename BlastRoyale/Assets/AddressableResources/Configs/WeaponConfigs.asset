@@ -372,3 +372,91 @@ MonoBehaviour:
       UseRangedCam: 1
       AimDelayTime:
         RawValue: 32768
+    - Id: 269
+      FiringMode: 0
+      WeaponType: 4
+      MaxAmmo: 86
+      BulletPrototype:
+        Id:
+          Value: 148021496798672150
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 0
+      HitType: 0
+      MagazineSize: -1
+      ReloadTime:
+        RawValue: 0
+      AimingMovementSpeed:
+        RawValue: 52429
+      TapCooldown:
+        RawValue: 78643
+      AttackCooldown:
+        RawValue: 78643
+      PowerToDamageRatio:
+        RawValue: 21692
+      AttackHitSpeed:
+        RawValue: 2621440
+      MinAttackAngle: 0
+      NumberOfShots: 1
+      NumberOfBursts: 1
+      AttackRange:
+        RawValue: 655360
+      CanHitSameTarget: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      InitialAttackCooldown:
+        RawValue: 0
+      InitialAttackRampUpTime:
+        RawValue: 0
+      UseRangedCam: 1
+      AimDelayTime:
+        RawValue: 32768
+    - Id: 270
+      FiringMode: 0
+      WeaponType: 2
+      MaxAmmo: 309
+      BulletPrototype:
+        Id:
+          Value: 3582668498530828953
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 0
+      HitType: 0
+      MagazineSize: -1
+      ReloadTime:
+        RawValue: 0
+      AimingMovementSpeed:
+        RawValue: 52429
+      TapCooldown:
+        RawValue: 58982
+      AttackCooldown:
+        RawValue: 58982
+      PowerToDamageRatio:
+        RawValue: 5964
+      AttackHitSpeed:
+        RawValue: 2293760
+      MinAttackAngle: 8
+      NumberOfShots: 1
+      NumberOfBursts: 3
+      AttackRange:
+        RawValue: 458850
+      CanHitSameTarget: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      InitialAttackCooldown:
+        RawValue: 0
+      InitialAttackRampUpTime:
+        RawValue: 0
+      UseRangedCam: 0
+      AimDelayTime:
+        RawValue: 32768

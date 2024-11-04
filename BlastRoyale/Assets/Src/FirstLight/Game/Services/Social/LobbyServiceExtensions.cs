@@ -200,6 +200,11 @@ namespace FirstLight.Game.Utils.UCSExtensions
 				return string.IsNullOrEmpty(e.Message) ? "lobby error" : e.Message; // fuck unity more
 			}
 
+			if (e.Reason == LobbyExceptionReason.IncorrectPassword)
+			{
+				return "not found";
+			}
+
 			return e.Reason.ToStringSeparatedWords();
 		}
 		

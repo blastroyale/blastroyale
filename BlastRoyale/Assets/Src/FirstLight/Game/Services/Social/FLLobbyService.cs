@@ -233,6 +233,11 @@ namespace FirstLight.Game.Services
 		public const string KEY_LOBBY_MATCH_ROOM_NAME = "room_name";
 		public const string KEY_LOBBY_MATCH_REGION = "region"; // S1
 
+		// Automatic Password used in lobbies and parties so players don't join Party with game lobby codes and vice versa
+		// We also append the current region in the password
+		private const string PARTY_HACK_PASSWORD = "party_password";
+		private const string GAME_LOBBY_HACK_PASSWORD = "game_lobby_password";
+
 		/// <summary>
 		/// The party the player is currently in.
 		/// </summary>
@@ -263,9 +268,11 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public IReadOnlyList<string> SentMatchInvites => _sentMatchInvites;
 
+		private string LocalPlayerRegion => _localPrefsService.ServerRegion.Value;
+
 		private ILobbyEvents _partyLobbyEvents;
 		private ILobbyEvents _matchLobbyEvents;
-	
+
 		private readonly IGameDataProvider _dataProvider;
 		private readonly InGameNotificationService _inGameNotificationService;
 		private readonly LocalPrefsService _localPrefsService;
@@ -276,8 +283,8 @@ namespace FirstLight.Game.Services
 
 		private bool _leaving;
 
-		
-		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider, InGameNotificationService inGameNotificationService,
+		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider,
+							  InGameNotificationService inGameNotificationService,
 							  LocalPrefsService localPrefsService)
 		{
 			_dataProvider = dataProvider;
@@ -287,6 +294,7 @@ namespace FirstLight.Game.Services
 			Tick().Forget();
 
 			messageBrokerService.Subscribe<StartedCustomMatch>(e => OnStartedCustomGame(e).Forget());
+			messageBrokerService.Subscribe<ChangedServerRegionMessage>(OnChangedRegion);
 			messageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 
 			CurrentMatchCallbacks.PlayerJoined += OnMatchPlayerJoined;
@@ -301,6 +309,14 @@ namespace FirstLight.Game.Services
 			CurrentPartyCallbacks.OnDeclinedInvite += OnDeclinePartyInvite;
 		}
 
+		private void OnChangedRegion(ChangedServerRegionMessage obj)
+		{
+			if (IsInPartyLobby())
+			{
+				LeaveParty().Forget();
+			}
+		}
+
 		private void OnDeclinePartyInvite(string playerId)
 		{
 			_sentPartyInvites.Remove(playerId);
@@ -312,7 +328,7 @@ namespace FirstLight.Game.Services
 			_sentMatchInvites.Remove(playerId);
 			CurrentMatchCallbacks.TriggerOnInvitesUpdated(FLLobbyEventCallbacks.InviteUpdateType.Declined);
 		}
-		
+
 		private void OnMatchPlayerLeft(List<int> playerIds)
 		{
 			_grid.EnqueueGridSync(CurrentMatchLobby);
@@ -330,9 +346,9 @@ namespace FirstLight.Game.Services
 			var matchLobby = CurrentMatchLobby;
 			await _matchUpdateQueue.Dispose();
 			await _grid.Dispose();
-			
+
 			var matchGrid = matchLobby.GetPlayerGrid();
-			
+
 			if (matchSettings.RandomizeTeams && matchSettings.SquadSize > 1)
 			{
 				matchGrid.ShuffleStack();
@@ -360,7 +376,7 @@ namespace FirstLight.Game.Services
 					Team = Mathf.FloorToInt((float) localPlayerPosition / squadSize).ToString(),
 					Spectator = localPlayer.IsSpectator()
 				};
-				
+
 				await services.RoomService.CreateRoomAsync(setup, props);
 
 				var started = await UniTaskUtils.WaitUntilTimeout(CanStartGame, TimeSpan.FromSeconds(5));
@@ -408,6 +424,7 @@ namespace FirstLight.Game.Services
 			var options = new CreateLobbyOptions
 			{
 				IsPrivate = true,
+				Password = PARTY_HACK_PASSWORD + LocalPlayerRegion,
 				Player = CreateLocalPlayer(),
 				Data = new ()
 				{
@@ -434,7 +451,7 @@ namespace FirstLight.Game.Services
 		private void HandleLobbyError(LobbyServiceException e, string err)
 		{
 			if (!e.ShouldBeVisible()) return;
-			
+
 			FLog.Warn(err, e);
 			_inGameNotificationService.QueueNotification($"{err}, {e.ParseError()}");
 		}
@@ -445,7 +462,8 @@ namespace FirstLight.Game.Services
 
 			var options = new JoinLobbyByCodeOptions
 			{
-				Player = CreateLocalPlayer()
+				Player = CreateLocalPlayer(),
+				Password = PARTY_HACK_PASSWORD + LocalPlayerRegion
 			};
 
 			try
@@ -679,8 +697,6 @@ namespace FirstLight.Game.Services
 			var options = new QueryLobbiesOptions
 			{
 				Filters = new List<QueryFilter>(),
-				
-				
 			};
 
 			if (!allRegions)
@@ -709,7 +725,8 @@ namespace FirstLight.Game.Services
 			Assert.IsNull(CurrentMatchLobby, "Trying to create a match but the player is already in one!");
 
 			var lobbyName = matchOptions.ShowCreatorName
-				? string.Format(MATCH_LOBBY_NAME, AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
+				? string.Format(MATCH_LOBBY_NAME,
+					AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
 				: Enum.Parse<GameId>(matchOptions.MapID).GetLocalization();
 
 			var positions = new string[matchOptions.MaxPlayers];
@@ -728,6 +745,7 @@ namespace FirstLight.Game.Services
 			{
 				IsPrivate = matchOptions.PrivateRoom,
 				Player = CreateLocalPlayer(true),
+				Password = GAME_LOBBY_HACK_PASSWORD + LocalPlayerRegion,
 				Data = data
 			};
 
@@ -760,19 +778,27 @@ namespace FirstLight.Game.Services
 				var isLobbyCode = lobbyIDOrCode.Length == 6;
 				FLog.Info($"Joining match with ID/Code: {lobbyIDOrCode} spectate: {spectator}");
 				var lobby = isLobbyCode
-					? await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyIDOrCode, new JoinLobbyByCodeOptions {Player =player})
-					: await LobbyService.Instance.JoinLobbyByIdAsync(lobbyIDOrCode, new JoinLobbyByIdOptions {Player = player});
+					? await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyIDOrCode, new JoinLobbyByCodeOptions
+					{
+						Player = player,
+						Password = GAME_LOBBY_HACK_PASSWORD + LocalPlayerRegion
+					})
+					: await LobbyService.Instance.JoinLobbyByIdAsync(lobbyIDOrCode, new JoinLobbyByIdOptions
+					{
+						Player = player,
+						Password = GAME_LOBBY_HACK_PASSWORD + LocalPlayerRegion
+					});
 				_matchLobbyEvents = await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobby.Id, CurrentMatchCallbacks);
 				CurrentMatchLobby = await LobbyService.Instance.GetLobbyAsync(lobby.Id); // to ensure we don't miss events
 				CurrentMatchCallbacks.TriggerLobbyJoined(lobby);
 
-				if(CurrentMatchLobby.GetMatchRegion() != _localPrefsService.ServerRegion.Value)
+				if (CurrentMatchLobby.GetMatchRegion() != _localPrefsService.ServerRegion.Value)
 				{
 					FLog.Warn("Entered room of another region, leaving");
 					_inGameNotificationService.QueueNotification($"Oops it seems you joined a room from another region");
 					await LeaveMatch();
 				}
-				
+
 				FLog.Info($"Match lobby joined! Code: {lobby.LobbyCode} ID: {lobby.Id} Name: {lobby.Name}");
 			}
 			catch (LobbyServiceException e)
@@ -850,7 +876,8 @@ namespace FirstLight.Game.Services
 				Assert.IsNotNull(CurrentMatchLobby, "Trying to update match settings but the player is not in a match!");
 
 				var lobbyName = settings.ShowCreatorName
-					? string.Format(MATCH_LOBBY_NAME, AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
+					? string.Format(MATCH_LOBBY_NAME,
+						AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
 					: Enum.Parse<GameId>(settings.MapID).GetLocalization();
 
 				var options = new UpdateLobbyOptions
@@ -941,6 +968,7 @@ namespace FirstLight.Game.Services
 				HandleLobbyError(e, "Could not kick player");
 				return false;
 			}
+
 			return true;
 		}
 
@@ -1012,7 +1040,8 @@ namespace FirstLight.Game.Services
 		public float TickDelay()
 		{
 			if (!MainInstaller.TryResolve<IGameServices>(out var services)) return TICK_DELAY;
-			if (services.GameAppService.AppData != null && services.GameAppService.AppData.TryGetValue("LOBBY_TICK", out var t) && Int32.TryParse(t, out var intt))
+			if (services.GameAppService.AppData != null && services.GameAppService.AppData.TryGetValue("LOBBY_TICK", out var t) &&
+				Int32.TryParse(t, out var intt))
 			{
 				return intt;
 			}
@@ -1065,8 +1094,14 @@ namespace FirstLight.Game.Services
 					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, ready.ToString().ToLowerInvariant())},
 					{KEY_PLAYFAB_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayFabSettings.staticPlayer.EntityId)},
 					{KEY_SPECTATOR, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, spectator.ToString().ToLowerInvariant())},
-					{KEY_TROHPIES, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.PlayerDataProvider.Trophies.Value.ToString())},
-					{KEY_AVATAR_URL, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.CollectionDataProvider.GetEquippedAvatarUrl())}
+					{
+						KEY_TROHPIES,
+						new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.PlayerDataProvider.Trophies.Value.ToString())
+					},
+					{
+						KEY_AVATAR_URL,
+						new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, _dataProvider.CollectionDataProvider.GetEquippedAvatarUrl())
+					}
 				},
 				profile: new PlayerProfile(AuthenticationService.Instance.PlayerName)
 			);
@@ -1089,6 +1124,7 @@ namespace FirstLight.Game.Services
 			{
 				changes.ApplyToLobby(CurrentMatchLobby);
 			}
+
 			// If a player joined check if we sent the invite and remove it
 			if (changes.PlayerJoined.Value != null)
 			{

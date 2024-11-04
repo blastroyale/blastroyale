@@ -85,17 +85,10 @@ namespace Backend.Game
 						$"Input dict requires field key for cmd: {CommandFields.ServerConfigurationVersion}");
 				}
 
-				_log.LogInformation("LOCK: " + id + "- Requesting lock user " + playerId);
 				await using (await _userMutex.LockUser(playerId))
 				{
-					_log.LogInformation("LOCK: " + id + "- Got lock user " + playerId);
-
 					var (currentPlayerState, serverConfig) =
 						await _state.FetchStateAndConfigs(_remoteConfig, playerId, clientRemoteConfigVersion);
-					if (!isService && serverConfig.GetConfigVersion() > clientRemoteConfigVersion) // Client is outdated
-					{
-						throw new LogicException("Remote configs outdated", CommandErrorCodes.OUTDATED_SERVER_CONFIG);
-					}
 
 					_log.LogInformation($"{playerId} running {cmdType}");
 					ValidateCommand(currentPlayerState, commandInstance, requestData);
@@ -130,7 +123,6 @@ namespace Backend.Game
 					{ "playerId", playerId },
 					{ "savedDeltas", savedDataAmount.ToString() },
 				});
-				_log.LogInformation("LOCK: " + id + "- Exiting " + playerId);
 			}
 		}
 

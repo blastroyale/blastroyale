@@ -70,6 +70,7 @@ namespace Quantum
 	{
 		public GameId Id;
 		public int Amount;
+		public int MinPosition = 1;
 		
 		public GameModeReward Clone()
 		{
@@ -78,7 +79,7 @@ namespace Quantum
 
 		protected bool Equals(GameModeReward other)
 		{
-			return Id == other.Id && Amount.Equals(other.Amount);
+			return Id == other.Id && Amount.Equals(other.Amount) && MinPosition == other.MinPosition;
 		}
 
 		public override bool Equals(object obj)
@@ -95,6 +96,7 @@ namespace Quantum
 			{
 				var hashCode = (int)Id;
 				hashCode = (hashCode * 397) ^ Amount.GetHashCode();
+				hashCode = (hashCode * 397) ^ MinPosition.GetHashCode();
 				return hashCode;
 			}
 		}

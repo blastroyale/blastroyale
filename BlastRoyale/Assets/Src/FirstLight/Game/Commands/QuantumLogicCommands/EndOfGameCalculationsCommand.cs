@@ -63,30 +63,17 @@ namespace FirstLight.Game.Commands
 		{
 			SerializedSimulationConfig = frame.RuntimeConfig.MatchConfigs.ToByteArray();
 			var gameContainer = frame.Unsafe.GetPointerSingleton<GameContainer>();
-			PlayersMatchData = gameContainer->GeneratePlayersMatchData(frame, out var leader, out var leaderTeam);
+			PlayersMatchData = gameContainer->GeneratePlayersMatchData(frame, out _, out _);
 
 			QuantumValues = quantumValues;
 
 			var executingData = PlayersMatchData[QuantumValues.ExecutingPlayer];
-
-			var isWinner = leader == QuantumValues.ExecutingPlayer || executingData.TeamId == leaderTeam && leaderTeam > 0;
-
-
+			
 			var farmedItems = frame.ResolveDictionary(executingData.Data.CollectedMetaItems);
 			EarnedGameItems = new Dictionary<GameId, ushort>();
 			foreach (var kp in farmedItems)
 			{
 				EarnedGameItems[kp.Key] = kp.Value;
-			}
-			
-			if (isWinner)
-			{
-				foreach (var bonus in frame.RuntimeConfig.MatchConfigs.WinRewardBonus)
-				{
-					EarnedGameItems.TryGetValue(bonus.Id, out var amt);
-					amt += (ushort)bonus.Amount;
-					EarnedGameItems[bonus.Id] = amt;
-				}
 			}
 
 			// TODO: Find better way to determine tutorial mode. GameConstants ID perhaps? Something that backend has access to

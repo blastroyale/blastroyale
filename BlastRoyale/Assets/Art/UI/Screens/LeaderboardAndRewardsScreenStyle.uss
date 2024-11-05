@@ -561,6 +561,7 @@
 
 .item-list__title {
     font-size: 32px;
+    margin-top: 15px;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     color: rgb(248, 199, 46);
     -unity-text-outline-width: 4px;

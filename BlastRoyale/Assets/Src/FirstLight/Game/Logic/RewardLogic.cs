@@ -138,6 +138,11 @@ namespace FirstLight.Game.Logic
 		/// Bonuses
 		/// </summary>
 		public Dictionary<GameId, int> CollectedBonuses { get; set; } = new ();
+
+		/// <summary>
+		/// Stores how much the player got as a bonus from wining
+		/// </summary>
+		public Dictionary<GameId, int> BonusFromWinning { get; set; } = new ();
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -308,11 +313,20 @@ namespace FirstLight.Game.Logic
 				return result;
 			}
 
+				
+			CalculateEventBonuses(result, source, localMatchData, usedSimConfig);
 			CalculateBPPReward(result, rewardConfig, usedSimConfig);
 			CalculateXPReward(result, rewardConfig, usedSimConfig);
 			CalculateCollectedRewards(result, source, usedSimConfig);
 			CalculateBuffs(result);
 			return result;
+		}
+
+		private void AddRewardViewData(Dictionary<GameId, int> dict, GameId id, int qtd)
+		{
+			dict.TryGetValue(id, out var amt);
+			amt += qtd;
+			dict[id] = amt;
 		}
 
 		private void CalculateBuffs(MatchRewardsResult result)
@@ -388,6 +402,20 @@ namespace FirstLight.Game.Logic
 
 				rewards.CollectedRewards.TryGetValue(rewardId, out var currentReward);
 				rewards.CollectedRewards[rewardId] = currentReward + fixedAmount;
+			}
+		}
+
+		public void SumRewardToList(List<ItemData> rewards, GameId id, int amount)
+		{
+			var existing = rewards.FirstOrDefault(r => r.Id == id);
+			if (existing == null)
+			{
+				rewards.Add(ItemFactory.Currency(id, amount));
+			}
+			else
+			{
+				existing.TryGetMetadata<CurrencyMetadata>(out var meta);
+				meta.Amount += amount;
 			}
 		}
 
@@ -480,6 +508,31 @@ namespace FirstLight.Game.Logic
 			return CreateItemFromConfig(config);
 		}
 
+		private void CalculateEventBonuses(MatchRewardsResult rewards, RewardSource source, QuantumPlayerMatchData data, 
+										 SimulationMatchConfig simulationMatchConfig)
+		{
+			if (simulationMatchConfig?.WinRewardBonus == null) return;
+			
+			foreach (var bonus in simulationMatchConfig.WinRewardBonus)
+			{
+				if (data.PlayerRank > bonus.MinPosition)
+				{
+					continue;
+				}
+
+				// To view specific bonuses
+				AddRewardViewData(rewards.BonusFromWinning, bonus.Id, bonus.Amount);
+
+				// To view that this was collected
+				AddRewardViewData(rewards.CollectedRewards, bonus.Id, bonus.Amount);
+
+				// This is the actual reward being given
+				SumRewardToList(rewards.FinalRewards, bonus.Id, bonus.Amount);
+
+				break;
+			}
+		}
+		
 		private void CalculateBPPReward(MatchRewardsResult rewards, MatchRewardConfig rewardConfig, SimulationMatchConfig simulationMatchConfig)
 		{
 			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))

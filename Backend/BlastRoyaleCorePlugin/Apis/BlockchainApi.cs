@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using BlastRoyaleNFTPlugin.Services;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
@@ -16,7 +17,7 @@ namespace BlastRoyaleNFTPlugin
 		internal HttpClient _client;
 		internal string _externalUrl;
 		internal string _apiKey;
-		public CollectionsSync CollectionsSync;
+		public CollectionsSyncService CollectionsSyncService;
 
 		public BlockchainApi(string baseUrl, string apiKey, PluginContext ctx, BlastRoyalePlugin blastRoyalePlugin)
 		{
@@ -25,7 +26,7 @@ namespace BlastRoyaleNFTPlugin
 			_ctx = ctx;
 			_blastRoyalePlugin = blastRoyalePlugin;
 			_apiKey = apiKey;
-			CollectionsSync = new CollectionsSync(this);
+			CollectionsSyncService = new CollectionsSyncService(this);
 		}
 
 		/// <summary>
@@ -38,7 +39,7 @@ namespace BlastRoyaleNFTPlugin
 			{
 				return false;
 			}
-			return await CollectionsSync.SyncCollections(playfabId, serverState);
+			return await CollectionsSyncService.SyncCollections(playfabId, serverState);
 		}
 
 		public bool CanSyncCollection(string collectionName)

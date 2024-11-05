@@ -46,4 +46,13 @@
 
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="NftSyncs\BlockchainApi.cs" />
+      <Compile Remove="AnalyticsExtensions.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Collections\Data\" />
+    </ItemGroup>
+
 </Project>

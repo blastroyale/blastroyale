@@ -24,22 +24,37 @@ namespace BlastRoyaleNFTPlugin
 		public override void OnEnable(PluginContext context)
 		{
 			_ctx = context;
-			var baseUrl = ReadPluginConfig("API_URL");
-			var apiSecret = ReadPluginConfig("API_KEY");
-			context.Log?.LogInformation($"Using blockchain URL at {baseUrl}");
-			if (context.ServerConfig.NftSync)
-			{
-				_blockchainApi = new BlockchainApi(baseUrl, apiSecret, context, this);
-			}
-
+			
 			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad, EventPriority.LAST);
 			context.PluginEventManager.RegisterEventListener<InventoryUpdatedEvent>(OnInventoryUpdate);
+
+			SetupBlockchainAPI();
+		}
+
+		private void SetupBlockchainAPI()
+		{
+			if (!_ctx.ServerConfig.NftSync)
+			{
+				_ctx.Log?.LogInformation("NFT Sync EnvVar Flag is currently disabled, skipping BlockchainAPI configuration");
+				return;
+			}
+
+			var baseUrl = ReadPluginConfig("API_URL");
+			var apiSecret = ReadPluginConfig("API_KEY");
+			
+			_ctx.Log?.LogInformation($"Using blockchain URL at {baseUrl}");
+			
+			if (_ctx.ServerConfig.NftSync)
+			{
+				_blockchainApi = new BlockchainApi(baseUrl, apiSecret, _ctx, this);
+			}
 		}
 
 		private async Task OnDataLoad(PlayerDataLoadEvent onLoad)
 		{
 			if (_blockchainApi != null)
 				await _blockchainApi.SyncData(onLoad.PlayerState, onLoad.PlayerId);
+			
 			// It needs to be the last one, because it may fail and need to rollback items back to playfab
 			await _ctx.InventorySync!.SyncData(onLoad.PlayerState, onLoad.PlayerId);
 		}

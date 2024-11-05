@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using BlastRoyaleNFTPlugin.NftSyncs;
+using BlastRoyaleNFTPlugin.Parsers;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Models.Collection;
@@ -24,7 +24,7 @@ namespace BlastRoyaleNFTPlugin
 		protected BlockchainApi BlockchainApi;
 		
 		private static readonly CollectionFetchResponse _EMPTY_COLLECTION = new()
-			{Owned = new List<RemoteCollectionItem>()};
+			{NFTsOwned = new List<RemoteCollectionItem>()};
 
 		public CollectionsSync(BlockchainApi blockchainApi)
 		{
@@ -45,7 +45,7 @@ namespace BlastRoyaleNFTPlugin
 				throw new Exception("Error syncing collections for user " + playfabId);
 			}
 			
-			return c1.Result.Owned.Concat(c2.Result.Owned.Concat(c3.Result.Owned.Concat(c4.Result.Owned)));
+			return c1.Result.NFTsOwned.Concat(c2.Result.NFTsOwned.Concat(c3.Result.NFTsOwned.Concat(c4.Result.NFTsOwned)));
 		}
 
 		/// <summary>
@@ -198,7 +198,7 @@ namespace BlastRoyaleNFTPlugin
 			var hasFemaleNft = false;
 			foreach (var nft in nfts)
 			{
-				var parsed = new FlgTraitParser(nft);
+				var parsed = new FlgTraitTypeAttributeParser(nft);
 				var body = parsed.Traits["body"].ToLowerInvariant();
 				if (body == "masculine") hasMaleNft = true;
 				if (body == "feminine") hasFemaleNft = true;
@@ -371,7 +371,7 @@ namespace BlastRoyaleNFTPlugin
 			var list = ModelSerializer.Deserialize<List<T>>(responseString);
 			return new CollectionFetchResponse()
 			{
-				Owned = list
+				NFTsOwned = list
 			};
 		}
 		

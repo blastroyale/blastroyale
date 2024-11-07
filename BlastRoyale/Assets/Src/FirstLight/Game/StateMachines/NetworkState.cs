@@ -106,17 +106,14 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
-			_services.MatchmakingService.OnGameMatched += OnGameMatched;
-			_services.MatchmakingService.OnMatchmakingJoined += OnMatchmakingJoined;
-			_services.MatchmakingService.OnMatchmakingCancelled += OnMatchmakingCancelled;
+			_services.MessageBrokerService.Subscribe<MatchmakingMatchFoundMessage>(OnGameMatched);
+			_services.MessageBrokerService.Subscribe<MatchmakingJoinedMessage>(OnMatchmakingJoined);
+			_services.MessageBrokerService.Subscribe<MatchmakingLeftMessage>(OnMatchmakingCancelled);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services.MatchmakingService.OnGameMatched -= OnGameMatched;
-			_services.MatchmakingService.OnMatchmakingJoined -= OnMatchmakingJoined;
-			_services.MatchmakingService.OnMatchmakingCancelled -= OnMatchmakingCancelled;
 		}
 
 		private void SubscribeDisconnectEvents()
@@ -179,8 +176,9 @@ namespace FirstLight.Game.StateMachines
 			_networkService.ReconnectPhoton(out _requiresManualRoomReconnection);
 		}
 
-		private void OnGameMatched(GameMatched match)
+		private void OnGameMatched(MatchmakingMatchFoundMessage msg)
 		{
+			var match = msg.Game;
 			if (match.RoomSetup.SimulationConfig.MapId == GameId.Any.ToString())
 			{
 				var maps = _services.GameModeService.ValidMatchmakingMaps;
@@ -192,8 +190,9 @@ namespace FirstLight.Game.StateMachines
 			_services.GenericDialogService.CloseDialog();
 		}
 
-		private void OnMatchmakingJoined(JoinedMatchmaking match)
+		private void OnMatchmakingJoined(MatchmakingJoinedMessage msg)
 		{
+			var match = msg.Config;
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 			_networkService.LastUsedSetup.Value = match.DeserializeRoomSetup();
 			_statechartTrigger(JoinedPlayfabMatchmaking);
@@ -204,7 +203,7 @@ namespace FirstLight.Game.StateMachines
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 		}
 
-		private void OnMatchmakingCancelled()
+		private void OnMatchmakingCancelled(MatchmakingLeftMessage matchmakingLeftMessage)
 		{
 			_statechartTrigger(CanceledMatchmakingEvent);
 		}
@@ -562,6 +561,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)
 		{
+			Debug.Log("POCO LEAVING MATCHMAKING");
 			_services.MatchmakingService.LeaveMatchmaking();
 		}
 

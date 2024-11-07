@@ -69,7 +69,10 @@ namespace FirstLight.Game.Logic
 		IContentCreatorDataProvider ContentCreatorDataProvider { get; }
 
 		IRemoteConfigProvider RemoteConfigProvider { get; }
+		
 		IBuffLogic BuffsLogic { get; }
+		
+		IGameEventsDataProvider GameEventsDataProvider { get; }
 	}
 
 	/// <summary>
@@ -122,6 +125,8 @@ namespace FirstLight.Game.Logic
 		ILiveopsLogic LiveopsLogic { get; }
 
 		ICollectionLogic CollectionLogic { get; }
+
+		IGameEventsLogic GameEventsLogic { get; }
 	}
 
 	/// <inheritdoc cref="IGameLogic"/>
@@ -214,7 +219,11 @@ namespace FirstLight.Game.Logic
 
 		public ICollectionLogic CollectionLogic { get; }
 
-		public GameLogic(IMessageBrokerService messageBroker, IRemoteConfigProvider remoteConfigProvider, ITimeService timeService, IDataProvider dataProvider,
+		public IGameEventsLogic GameEventsLogic { get; }
+		public IGameEventsDataProvider GameEventsDataProvider => GameEventsLogic;
+
+		public GameLogic(IMessageBrokerService messageBroker, IRemoteConfigProvider remoteConfigProvider, ITimeService timeService,
+						 IDataProvider dataProvider,
 						 IConfigsProvider configsProvider)
 		{
 			MessageBrokerService = messageBroker;
@@ -235,6 +244,7 @@ namespace FirstLight.Game.Logic
 			LiveopsLogic = new LiveopsLogic(this, dataProvider);
 			CollectionLogic = new CollectionLogic(this, dataProvider);
 			BuffsLogic = new BuffsLogic(this, dataProvider);
+			GameEventsLogic = new GameEventsLogic(this, dataProvider);
 			_logicInitializers = new List<IGameLogicInitializer>();
 
 			_logicInitializers.Add(UniqueIdLogic as IGameLogicInitializer);
@@ -320,6 +330,7 @@ namespace FirstLight.Game.Logic
 			container.Add(logic.CollectionLogic);
 			container.Add(logic.RngLogic);
 			container.Add(logic.BuffsLogic);
+			container.Add(logic.GameEventsLogic);
 			return container;
 		}
 
@@ -335,5 +346,6 @@ namespace FirstLight.Game.Logic
 		public static ICollectionLogic CollectionLogic(this LogicContainer c) => c.Get<ICollectionLogic>();
 		public static IRngLogic RngLogic(this LogicContainer c) => c.Get<IRngLogic>();
 		public static IBuffLogic BuffLogic(this LogicContainer c) => c.Get<IBuffLogic>();
+		public static IGameEventsLogic GameEvents(this LogicContainer c) => c.Get<IGameEventsLogic>();
 	}
 }

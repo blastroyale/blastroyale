@@ -123,6 +123,16 @@ namespace FirstLight.Game.Logic
 	public class MatchRewardsResult
 	{
 		/// <summary>
+		/// Simulation config ID used in the match
+		/// </summary>
+		public string SimulationConfigId;
+
+		/// <summary>
+		/// Used event pass to get the rewards
+		/// </summary>
+		public bool UsedEventPass;
+
+		/// <summary>
 		/// Contains all rewards obtained on the match
 		/// </summary>
 		public List<ItemData> FinalRewards { get; set; } = new ();
@@ -244,6 +254,21 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
+		public bool HasPassForEvent(SimulationMatchConfig matchConfig, out bool usedTicket)
+		{
+			var events = GameLogic.RemoteConfigProvider.GetConfig<EventGameModesConfig>();
+			var foundEvent = events.FirstOrDefault(ev => ev.MatchConfig.UniqueConfigId == matchConfig.UniqueConfigId);
+			if (foundEvent == null || !foundEvent.IsPaid)
+			{
+				usedTicket = false;
+				return true;
+			}
+
+			var hasTicket = GameLogic.GameEventsLogic.HasPass(foundEvent.MatchConfig.UniqueConfigId);
+			usedTicket = hasTicket;
+			return hasTicket;
+		}
+
 		public MatchRewardsResult CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var result = new MatchRewardsResult();
@@ -263,6 +288,14 @@ namespace FirstLight.Game.Logic
 			{
 				return result;
 			}
+
+			if (!HasPassForEvent(usedSimConfig, out var usedPass)) // player trying to play event without ticket
+			{
+				return result;
+			}
+
+			result.SimulationConfigId = usedSimConfig.UniqueConfigId;
+			result.UsedEventPass = usedPass;
 
 			var teamSize = Math.Max(1, usedSimConfig.TeamSize);
 			var maxTeamsInMatch = source.GamePlayerCount / teamSize;
@@ -432,6 +465,14 @@ namespace FirstLight.Game.Logic
 				}
 			}
 
+			if (rewards.UsedEventPass)
+			{
+				if (!GameLogic.GameEventsLogic.ConsumeEventPass(rewards.SimulationConfigId))
+				{
+					throw new LogicException("Player trying to get event rewards without event pass!");
+				}
+			}
+			
 			RewardToUnclaimedRewards(rewards.FinalRewards);
 			return rewards;
 		}

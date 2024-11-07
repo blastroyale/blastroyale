@@ -297,3 +297,7 @@
 .right-scroll .unity-scroller--vertical {
     padding-left: 41px;
 }
+.participate-button .flg-btn-text{
+    -unity-text-align: middle-center;
+    font-size: 32;
+}

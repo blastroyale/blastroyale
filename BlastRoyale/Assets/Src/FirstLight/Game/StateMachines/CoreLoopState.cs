@@ -4,6 +4,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -76,8 +77,12 @@ namespace FirstLight.Game.StateMachines
 			reconnection.Nest(_reconnection.Setup).Target(firstMatchCheck);
 
 			firstMatchCheck.Transition().Condition(() => AUTO_TEST_SCENE).Target(joinTestScene);
-			firstMatchCheck.Transition().Condition(InRoom).Target(match);
-			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
+			firstMatchCheck.Transition().Condition(InRoom)
+				.OnTransition(() => _services.MessageBrokerService.Publish(new CoreLoopInitialized {ConnectedToMatch = true}))
+				.Target(match);
+			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial)
+				.OnTransition(() => _services.MessageBrokerService.Publish(new CoreLoopInitialized {ConnectedToMatch = false}))
+				.Target(mainMenu);
 			firstMatchCheck.Transition().Target(joinTutorialRoom);
 
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);

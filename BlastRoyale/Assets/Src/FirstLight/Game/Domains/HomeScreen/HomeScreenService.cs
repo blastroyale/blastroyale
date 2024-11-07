@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+
+namespace FirstLight.Game.Domains.HomeScreen
+{
+	public enum HomeScreenForceBehaviourType : byte
+	{
+		None,
+		Store,
+		Matchmaking
+	}
+
+	/// <summary>
+	/// Hack service to force behaviours when opening home screen
+	/// this is due to the huge amount of complexity on the state machine, this is just a way of isolating weird code changing it here
+	/// </summary>
+	public interface IHomeScreenService
+	{
+		public event Action<List<string>> CustomPlayButtonValidations;
+		public HomeScreenForceBehaviourType ForceBehaviour { get; set; }
+		public List<string> ValidatePlayButton();
+	}
+
+	public class HomeScreenService : IHomeScreenService
+	{
+		public event Action<List<string>> CustomPlayButtonValidations;
+		public HomeScreenForceBehaviourType ForceBehaviour { get; set; }
+
+		public List<string> ValidatePlayButton()
+		{
+			var errors = new List<string>();
+			CustomPlayButtonValidations?.Invoke(errors);
+			return errors;
+		}
+	}
+}

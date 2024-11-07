@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.Services;
 using Quantum;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
@@ -98,11 +103,14 @@ namespace FirstLight.Game.Services
 	public class GameModeService : IGameModeService
 	{
 		private const int NextEventsDisplayDaysBefore = 3;
+		private readonly IGameDataProvider _dataProvider;
+		private readonly IGameCommandService _commandService;
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IFLLobbyService _lobbyService;
 		private readonly IAppDataProvider _appDataProvider;
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly IRemoteTextureService _remoteTextureService;
+		private readonly IHomeScreenService _homeScreenService;
 
 		private GameId _selectedMap;
 
@@ -144,20 +152,108 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public GameModeService(IConfigsProvider configsProvider, IFLLobbyService lobbyService,
+		public GameModeService(IGameDataProvider dataProvider, IGameCommandService commandService, IConfigsProvider configsProvider,
+							   IFLLobbyService lobbyService,
 							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService,
-							   IMessageBrokerService msgBroker)
+							   IMessageBrokerService msgBroker, IHomeScreenService homeScreenService)
 		{
+			_dataProvider = dataProvider;
+			_commandService = commandService;
 			_configsProvider = configsProvider;
 			_lobbyService = lobbyService;
 			_appDataProvider = appDataProvider;
 			_localPrefsService = localPrefsService;
 			_remoteTextureService = remoteTextureService;
+			_homeScreenService = homeScreenService;
 
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe(OnGameModeSet);
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyChanged;
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnPartyLocalLobbyJoined;
+			;
+			msgBroker.Subscribe<MatchmakingLeftMessage>(OnMatchmakingLeft);
+			msgBroker.Subscribe<CoreLoopInitialized>(OnCoreLoopInitialized);
+			msgBroker.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
+			msgBroker.Subscribe<GameCompletedRewardsMessage>(OnGameRewards);
+			homeScreenService.CustomPlayButtonValidations += ValidatePlayButton;
+		}
+
+		private void ValidatePlayButton(List<string> errors)
+		{
+			if ((_lobbyService.CurrentPartyLobby?.Players?.Count ?? 1) >
+				SelectedGameMode.Value.Entry.MatchConfig.TeamSize)
+			{
+				errors.Add("Invalid party size!");
+				return;
+			}
+
+			if (_lobbyService.CurrentPartyLobby != null && _lobbyService.CurrentPartyLobby.IsLocalPlayerHost() &&
+				!_lobbyService.CurrentPartyLobby.IsEveryoneReady())
+			{
+				errors.Add("Waiting for team members to be ready!");
+				return;
+			}
+
+			if (SelectedGameMode.Value.Entry is EventGameModeEntry ev && ev.IsPaid &&
+				!_dataProvider.GameEventsDataProvider.HasPass(ev.MatchConfig.UniqueConfigId))
+			{
+				errors.Add("You need a pass to play this event. Try selecting it again!");
+				SelectValidGameMode();
+			}
+		}
+
+		/// <summary>
+		/// Player got kicked by being afk so did not use the ticket, lets refund
+		/// </summary>
+		private void OnGameRewards(GameCompletedRewardsMessage obj)
+		{
+			if (!obj.Rewards.UsedEventPass && _dataProvider.GameEventsDataProvider.HasPass(obj.Rewards.SimulationConfigId))
+			{
+				_commandService.ExecuteCommand(new RefundEventPassesCommand());
+			}
+		}
+
+		/// <summary>
+		/// Change back the gamemode to a not paid one when going back to the home screen
+		/// </summary>
+		private void OnMainMenuOpened(MainMenuOpenedMessage msg)
+		{
+			if (SelectedGameMode.Value.Entry is EventGameModeEntry ev && ev.IsPaid)
+			{
+				if (!_dataProvider.GameEventsDataProvider.HasPass(ev.MatchConfig.UniqueConfigId))
+				{
+					SelectValidGameMode();
+				}
+			}
+		}
+
+		/// <summary>
+		/// When opening the game refund tickets if the player is not reconnecting to a match
+		/// </summary>
+		private void OnCoreLoopInitialized(CoreLoopInitialized msg)
+		{
+			if (msg.ConnectedToMatch) return; // if player is reconnecting we don't want to remove the ticket he may use
+			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+			{
+				_commandService.ExecuteCommand(new RefundEventPassesCommand());
+			}
+		}
+
+		/// <summary>
+		/// If player was in a paid event change to default gamemode and let him go again through the menu of selecting it
+		/// And also refund the pass price
+		/// </summary>
+		private void OnMatchmakingLeft(MatchmakingLeftMessage msg)
+		{
+			if (SelectedGameMode.Value.Entry is EventGameModeEntry ev && ev.IsPaid)
+			{
+				if (_dataProvider.GameEventsDataProvider.HasPass(ev.MatchConfig.UniqueConfigId))
+				{
+					_commandService.ExecuteCommand(new RefundEventPassesCommand());
+				}
+
+				SelectValidGameMode();
+			}
 		}
 
 		public void Init()
@@ -173,7 +269,8 @@ namespace FirstLight.Game.Services
 			if (!string.IsNullOrEmpty(_localPrefsService.SelectedGameMode.Value))
 			{
 				var configId = _localPrefsService.SelectedGameMode.Value;
-				var firstOrDefault = Slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == configId && IsInRotation(a.Entry));
+				var firstOrDefault =
+					Slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == configId && IsInRotation(a.Entry) && !IsPaid(a.Entry));
 				if (firstOrDefault.Entry != null)
 				{
 					SelectedGameMode.Value = firstOrDefault;
@@ -288,9 +385,17 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
+		public bool IsPaid(IGameModeEntry gamemode)
+		{
+			return gamemode is EventGameModeEntry ev && ev.IsPaid;
+		}
+
 		private void AutoSelectGameModeForTeamSize(int size, bool forceMinSize = false)
 		{
-			if (SelectedGameMode.Value.Entry != null && SelectedGameMode.Value.Entry.MatchConfig.TeamSize >= size && !forceMinSize)
+			if (SelectedGameMode.Value.Entry != null
+				&& !IsPaid(SelectedGameMode.Value.Entry)
+				&& SelectedGameMode.Value.Entry.MatchConfig.TeamSize >= size
+				&& !forceMinSize)
 			{
 				// Already have a proper selected gamemode
 				return;

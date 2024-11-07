@@ -33,6 +33,7 @@ namespace FirstLight.Game.Views
 		public PlayableDirector NewEventDirector;
 
 		public event Action<GameModeSelectionButtonView> Clicked;
+		public event Action<GameModeSelectionButtonView> ClickedInfo;
 
 		public bool Selected
 		{
@@ -84,9 +85,9 @@ namespace FirstLight.Game.Views
 			_infoButton = Element.Q<ImageButton>("InfoButton").Required();
 			_rewardContainer = Element.Q<VisualElement>("RewardsContainer").Required();
 			_button.clicked += OnClicked;
-			_infoButton.clicked += () => PopupPresenter.OpenMatchInfo(GameModeInfo, () =>
-				PopupPresenter.Close().ContinueWith(() => Clicked?.Invoke(this))).Forget();
+			_infoButton.clicked += OnClickedInfoButton;
 		}
+		
 
 		/// <summary>
 		/// Sets the data needed to fill the button's visuals
@@ -106,6 +107,10 @@ namespace FirstLight.Game.Views
 		public void OnClicked()
 		{
 			Clicked?.Invoke(this);
+		}
+		private void OnClickedInfoButton()
+		{
+			ClickedInfo?.Invoke(this);
 		}
 
 		public void LevelLock(UnlockSystem unlockSystem)

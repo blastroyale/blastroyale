@@ -111,15 +111,12 @@ namespace FirstLight.Game.Services
 			services.FLLobbyService.CurrentMatchCallbacks.LobbyDeleted += UpdateCurrentPlayerActivity;
 			services.FLLobbyService.CurrentMatchCallbacks.PlayerLeft += (_) => UpdateCurrentPlayerActivity();
 
-			services.MatchmakingService.OnGameMatched += _ => CancelAllInvites();
+			services.MessageBrokerService.Subscribe<MatchmakingMatchFoundMessage>(_ => CancelAllInvites());
+			services.MessageBrokerService.Subscribe<MatchmakingJoinedMessage>(_ => CancelAllInvites());
 			services.MatchmakingService.IsMatchmaking.Observe((_, _) =>
 			{
 				UpdateCurrentPlayerActivity();
 			});
-			services.MatchmakingService.OnMatchmakingJoined += _ =>
-			{
-				CancelAllInvites();
-			};
 			services.RoomService.OnJoinedRoom += UpdateCurrentPlayerActivity;
 			services.RoomService.OnLeaveRoom += UpdateCurrentPlayerActivity;
 			services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(_ => UpdateCurrentPlayerActivity());

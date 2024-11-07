@@ -1,7 +1,9 @@
 ﻿using System;
 using FirstLight.Game.Configs.Utils;
 using System.Collections.Generic;
+using FirstLight.Game.Data.DataTypes;
 using Quantum;
+using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Configs.Remote
 {
@@ -24,6 +26,9 @@ namespace FirstLight.Game.Configs.Remote
 		public LocalizableString LongDescription { get; set; }
 		public List<DurationConfig> Schedule;
 		public string ImageURL;
+		public LegacyItemData PriceToJoin;
+
+		public bool IsPaid => PriceToJoin != null;
 
 		public bool Equals(EventGameModeEntry other)
 		{

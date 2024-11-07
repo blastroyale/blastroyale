@@ -7,10 +7,12 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters.BattlePass;
 using FirstLight.Game.Services;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
@@ -134,7 +136,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<BattlePassPurchasedMessage>(OnBpPurchase);
 			_services.MessageBrokerService.Subscribe<BattlePassLevelPurchasedMessage>(OnBoughtBpLevel);
 		}
-		
+
 		private void OnBPPsClicked()
 		{
 			_bppIcon.OpenTooltip(Root, ScriptLocalization.Tooltips.ToolTip_BPP_pool);
@@ -216,7 +218,7 @@ namespace FirstLight.Game.Presenters
 					},
 					OnExit = () =>
 					{
-						if (_services.IAPService.RequiredToViewStore)
+						if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Store)
 						{
 							Data.BackClicked.Invoke();
 						}
@@ -231,7 +233,7 @@ namespace FirstLight.Game.Presenters
 
 			void OnExit()
 			{
-				if (_services.IAPService.RequiredToViewStore)
+				if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Store)
 				{
 					Data.BackClicked.Invoke();
 				}
@@ -465,7 +467,8 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			element.SetData(segment, GetRewardState(segment), _dataProvider.BattlePassDataProvider.HasPurchasedSeason(), segment.PassType == PassType.Free && !IsDisablePremium());
+			element.SetData(segment, GetRewardState(segment), _dataProvider.BattlePassDataProvider.HasPurchasedSeason(),
+				segment.PassType == PassType.Free && !IsDisablePremium());
 			if (update) return;
 			element.Clicked += OnSegmentRewardClicked;
 		}
@@ -478,7 +481,8 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateGoToCurrentRewardButton()
 		{
-			var level = Math.Min((int) _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1, (int) _dataProvider.BattlePassDataProvider.MaxLevel - 1);
+			var level = Math.Min((int) _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1,
+				(int) _dataProvider.BattlePassDataProvider.MaxLevel - 1);
 			var isCurrentLevelOnScreen = _levelElements[level].IsInScreen(_rightContent);
 			if (isCurrentLevelOnScreen)
 			{

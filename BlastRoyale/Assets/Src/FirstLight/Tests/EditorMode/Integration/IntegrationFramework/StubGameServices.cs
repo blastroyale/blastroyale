@@ -1,3 +1,4 @@
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Domains.VFX;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -8,6 +9,7 @@ using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Social;
+using FirstLight.Game.StateMachines;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -67,6 +69,7 @@ namespace FirstLight.Tests.EditorMode
 
 		public INotificationService NotificationService { get; }
 		public IBuffService BuffService { get; set; }
+		public IHomeScreenService HomeScreenService { get; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -107,10 +110,12 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			FLLobbyService = new StubFLLobbyService();
 			CoroutineService = new StubCoroutineService();
+			HomeScreenService = new HomeScreenService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService, gameLogic.RemoteConfigProvider);
-			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService,
-				MessageBrokerService);
+			GameModeService = new GameModeService(gameLogic, CommandService, ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider,
+				LocalPrefsService, RemoteTextureService,
+				MessageBrokerService, HomeScreenService);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();

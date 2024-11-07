@@ -10,7 +10,7 @@ using FirstLight.UIService;
 using Unity.Services.Lobbies;
 using UnityEngine.UIElements;
 
-namespace FirstLight.Game.Views.MainMenuViews
+namespace FirstLight.Game.Domains.HomeScreen.UI
 {
 	public class GameModeButtonView : UIView
 	{

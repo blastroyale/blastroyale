@@ -12,11 +12,11 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.MainMenu;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
-using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
@@ -30,10 +30,9 @@ using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 using Random = UnityEngine.Random;
 
-namespace FirstLight.Game.Presenters
+namespace FirstLight.Game.Domains.HomeScreen.UI
 {
 	/// <summary>
 	/// This Presenter handles the Home Screen.

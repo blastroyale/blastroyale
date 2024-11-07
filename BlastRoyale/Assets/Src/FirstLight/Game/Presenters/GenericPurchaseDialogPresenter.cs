@@ -2,8 +2,10 @@ using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -49,7 +51,6 @@ namespace FirstLight.Game.Presenters
 		private ImageButton _buyButton;
 		private VisualElement _costIcon;
 
-
 		private Action _closeCallback;
 		private Action _confirmCallback;
 
@@ -80,7 +81,6 @@ namespace FirstLight.Game.Presenters
 			_notEnoughIcon = Root.Q<VisualElement>("NotEnoughDescIcon").Required();
 			_notEnoughText = Root.Q<Label>("NotEnoughDescLabel").Required();
 			_notEnoughContainer = Root.Q<VisualElement>("NotEnoughDescContainer").Required();
-
 
 			_confirmCallback = null;
 			_closeCallback = null;
@@ -149,8 +149,10 @@ namespace FirstLight.Game.Presenters
 
 			costIcon.GetViewModel().DrawIcon(_notEnoughIcon);
 			var missing = Data.Value - Data.OwnedCurrency;
-			_notEnoughText.text = string.Format(ScriptLocalization.UITGeneric.purchase_you_need_currency, missing, Data.Currency.GetCurrencyLocalization(missing).ToUpperInvariant());
-			_itemPrice.text = string.Format(ScriptLocalization.UITGeneric.purchase_get_currency, Data.Currency.GetCurrencyLocalization(2).ToUpperInvariant());
+			_notEnoughText.text = string.Format(ScriptLocalization.UITGeneric.purchase_you_need_currency, missing,
+				Data.Currency.GetCurrencyLocalization(missing).ToUpperInvariant());
+			_itemPrice.text = string.Format(ScriptLocalization.UITGeneric.purchase_get_currency,
+				Data.Currency.GetCurrencyLocalization(2).ToUpperInvariant());
 			_closeCallback = Data.OnExit;
 			_confirmCallback = GoToShop;
 
@@ -174,7 +176,7 @@ namespace FirstLight.Game.Presenters
 			FLog.Verbose("Generic Purchase Dialog", "Go To Shop");
 			if (!_services.UIService.IsScreenOpen<StoreScreenPresenter>())
 			{
-				MainInstaller.ResolveServices().IAPService.RequiredToViewStore = true;
+				_services.HomeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.Store;
 			}
 			else
 			{

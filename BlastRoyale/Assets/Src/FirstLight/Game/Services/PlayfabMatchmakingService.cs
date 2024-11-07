@@ -48,27 +48,6 @@ namespace FirstLight.Game.Services
 		/// Joins matchmaking queue
 		/// </summary>
 		public void JoinMatchmaking(MatchRoomSetup setup);
-
-		public delegate void OnGameMatchedEventHandler(GameMatched match);
-
-		/// <summary>
-		/// Event dispatcher when a game is found by Matchmaking
-		/// </summary>
-		public event OnGameMatchedEventHandler OnGameMatched;
-
-		public delegate void OnMatchmakingJoinedHandler(JoinedMatchmaking match);
-
-		/// <summary>
-		/// Event triggered when a player enter matchmaking, triggered for all party members
-		/// </summary>
-		public event OnMatchmakingJoinedHandler OnMatchmakingJoined;
-
-		public delegate void OnMatchmakingCancelledHandler();
-
-		/// <summary>
-		/// Dispatched when the matchmaking got canceled, either by timeout or when a player manually cancel it
-		/// </summary>
-		public event OnMatchmakingCancelledHandler OnMatchmakingCancelled;
 	}
 
 	public class GameMatched
@@ -111,13 +90,14 @@ namespace FirstLight.Game.Services
 		public string TicketId;
 		public string RoomSetupBase64;
 
-		public MatchRoomSetup DeserializeRoomSetup() 
+		public MatchRoomSetup DeserializeRoomSetup()
 		{
 			var bytes = Convert.FromBase64String(RoomSetupBase64);
 			if (!MatchRoomSetup.TryParseMatchRoomSetup(bytes, out var setup))
 			{
 				throw new Exception("Could not deserialize MatchRoomSetup");
 			}
+
 			return setup;
 		}
 	}
@@ -132,10 +112,10 @@ namespace FirstLight.Game.Services
 		private readonly ICoroutineService _coroutines;
 
 		private readonly IFLLobbyService _lobbyService;
+		private readonly IMessageBrokerService _broker;
 		private readonly IGameNetworkService _networkService;
 		private readonly IGameBackendService _backendService;
 		private readonly LocalPrefsService _localPrefsService;
-		internal readonly IConfigsProvider _configsProvider;
 		private readonly IDataService _localMatchmakingData;
 		internal readonly IGameModeService _gameModeService;
 		private MatchmakingData _localData;
@@ -144,21 +124,18 @@ namespace FirstLight.Game.Services
 
 		public IObservableFieldReader<bool> IsMatchmaking => _isMatchmaking;
 
-		public event IMatchmakingService.OnGameMatchedEventHandler OnGameMatched;
-		public event IMatchmakingService.OnMatchmakingJoinedHandler OnMatchmakingJoined;
-		public event IMatchmakingService.OnMatchmakingCancelledHandler OnMatchmakingCancelled;
-
 		public PlayfabMatchmakingService(IGameDataProvider dataProviderProvider, ICoroutineService coroutines, IFLLobbyService lobbyService,
 										 IMessageBrokerService broker,
 										 IGameNetworkService networkService,
-										 IGameBackendService backendService, IConfigsProvider configsProvider, LocalPrefsService localPrefsService, IGameModeService gameModeService)
+										 IGameBackendService backendService, IConfigsProvider configsProvider, LocalPrefsService localPrefsService,
+										 IGameModeService gameModeService)
 		{
 			_networkService = networkService;
 			_dataProvider = dataProviderProvider;
 			_backendService = backendService;
-			_configsProvider = configsProvider;
 			_coroutines = coroutines;
 			_lobbyService = lobbyService;
+			_broker = broker;
 			_isMatchmaking = new ObservableField<bool>(false);
 			_localPrefsService = localPrefsService;
 			_gameModeService = gameModeService;
@@ -261,7 +238,7 @@ namespace FirstLight.Game.Services
 			}
 
 			FLog.Info($"OnMatchmakingCancelled invoked");
-			OnMatchmakingCancelled?.Invoke();
+			_broker.Publish(new MatchmakingLeftMessage());
 			_isMatchmaking.Value = false;
 		}
 
@@ -360,7 +337,7 @@ namespace FirstLight.Game.Services
 				}, r =>
 				{
 					FLog.Info($"Matchmaking ticket {r.TicketId} created!");
-					
+
 					var mm = new JoinedMatchmaking
 					{
 						TicketId = r.TicketId,
@@ -392,7 +369,8 @@ namespace FirstLight.Game.Services
 		public void InvokeMatchFound(GameMatched match)
 		{
 			match.RoomSetup.RoomIdentifier = match.MatchIdentifier;
-			OnGameMatched?.Invoke(match);
+			_broker.Publish(new MatchmakingMatchFoundMessage() {Game = match});
+
 			_isMatchmaking.Value = false;
 			var partyLobby = _lobbyService.CurrentPartyLobby;
 			if (partyLobby != null && partyLobby.IsLocalPlayerHost())
@@ -408,7 +386,8 @@ namespace FirstLight.Game.Services
 			var queueName = _gameModeService.GetTeamSizeFor(mm.DeserializeRoomSetup().SimulationConfig).QueueName;
 			_localData.LastQueue = queueName;
 			_localMatchmakingData.SaveData<MatchmakingData>();
-			OnMatchmakingJoined?.Invoke(mm);
+			_broker.Publish(new MatchmakingJoinedMessage() {Config = mm});
+
 			_isMatchmaking.Value = true;
 			FLog.Info("OnMatchmakingJoined invoked");
 		}

@@ -66,6 +66,7 @@ MonoBehaviour:
   _document: {fileID: 1971436955827305704}
   _buttonAsset: {fileID: 9197481963319205126, guid: 1acd361f6f23744e4b060f6c7339014b, type: 3}
   _newEventDirector: {fileID: 4565728818201693878}
+  _buyEventTicketSprite: {fileID: 21300000, guid: 20df40c5c2b434d5ebeafb5b8561e3a3, type: 3}
 --- !u!1 &9106152680101475467
 GameObject:
   m_ObjectHideFlags: 0

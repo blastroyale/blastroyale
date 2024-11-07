@@ -7,6 +7,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
+using FirstLight.Game.UIElements.Kit;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using I2.Loc;
@@ -30,6 +31,8 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private readonly GameModeInfo _entryInfo;
 		private readonly List<string> _friendsPlaying;
 		private readonly Action _clickAction;
+		private string _buttonText;
+		
 		private EventGameModeEntry _eventEntry => (EventGameModeEntry) _entryInfo.Entry;
 
 		[Q("EventTitle")] private Label _eventTitle;
@@ -43,7 +46,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("MaxPlayers")] private MatchSettingsButtonElement _maxPlayers;
 		[Q("Map")] private MatchSettingsButtonElement _map;
 		[Q("SquadSize")] private MatchSettingsButtonElement _teamSize;
-		[Q("ActionButton")] private LocalizedButton _actionButton;
+		[Q("ActionButton")] private KitButton _actionButton;
 		[Q("RewardsListContainer")] private VisualElement _rewardList;
 		[Q("MutatorsContainer")] private VisualElement _mutatorsContainer;
 		[Q("MutatorsScroll")] private ScrollView _mutatorsScroll;
@@ -51,11 +54,12 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("AllowedWeaponsScroll")] private ScrollView _allowedWeapons;
 		[Q("CustomThumbnail")] private VisualElement _customThumbnail;
 
-		public MatchInfoPopupView(GameModeInfo info, Action selectAction)
+		public MatchInfoPopupView(GameModeInfo info,string buttonText, Action selectAction)
 		{
 			_clickAction = selectAction;
 			_matchSettings = info.Entry.MatchConfig;
 			_entryInfo = info;
+			_buttonText = buttonText;
 		}
 
 		public MatchInfoPopupView(SimulationMatchConfig matchSettings, List<string> friendsPlaying, Action selectAction)
@@ -132,7 +136,8 @@ namespace FirstLight.Game.Views.UITK.Popups
 				return;
 			}
 
-			var request = MainInstaller.ResolveServices().RemoteTextureService.RequestTexture(url, cancellationToken: Presenter.GetCancellationTokenOnClose());
+			var request = MainInstaller.ResolveServices().RemoteTextureService
+				.RequestTexture(url, cancellationToken: Presenter.GetCancellationTokenOnClose());
 			Element.AddToClassList("event-container--custom-image");
 			_eventImage.ListenOnce<GeometryChangedEvent>(() =>
 			{
@@ -158,12 +163,15 @@ namespace FirstLight.Game.Views.UITK.Popups
 			_eventTimer.SetTimer(() => _entryInfo.Duration.GetEndsAtDateTime(), "ENDS IN ");
 			_eventTitle.text = _entryInfo.Entry.Title.GetText();
 			_summary.text = _entryInfo.Entry.LongDescription.GetText();
-			_actionButton.LocalizationKey = ScriptTerms.UITGameModeSelection.select_event;
-			_actionButton.AddToClassList("button-long--green");
-			if (string.IsNullOrWhiteSpace(_eventEntry.ImageURL))
+
+			if (_buttonText != null)
 			{
-				var config = MainInstaller.ResolveServices().GameModeService.GetTeamSizeFor(_eventEntry);
-				_eventImage.AddToClassList($"event-thumbnail__image--{config.EventImageModifierByTeam}");
+				_actionButton.BtnText = _buttonText;
+			}
+			else
+			{
+				_actionButton.Localize(ScriptTerms.UITGameModeSelection.select_event);
+				_actionButton.AddToClassList("button-long--green");
 			}
 
 			CheckCustomImage();
@@ -180,7 +188,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 				{
 					continue;
 				}
-				
+
 				AddEventReward(gameId, "", false);
 			}
 

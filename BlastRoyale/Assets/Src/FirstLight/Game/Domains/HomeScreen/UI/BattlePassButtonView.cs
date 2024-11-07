@@ -16,7 +16,7 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace FirstLight.Game.Views.MainMenuViews
+namespace FirstLight.Game.Domains.HomeScreen.UI
 {
 	public class BattlePassButtonView : UIView
 	{

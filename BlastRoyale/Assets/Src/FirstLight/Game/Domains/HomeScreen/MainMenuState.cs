@@ -9,12 +9,14 @@ using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen.UI;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Presenters.News;
 using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Statechart;
@@ -24,7 +26,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace FirstLight.Game.StateMachines
+namespace FirstLight.Game.Domains.HomeScreen
 {
 	/// <summary>
 	/// This object contains the behaviour logic for the Main Menu State in the <seealso cref="GameStateMachine"/>
@@ -171,6 +173,7 @@ namespace FirstLight.Game.StateMachines
 
 			homeMenu.OnEnter(() => OpenHomeScreen().Forget());
 			homeMenu.OnEnter(RequestStartMetaMatchTutorial);
+			homeMenu.OnEnter(UniTask.Action(AutoStartMatchmaking));
 			homeMenu.Event(PlayClickedEvent).Target(matchmakingChecks);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(homeCheck);
@@ -202,9 +205,15 @@ namespace FirstLight.Game.StateMachines
 				friends,
 				enterNameDialog);
 
-			matchmakingChecks.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
-			matchmakingChecks.Transition().Condition(CheckInvalidTeamSize)
-				.OnTransition(() => _services.GenericDialogService.OpenSimpleMessage("Error", "Invalid party size!")).Target(homeCheck);
+			var lastErrors = new List<string>();
+			matchmakingChecks.Transition().Condition(() =>
+				{
+					lastErrors = _services.HomeScreenService.ValidatePlayButton();
+					return lastErrors.Count > 0;
+				})
+				.OnTransition(() => _services.GenericDialogService.OpenSimpleMessage("Error", string.Join("\n", lastErrors)))
+				.Target(homeCheck);
+
 			matchmakingChecks.Transition().Condition(IsInRoom).Target(homeCheck);
 			matchmakingChecks.Transition().Condition(CheckIsNotPartyLeader).OnTransition(() => TogglePartyReadyStatus().Forget())
 				.Target(homeCheck);
@@ -241,7 +250,7 @@ namespace FirstLight.Game.StateMachines
 			customGamesList.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 			customGamesList.OnExit(OnCustomGameListExit);
 		}
-		
+
 		private void OnCustomGameListExit()
 		{
 			_services.UIService.CloseScreen<MatchLobbyScreenPresenter>(false).Forget();
@@ -274,7 +283,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool RequiresToSeeStore()
 		{
-			return _services.IAPService.RequiredToViewStore;
+			return _services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Store;
 		}
 
 		private void HideMatchmaking()
@@ -438,18 +447,6 @@ namespace FirstLight.Game.StateMachines
 			return !(_services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost() && _services.FLLobbyService.CurrentPartyLobby.IsEveryoneReady());
 		}
 
-		private bool CheckPartyNotReady()
-		{
-			return _services.FLLobbyService.CurrentPartyLobby != null && _services.FLLobbyService.CurrentPartyLobby.IsLocalPlayerHost() &&
-				!_services.FLLobbyService.CurrentPartyLobby.IsEveryoneReady();
-		}
-
-		private bool CheckInvalidTeamSize()
-		{
-			return (_services.FLLobbyService.CurrentPartyLobby?.Players?.Count ?? 1) >
-				_services.GameModeService.SelectedGameMode.Value.Entry.MatchConfig.TeamSize;
-		}
-
 		private async UniTaskVoid TogglePartyReadyStatus()
 		{
 			await _services.FLLobbyService.TogglePartyReady();
@@ -533,13 +530,13 @@ namespace FirstLight.Game.StateMachines
 			// Leave party if player has one
 			if (_services.FLLobbyService.IsInPartyLobby())
 				_services.FLLobbyService.LeaveParty().Forget();
-			
+
 			_services.GameBackendService.UpdateConfigs(typeof(GameMaintenanceConfig)).ContinueWith((_) =>
 			{
 				// Remove this hack please
 				_services.GameBackendService.IsGameInMaintenanceOrOutdated(true);
 			}).Forget();
-			
+
 			_services.UIService.OpenScreen<MatchListScreenPresenter>(new MatchListScreenPresenter.StateData
 			{
 				BackClicked = () => _statechartTrigger(RoomJoinCreateBackClickedEvent),
@@ -643,6 +640,16 @@ namespace FirstLight.Game.StateMachines
 		private void RequestStartMetaMatchTutorial()
 		{
 			RequestDelayed().Forget();
+		}
+
+		private async UniTaskVoid AutoStartMatchmaking()
+		{
+			await UniTask.NextFrame(); // TODO: Hack because we get into a loop and Unity freezes without it
+			if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Matchmaking)
+			{
+				PlayButtonClicked();
+				_services.HomeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.None;
+			}
 		}
 
 		private async UniTask RequestDelayed()

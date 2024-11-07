@@ -1,8 +1,8 @@
 ﻿using Sirenix.OdinInspector;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
-namespace FirstLight.Game.Views.MainMenuViews
+namespace FirstLight.Game.Domains.HomeScreen.UI
 {
 	/// <summary>
 	/// Creates Floating Text on the Main Menu which has an animation that auto plays spawned.

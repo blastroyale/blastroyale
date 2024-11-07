@@ -114,7 +114,6 @@ namespace FirstLight.Game.Data.DataTypes
 			return obj is ItemData other && Equals(other);
 		}
 
-
 		public bool Equals(ItemData x, ItemData y)
 		{
 			if (x == null && y == null) return true;

@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using Unity.Services.Lobbies;
 using Sirenix.OdinInspector;
+using Src.FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -42,6 +49,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _newEventDirector;
 
+		[SerializeField] private Sprite _buyEventTicketSprite;
+
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
@@ -52,10 +61,12 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 
 		private CancellationTokenSource _cancelSelection = null;
+		private IGameDataProvider _dataProviders;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_dataProviders = MainInstaller.ResolveData();
 		}
 
 		protected override void QueryElements()
@@ -83,6 +94,7 @@ namespace FirstLight.Game.Presenters
 				slot.Entry.MatchConfig.MatchType = MatchType.Matchmaking;
 				view.SetData("GameModeButton" + orderNumber, slot, GetVisibleClass(orderNumber++));
 				view.Clicked += OnModeButtonClicked;
+				view.ClickedInfo += OnInfoButtonClicked;
 				_buttonViews.Add(view);
 
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
@@ -176,9 +188,76 @@ namespace FirstLight.Game.Presenters
 
 		private void OnModeButtonClicked(GameModeSelectionButtonView info)
 		{
+			var entry = info.GameModeInfo.Entry;
+			if (entry is EventGameModeEntry ev && ev.PriceToJoin != null)
+			{
+				OnInfoButtonClicked(info);
+				return;
+			}
+
+			SelectGameMode(info);
+		}
+
+		private void OnInfoButtonClicked(GameModeSelectionButtonView info)
+		{
+			var entry = info.GameModeInfo.Entry;
+			Debug.Log(ModelSerializer.PrettySerialize(entry));
+			if (entry is EventGameModeEntry ev && ev.PriceToJoin != null)
+			{
+				var alreadyHasTicket = _dataProviders.GameEventsDataProvider.HasPass(entry.MatchConfig.UniqueConfigId);
+				if (!alreadyHasTicket)
+				{
+					var text =
+						(ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId) + "\nPARTICIPATE")
+						.WithLineHeight("80%");
+
+					PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, () =>
+						PopupPresenter.Close().ContinueWith(() =>
+						{
+							_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.StateData()
+							{
+								Currency = ev.PriceToJoin.RewardId,
+								Value = (uint) ev.PriceToJoin.Value,
+								OverwriteTitle = "Confirm purchase",
+								OverwriteItemName = "Event participation",
+								ItemSprite = _buyEventTicketSprite,
+								OnConfirm = () =>
+								{
+									_services.CommandService.ExecuteCommand(new BuyEventPassCommand()
+										{UniqueEventId = entry.MatchConfig.UniqueConfigId});
+									SelectAndStartMatchmaking(info);
+								}
+							});
+						})).Forget();
+					return;
+				}
+			}
+
+			PopupPresenter.OpenMatchInfo(info.GameModeInfo, null, () =>
+				PopupPresenter.Close().ContinueWith(() =>
+				{
+					SelectAndStartMatchmaking(info);
+				})).Forget();
+		}
+
+		private void SelectAndStartMatchmaking(GameModeSelectionButtonView info)
+		{
+			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
+			_services.HomeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.Matchmaking;
+			Data.GameModeChosen(info.GameModeInfo);
+		}
+
+		private void SelectGameMode(GameModeSelectionButtonView info)
+		{
 			SelectButton(info);
 			_cancelSelection?.Cancel();
 			_cancelSelection = new CancellationTokenSource();
+
+			if (info.GameModeInfo.Entry is EventGameModeEntry ev && ev.IsPaid)
+			{
+				return;
+			}
+
 			ChangeGameModeCoroutine(info, _cancelSelection.Token).Forget();
 		}
 

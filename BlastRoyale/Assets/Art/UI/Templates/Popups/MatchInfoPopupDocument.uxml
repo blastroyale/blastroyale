@@ -79,7 +79,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:ScrollView>
-            <FirstLight.Game.UIElements.LocalizedButton text="##" name="ActionButton" localization-key="UITCustomGames/join" class="button-long button-long--yellow join-button" />
+            <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-color="Primary" btn-text="&lt;line-height=80%&gt;20 &lt;sprite name=&quot;BB&quot;&gt;\nPARTICIPATE" name="ActionButton" class="participate-button" style="align-self: center;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

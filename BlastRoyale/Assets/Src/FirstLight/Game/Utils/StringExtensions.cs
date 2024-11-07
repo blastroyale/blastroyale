@@ -13,5 +13,10 @@ namespace Src.FirstLight.Game.Utils
 		{
 			return Regex.Replace(s, "(\\B[A-Z])", " $1").ToLowerInvariant();
 		}
+
+		public static string WithLineHeight(this string s, string value)
+		{
+			return "<line-height=" + value + ">" + s + "</line-height>";
+		}
 	}
 }

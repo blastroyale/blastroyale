@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Domains.VFX;
 using FirstLight.Game.Logic;
 using FirstLight.Services;
@@ -10,6 +11,7 @@ using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Social;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -128,6 +130,7 @@ namespace FirstLight.Game.Services
 		public IPlayfabUnityBridgeService PlayfabUnityBridgeService { get; }
 		public INotificationService NotificationService { get; }
 		public IBuffService BuffService { get; }
+		public IHomeScreenService HomeScreenService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -141,6 +144,11 @@ namespace FirstLight.Game.Services
 		public void QuitGame(string reason);
 	}
 
+	/// <summary>
+	/// Todo, move this container to a properly DI system.
+	/// Known issues: Some services don't even use the constructor they just call the static resolver, this should not be allowed!
+	/// Adding new services is a pain in the arse
+	/// </summary>
 	public class GameServices : IGameServices
 	{
 		public IDataSaver DataSaver { get; }
@@ -192,8 +200,17 @@ namespace FirstLight.Game.Services
 		public INotificationService NotificationService { get; }
 		public IBuffService BuffService { get; }
 
+		public IHomeScreenService HomeScreenService { get; }
+
 		public string QuitReason { get; set; }
 
+		/// <param name="networkService"></param>
+		/// <param name="messageBrokerService"></param>
+		/// <param name="timeService"></param>
+		/// <param name="dataService"></param>
+		/// <param name="configsProvider"></param>
+		/// <param name="gameLogic"></param>
+		/// <param name="assetResolverService"></param>
 		public GameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
 							IGameLogic gameLogic, IAssetResolverService assetResolverService)
@@ -231,9 +248,11 @@ namespace FirstLight.Game.Services
 			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, InGameNotificationService, LocalPrefsService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService, gameLogic.RemoteConfigProvider);
-			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService,
-				MessageBrokerService);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
+			HomeScreenService = new HomeScreenService();
+			GameModeService = new GameModeService(gameLogic, CommandService, ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider,
+				LocalPrefsService, RemoteTextureService,
+				MessageBrokerService, HomeScreenService);
 			PoolService = new PoolService();
 			BuffService = new BuffService(this, gameLogic);
 			RewardService = new RewardService(this, gameLogic);
@@ -243,7 +262,7 @@ namespace FirstLight.Game.Services
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
-			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
+			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic, HomeScreenService);
 
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic,
 				LeaderboardService);

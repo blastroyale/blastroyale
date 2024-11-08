@@ -207,7 +207,7 @@ namespace FirstLight.Game.Presenters
 			var price = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.Price;
 
 			_services.GenericDialogService.OpenPurchaseOrNotEnough(
-				new GenericPurchaseDialogPresenter.StateData
+				new GenericPurchaseDialogPresenter.IconPurchaseData
 				{
 					ItemSprite = _battlepassPremiumSprite,
 					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_premium_batttlepass_popup_item_name,
@@ -242,7 +242,7 @@ namespace FirstLight.Game.Presenters
 			if (canBuy <= 1)
 			{
 				_services.GenericDialogService.OpenPurchaseOrNotEnough(
-					new GenericPurchaseDialogPresenter.StateData
+					new GenericPurchaseDialogPresenter.IconPurchaseData
 					{
 						Value = _dataProvider.BattlePassDataProvider.GetPriceForBuying(1),
 						ItemSprite = _battlepassLevelSprite,

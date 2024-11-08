@@ -3,33 +3,34 @@
     <Style src="project://database/Assets/Art/UI/Screens/GenericPurchaseDialog.uss?fileID=7433441132597879392&amp;guid=a2664ed942180ef4ab7dead58410386d&amp;type=3#GenericPurchaseDialog" />
     <ui:VisualElement name="root" class="purchase-confirmation-root">
         <ui:Button name="BlockerButton" class="blocker" />
-        <ui:VisualElement name="Popup" class="popup popup-radius popup--xl anim-delay-0 anim-translate anim-translate--down-xxxl">
-            <ui:VisualElement name="Window" class="popup-radius popup__window popup__window--full">
-                <ui:VisualElement name="Header" class="background-purple window__header window__header--xl">
-                    <ui:VisualElement name="TitleDots" class="dots-pattern" style="-unity-background-image-tint-color: rgb(105, 67, 195);" />
-                    <FirstLight.Game.UIElements.LocalizedButton  name="Title" text="CONFIRM ACTION" class="purchase-confirmation__title" />
-                    <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="window__close-button" />
+        <FirstLight.Game.UIElements.GenericPopupElement name="Popup" style="width: 1392px; height: 793px; flex-shrink: 0;">
+            <ui:VisualElement name="IconSetup" class="window__content window__content--purchase" style="padding-top: 49px; padding-right: 0; padding-bottom: 0; padding-left: 0; display: flex;">
+                <ui:VisualElement name="ItemSlot" class="purchase-confirmation__item-slot" style="background-color: rgb(22, 20, 38);">
+                    <ui:VisualElement name="ItemIcon" class="purchase-confirmation__item-icon" />
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="1501" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemAmount" class="purchase-confirmation__amount" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Content" class="window__content window__content--purchase">
-                    <ui:VisualElement name="ItemSlot" class="purchase-confirmation__item-slot">
-                        <ui:VisualElement name="ItemIcon" class="purchase-confirmation__item-icon" />
-                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="1501" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemAmount" class="purchase-confirmation__amount" />
+                <ui:VisualElement name="DescContainer" class="purchase-confirmation__desc-container">
+                    <ui:Label name="Desc" focusable="false" text="YOU ARE GOING TO BUY PREMIUM BATTLE PASS" class="purchase-confirmation__desc-label" />
+                    <ui:VisualElement name="NotEnoughDescContainer" class="purchase-confirmation__notenough-desc-container">
+                        <ui:Label name="NotEnoughDescLabel" focusable="false" text="YOU NEED 30 MORE BLAST BUCKS " class="purchase-confirmation__notenough-desc-label" />
+                        <ui:VisualElement name="NotEnoughDescIcon" class="purchase-confirmation__notenough-desc-icon" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="DescContainer" class="purchase-confirmation__desc-container">
-                        <ui:Label name="Desc" focusable="false" text="YOU ARE GOING TO BUY PREMIUM BATTLE PASS" class="purchase-confirmation__desc-label" />
-                        <ui:VisualElement name="NotEnoughDescContainer" class="purchase-confirmation__notenough-desc-container">
-                            <ui:Label name="NotEnoughDescLabel" focusable="false" text="YOU NEED 30 MORE BLAST BUCKS " class="purchase-confirmation__notenough-desc-label" />
-                            <ui:VisualElement name="NotEnoughDescIcon" class="purchase-confirmation__notenough-desc-icon" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Controls" class="content__controls">
-                        <FirstLight.Game.UIElements.ImageButton name="BuyButton" class="button-long button-long--yellow purchase-confirmation__item-button ">
-                            <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
-                            <ui:VisualElement name="CostIcon" class="purchase-confirmation__button-icon" />
-                        </FirstLight.Game.UIElements.ImageButton>
-                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Controls" class="content__controls" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+                    <FirstLight.Game.UIElements.ImageButton name="BuyButton" class="button-long button-long--yellow purchase-confirmation__item-button ">
+                        <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" text="200" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemPrice" class="purchase-confirmation__item-price-label" />
+                        <ui:VisualElement name="CostIcon" class="purchase-confirmation__button-icon" />
+                    </FirstLight.Game.UIElements.ImageButton>
                 </ui:VisualElement>
             </ui:VisualElement>
-        </ui:VisualElement>
+            <ui:VisualElement name="TextSetup" class="window__content window__content--purchase" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; display: none;">
+                <ui:VisualElement name="DescContainer" class="purchase-confirmation__desc-container" style="flex-grow: 1; justify-content: center; align-items: center;">
+                    <FirstLight.Game.UIElements.LabelOutlined text="You are about to spend 21\n on event participation" name="TextContent" parse-escape-sequences="true" class="game-label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Controls" class="content__controls">
+                    <FirstLight.Game.UIElements.Kit.KitButton btn-color="Primary" btn-shape="Long" btn-text="CONFIRM" name="ConfirmButton" style="font-size: 40px; width: 376px; height: 101px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.GenericPopupElement>
     </ui:VisualElement>
 </ui:UXML>

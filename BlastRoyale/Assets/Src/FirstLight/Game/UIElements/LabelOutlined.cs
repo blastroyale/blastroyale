@@ -128,6 +128,7 @@ namespace FirstLight.Game.UIElements
 		{
 			_internalLabel.text = text;
 			_internalLabel.style.whiteSpace = resolvedStyle.whiteSpace;
+			_internalLabel.parseEscapeSequences = parseEscapeSequences;
 			_internalLabel.style.textOverflow = resolvedStyle.textOverflow;
 			_internalLabel.style.flexDirection = resolvedStyle.flexDirection;
 			_internalLabel.style.alignItems = resolvedStyle.alignItems;

@@ -65,10 +65,16 @@ namespace FirstLight.Game.UIElements
 			contentContainer = _content;
 		}
 
-		public void Configure(bool padding, bool glowBackground)
+		public GenericPopupElement SetGlowEffect(bool on)
+		{
+			_glowHolder.SetDisplay(on);
+			return this;
+		}
+
+		public GenericPopupElement EnablePadding(bool padding)
 		{
 			EnableInClassList(USS_NO_PADDING_MODIFIER, !padding);
-			_glowHolder.SetDisplay(glowBackground);
+			return this;
 		}
 
 		public void LocalizeTitle(string labelKey)
@@ -77,6 +83,12 @@ namespace FirstLight.Game.UIElements
 			_title.text = LocalizationManager.TryGetTranslation(labelKey, out var translation)
 				? translation
 				: $"#{labelKey}#";
+		}
+
+		public void SetTitle(string title)
+		{
+			TitleLocalizationKey = null;
+			_title.text = title;
 		}
 
 		public new class UxmlFactory : UxmlFactory<GenericPopupElement, UxmlTraits>

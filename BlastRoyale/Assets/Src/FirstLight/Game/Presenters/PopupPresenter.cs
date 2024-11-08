@@ -72,7 +72,8 @@ namespace FirstLight.Game.Presenters
 					SetupPopup(_partyDocument, view);
 					break;
 				case MatchInfoPopupView view:
-					_popup.Configure(false, view.IsEvent());
+					_popup.EnablePadding(false)
+						.SetGlowEffect(view.IsEvent());
 					SetupPopup(_matchInfoDocument, view);
 					break;
 				case InviteFriendsPopupView view:

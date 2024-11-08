@@ -214,19 +214,17 @@ namespace FirstLight.Game.Presenters
 					PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, () =>
 						PopupPresenter.Close().ContinueWith(() =>
 						{
-							_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.StateData()
+							_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.TextPurchaseData()
 							{
-								Currency = ev.PriceToJoin.RewardId,
-								Value = (uint) ev.PriceToJoin.Value,
-								OverwriteTitle = "Confirm purchase",
-								OverwriteItemName = "Event participation",
-								ItemSprite = _buyEventTicketSprite,
+								Price = ItemFactory.Legacy(ev.PriceToJoin),
+								TextFormat = "You are about to spend {0}\non event participation",
 								OnConfirm = () =>
 								{
 									_services.CommandService.ExecuteCommand(new BuyEventPassCommand()
 										{UniqueEventId = entry.MatchConfig.UniqueConfigId});
 									SelectAndStartMatchmaking(info);
-								}
+								},
+								OnExit = Data.OnBackClicked
 							});
 						})).Forget();
 					return;

@@ -209,7 +209,7 @@ namespace FirstLight.Game.Services
 			var generatedItem = ItemFactory.PlayfabCatalog(product.PlayfabProductConfig.CatalogItem);
 			var price = product.GetPrice();
 
-			MainInstaller.ResolveServices().GenericDialogService.OpenPurchaseOrNotEnough(new ()
+			MainInstaller.ResolveServices().GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.IconPurchaseData()
 			{
 				Item = generatedItem,
 				Value = price.amt,

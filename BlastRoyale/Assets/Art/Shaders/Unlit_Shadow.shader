@@ -1,4 +1,3 @@
-// For use with dynamic objects on the map (collectables / pickups / equipment / characters).
 Shader "FLG/Unlit/Shadow"
 {
     Properties
@@ -7,6 +6,7 @@ Shader "FLG/Unlit/Shadow"
         _ShadowStart ("Shadow Start", Range(0, 1)) = 1
         _ShadowEnd ("Shadow End", Range(0, 1)) = 0
     }
+
     SubShader
     {
         Tags
@@ -56,10 +56,13 @@ Shader "FLG/Unlit/Shadow"
 
             half4 frag(Varyings i) : SV_Target
             {
-                return ((1 - distance(i.uvOS, 0.5) * 2) - _ShadowEnd) / (_ShadowStart - _ShadowEnd) * _Color;
+                float2 offset = i.uvOS - 0.5; 
+                float dist = length(offset); 
+                float shadowEffect = smoothstep(_ShadowStart, _ShadowEnd, dist);
+                shadowEffect = 1.0 - shadowEffect;
+                return shadowEffect * _Color;
             }
             ENDHLSL
         }
-
     }
 }

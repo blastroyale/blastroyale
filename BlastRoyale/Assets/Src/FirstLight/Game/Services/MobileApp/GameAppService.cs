@@ -23,6 +23,11 @@ namespace FirstLight.Game.Services
 		/// This is basically the game "input" to run at the moment.
 		/// </summary>
 		IReadOnlyDictionary<string, string> AppData { get; }
+		
+		/// <summary>
+		/// Gets device performance data
+		/// </summary>
+		PerformanceManager PerformanceManager { get; }
 	}
 
 	public class GameAppService : IGameAppService
@@ -32,18 +37,20 @@ namespace FirstLight.Game.Services
 		private static readonly TimeSpan _maxPauseTime = TimeSpan.FromMinutes(5);
 		private DateTime _pauseTime;
 		private bool _paused;
+		public PerformanceManager PerformanceManager { get; private set; }
 
 		public GameAppService(IGameServices services)
 		{
 			_services = services;
 			_services.MessageBrokerService.Subscribe<FeatureFlagsReceived>(OnFeatureFlags);
+			PerformanceManager = new PerformanceManager();
 		}
 
 		private void OnFeatureFlags(FeatureFlagsReceived e)
 		{
 			_appData = e.AppData;
 			Application.runInBackground = !FeatureFlags.GetLocalConfiguration().DisableRunInBackground;
-
+			PerformanceManager.Initialize(e.AppData);
 			if (!FeatureFlags.PAUSE_DISCONNECT_DIALOG)
 			{
 				FLog.Verbose("Pause behaviour disabled");

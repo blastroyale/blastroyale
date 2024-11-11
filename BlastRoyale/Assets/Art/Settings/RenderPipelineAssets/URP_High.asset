@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf2edee5c58d82540a51f03df9d42094, type: 3}
-  m_Name: URP_HighQuality
+  m_Name: URP_High
   m_EditorClassIdentifier: 
   k_AssetVersion: 11
   k_AssetPreviousVersion: 11
@@ -20,16 +20,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d68f7b238e47e1c408194c00e9092d46, type: 2}
   - {fileID: 11400000, guid: bb9ae25918e6541b998f87764159abc1, type: 2}
   m_DefaultRendererIndex: 0
-  m_RequireDepthTexture: 1
-  m_RequireOpaqueTexture: 1
+  m_RequireDepthTexture: 0
+  m_RequireOpaqueTexture: 0
   m_OpaqueDownsampling: 0
   m_SupportsTerrainHoles: 0
   m_SupportsHDR: 1
   m_HDRColorBufferPrecision: 0
   m_MSAA: 8
   m_RenderScale: 1
-  m_UpscalingFilter: 3
-  m_FsrOverrideSharpness: 1
+  m_UpscalingFilter: 0
+  m_FsrOverrideSharpness: 0
   m_FsrSharpness: 1
   m_EnableLODCrossFade: 0
   m_LODCrossFadeDitheringType: 1
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_AdditionalLightsShadowResolutionTierHigh: 512
   m_ReflectionProbeBlending: 0
   m_ReflectionProbeBoxProjection: 0
-  m_ShadowDistance: 30
+  m_ShadowDistance: 0
   m_ShadowCascadeCount: 1
   m_Cascade2Split: 0.12521182
   m_Cascade3Split: {x: 0.19861943, y: 0.49921036}

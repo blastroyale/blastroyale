@@ -218,6 +218,7 @@ namespace FirstLight.Game
 #if !DISABLE_SRDEBUGGER
 			SRDebug.Init();
 #endif
+			
 			Debug.developerConsoleEnabled = false;
 			DebugManager.instance.enableRuntimeUI = false;
 			FLog.Init();

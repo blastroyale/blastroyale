@@ -207,8 +207,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void OnGameRewards(GameCompletedRewardsMessage obj)
 		{
-			if (!obj.Rewards.UsedEventPass && obj.Rewards.SimulationConfigId != null &&
-				_dataProvider.GameEventsDataProvider.HasPass(obj.Rewards.SimulationConfigId))
+			if (!obj.Rewards.UsedEventPass && _dataProvider.GameEventsDataProvider.HasAnyPass())
 			{
 				_commandService.ExecuteCommand(new RefundEventPassesCommand());
 			}

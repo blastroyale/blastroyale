@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using FirstLight.Game.Data.DataTypes;
+using System.Linq;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
-using FirstLight.Game.Utils;
-using FirstLight.UiService;
-using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters.Store
 {
@@ -21,7 +15,7 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			var categoryElement = this;
 			categoryElement.AddToClassList(UssCategory);
-
+			
 			var categoryLabel = new LabelOutlined("Category") {name = "CategoryLabel"};
 			categoryLabel.AddToClassList(UssCategoryLabel);
 			categoryLabel.text = categoryName;
@@ -38,8 +32,38 @@ namespace FirstLight.Game.Presenters.Store
 			}
 		}
 
+		public void ResizeContainer()
+		{
+			if (ClassListContains($"{UssCategory}--small"))
+			{
+				if (childCount == 0)
+				{
+					return;
+				}
+				
+				var childElements = Children().Where(c => c.GetType() == typeof(StoreGameProductElement)).ToList();
+				
+				
+				var firstRowColumns = Mathf.CeilToInt(childElements.Count / 2f); 
+				var secondRowColumns = childElements.Count - firstRowColumns;
+				var maxColumns = Mathf.Max(firstRowColumns, secondRowColumns);
+
+				var baseChildElement = childElements.First();
+				
+				var baseWidth = baseChildElement.resolvedStyle.width + baseChildElement.resolvedStyle.marginLeft + baseChildElement.resolvedStyle.marginRight;
+				
+				style.maxWidth = baseWidth * (maxColumns + 1);
+
+				if (childElements.Count % 2 != 0)
+				{
+					style.justifyContent = Justify.Center;
+				}
+			}
+		}
+
 		public StoreCategoryElement() : this("This is a category")
 		{
+			
 		}
 
 		public new class UxmlFactory : UxmlFactory<StoreCategoryElement, UxmlTraits>

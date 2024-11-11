@@ -47,7 +47,7 @@ namespace FirstLight.Game.Presenters.Store
 		private VisualElement _blocker;
 		private ScreenHeaderElement _header;
 		private VisualElement _productList;
-		private VisualElement _categoryList;
+		private ScrollView _categoryList;
 		private ScrollView _scroll;
 		private Dictionary<string, VisualElement> _categoriesElements = new ();
 
@@ -63,7 +63,7 @@ namespace FirstLight.Game.Presenters.Store
 
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_productList = Root.Q("ProductList").Required();
-			_categoryList = Root.Q("Categories").Required();
+			_categoryList = Root.Q<ScrollView>("Categories").Required();
 			_scroll = Root.Q<ScrollView>("ProductScrollView").Required();
 			_header.backClicked = Data.OnBackClicked;
 
@@ -80,6 +80,7 @@ namespace FirstLight.Game.Presenters.Store
 			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
 			{
 				var categoryElement = new StoreCategoryElement(category.Name);
+				
 				foreach (var product in category.Products)
 				{
 					var productElement = new StoreGameProductElement();
@@ -98,11 +99,16 @@ namespace FirstLight.Game.Presenters.Store
 
 					productElement.SetData(product, flags, Root);
 				}
+			
 
 				_productList.Add(categoryElement);
 				var categoryButton = CreateCategoryButton(category.Name, categoryElement);
 				_categoryList.Add(categoryButton);
 				_categoriesElements[category.Name] = categoryElement;
+				
+				//Resize Category Element Container after adding all products to it.
+				categoryElement.RegisterCallback<GeometryChangedEvent>(_ => categoryElement.ResizeContainer());
+
 			}
 
 			SetupCreatorsCodeSupport();

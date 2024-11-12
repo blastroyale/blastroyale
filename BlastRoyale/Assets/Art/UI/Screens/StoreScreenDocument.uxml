@@ -7,13 +7,12 @@
             </ui:ScrollView>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:ScrollView name="Categories" class="categories scroll-view" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" horizontal-page-size="-1" style="height: 100px"/>
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITStore/shop" name="Header">
-            <ui:VisualElement name="Currencies" class="currency-display-holder">
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CryptoCurrency" currency="NOOB" />
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="Coins" currency="COIN" />
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBucks" currency="BlastBuck" />
-            </ui:VisualElement>
-        </FirstLight.Game.UIElements.ScreenHeaderElement>
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITStore/shop" name="Header" />
+        <ui:VisualElement name="Currencies" class="currency-display-holder">
+            <FirstLight.Game.UIElements.CryptoCurrenciesDisplayElement name="CryptoCurrency" class="anim-delay-1 anim-translate anim-translate--down-s currency-display-space" />
+            <FirstLight.Game.UIElements.CurrencyDisplayElement name="Coins" currency="COIN" class="anim-delay-2 anim-translate anim-translate--down-s currency-display-space"/>
+            <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBucks" currency="BlastBuck" class="anim-delay-3 anim-translate anim-translate--down-s currency-display-space" />
+        </ui:VisualElement>
         <ui:VisualElement name="Blocker" class="blocker" style="display: none;">
             <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/waiting" class="blocker__title" />
         </ui:VisualElement>

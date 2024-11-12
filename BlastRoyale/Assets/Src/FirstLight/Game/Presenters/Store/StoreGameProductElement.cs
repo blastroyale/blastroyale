@@ -121,7 +121,6 @@ namespace FirstLight.Game.Presenters.Store
 			var price = product.GetPrice();
 			FLog.Verbose("Store Screen", $"Setting up store item {product.GameItem}, price={price}");
 
-			var priceConfig = product.PlayfabProductConfig.CatalogItem.VirtualCurrencyPrices.First();
 
 			if (flags.HasFlag(ProductFlags.OWNED))
 			{
@@ -136,7 +135,7 @@ namespace FirstLight.Game.Presenters.Store
 				var currencyItem = ItemFactory.Currency(price.item, 1);
 				var currencyView = (CurrencyItemViewModel) currencyItem.GetViewModel();
 				var priceIcon = currencyView.GetRichTextIcon();
-				_price.text = priceIcon + " " + priceConfig.Value;
+				_price.text = priceIcon + " " + price.amt;
 			}
 
 			itemView.DrawIcon(_icon);

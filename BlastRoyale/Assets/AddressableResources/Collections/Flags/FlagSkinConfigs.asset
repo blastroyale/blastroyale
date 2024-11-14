@@ -16,7 +16,7 @@ MonoBehaviour:
     Skins:
     - GameId: 37
       Prefab:
-        m_AssetGUID: ae8ec920e9f48473385f24aed78298b7
+        m_AssetGUID: 65a06c6c92011be48a82010c685f629b
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 76
       Prefab:
-        m_AssetGUID: da98372c442664d45ac1c3ecb81bc76c
+        m_AssetGUID: 84cfd3da90779eb4bbcbf53a035617f1
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 75
       Prefab:
-        m_AssetGUID: f6c173c933c71754d9387a78820777a6
+        m_AssetGUID: 7b00f0a57d11d5e4da5c9fce8ca92038
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

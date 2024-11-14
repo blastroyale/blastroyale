@@ -21,7 +21,6 @@ using I2.Loc;
 using Quantum;
 using Unity.Services.Lobbies;
 using Sirenix.OdinInspector;
-using Src.FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -207,9 +206,8 @@ namespace FirstLight.Game.Presenters
 				var alreadyHasTicket = _dataProviders.GameEventsDataProvider.HasPass(entry.MatchConfig.UniqueConfigId);
 				if (!alreadyHasTicket)
 				{
-					var text =
-						(ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId) + "\nPARTICIPATE")
-						.WithLineHeight("80%");
+					var text = (ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId))
+						.WithFontSize("150%");
 
 					PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, () =>
 						PopupPresenter.Close().ContinueWith(() =>
@@ -224,7 +222,6 @@ namespace FirstLight.Game.Presenters
 										{UniqueEventId = entry.MatchConfig.UniqueConfigId});
 									SelectAndStartMatchmaking(info);
 								},
-								OnExit = Data.OnBackClicked
 							});
 						})).Forget();
 					return;

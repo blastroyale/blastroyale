@@ -42,7 +42,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// If the haptics (vibrations) are enabled.
 		/// </summary>
-		public ObservableField<bool> IsHapticsEnabled { get; } = CreateBoolSetting(nameof(IsHapticsEnabled), true);
+		public ObservableField<bool> IsHapticsEnabled { get; } = CreateBoolSetting(nameof(IsHapticsEnabled), false);
 
 		/// <summary>
 		/// If we use overhead UI instead of the default (bottom of screen) one.

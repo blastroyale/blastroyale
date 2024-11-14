@@ -1479,6 +1479,28 @@ namespace I2.Loc
 			public static string NOOBRainbow 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOBRainbow"); } }
 			public static string NOOB_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NOOB_Plural"); } }
 			public static string NewBRMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NewBRMap"); } }
+			public static string PartnerANCIENT8 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerANCIENT8"); } }
+			public static string PartnerAPECOIN 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerAPECOIN"); } }
+			public static string PartnerAPECOIN_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerAPECOIN_Plural"); } }
+			public static string PartnerBEAM 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerBEAM"); } }
+			public static string PartnerBEAM_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerBEAM_Plural"); } }
+			public static string PartnerBLOCKLORDS 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerBLOCKLORDS"); } }
+			public static string PartnerBLOODLOOP 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerBLOODLOOP"); } }
+			public static string PartnerBREED 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerBREED"); } }
+			public static string PartnerCROSSTHEAGES 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerCROSSTHEAGES"); } }
+			public static string PartnerFARCANA 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerFARCANA"); } }
+			public static string PartnerGAM3SGG 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerGAM3SGG"); } }
+			public static string PartnerIMMUTABLE 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerIMMUTABLE"); } }
+			public static string PartnerMEME 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerMEME"); } }
+			public static string PartnerMOCAVERSE 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerMOCAVERSE"); } }
+			public static string PartnerNYANHEROES 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerNYANHEROES"); } }
+			public static string PartnerPIRATENATION 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerPIRATENATION"); } }
+			public static string PartnerPIXELMON 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerPIXELMON"); } }
+			public static string PartnerPLANETMOJO 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerPLANETMOJO"); } }
+			public static string PartnerSEEDIFY 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerSEEDIFY"); } }
+			public static string PartnerWILDERWORLD 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerWILDERWORLD"); } }
+			public static string PartnerXBORG 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerXBORG"); } }
+			public static string PartnerYGG 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PartnerYGG"); } }
 			public static string Philadelphia 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Philadelphia"); } }
 			public static string PhiladelphiaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PhiladelphiaDescription"); } }
 			public static string PlayerSkinAura 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinAura"); } }
@@ -2504,6 +2526,9 @@ namespace I2.Loc
 			public static string purchase_get_currency 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_get_currency"); } }
 			public static string purchase_not_enough_button_text 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_button_text"); } }
 			public static string purchase_not_enough_item_display_name 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_item_display_name"); } }
+			public static string purchase_not_enough_noob_discord_button 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_noob_discord_button"); } }
+			public static string purchase_not_enough_noob_guide_button 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_noob_guide_button"); } }
+			public static string purchase_not_enough_noob_text 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_noob_text"); } }
 			public static string purchase_not_enough_title 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_not_enough_title"); } }
 			public static string purchase_title 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_title"); } }
 			public static string purchase_you_need_currency 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/purchase_you_need_currency"); } }
@@ -4367,6 +4392,28 @@ namespace I2.Loc
 		    public const string NOOBRainbow = "GameIds/NOOBRainbow";
 		    public const string NOOB_Plural = "GameIds/NOOB_Plural";
 		    public const string NewBRMap = "GameIds/NewBRMap";
+		    public const string PartnerANCIENT8 = "GameIds/PartnerANCIENT8";
+		    public const string PartnerAPECOIN = "GameIds/PartnerAPECOIN";
+		    public const string PartnerAPECOIN_Plural = "GameIds/PartnerAPECOIN_Plural";
+		    public const string PartnerBEAM = "GameIds/PartnerBEAM";
+		    public const string PartnerBEAM_Plural = "GameIds/PartnerBEAM_Plural";
+		    public const string PartnerBLOCKLORDS = "GameIds/PartnerBLOCKLORDS";
+		    public const string PartnerBLOODLOOP = "GameIds/PartnerBLOODLOOP";
+		    public const string PartnerBREED = "GameIds/PartnerBREED";
+		    public const string PartnerCROSSTHEAGES = "GameIds/PartnerCROSSTHEAGES";
+		    public const string PartnerFARCANA = "GameIds/PartnerFARCANA";
+		    public const string PartnerGAM3SGG = "GameIds/PartnerGAM3SGG";
+		    public const string PartnerIMMUTABLE = "GameIds/PartnerIMMUTABLE";
+		    public const string PartnerMEME = "GameIds/PartnerMEME";
+		    public const string PartnerMOCAVERSE = "GameIds/PartnerMOCAVERSE";
+		    public const string PartnerNYANHEROES = "GameIds/PartnerNYANHEROES";
+		    public const string PartnerPIRATENATION = "GameIds/PartnerPIRATENATION";
+		    public const string PartnerPIXELMON = "GameIds/PartnerPIXELMON";
+		    public const string PartnerPLANETMOJO = "GameIds/PartnerPLANETMOJO";
+		    public const string PartnerSEEDIFY = "GameIds/PartnerSEEDIFY";
+		    public const string PartnerWILDERWORLD = "GameIds/PartnerWILDERWORLD";
+		    public const string PartnerXBORG = "GameIds/PartnerXBORG";
+		    public const string PartnerYGG = "GameIds/PartnerYGG";
 		    public const string Philadelphia = "GameIds/Philadelphia";
 		    public const string PhiladelphiaDescription = "GameIds/PhiladelphiaDescription";
 		    public const string PlayerSkinAura = "GameIds/PlayerSkinAura";
@@ -5392,6 +5439,9 @@ namespace I2.Loc
 		    public const string purchase_get_currency = "UITGeneric/purchase_get_currency";
 		    public const string purchase_not_enough_button_text = "UITGeneric/purchase_not_enough_button_text";
 		    public const string purchase_not_enough_item_display_name = "UITGeneric/purchase_not_enough_item_display_name";
+		    public const string purchase_not_enough_noob_discord_button = "UITGeneric/purchase_not_enough_noob_discord_button";
+		    public const string purchase_not_enough_noob_guide_button = "UITGeneric/purchase_not_enough_noob_guide_button";
+		    public const string purchase_not_enough_noob_text = "UITGeneric/purchase_not_enough_noob_text";
 		    public const string purchase_not_enough_title = "UITGeneric/purchase_not_enough_title";
 		    public const string purchase_title = "UITGeneric/purchase_title";
 		    public const string purchase_you_need_currency = "UITGeneric/purchase_you_need_currency";

@@ -1,10 +1,14 @@
 /* AUTO GENERATED */
 :root {
     --sprite-kit__avatar-default: url('/Assets/Art/UI/Sprites/Kit/avatar-default.png');
+    --sprite-kit__long-error: url('/Assets/Art/UI/Sprites/Kit/Button/long-error.png');
+    --sprite-kit__long-error-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/long-error-pressed.png');
     --sprite-kit__long-primary: url('/Assets/Art/UI/Sprites/Kit/Button/long-primary.png');
     --sprite-kit__long-primary-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/long-primary-pressed.png');
     --sprite-kit__long-secondary: url('/Assets/Art/UI/Sprites/Kit/Button/long-secondary.png');
     --sprite-kit__long-secondary-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/long-secondary-pressed.png');
+    --sprite-kit__long-success: url('/Assets/Art/UI/Sprites/Kit/Button/long-success.png');
+    --sprite-kit__long-success-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/long-success-pressed.png');
     --sprite-kit__square-primary: url('/Assets/Art/UI/Sprites/Kit/Button/square-primary.png');
     --sprite-kit__square-primary-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/square-primary-pressed.png');
     --sprite-kit__copy: url('/Assets/Art/UI/Sprites/Kit/Icon/copy.png');
@@ -17,6 +21,16 @@
     background-image: var(--sprite-kit__avatar-default);
     width: 125px;
     height: 125px;
+}
+
+.sprite-kit__long-error {
+    background-image: var(--sprite-kit__long-error);
+    width: 319px;
+    height: 107px;
+}
+
+.sprite-kit__long-error:active {
+    background-image: var(--sprite-kit__long-error-pressed);
 }
 
 .sprite-kit__long-primary {
@@ -37,6 +51,16 @@
 
 .sprite-kit__long-secondary:active {
     background-image: var(--sprite-kit__long-secondary-pressed);
+}
+
+.sprite-kit__long-success {
+    background-image: var(--sprite-kit__long-success);
+    width: 319px;
+    height: 107px;
+}
+
+.sprite-kit__long-success:active {
+    background-image: var(--sprite-kit__long-success-pressed);
 }
 
 .sprite-kit__square-primary {

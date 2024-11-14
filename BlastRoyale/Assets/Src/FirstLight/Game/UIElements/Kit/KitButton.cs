@@ -11,6 +11,8 @@ namespace FirstLight.Game.UIElements.Kit
 	{
 		private static string PRIMARY = "-primary";
 		private static string SECONDARY = "-secondary";
+		private static string SUCCESS = "-success";
+		private static string ERROR = "-error";
 		private static string USS_BUTTON_CLASS = "flg-btn";
 		private static string USS_BUTTON_TEXT_CLASS = USS_BUTTON_CLASS + "-text";
 		private static string USS_BUTTON_ICON = USS_BUTTON_CLASS + "-icon";
@@ -20,6 +22,9 @@ namespace FirstLight.Game.UIElements.Kit
 		private static string USS_BUTTON_STYLE_TRANSPARENT = USS_BUTTON_CLASS + "-transparent";
 		private static string USS_BUTTON_COLOR_PRIMARY = USS_BUTTON_CLASS + PRIMARY;
 		private static string USS_BUTTON_COLOR_SECONDARY = USS_BUTTON_CLASS + SECONDARY;
+		private static string USS_BUTTON_COLOR_SUCCESS = USS_BUTTON_CLASS + SUCCESS;
+		private static string USS_BUTTON_COLOR_ERROR = USS_BUTTON_CLASS + ERROR;
+		private static string USS_BUTTON_DEFAULT_GAP = USS_BUTTON_CLASS + "-default-gap"; // This is a hack because unity doesn't support gap property
 
 		public ButtonStyle BtnStyle
 		{
@@ -74,9 +79,9 @@ namespace FirstLight.Game.UIElements.Kit
 
 		private VisualElement _iconElement;
 		private Label _textElement;
-		private ButtonStyle _btnStyle;
-		private ButtonColor _btnColor;
-		private ButtonShape _btnShape;
+		private ButtonStyle _btnStyle = ButtonStyle.Solid;
+		private ButtonColor _btnColor = ButtonColor.Primary;
+		private ButtonShape _btnShape = ButtonShape.Long;
 
 		private string _btnIcon;
 		private string _text;
@@ -103,6 +108,12 @@ namespace FirstLight.Game.UIElements.Kit
 					break;
 				case ButtonColor.Secondary:
 					AddToClassList(USS_BUTTON_COLOR_SECONDARY);
+					break;
+				case ButtonColor.Success:
+					AddToClassList(USS_BUTTON_COLOR_SUCCESS);
+					break;
+				case ButtonColor.Error:
+					AddToClassList(USS_BUTTON_COLOR_ERROR);
 					break;
 				default:
 					throw new NotSupportedException("Button color " + BtnColor.ToString() + " not supported yet!");
@@ -157,6 +168,11 @@ namespace FirstLight.Game.UIElements.Kit
 			}
 
 			Add(_textElement);
+		}
+
+		public void AddDefaultGap()
+		{
+			this.AddToClassList(USS_BUTTON_DEFAULT_GAP);
 		}
 
 		public void Localize(string key)
@@ -230,7 +246,9 @@ namespace FirstLight.Game.UIElements.Kit
 	public enum ButtonColor
 	{
 		Primary,
-		Secondary
+		Secondary,
+		Success,
+		Error
 	}
 
 	public enum ButtonStyle

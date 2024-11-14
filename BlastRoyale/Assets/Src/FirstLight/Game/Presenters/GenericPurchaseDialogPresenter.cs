@@ -5,7 +5,6 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
-using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.UIElements.Kit;
 using FirstLight.Game.Utils;
@@ -73,6 +72,7 @@ namespace FirstLight.Game.Presenters
 		{
 			[Q("ConfirmButton")] private KitButton _confirmButton;
 			[Q("TextContent")] private Label _textContent;
+			[Q("Controls")] private VisualElement _controls;
 			public Action OnClickConfirm;
 
 			public void Setup(TextPurchaseData data, bool hasCurrency, ulong ownedCurrency)
@@ -90,6 +90,37 @@ namespace FirstLight.Game.Presenters
 					_textContent.text = "Visit the shop to get some more " + sprite;
 					_confirmButton.BtnText = ScriptLocalization.UITGeneric.purchase_not_enough_button_text;
 				}
+			}
+
+			public TextPurchaseView SetupSimpleText(string text)
+			{
+				_textContent.text = text;
+				return this;
+			}
+
+			public TextPurchaseView ClearButtons()
+			{
+				_controls.Clear();
+				return this;
+			}
+
+			public TextPurchaseView AddButton(string text, ButtonColor color, Action action)
+			{
+				var btn = new KitButton()
+				{
+					BtnColor = color,
+					BtnText = text,
+					BtnShape = ButtonShape.Long,
+					BtnStyle = ButtonStyle.Solid,
+				};
+				if (_controls.childCount > 0)
+				{
+					btn.AddDefaultGap();
+				}
+
+				btn.clicked += action;
+				_controls.Add(btn);
+				return this;
 			}
 		}
 
@@ -211,7 +242,25 @@ namespace FirstLight.Game.Presenters
 					purchaseData.Price.Id.GetCurrencyLocalization(2).ToUpperInvariant()));
 			}
 
-			if (purchaseData is IconPurchaseData iconData)
+			if (!hasCurrency && purchaseData.Price.Id == GameId.NOOB)
+			{
+				_iconPurchaseView.Element.SetDisplay(false);
+				_textPurchaseView.Element.SetDisplay(true);
+				_textPurchaseView
+					.ClearButtons()
+					.SetupSimpleText(ScriptLocalization.UITGeneric.purchase_not_enough_noob_text)
+					.AddButton(ScriptLocalization.UITGeneric.purchase_not_enough_noob_discord_button, ButtonColor.Primary, () =>
+					{
+						Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
+						CloseRequested();
+					})
+					.AddButton(ScriptLocalization.UITGeneric.purchase_not_enough_noob_guide_button, ButtonColor.Success, () =>
+					{
+						Application.OpenURL(GameConstants.Links.NOOB_GUIDE);
+						CloseRequested();
+					});
+			}
+			else if (purchaseData is IconPurchaseData iconData)
 			{
 				_textPurchaseView.Element.SetDisplay(false);
 				_iconPurchaseView.Element.SetDisplay(true);

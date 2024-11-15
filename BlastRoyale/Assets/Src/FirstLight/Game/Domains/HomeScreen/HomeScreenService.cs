@@ -7,7 +7,8 @@ namespace FirstLight.Game.Domains.HomeScreen
 	{
 		None,
 		Store,
-		Matchmaking
+		Matchmaking,
+		PaidEvent,
 	}
 
 	/// <summary>

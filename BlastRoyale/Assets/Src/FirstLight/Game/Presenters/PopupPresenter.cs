@@ -136,9 +136,10 @@ namespace FirstLight.Game.Presenters
 			return OpenPopup(new MatchInfoPopupView(matchSettings, friendsPlaying, selectAction), ScriptTerms.UITCustomGames.match_info);
 		}
 
-		public static UniTaskVoid OpenMatchInfo(GameModeInfo info, string buttonText, Action selectClicked)
+		public static UniTaskVoid OpenMatchInfo(GameModeInfo info, string buttonText, string aboveButtonText, Action selectClicked)
 		{
-			return OpenPopup(new MatchInfoPopupView(info, buttonText, selectClicked), ScriptTerms.UITGameModeSelection.event_info_popup_title);
+			return OpenPopup(new MatchInfoPopupView(info, buttonText, aboveButtonText, selectClicked),
+				ScriptTerms.UITGameModeSelection.event_info_popup_title);
 		}
 
 		public static UniTaskVoid OpenInviteFriends()

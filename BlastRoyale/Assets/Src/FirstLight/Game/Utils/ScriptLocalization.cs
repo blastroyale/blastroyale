@@ -2508,6 +2508,7 @@ namespace I2.Loc
 			public static string custom_game_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_description"); } }
 			public static string custom_game_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_title"); } }
 			public static string event_info_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/event_info_popup_title"); } }
+			public static string participate_event_label 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/participate_event_label"); } }
 			public static string random_map 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/random_map"); } }
 			public static string rewards 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/rewards"); } }
 			public static string select_event 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/select_event"); } }
@@ -5421,6 +5422,7 @@ namespace I2.Loc
 		    public const string custom_game_description = "UITGameModeSelection/custom_game_description";
 		    public const string custom_game_title = "UITGameModeSelection/custom_game_title";
 		    public const string event_info_popup_title = "UITGameModeSelection/event_info_popup_title";
+		    public const string participate_event_label = "UITGameModeSelection/participate_event_label";
 		    public const string random_map = "UITGameModeSelection/random_map";
 		    public const string rewards = "UITGameModeSelection/rewards";
 		    public const string select_event = "UITGameModeSelection/select_event";

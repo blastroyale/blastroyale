@@ -32,7 +32,8 @@ namespace FirstLight.Game.Views.UITK.Popups
 		private readonly List<string> _friendsPlaying;
 		private readonly Action _clickAction;
 		private string _buttonText;
-		
+		private string _aboveButtonText;
+
 		private EventGameModeEntry _eventEntry => (EventGameModeEntry) _entryInfo.Entry;
 
 		[Q("EventTitle")] private Label _eventTitle;
@@ -53,13 +54,15 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("AllowedWeaponsContainer")] private VisualElement _allowedWeaponsContainer;
 		[Q("AllowedWeaponsScroll")] private ScrollView _allowedWeapons;
 		[Q("CustomThumbnail")] private VisualElement _customThumbnail;
+		[Q("AboveButtonLabel")] private Label _aboveButtonLabel;
 
-		public MatchInfoPopupView(GameModeInfo info,string buttonText, Action selectAction)
+		public MatchInfoPopupView(GameModeInfo info, string buttonText, string aboveButtonText, Action selectAction)
 		{
 			_clickAction = selectAction;
 			_matchSettings = info.Entry.MatchConfig;
 			_entryInfo = info;
 			_buttonText = buttonText;
+			_aboveButtonText = aboveButtonText;
 		}
 
 		public MatchInfoPopupView(SimulationMatchConfig matchSettings, List<string> friendsPlaying, Action selectAction)
@@ -79,6 +82,15 @@ namespace FirstLight.Game.Views.UITK.Popups
 			Element.RemoveModifiers();
 			Element.EnableInClassList(USS_EVENT, _matchSettings.MatchType == MatchType.Matchmaking);
 			Element.EnableInClassList(USS_CUSTOM, _matchSettings.MatchType == MatchType.Custom);
+			if (!string.IsNullOrWhiteSpace(_aboveButtonText))
+			{
+				_aboveButtonLabel.text = _aboveButtonText;
+			}
+			else
+			{
+				_aboveButtonLabel.SetDisplay(false);
+			}
+
 			SetupMatchValues();
 			_actionButton.clicked += _clickAction;
 			if (_matchSettings.MatchType == MatchType.Custom)

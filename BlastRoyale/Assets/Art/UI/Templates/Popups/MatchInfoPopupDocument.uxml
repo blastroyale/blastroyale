@@ -79,6 +79,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:ScrollView>
+            <FirstLight.Game.UIElements.LabelOutlined text="ABOVE BUTTON LABEL" name="AboveButtonLabel" class="game-label game-label--small" />
             <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-color="Primary" btn-text="&lt;line-height=80%&gt;20 &lt;sprite name=&quot;BB&quot;&gt;" name="ActionButton" class="participate-button" style="align-self: center;" />
         </ui:VisualElement>
     </ui:VisualElement>

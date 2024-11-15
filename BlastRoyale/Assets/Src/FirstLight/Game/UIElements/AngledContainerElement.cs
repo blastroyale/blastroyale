@@ -41,7 +41,7 @@ namespace FirstLight.Game.UIElements
 		{
 			hierarchy.Add(_background = new VisualElement
 			{
-				name = "Background",
+				name = "AngledContainerBackground",
 				style =
 				{
 					position = Position.Absolute,

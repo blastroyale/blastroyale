@@ -96,6 +96,12 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public bool IsInRotation(SimulationMatchConfig matchConfig);
 
+		/// <summary>
+		/// Return a entry witht he given uniqueConfigId, if you want to check if the entry is in rotation use onlyValid = true
+		/// if you want to get an entry even if it's not in rotation use onlyvalid =false
+		/// </summary>
+		public IGameModeEntry GetGameModeInfo(string uniqueConfigId, bool onlyValid = true);
+
 		public void SelectValidGameMode();
 	}
 
@@ -113,7 +119,6 @@ namespace FirstLight.Game.Services
 		private readonly IHomeScreenService _homeScreenService;
 
 		private GameId _selectedMap;
-
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
 
 		public GameId SelectedMap
@@ -211,6 +216,13 @@ namespace FirstLight.Game.Services
 			{
 				_commandService.ExecuteCommand(new RefundEventPassesCommand());
 			}
+
+			if (obj.Rewards.UsedEventPass)
+			{
+				_homeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.PaidEvent;
+			}
+
+			SelectValidGameMode();
 		}
 
 		/// <summary>
@@ -258,8 +270,11 @@ namespace FirstLight.Game.Services
 
 		public void Init()
 		{
+			// Pre load event images
 			foreach (var uniqueUrls in Slots.Where(slot => slot.Entry is EventGameModeEntry)
-						 .Select(slot => ((EventGameModeEntry) slot.Entry).ImageURL).Distinct())
+						 .Select(slot => slot.Entry)
+						 .Cast<EventGameModeEntry>()
+						 .SelectMany(slot => new[] {slot.ImageURL, slot.BackgroundImageURL}).Distinct())
 			{
 				if (uniqueUrls == null) continue;
 				_remoteTextureService.RequestTexture(uniqueUrls).Forget();
@@ -346,7 +361,6 @@ namespace FirstLight.Game.Services
 
 		public bool IsInRotation(SimulationMatchConfig matchConfig)
 		{
-			var match = matchConfig.ToByteArray();
 			foreach (var gameModeInfo in Slots)
 			{
 				if (IsInRotation(gameModeInfo.Entry) && matchConfig.UniqueConfigId == gameModeInfo.Entry.MatchConfig.UniqueConfigId)
@@ -356,6 +370,16 @@ namespace FirstLight.Game.Services
 			}
 
 			return false;
+		}
+
+		public IGameModeEntry GetGameModeInfo(string uniqueConfigId, bool onlyValid = true)
+		{
+			var data = MainInstaller.ResolveData().RemoteConfigProvider;
+			var eventConfigs = data.GetConfig<EventGameModesConfig>();
+			var fixedSlotsConfig = data.GetConfig<FixedGameModesConfig>();
+			return eventConfigs.Cast<IGameModeEntry>()
+				.Concat(fixedSlotsConfig)
+				.FirstOrDefault(ev => ev.MatchConfig.UniqueConfigId == uniqueConfigId && (!onlyValid || IsInRotation(ev)));
 		}
 
 		public void SelectValidGameMode()

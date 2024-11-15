@@ -166,6 +166,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Condition(RequiresToSeeStore).Target(store);
+			homeCheck.Transition().Condition(RequiresToSeePaidEvent).Target(chooseGameMode);
 			homeCheck.Transition().Condition(IsInRoom)
 				.OnTransition(() => _services.RoomService.LeaveRoom())
 				.Target(homeMenu);
@@ -284,6 +285,11 @@ namespace FirstLight.Game.Domains.HomeScreen
 		private bool RequiresToSeeStore()
 		{
 			return _services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Store;
+		}
+
+		private bool RequiresToSeePaidEvent()
+		{
+			return _services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.PaidEvent;
 		}
 
 		private void HideMatchmaking()
@@ -454,8 +460,16 @@ namespace FirstLight.Game.Domains.HomeScreen
 
 		private void OpenGameModeSelectionUI()
 		{
+			var forceViewPaidEvent = false;
+			if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.PaidEvent)
+			{
+				forceViewPaidEvent = true;
+				_services.HomeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.None;
+			}
+
 			var data = new GameModeScreenPresenter.StateData
 			{
+				ForceViewActivePaidEvent = forceViewPaidEvent,
 				GameModeChosen = _ => _statechartTrigger(_gameModeSelectedFinishedEvent),
 				CustomGameChosen = () => _statechartTrigger(_customGameButtonClicked),
 				OnBackClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent),

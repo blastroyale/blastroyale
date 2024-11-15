@@ -37,9 +37,9 @@ namespace FirstLight.Game.Presenters
 
 		public class StateData
 		{
+			public bool ForceViewActivePaidEvent;
 			public Action<GameModeInfo> GameModeChosen;
 			public Action CustomGameChosen;
-
 			public Action OnBackClicked;
 		}
 
@@ -124,6 +124,17 @@ namespace FirstLight.Game.Presenters
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
 			UpdateMapDropdownVisibility();
+
+			if (Data.ForceViewActivePaidEvent)
+			{
+				foreach (var view in _buttonViews)
+				{
+					if (view.GameModeInfo.Entry is EventGameModeEntry ev && ev.IsPaid)
+					{
+						OnInfoButtonClicked(view);
+					}
+				}
+			}
 		}
 
 		private void OnMapButtonClicked()
@@ -209,7 +220,7 @@ namespace FirstLight.Game.Presenters
 					var text = (ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId))
 						.WithFontSize("150%");
 
-					PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, () =>
+					PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, ScriptLocalization.UITGameModeSelection.participate_event_label, () =>
 						PopupPresenter.Close().ContinueWith(() =>
 						{
 							_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.TextPurchaseData()
@@ -228,7 +239,7 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
-			PopupPresenter.OpenMatchInfo(info.GameModeInfo, null, () =>
+			PopupPresenter.OpenMatchInfo(info.GameModeInfo, null, null, () =>
 				PopupPresenter.Close().ContinueWith(() =>
 				{
 					SelectAndStartMatchmaking(info);

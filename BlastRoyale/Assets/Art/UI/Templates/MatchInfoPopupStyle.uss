@@ -9,6 +9,9 @@
 
 .content--event {
 }
+.content--event--paid {
+}
+
 
 .unity-disabled.match-settings-button {
     opacity: 1;
@@ -117,6 +120,9 @@
     border-radius: 50%;
     align-items: center;
     justify-content: center;
+}
+.content--event--paid .event-thumbnail {
+    background-color: #BA3B5F;
 }
 
 .event-thumbnail__image {

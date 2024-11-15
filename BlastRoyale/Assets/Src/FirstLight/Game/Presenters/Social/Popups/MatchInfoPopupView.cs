@@ -24,6 +24,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 	public class MatchInfoPopupView : UIView
 	{
 		private const string USS_EVENT = "content--event";
+		private const string USS_EVENT_PAID = "content--event--paid";
 		private const string USS_CUSTOM = "content--custom";
 		private const string USS_REWARD_ITEM = "event-reward";
 		private const string USS_BPP_XP_SPRITE = "sprite-shared__icon-bpp-xp";
@@ -81,6 +82,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 		{
 			Element.RemoveModifiers();
 			Element.EnableInClassList(USS_EVENT, _matchSettings.MatchType == MatchType.Matchmaking);
+			Element.EnableInClassList(USS_EVENT_PAID, _matchSettings.MatchType == MatchType.Matchmaking && _eventEntry.IsPaid);
 			Element.EnableInClassList(USS_CUSTOM, _matchSettings.MatchType == MatchType.Custom);
 			if (!string.IsNullOrWhiteSpace(_aboveButtonText))
 			{

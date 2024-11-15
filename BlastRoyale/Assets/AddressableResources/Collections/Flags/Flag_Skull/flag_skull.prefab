@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 8627775708139065563, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -5086668026500350341, guid: 29f7f163f34dd5d46b6ac54611d3bc4d, type: 3}
+      objectReference: {fileID: -5086668026500350341, guid: 228afbe79de1de448be3337349e10a53, type: 3}
     - target: {fileID: 8943609343699492224, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
       propertyPath: m_Name
       value: Flag_Skull

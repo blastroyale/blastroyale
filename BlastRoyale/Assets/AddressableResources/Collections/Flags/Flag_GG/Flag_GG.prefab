@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 8627775708139065563, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 2701283661476162108, guid: 861a29c3708959148ab049ffc482bf72, type: 3}
+      objectReference: {fileID: 2701283661476162108, guid: aa5d5eea94670844d9a0b5a0943cb7c1, type: 3}
     - target: {fileID: 8943609343699492224, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
       propertyPath: m_Name
       value: Flag_GG

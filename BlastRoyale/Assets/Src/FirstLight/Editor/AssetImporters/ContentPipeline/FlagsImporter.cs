@@ -21,17 +21,17 @@ namespace FirstLight.Editor.AssetImporters
 		private void OnPreprocessModel()
 		{
 			Debug.Log($"is it a flag? {Path.GetFileName(assetPath)} | {Path.GetFileName(assetPath).StartsWith(PREFIX)}");
-			// if (!Path.GetFileName(assetPath).StartsWith(PREFIX)) return;
-			//
-			// var importer = (ModelImporter) assetImporter;
-			//
-			// // Extract textures
-			// var folder = assetPath!.Remove(assetPath.LastIndexOf('/'));
-			// importer.ExtractTextures(folder);
-			//
-			// // Apply preset
-			// var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/FlagsFBX.preset");
-			// preset.ApplyTo(importer);
+			if (!Path.GetFileName(assetPath).StartsWith(PREFIX)) return;
+			
+			var importer = (ModelImporter) assetImporter;
+			
+			// Extract textures
+			var folder = assetPath!.Remove(assetPath.LastIndexOf('/'));
+			importer.ExtractTextures(folder);
+			
+			// Apply preset
+			var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/FlagFBX.preset");
+			preset.ApplyTo(importer);
 		}
 
 
@@ -41,67 +41,74 @@ namespace FirstLight.Editor.AssetImporters
 			public string AssetPath;
 			public string ImportDirectory;
 		}
-		// private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
-		// 										   string[] movedFromAssetPaths)
-		// {
-		// 	
-		// 	var basePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(PREFAB_FILE);
-		// 	_importedAssets = new List<AssetDetails>();
-		// 	foreach (var assetPath in importedAssets)
-		// 	{
-		// 		Debug.Log($"Check asset : {assetPath} | {AssetDatabase.IsValidFolder(assetPath)}");
-		// 		if (AssetDatabase.IsValidFolder(assetPath))
-		// 		{
-		// 			// New asset has been imported
-		// 			var directoryName = Path.GetFileName(assetPath)!;
-		//
-		// 			if (directoryName.StartsWith(PREFIX))
-		// 			{
-		// 				var assetName = Path.GetFileNameWithoutExtension(assetPath);
-		// 				var assetFbxFilename = $"{assetName}.fbx";
-		// 				var assetFbxPath = $"{assetPath}/{assetFbxFilename}";
-		// 				var assetPrefabFilename = $"{assetName}.prefab";
-		// 				var destination = $"{ADDRESSABLE_DIR}/{assetName}";
-		// 				if (!Directory.Exists(destination))
-		// 				{
-		// 					Directory.CreateDirectory(destination);
-		// 				}
-		// 				Debug.Log($"Importing new asset: {destination} | {assetName} | {assetFbxPath} | {Path.Combine(destination, assetFbxFilename)}");
-		//
-		// 				// We need to create a variant because for some reason when we set the animator controller
-		// 				// directly on the FBX it loses the reference.
-		// 				var instantiatedPrefab = (GameObject) PrefabUtility.InstantiatePrefab(basePrefab);
-		// 				var meshRenderer = instantiatedPrefab.GetComponentInChildren<SkinnedMeshRenderer>();
-		// 				var assetFbx = AssetDatabase.LoadAllAssetsAtPath(assetFbxPath);
-		// 				foreach (var asset in assetFbx)
-		// 				{
-		// 					if (asset is Mesh)
-		// 					{
-		// 						Debug.Log($"Applying mesh {assetFbxPath} | {assetFbx}");
-		// 				
-		// 						meshRenderer.sharedMesh = asset as Mesh;
-		// 					}
-		// 				}
-		//
-		// 				// Create prefab variant
-		// 				PrefabUtility.SaveAsPrefabAssetAndConnect(instantiatedPrefab, $"{destination}/{assetPrefabFilename}",
-		// 					InteractionMode.AutomatedAction, out var success);
-		// 				Object.DestroyImmediate(instantiatedPrefab);
-		// 				_importedAssets.Add(new AssetDetails{AssetPath = assetFbxPath, Destination = $"{destination}/{assetFbxFilename}", ImportDirectory = assetPath});
-		// 				
-		// 				if (!success)
-		// 				{
-		// 					Debug.LogError($"Error creating prefab for {assetName}.");
-		// 					continue;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// 	
-		// 	AssetDatabase.SaveAssets();
-		// 	AssetDatabase.Refresh();
-		// 	MoveAssets();
-		// }
+		private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
+												   string[] movedFromAssetPaths)
+		{
+			
+			var basePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(PREFAB_FILE);
+			_importedAssets = new List<AssetDetails>();
+			foreach (var assetPath in importedAssets)
+			{
+				if (AssetDatabase.IsValidFolder(assetPath))
+				{
+					Debug.Log(assetPath);
+					var directory = new DirectoryInfo(assetPath);
+					var parent = directory.Parent;
+					if (parent == null) continue;
+					var isImportedFromAssetManager = parent.Name == "Assets";
+					Debug.Log($"Check asset : {EditorPrefs.GetString("importSettingsDefaultLocationLabel")} | {assetPath} | {parent.Name} | {isImportedFromAssetManager} | {AssetDatabase.IsValidFolder(assetPath)}");
+					if(!isImportedFromAssetManager) continue;
+					
+					// New asset has been imported
+					var directoryName = Path.GetFileName(assetPath)!;
+
+					if (directoryName.StartsWith(PREFIX))
+					{
+						var assetName = Path.GetFileNameWithoutExtension(assetPath);
+						var assetFbxFilename = $"{assetName}.fbx";
+						var assetFbxPath = $"{assetPath}/{assetFbxFilename}";
+						var assetPrefabFilename = $"{assetName}.prefab";
+						var destination = $"{ADDRESSABLE_DIR}/{assetName}";
+						if (!Directory.Exists(destination))
+						{
+							Directory.CreateDirectory(destination);
+						}
+						Debug.Log($"Importing new asset: {destination} | {assetName} | {assetFbxPath} | {Path.Combine(destination, assetFbxFilename)}");
+
+						// We need to create a variant because for some reason when we set the animator controller
+						// directly on the FBX it loses the reference.
+						var instantiatedPrefab = (GameObject) PrefabUtility.InstantiatePrefab(basePrefab);
+						var meshRenderer = instantiatedPrefab.GetComponentInChildren<SkinnedMeshRenderer>();
+						var assetFbx = AssetDatabase.LoadAllAssetsAtPath(assetFbxPath);
+						foreach (var asset in assetFbx)
+						{
+							if (asset is Mesh)
+							{
+								Debug.Log($"Applying mesh {assetFbxPath} | {assetFbx}");
+						
+								meshRenderer.sharedMesh = asset as Mesh;
+							}
+						}
+
+						// Create prefab variant
+						PrefabUtility.SaveAsPrefabAssetAndConnect(instantiatedPrefab, $"{destination}/{assetPrefabFilename}",
+							InteractionMode.AutomatedAction, out var success);
+						Object.DestroyImmediate(instantiatedPrefab);
+						_importedAssets.Add(new AssetDetails{AssetPath = assetFbxPath, Destination = $"{destination}/{assetFbxFilename}", ImportDirectory = assetPath});
+						
+						if (!success)
+						{
+							Debug.LogError($"Error creating prefab for {assetName}.");
+							continue;
+						}
+					}
+				}
+			}
+			
+			AssetDatabase.SaveAssets();
+			AssetDatabase.Refresh();
+			MoveAssets();
+		}
 
 		private static void MoveAssets()
 		{

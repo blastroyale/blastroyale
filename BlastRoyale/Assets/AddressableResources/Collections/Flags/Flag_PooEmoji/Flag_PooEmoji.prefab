@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 8627775708139065563, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 2609258032075444516, guid: 768d4c78e6001a94aa2b2ea526fcf168, type: 3}
+      objectReference: {fileID: 2609258032075444516, guid: 0d5fab00eaddf014a9182868db163514, type: 3}
     - target: {fileID: 8943609343699492224, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
       propertyPath: m_Name
       value: Flag_PooEmoji

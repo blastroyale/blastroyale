@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 8627775708139065563, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4224352900664591165, guid: d08e67aa5112c5444b4f46d39c679b9d, type: 3}
+      objectReference: {fileID: 4224352900664591165, guid: cf9a0c8a26904c649be1a676d8a166b2, type: 3}
     - target: {fileID: 8943609343699492224, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
       propertyPath: m_Name
       value: Flag_RoyalCrown

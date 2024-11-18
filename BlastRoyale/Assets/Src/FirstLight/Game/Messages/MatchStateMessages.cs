@@ -105,7 +105,7 @@ namespace FirstLight.Game.Messages
 		public AmbienceType Ambience;
 	}
 
-	public struct PluginDisconnectedMessage : IMessage
+	public struct QuantumServerSimulationDisconnectedMessage : IMessage
 	{
 		public string Reason;
 	}

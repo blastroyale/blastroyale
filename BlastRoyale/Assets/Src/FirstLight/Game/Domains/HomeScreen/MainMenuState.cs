@@ -460,16 +460,16 @@ namespace FirstLight.Game.Domains.HomeScreen
 
 		private void OpenGameModeSelectionUI()
 		{
-			var forceViewPaidEvent = false;
+			string forceViewPaidEvent = null;
 			if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.PaidEvent)
 			{
-				forceViewPaidEvent = true;
-				_services.HomeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.None;
+				forceViewPaidEvent = _services.HomeScreenService.ForceBehaviourData as string;
+				_services.HomeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.None);
 			}
 
 			var data = new GameModeScreenPresenter.StateData
 			{
-				ForceViewActivePaidEvent = forceViewPaidEvent,
+				ForceViewEventDetails = forceViewPaidEvent,
 				GameModeChosen = _ => _statechartTrigger(_gameModeSelectedFinishedEvent),
 				CustomGameChosen = () => _statechartTrigger(_customGameButtonClicked),
 				OnBackClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent),
@@ -662,7 +662,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 			if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Matchmaking)
 			{
 				PlayButtonClicked();
-				_services.HomeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.None;
+				_services.HomeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.None);
 			}
 		}
 

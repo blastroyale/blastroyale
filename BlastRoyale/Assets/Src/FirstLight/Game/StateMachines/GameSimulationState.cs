@@ -145,10 +145,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (callback.Reason == GameConstants.QuantumPluginDisconnectReasons.NOT_ENOUGH_PLAYERS)
 			{
-				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITMatchmaking.failed_to_find_players);
+				_services.InGameNotificationService.QueueNotification(
+					ScriptLocalization.UITMatchmaking.failed_to_find_players,
+					InGameNotificationStyle.Error,
+					InGameNotificationDuration.Long);
 			}
 
-			_services.MessageBrokerService.Publish(new PluginDisconnectedMessage()
+			_services.MessageBrokerService.Publish(new QuantumServerSimulationDisconnectedMessage()
 			{
 				Reason = callback.Reason
 			});

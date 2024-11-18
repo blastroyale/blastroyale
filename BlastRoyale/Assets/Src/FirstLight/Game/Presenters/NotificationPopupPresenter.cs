@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
@@ -17,10 +18,10 @@ namespace FirstLight.Game.Presenters
 	{
 		public class StateData
 		{
-			public readonly string Message;
+			public readonly InGameNotificationEntry Message;
 			public readonly CancellationToken CancellationToken;
 
-			public StateData(string message, CancellationToken cancellationToken)
+			public StateData(InGameNotificationEntry message, CancellationToken cancellationToken)
 			{
 				Message = message;
 				CancellationToken = cancellationToken;
@@ -28,6 +29,9 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private const float CLOSE_DELAY = 2f;
+		private const float CLOSE_DELAY_LONG = 6f;
+		private const string USS_NOTIFICATION = "notification";
+		private const string USS_NOTIFICATION_ERROR_MODIFIER = USS_NOTIFICATION + "--error";
 
 		private Label _messageLabel;
 
@@ -38,7 +42,16 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_messageLabel.text = Data.Message;
+			_messageLabel.text = Data.Message.Message;
+			if (Data.Message.Style == InGameNotificationStyle.Error)
+			{
+				_messageLabel.AddToClassList(USS_NOTIFICATION_ERROR_MODIFIER);
+			}
+			else
+			{
+				_messageLabel.RemoveModifiers();
+			}
+
 			return base.OnScreenOpen(reload);
 		}
 
@@ -46,8 +59,8 @@ namespace FirstLight.Game.Presenters
 		{
 			try
 			{
-
-				await UniTask.WaitForSeconds(CLOSE_DELAY, cancellationToken: Data.CancellationToken);
+				var delay = Data.Message.Duration == InGameNotificationDuration.Normal ? CLOSE_DELAY : CLOSE_DELAY_LONG;
+				await UniTask.WaitForSeconds(delay, cancellationToken: Data.CancellationToken);
 			}
 			catch (OperationCanceledException)
 			{

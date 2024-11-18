@@ -37,7 +37,7 @@ namespace FirstLight.Game.Presenters
 
 		public class StateData
 		{
-			public bool ForceViewActivePaidEvent;
+			public string ForceViewEventDetails;
 			public Action<GameModeInfo> GameModeChosen;
 			public Action CustomGameChosen;
 			public Action OnBackClicked;
@@ -125,13 +125,15 @@ namespace FirstLight.Game.Presenters
 			_buttonsSlider.Add(createGameButton);
 			UpdateMapDropdownVisibility();
 
-			if (Data.ForceViewActivePaidEvent)
+			if (Data.ForceViewEventDetails != null)
 			{
 				foreach (var view in _buttonViews)
 				{
-					if (view.GameModeInfo.Entry is EventGameModeEntry ev && ev.IsPaid)
+					if (view.GameModeInfo.Entry is EventGameModeEntry ev &&
+						Data.ForceViewEventDetails == view.GameModeInfo.Entry.MatchConfig.UniqueConfigId)
 					{
 						OnInfoButtonClicked(view);
+						break;
 					}
 				}
 			}
@@ -252,7 +254,7 @@ namespace FirstLight.Game.Presenters
 		private void SelectAndStartMatchmaking(GameModeSelectionButtonView info)
 		{
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
-			_services.HomeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.Matchmaking;
+			_services.HomeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.Matchmaking);
 			Data.GameModeChosen(info.GameModeInfo);
 		}
 

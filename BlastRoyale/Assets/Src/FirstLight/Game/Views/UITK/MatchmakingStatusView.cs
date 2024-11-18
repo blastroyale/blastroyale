@@ -57,7 +57,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (msg.Error)
 			{
-				_inGameNotificationService.QueueNotification(msg.Reason);
+				_inGameNotificationService.QueueNotification(msg.Reason, InGameNotificationStyle.Error, InGameNotificationDuration.Long);
 			}
 		}
 

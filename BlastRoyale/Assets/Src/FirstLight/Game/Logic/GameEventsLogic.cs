@@ -20,6 +20,7 @@ namespace FirstLight.Game.Logic
 	{
 		bool HasPass(string eventId);
 		bool HasAnyPass();
+		IReadOnlyList<string> GetPasses();
 	}
 
 	/// <summary>
@@ -87,6 +88,11 @@ namespace FirstLight.Game.Logic
 		public bool HasAnyPass()
 		{
 			return Data.EventPassesWithPrice.Count > 0;
+		}
+
+		public IReadOnlyList<string> GetPasses()
+		{
+			return Data.EventPassesWithPrice.Keys.ToList();
 		}
 	}
 }

@@ -131,7 +131,7 @@ namespace FirstLight.Game.Services
 		{
 			if (_homeScreen.ForceBehaviour == HomeScreenForceBehaviourType.Store)
 			{
-				_homeScreen.ForceBehaviour = HomeScreenForceBehaviourType.None;
+				_homeScreen.SetForceBehaviour(HomeScreenForceBehaviourType.None);
 			}
 
 			TryUpdateStoreCatalog();

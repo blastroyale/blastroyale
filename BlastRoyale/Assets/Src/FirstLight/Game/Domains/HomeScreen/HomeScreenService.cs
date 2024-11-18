@@ -18,7 +18,9 @@ namespace FirstLight.Game.Domains.HomeScreen
 	public interface IHomeScreenService
 	{
 		public event Action<List<string>> CustomPlayButtonValidations;
-		public HomeScreenForceBehaviourType ForceBehaviour { get; set; }
+		public HomeScreenForceBehaviourType ForceBehaviour { get; }
+		public object ForceBehaviourData { get; }
+		public void SetForceBehaviour(HomeScreenForceBehaviourType type, object data = null);
 		public List<string> ValidatePlayButton();
 	}
 
@@ -26,6 +28,13 @@ namespace FirstLight.Game.Domains.HomeScreen
 	{
 		public event Action<List<string>> CustomPlayButtonValidations;
 		public HomeScreenForceBehaviourType ForceBehaviour { get; set; }
+		public object ForceBehaviourData { get; set; }
+
+		public void SetForceBehaviour(HomeScreenForceBehaviourType type, object data = null)
+		{
+			ForceBehaviour = type;
+			ForceBehaviourData = data;
+		}
 
 		public List<string> ValidatePlayButton()
 		{

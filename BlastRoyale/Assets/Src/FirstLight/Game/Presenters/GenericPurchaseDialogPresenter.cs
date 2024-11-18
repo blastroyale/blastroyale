@@ -326,7 +326,7 @@ namespace FirstLight.Game.Presenters
 			FLog.Verbose("Generic Purchase Dialog", "Go To Shop");
 			if (!_services.UIService.IsScreenOpen<StoreScreenPresenter>())
 			{
-				_services.HomeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.Store;
+				_services.HomeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.Store);
 			}
 			else
 			{

@@ -211,7 +211,6 @@ namespace FirstLight.Game.Services.RoomService
 
 			// TODO: Optimize to only start this coroutine on game join
 			_coroutineService.StartCoroutine(CheckGameStartCoroutine());
-			Debug.Log(OnNotEnoughPlayers);
 		}
 
 		public QuantumGameModeConfig GetGameModeConfig(string gameModeId) => _configsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
@@ -538,7 +537,10 @@ namespace FirstLight.Game.Services.RoomService
 			var minPlayers = CurrentRoom.Properties.SimulationMatchConfig.Value.MinPlayersToStartMatch;
 			if (CurrentRoom.PlayerCount < minPlayers)
 			{
-				_inGameNotificationService.QueueNotification(ScriptLocalization.UITMatchmaking.failed_to_find_players);
+				_inGameNotificationService.QueueNotification(
+					ScriptLocalization.UITMatchmaking.failed_to_find_players,
+					InGameNotificationStyle.Error,
+					InGameNotificationDuration.Long);
 				OnNotEnoughPlayers?.Invoke();
 				LeaveRoom();
 				return;

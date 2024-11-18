@@ -20,6 +20,7 @@ using FirstLight.Services;
 using Quantum;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -181,7 +182,7 @@ namespace FirstLight.Game.Services
 			msgBroker.Subscribe<CoreLoopInitialized>(OnCoreLoopInitialized);
 			msgBroker.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
 			msgBroker.Subscribe<GameCompletedRewardsMessage>(OnGameRewards);
-			msgBroker.Subscribe<PluginDisconnectedMessage>(OnQuantumServerDisconnected);
+			msgBroker.Subscribe<QuantumServerSimulationDisconnectedMessage>(OnQuantumServerDisconnected);
 			homeScreenService.CustomPlayButtonValidations += ValidatePlayButton;
 			roomService.OnNotEnoughPlayers += FailedToStartMatch;
 		}
@@ -190,14 +191,15 @@ namespace FirstLight.Game.Services
 		/// Happens quantum server, it disconnect the clients when there is not enough players to start.
 		/// </summary>
 		/// <param name="obj"></param>
-		private void OnQuantumServerDisconnected(PluginDisconnectedMessage obj)
+		private void OnQuantumServerDisconnected(QuantumServerSimulationDisconnectedMessage obj)
 		{
 			if (obj.Reason == GameConstants.QuantumPluginDisconnectReasons.NOT_ENOUGH_PLAYERS)
 			{
 				if (_dataProvider.GameEventsDataProvider.HasAnyPass())
 				{
+					var pass = _dataProvider.GameEventsDataProvider.GetPasses().First();
 					_commandService.ExecuteCommand(new RefundEventPassesCommand());
-					_homeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.PaidEvent;
+					_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, pass);
 				}
 			}
 		}
@@ -209,8 +211,9 @@ namespace FirstLight.Game.Services
 		{
 			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
 			{
+				var pass = _dataProvider.GameEventsDataProvider.GetPasses().First();
 				_commandService.ExecuteCommand(new RefundEventPassesCommand());
-				_homeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.PaidEvent;
+				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, pass);
 			}
 		}
 
@@ -228,7 +231,8 @@ namespace FirstLight.Game.Services
 					_commandService.ExecuteCommand(new RefundEventPassesCommand());
 				}
 
-				_homeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.PaidEvent;
+				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, ev.MatchConfig.UniqueConfigId);
+
 				SelectValidGameMode();
 			}
 		}
@@ -265,11 +269,13 @@ namespace FirstLight.Game.Services
 			if (!obj.Rewards.UsedEventPass && _dataProvider.GameEventsDataProvider.HasAnyPass())
 			{
 				_commandService.ExecuteCommand(new RefundEventPassesCommand());
+				Debug.Log("SET FORCE BEHAVIOUR GO TO PAID EVENT " + obj.Rewards.SimulationConfigId);
+				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, obj.Rewards.SimulationConfigId);
 			}
 
 			if (obj.Rewards.UsedEventPass)
 			{
-				_homeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.PaidEvent;
+				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, obj.Rewards.SimulationConfigId);
 			}
 
 			SelectValidGameMode();

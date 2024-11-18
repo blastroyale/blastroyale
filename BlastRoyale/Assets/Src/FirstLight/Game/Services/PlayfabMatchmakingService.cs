@@ -257,7 +257,7 @@ namespace FirstLight.Game.Services
 
 				AsyncPlayfabAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest()
 				{
-					QueueName = _localData.LastQueue
+					QueueName = _localData.LastQueue,
 				}).Forget();
 				FLog.Info("Left Matchmaking");
 				if (_pooling != null)
@@ -384,7 +384,7 @@ namespace FirstLight.Game.Services
 
 		private void InvokeJoinedMatchmaking(JoinedMatchmaking mm)
 		{
-			var queueName = _gameModeService.GetTeamSizeFor(mm.DeserializeRoomSetup().SimulationConfig).QueueName;
+			var queueName = _gameModeService.GetMatchMakingConfigFor(mm.DeserializeRoomSetup().SimulationConfig).QueueName;
 			_localData.LastQueue = queueName;
 			_localData.TicketId = mm.TicketId;
 			_localMatchmakingData.SaveData<MatchmakingData>();

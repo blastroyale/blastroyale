@@ -222,6 +222,11 @@ namespace FirstLight.Game.StateMachines
 			return _matchServices.MatchEndDataService.LeftBeforeMatchFinished;
 		}
 
+		private bool KilledByBeingAFK()
+		{
+			return _matchServices.MatchEndDataService.CachedRewards.ReceivedInCommand.KilledByBeingAFK;
+		}
+
 		private unsafe bool HasValidPlayer()
 		{
 			var f = QuantumRunner.Default?.Game?.Frames?.Verified;

@@ -233,6 +233,10 @@ namespace FirstLight.Game.Presenters
 										{UniqueEventId = entry.MatchConfig.UniqueConfigId});
 									SelectAndStartMatchmaking(info);
 								},
+								OnGoToShopRequired = () =>
+								{
+									Data.OnBackClicked?.Invoke();
+								}
 							});
 						})).Forget();
 					return;

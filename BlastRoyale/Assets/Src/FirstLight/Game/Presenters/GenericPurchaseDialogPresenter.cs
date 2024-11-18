@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
@@ -36,8 +37,20 @@ namespace FirstLight.Game.Presenters
 			public string Title { get; }
 			public ItemData Price { get; }
 
+			/// <summary>
+			/// Called everytime the screen is closed
+			/// </summary>
 			public Action OnExit { get; }
+
+			/// <summary>
+			/// Called when the user confirm the transaction and has the currency
+			/// </summary>
 			public Action OnConfirm { get; }
+
+			/// <summary>
+			/// This is called after onExit if going to the shop is required
+			/// </summary>
+			public Action OnGoToShopRequired { get; set; }
 		}
 
 		public class TextPurchaseData : IPurchaseData
@@ -47,6 +60,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnExit { get; set; }
 			public Action OnConfirm { get; set; }
 
+			public Action OnGoToShopRequired { get; set; }
 			public string TextFormat { get; set; }
 		}
 
@@ -66,6 +80,8 @@ namespace FirstLight.Game.Presenters
 			Action IPurchaseData.OnExit => OnExit;
 
 			Action IPurchaseData.OnConfirm => OnConfirm;
+
+			public Action OnGoToShopRequired { get; set; }
 		}
 
 		public class TextPurchaseView : UIView
@@ -75,7 +91,7 @@ namespace FirstLight.Game.Presenters
 			[Q("Controls")] private VisualElement _controls;
 			public Action OnClickConfirm;
 
-			public void Setup(TextPurchaseData data, bool hasCurrency, ulong ownedCurrency)
+			public void Setup(TextPurchaseData data, bool hasCurrency, ulong ownedCurrency, bool canBeBought)
 			{
 				_confirmButton.clicked += OnClickConfirm;
 
@@ -85,10 +101,15 @@ namespace FirstLight.Game.Presenters
 					var price = data.Price.GetMetadata<CurrencyMetadata>().Amount;
 					_textContent.text = string.Format(data.TextFormat, $"{price} {sprite}");
 				}
-				else
+				else if (canBeBought)
 				{
 					_textContent.text = "Visit the shop to get some more " + sprite;
 					_confirmButton.BtnText = ScriptLocalization.UITGeneric.purchase_not_enough_button_text;
+				}
+				else
+				{
+					_textContent.text = "You don't have enough " + sprite;
+					_confirmButton.BtnText = ScriptLocalization.General.OK;
 				}
 			}
 
@@ -137,7 +158,7 @@ namespace FirstLight.Game.Presenters
 			[Q("CostIcon")] private VisualElement _costIcon;
 			public Action OnClickConfirm;
 
-			public void Setup(IconPurchaseData data, bool hasCurrency, ulong ownedCurrency)
+			public void Setup(IconPurchaseData data, bool hasCurrency, ulong ownedCurrency, bool canBeBought)
 			{
 				_buyButton.clicked += OnClickConfirm;
 				// amnt 0 to always show default currency icon
@@ -186,7 +207,8 @@ namespace FirstLight.Game.Presenters
 				var missing = data.Value - ownedCurrency;
 				_notEnoughText.text = string.Format(ScriptLocalization.UITGeneric.purchase_you_need_currency, missing,
 					data.Currency.GetCurrencyLocalization(missing).ToUpperInvariant());
-				_itemPrice.text = ScriptLocalization.UITGeneric.purchase_not_enough_button_text;
+
+				_itemPrice.text = !canBeBought ? ScriptLocalization.General.OK : ScriptLocalization.UITGeneric.purchase_not_enough_button_text;
 			}
 		}
 
@@ -225,12 +247,19 @@ namespace FirstLight.Game.Presenters
 			FLog.Verbose("Generic Purchase Dialog", "Opened and registered callbacks");
 		}
 
+		public bool CanBeBoughtOnShop(GameId gameId)
+		{
+			return _services.IAPService.AvailableProductCategories.SelectMany(ctg => ctg.Products)
+				.Any(product => gameId == product.GameItem.Id);
+		}
+
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			var purchaseData = Data.PurchaseData;
 			var hasCurrency = Data.OwnedCurrency >= (ulong) purchaseData.Price.GetMetadata<CurrencyMetadata>().Amount;
 			_closeCallback = purchaseData.OnExit;
-			_confirmCallback = !hasCurrency ? GoToShop : purchaseData.OnConfirm;
+			var canBeBought = CanBeBoughtOnShop(Data.PurchaseData.Price.Id);
+			_confirmCallback = !hasCurrency ? canBeBought ? GoToShop : () => { } : purchaseData.OnConfirm;
 
 			if (hasCurrency)
 			{
@@ -264,13 +293,13 @@ namespace FirstLight.Game.Presenters
 			{
 				_textPurchaseView.Element.SetDisplay(false);
 				_iconPurchaseView.Element.SetDisplay(true);
-				_iconPurchaseView.Setup(iconData, hasCurrency, Data.OwnedCurrency);
+				_iconPurchaseView.Setup(iconData, hasCurrency, Data.OwnedCurrency, canBeBought);
 			}
 			else if (purchaseData is TextPurchaseData textData)
 			{
 				_textPurchaseView.Element.SetDisplay(true);
 				_iconPurchaseView.Element.SetDisplay(false);
-				_textPurchaseView.Setup(textData, hasCurrency, Data.OwnedCurrency);
+				_textPurchaseView.Setup(textData, hasCurrency, Data.OwnedCurrency, canBeBought);
 			}
 
 			return UniTask.CompletedTask;
@@ -279,6 +308,10 @@ namespace FirstLight.Game.Presenters
 		private void CloseRequested()
 		{
 			_services.UIService.CloseScreen<GenericPurchaseDialogPresenter>();
+			if (_confirmCallback == GoToShop)
+			{
+				Data.PurchaseData.OnGoToShopRequired?.Invoke();
+			}
 		}
 
 		private void OnBuyButtonClicked()

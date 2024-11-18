@@ -33,13 +33,13 @@ namespace FirstLight.Game.Messages
 		public QuantumGame Game;
 		public bool IsResync;
 	}
-	
+
 	public struct BeforeSimulationCommand : IMessage
 	{
 		public QuantumGame Game;
 		public QuantumServerCommand Type;
 	}
-	
+
 	public struct MatchEndedMessage : IMessage
 	{
 		public QuantumGame Game;
@@ -85,7 +85,6 @@ namespace FirstLight.Game.Messages
 	public struct LeftBeforeMatchFinishedMessage : IMessage
 	{
 	}
-	
 
 	public struct PlayerEnteredMessageVolume : IMessage
 	{
@@ -104,5 +103,10 @@ namespace FirstLight.Game.Messages
 	public struct PlayerLeftAmbienceMessage : IMessage
 	{
 		public AmbienceType Ambience;
+	}
+
+	public struct PluginDisconnectedMessage : IMessage
+	{
+		public string Reason;
 	}
 }

@@ -211,7 +211,6 @@ namespace FirstLight.Game.Presenters
 		private void OnInfoButtonClicked(GameModeSelectionButtonView info)
 		{
 			var entry = info.GameModeInfo.Entry;
-			Debug.Log(ModelSerializer.PrettySerialize(entry));
 			if (entry is EventGameModeEntry ev && ev.PriceToJoin != null)
 			{
 				var alreadyHasTicket = _dataProviders.GameEventsDataProvider.HasPass(entry.MatchConfig.UniqueConfigId);

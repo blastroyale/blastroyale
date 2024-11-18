@@ -28354,6 +28354,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITMatchmaking/failed_to_find_players
+      TermType: 0
+      Description: 
+      Languages:
+      - Failed to find players, please try again.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/unknown_matchmaking_error
+      TermType: 0
+      Description: 
+      Languages:
+      - Unkown matchmaking error ocurred, please try again.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITRewards/battlepass
       TermType: 0
       Description: 
@@ -31421,7 +31443,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1731675270012
+    Google_LastUpdatedVersion: 1731679137227
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

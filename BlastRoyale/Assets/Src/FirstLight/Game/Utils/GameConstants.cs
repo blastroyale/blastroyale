@@ -42,13 +42,13 @@ namespace FirstLight.Game.Utils
 			//Player Current Currency Statistics
 			public const string COINS_TOTAL = "Coins Total";
 			public const string NOOB_TOTAL = "NOOB Total";
-			
+
 			//Player Persistent General Statistics
 			public const string ITEMS_OBTAINED = "Items Obtained";
 			public const string KD_RATIO = "K/D Ratio";
 			public const string WL_RATIO = "W/L Ratio";
 			public const string FAME = "Fame";
-			
+
 			//General Season Statistics
 			public const string COINS_EARNED = "Coins Earned";
 			public const string SEASON_XP_EARNED = "XP Earned";
@@ -56,7 +56,7 @@ namespace FirstLight.Game.Utils
 			public const string SEASON_BP_LEVEL = "BP Level";
 			public const string SEASON_KD_RATIO = "Season K/D Ratio";
 			public const string SEASON_WL_RATIO = "Season W/L Ratio";
-			
+
 			// Metrics that should not be used in leaderboards seasons as they should never be reset
 			//General Ranked Persistent Statistics
 			public const string RANKED_DAMAGE_DONE_EVER = "Ranked Damage Done Ever";
@@ -68,7 +68,7 @@ namespace FirstLight.Game.Utils
 			public const string RANKED_SUPPLY_CRATES_OPENED_EVER = "Ranked Supply Crates Opened Ever";
 			public const string RANKED_GUNS_COLLECTED_EVER = "Ranked Guns Collected Ever";
 			public const string RANKED_PICKUPS_COLLECTED_EVER = "Ranked Pickups Collected Ever";
-			
+
 			//General Ranked InGame Season Statistics
 			public const string RANKED_DAMAGE_DONE = "Ranked Damage Done";
 			public const string RANKED_DEATHS = "Ranked Deaths";
@@ -80,7 +80,7 @@ namespace FirstLight.Game.Utils
 			public const string RANKED_GUNS_COLLECTED = "Ranked Guns Collected";
 			public const string RANKED_PICKUPS_COLLECTED = "Ranked Pickups Collected";
 			public const string RANKED_LEADERBOARD_LADDER_NAME = "Trophies Ladder";
-			
+
 			//Solo Ranked Season statistics name
 			public const string SOLO_RANKED_DAMAGE_DONE = "Solo Ranked Damage Done";
 			public const string SOLO_RANKED_DEATHS = "Solo Ranked Deaths";
@@ -92,7 +92,7 @@ namespace FirstLight.Game.Utils
 			public const string SOLO_RANKED_GUNS_COLLECTED = "Solo Ranked Guns Collected";
 			public const string SOLO_RANKED_PICKUPS_COLLECTED = "Solo Ranked Pickups Collected";
 			public const string SOLO_LEADERBOARD_LADDER_NAME = "Solo Trophies Ladder";
-			
+
 			//Duo Ranked Season statistics name
 			public const string DUO_RANKED_DAMAGE_DONE = "Duo Ranked Damage Done";
 			public const string DUO_RANKED_DEATHS = "Duo Ranked Deaths";
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Utils
 			public const string DUO_RANKED_GUNS_COLLECTED = "Duo Ranked Guns Collected";
 			public const string DUO_RANKED_PICKUPS_COLLECTED = "Duo Ranked Pickups Collected";
 			public const string DUO_LEADERBOARD_LADDER_NAME = "Duo Trophies Ladder";
-			
+
 			//Quad  Ranked Season statistics name
 			public const string QUAD_RANKED_DAMAGE_DONE = "Quad Ranked Damage Done";
 			public const string QUAD_RANKED_DEATHS = "Quad Ranked Deaths";
@@ -116,7 +116,6 @@ namespace FirstLight.Game.Utils
 			public const string QUAD_RANKED_GUNS_COLLECTED = "Quad Ranked Guns Collected";
 			public const string QUAD_RANKED_PICKUPS_COLLECTED = "Quad Ranked Pickups Collected";
 			public const string QUAD_LEADERBOARD_LADDER_NAME = "Quad Trophies Ladder";
-			
 		}
 
 		public static class Audio
@@ -197,7 +196,7 @@ namespace FirstLight.Game.Utils
 		public static class Data
 		{
 			public const int MAX_SQUAD_MEMBERS = 3;
-			public const int MATCH_SPECTATOR_SPOTS = 15; 
+			public const int MATCH_SPECTATOR_SPOTS = 15;
 			public const float ROOM_SELECT_DROP_POSITION_SECONDS = 5f;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
@@ -262,7 +261,6 @@ namespace FirstLight.Game.Utils
 
 #endif
 			public const int TIMEOUT_SNAPSHOT_SECONDS = EMPTY_ROOM_GAME_TTL_MS / 1000;
-
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
@@ -337,6 +335,11 @@ namespace FirstLight.Game.Utils
 		{
 			public static string FAKEGAMEMODE_CUSTOMGAME = "Custom Game";
 			public static string TESTING = "Testing";
+		}
+
+		public static class QuantumPluginDisconnectReasons
+		{
+			public static string NOT_ENOUGH_PLAYERS = "not_enough_players";
 		}
 	}
 }

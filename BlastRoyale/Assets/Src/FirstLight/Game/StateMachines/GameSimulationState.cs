@@ -113,6 +113,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnGameDestroyed);
+			QuantumCallback.SubscribeManual<CallbackPluginDisconnect>(this, OnPluginDisconnected);
 		}
 
 		private void UnsubscribeEvents()
@@ -138,6 +139,19 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Verbose("Game Destroyed");
 			_statechartTrigger(SimulationDestroyedEvent);
+		}
+
+		private void OnPluginDisconnected(CallbackPluginDisconnect callback)
+		{
+			if (callback.Reason == GameConstants.QuantumPluginDisconnectReasons.NOT_ENOUGH_PLAYERS)
+			{
+				_services.InGameNotificationService.QueueNotification(ScriptLocalization.UITMatchmaking.failed_to_find_players);
+			}
+
+			_services.MessageBrokerService.Publish(new PluginDisconnectedMessage()
+			{
+				Reason = callback.Reason
+			});
 		}
 
 		private async UniTask WaitForCameraOnPlayer()
@@ -187,7 +201,7 @@ namespace FirstLight.Game.StateMachines
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
 			if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
-			
+
 			var f = game.Frames.Verified;
 			var entityRef = game.GetLocalPlayerEntityRef();
 			if (f != null && entityRef.IsValid && f.TryGet<PlayerCharacter>(entityRef, out var pc))

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Serializers;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using Photon.Deterministic;
 using Photon.Deterministic.Protocol;
@@ -20,10 +21,11 @@ namespace Quantum
     /// </summary>
     public class CustomQuantumServer : DeterministicServer, IDisposable
     {
-        static CustomQuantumServer() {
+        static CustomQuantumServer()
+        {
             FLGCustomSerializers.RegisterSerializers();
         }
-        
+
         private static ResourceManagerStaticPreloaded _resourceManager;
         private static QuantumAssetSerializer _serializer = new QuantumAssetSerializer();
         private static Object _initializationLock = new Object();
@@ -78,13 +80,14 @@ namespace Quantum
                 }
             }
 
+
             StartServerSimulation();
         }
-        
+
         public unsafe int GetTTLWhenLastPlayerQuits()
         {
             if (gameSession == null || gameSession.Session == null) return 0;
-            
+
             if (gameSession.Session.FrameVerified == null) return 0;
 
             var f = gameSession.Game.Session.FrameVerified as Frame;
@@ -93,10 +96,12 @@ namespace Quantum
                 Log.Error("Frame was null something odd");
                 return 0;
             }
+
             if (!f.Unsafe.TryGetPointerSingleton<GameContainer>(out var container) || container->IsGameOver)
             {
                 return 0;
             }
+
             return 1000 * 60 * 1; // 1 minute
         }
 
@@ -122,6 +127,21 @@ namespace Quantum
         {
             if (!ServerSimulation)
             {
+                return;
+            }
+
+            var actors = this.GetActorIds().Count;
+            if (actors < _runtimeConfig.MatchConfigs.MinPlayersToStartMatch)
+            {
+                Log.Info("Min amount of players failed to join room ! with " +
+                         string.Join(", ", _receivedPlayers.Keys));
+                foreach (var actorId in GetActorIds())
+                {
+                    DisconnectClient(GetClientForActor(actorId),
+                        GameConstants.QuantumPluginDisconnectReasons.NOT_ENOUGH_PLAYERS);
+                }
+
+                ServerSimulation = false;
                 return;
             }
 

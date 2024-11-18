@@ -202,7 +202,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsGameStarted()
 		{
-			return _roomService.CurrentRoom.GameStarted;
+			return _roomService.CurrentRoom != null && _roomService.CurrentRoom.GameStarted;
 		}
 
 		private void SubscribeEvents()
@@ -230,7 +230,7 @@ namespace FirstLight.Game.StateMachines
 
 			// Reconnection edge case on the end of the game where the component was destroyed already
 			if (!f.Unsafe.TryGetPointerSingleton<GameContainer>(out var container)) return false;
-			
+
 			var players = container->PlayersData;
 
 			for (var x = 0; x < players.Length; x++)

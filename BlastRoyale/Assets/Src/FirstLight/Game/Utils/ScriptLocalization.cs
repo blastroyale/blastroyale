@@ -2651,6 +2651,7 @@ namespace I2.Loc
 			public static string current_player_amount 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/current_player_amount"); } }
 			public static string dm_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc"); } }
 			public static string entering_game 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/entering_game"); } }
+			public static string failed_to_find_players 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/failed_to_find_players"); } }
 			public static string loading_fail 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_fail"); } }
 			public static string loading_status_starting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_starting"); } }
 			public static string loading_status_timer 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_timer"); } }
@@ -5565,6 +5566,7 @@ namespace I2.Loc
 		    public const string current_player_amount = "UITMatchmaking/current_player_amount";
 		    public const string dm_mode_desc = "UITMatchmaking/dm_mode_desc";
 		    public const string entering_game = "UITMatchmaking/entering_game";
+		    public const string failed_to_find_players = "UITMatchmaking/failed_to_find_players";
 		    public const string loading_fail = "UITMatchmaking/loading_fail";
 		    public const string loading_status_starting = "UITMatchmaking/loading_status_starting";
 		    public const string loading_status_timer = "UITMatchmaking/loading_status_timer";

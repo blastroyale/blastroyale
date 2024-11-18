@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -6,6 +7,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -17,9 +19,8 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private const string UssContainerHidden = "matchmaking-container--hidden";
 
+		private InGameNotificationService _inGameNotificationService;
 		private IGameNetworkService _gameNetworkService;
-		private IConfigsProvider _configsProvider;
-		private bool _shouldUseMatchmaking;
 		private LocalizedLabel _matchmakingText;
 		private Label _timeLabel;
 		private ImageButton _closeButton;
@@ -28,17 +29,36 @@ namespace FirstLight.Game.Views.UITK
 
 		public event Action CloseClicked;
 
-
 		protected override void Attached()
 		{
 			var services = MainInstaller.ResolveServices();
 			_gameNetworkService = services.NetworkService;
-			_configsProvider = services.ConfigsProvider;
+			_inGameNotificationService = services.InGameNotificationService;
 			_timeLabel = Element.Q<Label>("Time").Required();
 			_matchmakingText = Element.Q<LocalizedLabel>("MatchmakingText").Required();
 			_closeButton = Element.Q<ImageButton>("MatchmakingCloseButton").Required();
 			_closeButton.clicked += () => CloseClicked?.Invoke();
 			_gameNetworkService.LastUsedSetup.InvokeObserve(OnLastRoomSetupUpdate);
+		}
+
+		public override void OnScreenOpen(bool reload)
+		{
+			var services = MainInstaller.ResolveServices();
+			services.MessageBrokerService.Subscribe<MatchmakingLeftMessage>(OnMatchmakingLeft);
+		}
+
+		public override void OnScreenClose()
+		{
+			var services = MainInstaller.ResolveServices();
+			services.MessageBrokerService.UnsubscribeAll(this);
+		}
+
+		private void OnMatchmakingLeft(MatchmakingLeftMessage msg)
+		{
+			if (msg.Error)
+			{
+				_inGameNotificationService.QueueNotification(msg.Reason);
+			}
 		}
 
 		private void OnLastRoomSetupUpdate(MatchRoomSetup _, MatchRoomSetup setup)
@@ -52,7 +72,7 @@ namespace FirstLight.Game.Views.UITK
 					return;
 				}
 			}
-            
+
 			_closeButton.SetDisplay(false);
 			_matchmakingText.Localize(ScriptTerms.UITHomeScreen.joining);
 		}

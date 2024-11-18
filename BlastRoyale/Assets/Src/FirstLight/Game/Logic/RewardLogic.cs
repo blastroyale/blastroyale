@@ -251,6 +251,12 @@ namespace FirstLight.Game.Logic
 				return false;
 			}
 
+			// Players trying to start paid events alone
+			if (source.MatchConfig.MinPlayersToStartMatch != usedConfig.MinPlayersToStartMatch)
+			{
+				return false;
+			}
+
 			return true;
 		}
 

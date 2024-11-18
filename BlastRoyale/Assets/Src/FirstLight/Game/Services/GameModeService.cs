@@ -10,6 +10,7 @@ using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -80,6 +81,7 @@ namespace FirstLight.Game.Services
 
 		TeamSizeConfig GetTeamSizeFor(IGameModeEntry entry);
 		TeamSizeConfig GetTeamSizeFor(SimulationMatchConfig simulationMatchConfig);
+		PlayfabMatchmakingConfig GetMatchMakingConfigFor(SimulationMatchConfig simulationMatchConfig);
 
 		/// <summary>
 		/// Check if the local player has seen a given event
@@ -160,7 +162,7 @@ namespace FirstLight.Game.Services
 		public GameModeService(IGameDataProvider dataProvider, IGameCommandService commandService, IConfigsProvider configsProvider,
 							   IFLLobbyService lobbyService,
 							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService,
-							   IMessageBrokerService msgBroker, IHomeScreenService homeScreenService)
+							   IMessageBrokerService msgBroker, IHomeScreenService homeScreenService, IRoomService roomService)
 		{
 			_dataProvider = dataProvider;
 			_commandService = commandService;
@@ -175,12 +177,60 @@ namespace FirstLight.Game.Services
 			SelectedGameMode.Observe(OnGameModeSet);
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyChanged;
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnPartyLocalLobbyJoined;
-			;
 			msgBroker.Subscribe<MatchmakingLeftMessage>(OnMatchmakingLeft);
 			msgBroker.Subscribe<CoreLoopInitialized>(OnCoreLoopInitialized);
 			msgBroker.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
 			msgBroker.Subscribe<GameCompletedRewardsMessage>(OnGameRewards);
+			msgBroker.Subscribe<PluginDisconnectedMessage>(OnQuantumServerDisconnected);
 			homeScreenService.CustomPlayButtonValidations += ValidatePlayButton;
+			roomService.OnNotEnoughPlayers += FailedToStartMatch;
+		}
+
+		/// <summary>
+		/// Happens quantum server, it disconnect the clients when there is not enough players to start.
+		/// </summary>
+		/// <param name="obj"></param>
+		private void OnQuantumServerDisconnected(PluginDisconnectedMessage obj)
+		{
+			if (obj.Reason == GameConstants.QuantumPluginDisconnectReasons.NOT_ENOUGH_PLAYERS)
+			{
+				if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+				{
+					_commandService.ExecuteCommand(new RefundEventPassesCommand());
+					_homeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.PaidEvent;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Happens before starting the simulation
+		/// </summary>
+		private void FailedToStartMatch()
+		{
+			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+			{
+				_commandService.ExecuteCommand(new RefundEventPassesCommand());
+				_homeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.PaidEvent;
+			}
+		}
+
+		/// <summary>
+		/// Happens when Playfab matchmaking fails
+		/// If player was in a paid event change to default gamemode and let him go again through the menu of selecting it
+		/// And also refund the pass price
+		/// </summary>
+		private void OnMatchmakingLeft(MatchmakingLeftMessage msg)
+		{
+			if (SelectedGameMode.Value.Entry is EventGameModeEntry ev && ev.IsPaid)
+			{
+				if (_dataProvider.GameEventsDataProvider.HasPass(ev.MatchConfig.UniqueConfigId))
+				{
+					_commandService.ExecuteCommand(new RefundEventPassesCommand());
+				}
+
+				_homeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.PaidEvent;
+				SelectValidGameMode();
+			}
 		}
 
 		private void ValidatePlayButton(List<string> errors)
@@ -248,23 +298,6 @@ namespace FirstLight.Game.Services
 			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
 			{
 				_commandService.ExecuteCommand(new RefundEventPassesCommand());
-			}
-		}
-
-		/// <summary>
-		/// If player was in a paid event change to default gamemode and let him go again through the menu of selecting it
-		/// And also refund the pass price
-		/// </summary>
-		private void OnMatchmakingLeft(MatchmakingLeftMessage msg)
-		{
-			if (SelectedGameMode.Value.Entry is EventGameModeEntry ev && ev.IsPaid)
-			{
-				if (_dataProvider.GameEventsDataProvider.HasPass(ev.MatchConfig.UniqueConfigId))
-				{
-					_commandService.ExecuteCommand(new RefundEventPassesCommand());
-				}
-
-				SelectValidGameMode();
 			}
 		}
 
@@ -457,6 +490,17 @@ namespace FirstLight.Game.Services
 		{
 			var fixedConfig = MainInstaller.ResolveData().RemoteConfigProvider.GetConfig<MatchmakingQueuesConfig>();
 			return fixedConfig[simulationMatchConfig.TeamSize.ToString()];
+		}
+
+		public PlayfabMatchmakingConfig GetMatchMakingConfigFor(SimulationMatchConfig simulationMatchConfig)
+		{
+			var info = GetGameModeInfo(simulationMatchConfig.UniqueConfigId, false);
+			if (info != null && info is EventGameModeEntry ev && ev.OverwriteMatchmaking != null)
+			{
+				return ev.OverwriteMatchmaking;
+			}
+
+			return GetTeamSizeFor(simulationMatchConfig);
 		}
 
 		public bool HasSeenEvent(GameModeInfo info)

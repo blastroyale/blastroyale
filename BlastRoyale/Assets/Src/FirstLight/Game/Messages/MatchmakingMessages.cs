@@ -13,6 +13,8 @@ namespace FirstLight.Game.Messages
 	/// </summary>
 	public struct MatchmakingLeftMessage : IMessage
 	{
+		public bool Error;
+		public string Reason;
 	}
 
 	public struct MatchmakingMatchFoundMessage : IMessage

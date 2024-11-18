@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs.Remote;
+using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Screen = UnityEngine.Device.Screen;
@@ -9,7 +11,7 @@ using SystemInfo = UnityEngine.Device.SystemInfo;
 
 namespace FirstLight.Game.Services
 {
-	public enum DevicePower
+	public enum PerformanceMode
 	{
 		/// <summary>
 		/// Game will look bad, but should run
@@ -27,117 +29,84 @@ namespace FirstLight.Game.Services
 		High
 	}
 	
-	public static class PerformanceConfig
-	{
-		public static readonly int MID_MIN_MEMORY_GB = 4;
-		public static readonly int HIGH_MIN_MEMORY = 12;	
-		
-		public static readonly int MID_MIN_CPU_COUNT = 2;
-		public static readonly int HIGH_MIN_CPU_COUNT = 3;
-		public static readonly float MIN_HIGH_BATTERY = 0.25f;
-
-		public static readonly int HIGH_MIN_GPU_MEMORY_GB = 2;
-	}
-	
 	public class PerformanceManager
 	{
-		public DevicePower DevicePower { get; private set; }
+		public PerformanceMode Mode { get; private set; }
 		public float TotalMemoryGigas { get; private set; }
 		public float CPUCount { get; private set; }
 		public float DeviceDPI { get; private set; }
 		public float CurrentResolutionRatio { get; private set; } = 1f;
 		public float GraphicCardMemory { get; private set; }
-
-		private bool _highEnabled = true;
+		private PerformanceConfig _config;
 		
-		public void Initialize(IReadOnlyDictionary<string, string> featureFlags)
+		public void LoadSetup()
 		{
+			_config = MainInstaller.ResolveData().RemoteConfigProvider.GetConfig<PerformanceConfig>();
+			FLog.Verbose("Remote Performance Configs: "+_config);
 			TotalMemoryGigas = SystemInfo.systemMemorySize / 1024.0f;
 			CPUCount = SystemInfo.processorCount;
 			GraphicCardMemory = SystemInfo.graphicsMemorySize / 1024.0f;
 			DeviceDPI = Screen.dpi;
-
-			if (featureFlags.TryGetValue("HIGH_MODE", out var high) && high == "false")
+			Mode = PerformanceMode.Mid;
+			
+			var services = MainInstaller.ResolveServices();
+			if (services.LocalPrefsService.Performance.Value != -1)
 			{
-				_highEnabled = false;
+				Mode = (PerformanceMode) services.LocalPrefsService.Performance.Value;
+				FLog.Verbose("Loading saved performance mode: "+Mode);
 			}
-#if UNITY_ANDROID
-			CheckAndroidDevicePower();
-#elif UNITY_IOS
-			CheckIosDevicePower();
-#endif
-			UpdatePerformance();
-			if (DevicePower == DevicePower.High)
+			else
 			{
-				BatteryMonitor().Forget();
+				FLog.Verbose("Evaluating performance specs based on device spec");
+				#if UNITY_ANDROID
+							Mode = GetAndroidPerformanceMode();
+				#elif UNITY_IOS
+							Mode = GetIOSPerformanceMode();
+				#endif
 			}
-			FLog.Info($"Device Power: {DevicePower}, DPI={DeviceDPI}, Resolution={CurrentResolutionRatio}");
+			UpdateGraphicsQuality();
+			FLog.Info($"Performance Mode: {Mode}, DPI={DeviceDPI}, Resolution={CurrentResolutionRatio}");
 		}
 
-		private async UniTaskVoid BatteryMonitor()
+		public bool CanBeHigh() 
 		{
-			while (DevicePower == DevicePower.High)
-			{
-				if (SystemInfo.batteryLevel <= PerformanceConfig.MIN_HIGH_BATTERY && SystemInfo.batteryStatus != BatteryStatus.Charging)
-				{
-					UpdatePower(DevicePower.Mid);
-				}
-				await UniTask.Delay(TimeSpan.FromMinutes(1));
-			}
-		}
-
-		public bool CanBeHigh() // always true
-		{
-			return _highEnabled 
-				&& SystemInfo.batteryLevel > PerformanceConfig.MIN_HIGH_BATTERY 
-				&& TotalMemoryGigas >= PerformanceConfig.HIGH_MIN_MEMORY
-				&& CPUCount >= PerformanceConfig.HIGH_MIN_CPU_COUNT
-				&& GraphicCardMemory > PerformanceConfig.HIGH_MIN_GPU_MEMORY_GB;
+			return SystemInfo.batteryLevel > _config.HighMinBattery 
+				&& TotalMemoryGigas >= _config.HighMinMemory
+				&& CPUCount >= _config.HighMinCpu
+				&& GraphicCardMemory > _config.HighMinGpuMemory;
 		}
 
 		public bool CanBeMid()
 		{
-			return TotalMemoryGigas >= PerformanceConfig.MID_MIN_MEMORY_GB
-				&& CPUCount >= PerformanceConfig.MID_MIN_CPU_COUNT;
+			return TotalMemoryGigas >= _config.MidMinMemory
+				&& CPUCount >= _config.MidMinCpu;
 		}
 
-		private void CheckIosDevicePower() // ios is never low
+		private PerformanceMode GetIOSPerformanceMode() 
 		{
-			if (!CanBeHigh())
-			{
-				DevicePower = DevicePower.Mid;
-			}
-			else
-			{
-				DevicePower = DevicePower.High;
-			}
+			return !CanBeHigh() ? PerformanceMode.Mid : PerformanceMode.High;
 		}
 
-		public void UpdatePower(DevicePower power)
+		public void UpdatePerformanceMode(PerformanceMode power)
 		{
-			DevicePower = power;
-			UpdatePerformance();
+			Mode = power;
+			UpdateGraphicsQuality();
 		}
 		
-		private void CheckAndroidDevicePower()
+		private PerformanceMode GetAndroidPerformanceMode()
 		{
 			if (!CanBeMid())
 			{
-				DevicePower = DevicePower.Low;
-			} else if (!CanBeHigh())
-			{
-				DevicePower = DevicePower.Mid;
+				return PerformanceMode.Low;
 			}
-			else
-			{
-				DevicePower = DevicePower.High;
-			}
+			return !CanBeHigh() ? PerformanceMode.Mid : PerformanceMode.High;
 		}
 
-		private void UpdatePerformance()
+		private void UpdateGraphicsQuality()
 		{
-			QualitySettings.SetQualityLevel((int) DevicePower);
-			FLog.Info($"Updated device power {DevicePower}");
+			FLog.Info($"Updating Performance Mode to {Mode}");
+			QualitySettings.SetQualityLevel((int) Mode);
+			MainInstaller.ResolveServices().LocalPrefsService.Performance.Value = (int) Mode;
 		}
 	}
 }

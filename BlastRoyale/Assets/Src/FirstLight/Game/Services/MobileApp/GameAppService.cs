@@ -43,14 +43,19 @@ namespace FirstLight.Game.Services
 		{
 			_services = services;
 			_services.MessageBrokerService.Subscribe<FeatureFlagsReceived>(OnFeatureFlags);
+			_services.MessageBrokerService.Subscribe<RemoteConfigsLoadedMessage>(OnRemoteConfigsLoaded);
 			PerformanceManager = new PerformanceManager();
+		}
+
+		private void OnRemoteConfigsLoaded(RemoteConfigsLoadedMessage m)
+		{
+			PerformanceManager.LoadSetup();
 		}
 
 		private void OnFeatureFlags(FeatureFlagsReceived e)
 		{
 			_appData = e.AppData;
 			Application.runInBackground = !FeatureFlags.GetLocalConfiguration().DisableRunInBackground;
-			PerformanceManager.Initialize(e.AppData);
 			if (!FeatureFlags.PAUSE_DISCONNECT_DIALOG)
 			{
 				FLog.Verbose("Pause behaviour disabled");

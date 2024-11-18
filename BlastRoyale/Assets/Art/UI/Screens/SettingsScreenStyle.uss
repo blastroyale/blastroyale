@@ -163,6 +163,7 @@
 .settings-radio-button-group .unity-radio-button {
     margin-left: 20px;
     margin-right: 20px;
+    align-items: center;
 }
 
 .settings-radio-button-group .unity-radio-button__text {

@@ -11,7 +11,6 @@
                         <FirstLight.Game.UIElements.TabButton target="Sound" localization-key="UITSettings/sound_title" class="settings-tab-button" />
                         <FirstLight.Game.UIElements.TabButton target="Graphics" localization-key="UITSettings/graphics_title" class="settings-tab-button" />
                         <FirstLight.Game.UIElements.TabButton target="Controls" localization-key="UITSettings/controls_title" class="settings-tab-button" />
-                        <!-- <FirstLight.Game.UIElements.TabButton target="Web3" localization-key="UITSettings/web3" class="settings-tab-button" /> -->
                         <FirstLight.Game.UIElements.TabButton target="Account" localization-key="UITSettings/account_title" class="settings-tab-button">
                             <ui:VisualElement name="AccountNotification" class="notification-icon button-with-icon__notification" style="top: -14px; right: -11px;" />
                         </FirstLight.Game.UIElements.TabButton>
@@ -25,6 +24,7 @@
                             <FirstLight.Game.UIElements.LocalizedToggle value="0" localization-key="UITSettings/fps" name="FPSLimit" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/use_overhead_ui" name="UseOverheadUI" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/show_latency" name="ShowLatency" />
+                            <FirstLight.Game.UIElements.LocalizedRadioButtonGroup localization-key="UITSettings/graphics_quality" name="PerformanceMode" class="settings-radio-button-group"/>
                         </ui:VisualElement>
                         <ui:VisualElement name="Controls" class="settings-container">
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" />

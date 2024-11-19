@@ -269,4 +269,4 @@ __pycache__/
 playfab_key.txt
 server_key.txt
 
-prod_secrets.json
+environments.json

@@ -123,7 +123,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		protected override UniTask OnScreenOpen(bool reload)
+		protected override async UniTask OnScreenOpen(bool reload)
 		{
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
 
@@ -133,7 +133,10 @@ namespace FirstLight.Game.Presenters
 
 			RefreshPartyList();
 			UpdateMasterClient();
-			return base.OnScreenOpen(reload);
+
+			if (CurrentRoom == null) return;
+			var mapConfig = CurrentRoom.MapConfig;
+			await LoadMapAssets(mapConfig.Map);
 		}
 
 		protected override UniTask OnScreenClose()
@@ -282,7 +285,7 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StartCoroutine(GameStartTimerCoroutine());
 		}
 
-		private async void InitMap(GeometryChangedEvent evt)
+		private void InitMap(GeometryChangedEvent evt)
 		{
 			if (CurrentRoom == null) return;
 
@@ -338,7 +341,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_mapMarker.SetDisplay(false);
 				_mapTitleBg.SetDisplay(false);
-				LoadMapAssets(mapConfig.Map).Forget();
+				SetupMapHeightAndWidth();
 
 				return;
 			}
@@ -350,7 +353,7 @@ namespace FirstLight.Game.Presenters
 				OnWaitingMandatoryMatchAssets();
 			}
 
-			await LoadMapAssets(mapConfig.Map);
+			SetupMapHeightAndWidth();
 			InitSkydiveSpawnMapData();
 		}
 
@@ -371,6 +374,10 @@ namespace FirstLight.Game.Presenters
 			AddAutoReleaseAsset(mapAssetRef, mapAreasRef, mapPreviewRef);
 
 			_mapImage.style.backgroundImage = new StyleBackground(_mapSprite);
+		}
+
+		private void SetupMapHeightAndWidth()
+		{
 			var halfWidth = Screen.width / 2;
 
 			if (halfWidth >= Screen.height)

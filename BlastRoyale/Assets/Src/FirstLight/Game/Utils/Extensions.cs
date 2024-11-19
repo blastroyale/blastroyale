@@ -369,6 +369,7 @@ namespace FirstLight.Game.Utils
 				FLog.Warn("Trying to access simulation data without simulation running.");
 				return ref _defaultPlayerMatchDataReference;
 			}
+
 			var localPlayers = game.GetLocalPlayers();
 			if (localPlayers.Length == 0) return ref _defaultPlayerMatchDataReference;
 			return ref *f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData.GetPointer(localPlayers[0]);
@@ -508,6 +509,14 @@ namespace FirstLight.Game.Utils
 		public static T RandomElement<T>(this IList<T> source)
 		{
 			return source[Random.Range(0, source.Count)];
+		}
+
+		public static bool IsImplementationOf(this Type intInit, Type generic)
+		{
+			return intInit
+				.GetInterfaces()
+				.Any(i => i.IsGenericType &&
+					i.GetGenericTypeDefinition() == generic);
 		}
 	}
 }

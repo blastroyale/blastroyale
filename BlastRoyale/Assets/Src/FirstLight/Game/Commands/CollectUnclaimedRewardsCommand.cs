@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Services;
@@ -11,8 +13,13 @@ namespace FirstLight.Game.Commands
 	/// <summary>
 	/// Collects all the reward on the to the player's current inventory.
 	/// </summary>
-	public struct CollectUnclaimedRewardsCommand : IGameCommand
+	public class CollectUnclaimedRewardsCommand : IGameCommandWithResult<IReadOnlyList<ItemData>> // This needs to be a class due to the GivenRewards use after command execution
 	{
+		/// <summary>
+		/// Set during command execution as a "Result"
+		/// </summary>
+		public IReadOnlyList<ItemData> GivenRewards { get; private set; }
+
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
@@ -26,6 +33,7 @@ namespace FirstLight.Game.Commands
 			{
 				Rewards = rewards
 			});
+			GivenRewards = rewards;
 			var trophiesAfter = ctx.Logic.PlayerLogic().Trophies.Value;
 			if (trophiesBefore != trophiesAfter)
 			{
@@ -36,7 +44,13 @@ namespace FirstLight.Game.Commands
 					OldValue = trophiesBefore
 				});
 			}
+
 			return UniTask.CompletedTask;
+		}
+
+		public IReadOnlyList<ItemData> GetResult()
+		{
+			return GivenRewards;
 		}
 	}
 }

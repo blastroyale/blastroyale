@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
@@ -64,8 +63,6 @@ namespace FirstLight.Game.Domains.HomeScreen
 		private readonly SettingsMenuState _settingsMenuState;
 		private readonly EnterNameState _enterNameState;
 		private readonly CollectionMenuState _collectionMenuState;
-
-		private int _unclaimedCountCheck;
 
 		public MainMenuState(IGameServices services, IGameDataProvider gameLogic, IAssetAdderService assetAdderService,
 							 Action<IStatechartEvent> statechartTrigger)
@@ -133,6 +130,8 @@ namespace FirstLight.Game.Domains.HomeScreen
 			var settingsMenu = stateFactory.Nest("Settings Menu");
 			var matchmakingChecks = stateFactory.Choice("Play Button Clicked Check");
 			var waitMatchmaking = stateFactory.State("Matchmaking Waiting");
+			// This is a hack to show the rewards before the Paid Event Setup, since it doesn't open the home screen
+			var validateRewardsPaidEvent = stateFactory.TaskWait("Validate Rewards Paid Event");
 			var chooseGameMode = stateFactory.State("Enter Choose Game Mode");
 			var leaderboard = stateFactory.Wait("Leaderboard");
 			var battlePass = stateFactory.Wait("BattlePass");
@@ -166,7 +165,8 @@ namespace FirstLight.Game.Domains.HomeScreen
 
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Condition(RequiresToSeeStore).Target(store);
-			homeCheck.Transition().Condition(RequiresToSeePaidEvent).Target(chooseGameMode);
+			homeCheck.Transition().Condition(RequiresToSeePaidEvent)
+				.Target(validateRewardsPaidEvent);
 			homeCheck.Transition().Condition(IsInRoom)
 				.OnTransition(() => _services.RoomService.LeaveRoom())
 				.Target(homeMenu);
@@ -230,6 +230,8 @@ namespace FirstLight.Game.Domains.HomeScreen
 			waitMatchmaking.Event(NetworkState.CanceledMatchmakingEvent)
 				.OnTransition(HideMatchmaking)
 				.Target(homeCheck);
+
+			validateRewardsPaidEvent.WaitingFor(() => _services.HomeScreenService.CollectAndDisplayRewards()).Target(chooseGameMode);
 
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeCheck);
@@ -372,70 +374,6 @@ namespace FirstLight.Game.Domains.HomeScreen
 			_statechartTrigger(_gameCompletedCheatEvent);
 		}
 
-		private void TryClaimUncollectedRewards()
-		{
-			_unclaimedCountCheck = 0;
-			if (FeatureFlags.GetLocalConfiguration().OfflineMode || !FeatureFlags.WAIT_REWARD_SYNC)
-			{
-				OnCheckIfServerRewardsMatch(true).Forget();
-				return;
-			}
-
-			_services.GameBackendService.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b).Forget(), null);
-		}
-
-		private async UniTaskVoid OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
-		{
-			if (serverRewardsMatch)
-			{
-				if (_unclaimedCountCheck > 0)
-				{
-					_services.GenericDialogService.CloseDialog();
-				}
-
-				if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
-				{
-					_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
-				}
-
-				return;
-			}
-
-			// We try 10 times to check reward claiming to timeout and show error pop up
-			if (_unclaimedCountCheck == 10)
-			{
-#if UNITY_EDITOR
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = "OK",
-					ButtonOnClick = () => _services.QuitGame("Desync")
-				};
-				_services.GenericDialogService.OpenButtonDialog("Server Error", "Desync", false, confirmButton).Forget();
-#else
-				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, "Error", "Desync",
-					new FirstLight.NativeUi.AlertButton
-					{
-						Callback = () => _services.QuitGame("Server desynch"),
-						Style = FirstLight.NativeUi.AlertButtonStyle.Negative,
-						Text = "Quit Game"
-					});
-#endif
-				return;
-			}
-
-			if (_unclaimedCountCheck == 0)
-			{
-				_services.GenericDialogService.OpenButtonDialog(
-					ScriptLocalization.UITHomeScreen.waitforrewards_popup_title,
-					ScriptLocalization.UITHomeScreen.waitforrewards_popup_description,
-					false, new GenericDialogButton()).Forget();
-			}
-
-			_unclaimedCountCheck++;
-			await Task.Delay(TimeSpan.FromMilliseconds(500)); // space check calls a bit
-			_services?.GameBackendService?.CheckIfRewardsMatch(b => OnCheckIfServerRewardsMatch(b).Forget(), null);
-		}
-
 		private void SendPlayReadyMessage()
 		{
 			_services.MessageBrokerService.Publish(new LocalPlayerClickedPlayMessage());
@@ -575,8 +513,6 @@ namespace FirstLight.Game.Domains.HomeScreen
 					OnBattlePassClicked = () => _statechartTrigger(BattlePassClickedEvent),
 					OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
 					OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
-					OnLevelUp = OpenLevelUpScreen,
-					OnRewardsReceived = OnRewardsReceived,
 					NewsClicked = () => _statechartTrigger(_newsClickedEvent),
 					FriendsClicked = () => _statechartTrigger(_friendsClickedEvent)
 				};
@@ -584,49 +520,13 @@ namespace FirstLight.Game.Domains.HomeScreen
 				await _services.UIService.OpenScreen<HomeScreenPresenter>(data);
 			}
 
-			TryClaimUncollectedRewards();
-
-			_services.MessageBrokerService.Publish(new MainMenuOpenedMessage());
-		}
-
-		private void FinishRewardSequence()
-		{
-			if (_services.RoomService.InRoom) return;
-
-			OpenHomeScreen().Forget();
-			_services.MessageBrokerService.Publish(new OnViewingRewardsFinished());
-		}
-
-		private void OnRewardsReceived(List<ItemData> items)
-		{
-			if (_services.RoomService.InRoom) return;
-
-			FLog.Verbose("Main Menu State", "Opening reward sequence");
-			var rewardsCopy = items
-				.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
-			if (rewardsCopy.Count > 0)
+			// This fetches the rewards asynchronously and if any rewards are chosen open the home screen back
+			_services.HomeScreenService.CollectAndDisplayRewards().ContinueWith((displayed) =>
 			{
-				_services.UIService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData
-				{
-					Items = rewardsCopy,
-					OnFinish = FinishRewardSequence
-				}).Forget();
-			}
-		}
-
-		private void OpenLevelUpScreen()
-		{
-			if (_services.RoomService.InRoom) return;
-
-			var levelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForFameLevel(
-				_gameDataProvider.PlayerDataProvider.Level.Value - 1
-			);
-			_services.UIService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData
-			{
-				FameRewards = true,
-				Items = levelRewards,
-				OnFinish = FinishRewardSequence
+				if (!displayed) return;
+				OpenHomeScreen().Forget();
 			}).Forget();
+			_services.MessageBrokerService.Publish(new MainMenuOpenedMessage());
 		}
 
 		private void OpenDisconnectedScreen()

@@ -212,7 +212,7 @@ namespace FirstLight.Game.Services
 						Member = CreateLocalMatchmakingPlayer(roomSetup)
 					};
 
-					var result = await AsyncPlayfabAPI.JoinMatchmakingTicket(req);
+					var result = await AsyncPlayfabAPI.MultiplayerAPI.JoinMatchmakingTicket(req);
 					FLog.Info($"Joined matchmaking ticket {model.TicketId} from party and start polling");
 					StartPolling(model);
 					InvokeJoinedMatchmaking(model);
@@ -255,7 +255,7 @@ namespace FirstLight.Game.Services
 			{
 				if (string.IsNullOrEmpty(_localData.LastQueue)) return;
 
-				AsyncPlayfabAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest()
+				AsyncPlayfabAPI.MultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest()
 				{
 					QueueName = _localData.LastQueue,
 				}).Forget();
@@ -274,7 +274,7 @@ namespace FirstLight.Game.Services
 
 		public UniTask<GetMatchmakingTicketResult> GetTicket(string ticket, string queue)
 		{
-			return AsyncPlayfabAPI.GetMatchmakingTicket(new GetMatchmakingTicketRequest()
+			return AsyncPlayfabAPI.MultiplayerAPI.GetMatchmakingTicket(new GetMatchmakingTicketRequest()
 			{
 				QueueName = queue,
 				TicketId = ticket
@@ -283,7 +283,7 @@ namespace FirstLight.Game.Services
 
 		public UniTask<GetMatchResult> GetMatch(string matchId, string queue)
 		{
-			return AsyncPlayfabAPI.GetMatch(new GetMatchRequest()
+			return AsyncPlayfabAPI.MultiplayerAPI.GetMatch(new GetMatchRequest()
 			{
 				ReturnMemberAttributes = true,
 				MatchId = matchId,
@@ -330,7 +330,7 @@ namespace FirstLight.Game.Services
 				FLog.Info($"Creating matchmaking ticket with {members?.Count} members!");
 				var queueConfig = _gameModeService.GetMatchMakingConfigFor(setup.SimulationConfig);
 
-				var r = await AsyncPlayfabAPI.CreateMatchmakingTicket(new CreateMatchmakingTicketRequest()
+				var r = await AsyncPlayfabAPI.MultiplayerAPI.CreateMatchmakingTicket(new CreateMatchmakingTicketRequest()
 				{
 					MembersToMatchWith = members,
 					QueueName = queueConfig.QueueName,

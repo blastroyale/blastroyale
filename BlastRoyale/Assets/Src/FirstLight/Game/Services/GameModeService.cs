@@ -7,9 +7,11 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
@@ -17,6 +19,7 @@ using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using I2.Loc;
 using Quantum;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
@@ -120,6 +123,7 @@ namespace FirstLight.Game.Services
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly IRemoteTextureService _remoteTextureService;
 		private readonly IHomeScreenService _homeScreenService;
+		private readonly InGameNotificationService _inGameNotificationService;
 
 		private GameId _selectedMap;
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
@@ -163,7 +167,8 @@ namespace FirstLight.Game.Services
 		public GameModeService(IGameDataProvider dataProvider, IGameCommandService commandService, IConfigsProvider configsProvider,
 							   IFLLobbyService lobbyService,
 							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService,
-							   IMessageBrokerService msgBroker, IHomeScreenService homeScreenService, IRoomService roomService)
+							   IMessageBrokerService msgBroker, IHomeScreenService homeScreenService, IRoomService roomService,
+							   InGameNotificationService inGameNotificationService)
 		{
 			_dataProvider = dataProvider;
 			_commandService = commandService;
@@ -173,6 +178,7 @@ namespace FirstLight.Game.Services
 			_localPrefsService = localPrefsService;
 			_remoteTextureService = remoteTextureService;
 			_homeScreenService = homeScreenService;
+			_inGameNotificationService = inGameNotificationService;
 
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe(OnGameModeSet);
@@ -181,10 +187,23 @@ namespace FirstLight.Game.Services
 			msgBroker.Subscribe<MatchmakingLeftMessage>(OnMatchmakingLeft);
 			msgBroker.Subscribe<CoreLoopInitialized>(OnCoreLoopInitialized);
 			msgBroker.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
+			msgBroker.Subscribe<GameModeScreenOpenedMessage>(OnGamemodeScreenOpened);
 			msgBroker.Subscribe<GameCompletedRewardsMessage>(OnGameRewards);
 			msgBroker.Subscribe<QuantumServerSimulationDisconnectedMessage>(OnQuantumServerDisconnected);
+			msgBroker.Subscribe<TicketsRefundedMessage>(OnTicketRefunded);
 			homeScreenService.CustomPlayButtonValidations += ValidatePlayButton;
 			roomService.OnNotEnoughPlayers += FailedToStartMatch;
+		}
+
+		private void OnTicketRefunded(TicketsRefundedMessage obj)
+		{
+			foreach (var item in obj.Refunds)
+			{
+				var msg = ScriptLocalization.UITGameModeSelection.ticket_refunded_message;
+				msg = string.Format(msg, item.GetMetadata<CurrencyMetadata>().Amount,
+					CurrencyItemViewModel.GetRichTextIcon(item.Id));
+				_inGameNotificationService.QueueNotification(msg, InGameNotificationStyle.Info, InGameNotificationDuration.Long);
+			}
 		}
 
 		/// <summary>
@@ -198,8 +217,8 @@ namespace FirstLight.Game.Services
 				if (_dataProvider.GameEventsDataProvider.HasAnyPass())
 				{
 					var pass = _dataProvider.GameEventsDataProvider.GetPasses().First();
-					_commandService.ExecuteCommand(new RefundEventPassesCommand());
 					_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, pass);
+					SelectValidGameMode();
 				}
 			}
 		}
@@ -212,8 +231,8 @@ namespace FirstLight.Game.Services
 			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
 			{
 				var pass = _dataProvider.GameEventsDataProvider.GetPasses().First();
-				_commandService.ExecuteCommand(new RefundEventPassesCommand());
 				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, pass);
+				SelectValidGameMode();
 			}
 		}
 
@@ -226,11 +245,6 @@ namespace FirstLight.Game.Services
 		{
 			if (SelectedGameMode.Value.Entry is EventGameModeEntry ev && ev.IsPaid)
 			{
-				if (_dataProvider.GameEventsDataProvider.HasPass(ev.MatchConfig.UniqueConfigId))
-				{
-					_commandService.ExecuteCommand(new RefundEventPassesCommand());
-				}
-
 				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, ev.MatchConfig.UniqueConfigId);
 
 				SelectValidGameMode();
@@ -268,7 +282,6 @@ namespace FirstLight.Game.Services
 		{
 			if (!obj.Rewards.UsedEventPass && _dataProvider.GameEventsDataProvider.HasAnyPass())
 			{
-				_commandService.ExecuteCommand(new RefundEventPassesCommand());
 				Debug.Log("SET FORCE BEHAVIOUR GO TO PAID EVENT " + obj.Rewards.SimulationConfigId);
 				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, obj.Rewards.SimulationConfigId);
 			}
@@ -293,6 +306,22 @@ namespace FirstLight.Game.Services
 					SelectValidGameMode();
 				}
 			}
+
+			if (_homeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.None)
+			{
+				if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+				{
+					_commandService.ExecuteCommand(new RefundEventPassesCommand());
+				}
+			}
+		}
+
+		private void OnGamemodeScreenOpened(GameModeScreenOpenedMessage obj)
+		{
+			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+			{
+				_commandService.ExecuteCommand(new RefundEventPassesCommand());
+			}
 		}
 
 		/// <summary>
@@ -303,7 +332,7 @@ namespace FirstLight.Game.Services
 			if (msg.ConnectedToMatch) return; // if player is reconnecting we don't want to remove the ticket he may use
 			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
 			{
-				_commandService.ExecuteCommand(new RefundEventPassesCommand());
+				//	_commandService.ExecuteCommand(new RefundEventPassesCommand());
 			}
 		}
 

@@ -29,9 +29,6 @@
     overflow: visible;
 }
 
-.anim-delay-1 {
-    transition-delay: 0.5s;
-}
 
 .selectors-options-column {
     position: absolute;
@@ -53,4 +50,12 @@
 
 .map-selector .unity-base-field__label {
     margin-left: 31px;
+}
+
+.top-buttons {
+    flex-direction: row-reverse;
+    position: absolute;
+    top: 23px;
+    right: 36px;
+    align-items: center;
 }

@@ -15,7 +15,10 @@
         </ui:ScrollView>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
         <FirstLight.Game.UIElements.SafeAreaElement apply-right="false" apply-left="false" name="SafeArea" picking-mode="Ignore">
-            <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MapButton" title-localization-key="UITCustomGames/map" class="map-selector" />
+            <ui:VisualElement name="TopButtons" class="top-buttons" style="flex-grow: 1;">
+                <ui:VisualElement name="TopCurrenciesBar" style="flex-grow: 1; flex-direction: row;" />
+            </ui:VisualElement>
+            <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MapButton" title-localization-key="UITCustomGames/map" class="map-selector" style="top: 77px;" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="instructions anim-fade anim-delay-1" />
     </ui:VisualElement>

@@ -23,6 +23,9 @@ namespace FirstLight.Game.Messages
 	{
 	}
 
+	public struct GameModeScreenOpenedMessage : IMessage
+	{
+	}
 	public struct OnViewingRewardsFinished : IMessage
 	{
 	}

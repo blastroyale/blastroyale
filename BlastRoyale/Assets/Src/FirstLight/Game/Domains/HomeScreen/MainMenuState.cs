@@ -44,7 +44,6 @@ namespace FirstLight.Game.Domains.HomeScreen
 		private readonly IStatechartEvent _customGameButtonClicked = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
-		private readonly IStatechartEvent _equipmentClickedEvent = new StatechartEvent("Equipment Clicked Event");
 		private readonly IStatechartEvent _newsClickedEvent = new StatechartEvent("News Clicked");
 		private readonly IStatechartEvent _collectionClickedEvent = new StatechartEvent("Collection Clicked Event");
 		private readonly IStatechartEvent _gameModeSelectedFinishedEvent = new StatechartEvent("Game Mode Selected Finished Event");
@@ -53,8 +52,6 @@ namespace FirstLight.Game.Domains.HomeScreen
 		private readonly IStatechartEvent _friendsClickedEvent = new StatechartEvent("Friends Button Clicked Event");
 
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
-		private readonly IStatechartEvent _brokenItemsCloseEvent = new StatechartEvent("Broken Items Close Event");
-		private readonly IStatechartEvent _brokenItemsRepairEvent = new StatechartEvent("Broken Items Repair Event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -413,7 +410,11 @@ namespace FirstLight.Game.Domains.HomeScreen
 				OnBackClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent),
 			};
 
-			_services.UIService.OpenScreen<GameModeScreenPresenter>(data).Forget();
+			_services.UIService.OpenScreen<GameModeScreenPresenter>(data)
+				.ContinueWith((_) =>
+				{
+					_services.MessageBrokerService.Publish(new GameModeScreenOpenedMessage());
+				}).Forget();
 		}
 
 		private void OpenLeaderboardUI(IWaitActivity activity)
@@ -505,7 +506,6 @@ namespace FirstLight.Game.Domains.HomeScreen
 				{
 					OnPlayButtonClicked = PlayButtonClicked,
 					OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
-					OnLootButtonClicked = () => _statechartTrigger(_equipmentClickedEvent),
 					OnCollectionsClicked = () => _statechartTrigger(_collectionClickedEvent),
 					OnProfileClicked = () => _statechartTrigger(_nameChangeClickedEvent),
 					OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),

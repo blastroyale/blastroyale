@@ -15,7 +15,11 @@ namespace FirstLight.Game.Commands
 
 		public UniTask Execute(CommandExecutionContext ctx)
 		{
-			ctx.Logic.GameEvents().RefundEventPasses();
+			var refunded = ctx.Logic.GameEvents().RefundEventPasses();
+			ctx.Services.MessageBrokerService().Publish(new TicketsRefundedMessage()
+			{
+				Refunds = refunded
+			});
 			return UniTask.CompletedTask;
 		}
 	}

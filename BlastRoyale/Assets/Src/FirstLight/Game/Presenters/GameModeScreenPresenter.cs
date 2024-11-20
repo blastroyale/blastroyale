@@ -15,6 +15,7 @@ using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
+using FirstLight.Game.Views.UITK.Popups;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.UIService;
 using I2.Loc;
@@ -54,6 +55,7 @@ namespace FirstLight.Game.Presenters
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
 		private MatchSettingsButtonElement _mapButton;
+		private CurrencyTopBarView _currencyTopBarView;
 		private List<GameId> _mapGameIds;
 
 		private List<GameModeSelectionButtonView> _buttonViews;
@@ -79,6 +81,10 @@ namespace FirstLight.Game.Presenters
 			_mapButton.clicked += OnMapButtonClicked;
 			_mapButton.SetValue(_services.GameModeService.SelectedMap.GetLocalization());
 
+			Root.Q<VisualElement>("TopCurrenciesBar")
+				.Required()
+				.AttachView(this, out _currencyTopBarView);
+
 			var orderNumber = 1;
 			// Clear the slide from the test values
 			_buttonsSlider.Clear();
@@ -99,6 +105,12 @@ namespace FirstLight.Game.Presenters
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
 				_buttonsSlider.Add(button);
 			}
+
+			_currencyTopBarView.Configure(
+				_buttonViews.FirstOrDefault(view => view.GameModeInfo.Entry is EventGameModeEntry ev && ev.IsPaid)?.Element,
+				_buttonViews.Where(view => view.GameModeInfo.Entry is EventGameModeEntry ev && ev.IsPaid)
+					.Select(view => ((EventGameModeEntry) view.GameModeInfo.Entry).PriceToJoin.RewardId).Distinct().ToList()
+			);
 
 			// Add custom game button
 			var gameModeInfo = new GameModeInfo
@@ -215,33 +227,29 @@ namespace FirstLight.Game.Presenters
 			var entry = info.GameModeInfo.Entry;
 			if (entry is EventGameModeEntry ev && ev.PriceToJoin != null)
 			{
-				var alreadyHasTicket = _dataProviders.GameEventsDataProvider.HasPass(entry.MatchConfig.UniqueConfigId);
-				if (!alreadyHasTicket)
-				{
-					var text = (ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId))
-						.WithFontSize("150%");
+				var text = (ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId))
+					.WithFontSize("150%");
 
-					PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, ScriptLocalization.UITGameModeSelection.participate_event_label, () =>
-						PopupPresenter.Close().ContinueWith(() =>
+				PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, ScriptLocalization.UITGameModeSelection.participate_event_label, () =>
+					PopupPresenter.Close().ContinueWith(() =>
+					{
+						_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.TextPurchaseData()
 						{
-							_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.TextPurchaseData()
+							Price = ItemFactory.Legacy(ev.PriceToJoin),
+							TextFormat = "You are about to spend {0}\non event participation",
+							OnConfirm = () =>
 							{
-								Price = ItemFactory.Legacy(ev.PriceToJoin),
-								TextFormat = "You are about to spend {0}\non event participation",
-								OnConfirm = () =>
-								{
-									_services.CommandService.ExecuteCommand(new BuyEventPassCommand()
-										{UniqueEventId = entry.MatchConfig.UniqueConfigId});
-									SelectAndStartMatchmaking(info);
-								},
-								OnGoToShopRequired = () =>
-								{
-									Data.OnBackClicked?.Invoke();
-								}
-							});
-						})).Forget();
-					return;
-				}
+								_services.CommandService.ExecuteCommand(new BuyEventPassCommand()
+									{UniqueEventId = entry.MatchConfig.UniqueConfigId});
+								SelectAndStartMatchmaking(info);
+							},
+							OnGoToShopRequired = () =>
+							{
+								Data.OnBackClicked?.Invoke();
+							}
+						});
+					})).Forget();
+				return;
 			}
 
 			PopupPresenter.OpenMatchInfo(info.GameModeInfo, null, null, () =>

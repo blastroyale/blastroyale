@@ -27,13 +27,9 @@ namespace FirstLight.Game.Views.UITK
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			CryptoCurrenciesElement = (CryptoCurrenciesDisplayElement) Element;
-		}
-
-		public override void OnScreenOpen(bool reload)
-		{
 			Setup();
 		}
-
+		
 		public void Setup()
 		{
 			SetupCryptoCurrenciesChangeObservable();

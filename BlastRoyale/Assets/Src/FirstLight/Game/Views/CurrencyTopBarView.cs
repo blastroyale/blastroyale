@@ -33,9 +33,9 @@ namespace FirstLight.Game.Views
 				element.AddClass(DefaultClasses);
 				element.AddClass("anim-delay-" + count);
 				Element.Add(element);
-				element.SetData(animationOrigin, false, Presenter.GetCancellationTokenOnClose());
 				var view = new CurrencyDisplayView();
 				Presenter.AddView(element, view);
+				element.SetData(animationOrigin, false, Presenter.GetCancellationTokenOnClose());
 				count++;
 			}
 
@@ -50,7 +50,6 @@ namespace FirstLight.Game.Views
 			cryptoElement.AddClass("anim-delay-" + count);
 			Element.Add(cryptoElement);
 			Presenter.AddView(cryptoElement, cryptoView);
-			cryptoView.Setup();
 		}
 	}
 }

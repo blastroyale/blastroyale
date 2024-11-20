@@ -10,11 +10,13 @@ using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
+using FirstLight.Game.Views.UITK.Popups;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.UIService;
 using I2.Loc;
@@ -54,6 +56,7 @@ namespace FirstLight.Game.Presenters
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
 		private MatchSettingsButtonElement _mapButton;
+		private CurrencyTopBarView _currencyTopBarView;
 		private List<GameId> _mapGameIds;
 
 		private List<GameModeSelectionButtonView> _buttonViews;
@@ -215,14 +218,15 @@ namespace FirstLight.Game.Presenters
 			var entry = info.GameModeInfo.Entry;
 			if (entry is EventGameModeEntry ev && ev.PriceToJoin != null)
 			{
-				var alreadyHasTicket = _dataProviders.GameEventsDataProvider.HasPass(entry.MatchConfig.UniqueConfigId);
-				if (!alreadyHasTicket)
-				{
-					var text = (ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId))
-						.WithFontSize("150%");
+				var text = (ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId))
+					.WithFontSize("150%");
 
-					PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, ScriptLocalization.UITGameModeSelection.participate_event_label, () =>
-						PopupPresenter.Close().ContinueWith(() =>
+				_services.UIService.OpenScreen<MatchInfoPopupPresenter>(new MatchInfoPopupPresenter.StateData()
+					{
+						ButtonText = text,
+						EntryInfo = info.GameModeInfo,
+						MatchSettings = info.GameModeInfo.Entry.MatchConfig,
+						ClickAction = () => _services.UIService.CloseScreen<MatchInfoPopupPresenter>().ContinueWith(() =>
 						{
 							_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.TextPurchaseData()
 							{
@@ -239,16 +243,25 @@ namespace FirstLight.Game.Presenters
 									Data.OnBackClicked?.Invoke();
 								}
 							});
-						})).Forget();
-					return;
-				}
+						})
+					})
+					.ContinueWith( (_) =>
+					{
+						_services.MessageBrokerService.Publish(new MatchInfoPopupOpenedMessage());
+					})
+					.Forget();
+				return;
 			}
 
-			PopupPresenter.OpenMatchInfo(info.GameModeInfo, null, null, () =>
-				PopupPresenter.Close().ContinueWith(() =>
+			_services.UIService.OpenScreen<MatchInfoPopupPresenter>(new MatchInfoPopupPresenter.StateData()
+			{
+				EntryInfo = info.GameModeInfo,
+				MatchSettings = info.GameModeInfo.Entry.MatchConfig,
+				ClickAction = () => _services.UIService.CloseScreen<MatchInfoPopupPresenter>().ContinueWith(() =>
 				{
 					SelectAndStartMatchmaking(info);
-				})).Forget();
+				})
+			}).Forget();
 		}
 
 		private void SelectAndStartMatchmaking(GameModeSelectionButtonView info)

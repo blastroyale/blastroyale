@@ -25,10 +25,6 @@
     justify-content: flex-end;
 }
 
-.currency-display-space {
-    margin-right: 50px;
-    -unity-text-align: upper-left;
-}
 
 .player-header {
     flex-direction: row-reverse;

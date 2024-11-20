@@ -17,6 +17,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.Game.Views;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
@@ -45,7 +46,6 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 		{
 			public Action OnPlayButtonClicked;
 			public Action OnSettingsButtonClicked;
-			public Action OnLootButtonClicked;
 			public Action OnCollectionsClicked;
 			public Action OnProfileClicked;
 			public Action OnGameModeClicked;
@@ -130,14 +130,10 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
-			Root.Q<CurrencyDisplayElement>("CoinCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
-			Root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
-			Root.Q<CryptoCurrenciesDisplayElement>("CryptoCurrency")
-				.AttachView(this, out CryptoCurrenciesDisplayView _);
+			Root.Q<VisualElement>("TopCurrenciesBar")
+				.Required()
+				.AttachView(this, out CurrencyTopBarView currencyTopBar);
+			currencyTopBar.Configure(_playButton);
 
 			Root.Q<VisualElement>("PartyMemberNames").Required()
 				.AttachExistingView(this, _homePartyCharacterView);
@@ -316,6 +312,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 				_playerTrophiesLabel.text = current.ToString();
 			}
 		}
+
 		private void OnFameChanged(uint previous, uint current)
 		{
 			_avatar.SetLevel(current);

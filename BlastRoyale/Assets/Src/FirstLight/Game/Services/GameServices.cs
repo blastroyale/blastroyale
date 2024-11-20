@@ -256,7 +256,7 @@ namespace FirstLight.Game.Services
 				GenericDialogService);
 			GameModeService = new GameModeService(gameLogic, CommandService, ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider,
 				LocalPrefsService, RemoteTextureService,
-				MessageBrokerService, HomeScreenService, RoomService);
+				MessageBrokerService, HomeScreenService, RoomService, InGameNotificationService);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);

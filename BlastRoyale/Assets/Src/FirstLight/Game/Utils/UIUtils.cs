@@ -346,5 +346,17 @@ namespace FirstLight.Game.Utils
 			tree.CloneTree(visualElement);
 			visualElement.AssignElementResults(visualElement);
 		}
+
+		public static VisualElement GetRoot(this VisualElement vs)
+		{
+			var p = vs;
+
+			while (p.parent != null)
+			{
+				p = p.parent;
+			}
+
+			return p;
+		}
 	}
 }

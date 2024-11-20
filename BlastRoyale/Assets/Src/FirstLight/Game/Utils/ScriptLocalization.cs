@@ -2514,6 +2514,7 @@ namespace I2.Loc
 			public static string select_event 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/select_event"); } }
 			public static string select_map 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/select_map"); } }
 			public static string tap_to_choose 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/tap_to_choose"); } }
+			public static string ticket_refunded_message 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/ticket_refunded_message"); } }
 			public static string too_many_players 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/too_many_players"); } }
 			public static string zombies_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/zombies_description"); } }
 		}
@@ -2660,6 +2661,7 @@ namespace I2.Loc
 			public static string mode_header_title 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/mode_header_title"); } }
 			public static string select_dropzone 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/select_dropzone"); } }
 			public static string squad 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/squad"); } }
+			public static string unknown_matchmaking_error 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/unknown_matchmaking_error"); } }
 			public static string wins_the_match 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/wins_the_match"); } }
 		}
 
@@ -5429,6 +5431,7 @@ namespace I2.Loc
 		    public const string select_event = "UITGameModeSelection/select_event";
 		    public const string select_map = "UITGameModeSelection/select_map";
 		    public const string tap_to_choose = "UITGameModeSelection/tap_to_choose";
+		    public const string ticket_refunded_message = "UITGameModeSelection/ticket_refunded_message";
 		    public const string too_many_players = "UITGameModeSelection/too_many_players";
 		    public const string zombies_description = "UITGameModeSelection/zombies_description";
 		}
@@ -5575,6 +5578,7 @@ namespace I2.Loc
 		    public const string mode_header_title = "UITMatchmaking/mode_header_title";
 		    public const string select_dropzone = "UITMatchmaking/select_dropzone";
 		    public const string squad = "UITMatchmaking/squad";
+		    public const string unknown_matchmaking_error = "UITMatchmaking/unknown_matchmaking_error";
 		    public const string wins_the_match = "UITMatchmaking/wins_the_match";
 		}
 

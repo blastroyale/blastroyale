@@ -23,6 +23,13 @@ namespace FirstLight.Game.Messages
 	{
 	}
 
+	public struct GameModeScreenOpenedMessage : IMessage
+	{
+	}
+	
+	public struct MatchInfoPopupOpenedMessage : IMessage
+	{
+	}
 	public struct OnViewingRewardsFinished : IMessage
 	{
 	}

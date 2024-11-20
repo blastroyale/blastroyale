@@ -187,7 +187,7 @@ namespace FirstLight.Game.Services
 			msgBroker.Subscribe<MatchmakingLeftMessage>(OnMatchmakingLeft);
 			msgBroker.Subscribe<CoreLoopInitialized>(OnCoreLoopInitialized);
 			msgBroker.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
-			msgBroker.Subscribe<GameModeScreenOpenedMessage>(OnGamemodeScreenOpened);
+			msgBroker.Subscribe<MatchInfoPopupOpenedMessage>(OnMatchInfoOpened);
 			msgBroker.Subscribe<GameCompletedRewardsMessage>(OnGameRewards);
 			msgBroker.Subscribe<QuantumServerSimulationDisconnectedMessage>(OnQuantumServerDisconnected);
 			msgBroker.Subscribe<TicketsRefundedMessage>(OnTicketRefunded);
@@ -316,7 +316,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private void OnGamemodeScreenOpened(GameModeScreenOpenedMessage obj)
+		private void OnMatchInfoOpened(MatchInfoPopupOpenedMessage obj)
 		{
 			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
 			{

@@ -31,6 +31,11 @@ namespace FirstLight.Game.Views.UITK
 
 		public override void OnScreenOpen(bool reload)
 		{
+			Setup();
+		}
+
+		public void Setup()
+		{
 			SetupCryptoCurrenciesChangeObservable();
 			SetupCryptoCurrenciesView();
 		}

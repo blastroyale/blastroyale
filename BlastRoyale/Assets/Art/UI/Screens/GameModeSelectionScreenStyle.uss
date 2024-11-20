@@ -51,11 +51,3 @@
 .map-selector .unity-base-field__label {
     margin-left: 31px;
 }
-
-.top-buttons {
-    flex-direction: row-reverse;
-    position: absolute;
-    top: 23px;
-    right: 36px;
-    align-items: center;
-}

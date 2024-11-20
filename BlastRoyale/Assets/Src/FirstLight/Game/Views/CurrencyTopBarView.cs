@@ -16,8 +16,13 @@ namespace FirstLight.Game.Views
 		public static GameId[] DefaultValues = {GameId.COIN, GameId.BlastBuck};
 		private static string[] DefaultClasses = new[] {"anim-translate", "anim-translate--down-s", "currency-display-space"};
 
+		protected override void Attached()
+		{
+		}
+
 		public void Configure(VisualElement animationOrigin = null, List<GameId> showOnly = null)
 		{
+			Element.Clear();
 			var count = 0;
 
 			foreach (var defaultValue in DefaultValues)
@@ -45,6 +50,7 @@ namespace FirstLight.Game.Views
 			cryptoElement.AddClass("anim-delay-" + count);
 			Element.Add(cryptoElement);
 			Presenter.AddView(cryptoElement, cryptoView);
+			cryptoView.Setup();
 		}
 	}
 }

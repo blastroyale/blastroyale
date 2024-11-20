@@ -42,15 +42,15 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 
 		private List<Lobby> _lobbies;
-		
+
 		private AsyncBufferedQueue _requestBuffer = new (TimeSpan.FromSeconds(1), true);
 
 		protected override void QueryElements()
 		{
 			_services = MainInstaller.ResolveServices();
-			
+
 			var header = Root.Q<ScreenHeaderElement>("Header").Required();
-			header.backClicked = Data.BackClicked; 
+			header.backClicked = Data.BackClicked;
 
 			_matchSettings.AttachView(this, out _matchSettingsView);
 			_gamesList.bindItem = BindMatchLobbyItem;
@@ -80,10 +80,11 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
-			if (PopupPresenter.IsOpen<MatchInfoPopupView>())
+			if (_services.UIService.IsScreenOpen<MatchInfoPopupPresenter>())
 			{
-				PopupPresenter.Close();
+				_services.UIService.CloseScreen<MatchInfoPopupPresenter>();
 			}
+
 			return base.OnScreenClose();
 		}
 
@@ -91,7 +92,7 @@ namespace FirstLight.Game.Presenters
 		{
 			// if in game room no need to refresh lobbies
 			if (_services.RoomService.InRoom) return;
-			
+
 			_listHeaders.SetVisibility(false);
 			_loader.SetDisplay(true);
 			_noLobbiesLabel.SetDisplay(false);
@@ -99,8 +100,9 @@ namespace FirstLight.Game.Presenters
 
 			_gamesList.itemsSource = null;
 			_gamesList.RefreshItems();
-			_lobbies = await _services.FLLobbyService.GetPublicMatches(_allRegionsToggle.value).AttachExternalCancellation(GetCancellationTokenOnClose());
-			
+			_lobbies = await _services.FLLobbyService.GetPublicMatches(_allRegionsToggle.value)
+				.AttachExternalCancellation(GetCancellationTokenOnClose());
+
 			if (gameObject == null) return;
 			_gamesList.itemsSource = _lobbies;
 			_gamesList.RefreshItems();
@@ -139,11 +141,12 @@ namespace FirstLight.Game.Presenters
 			var lobby = _lobbies[index];
 			((MatchLobbyItemElement) e).SetLobby(lobby, () =>
 			{
-				if(lobby.GetMatchRegion() != _services.LocalPrefsService.ServerRegion.Value)
+				if (lobby.GetMatchRegion() != _services.LocalPrefsService.ServerRegion.Value)
 				{
 					_services.InGameNotificationService.QueueNotification("Cannot join match from a different region");
 					return;
 				}
+
 				JoinMatch(lobby.Id, !lobby.HasRoomInGrid()).Forget();
 			}, () => OpenMatchInfo(lobby));
 		}
@@ -156,11 +159,16 @@ namespace FirstLight.Game.Presenters
 		private void OpenMatchInfo(Lobby lobby)
 		{
 			var friendsPlaying = lobby.GetFriends().Select(p => p.GetPlayerName()).ToList();
-			PopupPresenter.OpenMatchInfo(lobby.GetMatchSettings().ToSimulationMatchConfig(), friendsPlaying, () =>
+			_services.UIService.OpenScreen<MatchInfoPopupPresenter>(new MatchInfoPopupPresenter.StateData()
 			{
-				PopupPresenter.Close();
-				JoinMatch(lobby.Id, !lobby.HasRoomInGrid()).Forget();
-			}).Forget();
+				FriendsPlaying = friendsPlaying,
+				MatchSettings = lobby.GetMatchSettings().ToSimulationMatchConfig(),
+				ClickAction = () =>
+				{
+					_services.UIService.CloseScreen<MatchInfoPopupPresenter>();
+					JoinMatch(lobby.Id, !lobby.HasRoomInGrid()).Forget();
+				}
+			});
 		}
 	}
 }

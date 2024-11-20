@@ -10,6 +10,7 @@ using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
@@ -81,10 +82,6 @@ namespace FirstLight.Game.Presenters
 			_mapButton.clicked += OnMapButtonClicked;
 			_mapButton.SetValue(_services.GameModeService.SelectedMap.GetLocalization());
 
-			Root.Q<VisualElement>("TopCurrenciesBar")
-				.Required()
-				.AttachView(this, out _currencyTopBarView);
-
 			var orderNumber = 1;
 			// Clear the slide from the test values
 			_buttonsSlider.Clear();
@@ -105,12 +102,6 @@ namespace FirstLight.Game.Presenters
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
 				_buttonsSlider.Add(button);
 			}
-
-			_currencyTopBarView.Configure(
-				_buttonViews.FirstOrDefault(view => view.GameModeInfo.Entry is EventGameModeEntry ev && ev.IsPaid)?.Element,
-				_buttonViews.Where(view => view.GameModeInfo.Entry is EventGameModeEntry ev && ev.IsPaid)
-					.Select(view => ((EventGameModeEntry) view.GameModeInfo.Entry).PriceToJoin.RewardId).Distinct().ToList()
-			);
 
 			// Add custom game button
 			var gameModeInfo = new GameModeInfo
@@ -230,33 +221,47 @@ namespace FirstLight.Game.Presenters
 				var text = (ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId))
 					.WithFontSize("150%");
 
-				PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, ScriptLocalization.UITGameModeSelection.participate_event_label, () =>
-					PopupPresenter.Close().ContinueWith(() =>
+				_services.UIService.OpenScreen<MatchInfoPopupPresenter>(new MatchInfoPopupPresenter.StateData()
 					{
-						_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.TextPurchaseData()
+						ButtonText = text,
+						EntryInfo = info.GameModeInfo,
+						MatchSettings = info.GameModeInfo.Entry.MatchConfig,
+						ClickAction = () => _services.UIService.CloseScreen<MatchInfoPopupPresenter>().ContinueWith(() =>
 						{
-							Price = ItemFactory.Legacy(ev.PriceToJoin),
-							TextFormat = "You are about to spend {0}\non event participation",
-							OnConfirm = () =>
+							_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.TextPurchaseData()
 							{
-								_services.CommandService.ExecuteCommand(new BuyEventPassCommand()
-									{UniqueEventId = entry.MatchConfig.UniqueConfigId});
-								SelectAndStartMatchmaking(info);
-							},
-							OnGoToShopRequired = () =>
-							{
-								Data.OnBackClicked?.Invoke();
-							}
-						});
-					})).Forget();
+								Price = ItemFactory.Legacy(ev.PriceToJoin),
+								TextFormat = "You are about to spend {0}\non event participation",
+								OnConfirm = () =>
+								{
+									_services.CommandService.ExecuteCommand(new BuyEventPassCommand()
+										{UniqueEventId = entry.MatchConfig.UniqueConfigId});
+									SelectAndStartMatchmaking(info);
+								},
+								OnGoToShopRequired = () =>
+								{
+									Data.OnBackClicked?.Invoke();
+								}
+							});
+						})
+					})
+					.ContinueWith( (_) =>
+					{
+						_services.MessageBrokerService.Publish(new MatchInfoPopupOpenedMessage());
+					})
+					.Forget();
 				return;
 			}
 
-			PopupPresenter.OpenMatchInfo(info.GameModeInfo, null, null, () =>
-				PopupPresenter.Close().ContinueWith(() =>
+			_services.UIService.OpenScreen<MatchInfoPopupPresenter>(new MatchInfoPopupPresenter.StateData()
+			{
+				EntryInfo = info.GameModeInfo,
+				MatchSettings = info.GameModeInfo.Entry.MatchConfig,
+				ClickAction = () => _services.UIService.CloseScreen<MatchInfoPopupPresenter>().ContinueWith(() =>
 				{
 					SelectAndStartMatchmaking(info);
-				})).Forget();
+				})
+			}).Forget();
 		}
 
 		private void SelectAndStartMatchmaking(GameModeSelectionButtonView info)

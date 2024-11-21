@@ -17,7 +17,7 @@ namespace Quantum.Systems
 		/// Time while the simulation will wait for players to connect to start the game.
 		/// This has to take in account server web requests to validate user data
 		/// </summary>
-		private static FP PLAYERS_JOIN_TIMEOUT = 10;
+		private static FP PLAYERS_JOIN_TIMEOUT = 30;
 
 		/// <inheritdoc />
 		public override void Update(Frame f)
@@ -143,7 +143,6 @@ namespace Quantum.Systems
 			f.Signals.AllPlayersJoined();
 			var teamCount = RefreshTotalTeamCount(f);
 			var hasEnoughTeams = teamCount > 1;
-			Log.Info("POCO: " + teamCount + " " + hasEnoughTeams);
 			f.Events.OnAllPlayersJoined(!hasEnoughTeams);
 			if (!hasEnoughTeams)
 			{

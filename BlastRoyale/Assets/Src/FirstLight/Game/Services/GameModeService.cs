@@ -309,6 +309,7 @@ namespace FirstLight.Game.Services
 
 			if (_homeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.None)
 			{
+				SelectValidGameMode();
 				if (_dataProvider.GameEventsDataProvider.HasAnyPass())
 				{
 					_commandService.ExecuteCommand(new RefundEventPassesCommand());

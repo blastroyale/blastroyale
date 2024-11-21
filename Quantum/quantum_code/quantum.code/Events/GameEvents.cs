@@ -6,21 +6,21 @@ namespace Quantum
 	{
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 	}
-	
+
 	public unsafe partial class EventOnAllPlayersJoined
 	{
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 	}
-	
-	public partial class Frame 
+
+	public partial class Frame
 	{
 		public unsafe partial struct FrameEvents
 		{
-			public void OnAllPlayersJoined()
+			public void OnAllPlayersJoined(bool gameFailed)
 			{
 				var container = _f.Unsafe.GetPointerSingleton<GameContainer>();
 				var matchData = container->GeneratePlayersMatchData(_f, out _, out _);
-				var ev = OnAllPlayersJoined((uint) matchData.Count);
+				var ev = OnAllPlayersJoined((uint)matchData.Count, gameFailed);
 
 				if (ev == null)
 				{
@@ -29,6 +29,7 @@ namespace Quantum
 
 				ev.PlayersMatchData = matchData;
 			}
+
 			public void OnGameEnded()
 			{
 				var container = _f.Unsafe.GetPointerSingleton<GameContainer>();
@@ -39,6 +40,7 @@ namespace Quantum
 					Log.Error($"Could not call game end event: Leader: {leader} match data list size: {data.Length}");
 					return;
 				}
+
 				var ev = OnGameEnded(leader, data[leader].Entity, leaderTeam);
 				if (ev == null)
 				{

@@ -80,7 +80,7 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 
-			simulationInitializationError.Transition().OnTransition(() => _ = MatchError()).Target(final);
+			simulationInitializationError.Transition().OnTransition(MatchError).Target(final);
 
 			stopSimulationForDisconnection.OnEnter(StopSimulation);
 			stopSimulationForDisconnection.Event(NetworkState.JoinedRoomEvent).OnTransition(UnloadSimulation).Target(startSimulation);
@@ -226,6 +226,12 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
+			if (callback.GameFailed)
+			{
+				StopSimulation();
+				return;
+			}
+
 			_statechartTrigger(SimulationStartedEvent);
 			WaitForCamera().Forget();
 		}
@@ -272,15 +278,15 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(MatchState.MatchQuitEvent);
 		}
 
-		private async UniTask MatchError()
+		private void MatchError()
 		{
+			MatchState.SharedData.Simulation = MatchState.Data.SimulationResult.Error;
 			FLog.Verbose("Raising Match Error");
-			await UniTask.NextFrame(); // to avoid state machine fork https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
-			_statechartTrigger(MatchState.MatchErrorEvent);
 		}
 
 		private void StartSimulation()
 		{
+			MatchState.SharedData.Simulation = MatchState.Data.SimulationResult.Success;
 			Assert.IsNull(QuantumRunner.Default, "Simulation already running");
 
 			FLog.Info($"Starting simulation from source {_services.NetworkService.JoinSource.ToString()}");
@@ -398,6 +404,14 @@ namespace FirstLight.Game.StateMachines
 			var useBotBehaviour = (FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour) ||
 				FeatureFlags.GetLocalConfiguration().UseBotBehaviour;
 
+#if UNITY_EDITOR || (DEVELOPMENT_BUILD && !DISABLE_SRDEBUGGER)
+
+			if (SROptions.Current.DontSendPlayerData)
+			{
+				FLog.Warn("Not sending runtime player data. This is a hack for the local player, not an exception!");
+				return;
+			}
+#endif
 			FLog.Info("Sending player runtime data");
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{

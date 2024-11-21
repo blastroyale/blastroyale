@@ -17,7 +17,7 @@ namespace Quantum.Systems
 		/// Time while the simulation will wait for players to connect to start the game.
 		/// This has to take in account server web requests to validate user data
 		/// </summary>
-		private static FP PLAYERS_JOIN_TIMEOUT = 60;
+		private static FP PLAYERS_JOIN_TIMEOUT = 10;
 
 		/// <inheritdoc />
 		public override void Update(Frame f)
@@ -50,22 +50,26 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void GameEnded(Frame f)
+		public void GameEnded(Frame f, QBoolean success)
 		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 
 			gameContainer->GameOverTime = f.Time;
 			gameContainer->IsGameOver = true;
-			
-			foreach (var livingPlayer in f.GetComponentIterator<AlivePlayerCharacter>())
-			{
-				if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter) && !f.Has<BotCharacter>(livingPlayer.Entity))
-				{
-					f.ServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
-				}
-			}
+			gameContainer->IsGameFailed = !success;
 
-			f.Events.OnGameEnded();
+			if (success)
+			{
+				foreach (var livingPlayer in f.GetComponentIterator<AlivePlayerCharacter>())
+				{
+					if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter) &&
+						!f.Has<BotCharacter>(livingPlayer.Entity))
+					{
+						f.ServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
+					}
+				}
+				f.Events.OnGameEnded(); // If its not success the end flow is handled by simulation destroyed in the client
+			}
 
 			f.SystemDisable(typeof(AiPreUpdateSystem));
 			f.SystemDisable(typeof(AiSystem));
@@ -137,13 +141,20 @@ namespace Quantum.Systems
 		private void AllPlayersJoined(Frame f, GameContainer* container)
 		{
 			f.Signals.AllPlayersJoined();
-			RefreshTotalTeamCount(f);
+			var teamCount = RefreshTotalTeamCount(f);
+			var hasEnoughTeams = teamCount > 1;
+			Log.Info("POCO: " + teamCount + " " + hasEnoughTeams);
+			f.Events.OnAllPlayersJoined(!hasEnoughTeams);
+			if (!hasEnoughTeams)
+			{
+				f.Signals.GameEnded(false);
+				return;
+			}
 
-			f.Events.OnAllPlayersJoined();
 			container->IsGameStarted = true;
 		}
 
-		private void RefreshTotalTeamCount(Frame f)
+		private int RefreshTotalTeamCount(Frame f)
 		{
 			var teams = new HashSet<int>();
 
@@ -153,9 +164,10 @@ namespace Quantum.Systems
 			}
 
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-			
+
 			// The target of the game is that all teams die but one (ourselves)
-			container->TargetProgress = (uint) teams.Count -1;
+			container->TargetProgress = (uint)teams.Count - 1;
+			return teams.Count;
 		}
 	}
 }

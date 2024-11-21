@@ -78,7 +78,7 @@ namespace Quantum
 
 			if (CurrentProgress >= TargetProgress)
 			{
-				f.Signals.GameEnded();
+				f.Signals.GameEnded(true);
 			}
 		}
 
@@ -102,7 +102,7 @@ namespace Quantum
 
 			if (CurrentProgress >= TargetProgress)
 			{
-				f.Signals.GameEnded();
+				f.Signals.GameEnded(true);
 			}
 		}
 

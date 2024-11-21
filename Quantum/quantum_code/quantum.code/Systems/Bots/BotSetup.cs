@@ -51,6 +51,8 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+			if (f.RuntimeConfig.MatchConfigs.DisableBots) return;
+
 			AddFasterBotAgent(f, f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id));
 			AddBotBehaviourToPlayers(f, baseTrophiesAmount);
 

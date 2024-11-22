@@ -13,6 +13,8 @@
     --sprite-currencies__coin-default: url('/Assets/Art/UI/Sprites/Currencies/coin-default.png');
     --sprite-currencies__cs: url('/Assets/Art/UI/Sprites/Currencies/cs.png');
     --sprite-currencies__cs-reward: url('/Assets/Art/UI/Sprites/Currencies/cs-reward.png');
+    --sprite-currencies__eventticket-default: url('/Assets/Art/UI/Sprites/Currencies/eventticket-default.png');
+    --sprite-currencies__festivesnowflake-default: url('/Assets/Art/UI/Sprites/Currencies/festivesnowflake-default.png');
     --sprite-currencies__fragments-default: url('/Assets/Art/UI/Sprites/Currencies/fragments-default.png');
     --sprite-currencies__noob-1: url('/Assets/Art/UI/Sprites/Currencies/noob-1.png');
     --sprite-currencies__noob-default: url('/Assets/Art/UI/Sprites/Currencies/noob-default.png');
@@ -114,6 +116,18 @@
     background-image: var(--sprite-currencies__cs-reward);
     width: 512px;
     height: 512px;
+}
+
+.sprite-currencies__eventticket-default {
+    background-image: var(--sprite-currencies__eventticket-default);
+    width: 160px;
+    height: 160px;
+}
+
+.sprite-currencies__festivesnowflake-default {
+    background-image: var(--sprite-currencies__festivesnowflake-default);
+    width: 160px;
+    height: 160px;
 }
 
 .sprite-currencies__fragments-default {

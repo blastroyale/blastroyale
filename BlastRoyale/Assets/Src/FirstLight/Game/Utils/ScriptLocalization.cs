@@ -1283,6 +1283,7 @@ namespace I2.Loc
 			public static string EpicBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/EpicBox"); } }
 			public static string EpicCore 		{ get{ return LocalizationManager.GetTranslation ("GameIds/EpicCore"); } }
 			public static string Equipment 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Equipment"); } }
+			public static string EventTicket 		{ get{ return LocalizationManager.GetTranslation ("GameIds/EventTicket"); } }
 			public static string Falcon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Falcon"); } }
 			public static string FalconDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FalconDescription"); } }
 			public static string Fastershot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Fastershot"); } }
@@ -1298,6 +1299,7 @@ namespace I2.Loc
 			public static string FemalePunkDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FemalePunkDescription"); } }
 			public static string FemaleSuperstar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FemaleSuperstar"); } }
 			public static string FemaleSuperstarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FemaleSuperstarDescription"); } }
+			public static string FestiveSNOWFLAKE 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveSNOWFLAKE"); } }
 			public static string Flag 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Flag"); } }
 			public static string FlagDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagDescription"); } }
 			public static string FloodCity 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FloodCity"); } }
@@ -2859,6 +2861,8 @@ namespace I2.Loc
 			public static string epic_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/epic_core"); } }
 			public static string iap_error 		{ get{ return LocalizationManager.GetTranslation ("UITStore/iap_error"); } }
 			public static string legendary_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/legendary_core"); } }
+			public static string notification_product_cooldown 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_cooldown"); } }
+			public static string notification_product_maxamount 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_maxamount"); } }
 			public static string price 		{ get{ return LocalizationManager.GetTranslation ("UITStore/price"); } }
 			public static string rare_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/rare_core"); } }
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITStore/shop"); } }
@@ -4200,6 +4204,7 @@ namespace I2.Loc
 		    public const string EpicBox = "GameIds/EpicBox";
 		    public const string EpicCore = "GameIds/EpicCore";
 		    public const string Equipment = "GameIds/Equipment";
+		    public const string EventTicket = "GameIds/EventTicket";
 		    public const string Falcon = "GameIds/Falcon";
 		    public const string FalconDescription = "GameIds/FalconDescription";
 		    public const string Fastershot = "GameIds/Fastershot";
@@ -4215,6 +4220,7 @@ namespace I2.Loc
 		    public const string FemalePunkDescription = "GameIds/FemalePunkDescription";
 		    public const string FemaleSuperstar = "GameIds/FemaleSuperstar";
 		    public const string FemaleSuperstarDescription = "GameIds/FemaleSuperstarDescription";
+		    public const string FestiveSNOWFLAKE = "GameIds/FestiveSNOWFLAKE";
 		    public const string Flag = "GameIds/Flag";
 		    public const string FlagDescription = "GameIds/FlagDescription";
 		    public const string FloodCity = "GameIds/FloodCity";
@@ -5776,6 +5782,8 @@ namespace I2.Loc
 		    public const string epic_core = "UITStore/epic_core";
 		    public const string iap_error = "UITStore/iap_error";
 		    public const string legendary_core = "UITStore/legendary_core";
+		    public const string notification_product_cooldown = "UITStore/notification_product_cooldown";
+		    public const string notification_product_maxamount = "UITStore/notification_product_maxamount";
 		    public const string price = "UITStore/price";
 		    public const string rare_core = "UITStore/rare_core";
 		    public const string shop = "UITStore/shop";

@@ -286,6 +286,18 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.FestiveSNOWFLAKE, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.EventTicket, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
 					GameId.FloodCity, new List<GameIdGroup>
 					{
 						GameIdGroup.Map,
@@ -2663,7 +2675,9 @@ namespace Quantum
 						GameId.PartnerXBORG,
 						GameId.PartnerBREED,
 						GameId.PartnerMEME,
-						GameId.PartnerYGG
+						GameId.PartnerYGG,
+						GameId.FestiveSNOWFLAKE,
+						GameId.EventTicket
 					}.AsReadOnly()
 				},
 				{

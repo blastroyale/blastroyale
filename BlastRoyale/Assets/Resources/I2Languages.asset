@@ -16390,6 +16390,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/FestiveSNOWFLAKE
+      TermType: 0
+      Description: 
+      Languages:
+      - SNOWFLAKE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/EventTicket
+      TermType: 0
+      Description: 
+      Languages:
+      - EVENT TICKET
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Philadelphia
       TermType: 0
       Description: 
@@ -30215,6 +30237,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStore/notification_product_cooldown
+      TermType: 0
+      Description: 
+      Languages:
+      - Heya! Hold on before buying this item again!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/notification_product_maxamount
+      TermType: 0
+      Description: 
+      Languages:
+      - You've already hit the maximum amount for this item!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSwipeTransition/lets_blast
       TermType: 0
       Description: 
@@ -31454,7 +31498,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1732112667336
+    Google_LastUpdatedVersion: 1732268458249
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

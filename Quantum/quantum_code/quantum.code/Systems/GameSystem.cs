@@ -68,6 +68,7 @@ namespace Quantum.Systems
 						f.ServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
 					}
 				}
+
 				f.Events.OnGameEnded(); // If its not success the end flow is handled by simulation destroyed in the client
 			}
 
@@ -141,19 +142,30 @@ namespace Quantum.Systems
 		private void AllPlayersJoined(Frame f, GameContainer* container)
 		{
 			f.Signals.AllPlayersJoined();
-			var teamCount = RefreshTotalTeamCount(f);
+			RefreshTotalTeamCount(f);
+			var teamCount = GetTeamsCount(f, !f.RuntimeConfig.MatchConfigs.DisableBots);
 			var hasEnoughTeams = teamCount > 1;
 			f.Events.OnAllPlayersJoined(!hasEnoughTeams);
-			if (!hasEnoughTeams)
-			{
-				f.Signals.GameEnded(false);
-				return;
-			}
-
 			container->IsGameStarted = true;
+			if (hasEnoughTeams) return;
+
+			f.Signals.GameEnded(false);
 		}
 
-		private int RefreshTotalTeamCount(Frame f)
+		private int GetTeamsCount(Frame f, bool countBots)
+		{
+			var teams = new HashSet<int>();
+
+			foreach (var (_, pc) in f.Unsafe.GetComponentBlockIterator<PlayerCharacter>())
+			{
+				if (!pc->RealPlayer && !countBots) continue;
+				teams.Add(pc->TeamId);
+			}
+
+			return teams.Count;
+		}
+
+		private void RefreshTotalTeamCount(Frame f)
 		{
 			var teams = new HashSet<int>();
 
@@ -166,7 +178,6 @@ namespace Quantum.Systems
 
 			// The target of the game is that all teams die but one (ourselves)
 			container->TargetProgress = (uint)teams.Count - 1;
-			return teams.Count;
 		}
 	}
 }

@@ -133,9 +133,18 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
+
 			// Don't do anything when skydiving
 			if (filter.PlayerCharacter->IsSkydiving(f, filter.Entity))
 			{
+				return;
+			}
+
+			// This is a dirty dirty hack for removing bots from a match, if we don't spawn them there is missing data for players
+			// and the game starts getting random exceptions, so we spawn the bots and then kill them
+			if (f.RuntimeConfig.MatchConfigs.DisableBots)
+			{
+				f.Unsafe.GetPointer<Stats>(filter.Entity)->Kill(f, filter.Entity);
 				return;
 			}
 
@@ -147,13 +156,15 @@ namespace Quantum.Systems.Bots
 				filter.StopAiming(f);
 			}
 
-			if (filter.BotCharacter->IsMoveSpeedReseted && f.Unsafe.GetPointer<Revivable>(filter.Entity)->RecoverMoveSpeedAfter < f.Time)
+			if (filter.BotCharacter->IsMoveSpeedReseted &&
+				f.Unsafe.GetPointer<Revivable>(filter.Entity)->RecoverMoveSpeedAfter < f.Time)
 			{
 				filter.StopAiming(f);
 				filter.BotCharacter->IsMoveSpeedReseted = false;
 			}
 
-			bool canFight = filter.BotCharacter->WillFightInZone || BotState.IsPositionSafe(botCtx, filter, filter.Transform->Position);
+			bool canFight = filter.BotCharacter->WillFightInZone ||
+				BotState.IsPositionSafe(botCtx, filter, filter.Transform->Position);
 			if (filter.BotCharacter->Target.IsValid && !canFight)
 			{
 				BotLogger.LogAction(f, filter.Entity, "stop fighthing taking damage from circle");
@@ -176,7 +187,8 @@ namespace Quantum.Systems.Bots
 			// Bots look for others to shoot at not on every frame
 			// It only does that when it does not have a target as thats costly on CPU
 			// it can change targets if it gets damaged by another player closer to the bot
-			if (!filter.BotCharacter->Target.IsValid && f.Time > filter.BotCharacter->NextLookForTargetsToShootAtTime && canFight)
+			if (!filter.BotCharacter->Target.IsValid && f.Time > filter.BotCharacter->NextLookForTargetsToShootAtTime &&
+				canFight)
 			{
 				filter.FindEnemiesToShootAt(f);
 			}
@@ -207,7 +219,8 @@ namespace Quantum.Systems.Bots
 		public void OnNavMeshWaypointReached(Frame f, EntityRef entity, FPVector3 waypoint,
 											 Navigation.WaypointFlag waypointFlags, ref bool resetAgent)
 		{
-			BotLogger.LogAction(f, entity, $"Navmesh path ({(waypointFlags.HasFlag(Navigation.WaypointFlag.Target) ? "target" : "")}) reached");
+			BotLogger.LogAction(f, entity,
+				$"Navmesh path ({(waypointFlags.HasFlag(Navigation.WaypointFlag.Target) ? "target" : "")}) reached");
 
 			if (!f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot)) return;
 
@@ -338,7 +351,8 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
-			_battleRoyaleBot.CheckOnTeammates(f, f.Unsafe.GetPointer<Transform2D>(knockedOutEntity), f.Unsafe.GetPointer<TeamMember>(knockedOutEntity), bot, true);
+			_battleRoyaleBot.CheckOnTeammates(f, f.Unsafe.GetPointer<Transform2D>(knockedOutEntity),
+				f.Unsafe.GetPointer<TeamMember>(knockedOutEntity), bot, true);
 			// Stop bot path because it will change it speed and behaviour
 			BotShooting.StopAiming(f, bot, knockedOutEntity);
 			BotLogger.LogAction(f, knockedOutEntity, "stop movement knocked out");
@@ -367,7 +381,8 @@ namespace Quantum.Systems.Bots
 			foreach (var teamMemberEntity in f.ResolveHashSet(teamMember->TeamMates))
 			{
 				// If my team mate is a bot
-				if (knockedOutEntity.IsValid && f.Unsafe.TryGetPointer<BotCharacter>(teamMemberEntity, out var teamMateBot))
+				if (knockedOutEntity.IsValid &&
+					f.Unsafe.TryGetPointer<BotCharacter>(teamMemberEntity, out var teamMateBot))
 				{
 					if (!ReviveSystem.IsKnockedOut(f, teamMemberEntity))
 					{

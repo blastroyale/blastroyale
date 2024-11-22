@@ -51,8 +51,6 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
-			if (f.RuntimeConfig.MatchConfigs.DisableBots) return;
-
 			AddFasterBotAgent(f, f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id));
 			AddBotBehaviourToPlayers(f, baseTrophiesAmount);
 
@@ -63,7 +61,6 @@ namespace Quantum.Systems.Bots
 
 			var playerLimit = f.PlayerCount;
 			var botIds = new List<PlayerRef>();
-
 			var maxPlayers = f.Context.MapConfig.MaxPlayers;
 			if (playerLimit == 1 && maxPlayers > 1) // offline game with bots
 			{
@@ -73,11 +70,12 @@ namespace Quantum.Systems.Bots
 			for (var i = 0; i < playerLimit; i++)
 			{
 				if (i >= f.PlayerCount || (f.GetPlayerInputFlags(i) & DeterministicInputFlags.PlayerNotPresent) ==
-					DeterministicInputFlags.PlayerNotPresent)
+					DeterministicInputFlags.PlayerNotPresent || f.GetPlayerData(i) == null)
 				{
 					botIds.Add(i);
 				}
 			}
+
 
 			if (botIds.Count != playerLimit)
 			{
@@ -454,7 +452,7 @@ namespace Quantum.Systems.Bots
 		{
 			if (frame.GetTeamSize() == 1)
 			{
-				return bot;
+				return Constants.TEAM_ID_START_BOT_PARTIES + bot;
 			}
 
 			var @override = frame.Context.GameModeConfig.BotsTeamOverride;
@@ -472,7 +470,7 @@ namespace Quantum.Systems.Bots
 				}
 			}
 
-			return bot;
+			return Constants.TEAM_ID_START_BOT_PARTIES + bot;
 		}
 
 		private List<EntityComponentPointerPair<PlayerSpawner>> GetFreeSpawnPoints(Frame f)
@@ -496,7 +494,8 @@ namespace Quantum.Systems.Bots
 
 		private int GetSpawnPointForBot(Frame f, BotSetupContext ctx, ref QuantumBotConfig botConfig, int teamId)
 		{
-			if (GetSpecificSpawn(f, ctx, ref botConfig, SpawnerType.BotOfType, out var specificSpawnPoint)) return specificSpawnPoint;
+			if (GetSpecificSpawn(f, ctx, ref botConfig, SpawnerType.BotOfType, out var specificSpawnPoint))
+				return specificSpawnPoint;
 			if (GetSpecificSpawn(f, ctx, ref botConfig, SpawnerType.AnyBot, out var anyBotSpawn)) return anyBotSpawn;
 
 			if (GetSpawnClosestToTeam(f, ctx, teamId, out var spawnPointForBot)) return spawnPointForBot;
@@ -515,7 +514,8 @@ namespace Quantum.Systems.Bots
 			for (var i = 0; i < ctx.AvailableSpawners.Count; i++)
 			{
 				var playerSpawner = ctx.AvailableSpawners[i].Component;
-				if (type == SpawnerType.BotOfType && playerSpawner->SpawnerType == SpawnerType.BotOfType && playerSpawner->BehaviourType == botType)
+				if (type == SpawnerType.BotOfType && playerSpawner->SpawnerType == SpawnerType.BotOfType &&
+					playerSpawner->BehaviourType == botType)
 				{
 					specificSpawnPoints.Add(i);
 				}

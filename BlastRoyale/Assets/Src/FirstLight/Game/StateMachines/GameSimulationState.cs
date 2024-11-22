@@ -379,6 +379,12 @@ namespace FirstLight.Game.StateMachines
 			{
 				return false;
 			}
+			
+			// Waiting specific system initializations until we update photon 2.1.9
+			if (!game.Frames.Verified.Unsafe.TryGetPointerSingleton<ShrinkingCircle>(out var circle))
+			{
+				return false;
+			}
 
 			return true;
 		}

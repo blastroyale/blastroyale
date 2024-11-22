@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["straight_road_thin"],"padding":[80],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["straight_road_thin"],"padding":[96],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

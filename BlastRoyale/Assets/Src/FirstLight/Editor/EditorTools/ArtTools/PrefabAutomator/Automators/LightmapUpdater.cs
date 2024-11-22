@@ -27,16 +27,24 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 		{
 			var renderers = o.GetComponentsInChildren<MeshRenderer>(true);
 			if (renderers == null || renderers.Length == 0) return false;
-
+		
 			var flags = GameObjectUtility.GetStaticEditorFlags(o);
 			if (ReceiveShadows) flags |= StaticEditorFlags.ContributeGI;
 			else flags &= ~StaticEditorFlags.ContributeGI;
-			GameObjectUtility.SetStaticEditorFlags(o, StaticEditorFlags.ContributeGI);
+			GameObjectUtility.SetStaticEditorFlags(o, flags);
 			
 			foreach (var renderer in renderers)
 			{
 				renderer.shadowCastingMode = CastShadows ? ShadowCastingMode.On : ShadowCastingMode.Off;
 				renderer.receiveGI = ReceiveGI.Lightmaps;
+				if (!ReceiveShadows)
+				{
+					renderer.scaleInLightmap = 0;
+				}
+				else
+				{
+					renderer.scaleInLightmap = 1;
+				}
 			}
 			return true;
 		}

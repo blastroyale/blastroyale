@@ -235,7 +235,9 @@ namespace FirstLight.Game.Utils
 				GameId.PartnerXBORG,
 				GameId.PartnerBREED,
 				GameId.PartnerMEME,
-				GameId.PartnerYGG
+				GameId.PartnerYGG,
+				GameId.FestiveSNOWFLAKE,
+				GameId.EventTicket
 			};
 		}
 

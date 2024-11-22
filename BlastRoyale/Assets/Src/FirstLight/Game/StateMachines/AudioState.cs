@@ -789,6 +789,8 @@ namespace FirstLight.Game.StateMachines
 					case GameId.PartnerBREED:
 					case GameId.PartnerMEME:
 					case GameId.PartnerYGG:
+					case GameId.FestiveSNOWFLAKE:
+					case GameId.EventTicket:
 						audio = isLocal ? AudioId.NoobPickupLocal : AudioId.NoobPickup;
 						break;
 				}

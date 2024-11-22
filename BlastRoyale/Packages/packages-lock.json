@@ -32,11 +32,11 @@
       "dependencies": {}
     },
     "com.google.android.appbundle": {
-      "version": "https://github.com/pancake-llc/android-app-bundle.git#1.9.0",
-      "depth": 0,
-      "source": "git",
+      "version": "1.9.0",
+      "depth": 1,
+      "source": "registry",
       "dependencies": {},
-      "hash": "949f3b068fea450d96de8fc2a30def2d3de92315"
+      "url": "https://packages.unity.com"
     },
     "com.google.external-dependency-manager": {
       "version": "file:com.google.external-dependency-manager-1.2.179.tgz",

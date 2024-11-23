@@ -64,6 +64,8 @@ MonoBehaviour:
       UseRangedCam: 0
       AimDelayTime:
         RawValue: 32768
+      BurstGapTime:
+        RawValue: 0
     - Id: 87
       FiringMode: 0
       WeaponType: 3
@@ -108,6 +110,8 @@ MonoBehaviour:
       UseRangedCam: 1
       AimDelayTime:
         RawValue: 58982
+      BurstGapTime:
+        RawValue: 0
     - Id: 91
       FiringMode: 0
       WeaponType: 2
@@ -152,6 +156,8 @@ MonoBehaviour:
       UseRangedCam: 0
       AimDelayTime:
         RawValue: 22938
+      BurstGapTime:
+        RawValue: 0
     - Id: 90
       FiringMode: 0
       WeaponType: 9
@@ -196,6 +202,8 @@ MonoBehaviour:
       UseRangedCam: 0
       AimDelayTime:
         RawValue: 32768
+      BurstGapTime:
+        RawValue: 0
     - Id: 92
       FiringMode: 0
       WeaponType: 2
@@ -240,6 +248,8 @@ MonoBehaviour:
       UseRangedCam: 0
       AimDelayTime:
         RawValue: 32768
+      BurstGapTime:
+        RawValue: 0
     - Id: 94
       FiringMode: 0
       WeaponType: 2
@@ -284,6 +294,8 @@ MonoBehaviour:
       UseRangedCam: 1
       AimDelayTime:
         RawValue: 39322
+      BurstGapTime:
+        RawValue: 0
     - Id: 88
       FiringMode: 0
       WeaponType: 8
@@ -328,6 +340,8 @@ MonoBehaviour:
       UseRangedCam: 0
       AimDelayTime:
         RawValue: 19661
+      BurstGapTime:
+        RawValue: 0
     - Id: 93
       FiringMode: 0
       WeaponType: 4
@@ -372,6 +386,8 @@ MonoBehaviour:
       UseRangedCam: 1
       AimDelayTime:
         RawValue: 32768
+      BurstGapTime:
+        RawValue: 0
     - Id: 269
       FiringMode: 0
       WeaponType: 4
@@ -416,6 +432,8 @@ MonoBehaviour:
       UseRangedCam: 1
       AimDelayTime:
         RawValue: 32768
+      BurstGapTime:
+        RawValue: 0
     - Id: 270
       FiringMode: 0
       WeaponType: 2
@@ -443,7 +461,7 @@ MonoBehaviour:
         RawValue: 5964
       AttackHitSpeed:
         RawValue: 2293760
-      MinAttackAngle: 8
+      MinAttackAngle: 10
       NumberOfShots: 1
       NumberOfBursts: 3
       AttackRange:
@@ -460,3 +478,5 @@ MonoBehaviour:
       UseRangedCam: 0
       AimDelayTime:
         RawValue: 32768
+      BurstGapTime:
+        RawValue: 3604

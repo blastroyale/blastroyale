@@ -342,9 +342,8 @@ namespace Quantum
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
 
-			//the total time it takes for a burst to complete should be divded by the burst_interval_divider
-			//if we are only firing one shot, burst interval is 0
-			var burstCooldown = weaponConfig.NumberOfBursts > 1 ? weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER / (weaponConfig.NumberOfBursts - 1) : 0;
+			//If we are only firing one shot, burst interval is 0
+			var burstCooldown = weaponConfig.NumberOfBursts > 1 ? weaponConfig.BurstGapTime : 0;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.TapCooldown), weaponConfig.TapCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);

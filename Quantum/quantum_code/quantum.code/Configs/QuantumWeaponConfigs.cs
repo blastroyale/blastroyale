@@ -44,6 +44,7 @@ namespace Quantum
 		public FP InitialAttackRampUpTime;
 		public bool UseRangedCam;
 		public FP AimDelayTime;
+		public FP BurstGapTime;
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon

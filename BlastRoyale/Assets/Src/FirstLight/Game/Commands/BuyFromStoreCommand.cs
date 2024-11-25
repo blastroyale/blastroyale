@@ -1,15 +1,18 @@
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
 using FirstLight.Models;
 using FirstLight.Server.SDK.Modules.Commands;
-using Quantum;
 
 namespace FirstLight.Game.Commands
 {
 	public class BuyFromStoreCommand : IGameCommand
 	{
 		public string CatalogItemId;
+
+		public StoreItemData StoreItemData;
 		
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
@@ -19,7 +22,13 @@ namespace FirstLight.Game.Commands
 		{
 			var catalogItem = await ctx.Services.CatalogService().GetCatalogItem(CatalogItemId);
 			var storeSetup = await ctx.Services.StoreService().GetItemPrice(CatalogItemId);
-		
+
+			if (!ctx.Logic.PlayerStoreLogic().IsPurchasedAllowed(CatalogItemId, StoreItemData))
+			{
+				return;
+			}
+
+
 			foreach (var p in storeSetup.Price)
 			{
 				var id = PlayfabCurrencies.GetCurrency(p.Key);
@@ -28,6 +37,7 @@ namespace FirstLight.Game.Commands
 			}
 			
 			ctx.Logic.RewardLogic().Reward(new [] { catalogItem });
+			ctx.Logic.PlayerStoreLogic().UpdateLastPlayerPurchase(CatalogItemId, StoreItemData);
 			
 			var msg = new PurchaseClaimedMessage
 			{

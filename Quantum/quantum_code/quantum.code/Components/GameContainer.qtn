@@ -3,6 +3,7 @@ singleton component GameContainer
 	array<PlayerMatchData>[PLAYER_COUNT] PlayersData;
 	UInt32 CurrentProgress;
 	UInt32 TargetProgress;
+	bool IsGameFailed;
 	bool IsGameOver;
 	bool IsGameStarted;
 	FP GameOverTime;
@@ -11,4 +12,4 @@ singleton component GameContainer
 
 signal AllPlayersSpawned();
 signal AllPlayersJoined();
-signal GameEnded();
+signal GameEnded(bool Success);

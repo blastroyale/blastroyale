@@ -179,7 +179,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		///  Instantiates all possible indicators
 		/// </summary>
-		public async UniTaskVoid InstantiateAllIndicators()
+		public async UniTask InstantiateAllIndicators()
 		{
 			var loader = _services.AssetResolverService;
 

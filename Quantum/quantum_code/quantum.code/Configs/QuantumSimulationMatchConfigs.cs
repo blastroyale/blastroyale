@@ -143,6 +143,8 @@ namespace Quantum
 	[Serializable]
 	public class SimulationMatchConfig
 	{
+		public static byte Version = 4; // UsedImplicitly
+		
 		public string UniqueConfigId = "CHANGEMETOSOMETHINGUNIQUE";
 		[DefaultValue("BattleRoyale")] public string GameModeID = "BattleRoyale";
 		[DefaultValue("Any")] public string MapId = GameId.Any.ToString();
@@ -153,6 +155,7 @@ namespace Quantum
 		public GameModeReward[] WinRewardBonus;
 		public RewardModifier[] RewardModifiers;
 		public bool DisableBots;
+		public byte MinPlayersToStartMatch;
 		[DefaultValue(-1)] public int BotOverwriteDifficulty = -1;
 		[DefaultValue(0)] public int MaxPlayersOverwrite;
 		[DefaultValue(MatchType.Matchmaking)] public MatchType MatchType = MatchType.Matchmaking;
@@ -181,7 +184,7 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// If you change this need to bump version in MatchRoomSetup
+		/// If you change this need to bump version in the constant above
 		/// </summary>
 		public void Serialize(BitStream stream)
 		{
@@ -243,6 +246,7 @@ namespace Quantum
 				stream.Serialize(ref reward.Id);
 				stream.Serialize(ref reward.Amount);
 			}
+			stream.Serialize(ref MinPlayersToStartMatch);
 		}
 	}
 }

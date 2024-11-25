@@ -105,9 +105,6 @@ namespace FirstLight.Game.Services
 
 		public RateAndReviewService RateAndReviewService { get; }
 
-		/// <inheritdoc cref="IPlayfabPubSubService"/>
-		public IPlayfabPubSubService PlayfabPubSubService { get; }
-
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
 
@@ -178,7 +175,6 @@ namespace FirstLight.Game.Services
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
 		public RateAndReviewService RateAndReviewService { get; }
-		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
 		public ICollectionService CollectionService { get; }
@@ -239,7 +235,6 @@ namespace FirstLight.Game.Services
 			ThreadService = new ThreadService();
 			CoroutineService = new CoroutineService();
 			GuidService = new GuidService();
-			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService =
 				new GameBackendService(messageBrokerService, gameLogic, this, dataService, GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME);
 			ProfileService = new PlayerProfileService(GameBackendService);
@@ -249,23 +244,23 @@ namespace FirstLight.Game.Services
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService, gameLogic.RemoteConfigProvider);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
-			HomeScreenService = new HomeScreenService();
-			GameModeService = new GameModeService(gameLogic, CommandService, ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider,
-				LocalPrefsService, RemoteTextureService,
-				MessageBrokerService, HomeScreenService);
 			PoolService = new PoolService();
 			BuffService = new BuffService(this, gameLogic);
 			RewardService = new RewardService(this, gameLogic);
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);
 			ControlsSetup = new ControlSetupService();
+			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic,
+				LeaderboardService, InGameNotificationService);
+			HomeScreenService = new HomeScreenService(gameLogic, UIService, MessageBrokerService, RoomService, CommandService, GameBackendService,
+				GenericDialogService);
+			GameModeService = new GameModeService(gameLogic, CommandService, ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider,
+				LocalPrefsService, RemoteTextureService,
+				MessageBrokerService, HomeScreenService, RoomService, InGameNotificationService);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic, HomeScreenService);
-
-			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic,
-				LeaderboardService);
 			TutorialService = new TutorialService(RoomService, CommandService, ConfigsProvider, gameLogic);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);

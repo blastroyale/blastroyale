@@ -16130,7 +16130,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOOBS
+      - NOOB
       - 
       - 
       - 
@@ -16144,6 +16144,270 @@ MonoBehaviour:
       - NEW BR MAP
       - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
       - Novo mapa BR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerANCIENT8
+      TermType: 0
+      Description: 
+      Languages:
+      - ANCIENT8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerAPECOIN
+      TermType: 0
+      Description: 
+      Languages:
+      - APECOIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerAPECOIN_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - APECOINS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBEAM
+      TermType: 0
+      Description: 
+      Languages:
+      - BEAM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBEAM_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - BEAMS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBLOCKLORDS
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOCKLORDS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBLOODLOOP
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOODLOOP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerCROSSTHEAGES
+      TermType: 0
+      Description: 
+      Languages:
+      - CROSS THE AGES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerFARCANA
+      TermType: 0
+      Description: 
+      Languages:
+      - FARCANA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerGAM3SGG
+      TermType: 0
+      Description: 
+      Languages:
+      - GAM3S.GG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerIMMUTABLE
+      TermType: 0
+      Description: 
+      Languages:
+      - IMMUTABLE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerMOCAVERSE
+      TermType: 0
+      Description: 
+      Languages:
+      - MOCAVERSE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerNYANHEROES
+      TermType: 0
+      Description: 
+      Languages:
+      - NYAN HEROES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerPIRATENATION
+      TermType: 0
+      Description: 
+      Languages:
+      - PIRATE NATION
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerPIXELMON
+      TermType: 0
+      Description: 
+      Languages:
+      - PIXELMON
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerPLANETMOJO
+      TermType: 0
+      Description: 
+      Languages:
+      - PLANET MOJO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerSEEDIFY
+      TermType: 0
+      Description: 
+      Languages:
+      - SEEDIFY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerWILDERWORLD
+      TermType: 0
+      Description: 
+      Languages:
+      - WILDER WORLD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerXBORG
+      TermType: 0
+      Description: 
+      Languages:
+      - X.BORG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBREED
+      TermType: 0
+      Description: 
+      Languages:
+      - BREED
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerMEME
+      TermType: 0
+      Description: 
+      Languages:
+      - MEME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerYGG
+      TermType: 0
+      Description: 
+      Languages:
+      - YGG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveSNOWFLAKE
+      TermType: 0
+      Description: 
+      Languages:
+      - SNOWFLAKE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/EventTicket
+      TermType: 0
+      Description: 
+      Languages:
+      - EVENT TICKET
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -24996,6 +25260,53 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_noob_text
+      TermType: 0
+      Description: 
+      Languages:
+      - '<line-height=80%><size=48px><color=#F8C72E>\n\n\nEarn <sprite name="NOOBIcon">
+        <color=#09B3FF>NOOB</color> in events and special\ncontests</color></size>
+
+
+        <color=white><size=38px>
+
+        Join
+        our Discord for more information
+
+        or
+
+        Read a guide on how
+        to acquire NOOB
+
+        </color></size></line-height>'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_noob_discord_button
+      TermType: 0
+      Description: 
+      Languages:
+      - GO TO DISCORD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_noob_guide_button
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB GUIDE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITMatch/airdrop_landing
       TermType: 0
       Description: 
@@ -26967,6 +27278,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITGameModeSelection/participate_event_label
+      TermType: 0
+      Description: 
+      Languages:
+      - PARTICIPATE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/ticket_refunded_message
+      TermType: 0
+      Description: 
+      Languages:
+      - You got {0} {1} back from the event participation fee.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/blast_pass
       TermType: 0
       Description: 
@@ -28050,6 +28383,28 @@ MonoBehaviour:
       - WINS THE MATCH
       - "\u0412\u044B\u0438\u0433\u0440\u044B\u0432\u0430\u0435\u0442 \u043C\u0430\u0442\u0447"
       - Vence a partida
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/failed_to_find_players
+      TermType: 0
+      Description: 
+      Languages:
+      - Failed to find players, please try again.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/unknown_matchmaking_error
+      TermType: 0
+      Description: 
+      Languages:
+      - Unkown matchmaking error ocurred, please try again.
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -29882,6 +30237,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStore/notification_product_cooldown
+      TermType: 0
+      Description: 
+      Languages:
+      - Heya! Hold on before buying this item again!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/notification_product_maxamount
+      TermType: 0
+      Description: 
+      Languages:
+      - You've already hit the maximum amount for this item!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSwipeTransition/lets_blast
       TermType: 0
       Description: 
@@ -31121,7 +31498,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1731084132072
+    Google_LastUpdatedVersion: 1732268458249
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

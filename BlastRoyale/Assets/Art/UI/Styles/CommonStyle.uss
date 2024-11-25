@@ -1125,3 +1125,8 @@
     width: 64px;
     height: 64px;
 }
+
+.currency-display-space {
+    margin-right: 50px;
+    -unity-text-align: upper-left;
+}

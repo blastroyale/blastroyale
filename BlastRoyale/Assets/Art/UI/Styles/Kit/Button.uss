@@ -1,8 +1,10 @@
 ﻿.flg-btn {
 
 }
-.flg-btn-text{
+
+.flg-btn-text {
 }
+
 
 .flg-btn-icon {
     width: 56px;
@@ -13,8 +15,8 @@
 
 .flg-btn-long.flg-btn-solid {
     background-image: var(--sprite-kit__long-primary);
-    width: 306px;
-    height: 88px;
+    width: 378px;
+    height: 102px;
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -23,12 +25,10 @@
     font-size: 42px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 5px;
-    -unity-text-outline-color: rgb(157, 35, 11);
-    text-shadow: 4px 4px 0 rgb(157, 35, 10);
+    -unity-text-outline-color: #9C240C;
+    text-shadow: 4px 4px 0 #9C240C;
     padding: 0 0 7px;
     -unity-text-align: middle-center;
-    margin: 0;
-    margin-bottom: 0;
     overflow: visible;
     align-items: stretch;
     justify-content: center;
@@ -41,11 +41,32 @@
 
 .flg-btn-long.flg-btn-secondary {
     background-image: var(--sprite-kit__long-secondary);
-    -unity-text-outline-color: rgb(58, 13, 121);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: #3A0D79;
+    text-shadow: 3px 3px 0 #3A0D79;
 }
+
 .flg-btn-long.flg-btn-secondary:active {
     background-image: var(--sprite-kit__long-secondary-pressed);
+}
+
+.flg-btn-long.flg-btn-success {
+    background-image: var(--sprite-kit__long-success);
+    -unity-text-outline-color: #265A06;
+    text-shadow: 3px 3px 0 #265A06;
+}
+
+.flg-btn-long.flg-btn-success:active {
+    background-image: var(--sprite-kit__long-success-pressed);
+}
+
+.flg-btn-long.flg-btn-error {
+    background-image: var(--sprite-kit__long-error);
+    -unity-text-outline-color: #6A0B0B;
+    text-shadow: 3px 3px 0 #6A0B0B;
+}
+
+.flg-btn-long.flg-btn-error:active {
+    background-image: var(--sprite-kit__long-error-pressed);
 }
 
 
@@ -78,7 +99,7 @@
     transition: all 0.1s;
 }
 
-.flg-btn-primary {
-    /*Only one color so far so ignore it*/
+.flg-btn-default-gap {
+    margin-left: 37px;
 }
 

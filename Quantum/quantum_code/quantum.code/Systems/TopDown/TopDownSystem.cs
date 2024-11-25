@@ -19,7 +19,7 @@ namespace Quantum
 		}
 
 
-		public void GameEnded(Frame f)
+		public void GameEnded(Frame f, QBoolean _)
 		{
 			foreach (var livingPlayer in f.GetComponentIterator<TopDownController>())
 			{

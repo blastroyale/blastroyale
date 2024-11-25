@@ -444,16 +444,16 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				HandleLobbyError(e, "Could not create party");
+				HandleLobbyError(e, "Could not create team", "team");
 			}
 		}
 
-		private void HandleLobbyError(LobbyServiceException e, string err)
+		private void HandleLobbyError(LobbyServiceException e, string err, string lobbyType)
 		{
 			if (!e.ShouldBeVisible()) return;
 
 			FLog.Warn(err, e);
-			_inGameNotificationService.QueueNotification($"{err}, {e.ParseError()}");
+			_inGameNotificationService.QueueNotification($"{err}, {e.ParseError(lobbyType)}");
 		}
 
 		public async UniTask JoinParty(string code)
@@ -478,7 +478,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				HandleLobbyError(e, "Could not join party");
+				HandleLobbyError(e, "Could not join team", "team");
 				FLog.Warn("Error joining party!", e);
 			}
 		}
@@ -601,7 +601,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				HandleLobbyError(e, "Could not update host");
+				HandleLobbyError(e, "Could not update host", "group");
 				return null;
 			}
 		}
@@ -624,7 +624,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				HandleLobbyError(e, "Could not update lobby");
+				HandleLobbyError(e, "Could not update lobby", "match");
 				return false;
 			}
 
@@ -903,7 +903,7 @@ namespace FirstLight.Game.Services
 				}
 				catch (LobbyServiceException e)
 				{
-					HandleLobbyError(e, "Could not update match settings");
+					HandleLobbyError(e, "Could not update match settings", "match");
 				}
 			});
 			return UniTask.FromResult(false);
@@ -931,7 +931,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				HandleLobbyError(e, "Could not update match room");
+				HandleLobbyError(e, "Could not update match room", "match");
 				return false;
 			}
 
@@ -965,7 +965,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				HandleLobbyError(e, "Could not kick player");
+				HandleLobbyError(e, "Could not kick player", "match");
 				return false;
 			}
 
@@ -996,7 +996,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (LobbyServiceException e)
 			{
-				HandleLobbyError(e, "Could not set spectate status");
+				HandleLobbyError(e, "Could not set spectate status", "match");
 				return false;
 			}
 		}

@@ -1,7 +1,6 @@
-using System;
 using System.Text.RegularExpressions;
 
-namespace Src.FirstLight.Game.Utils
+namespace FirstLight.Game.Utils
 {
 	public static class StringExtensions
 	{
@@ -18,5 +17,11 @@ namespace Src.FirstLight.Game.Utils
 		{
 			return "<line-height=" + value + ">" + s + "</line-height>";
 		}
+		
+		public static string WithFontSize(this string s, string value)
+		{
+			return "<size=" + value + ">" + s + "</size>";
+		}
+		
 	}
 }

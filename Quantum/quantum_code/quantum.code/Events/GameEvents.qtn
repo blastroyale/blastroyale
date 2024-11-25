@@ -1,6 +1,7 @@
 synced event OnAllPlayersJoined
 {
     UInt32 NumberOfPlayers;
+    bool GameFailed;
 }
 
 synced server event FireQuantumServerCommand 

@@ -90,9 +90,10 @@ namespace FirstLight.Game.Presenters
 			//Check if current ended match was an Event
 			if (matchConfig.MatchType == MatchType.Matchmaking)
 			{
-				var selectedGameMode = _gameServices.GameModeService.SelectedGameMode.Value.Entry;
 
-				if (selectedGameMode is EventGameModeEntry ev && selectedGameMode.MatchConfig.UniqueConfigId == matchConfig.UniqueConfigId)
+				var gameMode = _gameServices.GameModeService.GetGameModeInfo(matchConfig.UniqueConfigId, false);
+
+				if (gameMode is EventGameModeEntry ev)
 				{
 					_header.SetSubtitle(ev.Title.GetText());
 					return;

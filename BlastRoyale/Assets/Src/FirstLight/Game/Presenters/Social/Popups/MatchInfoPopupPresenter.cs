@@ -9,6 +9,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.UIElements.Kit;
 using FirstLight.Game.Utils;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
@@ -21,19 +22,25 @@ namespace FirstLight.Game.Views.UITK.Popups
 	/// <summary>
 	/// Shows the details of a match / event.
 	/// </summary>
-	public class MatchInfoPopupView : UIView
+	[UILayer(UILayer.Popup)]
+	public class MatchInfoPopupPresenter : UIPresenterData<MatchInfoPopupPresenter.StateData>
 	{
+		public class StateData
+		{
+			public SimulationMatchConfig MatchSettings;
+			public GameModeInfo EntryInfo;
+			public List<string> FriendsPlaying;
+			public Action ClickAction;
+			public string ButtonText;
+			public string AboveTextButton;
+			public EventGameModeEntry EventInfo => EntryInfo.Entry as EventGameModeEntry;
+		}
+
 		private const string USS_EVENT = "content--event";
+		private const string USS_EVENT_PAID = "content--event--paid";
 		private const string USS_CUSTOM = "content--custom";
 		private const string USS_REWARD_ITEM = "event-reward";
 		private const string USS_BPP_XP_SPRITE = "sprite-shared__icon-bpp-xp";
-		private readonly SimulationMatchConfig _matchSettings;
-		private readonly GameModeInfo _entryInfo;
-		private readonly List<string> _friendsPlaying;
-		private readonly Action _clickAction;
-		private string _buttonText;
-		
-		private EventGameModeEntry _eventEntry => (EventGameModeEntry) _entryInfo.Entry;
 
 		[Q("EventTitle")] private Label _eventTitle;
 		[Q("EventTimer")] private Label _eventTimer;
@@ -53,55 +60,70 @@ namespace FirstLight.Game.Views.UITK.Popups
 		[Q("AllowedWeaponsContainer")] private VisualElement _allowedWeaponsContainer;
 		[Q("AllowedWeaponsScroll")] private ScrollView _allowedWeapons;
 		[Q("CustomThumbnail")] private VisualElement _customThumbnail;
+		[Q("AboveButtonLabel")] private Label _aboveButtonLabel;
+		[Q("Popup")] private GenericPopupElement _popup;
+		[Q("Blocker")] private ImageButton _blocker;
+		[Q("Content")] private VisualElement _content;
+		[QView("TopCurrenciesBar")] private CurrencyTopBarView _currencyTopBarView;
 
-		public MatchInfoPopupView(GameModeInfo info,string buttonText, Action selectAction)
+		protected override void QueryElements()
 		{
-			_clickAction = selectAction;
-			_matchSettings = info.Entry.MatchConfig;
-			_entryInfo = info;
-			_buttonText = buttonText;
 		}
 
-		public MatchInfoPopupView(SimulationMatchConfig matchSettings, List<string> friendsPlaying, Action selectAction)
+		public void Close()
 		{
-			_matchSettings = matchSettings;
-			_friendsPlaying = friendsPlaying;
-			_clickAction = selectAction;
+			// We need a way for the screen to close itself
+			MainInstaller.ResolveServices().UIService.CloseScreen<MatchInfoPopupPresenter>().Forget();
 		}
 
-		public bool IsEvent()
+		protected override UniTask OnScreenOpen(bool reload)
 		{
-			return _matchSettings.MatchType == MatchType.Matchmaking;
-		}
+			_popup.CloseClicked += Close;
 
-		protected override void Attached()
-		{
-			Element.RemoveModifiers();
-			Element.EnableInClassList(USS_EVENT, _matchSettings.MatchType == MatchType.Matchmaking);
-			Element.EnableInClassList(USS_CUSTOM, _matchSettings.MatchType == MatchType.Custom);
+			_blocker.clicked += Close;
+
+			_popup.EnablePadding(false)
+				.SetGlowEffect(Data.MatchSettings.MatchType == MatchType.Matchmaking);
+			_popup.LocalizeTitle(Data.MatchSettings.MatchType == MatchType.Custom
+				? ScriptTerms.UITCustomGames.match_info
+				: ScriptTerms.UITGameModeSelection.event_info_popup_title);
+			_content.RemoveModifiers();
+			_content.EnableInClassList(USS_EVENT, Data.MatchSettings.MatchType == MatchType.Matchmaking);
+			_content.EnableInClassList(USS_EVENT_PAID, Data.MatchSettings.MatchType == MatchType.Matchmaking && Data.EventInfo.IsPaid);
+			_content.EnableInClassList(USS_CUSTOM, Data.MatchSettings.MatchType == MatchType.Custom);
+			if (!string.IsNullOrWhiteSpace(Data.AboveTextButton))
+			{
+				_aboveButtonLabel.text = Data.AboveTextButton;
+			}
+			else
+			{
+				_aboveButtonLabel.SetDisplay(false);
+			}
+
 			SetupMatchValues();
-			_actionButton.clicked += _clickAction;
-			if (_matchSettings.MatchType == MatchType.Custom)
+			_actionButton.clicked += Data.ClickAction;
+			if (Data.MatchSettings.MatchType == MatchType.Custom)
 			{
 				SetupCustom();
-				return;
+				return UniTask.CompletedTask;
 			}
 
 			SetupEvent();
+			return UniTask.CompletedTask;
 		}
 
 		private void SetupMatchValues()
 		{
-			_mode.SetValue(_matchSettings.GameModeID);
+			_mode.SetValue(Data.MatchSettings.GameModeID);
 			_mode.SetEnabled(false);
-			_teamSize.SetValue(_matchSettings.TeamSize.ToString());
+			_teamSize.SetValue(Data.MatchSettings.TeamSize.ToString());
 			_teamSize.SetEnabled(false);
-			GameId.TryParse<GameId>(_matchSettings.MapId, out var mapId);
+			GameId.TryParse<GameId>(Data.MatchSettings.MapId, out var mapId);
 			_map.SetValue(mapId.GetLocalization());
 			_map.SetEnabled(false);
-			_maxPlayers.SetValue(_matchSettings.GetMaxPlayers().ToString());
+			_maxPlayers.SetValue(Data.MatchSettings.GetMaxPlayers().ToString());
 			_maxPlayers.SetEnabled(false);
-			var mutators = _matchSettings.Mutators.GetSetFlags();
+			var mutators = Data.MatchSettings.Mutators.GetSetFlags();
 			_mutatorsScroll.Clear();
 			_mutatorsContainer.SetDisplay(mutators.Length > 0);
 
@@ -110,7 +132,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 				var mutatorLabel = new LocalizedLabel(mutator.GetLocalizationKey());
 				mutatorLabel.RegisterCallback<ClickEvent>((ev) =>
 				{
-					mutatorLabel.OpenTooltip(Element.panel.visualTree,
+					mutatorLabel.OpenTooltip(_content.panel.visualTree,
 						LocalizationManager.GetTranslation(mutator.GetDescriptionLocalizationKey()),
 						position: TooltipPosition.Top,
 						maxWidth: 350);
@@ -119,7 +141,7 @@ namespace FirstLight.Game.Views.UITK.Popups
 				_mutatorsScroll.Add(mutatorLabel);
 			}
 
-			var weaponFilter = _matchSettings.WeaponsSelectionOverwrite;
+			var weaponFilter = Data.MatchSettings.WeaponsSelectionOverwrite;
 			_allowedWeapons.Clear();
 			_allowedWeaponsContainer.SetDisplay(weaponFilter.Length > 0);
 			foreach (var weapon in weaponFilter)
@@ -130,15 +152,15 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		private void CheckCustomImage()
 		{
-			var url = _eventEntry.ImageURL;
+			var url = Data.EventInfo.ImageURL;
 			if (string.IsNullOrWhiteSpace(url))
 			{
 				return;
 			}
 
 			var request = MainInstaller.ResolveServices().RemoteTextureService
-				.RequestTexture(url, cancellationToken: Presenter.GetCancellationTokenOnClose());
-			Element.AddToClassList("event-container--custom-image");
+				.RequestTexture(url, cancellationToken: GetCancellationTokenOnClose());
+			_content.AddToClassList("event-container--custom-image");
 			_eventImage.ListenOnce<GeometryChangedEvent>(() =>
 			{
 				SetTexture(request).Forget();
@@ -160,13 +182,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 		private void SetupEvent()
 		{
-			_eventTimer.SetTimer(() => _entryInfo.Duration.GetEndsAtDateTime(), "ENDS IN ");
-			_eventTitle.text = _entryInfo.Entry.Title.GetText();
-			_summary.text = _entryInfo.Entry.LongDescription.GetText();
+			_eventTimer.SetTimer(() => Data.EntryInfo.Duration.GetEndsAtDateTime(), "ENDS IN ");
+			_eventTitle.text = Data.EntryInfo.Entry.Title.GetText();
+			_summary.text = Data.EntryInfo.Entry.LongDescription.GetText();
 
-			if (_buttonText != null)
+			if (Data.ButtonText != null)
 			{
-				_actionButton.BtnText = _buttonText;
+				_actionButton.BtnText = Data.ButtonText;
 			}
 			else
 			{
@@ -176,13 +198,13 @@ namespace FirstLight.Game.Views.UITK.Popups
 
 			CheckCustomImage();
 			_rewardList.Clear();
-			foreach (var mod in _matchSettings.RewardModifiers)
+			foreach (var mod in Data.MatchSettings.RewardModifiers)
 			{
 				if (mod.CollectedInsideGame) continue;
 				AddEventReward(mod.Id, $"x{mod.Multiplier.AsFloat:0.##}", true);
 			}
 
-			foreach (var gameId in _matchSettings.MetaItemDropOverwrites.Select(a => a.Id).Distinct())
+			foreach (var gameId in Data.MatchSettings.MetaItemDropOverwrites.Select(a => a.Id).Distinct())
 			{
 				if (RewardLogic.TryGetRewardCurrencyGroupId(gameId, out var _))
 				{
@@ -193,6 +215,12 @@ namespace FirstLight.Game.Views.UITK.Popups
 			}
 
 			_rewardList.EnableInClassList("rewards-list-container--single-line", _rewardList.childCount <= 3);
+			if (Data.EventInfo.IsPaid)
+			{
+				_currencyTopBarView.Configure(
+					_actionButton,
+					new List<GameId>() {Data.EventInfo.PriceToJoin.RewardId});
+			}
 		}
 
 		private void AddEventReward(GameId id, string text, bool modifier)
@@ -220,16 +248,17 @@ namespace FirstLight.Game.Views.UITK.Popups
 		{
 			_summary.SetDisplay(false);
 
-			_friendsTitle.SetVisibility(_friendsPlaying.Count > 0);
+			_actionButton.BtnText = ScriptLocalization.UITCustomGames.join;
+			_friendsTitle.SetVisibility(Data.FriendsPlaying.Count > 0);
 			_friendsInMatchScrollView.Clear();
 
-			foreach (var friend in _friendsPlaying)
+			foreach (var friend in Data.FriendsPlaying)
 			{
 				_friendsInMatchScrollView.Add(new Label(friend));
 			}
 
 			_customThumbnail.RemoveSpriteClasses();
-			switch (_matchSettings.TeamSize)
+			switch (Data.MatchSettings.TeamSize)
 			{
 				case 1:
 					_customThumbnail.AddToClassList("sprite-home__icon-match-solos");

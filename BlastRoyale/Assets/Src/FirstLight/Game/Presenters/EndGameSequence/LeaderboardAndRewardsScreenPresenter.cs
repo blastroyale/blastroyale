@@ -349,6 +349,10 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var playerEntry in entries)
 			{
+				if (!playerEntry.Data.Player.IsValid)
+				{
+					continue;
+				}
 				var borderColor =
 					_gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) playerEntry.LeaderboardRank);
 

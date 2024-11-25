@@ -13,7 +13,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	public class MainMenuCharacterMonoComponent : BaseCharacterMonoComponent
 	{
 		private IGameDataProvider _gameDataProvider;
-		
+
 		// private static bool _animationPlayed = false; // Hacky but this will be refactored
 
 		protected override void Awake()
@@ -36,7 +36,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_gameDataProvider?.EquipmentDataProvider?.Loadout?.StopObservingAll(this);
 		}
-
 
 		private void OnDataReinitializedMessage(DataReinitializedMessage obj)
 		{

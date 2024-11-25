@@ -80,7 +80,7 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 
-			simulationInitializationError.Transition().OnTransition(() => _ = MatchError()).Target(final);
+			simulationInitializationError.Transition().OnTransition(MatchError).Target(final);
 
 			stopSimulationForDisconnection.OnEnter(StopSimulation);
 			stopSimulationForDisconnection.Event(NetworkState.JoinedRoomEvent).OnTransition(UnloadSimulation).Target(startSimulation);
@@ -113,6 +113,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnGameDestroyed);
+			QuantumCallback.SubscribeManual<CallbackPluginDisconnect>(this, OnPluginDisconnected);
 		}
 
 		private void UnsubscribeEvents()
@@ -138,6 +139,22 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Verbose("Game Destroyed");
 			_statechartTrigger(SimulationDestroyedEvent);
+		}
+
+		private void OnPluginDisconnected(CallbackPluginDisconnect callback)
+		{
+			if (callback.Reason == GameConstants.QuantumPluginDisconnectReasons.NOT_ENOUGH_PLAYERS)
+			{
+				_services.InGameNotificationService.QueueNotification(
+					ScriptLocalization.UITMatchmaking.failed_to_find_players,
+					InGameNotificationStyle.Error,
+					InGameNotificationDuration.Long);
+			}
+
+			_services.MessageBrokerService.Publish(new QuantumServerSimulationDisconnectedMessage()
+			{
+				Reason = callback.Reason
+			});
 		}
 
 		private async UniTask WaitForCameraOnPlayer()
@@ -187,7 +204,7 @@ namespace FirstLight.Game.StateMachines
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
 			if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
-			
+
 			var f = game.Frames.Verified;
 			var entityRef = game.GetLocalPlayerEntityRef();
 			if (f != null && entityRef.IsValid && f.TryGet<PlayerCharacter>(entityRef, out var pc))
@@ -206,6 +223,12 @@ namespace FirstLight.Game.StateMachines
 			// paused on Start means waiting for Snapshot
 			if (callback.Game.Session.IsPaused)
 			{
+				return;
+			}
+
+			if (callback.GameFailed)
+			{
+				StopSimulation();
 				return;
 			}
 
@@ -255,15 +278,15 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(MatchState.MatchQuitEvent);
 		}
 
-		private async UniTask MatchError()
+		private void MatchError()
 		{
+			MatchState.SharedData.Simulation = MatchState.Data.SimulationResult.Error;
 			FLog.Verbose("Raising Match Error");
-			await UniTask.NextFrame(); // to avoid state machine fork https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
-			_statechartTrigger(MatchState.MatchErrorEvent);
 		}
 
 		private void StartSimulation()
 		{
+			MatchState.SharedData.Simulation = MatchState.Data.SimulationResult.Success;
 			Assert.IsNull(QuantumRunner.Default, "Simulation already running");
 
 			FLog.Info($"Starting simulation from source {_services.NetworkService.JoinSource.ToString()}");
@@ -356,6 +379,12 @@ namespace FirstLight.Game.StateMachines
 			{
 				return false;
 			}
+			
+			// Waiting specific system initializations until we update photon 2.1.9
+			if (!game.Frames.Verified.Unsafe.TryGetPointerSingleton<ShrinkingCircle>(out var circle))
+			{
+				return false;
+			}
 
 			return true;
 		}
@@ -381,6 +410,14 @@ namespace FirstLight.Game.StateMachines
 			var useBotBehaviour = (FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour) ||
 				FeatureFlags.GetLocalConfiguration().UseBotBehaviour;
 
+#if UNITY_EDITOR || (DEVELOPMENT_BUILD && !DISABLE_SRDEBUGGER)
+
+			if (SROptions.Current.DontSendPlayerData)
+			{
+				FLog.Warn("Not sending runtime player data. This is a hack for the local player, not an exception!");
+				return;
+			}
+#endif
 			FLog.Info("Sending player runtime data");
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{

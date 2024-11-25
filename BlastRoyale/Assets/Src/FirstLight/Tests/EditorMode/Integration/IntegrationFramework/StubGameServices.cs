@@ -47,7 +47,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IMatchmakingService MatchmakingService { get; }
 		public virtual IIAPService IAPService { get; }
 		public RateAndReviewService RateAndReviewService { get; }
-		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
 		public ICollectionService CollectionService { get; }
@@ -110,16 +109,16 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			FLLobbyService = new StubFLLobbyService();
 			CoroutineService = new StubCoroutineService();
-			HomeScreenService = new HomeScreenService();
+			HomeScreenService = new HomeScreenService(gameLogic, UIService, MessageBrokerService, RoomService, CommandService, GameBackendService,
+				GenericDialogService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService, gameLogic.RemoteConfigProvider);
+			RoomService = Substitute.For<IRoomService>();
 			GameModeService = new GameModeService(gameLogic, CommandService, ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider,
 				LocalPrefsService, RemoteTextureService,
-				MessageBrokerService, HomeScreenService);
+				MessageBrokerService, HomeScreenService, RoomService, InGameNotificationService);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
-			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
-			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();
 			NewsService = Substitute.For<INewsService>();
 			BattlePassService = Substitute.For<IBattlePassService>();

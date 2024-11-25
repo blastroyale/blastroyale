@@ -191,3 +191,15 @@ MonoBehaviour:
         SpriteByMinAmount:
           _keyData: 
           _valueData: []
+    - Key: 271
+      Value:
+        DefaultSprite: sprite-currencies__festivesnowflake-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 272
+      Value:
+        DefaultSprite: sprite-currencies__eventticket-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []

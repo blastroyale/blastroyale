@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
@@ -91,9 +92,9 @@ namespace FirstLight.Game.UIElements
 			_avatarHolder.SetAvatar(loadSpriteTask.ContinueWith(sprite => sprite.texture)).Forget();
 		}
 
-		public void SetAvatar(string url)
+		public void SetAvatar(string url, CancellationToken  cancellationToken)
 		{
-			_avatarHolder.SetAvatar(url).Forget();
+			_avatarHolder.SetAvatar(url, cancellationToken).Forget();
 		}
 
 		public void SetVisibleStars(uint visibleStars)

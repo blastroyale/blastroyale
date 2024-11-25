@@ -64,7 +64,7 @@ namespace FirstLight.Game.Presenters
 			_reachLevelLabel.text = string.Format("REACH LEVEL <color=#f8c72e>{0}</color> TO GET NEXT REWARDS",
 				currentLevel + 1);
 			_avatar.SetLevel(currentLevel);
-			_avatar.SetAvatar(_dataProvider.CollectionDataProvider.GetEquippedAvatarUrl());
+			_avatar.SetAvatar(_dataProvider.CollectionDataProvider.GetEquippedAvatarUrl(), Presenter.GetCancellationTokenOnClose());
 		}
 
 

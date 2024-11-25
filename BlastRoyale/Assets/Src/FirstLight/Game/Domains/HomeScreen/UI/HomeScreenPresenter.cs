@@ -17,6 +17,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
+using FirstLight.Game.Views;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
@@ -45,7 +46,6 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 		{
 			public Action OnPlayButtonClicked;
 			public Action OnSettingsButtonClicked;
-			public Action OnLootButtonClicked;
 			public Action OnCollectionsClicked;
 			public Action OnProfileClicked;
 			public Action OnGameModeClicked;
@@ -53,10 +53,8 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			public Action OnBattlePassClicked;
 			public Action OnStoreClicked;
 			public Action OnMatchmakingCancelClicked;
-			public Action OnLevelUp;
 			public Action NewsClicked;
 			public Action FriendsClicked;
-			public Action<List<ItemData>> OnRewardsReceived;
 		}
 
 		private IGameDataProvider _dataProvider;
@@ -132,14 +130,10 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
-			Root.Q<CurrencyDisplayElement>("CoinCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
-			Root.Q<CurrencyDisplayElement>("BlastBuckCurrency")
-				.AttachView(this, out CurrencyDisplayView _)
-				.SetData(_playButton, cancellationToken: GetCancellationTokenOnClose());
-			Root.Q<CryptoCurrenciesDisplayElement>("CryptoCurrency")
-				.AttachView(this, out CryptoCurrenciesDisplayView _);
+			Root.Q<VisualElement>("TopCurrenciesBar")
+				.Required()
+				.AttachView(this, out CurrencyTopBarView currencyTopBar);
+			currencyTopBar.Configure(_playButton);
 
 			Root.Q<VisualElement>("PartyMemberNames").Required()
 				.AttachExistingView(this, _homePartyCharacterView);
@@ -215,7 +209,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
 			_betaLabel.SetDisplay(_dataProvider.RemoteConfigProvider.GetConfig<GeneralConfig>().ShowBetaLabel);
-			
+
 			RefreshOnlineFriends();
 			UpdatePFP();
 			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
@@ -227,10 +221,9 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyUpdate;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnPartyJoined;
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
-			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
-			
+
 			UpdatePlayButton();
 
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
@@ -247,10 +240,9 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 		{
 			var onlineFriendsCount = FriendsService.Instance.Friends.Count(f => f.IsOnline());
 			var hasPlayerOnline = onlineFriendsCount > 0;
-			
-			
-			_onlineFriendsNotification.SetDisplay( onlineFriendsCount > 0);
-			_onlineFriendLabel.text = onlineFriendsCount.ToString();	
+
+			_onlineFriendsNotification.SetDisplay(onlineFriendsCount > 0);
+			_onlineFriendLabel.text = onlineFriendsCount.ToString();
 		}
 
 		private void OnPartyLobbyUpdate(ILobbyChanges m)
@@ -262,7 +254,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 		{
 			RefreshOnlineFriends();
 		}
-		
+
 		protected override UniTask OnScreenClose()
 		{
 			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
@@ -321,19 +313,9 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			}
 		}
 
-		private void OnClaimedRewards(ClaimedRewardsMessage msg)
-		{
-			Data.OnRewardsReceived(msg.Rewards);
-		}
-
 		private void OnFameChanged(uint previous, uint current)
 		{
 			_avatar.SetLevel(current);
-
-			if (previous != current && previous > 0)
-			{
-				Data.OnLevelUp(); // TODO: This should be handled from the state machine
-			}
 
 			// TODO: Animate VFX when we have a progress bar: StartCoroutine(AnimateCurrency(GameId.Trophies, previous, current, _avatar));
 		}

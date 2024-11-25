@@ -66,7 +66,6 @@ namespace FirstLight.Game.Services
 			}
 
 			await _assetAdderService.LoadAllAssets<MaterialVfxId, Material>();
-			await _assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>();
 			await _services.AssetResolverService.RequestAsset<GameId, GameObject>(GameId.Hammer, true, false);
 
 			await LoadOptionalGroup<GameObject>(GameIdGroup.Collectable);

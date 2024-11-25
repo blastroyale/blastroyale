@@ -133,6 +133,11 @@ namespace FirstLight.Game.Logic
 		public bool UsedEventPass;
 
 		/// <summary>
+		/// If player got killed by being afk
+		/// </summary>
+		public bool KilledByBeingAFK;
+
+		/// <summary>
 		/// Contains all rewards obtained on the match
 		/// </summary>
 		public List<ItemData> FinalRewards { get; set; } = new ();
@@ -251,6 +256,12 @@ namespace FirstLight.Game.Logic
 				return false;
 			}
 
+			// Players trying to start paid events alone
+			if (source.MatchConfig.MinPlayersToStartMatch != usedConfig.MinPlayersToStartMatch)
+			{
+				return false;
+			}
+
 			return true;
 		}
 
@@ -283,7 +294,8 @@ namespace FirstLight.Game.Logic
 			}
 
 			var usedSimConfig = ValidMatchRewardConfigs().FirstOrDefault(valid => valid.UniqueConfigId == source.MatchConfig.UniqueConfigId);
-
+			result.SimulationConfigId = usedSimConfig?.UniqueConfigId;
+			result.KilledByBeingAFK = localMatchData.Data.KilledByBeingAFK;
 			if (!IsEventValid(source, usedSimConfig) || localMatchData.Data.KilledByBeingAFK)
 			{
 				return result;
@@ -294,7 +306,6 @@ namespace FirstLight.Game.Logic
 				return result;
 			}
 
-			result.SimulationConfigId = usedSimConfig.UniqueConfigId;
 			result.UsedEventPass = usedPass;
 
 			var teamSize = Math.Max(1, usedSimConfig.TeamSize);
@@ -346,7 +357,6 @@ namespace FirstLight.Game.Logic
 				return result;
 			}
 
-				
 			CalculateEventBonuses(result, source, localMatchData, usedSimConfig);
 			CalculateBPPReward(result, rewardConfig, usedSimConfig);
 			CalculateXPReward(result, rewardConfig, usedSimConfig);
@@ -472,7 +482,7 @@ namespace FirstLight.Game.Logic
 					throw new LogicException("Player trying to get event rewards without event pass!");
 				}
 			}
-			
+
 			RewardToUnclaimedRewards(rewards.FinalRewards);
 			return rewards;
 		}
@@ -549,11 +559,11 @@ namespace FirstLight.Game.Logic
 			return CreateItemFromConfig(config);
 		}
 
-		private void CalculateEventBonuses(MatchRewardsResult rewards, RewardSource source, QuantumPlayerMatchData data, 
-										 SimulationMatchConfig simulationMatchConfig)
+		private void CalculateEventBonuses(MatchRewardsResult rewards, RewardSource source, QuantumPlayerMatchData data,
+										   SimulationMatchConfig simulationMatchConfig)
 		{
 			if (simulationMatchConfig?.WinRewardBonus == null) return;
-			
+
 			foreach (var bonus in simulationMatchConfig.WinRewardBonus)
 			{
 				if (data.PlayerRank > bonus.MinPosition)
@@ -573,7 +583,7 @@ namespace FirstLight.Game.Logic
 				break;
 			}
 		}
-		
+
 		private void CalculateBPPReward(MatchRewardsResult rewards, MatchRewardConfig rewardConfig, SimulationMatchConfig simulationMatchConfig)
 		{
 			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))

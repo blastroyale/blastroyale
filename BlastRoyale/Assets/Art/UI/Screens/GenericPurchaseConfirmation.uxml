@@ -4,7 +4,7 @@
     <ui:VisualElement name="root" class="purchase-confirmation-root">
         <ui:Button name="BlockerButton" class="blocker" />
         <FirstLight.Game.UIElements.GenericPopupElement name="Popup" style="width: 1392px; height: 793px; flex-shrink: 0;">
-            <ui:VisualElement name="IconSetup" class="window__content window__content--purchase" style="padding-top: 49px; padding-right: 0; padding-bottom: 0; padding-left: 0; display: flex;">
+            <ui:VisualElement name="IconSetup" class="window__content window__content--purchase" style="padding-top: 49px; padding-right: 0; padding-bottom: 0; padding-left: 0; display: none;">
                 <ui:VisualElement name="ItemSlot" class="purchase-confirmation__item-slot" style="background-color: rgb(22, 20, 38);">
                     <ui:VisualElement name="ItemIcon" class="purchase-confirmation__item-icon" />
                     <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="1501" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemAmount" class="purchase-confirmation__amount" />
@@ -23,7 +23,7 @@
                     </FirstLight.Game.UIElements.ImageButton>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="TextSetup" class="window__content window__content--purchase" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; display: none;">
+            <ui:VisualElement name="TextSetup" class="window__content window__content--purchase" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; display: flex;">
                 <ui:VisualElement name="DescContainer" class="purchase-confirmation__desc-container" style="flex-grow: 1; justify-content: center; align-items: center;">
                     <FirstLight.Game.UIElements.LabelOutlined text="You are about to spend 21\n on event participation" name="TextContent" parse-escape-sequences="true" class="game-label" />
                 </ui:VisualElement>

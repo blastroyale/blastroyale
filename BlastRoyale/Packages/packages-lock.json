@@ -32,11 +32,11 @@
       "dependencies": {}
     },
     "com.google.android.appbundle": {
-      "version": "https://github.com/google-unity/android-app-bundle.git#1.9.0",
-      "depth": 0,
-      "source": "git",
+      "version": "1.9.0",
+      "depth": 1,
+      "source": "registry",
       "dependencies": {},
-      "hash": "949f3b068fea450d96de8fc2a30def2d3de92315"
+      "url": "https://packages.unity.com"
     },
     "com.google.external-dependency-manager": {
       "version": "file:com.google.external-dependency-manager-1.2.179.tgz",
@@ -61,7 +61,7 @@
       }
     },
     "com.google.play.common": {
-      "version": "https://github.com/google-unity/google-play-common.git#1.9.1",
+      "version": "https://github.com/pancake-llc/google-play-common.git#1.9.1",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -70,7 +70,7 @@
       "hash": "8f1d52237ff0a5577416f15983ac509aa36c4e18"
     },
     "com.google.play.core": {
-      "version": "https://github.com/google-unity/google-play-core.git#1.8.4",
+      "version": "https://github.com/pancake-llc/google-play-core.git#1.8.4",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -80,7 +80,7 @@
       "hash": "9d676fdea835d32484e18fdbc94d1598045f7407"
     },
     "com.google.play.review": {
-      "version": "https://github.com/google-unity/in-app-review.git#1.8.2",
+      "version": "https://github.com/pancake-llc/in-app-review.git#1.8.2",
       "depth": 0,
       "source": "git",
       "dependencies": {

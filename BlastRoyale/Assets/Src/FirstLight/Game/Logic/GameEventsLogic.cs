@@ -20,6 +20,7 @@ namespace FirstLight.Game.Logic
 	{
 		bool HasPass(string eventId);
 		bool HasAnyPass();
+		IReadOnlyList<string> GetPasses();
 	}
 
 	/// <summary>
@@ -29,7 +30,7 @@ namespace FirstLight.Game.Logic
 	{
 		void BuyEventPass(string eventId);
 		bool ConsumeEventPass(string eventId);
-		void RefundEventPasses();
+		List<ItemData> RefundEventPasses();
 	}
 
 	public class GameEventsLogic : AbstractBaseLogic<EventsData>, IGameEventsLogic
@@ -69,14 +70,17 @@ namespace FirstLight.Game.Logic
 			return Data.EventPassesWithPrice.Remove(eventId);
 		}
 
-		public void RefundEventPasses()
+		public List<ItemData> RefundEventPasses()
 		{
+			var refunded = new List<ItemData>();
 			foreach (var price in Data.EventPassesWithPrice.Values)
 			{
+				refunded.Add(ItemFactory.Legacy(price));
 				GameLogic.CurrencyLogic.AddCurrency(price.RewardId, (ulong) price.Value);
 			}
 
 			Data.EventPassesWithPrice.Clear();
+			return refunded;
 		}
 
 		public bool HasPass(string eventId)
@@ -87,6 +91,11 @@ namespace FirstLight.Game.Logic
 		public bool HasAnyPass()
 		{
 			return Data.EventPassesWithPrice.Count > 0;
+		}
+
+		public IReadOnlyList<string> GetPasses()
+		{
+			return Data.EventPassesWithPrice.Keys.ToList();
 		}
 	}
 }

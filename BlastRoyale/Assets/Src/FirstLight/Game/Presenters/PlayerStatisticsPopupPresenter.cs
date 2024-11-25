@@ -255,7 +255,7 @@ namespace FirstLight.Game.Presenters
 			SetStatInfo(6, result, GameConstants.Stats.RANKED_GUNS_COLLECTED_EVER, ScriptLocalization.MainMenu.RankedGunsCollected);
 			SetStatInfo(7, result, GameConstants.Stats.RANKED_PICKUPS_COLLECTED_EVER, ScriptLocalization.MainMenu.RankedPickupsCollected);
 
-			_pfpImage.SetAvatar(result.AvatarUrl);
+			_pfpImage.SetAvatar(result.AvatarUrl, GetCancellationTokenOnClose());
 			if (IsLocalPlayer)
 			{
 				_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);

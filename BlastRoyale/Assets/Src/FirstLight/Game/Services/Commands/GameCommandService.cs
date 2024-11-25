@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
@@ -19,6 +18,11 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="ICommandService{TGameLogic}.ExecuteCommand{TCommand}"/>
 		void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand;
+
+		/// <summary>
+		/// Executes a command and returns the result of it, only works with IGameCommandWithResult implementations
+		/// </summary>
+		T ExecuteCommandWithResult<T>(IGameCommandWithResult<T> command);
 	}
 
 	/// <inheritdoc />
@@ -31,7 +35,7 @@ namespace FirstLight.Game.Services
 		private CommandExecutionContext _commandContext;
 
 		public GameCommandService(IGameBackendService gameBackendService, IGameLogic gameLogic, IDataService dataService,
-			IGameServices services)
+								  IGameServices services)
 		{
 			_logic = gameLogic;
 			_dataService = dataService;
@@ -46,16 +50,21 @@ namespace FirstLight.Game.Services
 				_commandContext = new CommandExecutionContext(
 					new LogicContainer().Build(_logic), new ServiceContainer().Build(_services), _dataService);
 			}
+
 			return _commandContext;
 		}
-		
+
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
 		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
 #if UNITY_EDITOR
 			// Ensure we go trough serialization & deserialization process Editor
 			var serializedCommand = ModelSerializer.Serialize(command).Value;
-			command = (TCommand)ModelSerializer.Deserialize(command.GetType(), serializedCommand);
+			var tempCmd = (TCommand) ModelSerializer.Deserialize(command.GetType(), serializedCommand);
+			if (!command.GetType().IsImplementationOf(typeof(IGameCommandWithResult<>)))
+			{
+				command = tempCmd;
+			}
 #endif
 			try
 			{
@@ -73,7 +82,6 @@ namespace FirstLight.Game.Services
 						_serverCommandQueue.EnqueueCommand(command);
 						break;
 				}
-
 			}
 			catch (Exception e)
 			{
@@ -97,6 +105,12 @@ namespace FirstLight.Game.Services
 				NativeUiService.ShowAlertPopUp(false, title, e.Message, button);
 				throw;
 			}
+		}
+
+		public T ExecuteCommandWithResult<T>(IGameCommandWithResult<T> command)
+		{
+			ExecuteCommand(command);
+			return command.GetResult();
 		}
 
 		/// <summary>

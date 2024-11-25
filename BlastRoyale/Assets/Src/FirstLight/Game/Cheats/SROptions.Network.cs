@@ -16,6 +16,8 @@ public partial class SROptions
 
 	public bool IsMultiClient;
 
+	[Category("Quantum")] public bool DontSendPlayerData { get; set; }
+	
 	[Category("Photon")]
 	public void PrintCurrentServer()
 	{

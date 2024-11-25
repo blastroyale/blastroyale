@@ -60,27 +60,6 @@ namespace FirstLight.Game.Utils
 		private static Func<ExecuteFunctionRequest, UniTask<ExecuteFunctionResult>> ExecuteFunctionFunc { get; }
 			= Wrap<ExecuteFunctionRequest, ExecuteFunctionResult>(PlayFabCloudScriptAPI.ExecuteFunction);
 
-		private static Func<CreateMatchmakingTicketRequest, UniTask<CreateMatchmakingTicketResult>> CreateMatchmakingTicketFunc { get; }
-			= Wrap<CreateMatchmakingTicketRequest, CreateMatchmakingTicketResult>(PlayFabMultiplayerAPI.CreateMatchmakingTicket);
-
-		private static Func<JoinMatchmakingTicketRequest, UniTask<JoinMatchmakingTicketResult>> JoinMatchmakingTicketFunc { get; }
-			= Wrap<JoinMatchmakingTicketRequest, JoinMatchmakingTicketResult>(PlayFabMultiplayerAPI.JoinMatchmakingTicket);
-
-		private static Func<CancelAllMatchmakingTicketsForPlayerRequest, UniTask<CancelAllMatchmakingTicketsForPlayerResult>>
-			CancelAllMatchmakingTicketsForPlayerFunc { get; }
-			= Wrap<CancelAllMatchmakingTicketsForPlayerRequest, CancelAllMatchmakingTicketsForPlayerResult>(PlayFabMultiplayerAPI
-				.CancelAllMatchmakingTicketsForPlayer);
-
-		private static Func<GetMatchmakingTicketRequest, UniTask<GetMatchmakingTicketResult>>
-			GetMatchmakingTicketFunc { get; }
-			= Wrap<GetMatchmakingTicketRequest, GetMatchmakingTicketResult>(PlayFabMultiplayerAPI
-				.GetMatchmakingTicket);
-
-		private static Func<GetMatchRequest, UniTask<GetMatchResult>>
-			GetMatchFunc { get; }
-			= Wrap<GetMatchRequest, GetMatchResult>(PlayFabMultiplayerAPI
-				.GetMatch);
-
 		/// <inheritdoc cref="PlayFabClientAPI.UpdateUserTitleDisplayName"/>
 		public static UniTask<UpdateUserTitleDisplayNameResult> UpdateUserTitleDisplayName(UpdateUserTitleDisplayNameRequest req)
 		{
@@ -175,32 +154,68 @@ namespace FirstLight.Game.Utils
 			return SubscribeToLobbyResourceFunc(req);
 		}
 
-		public static UniTask<GetMatchResult> GetMatch(GetMatchRequest req)
+		public static class MultiplayerAPI
 		{
-			return GetMatchFunc(req);
+			private static Func<CreateMatchmakingTicketRequest, UniTask<CreateMatchmakingTicketResult>> CreateMatchmakingTicketFunc { get; }
+				= Wrap<CreateMatchmakingTicketRequest, CreateMatchmakingTicketResult>(PlayFabMultiplayerAPI.CreateMatchmakingTicket);
+
+			public static UniTask<CreateMatchmakingTicketResult> CreateMatchmakingTicket(
+				CreateMatchmakingTicketRequest req)
+			{
+				return CreateMatchmakingTicketFunc(req);
+			}
+
+			private static Func<JoinMatchmakingTicketRequest, UniTask<JoinMatchmakingTicketResult>> JoinMatchmakingTicketFunc { get; }
+				= Wrap<JoinMatchmakingTicketRequest, JoinMatchmakingTicketResult>(PlayFabMultiplayerAPI.JoinMatchmakingTicket);
+
+			private static Func<CancelAllMatchmakingTicketsForPlayerRequest, UniTask<CancelAllMatchmakingTicketsForPlayerResult>>
+				CancelAllMatchmakingTicketsForPlayerFunc { get; }
+				= Wrap<CancelAllMatchmakingTicketsForPlayerRequest, CancelAllMatchmakingTicketsForPlayerResult>(PlayFabMultiplayerAPI
+					.CancelAllMatchmakingTicketsForPlayer);
+
+			private static Func<GetMatchmakingTicketRequest, UniTask<GetMatchmakingTicketResult>>
+				GetMatchmakingTicketFunc { get; }
+				= Wrap<GetMatchmakingTicketRequest, GetMatchmakingTicketResult>(PlayFabMultiplayerAPI
+					.GetMatchmakingTicket);
+
+			private static Func<GetMatchRequest, UniTask<GetMatchResult>>
+				GetMatchFunc { get; }
+				= Wrap<GetMatchRequest, GetMatchResult>(PlayFabMultiplayerAPI
+					.GetMatch);
+
+			public static UniTask<GetMatchResult> GetMatch(GetMatchRequest req)
+			{
+				return GetMatchFunc(req);
+			}
+
+			public static UniTask<GetMatchmakingTicketResult> GetMatchmakingTicket(GetMatchmakingTicketRequest req)
+			{
+				return GetMatchmakingTicketFunc(req);
+			}
+
+			public static UniTask<CancelAllMatchmakingTicketsForPlayerResult> CancelAllMatchmakingTicketsForPlayer(
+				CancelAllMatchmakingTicketsForPlayerRequest req)
+			{
+				return CancelAllMatchmakingTicketsForPlayerFunc(req);
+			}
+
+			public static UniTask<JoinMatchmakingTicketResult> JoinMatchmakingTicket(
+				JoinMatchmakingTicketRequest req)
+			{
+				return JoinMatchmakingTicketFunc(req);
+			}
 		}
 
-		public static UniTask<GetMatchmakingTicketResult> GetMatchmakingTicket(GetMatchmakingTicketRequest req)
+		public static class ClientAPI
 		{
-			return GetMatchmakingTicketFunc(req);
-		}
+			private static Func<GetUserDataRequest, UniTask<GetUserDataResult>> GetUserReadOnlyDataFunc { get; }
+				= Wrap<GetUserDataRequest, GetUserDataResult>(PlayFabClientAPI.GetUserReadOnlyData);
 
-		public static UniTask<CancelAllMatchmakingTicketsForPlayerResult> CancelAllMatchmakingTicketsForPlayer(
-			CancelAllMatchmakingTicketsForPlayerRequest req)
-		{
-			return CancelAllMatchmakingTicketsForPlayerFunc(req);
-		}
-
-		public static UniTask<JoinMatchmakingTicketResult> JoinMatchmakingTicket(
-			JoinMatchmakingTicketRequest req)
-		{
-			return JoinMatchmakingTicketFunc(req);
-		}
-
-		public static UniTask<CreateMatchmakingTicketResult> CreateMatchmakingTicket(
-			CreateMatchmakingTicketRequest req)
-		{
-			return CreateMatchmakingTicketFunc(req);
+			public static UniTask<GetUserDataResult> GetUserReadOnlyData(
+				GetUserDataRequest req)
+			{
+				return GetUserReadOnlyDataFunc(req);
+			}
 		}
 
 		private static Func<TRequest, UniTask<TResponse>> Wrap<TRequest, TResponse>(

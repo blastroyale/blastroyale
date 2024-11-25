@@ -9,5 +9,6 @@ namespace FirstLight.Game.Data
 	public class MatchmakingData
 	{
 		public string LastQueue;
+		public string TicketId;
 	}
 }

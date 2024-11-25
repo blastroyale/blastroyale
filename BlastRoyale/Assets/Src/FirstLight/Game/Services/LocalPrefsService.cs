@@ -42,7 +42,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// If the haptics (vibrations) are enabled.
 		/// </summary>
-		public ObservableField<bool> IsHapticsEnabled { get; } = CreateBoolSetting(nameof(IsHapticsEnabled), true);
+		public ObservableField<bool> IsHapticsEnabled { get; } = CreateBoolSetting(nameof(IsHapticsEnabled), false);
 
 		/// <summary>
 		/// If we use overhead UI instead of the default (bottom of screen) one.
@@ -94,6 +94,11 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public ObservableField<CustomMatchSettings> LastCustomMatchSettings { get; } = CreateObjectSetting(nameof(LastCustomMatchSettings), new CustomMatchSettings());
 
+		/// <summary>
+		/// If we show the rate and review prompt
+		/// </summary>
+		public ObservableField<int> Performance { get; } = CreateIntSetting(nameof(Performance), -1);
+		
 		private static ObservableField<bool> CreateBoolSetting(string key, bool defaultValue)
 		{
 			return new ObservableResolverField<bool>(() => GetBool(key, defaultValue), val => SetBool(key, val));

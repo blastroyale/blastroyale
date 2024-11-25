@@ -442,6 +442,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				case GameId.PartnerBREED:
 				case GameId.PartnerMEME:
 				case GameId.PartnerYGG:
+				case GameId.FestiveSNOWFLAKE:
+				case GameId.EventTicket:
 					PlayCollectionVfx(VfxId.ShieldPickupFx, callback);
 					return;
 				case GameId.COIN:

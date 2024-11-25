@@ -25,8 +25,10 @@ namespace FirstLight.Game.Configs.Remote
 		public LocalizableString Description { get; set; }
 		public LocalizableString LongDescription { get; set; }
 		public List<DurationConfig> Schedule;
-		public string ImageURL;
+		public string ImageURL { get; set; }
+		public string BackgroundImageURL { get; set; }
 		public LegacyItemData PriceToJoin;
+		public PlayfabMatchmakingConfig OverwriteMatchmaking { get; set; }
 
 		public bool IsPaid => PriceToJoin != null;
 

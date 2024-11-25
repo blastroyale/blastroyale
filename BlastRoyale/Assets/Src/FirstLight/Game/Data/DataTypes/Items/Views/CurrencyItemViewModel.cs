@@ -42,7 +42,9 @@ namespace FirstLight.Game.Data.DataTypes
 			{GameId.PartnerXBORG, "PartnerXBORGIcon"},
 			{GameId.PartnerBREED, "PartnerBREEDIcon"},
 			{GameId.PartnerMEME, "PartnerMEMEIcon"},
-			{GameId.PartnerYGG, "PartnerYGGIcon"}
+			{GameId.PartnerYGG, "PartnerYGGIcon"},
+			{GameId.FestiveSNOWFLAKE, "FestiveSNOWFLAKEIcon"},
+			{GameId.EventTicket, "EventTicketIcon"}
 		};
 
 		public ItemData Item { get; }

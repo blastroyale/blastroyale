@@ -17,8 +17,6 @@ namespace FirstLight.Game.Services
 	[Serializable]
 	public class MatchRoomSetup
 	{
-		public static byte Version = 3;
-
 		// Required at creation
 		public string RoomIdentifier = "";
 		public SimulationMatchConfig SimulationConfig;
@@ -48,9 +46,9 @@ namespace FirstLight.Game.Services
 
 		private bool Serialize(BitStream bitStream)
 		{
-			var serializeVersion = Version;
+			var serializeVersion = SimulationMatchConfig.Version;
 			bitStream.Serialize(ref serializeVersion);
-			if (serializeVersion != Version)
+			if (serializeVersion != SimulationMatchConfig.Version)
 			{
 				return false;
 			}

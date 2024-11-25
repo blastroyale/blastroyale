@@ -10,18 +10,19 @@ using FirstLight.Game.Configs.Utils;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
+using FirstLight.Game.Views.UITK.Popups;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using Unity.Services.Lobbies;
 using Sirenix.OdinInspector;
-using Src.FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -38,9 +39,9 @@ namespace FirstLight.Game.Presenters
 
 		public class StateData
 		{
+			public string ForceViewEventDetails;
 			public Action<GameModeInfo> GameModeChosen;
 			public Action CustomGameChosen;
-
 			public Action OnBackClicked;
 		}
 
@@ -55,6 +56,7 @@ namespace FirstLight.Game.Presenters
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
 		private MatchSettingsButtonElement _mapButton;
+		private CurrencyTopBarView _currencyTopBarView;
 		private List<GameId> _mapGameIds;
 
 		private List<GameModeSelectionButtonView> _buttonViews;
@@ -125,6 +127,19 @@ namespace FirstLight.Game.Presenters
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
 			UpdateMapDropdownVisibility();
+
+			if (Data.ForceViewEventDetails != null)
+			{
+				foreach (var view in _buttonViews)
+				{
+					if (view.GameModeInfo.Entry is EventGameModeEntry ev &&
+						Data.ForceViewEventDetails == view.GameModeInfo.Entry.MatchConfig.UniqueConfigId)
+					{
+						OnInfoButtonClicked(view);
+						break;
+					}
+				}
+			}
 		}
 
 		private void OnMapButtonClicked()
@@ -201,18 +216,17 @@ namespace FirstLight.Game.Presenters
 		private void OnInfoButtonClicked(GameModeSelectionButtonView info)
 		{
 			var entry = info.GameModeInfo.Entry;
-			Debug.Log(ModelSerializer.PrettySerialize(entry));
 			if (entry is EventGameModeEntry ev && ev.PriceToJoin != null)
 			{
-				var alreadyHasTicket = _dataProviders.GameEventsDataProvider.HasPass(entry.MatchConfig.UniqueConfigId);
-				if (!alreadyHasTicket)
-				{
-					var text =
-						(ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId) + "\nPARTICIPATE")
-						.WithLineHeight("80%");
+				var text = (ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId))
+					.WithFontSize("150%");
 
-					PopupPresenter.OpenMatchInfo(info.GameModeInfo, text, () =>
-						PopupPresenter.Close().ContinueWith(() =>
+				_services.UIService.OpenScreen<MatchInfoPopupPresenter>(new MatchInfoPopupPresenter.StateData()
+					{
+						ButtonText = text,
+						EntryInfo = info.GameModeInfo,
+						MatchSettings = info.GameModeInfo.Entry.MatchConfig,
+						ClickAction = () => _services.UIService.CloseScreen<MatchInfoPopupPresenter>().ContinueWith(() =>
 						{
 							_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.TextPurchaseData()
 							{
@@ -224,24 +238,36 @@ namespace FirstLight.Game.Presenters
 										{UniqueEventId = entry.MatchConfig.UniqueConfigId});
 									SelectAndStartMatchmaking(info);
 								},
-								OnExit = Data.OnBackClicked
+								OnGoToShopRequired = () =>
+								{
+									Data.OnBackClicked?.Invoke();
+								}
 							});
-						})).Forget();
-					return;
-				}
+						})
+					})
+					.ContinueWith( (_) =>
+					{
+						_services.MessageBrokerService.Publish(new MatchInfoPopupOpenedMessage());
+					})
+					.Forget();
+				return;
 			}
 
-			PopupPresenter.OpenMatchInfo(info.GameModeInfo, null, () =>
-				PopupPresenter.Close().ContinueWith(() =>
+			_services.UIService.OpenScreen<MatchInfoPopupPresenter>(new MatchInfoPopupPresenter.StateData()
+			{
+				EntryInfo = info.GameModeInfo,
+				MatchSettings = info.GameModeInfo.Entry.MatchConfig,
+				ClickAction = () => _services.UIService.CloseScreen<MatchInfoPopupPresenter>().ContinueWith(() =>
 				{
 					SelectAndStartMatchmaking(info);
-				})).Forget();
+				})
+			}).Forget();
 		}
 
 		private void SelectAndStartMatchmaking(GameModeSelectionButtonView info)
 		{
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
-			_services.HomeScreenService.ForceBehaviour = HomeScreenForceBehaviourType.Matchmaking;
+			_services.HomeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.Matchmaking);
 			Data.GameModeChosen(info.GameModeInfo);
 		}
 

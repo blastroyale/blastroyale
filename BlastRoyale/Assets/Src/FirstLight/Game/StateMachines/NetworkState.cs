@@ -208,21 +208,30 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(CanceledMatchmakingEvent);
 		}
 
-		private void StartRandomMatchmaking(MatchRoomSetup setup)
+		private async UniTaskVoid StartRandomMatchmaking(MatchRoomSetup setup)
 		{
 			_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 
 			FLog.Verbose("Using playfab matchmaking!");
 			_networkService.LastUsedSetup.Value = setup;
-			IsCurrentConfigsValid(setup).ContinueWith((valid) =>
+			var isConfigsValid = await IsCurrentConfigsValid(setup);
+			if (!isConfigsValid)
 			{
-				if (!valid) {
-					_statechartTrigger(CanceledMatchmakingEvent);
-					return;
-				}
-				_services.MatchmakingService.JoinMatchmaking(setup);
-			}).Forget();
+				_statechartTrigger(CanceledMatchmakingEvent);
+				return;
+			}
+
+			try
+			{
+				await _services.MatchmakingService.JoinMatchmaking(setup);
+			}
+			catch (Exception ex)
+			{
+				_services.InGameNotificationService.QueueNotification("Failed to join matchmaking!", InGameNotificationStyle.Error);
+				FLog.Error("Failed to join playfab matchmaking", ex);
+				_statechartTrigger(CanceledMatchmakingEvent);
+			}
 		}
 
 		private async UniTask<bool> IsCurrentConfigsValid(MatchRoomSetup setup)
@@ -556,7 +565,7 @@ namespace FirstLight.Game.StateMachines
 				SimulationConfig = simulationConfig,
 			};
 
-			StartRandomMatchmaking(matchmakingSetup);
+			StartRandomMatchmaking(matchmakingSetup).Forget();
 		}
 
 		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace FirstLight.Game.Services.Analytics.Events
 {
 	/// <summary>
@@ -16,6 +18,7 @@ namespace FirstLight.Game.Services.Analytics.Events
 			SetParameter(AnalyticsParameters.TOTAL_PLAYERS, totalPlayers);
 			SetParameter(AnalyticsParameters.MAP_ID, mapID);
 			SetParameter(AnalyticsParameters.TEAM_SIZE, teamSize);
+			SetParameter(AnalyticsParameters.QUALITY_LEVEL, QualitySettings.GetQualityLevel());
 		}
 	}
 }

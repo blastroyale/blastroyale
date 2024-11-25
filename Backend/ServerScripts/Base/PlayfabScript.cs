@@ -63,7 +63,7 @@ public class EnvironmentSecrets
 /// </summary>
 public abstract class PlayfabScript : IScript
 {
-	private static string ProdSecretsFile = "prod_secrets.json";
+	private static string EnvsFile = "environments.json";
 
 	public IAdminApiClient GetUnityAdmin()
 	{
@@ -82,63 +82,6 @@ public abstract class PlayfabScript : IScript
 		};
 	}
 
-	private Dictionary<Environment, EnvironmentConfiguration> _envSetups = new()
-	{
-		{
-			Environment.DEV, new EnvironmentConfiguration()
-			{
-				TitleId = "***REMOVED***",
-				UnityProjectId = "***REMOVED***",
-				UnityEnvironmentId = "***REMOVED***",
-				Secrets = null,
-				AllPlayersSegmentId = "97EC6C2DE051B678",
-				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/",
-			}
-		},
-
-		{
-			Environment.STAGING, new EnvironmentConfiguration()
-			{
-				TitleId = "***REMOVED***",
-				UnityProjectId = "***REMOVED***",
-				UnityEnvironmentId = "***REMOVED***",
-				Secrets = new()
-				{
-					ServerSecretKey = "stagingkey",
-					SecretKey = "***REMOVED***",
-				},
-				AllPlayersSegmentId = "1ECB17662366E940",
-				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/",
-			}
-		},
-		{
-			Environment.TESTNET, new EnvironmentConfiguration()
-			{
-				TitleId = "***REMOVED***",
-				Secrets = new()
-				{
-					ServerSecretKey = "testnetkey",
-					SecretKey = "***REMOVED***",
-				},
-				UnityProjectId = "***REMOVED***",
-				UnityEnvironmentId = "***REMOVED***",
-				AllPlayersSegmentId = "	4F3220F8011EE630",
-				ServerBaseEndpoint = "https://dev-hub-account-service.blastroyale.com/",
-			}
-		},
-
-		{
-			Environment.PROD, new EnvironmentConfiguration()
-			{
-				TitleId = "***REMOVED***",
-				Secrets = null,
-				UnityProjectId = "***REMOVED***",
-				UnityEnvironmentId = "***REMOVED***",
-				AllPlayersSegmentId = "98523D5E0EF3941",
-				ServerBaseEndpoint = "https://mainnet-prod-hub-account-service.blastroyale.com/",
-			}
-		},
-	};
 
 	public async Task SetPlayerTag(string playfabId, string tag, bool enabled)
 	{
@@ -195,33 +138,40 @@ public abstract class PlayfabScript : IScript
 
 	protected void SetEnvironment(Environment environment)
 	{
-		var playfabSetup = _envSetups[environment];
+		var playfabSetup = ReadEnvironmentConfiguration(environment.ToString());
+		if (playfabSetup == null) return;
+		var secrets = playfabSetup.Secrets;
 		PlayFabSettings.staticSettings.TitleId = playfabSetup.TitleId;
 
 		// ReSharper disable once NullCoalescingConditionIsAlwaysNotNullAccordingToAPIContract
-		var secrets = playfabSetup.Secrets ?? ReadSecretsFromFile(ProdSecretsFile);
 
 		playfabSetup.Secrets = secrets;
 		PlayFabSettings.staticSettings.DeveloperSecretKey = secrets.SecretKey;
 		ConfigRegistry.Set("ServerSecretKey", secrets.ServerSecretKey);
 		ConfigRegistry.Set("ServerBaseEndpoint", playfabSetup.ServerBaseEndpoint);
-
 		Console.WriteLine($"Using Playfab Title {PlayFabSettings.staticSettings.TitleId}");
 	}
 
-	private EnvironmentSecrets ReadSecretsFromFile(string fileName)
+	private EnvironmentConfiguration ReadEnvironmentConfiguration(string env)
 	{
 		try
 		{
-			var keyPath = Path.Combine(System.Environment.CurrentDirectory, fileName);
-			return ModelSerializer.Deserialize<EnvironmentSecrets>(File.ReadAllText(keyPath));
+			var keyPath = Path.Combine(System.Environment.CurrentDirectory, EnvsFile);
+			var envs =
+				ModelSerializer.Deserialize<Dictionary<string, EnvironmentConfiguration>>(File.ReadAllText(keyPath));
+			if (envs.TryGetValue(env, out var config))
+			{
+				return config;
+			}
 		}
 		catch (IOException ex)
 		{
-			Console.Error.WriteLine($"Could not get production credentials from file, please create it!");
-			Console.Error.WriteLine($"Error reading file {fileName}: {ex.Message}");
-			return null; // or throw, depending on how critical this failure is
+			Console.Error.WriteLine($"Error reading file {EnvsFile}: {ex.Message}");
 		}
+
+		Console.Error.WriteLine(
+			$"Could not get env file {EnvsFile}!, please create it! PS: You can get it configured from 1password");
+		return null;
 	}
 
 	protected async Task AuthenticateServer()
@@ -229,6 +179,9 @@ public abstract class PlayfabScript : IScript
 		await PlayFabAuthenticationAPI.GetEntityTokenAsync(new GetEntityTokenRequest()
 		{
 			AuthenticationContext = new PlayFabAuthenticationContext()
+			{
+				PlayFabId = GetPlayfabConfiguration().TitleId
+			}
 		}).HandleError();
 	}
 
@@ -236,7 +189,7 @@ public abstract class PlayfabScript : IScript
 
 	protected EnvironmentConfiguration GetPlayfabConfiguration()
 	{
-		return _envSetups[GetEnvironment()];
+		return ReadEnvironmentConfiguration(GetEnvironment().ToString());
 	}
 
 	protected async Task<List<PlayerProfile>> GetAllPlayers()
@@ -263,13 +216,12 @@ public abstract class PlayfabScript : IScript
 		Console.WriteLine($"Processing {segmentResult.Result.PlayerProfiles.Count} Players");
 		return segmentResult.Result.PlayerProfiles;
 	}
-	
-	
-	
+
+
 	protected async Task<List<PlayerProfile>> GetPlayerSegmentByName(string segmentName)
 	{
 		const uint MAX_BATCH_SIZE = 10000;
-		
+
 		var allPlayerProfiles = new List<PlayerProfile>();
 		string continuationToken = null;
 
@@ -295,16 +247,18 @@ public abstract class PlayfabScript : IScript
 
 			if (!string.IsNullOrEmpty(continuationToken))
 			{
-				Console.WriteLine($"Continuation token present on Playfab Response. Proceeding to next batch of {MAX_BATCH_SIZE} players...");
+				Console.WriteLine(
+					$"Continuation token present on Playfab Response. Proceeding to next batch of {MAX_BATCH_SIZE} players...");
 			}
 			else
 			{
-				Console.WriteLine($"No more continuation token. All players have been retrieved for Segment {segmentName}.");
+				Console.WriteLine(
+					$"No more continuation token. All players have been retrieved for Segment {segmentName}.");
 			}
+		} while (!string.IsNullOrEmpty(continuationToken));
 
-		} while (!string.IsNullOrEmpty(continuationToken)); 
-
-		Console.WriteLine($"Completed retrieving players for segment: {segmentName}. Total players: {allPlayerProfiles.Count}");
+		Console.WriteLine(
+			$"Completed retrieving players for segment: {segmentName}. Total players: {allPlayerProfiles.Count}");
 
 		return allPlayerProfiles;
 	}

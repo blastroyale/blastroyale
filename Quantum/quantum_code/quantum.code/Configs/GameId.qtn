@@ -35,6 +35,8 @@ enum GameId
 	PartnerBREED = 917,
 	PartnerMEME = 918,
 	PartnerYGG = 919,
+	FestiveSNOWFLAKE = 271,
+	EventTicket = 272,
 	FloodCity = 137,
 	MainDeck = 143,
 	FtueDeck = 5,

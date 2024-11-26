@@ -7,6 +7,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Data.DataTypes.Helpers;
+using FirstLight.Game.Domains.Flags.View;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Collections;
@@ -67,6 +68,7 @@ namespace FirstLight.Game.Presenters
 		private readonly List<UniqueId> _seenItems = new ();
 		private const float ITEM_ROTATE_SPEED = 40f;
 		private float _degreesToRotate = 0f;
+		private bool _isRotate = true;
 
 		private void Awake()
 		{
@@ -328,8 +330,13 @@ namespace FirstLight.Game.Presenters
 			}
 			else if (_selectedCategory.Id == GameIdGroup.DeathMarker)
 			{
+				_isRotate = false;
 				_degreesToRotate = _deathMarkerSpawnRotation.y;
-				_anchorObject.transform.localRotation = Quaternion.Euler(_deathMarkerSpawnRotation);
+				_collectionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+				_collectionObject.transform.localPosition = new Vector3(0.15f, 0, 0.15f);
+				_collectionObject.transform.localEulerAngles = new Vector3(0, -45f, 0);
+				var view = _collectionObject.GetComponent<DeathFlagView>();
+				view.TriggerFlag();
 			}
 			else if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
 			{
@@ -351,6 +358,7 @@ namespace FirstLight.Game.Presenters
 
 			if (_selectedCategory.Id == GameIdGroup.PlayerSkin) return; // No rotation for characters
 
+			if (!_isRotate) return;
 			_degreesToRotate += (ITEM_ROTATE_SPEED * Time.deltaTime);
 
 			if (_degreesToRotate > 360f)

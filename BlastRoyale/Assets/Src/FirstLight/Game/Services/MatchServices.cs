@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Domains.Flags;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Match;
@@ -32,6 +33,7 @@ namespace FirstLight.Game.Services
 		public IMatchAssetsService MatchAssetService { get; }
 		public IWeaponCustomizationService WeaponCustomization { get; }
 		public IMatchVfxService VfxService { get; }
+		public IMatchFlagService FlagService { get; }
 
 		/// <summary>
 		///  Run the actions when the match starts, if the match already started run instantaneously
@@ -61,6 +63,7 @@ namespace FirstLight.Game.Services
 		public IWeaponCustomizationService WeaponCustomization { get; }
 		public IMatchAssetsService MatchAssetService { get; }
 		public IMatchVfxService VfxService { get; }
+		public IMatchFlagService FlagService { get; }
 		public ITeamService TeamService { get; }
 
 		private bool _matchStarted = false;
@@ -88,6 +91,7 @@ namespace FirstLight.Game.Services
 			HapticsService = Configure(new HapticsService(_gameServices.LocalPrefsService));
 			MatchAssetService = Configure(new MatchAssetsService());
 			VfxService = Configure(new MatchVfxService(_gameServices));
+			FlagService = Configure(new MatchFlagService(_gameServices));
 			WeaponCustomization = Configure(new WeaponCustomizationService(services, VfxService));
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);

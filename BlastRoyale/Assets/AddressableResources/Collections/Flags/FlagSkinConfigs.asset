@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: FlagSkinConfigs
   m_EditorClassIdentifier: 
   _config:
+    FlagPrefab: {fileID: 8943609343699492224, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
     Skins:
     - GameId: 37
-      Prefab:
-        m_AssetGUID: 65a06c6c92011be48a82010c685f629b
-        m_SubObjectName: 
-        m_SubObjectType: 
+      Mesh:
+        m_AssetGUID: 29f7f163f34dd5d46b6ac54611d3bc4d
+        m_SubObjectName: Flag_Skull
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
         m_EditorAssetChanged: 0
       Sprite:
         m_AssetGUID: d3812d1e1c56b4a188ccfb9324966a36
@@ -26,10 +28,11 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
     - GameId: 76
-      Prefab:
-        m_AssetGUID: 84cfd3da90779eb4bbcbf53a035617f1
-        m_SubObjectName: 
-        m_SubObjectType: 
+      Mesh:
+        m_AssetGUID: f5eb8ed6a42cdde45b6c574342bb080c
+        m_SubObjectName: Flag_Unicorn
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
         m_EditorAssetChanged: 0
       Sprite:
         m_AssetGUID: 55356cbdba04d48d9b5a996b1db941ca
@@ -37,10 +40,11 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
     - GameId: 75
-      Prefab:
-        m_AssetGUID: 7b00f0a57d11d5e4da5c9fce8ca92038
-        m_SubObjectName: 
-        m_SubObjectType: 
+      Mesh:
+        m_AssetGUID: bbfb46e4a32f6e84e9aa5e38d38bce37
+        m_SubObjectName: Flag_Music
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
         m_EditorAssetChanged: 0
       Sprite:
         m_AssetGUID: cdc7358579aa94ba0a86ff51775df66b
@@ -48,10 +52,11 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
     - GameId: 25
-      Prefab:
-        m_AssetGUID: 77a9492a77347492db60c2dad822db89
-        m_SubObjectName: 
-        m_SubObjectType: 
+      Mesh:
+        m_AssetGUID: 768d4c78e6001a94aa2b2ea526fcf168
+        m_SubObjectName: Flag_PooEmoji
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
         m_EditorAssetChanged: 0
       Sprite:
         m_AssetGUID: 200f11153aed542e3aeb0adb534ade89

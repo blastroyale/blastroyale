@@ -1093,6 +1093,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ClockIcon
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 624
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa6831427aa1b744eb7fecb6f0d0b37d
+      internalID: 1041827533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1111,6 +1132,7 @@ TextureImporter:
       BadgePlace3: -2140602434
       Blastbuckicon: -293577173
       Checked: 629293485
+      ClockIcon: 1041827533
       Coinicon: 1531515103
       CollectionIcon: 114395148
       CraftSpiceicon: -2079736262

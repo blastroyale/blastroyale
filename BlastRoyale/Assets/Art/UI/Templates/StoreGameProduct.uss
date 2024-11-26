@@ -238,7 +238,51 @@
 .widget-effect--green {
     -unity-background-image-tint-color: rgba(221, 255, 164, 0.35);
 }
+/*
+ * Cooldown
+ */
+.cooldown-area {
+    flex-direction: row;
+    position: absolute;
+    width: auto;
+    top: 13;
+    left: 15;
+    padding: 2px 5px;
+}
 
+.cooldown-text {
+    font-size: 38px;
+    color: rgb(255, 207, 51);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 10px 0 rgb(0, 0, 0);
+    margin-left: 10px;
+}
+
+/*
+ * Purchase Amount Available
+ */
+.purchase-amount-area {
+    flex-grow: 0;
+    display: flex;
+    position: absolute;
+    width: auto;
+    top: 13;
+    right: 15;
+    flex-shrink: 0;
+    padding: 2px 15px;
+    background-color: rgb(49, 45, 71);
+    border-radius: 15px;
+}
+
+.purchase-amount-text {
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-align: middle-center;
+    text-shadow: 3px 6px 0 rgb(0, 0, 0);
+}
 
 /*
  * Info

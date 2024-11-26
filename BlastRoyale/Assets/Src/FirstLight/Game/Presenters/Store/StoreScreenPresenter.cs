@@ -67,16 +67,17 @@ namespace FirstLight.Game.Presenters.Store
 			_scroll = Root.Q<ScrollView>("ProductScrollView").Required();
 			_header.backClicked = Data.OnBackClicked;
 
-			Root.Q<CryptoCurrenciesDisplayElement>("CryptoCurrency")
-				.AttachView(this, out CryptoCurrenciesDisplayView _);
-			
-			Root.Q<CurrencyDisplayElement>("Coins")
-				.AttachView(this, out CurrencyDisplayView _);
+			Root.Q<CryptoCurrenciesDisplayElement>("CryptoCurrency").AttachView(this, out CryptoCurrenciesDisplayView _);
+			Root.Q<CurrencyDisplayElement>("Coins").AttachView(this, out CurrencyDisplayView _);
+			Root.Q<CurrencyDisplayElement>("BlastBucks").AttachView(this, out CurrencyDisplayView _);
 
-			Root.Q<CurrencyDisplayElement>("BlastBucks")
-				.AttachView(this, out CurrencyDisplayView _);
+			LoadStore();
+		}
 
+		private void LoadStore()
+		{
 			_categoriesElements.Clear();
+			
 			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
 			{
 				var categoryElement = new StoreCategoryElement(category.Name);
@@ -87,31 +88,74 @@ namespace FirstLight.Game.Presenters.Store
 
 					categoryElement.Add(productElement);
 					categoryElement.EnsureSize(product.PlayfabProductConfig.StoreItemData.Size);
+				
+					var trackedPurchasedItem = GetTrackedPurchasedItem(product);
 					var flags = ProductFlags.NONE;
+					
 					if (IsItemOwned(product))
 					{
 						flags |= ProductFlags.OWNED;
 					}
 					else
 					{
-						productElement.OnClicked = BuyItem;
+						if (IsBuyAllowed(product))
+						{
+							productElement.OnClicked = BuyItem;	
+						}
+						else
+						{
+							productElement.OnClicked = ShowBuyNotAllowedNotification;
+
+							flags = SetupBuyNotAllowedFlags(product, flags);
+						}
 					}
 
-					productElement.SetData(product, flags, Root);
+					productElement.SetData(product, flags, trackedPurchasedItem, BuyItem, Root);
 				}
-			
-
+				
 				_productList.Add(categoryElement);
+				
 				var categoryButton = CreateCategoryButton(category.Name, categoryElement);
 				_categoryList.Add(categoryButton);
 				_categoriesElements[category.Name] = categoryElement;
 				
 				//Resize Category Element Container after adding all products to it.
 				categoryElement.RegisterCallback<GeometryChangedEvent>(_ => categoryElement.ResizeContainer());
-
 			}
 
 			SetupCreatorsCodeSupport();
+		}
+
+		private ProductFlags SetupBuyNotAllowedFlags(GameProduct product, ProductFlags flags)
+		{
+			var trackedPurchasedItem = GetTrackedPurchasedItem(product);
+			
+			//Should have a better mechanism to prioritize what are the orders of notification
+			if (HasMaxAmountReached(trackedPurchasedItem, product.PlayfabProductConfig.StoreItemData))
+			{
+				flags |= ProductFlags.MAXAMOUNT;
+			}
+			else if (!HasPurchaseCooldownExpired(trackedPurchasedItem.LastPurchaseTime, product.PlayfabProductConfig.StoreItemData.PurchaseCooldown))
+			{
+				flags |= ProductFlags.COOLDOWN;
+			}
+
+			return flags;
+		}
+
+		private void ShowBuyNotAllowedNotification(GameProduct product)
+		{
+			var trackedPurchasedItem = GetTrackedPurchasedItem(product);
+
+			//Should have a better mechanism to prioritize what are the orders of notification
+			if (HasMaxAmountReached(trackedPurchasedItem, product.PlayfabProductConfig.StoreItemData))
+			{
+				_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_maxamount);
+			}
+			else if (!HasPurchaseCooldownExpired(trackedPurchasedItem.LastPurchaseTime, product.PlayfabProductConfig.StoreItemData.PurchaseCooldown))
+			{
+				_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_cooldown);
+			}
 		}
 
 		private ButtonOutlined CreateCategoryButton(string categoryName, VisualElement categoryElement)
@@ -150,7 +194,57 @@ namespace FirstLight.Game.Presenters.Store
 			if (!product.GameItem.Id.IsInGroup(GameIdGroup.Collection)) return false;
 			return _data.CollectionDataProvider.IsItemOwned(product.GameItem);
 		}
+		
+		
+		private bool IsBuyAllowed(GameProduct product)
+		{
+			var storeItemData = product.PlayfabProductConfig.StoreItemData;
+			
+			if (HasCooldownConfiguration(storeItemData) | HasMaxAmountConfiguration(storeItemData))
+			{
+				var trackedPurchasedItem = GetTrackedPurchasedItem(product);
 
+				if (trackedPurchasedItem != null)
+				{
+					return !HasMaxAmountReached(trackedPurchasedItem, storeItemData) && HasPurchaseCooldownExpired(trackedPurchasedItem.LastPurchaseTime, storeItemData.PurchaseCooldown);
+				}
+				
+				return true;
+			}
+
+			return true;
+		}
+		
+
+		private StorePurchaseData GetTrackedPurchasedItem(GameProduct product)
+		{
+			return _data.PlayerStoreDataProvider.GetTrackedPlayerPurchases()
+				.Find(m => m.CatalogItemId.Equals(product.PlayfabProductConfig.CatalogItem.ItemId));
+		}
+
+		private static bool HasMaxAmountReached(StorePurchaseData trackedPurchasedItem, StoreItemData storeItemData)
+		{
+			return  trackedPurchasedItem.AmountPurchased >= storeItemData.MaxAmount;
+		}
+		
+		private bool HasPurchaseCooldownExpired(DateTime lastPurchaseTime, int cooldownMinutes)
+		{
+			var timeSinceLastAction = DateTime.UtcNow - lastPurchaseTime;
+
+			return timeSinceLastAction.TotalMinutes >= cooldownMinutes;
+		}
+		
+		private bool HasCooldownConfiguration(StoreItemData storeItemData)
+		{
+			return storeItemData.PurchaseCooldown > 0;
+		}
+
+		private bool HasMaxAmountConfiguration(StoreItemData storeItemData)
+		{
+			return storeItemData.MaxAmount > 0;
+		}
+		
+		
 		private void SelectCategory(VisualElement categoryContainer)
 		{
 			var targetX = categoryContainer.resolvedStyle.left;

@@ -2861,12 +2861,12 @@ namespace I2.Loc
 			public static string epic_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/epic_core"); } }
 			public static string iap_error 		{ get{ return LocalizationManager.GetTranslation ("UITStore/iap_error"); } }
 			public static string legendary_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/legendary_core"); } }
-			public static string notification_product_cooldown 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_cooldown"); } }
-			public static string notification_product_maxamount 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_maxamount"); } }
 			public static string price 		{ get{ return LocalizationManager.GetTranslation ("UITStore/price"); } }
 			public static string rare_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/rare_core"); } }
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITStore/shop"); } }
 			public static string you_own_this_item 		{ get{ return LocalizationManager.GetTranslation ("UITStore/you_own_this_item"); } }
+			public static string notification_product_cooldown 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_cooldown"); } }
+			public static string notification_product_maxamount 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_maxamount"); } }
 		}
 
 		public static class UITSwipeTransition
@@ -5782,12 +5782,12 @@ namespace I2.Loc
 		    public const string epic_core = "UITStore/epic_core";
 		    public const string iap_error = "UITStore/iap_error";
 		    public const string legendary_core = "UITStore/legendary_core";
-		    public const string notification_product_cooldown = "UITStore/notification_product_cooldown";
-		    public const string notification_product_maxamount = "UITStore/notification_product_maxamount";
 		    public const string price = "UITStore/price";
 		    public const string rare_core = "UITStore/rare_core";
 		    public const string shop = "UITStore/shop";
 		    public const string you_own_this_item = "UITStore/you_own_this_item";
+			public const string notification_product_cooldown = "UITStore/notification_product_cooldown";
+			public const string notification_product_maxamount = "UITStore/notification_product_maxamount";
 		}
 
 		public static class UITSwipeTransition

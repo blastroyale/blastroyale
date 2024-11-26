@@ -196,7 +196,8 @@ namespace FirstLight.Game.Services
 			FLog.Info("IAP", "Purchase of logical item");
 			_commandService.ExecuteCommand(new BuyFromStoreCommand()
 			{
-				CatalogItemId = product.PlayfabProductConfig.CatalogItem.ItemId
+				CatalogItemId = product.PlayfabProductConfig.CatalogItem.ItemId,
+				StoreItemData = product.PlayfabProductConfig.StoreItemData
 			});
 			PurchaseFinished?.Invoke(item, true);
 		}

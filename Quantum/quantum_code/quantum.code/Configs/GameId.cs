@@ -1556,6 +1556,69 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinAlien, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinBrazillianfestival, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinChinesedragon, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinFieldmedic, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinPolarexplorer, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinPostapocalypticassassin, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinStreetrunner, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinValkyrie, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinYeti, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
@@ -3009,6 +3072,15 @@ namespace Quantum
 						GameId.PlayerSkinRenny,
 						GameId.PlayerSkinRobot,
 						GameId.PlayerSkinVikingfemale,
+						GameId.PlayerSkinAlien,
+						GameId.PlayerSkinBrazillianfestival,
+						GameId.PlayerSkinChinesedragon,
+						GameId.PlayerSkinFieldmedic,
+						GameId.PlayerSkinPolarexplorer,
+						GameId.PlayerSkinPostapocalypticassassin,
+						GameId.PlayerSkinStreetrunner,
+						GameId.PlayerSkinValkyrie,
+						GameId.PlayerSkinYeti,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -3478,7 +3550,16 @@ namespace Quantum
 						GameId.PlayerSkinPirateCaptain,
 						GameId.PlayerSkinRenny,
 						GameId.PlayerSkinRobot,
-						GameId.PlayerSkinVikingfemale
+						GameId.PlayerSkinVikingfemale,
+						GameId.PlayerSkinAlien,
+						GameId.PlayerSkinBrazillianfestival,
+						GameId.PlayerSkinChinesedragon,
+						GameId.PlayerSkinFieldmedic,
+						GameId.PlayerSkinPolarexplorer,
+						GameId.PlayerSkinPostapocalypticassassin,
+						GameId.PlayerSkinStreetrunner,
+						GameId.PlayerSkinValkyrie,
+						GameId.PlayerSkinYeti
 					}.AsReadOnly()
 				},
 				{

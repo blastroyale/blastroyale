@@ -778,7 +778,7 @@
 
 .last-reward-sprite {
     flex-grow: 1;
-    background-image: url("project://database/Assets/AddressableResources/Collections/CharacterSkins/PunkMale/Icon_Char_PunkMale.png?fileID=21300000&guid=dbee6ab2350c1124f8dc503251413108&type=3#Icon_Char_PunkMale");
+    background-image: url("project://database/Assets/AddressableResources/Collections/CharacterSkins/PunkMale/Icon_Char_PunkMale.png?fileID=21300000&guid=d047e3ab13945a846a519ca54cd5e712&type=3#Icon_Char_PunkMale");
     -unity-background-scale-mode: scale-and-crop;
     position: absolute;
     top: -19px;
@@ -864,8 +864,6 @@
 
 .last-reward-picture__background {
     width: 800px;
-    background-image: url("project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation");
-    -unity-background-image-tint-color: rgb(75, 216, 214);
     position: absolute;
     right: -500px;
     top: -76px;
@@ -874,8 +872,6 @@
 }
 
 .last-reward-picture__background-yellow {
-    background-image: url("project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation");
-    -unity-background-image-tint-color: rgb(255, 199, 0);
     right: -38px;
     position: absolute;
     height: 100%;
@@ -883,8 +879,6 @@
 }
 
 .last-reward-picture__background-pink {
-    background-image: url("project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation");
-    -unity-background-image-tint-color: rgb(216, 75, 121);
     position: absolute;
     height: 100%;
     width: 800px;
@@ -893,8 +887,8 @@
 
 .last-reward-picture__reward-picture {
     position: relative;
-    width: 425px;
-    height: 611px;
+    width: 1000px;
+    height: 960px;
     align-self: center;
     -unity-background-scale-mode: scale-to-fit;
     right: 267px;
@@ -906,7 +900,8 @@
     height: 219px;
     background-image: var(--sprite-home__cloud-exclusive-reward);
     position: absolute;
-    bottom: -159px;
+    bottom: 0;
+    right: 243px;
 }
 
 .last-reward-picture__cloud-reward-name {
@@ -931,11 +926,9 @@
     position: absolute;
     width: 500px;
     height: 500px;
-    background-image: var(--sprite-home__pattern-dots-rotated);
     rotate: 187deg;
     bottom: -37px;
     right: 184px;
-    -unity-background-image-tint-color: rgb(223, 86, 134);
 }
 
 .unity-scroll-view__content-viewport {

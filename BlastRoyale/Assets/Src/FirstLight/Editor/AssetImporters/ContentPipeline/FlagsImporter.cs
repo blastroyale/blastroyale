@@ -1,6 +1,5 @@
 using System.IO;
 using UnityEditor;
-using UnityEditor.AssetImporters;
 using UnityEditor.Presets;
 using UnityEngine;
 
@@ -40,7 +39,7 @@ namespace FirstLight.Editor.AssetImporters
 			
 			foreach (var assetPath in importedAssets)
 			{
-				if (AssetDatabase.IsValidFolder(assetPath) && assetPath.StartsWith(ASSET_MANAGER_PATH))
+				if (AssetDatabase.IsValidFolder(assetPath))
 				{
 					// New asset has been imported
 					var directoryName = Path.GetFileName(assetPath)!;

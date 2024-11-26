@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Services.Collection.Handles
@@ -38,7 +34,7 @@ namespace FirstLight.Game.Services.Collection.Handles
 		public async UniTask<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
 			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == item.Id);
-			var obj = await _assetResolver.LoadAssetByReference<GameObject>(skin.Prefab, true, instantiate);
+			var obj = await _assetResolver.LoadAssetByReference<GameObject>(skin.Mesh, true, instantiate);
 			return obj;
 		}
 	}

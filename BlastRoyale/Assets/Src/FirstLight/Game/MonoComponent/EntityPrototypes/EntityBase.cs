@@ -118,8 +118,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
-
-			_services.MessageBrokerService.Publish(new EntityViewLoaded()
+			cacheTransform.localRotation = Quaternion.identity;
+			Services.MessageBrokerService.Publish(new EntityViewLoaded()
 			{
 				Entity = this, View = EntityView
 			});

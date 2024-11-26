@@ -53,13 +53,13 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 25
       Mesh:
-        m_AssetGUID: 768d4c78e6001a94aa2b2ea526fcf168
-        m_SubObjectName: Flag_PooEmoji
+        m_AssetGUID: d142b73ef16013a4aba7ff46e868fe78
+        m_SubObjectName: Flag_Demon
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 200f11153aed542e3aeb0adb534ade89
+        m_AssetGUID: f6740f8503afdf14b9bff604d0a0efbf
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

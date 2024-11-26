@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Templates/StoreGameProduct.uss?fileID=7433441132597879392&amp;guid=4f4b019b2a5304c718e1621916865b7a&amp;type=3#StoreGameProduct" />
     <FirstLight.Game.UIElements.ImageButton name="ProductWidgetWrapper" class="product-widget-wrapper">
         <ui:VisualElement name="ProductWidget" class="product-widget">
-            <ui:VisualElement name="ProductBackgroundImage" class="product-background-image">
+            <ui:VisualElement name="ProductBackgroundImage" class="product-background-image" style="display: flex;">
                 <ui:VisualElement name="ProductImageGradientBig" class="product-image-gradient-big" />
                 <ui:VisualElement name="ProductImageGradientSmall" class="product-image-gradient-small" />
                 <ui:VisualElement name="WidgetEffect" tabindex="-1" class="widget-effect" />
@@ -10,11 +10,18 @@
                 <ui:VisualElement name="OwnedOverlay" class="owned-overlay" />
                 <ui:VisualElement name="ProductImageGradientSides" class="product-image-gradient-sides" style="display: flex;" />
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="200 Coin" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProductName" class="product-name" />
-            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="200 ¢" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProductPrice" class="product-price" style="display: flex;" />
-            <FirstLight.Game.UIElements.ImageButton name="InformationClickArea" focusable="true" tabindex="1" class="info-click-area">
+            <ui:VisualElement name="CooldownArea" class="cooldown-area">
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="&lt;sprite name=&quot;ClockIcon&quot;&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CooldownIcon" class="cooldown-text" style="display: flex;" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="4m 59s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CooldownTime" class="cooldown-text" style="display: flex;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="PurchasedAmountArea" class="purchase-amount-area">
+                <ui:Label tabindex="-1" text="2/2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchasedAmount" class="purchase-amount-text" />
+            </ui:VisualElement>
+            <FirstLight.Game.UIElements.ImageButton name="InformationClickArea" focusable="true" tabindex="1" class="info-click-area" style="display: none;">
                 <ui:VisualElement name="InformationIcon" class="info-button" style="display: flex; visibility: visible;" />
             </FirstLight.Game.UIElements.ImageButton>
+            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="200 Coin" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProductName" class="product-name" style="display: flex;" />
+            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="200 ¢" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProductPrice" class="product-price" style="display: flex;" />
             <ui:VisualElement name="OwnedStamp" class="owned-stamp">
                 <ui:VisualElement name="OwnedBg" class="owned-stamp__bg" style="display: none; visibility: hidden;" />
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/you_own_this_item" name="OwnedText" class="owned-stamp__text" />

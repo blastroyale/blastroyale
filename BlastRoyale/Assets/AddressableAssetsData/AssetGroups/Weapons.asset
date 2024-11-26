@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 5f94bb782cc764034b58d834e25cec2e
   m_SerializeEntries:
-  - m_GUID: 1250fecbdfd1ed4409b49d55eca2f400
-    m_Address: Assets/AddressableResources/WeaponsLegacy
+  - m_GUID: 78079ef7267924eea813d1766fd426fd
+    m_Address: Assets/AddressableResources/Weapons
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

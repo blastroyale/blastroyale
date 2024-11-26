@@ -31,6 +31,9 @@ namespace FirstLight.Game.Services
 	public class StoreItemData
 	{
 		public StoreDisplaySize Size;
+		public int PurchaseCooldown;
+		public int MaxAmount;
+		public bool ShouldDailyReset;
 		public string Category;
 		public string UssModifier;
 		public string ImageOverride;

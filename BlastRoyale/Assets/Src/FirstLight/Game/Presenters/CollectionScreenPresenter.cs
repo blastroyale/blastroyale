@@ -171,6 +171,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnCategoryClicked(CollectionCategory group)
 		{
+			_isRotate = true;
 			if (_selectedCategory == group) return;
 
 			_degreesToRotate = 0f;
@@ -333,8 +334,8 @@ namespace FirstLight.Game.Presenters
 				_isRotate = false;
 				_degreesToRotate = _deathMarkerSpawnRotation.y;
 				_collectionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-				_collectionObject.transform.localPosition = new Vector3(0.15f, 0, 0.15f);
-				_collectionObject.transform.localEulerAngles = new Vector3(0, -45f, 0);
+				_collectionObject.transform.localPosition = new Vector3(0.4f, 0, 0.15f);
+				_collectionObject.transform.localEulerAngles = new Vector3(0, 180f, 0);
 				var view = _collectionObject.GetComponent<DeathFlagView>();
 				view.TriggerFlag();
 			}

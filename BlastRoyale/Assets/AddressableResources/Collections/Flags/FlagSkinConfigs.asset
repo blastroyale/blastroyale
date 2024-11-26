@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: FlagSkinConfigs
   m_EditorClassIdentifier: 
   _config:
-    FlagPrefab: {fileID: 8943609343699492224, guid: de70f2d11d3e42b44829c39f95c2c4f5, type: 3}
+    FlagPrefab: {fileID: 1611062802629169205, guid: 3ef7daf711c539b4a9d48c1a2ce08fc9, type: 3}
     Skins:
     - GameId: 37
       Mesh:
-        m_AssetGUID: 29f7f163f34dd5d46b6ac54611d3bc4d
+        m_AssetGUID: ce305c7a0b7893245a24277ec6584d49
         m_SubObjectName: Flag_Skull
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -29,7 +29,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 76
       Mesh:
-        m_AssetGUID: f5eb8ed6a42cdde45b6c574342bb080c
+        m_AssetGUID: 774cea6ede90c3a45afb8addeb0a3bfd
         m_SubObjectName: Flag_Unicorn
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -41,7 +41,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 75
       Mesh:
-        m_AssetGUID: bbfb46e4a32f6e84e9aa5e38d38bce37
+        m_AssetGUID: 21c6a8d74b110e14bb46708bfdab6bb8
         m_SubObjectName: Flag_Music
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -53,7 +53,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 25
       Mesh:
-        m_AssetGUID: d142b73ef16013a4aba7ff46e868fe78
+        m_AssetGUID: 0cbecbd1fc9a23e4da81c2c825ffb6bc
         m_SubObjectName: Flag_Demon
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -65,7 +65,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 273
       Mesh:
-        m_AssetGUID: ec8279f24fb284f4588a6c552b96da44
+        m_AssetGUID: 1fd0a2b57d1156a4a9f46c79c8784b07
         m_SubObjectName: Flag_Banana
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -77,7 +77,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 274
       Mesh:
-        m_AssetGUID: f99af8b7a8ca1d54b9191e44f9bb60d0
+        m_AssetGUID: 3d0bdeb4e571bfe46a7eed6883f3ff9e
         m_SubObjectName: Flag_Fire
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -89,7 +89,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 275
       Mesh:
-        m_AssetGUID: 861a29c3708959148ab049ffc482bf72
+        m_AssetGUID: dd201a62dbfcb15499138217d054d3f8
         m_SubObjectName: Flag_GG
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -101,7 +101,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 276
       Mesh:
-        m_AssetGUID: b29131541ebac16458cc34ba38c6c6b7
+        m_AssetGUID: 85d7a0d677f24094d8f013aa83953a55
         m_SubObjectName: Flag_Laughing
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -113,7 +113,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 277
       Mesh:
-        m_AssetGUID: f7a6ee804c29e864bbbfce46db1c2b83
+        m_AssetGUID: aa33e6eaf7901d944955aa551550d9a6
         m_SubObjectName: Flag_Noob
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -125,7 +125,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 278
       Mesh:
-        m_AssetGUID: 96d9c496d738d5e4a9f4a96c505fc732
+        m_AssetGUID: 3b62206de8098cc4cb28284ea84e5d5c
         m_SubObjectName: flag_NumberOne
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -137,7 +137,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 279
       Mesh:
-        m_AssetGUID: 768d4c78e6001a94aa2b2ea526fcf168
+        m_AssetGUID: e583cd60dae6e9947af7428d3e8eb76e
         m_SubObjectName: Flag_PooEmoji
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -149,7 +149,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 280
       Mesh:
-        m_AssetGUID: d08e67aa5112c5444b4f46d39c679b9d
+        m_AssetGUID: 7414c237da103d14a820a563d747526d
         m_SubObjectName: Flag_RoyalCrown
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
@@ -161,7 +161,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 281
       Mesh:
-        m_AssetGUID: c832611e1cee7cd4f9973c921aa2e568
+        m_AssetGUID: 5f0fd445f29119742bad82fd73cad6b5
         m_SubObjectName: Flag_Salt
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null

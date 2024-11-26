@@ -288,13 +288,15 @@ namespace Quantum
 				{
 					GameId.FestiveSNOWFLAKE, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.EventTicket, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
@@ -3366,7 +3368,9 @@ namespace Quantum
 						GameId.PartnerXBORG,
 						GameId.PartnerBREED,
 						GameId.PartnerMEME,
-						GameId.PartnerYGG
+						GameId.PartnerYGG,
+						GameId.FestiveSNOWFLAKE,
+						GameId.EventTicket
 					}.AsReadOnly()
 				},
 				{

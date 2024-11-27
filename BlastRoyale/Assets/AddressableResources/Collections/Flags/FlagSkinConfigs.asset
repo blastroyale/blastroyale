@@ -77,7 +77,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 274
       Mesh:
-        m_AssetGUID: 3d0bdeb4e571bfe46a7eed6883f3ff9e
+        m_AssetGUID: f878bed71b3bd6c4597e5978b8a3cd89
         m_SubObjectName: Flag_Fire
         m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null

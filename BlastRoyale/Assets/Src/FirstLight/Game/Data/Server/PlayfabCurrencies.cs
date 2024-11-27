@@ -35,7 +35,9 @@ namespace FirstLight.Models
 			{ GameId.PartnerSEEDIFY, "SD" },
 			{ GameId.PartnerWILDERWORLD, "WW" },
 			{ GameId.PartnerXBORG, "XB" },
-			{ GameId.PartnerYGG, "YG"}
+			{ GameId.PartnerYGG, "YG"},
+			{ GameId.FestiveSNOWFLAKE, "SF"},
+			{ GameId.EventTicket, "ET"}
 		};
 
 		/// <summary>

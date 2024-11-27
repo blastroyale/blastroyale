@@ -1622,6 +1622,78 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.FlagBanana, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagFire, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagGG, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagLaughing, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagNoob, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagNumberOne, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagPooEmoji, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagRoyalCrown, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagSalt, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.MeleeSkinDefault, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
@@ -3019,6 +3091,15 @@ namespace Quantum
 						GameId.Demon,
 						GameId.Superstar,
 						GameId.Unicorn,
+						GameId.FlagBanana,
+						GameId.FlagFire,
+						GameId.FlagGG,
+						GameId.FlagLaughing,
+						GameId.FlagNoob,
+						GameId.FlagNumberOne,
+						GameId.FlagPooEmoji,
+						GameId.FlagRoyalCrown,
+						GameId.FlagSalt,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinSausage,
 						GameId.MeleeSkinCactus,
@@ -3194,6 +3275,15 @@ namespace Quantum
 						GameId.Demon,
 						GameId.Superstar,
 						GameId.Unicorn,
+						GameId.FlagBanana,
+						GameId.FlagFire,
+						GameId.FlagGG,
+						GameId.FlagLaughing,
+						GameId.FlagNoob,
+						GameId.FlagNumberOne,
+						GameId.FlagPooEmoji,
+						GameId.FlagRoyalCrown,
+						GameId.FlagSalt,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinDaggerOfDestiny,
 						GameId.MeleeSkinElectricSolo,
@@ -3500,7 +3590,16 @@ namespace Quantum
 						GameId.Tombstone,
 						GameId.Demon,
 						GameId.Superstar,
-						GameId.Unicorn
+						GameId.Unicorn,
+						GameId.FlagBanana,
+						GameId.FlagFire,
+						GameId.FlagGG,
+						GameId.FlagLaughing,
+						GameId.FlagNoob,
+						GameId.FlagNumberOne,
+						GameId.FlagPooEmoji,
+						GameId.FlagRoyalCrown,
+						GameId.FlagSalt
 					}.AsReadOnly()
 				},
 				{

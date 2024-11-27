@@ -299,6 +299,15 @@ namespace FirstLight.Editor.Ids
 			{"Demon", 25, DeathMarker, BotItem, Collection},
 			{"Superstar", 75, DeathMarker, BotItem, Collection},
 			{"Unicorn", 76, DeathMarker, BotItem, Collection},
+			{"FlagBanana", 273, DeathMarker, BotItem, Collection},
+			{"FlagFire", 274, DeathMarker, BotItem, Collection},
+			{"FlagGG",  275, DeathMarker, BotItem, Collection},
+			{"FlagLaughing", 276, DeathMarker, BotItem, Collection},
+			{"FlagNoob", 277, DeathMarker, BotItem, Collection},
+			{"FlagNumberOne", 278, DeathMarker, BotItem, Collection},
+			{"FlagPooEmoji", 279, DeathMarker, BotItem, Collection},
+			{"FlagRoyalCrown", 280, DeathMarker, BotItem, Collection},
+			{"FlagSalt", 281, DeathMarker, BotItem, Collection},
 			#endregion
 
 			#region MeleeSkins

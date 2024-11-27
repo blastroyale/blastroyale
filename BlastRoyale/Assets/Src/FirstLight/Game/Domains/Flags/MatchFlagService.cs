@@ -104,11 +104,6 @@ namespace FirstLight.Game.Domains.Flags
 				view.Dispose();
 				Object.Destroy(view);
 			}
-
-			foreach (var meshEntry in _meshes)
-			{
-				Object.Destroy(meshEntry.Value);
-			}
 			_meshes.Clear();
 			if(_container != null) Object.Destroy(_container);
 			_container = null;
@@ -117,7 +112,7 @@ namespace FirstLight.Game.Domains.Flags
 		public UniTask UnloadAssets()
 		{
 			Dispose();
-			var configs = _gameServices.ConfigsProvider.GetConfig<FlagSkinConfigs>().Config.Skins;
+			var configs = _gameServices.ConfigsProvider.GetConfig<FlagSkinConfig>().Skins;
 			foreach (var cfg in configs)
 			{
 				cfg.Mesh.ReleaseAsset();

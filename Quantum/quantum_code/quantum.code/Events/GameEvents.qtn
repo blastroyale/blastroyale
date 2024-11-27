@@ -28,7 +28,7 @@ synced event OnGameEnded
     Int32 LeaderTeam;
 }
 
-event OnGameProgressUpdated
+synced event OnGameProgressUpdated
 {
 	UInt32 PreviousProgress;
 	UInt32 CurrentProgress;

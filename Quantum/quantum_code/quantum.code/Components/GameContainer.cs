@@ -65,7 +65,7 @@ namespace Quantum
 		/// </summary>
 		internal void UpdateGameProgress(Frame f, uint amount)
 		{
-			if (amount <= 0)
+			if (amount <= 0 || IsGameOver)
 			{
 				return;
 			}
@@ -99,8 +99,8 @@ namespace Quantum
 			// We count how many teams are alive towards our goal (we remove ours)
 			var teamsAliveForGoal = teamsAlive.Count - 1;
 			CurrentProgress = (uint)(TargetProgress - teamsAliveForGoal);
-
-			if (CurrentProgress >= TargetProgress)
+			
+			if (CurrentProgress >= TargetProgress && GameOverTime == 0)
 			{
 				f.Signals.GameEnded(true);
 			}

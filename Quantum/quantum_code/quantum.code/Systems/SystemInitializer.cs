@@ -12,7 +12,6 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void OnInit(Frame f)
 		{
-			f.Global->Queries = f.AllocateList<EntityPair>(128);
 			f.Context.MapConfig = f.MapConfigs.GetConfig(f.RuntimeConfig.MatchConfigs.MapId);
 			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.MatchConfigs.GameModeID);
 			f.Context.Mutators = f.RuntimeConfig.MatchConfigs.Mutators;

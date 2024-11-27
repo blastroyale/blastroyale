@@ -60,7 +60,6 @@ namespace Quantum.Systems
 				return;
 			}
 
-
 			if (filter.KnockedOut->NextDamageAt <= f.Time)
 			{
 				// Do damage
@@ -83,7 +82,6 @@ namespace Quantum.Systems
 				filter.Stats->ReduceHealth(f, filter.Entity, &spell);
 			}
 		}
-
 
 		public void OnFeetCollisionEnter(Frame f, EntityRef entity, EntityRef collidedWith, FPVector2 point)
 		{
@@ -134,7 +132,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-
+			
 			StopRevivingPlayer(f, knockedOut, knockedOutCollider->KnockedOutEntity, entity);
 		}
 

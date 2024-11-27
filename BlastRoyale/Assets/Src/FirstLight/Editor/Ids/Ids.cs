@@ -451,6 +451,16 @@ namespace FirstLight.Editor.Ids
 			{"AvatarRennyBanana", 538, ProfilePicture, Collection},
 			{"AvatarRobot", 539, ProfilePicture, Collection},
 			{"AvatarVikingfemale", 540, ProfilePicture, Collection},
+			{"AvatarAlien", 541, ProfilePicture, Collection},
+			{"AvatarBrazilianfestival", 542, ProfilePicture, Collection},
+			{"AvatarChinesedragon", 543, ProfilePicture, Collection},
+			{"AvatarFieldmedic", 544, ProfilePicture, Collection},
+			{"AvatarPolarexplorer", 545, ProfilePicture, Collection},
+			{"AvatarPostapocalypticassasin", 546, ProfilePicture, Collection},
+			{"AvatarSnowflake", 547, ProfilePicture, Collection},
+			{"AvatarStreetrunner", 548, ProfilePicture, Collection},
+			{"AvatarValkyrie", 549, ProfilePicture, Collection},
+			{"AvatarYeti", 550, ProfilePicture, Collection},
 
 			#endregion
 

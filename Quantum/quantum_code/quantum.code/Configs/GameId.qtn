@@ -363,6 +363,16 @@ enum GameId
 	AvatarRennyBanana = 538,
 	AvatarRobot = 539,
 	AvatarVikingfemale = 540,
+	AvatarAlien = 541,
+	AvatarBrazilianfestival = 542,
+	AvatarChinesedragon = 543,
+	AvatarFieldmedic = 544,
+	AvatarPolarexplorer = 545,
+	AvatarPostapocalypticassasin = 546,
+	AvatarSnowflake = 547,
+	AvatarStreetrunner = 548,
+	AvatarValkyrie = 549,
+	AvatarYeti = 550,
 	FootprintDot = 111,
 }
 

@@ -4,13 +4,13 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Domains.Flags.View;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -22,7 +22,6 @@ using Quantum;
 using SRF;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -148,7 +147,17 @@ namespace FirstLight.Game.Presenters
 				_anchorObject = null;
 			}
 
+			DisposeFlags();
 			return base.OnScreenClose();
+		}
+
+		private void DisposeFlags()
+		{
+			var config = _services.ConfigsProvider.GetConfig<FlagSkinConfig>();
+			foreach (var cfg in config.Skins)
+			{
+				cfg.Mesh.ReleaseAsset();
+			}
 		}
 
 		private void SetupCategories()

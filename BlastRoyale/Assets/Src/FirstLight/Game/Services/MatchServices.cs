@@ -91,7 +91,7 @@ namespace FirstLight.Game.Services
 			HapticsService = Configure(new HapticsService(_gameServices.LocalPrefsService));
 			MatchAssetService = Configure(new MatchAssetsService());
 			VfxService = Configure(new MatchVfxService(_gameServices));
-			FlagService = Configure(new MatchFlagService(_gameServices));
+			FlagService = Configure(new MatchFlagService(_gameServices, services.RoomService));
 			WeaponCustomization = Configure(new WeaponCustomizationService(services, VfxService));
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);

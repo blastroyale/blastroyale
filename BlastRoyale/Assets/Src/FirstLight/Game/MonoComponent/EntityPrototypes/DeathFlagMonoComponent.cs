@@ -15,7 +15,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			if (_view != null)
 			{
-				_matchServices.FlagService.Despawn(_view);
+				_matchServices?.FlagService.Despawn(_view);
 			}
 
 			_view = null;
@@ -24,10 +24,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
 			_matchServices ??= MainInstaller.Resolve<IMatchServices>();
+			// could potentially happen if a person dies as the game unloads?
+			if (_matchServices == null) return; 
 			var deathFlagId = GetComponentData<DeathFlag>(game).ID;
 			var flag = _matchServices.FlagService.Spawn(deathFlagId);
 			OnLoaded(deathFlagId, flag.gameObject, true);
-			flag.transform.localEulerAngles = new Vector3(0, 180, 0);
 			flag.TriggerFlag();
 		}
 	}

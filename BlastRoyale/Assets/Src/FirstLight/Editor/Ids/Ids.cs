@@ -71,6 +71,7 @@ namespace FirstLight.Editor.Ids
 			{"BLST", 14, Currency},
 			{"Fragments", 112, Currency, Deprecated},
 			{"NOOB", 209, Currency, CryptoCurrency},
+			{"NOOBSilver", 291, Collectable, NOOBRareTokens},
 			{"NOOBGolden", 249, Collectable, NOOBRareTokens},
 			{"NOOBRainbow", 250, Collectable, NOOBRareTokens},
 			{"CS", 12, Currency, ResourcePool},

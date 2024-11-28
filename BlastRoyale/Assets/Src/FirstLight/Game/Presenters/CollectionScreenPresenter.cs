@@ -4,12 +4,13 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Data.DataTypes.Helpers;
+using FirstLight.Game.Domains.Flags.View;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -21,7 +22,6 @@ using Quantum;
 using SRF;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -67,6 +67,7 @@ namespace FirstLight.Game.Presenters
 		private readonly List<UniqueId> _seenItems = new ();
 		private const float ITEM_ROTATE_SPEED = 40f;
 		private float _degreesToRotate = 0f;
+		private bool _isRotate = true;
 
 		private void Awake()
 		{
@@ -146,7 +147,17 @@ namespace FirstLight.Game.Presenters
 				_anchorObject = null;
 			}
 
+			DisposeFlags();
 			return base.OnScreenClose();
+		}
+
+		private void DisposeFlags()
+		{
+			var config = _services.ConfigsProvider.GetConfig<FlagSkinConfig>();
+			foreach (var cfg in config.Skins)
+			{
+				cfg.Mesh.ReleaseAsset();
+			}
 		}
 
 		private void SetupCategories()
@@ -169,6 +180,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnCategoryClicked(CollectionCategory group)
 		{
+			_isRotate = true;
 			if (_selectedCategory == group) return;
 
 			_degreesToRotate = 0f;
@@ -328,8 +340,13 @@ namespace FirstLight.Game.Presenters
 			}
 			else if (_selectedCategory.Id == GameIdGroup.DeathMarker)
 			{
+				_isRotate = false;
 				_degreesToRotate = _deathMarkerSpawnRotation.y;
-				_anchorObject.transform.localRotation = Quaternion.Euler(_deathMarkerSpawnRotation);
+				_collectionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+				_collectionObject.transform.localPosition = new Vector3(0.4f, 0, 0.15f);
+				_collectionObject.transform.localEulerAngles = new Vector3(0, 180f, 0);
+				var view = _collectionObject.GetComponent<DeathFlagView>();
+				view.TriggerFlag();
 			}
 			else if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
 			{
@@ -351,6 +368,7 @@ namespace FirstLight.Game.Presenters
 
 			if (_selectedCategory.Id == GameIdGroup.PlayerSkin) return; // No rotation for characters
 
+			if (!_isRotate) return;
 			_degreesToRotate += (ITEM_ROTATE_SPEED * Time.deltaTime);
 
 			if (_degreesToRotate > 360f)
@@ -378,7 +396,7 @@ namespace FirstLight.Game.Presenters
 				? ScriptLocalization.General.Selected.ToUpper()
 				: ScriptLocalization.General.Equip;
 
-			_selectedItemLabel.text = selectedItem.GetDisplayName();
+			_selectedItemLabel.text = selectedItem.GetDisplayName().ToUpper();
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
 
 			var buffs = _gameDataProvider.BuffsLogic.GetMetaBuffs(selectedItem);
@@ -466,7 +484,7 @@ namespace FirstLight.Game.Presenters
 				var owned = collectionDataProvider.IsItemOwned(selectedItem);
 				var unseenItems = _services.RewardService.UnseenItems(ItemMetadataType.Collection);
 				var isUnseenItem = unseenItems.Contains(selectedItem);
-				card.SetCollectionElement(selectedItem, selectedItem.GetDisplayName(), itemIndex);
+				card.SetCollectionElement(selectedItem, selectedItem.GetDisplayName().ToUpper(), itemIndex);
 				card.SetIsOwned(owned);
 				card.SetIsEquipped(equipped != null && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);

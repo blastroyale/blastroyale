@@ -288,13 +288,15 @@ namespace Quantum
 				{
 					GameId.FestiveSNOWFLAKE, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
 					GameId.EventTicket, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
 					}.AsReadOnly()
 				},
 				{
@@ -1676,6 +1678,78 @@ namespace Quantum
 				},
 				{
 					GameId.Unicorn, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagBanana, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagFire, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagGG, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagLaughing, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagNoob, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagNumberOne, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagPooEmoji, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagRoyalCrown, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagSalt, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
 						GameIdGroup.BotItem,
@@ -3152,6 +3226,15 @@ namespace Quantum
 						GameId.Demon,
 						GameId.Superstar,
 						GameId.Unicorn,
+						GameId.FlagBanana,
+						GameId.FlagFire,
+						GameId.FlagGG,
+						GameId.FlagLaughing,
+						GameId.FlagNoob,
+						GameId.FlagNumberOne,
+						GameId.FlagPooEmoji,
+						GameId.FlagRoyalCrown,
+						GameId.FlagSalt,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinSausage,
 						GameId.MeleeSkinCactus,
@@ -3336,6 +3419,15 @@ namespace Quantum
 						GameId.Demon,
 						GameId.Superstar,
 						GameId.Unicorn,
+						GameId.FlagBanana,
+						GameId.FlagFire,
+						GameId.FlagGG,
+						GameId.FlagLaughing,
+						GameId.FlagNoob,
+						GameId.FlagNumberOne,
+						GameId.FlagPooEmoji,
+						GameId.FlagRoyalCrown,
+						GameId.FlagSalt,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinDaggerOfDestiny,
 						GameId.MeleeSkinElectricSolo,
@@ -3510,7 +3602,9 @@ namespace Quantum
 						GameId.PartnerXBORG,
 						GameId.PartnerBREED,
 						GameId.PartnerMEME,
-						GameId.PartnerYGG
+						GameId.PartnerYGG,
+						GameId.FestiveSNOWFLAKE,
+						GameId.EventTicket
 					}.AsReadOnly()
 				},
 				{
@@ -3658,7 +3752,16 @@ namespace Quantum
 						GameId.Tombstone,
 						GameId.Demon,
 						GameId.Superstar,
-						GameId.Unicorn
+						GameId.Unicorn,
+						GameId.FlagBanana,
+						GameId.FlagFire,
+						GameId.FlagGG,
+						GameId.FlagLaughing,
+						GameId.FlagNoob,
+						GameId.FlagNumberOne,
+						GameId.FlagPooEmoji,
+						GameId.FlagRoyalCrown,
+						GameId.FlagSalt
 					}.AsReadOnly()
 				},
 				{

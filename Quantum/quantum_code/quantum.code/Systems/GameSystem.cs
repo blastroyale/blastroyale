@@ -22,12 +22,16 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
-			f.ResolveList(f.Global->Queries).Clear();
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-
 			if (!container->IsGameStarted && f.Time > PLAYERS_JOIN_TIMEOUT)
 			{
 				AllPlayersJoined(f, container);
+			}
+			
+			if (f.IsVerified && !container->IsGameOver && container->GameOverTime > 0 && container->GameOverTime < f.Time)
+			{
+				container->IsGameOver = true;
+				ProccessGameEnd(f, container);
 			}
 		}
 
@@ -53,12 +57,18 @@ namespace Quantum.Systems
 		public void GameEnded(Frame f, QBoolean success)
 		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-
+			if (gameContainer->IsGameOver || gameContainer->GameOverTime > 0)
+			{
+				Log.Error("Game was already over and game over was called again. Not running second time.");
+				return;
+			}
 			gameContainer->GameOverTime = f.Time;
-			gameContainer->IsGameOver = true;
 			gameContainer->IsGameFailed = !success;
+		}
 
-			if (success)
+		private unsafe void ProccessGameEnd(Frame f, GameContainer* gameContainer)
+		{
+			if (!gameContainer->IsGameFailed)
 			{
 				foreach (var livingPlayer in f.GetComponentIterator<AlivePlayerCharacter>())
 				{
@@ -68,7 +78,6 @@ namespace Quantum.Systems
 						f.ServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
 					}
 				}
-
 				f.Events.OnGameEnded(); // If its not success the end flow is handled by simulation destroyed in the client
 			}
 

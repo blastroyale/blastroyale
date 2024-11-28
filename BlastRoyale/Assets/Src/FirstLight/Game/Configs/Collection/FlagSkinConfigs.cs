@@ -8,10 +8,19 @@ using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.Configs
 {
+	[Serializable]
+	public struct FlagConfigEntry
+	{
+		[Required] public GameId GameId;
+		[Required] public AssetReferenceT<Mesh> Mesh;
+		[Required] public AssetReferenceSprite Sprite;
+	}
+	
 	[Serializable, IgnoreServerSerialization]
 	public struct FlagSkinConfig
 	{
-		public List<CosmeticConfigEntry> Skins;
+		public GameObject FlagPrefab;
+		public List<FlagConfigEntry> Skins;
 	}
 
 	[CreateAssetMenu(fileName = "FlagSkinConfigs", menuName = "ScriptableObjects/Configs/Collection/FlagSkinContainer"),

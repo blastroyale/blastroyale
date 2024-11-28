@@ -97,8 +97,8 @@ namespace FirstLight.Editor.Ids
 			{"PartnerBREED", 917, Currency, CryptoCurrency},
 			{"PartnerMEME", 918, Currency, CryptoCurrency},
 			{"PartnerYGG", 919, Currency, CryptoCurrency},
-			{"FestiveSNOWFLAKE", 271, Currency},
-			{"EventTicket", 272, Currency},
+			{"FestiveSNOWFLAKE", 271, Currency, CryptoCurrency},
+			{"EventTicket", 272, Currency, CryptoCurrency},
 			{"FloodCity", 137, Map, Deprecated},
 			{"MainDeck", 143, Map},
 			{"FtueDeck", 5, Map},
@@ -308,6 +308,15 @@ namespace FirstLight.Editor.Ids
 			{"Demon", 25, DeathMarker, BotItem, Collection},
 			{"Superstar", 75, DeathMarker, BotItem, Collection},
 			{"Unicorn", 76, DeathMarker, BotItem, Collection},
+			{"FlagBanana", 273, DeathMarker, BotItem, Collection},
+			{"FlagFire", 274, DeathMarker, BotItem, Collection},
+			{"FlagGG",  275, DeathMarker, BotItem, Collection},
+			{"FlagLaughing", 276, DeathMarker, BotItem, Collection},
+			{"FlagNoob", 277, DeathMarker, BotItem, Collection},
+			{"FlagNumberOne", 278, DeathMarker, BotItem, Collection},
+			{"FlagPooEmoji", 279, DeathMarker, BotItem, Collection},
+			{"FlagRoyalCrown", 280, DeathMarker, BotItem, Collection},
+			{"FlagSalt", 281, DeathMarker, BotItem, Collection},
 			#endregion
 
 			#region MeleeSkins

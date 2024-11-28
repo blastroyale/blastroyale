@@ -32,11 +32,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 200f11153aed542e3aeb0adb534ade89
-    m_Address: Assets/Art/UI/Sprites/Home/flag-demon.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 21325777ff90a47868a374eee1fb564f
     m_Address: Assets/Art/UI/Screens/BattlePassScreenDocument.uxml
     m_ReadOnly: 0
@@ -59,11 +54,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 518db8b02055242258e1c098b9c401f7
     m_Address: MainMenuAssets
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 55356cbdba04d48d9b5a996b1db941ca
-    m_Address: Assets/Art/UI/Sprites/Home/flag-unicorn.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -109,11 +99,6 @@ MonoBehaviour:
     - GenerateIds
     - ScriptableObjectsOnly
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cdc7358579aa94ba0a86ff51775df66b
-    m_Address: Assets/Art/UI/Sprites/Home/flag-superstar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ce83c8bea7bca44b893b799aca685404
     m_Address: Assets/Art/UI/Sprites/Home/glider-falcon.png
     m_ReadOnly: 0
@@ -121,11 +106,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf2e71bde4a694081a6c35be5418d3e2
     m_Address: VFX/WeaponAim.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d3812d1e1c56b4a188ccfb9324966a36
-    m_Address: Assets/Art/UI/Sprites/Home/flag-tombstone.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

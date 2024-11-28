@@ -20,6 +20,7 @@ using Photon.Deterministic;
 using PlayFab;
 using Quantum;
 using Quantum.Commands;
+using Quantum.Systems;
 using Unity.Services.Authentication;
 using Assert = UnityEngine.Assertions.Assert;
 
@@ -359,6 +360,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});
 		}
 
+
 		private unsafe bool IsSimulationReady()
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return false;
@@ -381,7 +383,8 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			// Waiting specific system initializations until we update photon 2.1.9
-			if (!game.Frames.Verified.Unsafe.TryGetPointerSingleton<ShrinkingCircle>(out var circle))
+			var hasCircle = game.Frames.Verified.Context.GameModeConfig.Systems.Any(s => s == typeof(ShrinkingCircleSystem).FullName);
+			if (hasCircle && !game.Frames.Verified.Unsafe.TryGetPointerSingleton<ShrinkingCircle>(out var circle))
 			{
 				return false;
 			}

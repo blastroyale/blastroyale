@@ -106,6 +106,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.NOOBSilver, new List<GameIdGroup>
+					{
+						GameIdGroup.Collectable,
+						GameIdGroup.NOOBRareTokens
+					}.AsReadOnly()
+				},
+				{
 					GameId.NOOBGolden, new List<GameIdGroup>
 					{
 						GameIdGroup.Collectable,
@@ -3404,6 +3411,7 @@ namespace Quantum
 				{
 					GameIdGroup.Collectable, new List<GameId>
 					{
+						GameId.NOOBSilver,
 						GameId.NOOBGolden,
 						GameId.NOOBRainbow,
 						GameId.Health,
@@ -3511,6 +3519,7 @@ namespace Quantum
 				{
 					GameIdGroup.NOOBRareTokens, new List<GameId>
 					{
+						GameId.NOOBSilver,
 						GameId.NOOBGolden,
 						GameId.NOOBRainbow
 					}.AsReadOnly()

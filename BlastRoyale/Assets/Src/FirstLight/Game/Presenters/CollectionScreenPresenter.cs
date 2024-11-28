@@ -396,7 +396,7 @@ namespace FirstLight.Game.Presenters
 				? ScriptLocalization.General.Selected.ToUpper()
 				: ScriptLocalization.General.Equip;
 
-			_selectedItemLabel.text = selectedItem.GetDisplayName();
+			_selectedItemLabel.text = selectedItem.GetDisplayName().ToUpper();
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
 
 			var buffs = _gameDataProvider.BuffsLogic.GetMetaBuffs(selectedItem);
@@ -484,7 +484,7 @@ namespace FirstLight.Game.Presenters
 				var owned = collectionDataProvider.IsItemOwned(selectedItem);
 				var unseenItems = _services.RewardService.UnseenItems(ItemMetadataType.Collection);
 				var isUnseenItem = unseenItems.Contains(selectedItem);
-				card.SetCollectionElement(selectedItem, selectedItem.GetDisplayName(), itemIndex);
+				card.SetCollectionElement(selectedItem, selectedItem.GetDisplayName().ToUpper(), itemIndex);
 				card.SetIsOwned(owned);
 				card.SetIsEquipped(equipped != null && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);

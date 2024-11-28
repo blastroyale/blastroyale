@@ -280,15 +280,16 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinRenny", 258, PlayerSkin, Collection},
 			{"PlayerSkinRobot", 259, PlayerSkin, Collection},
 			{"PlayerSkinVikingfemale", 260, PlayerSkin, Collection},
-			{"PlayerSkinAlien", 273, PlayerSkin, Collection},
-			{"PlayerSkinBrazillianfestival", 274, PlayerSkin, Collection},
-			{"PlayerSkinChinesedragon", 275, PlayerSkin, Collection},
-			{"PlayerSkinFieldmedic", 276, PlayerSkin, Collection},
-			{"PlayerSkinPolarexplorer", 277, PlayerSkin, Collection},
-			{"PlayerSkinPostapocalypticassassin", 278, PlayerSkin, Collection},
-			{"PlayerSkinStreetrunner", 279, PlayerSkin, Collection},
-			{"PlayerSkinValkyrie", 280, PlayerSkin, Collection},
-			{"PlayerSkinYeti", 281, PlayerSkin, Collection},
+			{"PlayerSkinAlien", 282, PlayerSkin, Collection},
+			{"PlayerSkinBrazillianfestival", 283, PlayerSkin, Collection},
+			{"PlayerSkinChinesedragon", 284, PlayerSkin, Collection},
+			{"PlayerSkinFieldmedic", 285, PlayerSkin, Collection},
+			{"PlayerSkinPolarexplorer", 286, PlayerSkin, Collection},
+			{"PlayerSkinPostapocalypticassassin", 287, PlayerSkin, Collection},
+			{"PlayerSkinStreetrunner", 288, PlayerSkin, Collection},
+			{"PlayerSkinValkyrie", 289, PlayerSkin, Collection},
+			{"PlayerSkinYeti", 290, PlayerSkin, Collection},
+			
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins

@@ -2038,6 +2038,69 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.MeleeSkinBigsyringe, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinValkyriesword, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinIceсlub, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinHotdog, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinFish, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinFestivefeather, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinChinesefan, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinChemosword, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinCarкepairрammer, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Avatar1, new List<GameIdGroup>
 					{
 						GameIdGroup.ProfilePicture,
@@ -3138,6 +3201,15 @@ namespace Quantum
 						GameId.MeleeSkinRoyalStaff,
 						GameId.MeleeSkinStopSign,
 						GameId.MeleeSkinVikingAxe,
+						GameId.MeleeSkinBigsyringe,
+						GameId.MeleeSkinValkyriesword,
+						GameId.MeleeSkinIceсlub,
+						GameId.MeleeSkinHotdog,
+						GameId.MeleeSkinFish,
+						GameId.MeleeSkinFestivefeather,
+						GameId.MeleeSkinChinesefan,
+						GameId.MeleeSkinChemosword,
+						GameId.MeleeSkinCarкepairрammer,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -3492,7 +3564,16 @@ namespace Quantum
 						GameId.MeleeSkinRollingPin,
 						GameId.MeleeSkinRoyalStaff,
 						GameId.MeleeSkinStopSign,
-						GameId.MeleeSkinVikingAxe
+						GameId.MeleeSkinVikingAxe,
+						GameId.MeleeSkinBigsyringe,
+						GameId.MeleeSkinValkyriesword,
+						GameId.MeleeSkinIceсlub,
+						GameId.MeleeSkinHotdog,
+						GameId.MeleeSkinFish,
+						GameId.MeleeSkinFestivefeather,
+						GameId.MeleeSkinChinesefan,
+						GameId.MeleeSkinChemosword,
+						GameId.MeleeSkinCarкepairрammer
 					}.AsReadOnly()
 				},
 				{

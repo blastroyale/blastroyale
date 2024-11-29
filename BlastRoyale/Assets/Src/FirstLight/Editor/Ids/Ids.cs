@@ -378,8 +378,8 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinFish", 335, MeleeSkin, Collection},
 			{"MeleeSkinFestivefeather", 336, MeleeSkin, Collection},
 			{"MeleeSkinChinesefan", 337, MeleeSkin, Collection},
-			{"MeleeSkinChemosword", 338, MeleeSkin, Collection},
-			{"MeleeSkinCarкepairрammer", 339, MeleeSkin, Collection},
+			{"MeleeSkinToxicatorSword", 338, MeleeSkin, Collection},
+			{"MeleeSkinCarrepairHammer", 339, MeleeSkin, Collection},
 			// WEAPON GENERATION TOKEN KEEP THIS HERE
 			
 			#endregion

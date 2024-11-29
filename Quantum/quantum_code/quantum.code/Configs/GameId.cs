@@ -2161,14 +2161,14 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.MeleeSkinChemosword, new List<GameIdGroup>
+					GameId.MeleeSkinToxicatorSword, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
-					GameId.MeleeSkinCarкepairрammer, new List<GameIdGroup>
+					GameId.MeleeSkinCarrepairHammer, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
 						GameIdGroup.Collection
@@ -3291,8 +3291,8 @@ namespace Quantum
 						GameId.MeleeSkinFish,
 						GameId.MeleeSkinFestivefeather,
 						GameId.MeleeSkinChinesefan,
-						GameId.MeleeSkinChemosword,
-						GameId.MeleeSkinCarкepairрammer,
+						GameId.MeleeSkinToxicatorSword,
+						GameId.MeleeSkinCarrepairHammer,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -3666,8 +3666,8 @@ namespace Quantum
 						GameId.MeleeSkinFish,
 						GameId.MeleeSkinFestivefeather,
 						GameId.MeleeSkinChinesefan,
-						GameId.MeleeSkinChemosword,
-						GameId.MeleeSkinCarкepairрammer
+						GameId.MeleeSkinToxicatorSword,
+						GameId.MeleeSkinCarrepairHammer
 					}.AsReadOnly()
 				},
 				{

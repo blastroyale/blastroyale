@@ -281,6 +281,16 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinRenny", 258, PlayerSkin, Collection},
 			{"PlayerSkinRobot", 259, PlayerSkin, Collection},
 			{"PlayerSkinVikingfemale", 260, PlayerSkin, Collection},
+			{"PlayerSkinAlien", 282, PlayerSkin, Collection},
+			{"PlayerSkinBrazillianfestival", 283, PlayerSkin, Collection},
+			{"PlayerSkinChinesedragon", 284, PlayerSkin, Collection},
+			{"PlayerSkinFieldmedic", 285, PlayerSkin, Collection},
+			{"PlayerSkinPolarexplorer", 286, PlayerSkin, Collection},
+			{"PlayerSkinPostapocalypticassassin", 287, PlayerSkin, Collection},
+			{"PlayerSkinStreetrunner", 288, PlayerSkin, Collection},
+			{"PlayerSkinValkyrie", 289, PlayerSkin, Collection},
+			{"PlayerSkinYeti", 290, PlayerSkin, Collection},
+			
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins
@@ -362,6 +372,15 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinRoyalStaff", 266, MeleeSkin, Collection},
 			{"MeleeSkinStopSign", 267, MeleeSkin, Collection},
 			{"MeleeSkinVikingAxe", 268, MeleeSkin, Collection},
+			{"MeleeSkinBigsyringe", 321, MeleeSkin, Collection},
+			{"MeleeSkinValkyriesword", 322, MeleeSkin, Collection},
+			{"MeleeSkinIceсlub", 333, MeleeSkin, Collection},
+			{"MeleeSkinHotdog", 334, MeleeSkin, Collection},
+			{"MeleeSkinFish", 335, MeleeSkin, Collection},
+			{"MeleeSkinFestivefeather", 336, MeleeSkin, Collection},
+			{"MeleeSkinChinesefan", 337, MeleeSkin, Collection},
+			{"MeleeSkinToxicatorSword", 338, MeleeSkin, Collection},
+			{"MeleeSkinCarrepairHammer", 339, MeleeSkin, Collection},
 			// WEAPON GENERATION TOKEN KEEP THIS HERE
 			
 			#endregion

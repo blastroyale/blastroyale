@@ -43,7 +43,6 @@
                         <ui:VisualElement name="NewEventGlow" picking-mode="Ignore" class="game-mode-button__new-event-glow" />
                     </ui:VisualElement>
                     <ui:VisualElement name="GameModeButtonBG" class=" game-mode-button__bg">
-                        <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />
                         <ui:VisualElement name="ContentContainer" class="game-mode-button__content-container">
                             <FirstLight.Game.UIElements.LabelOutlined text="NEW EVENT !" name="NewEventLabel" enable-rich-text="false" display-tooltip-when-elided="false" class="game-mode-button__new-event-label" />
                             <ui:VisualElement name="SelectedContainer" class="game-mode-button__selected-container">

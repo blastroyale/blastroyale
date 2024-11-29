@@ -183,16 +183,21 @@ namespace FirstLight.Editor.AssetImporters
 							characterAnimator.runtimeAnimatorController = animatorController;
 						}
 
+						// Create material
+						var material = new Material(Shader.Find("FLG/Unlit/Dynamic Object"));
+						material.mainTexture = AssetDatabase.LoadAssetAtPath<Texture>(characterTexturePath);
+						var materialPath = Path.Combine(assetPath, $"M_{CHARACTER_PREFIX}{characterName}.mat");
+						AssetDatabase.CreateAsset(material, materialPath);
+						var loadedMaterial = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
+						var renderers = characterPrefab.GetComponentsInChildren<SkinnedMeshRenderer>();
+						foreach (var renderer in renderers)
+						{
+							renderer.sharedMaterial = loadedMaterial;
+						}
 						// Create prefab variant
 						PrefabUtility.SaveAsPrefabAssetAndConnect(characterPrefab, Path.Combine(assetPath, characterPrefabFilename),
 							InteractionMode.AutomatedAction, out var success);
 						Object.DestroyImmediate(characterPrefab);
-
-						// Create material
-						var material = new Material(Shader.Find("FLG/Unlit/Dynamic Object"));
-						material.mainTexture = AssetDatabase.LoadAssetAtPath<Texture>(characterTexturePath);
-						AssetDatabase.CreateAsset(material, Path.Combine(assetPath, $"M_{CHARACTER_PREFIX}{characterName}.mat"));
-
 						if (!success)
 						{
 							Debug.LogError($"Error creating prefab for character {characterName}.");

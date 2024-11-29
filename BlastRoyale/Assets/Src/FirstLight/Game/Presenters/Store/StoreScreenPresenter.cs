@@ -150,7 +150,14 @@ namespace FirstLight.Game.Presenters.Store
 			//Should have a better mechanism to prioritize what are the orders of notification
 			if (HasMaxAmountReached(trackedPurchasedItem, product.PlayfabProductConfig.StoreItemData))
 			{
-				_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_maxamount);
+				if (trackedPurchasedItem.AmountPurchased >= product.PlayfabProductConfig.StoreItemData.MaxAmount)
+				{
+					_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_daily_reset);	
+				}
+				else
+				{
+					_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_maxamount);	
+				}
 			}
 			else if (!HasPurchaseCooldownExpired(trackedPurchasedItem.LastPurchaseTime, product.PlayfabProductConfig.StoreItemData.PurchaseCooldown))
 			{

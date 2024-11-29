@@ -450,7 +450,7 @@ namespace FirstLight.Game.StateMachines
 				}
 #endif
 				_matchServices.MatchEndDataService.Reload();
-				QuantumRunner.ShutdownAll();
+				QuantumRunner.ShutdownAll(true);
 			}
 		}
 

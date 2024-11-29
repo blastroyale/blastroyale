@@ -5,15 +5,15 @@
     <ui:VisualElement name="root" class="root fill-parent">
         <FirstLight.Game.UIElements.ImageButton name="Blocker" class="fill-parent blocker" />
         <FirstLight.Game.UIElements.GenericPopupElement name="Popup">
-            <ui:VisualElement name="Content" class="content">
+            <ui:VisualElement name="Content" class="content event-container--custom-image">
                 <ui:VisualElement name="Left" class="content__left">
-                    <ui:VisualElement name="EventContainer" class="event-container">
+                    <ui:VisualElement name="EventContainer" class="event-container event-container--custom-image">
                         <ui:VisualElement name="TopPart" class="event-container__top">
                             <FirstLight.Game.UIElements.LabelOutlined text="BATTLE ROYALE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EventTitle" class="title" />
                             <ui:Label name="EventTimer" text="ENDS IN 23h 24m 34s" class="event-ends-label" />
                             <ui:VisualElement name="EventThumbnail" class="event-thumbnail">
                                 <ui:VisualElement class="event-thumbnail__mask">
-                                    <ui:VisualElement name="EventImage" class="event-thumbnail__image" />
+                                    <ui:VisualElement name="EventImage" class="event-thumbnail__image" style="background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-solo-event-characters.png?fileID=2800000&amp;guid=30c73b73a6ea714498312b9827d87a46&amp;type=3#gamemode-solo-event-characters&quot;);" />
                                 </ui:VisualElement>
                             </ui:VisualElement>
                         </ui:VisualElement>

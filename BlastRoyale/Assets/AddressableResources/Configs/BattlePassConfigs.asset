@@ -93,7 +93,7 @@ MonoBehaviour:
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__yeti-season-reward
       EndGraphicName: YETI
-      Highlighted: 40:F,12,30:F,45
+      Highlighted: 44:F,12,30:F,50
     - Number: 14
       Price: 60
       BuyLevelPrice: 20
@@ -103,7 +103,7 @@ MonoBehaviour:
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__iceking-season-reward
       EndGraphicName: XANADU
-      Highlighted: 40:F,12,30:F,45
+      Highlighted: 44:F,12,30:F,50
     Levels:
     - RewardId: 2
       PremiumRewardId: 0
@@ -2785,7 +2785,7 @@ MonoBehaviour:
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 13
-    - RewardId: 175
+    - RewardId: 168
       PremiumRewardId: 169
       PointsForNextLevel: 0
       Season: 13
@@ -2801,32 +2801,32 @@ MonoBehaviour:
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 13
-    - RewardId: 168
+    - RewardId: 175
       PremiumRewardId: 90
       PointsForNextLevel: 0
       Season: 13
     - RewardId: 35
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 13
+    - RewardId: 168
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 13
+    - RewardId: 35
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 13
+    - RewardId: 168
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 13
+    - RewardId: 35
+      PremiumRewardId: 90
+      PointsForNextLevel: 0
+      Season: 13
+    - RewardId: 168
       PremiumRewardId: 179
-      PointsForNextLevel: 0
-      Season: 13
-    - RewardId: 168
-      PremiumRewardId: 169
-      PointsForNextLevel: 0
-      Season: 13
-    - RewardId: 35
-      PremiumRewardId: 170
-      PointsForNextLevel: 0
-      Season: 13
-    - RewardId: 168
-      PremiumRewardId: 169
-      PointsForNextLevel: 0
-      Season: 13
-    - RewardId: 35
-      PremiumRewardId: 90
-      PointsForNextLevel: 0
-      Season: 13
-    - RewardId: 168
-      PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 13
     - RewardId: 35
@@ -2985,7 +2985,7 @@ MonoBehaviour:
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 14
-    - RewardId: 176
+    - RewardId: 168
       PremiumRewardId: 169
       PointsForNextLevel: 0
       Season: 14
@@ -3001,31 +3001,31 @@ MonoBehaviour:
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 14
-    - RewardId: 168
+    - RewardId: 176
       PremiumRewardId: 90
       PointsForNextLevel: 0
       Season: 14
     - RewardId: 35
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 14
+    - RewardId: 168
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 14
+    - RewardId: 35
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 14
+    - RewardId: 168
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 14
+    - RewardId: 35
+      PremiumRewardId: 90
+      PointsForNextLevel: 0
+      Season: 14
+    - RewardId: 168
       PremiumRewardId: 171
-      PointsForNextLevel: 0
-      Season: 14
-    - RewardId: 168
-      PremiumRewardId: 169
-      PointsForNextLevel: 0
-      Season: 14
-    - RewardId: 35
-      PremiumRewardId: 170
-      PointsForNextLevel: 0
-      Season: 14
-    - RewardId: 168
-      PremiumRewardId: 169
-      PointsForNextLevel: 0
-      Season: 14
-    - RewardId: 35
-      PremiumRewardId: 90
-      PointsForNextLevel: 0
-      Season: 14
-    - RewardId: 168
-      PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 14

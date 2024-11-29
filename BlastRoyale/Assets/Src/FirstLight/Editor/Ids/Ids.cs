@@ -374,7 +374,7 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinVikingAxe", 268, MeleeSkin, Collection},
 			{"MeleeSkinBigsyringe", 321, MeleeSkin, Collection},
 			{"MeleeSkinValkyriesword", 322, MeleeSkin, Collection},
-			{"MeleeSkinIceсlub", 333, MeleeSkin, Collection},
+			{"MeleeSkinIceclub", 333, MeleeSkin, Collection},
 			{"MeleeSkinHotdog", 334, MeleeSkin, Collection},
 			{"MeleeSkinFish", 335, MeleeSkin, Collection},
 			{"MeleeSkinFestivefeather", 336, MeleeSkin, Collection},

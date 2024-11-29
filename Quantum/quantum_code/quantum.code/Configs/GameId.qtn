@@ -291,7 +291,7 @@ enum GameId
 	MeleeSkinVikingAxe = 268,
 	MeleeSkinBigsyringe = 321,
 	MeleeSkinValkyriesword = 322,
-	MeleeSkinIceсlub = 333,
+	MeleeSkinIceclub = 333,
 	MeleeSkinHotdog = 334,
 	MeleeSkinFish = 335,
 	MeleeSkinFestivefeather = 336,

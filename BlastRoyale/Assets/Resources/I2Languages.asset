@@ -16107,6 +16107,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/NOOBSilver
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/NOOBDescription
       TermType: 0
       Description: 
@@ -16401,11 +16412,56 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/FestiveSNOWFLAKEDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Snowflakes in special winter
+
+        events or buy them in the shop.
+
+        Use
+        them to purchase special winter
+
+        items in the shop.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveSNOWFLAKE_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - SNOWFLAKES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/EventTicket
       TermType: 0
       Description: 
       Languages:
       - EVENT TICKET
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/EventTicketDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Tickets in regular game modes
+
+        or buy them in the shop.
+
+        Use
+        them to enter and play special events.'
       - 
       - 
       - 
@@ -16432,6 +16488,820 @@ MonoBehaviour:
         \u0433\u043E\u0440\u043E\u0434, \u0442\u0435\u043F\u0435\u0440\u044C \u043F\u043E\u043B\u044F
         \u0431\u043E\u0435\u0432\u044B\u0445 \u0441\u0430\u043B\u043E\u043D\u043E\u0432"
       - Uma vez uma cidade movimentada, agora um campo de batalha de saqueadores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinAlien
+      TermType: 0
+      Description: 
+      Languages:
+      - XANADU
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinAlienDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrazillianfestival
+      TermType: 0
+      Description: 
+      Languages:
+      - BEATRIZ
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrazillianfestivalDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinChinesedragon
+      TermType: 0
+      Description: 
+      Languages:
+      - TING TING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinChinesedragonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinValkyrie
+      TermType: 0
+      Description: 
+      Languages:
+      - VALKYRIE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinValkyrieDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinYeti
+      TermType: 0
+      Description: 
+      Languages:
+      - YETI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinYetiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPostapocalypticassassin
+      TermType: 0
+      Description: 
+      Languages:
+      - HANZO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPostapocalypticassassinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPolarexplorer
+      TermType: 0
+      Description: 
+      Languages:
+      - SARA SNOW
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPolarexplorerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFieldmedic
+      TermType: 0
+      Description: 
+      Languages:
+      - DR. VARGOVA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFieldmedicDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinStreetrunner
+      TermType: 0
+      Description: 
+      Languages:
+      - JOHN BAKER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinStreetrunnerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBigsyringe
+      TermType: 0
+      Description: 
+      Languages:
+      - INJECTOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBigsyringeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinValkyriesword
+      TermType: 0
+      Description: 
+      Languages:
+      - HOFUTH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinValkyrieswordDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinIceclub
+      TermType: 0
+      Description: 
+      Languages:
+      - ICEMASHER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinIceclubDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinHotdog
+      TermType: 0
+      Description: 
+      Languages:
+      - HOT DOG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinHotdogDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFish
+      TermType: 0
+      Description: 
+      Languages:
+      - BIG TUNA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFishDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFestivefeather
+      TermType: 0
+      Description: 
+      Languages:
+      - FESTIVE FEATHERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFestivefeatherDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinChinesefan
+      TermType: 0
+      Description: 
+      Languages:
+      - LUNAR FAN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinChinesefanDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToxicatorSword
+      TermType: 0
+      Description: 
+      Languages:
+      - TOXICATOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToxicatorSwordDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCarrepairHammer
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOCKING HAMMER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCarrepairHammerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagBanana
+      TermType: 0
+      Description: 
+      Languages:
+      - BANANA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagBananaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagFire
+      TermType: 0
+      Description: 
+      Languages:
+      - FLAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagFireDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagGG
+      TermType: 0
+      Description: 
+      Languages:
+      - GG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagGGDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagLaughing
+      TermType: 0
+      Description: 
+      Languages:
+      - LOL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagLaughingDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNoob
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNoobDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNumberOne
+      TermType: 0
+      Description: 
+      Languages:
+      - NUMBER ONE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNumberOneDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagPooEmoji
+      TermType: 0
+      Description: 
+      Languages:
+      - POO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagPooEmojiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagRoyalCrown
+      TermType: 0
+      Description: 
+      Languages:
+      - ROYALTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagRoyalCrownDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagSalt
+      TermType: 0
+      Description: 
+      Languages:
+      - SALTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagSaltDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarAlien
+      TermType: 0
+      Description: 
+      Languages:
+      - FUNKY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarAlienDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrazilianfestival
+      TermType: 0
+      Description: 
+      Languages:
+      - LET'S DANCE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrazilianfestivalDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarChinesedragon
+      TermType: 0
+      Description: 
+      Languages:
+      - DRAGON VISION
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarChinesedragonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFieldmedic
+      TermType: 0
+      Description: 
+      Languages:
+      - NO TIME TO HEAL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFieldmedicDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPolarexplorer
+      TermType: 0
+      Description: 
+      Languages:
+      - FROZEN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPolarexplorerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPostapocalypticassasin
+      TermType: 0
+      Description: 
+      Languages:
+      - TOXIC
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPostapocalypticassasinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSnowflake
+      TermType: 0
+      Description: 
+      Languages:
+      - WINTER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSnowflakeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarStreetrunner
+      TermType: 0
+      Description: 
+      Languages:
+      - READY TO ROLL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarStreetrunnerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarValkyrie
+      TermType: 0
+      Description: 
+      Languages:
+      - TO ASGARD!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarValkyrieDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarYeti
+      TermType: 0
+      Description: 
+      Languages:
+      - CHILL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarYetiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -30253,7 +31123,18 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You've purchased all available items. Come back another time!
+      - You've purchased all available items.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/notification_product_daily_reset
+      TermType: 0
+      Description: 
+      Languages:
+      - You've purchased all available items for today. Come back tomorrow for more!
       - 
       - 
       - 
@@ -31475,854 +32356,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/FestiveSNOWFLAKEDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Earn Snowflakes in special winter
-
-        events or buy them in the shop.
-
-        Use
-        them to purchase special winter
-
-        items in the shop.'
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/EventTicketDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Earn Tickets in regular game modes
-
-        or buy them in the shop.
-
-        Use
-        them to enter and play special events.'
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinAlien
-      TermType: 0
-      Description: 
-      Languages:
-      - XANADU
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinAlienDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 2
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinBrazilianfestival
-      TermType: 0
-      Description: 
-      Languages:
-      - BEATRIZ
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinBrazilianfestivalDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinChinesedragon
-      TermType: 0
-      Description: 
-      Languages:
-      - TIANLONG
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinChinesedragonDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinValkyrie
-      TermType: 0
-      Description: 
-      Languages:
-      - VALKYRIE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinValkyrieDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinYeti
-      TermType: 0
-      Description: 
-      Languages:
-      - YETI
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinYetiDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 1
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinPostapocalypticassasin
-      TermType: 0
-      Description: 
-      Languages:
-      - HANZO
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinPostapocalypticassasinDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 2
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinPolarexplorer
-      TermType: 0
-      Description: 
-      Languages:
-      - SARA SNOW
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinPolarexplorerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 1
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinFieldmedic
-      TermType: 0
-      Description: 
-      Languages:
-      - DR. VARGOVA
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinFieldmedicDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinStreetrunner
-      TermType: 0
-      Description: 
-      Languages:
-      - JOHN BAKER
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinStreetrunnerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinBigsyringe
-      TermType: 0
-      Description: 
-      Languages:
-      - INJECTOR
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinBigsyringeDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinValkyriesword
-      TermType: 0
-      Description: 
-      Languages:
-      - HOFUTH
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinValkyrieswordDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinIceclub
-      TermType: 0
-      Description: 
-      Languages:
-      - ICEMASHER
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinIceclubDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 1
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinHotdog
-      TermType: 0
-      Description: 
-      Languages:
-      - HOT DOG
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinHotdogDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 2
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinFish
-      TermType: 0
-      Description: 
-      Languages:
-      - BIG TUNA
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinFishDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 1
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinFestivefeather
-      TermType: 0
-      Description: 
-      Languages:
-      - FESTIVE FEATHERS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinFestivefeatherDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinChinesefan
-      TermType: 0
-      Description: 
-      Languages:
-      - LUNAR FAN
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinChinesefanDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinChemosword
-      TermType: 0
-      Description: 
-      Languages:
-      - TOXICATOR
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinChemoswordDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 2
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinCarkepairhammer
-      TermType: 0
-      Description: 
-      Languages:
-      - BLOCKING HAMMER
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MeleeSkinCarkepairhammerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagBanana
-      TermType: 0
-      Description: 
-      Languages:
-      - BANANA
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagBananaDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagFire
-      TermType: 0
-      Description: 
-      Languages:
-      - FLAME
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagFireDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagGG
-      TermType: 0
-      Description: 
-      Languages:
-      - GG
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagGGDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 1
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagLaughing
-      TermType: 0
-      Description: 
-      Languages:
-      - LOL
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagLaughingDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 2
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagNoob
-      TermType: 0
-      Description: 
-      Languages:
-      - NOOB
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagNoobDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 1
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagNumberOne
-      TermType: 0
-      Description: 
-      Languages:
-      - NUMBER ONE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagNumberOneDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagPooEmoji
-      TermType: 0
-      Description: 
-      Languages:
-      - POO
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagPooEmojiDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 2
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagRoyalCrown
-      TermType: 0
-      Description: 
-      Languages:
-      - ROYALTY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagRoyalCrownDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagSalt
-      TermType: 0
-      Description: 
-      Languages:
-      - SALTY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FlagSaltDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarAlien
-      TermType: 0
-      Description: 
-      Languages:
-      - FUNKY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarAlienDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 2
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarBrazilianfestival
-      TermType: 0
-      Description: 
-      Languages:
-      - LET'S DANCE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarBrazilianfestivalDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarChinesedragon
-      TermType: 0
-      Description: 
-      Languages:
-      - DRAGON VISION
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarChinesedragonDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarFieldmedic
-      TermType: 0
-      Description: 
-      Languages:
-      - NO TIME TO HEAL
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarFieldmedicDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarPolarexplorer
-      TermType: 0
-      Description: 
-      Languages:
-      - FROZEN
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarPolarexplorerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 1
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarPostapocalypticassasin
-      TermType: 0
-      Description: 
-      Languages:
-      - TOXIC
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarPostapocalypticassasinDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 2
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarSnowflake
-      TermType: 0
-      Description: 
-      Languages:
-      - WINTER
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarSnowflakeDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarStreetrunner
-      TermType: 0
-      Description: 
-      Languages:
-      - READY TO ROLL
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarStreetrunnerDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarValkyrie
-      TermType: 0
-      Description: 
-      Languages:
-      - TO ASGARD!
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarValkyrieDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarYeti
-      TermType: 0
-      Description: 
-      Languages:
-      - CHILL
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarYetiDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 1
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -32347,7 +32380,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1732792061865
+    Google_LastUpdatedVersion: 1732901108824
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

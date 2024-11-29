@@ -2133,7 +2133,7 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.MeleeSkinIceсlub, new List<GameIdGroup>
+					GameId.MeleeSkinIceclub, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
 						GameIdGroup.Collection
@@ -3363,7 +3363,7 @@ namespace Quantum
 						GameId.MeleeSkinVikingAxe,
 						GameId.MeleeSkinBigsyringe,
 						GameId.MeleeSkinValkyriesword,
-						GameId.MeleeSkinIceсlub,
+						GameId.MeleeSkinIceclub,
 						GameId.MeleeSkinHotdog,
 						GameId.MeleeSkinFish,
 						GameId.MeleeSkinFestivefeather,
@@ -3750,7 +3750,7 @@ namespace Quantum
 						GameId.MeleeSkinVikingAxe,
 						GameId.MeleeSkinBigsyringe,
 						GameId.MeleeSkinValkyriesword,
-						GameId.MeleeSkinIceсlub,
+						GameId.MeleeSkinIceclub,
 						GameId.MeleeSkinHotdog,
 						GameId.MeleeSkinFish,
 						GameId.MeleeSkinFestivefeather,

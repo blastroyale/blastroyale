@@ -2867,6 +2867,7 @@ namespace I2.Loc
 			public static string you_own_this_item 		{ get{ return LocalizationManager.GetTranslation ("UITStore/you_own_this_item"); } }
 			public static string notification_product_cooldown 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_cooldown"); } }
 			public static string notification_product_maxamount 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_maxamount"); } }
+			public static string notification_product_daily_reset 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_daily_reset"); } }
 		}
 
 		public static class UITSwipeTransition
@@ -5788,6 +5789,7 @@ namespace I2.Loc
 		    public const string you_own_this_item = "UITStore/you_own_this_item";
 			public const string notification_product_cooldown = "UITStore/notification_product_cooldown";
 			public const string notification_product_maxamount = "UITStore/notification_product_maxamount";
+			public const string notification_product_daily_reset = "UITStore/notification_product_daily_reset";
 		}
 
 		public static class UITSwipeTransition

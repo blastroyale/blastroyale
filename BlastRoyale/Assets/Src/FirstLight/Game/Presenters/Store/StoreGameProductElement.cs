@@ -142,7 +142,7 @@ namespace FirstLight.Game.Presenters.Store
 			_name.text += itemView.DisplayName;
 
 			
-			if (!flags.HasFlag(ProductFlags.MAXAMOUNT) && flags.HasFlag(ProductFlags.COOLDOWN))
+			if ((flags.HasFlag(ProductFlags.COOLDOWN) || product.PlayfabProductConfig.StoreItemData.ShouldDailyReset) && trackedPurchasedItem != null)
 			{
 				ShowCooldown(product.PlayfabProductConfig.StoreItemData, trackedPurchasedItem, CooldownExpiredAction);
 			}
@@ -207,9 +207,19 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			_cooldownArea.SetDisplay(true);
 			_purchaseDisabledOverlay.SetDisplay(true);
+
+			double cooldownRemainingSeconds;
+
+			if (storeItemData.ShouldDailyReset && trackedPurchasedItem.AmountPurchased >= storeItemData.MaxAmount)
+			{
+				cooldownRemainingSeconds = (DateTime.UtcNow.AddDays(1).Date - DateTime.UtcNow).TotalSeconds;
+			}
+			else
+			{
+				cooldownRemainingSeconds = storeItemData.PurchaseCooldown - (DateTime.UtcNow - trackedPurchasedItem.LastPurchaseTime).TotalSeconds;	
+			}
+		
 			
-			var cooldownElapsedSeconds = (DateTime.UtcNow - trackedPurchasedItem.LastPurchaseTime).TotalSeconds;
-			var cooldownRemainingSeconds = storeItemData.PurchaseCooldown - cooldownElapsedSeconds;
 
 			schedule.Execute(() =>
 				{

@@ -30253,7 +30253,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You've purchased all available items. Come back another time!
+      - You've purchased all available items.
       - 
       - 
       - 
@@ -31557,7 +31557,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TIANLONG
+      - TING TING
       - 
       - 
       - 
@@ -32317,6 +32317,138 @@ MonoBehaviour:
       Description: 
       Languages:
       - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/NOOBSilver
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrazillianfestival
+      TermType: 0
+      Description: 
+      Languages:
+      - BEATRIZ
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrazillianfestivalDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPostapocalypticassassin
+      TermType: 0
+      Description: 
+      Languages:
+      - HANZO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPostapocalypticassassinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: "GameIds/MeleeSkinIce\u0441lub"
+      TermType: 0
+      Description: 
+      Languages:
+      - ICEMASHER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: "GameIds/MeleeSkinIce\u0441lubDescription"
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToxicatorSword
+      TermType: 0
+      Description: 
+      Languages:
+      - TOXICATOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToxicatorSwordDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCarrepairHammer
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOCKING HAMMER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCarrepairHammerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/notification_product_daily_reset
+      TermType: 0
+      Description: 
+      Languages:
+      - You've purchased all available items for today. Come back tomorrow for more!
       - 
       - 
       - 

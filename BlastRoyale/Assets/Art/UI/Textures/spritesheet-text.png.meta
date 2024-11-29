@@ -1010,11 +1010,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet-text_1
+      name: XPIcon
       rect:
         serializedVersion: 2
-        x: 600
-        y: 924
+        x: 598
+        y: 923
         width: 100
         height: 100
       alignment: 0
@@ -1031,7 +1031,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet-text_2
+      name: BPXPIcon
       rect:
         serializedVersion: 2
         x: 700
@@ -1126,6 +1126,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Ammoicon: -69452386
+      BPXPIcon: -2018773346
       BPicon: 1114762273
       BadgePlace1: -702431576
       BadgePlace2: -448797168
@@ -1171,9 +1172,8 @@ TextureImporter:
       TextSpriteSheet_2: -2062587647
       TextSpriteSheet_3: 1785650691
       TrophyIcon: 1513400146
+      XPIcon: -1242341349
       spritesheet-text_0: 278038002
-      spritesheet-text_1: -1242341349
-      spritesheet-text_2: -2018773346
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

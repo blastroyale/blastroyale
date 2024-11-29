@@ -7,15 +7,15 @@
                 <ui:VisualElement name="ProductImageGradientSmall" class="product-image-gradient-small" />
                 <ui:VisualElement name="WidgetEffect" tabindex="-1" class="widget-effect" />
                 <ui:VisualElement name="ProductImage" class="product-image" />
-                <ui:VisualElement name="OwnedOverlay" class="owned-overlay" />
+                <ui:VisualElement name="PurchaseDisabled" class="purchase-disabled-overlay" />
                 <ui:VisualElement name="ProductImageGradientSides" class="product-image-gradient-sides" style="display: flex;" />
             </ui:VisualElement>
             <ui:VisualElement name="CooldownArea" class="cooldown-area">
-                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="&lt;sprite name=&quot;ClockIcon&quot;&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CooldownIcon" class="cooldown-text" style="display: flex;" />
-                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="4m 59s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CooldownTime" class="cooldown-text" style="display: flex;" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="&lt;sprite name=&quot;ClockIcon&quot;&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CooldownIcon" class="cooldown-icon" style="display: flex;" />
+                <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="4m 59s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CooldownTime" class="cooldown-time" style="display: flex;" />
             </ui:VisualElement>
-            <ui:VisualElement name="PurchasedAmountArea" class="purchase-amount-area">
-                <ui:Label tabindex="-1" text="2/2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchasedAmount" class="purchase-amount-text" />
+            <ui:VisualElement name="PurchasedAmountArea" class="purchased-amount-area">
+                <ui:Label tabindex="-1" text="2/2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchasedAmount" class="purchased-amount" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="InformationClickArea" focusable="true" tabindex="1" class="info-click-area" style="display: none;">
                 <ui:VisualElement name="InformationIcon" class="info-button" style="display: flex; visibility: visible;" />

@@ -64,11 +64,11 @@ namespace FirstLight.Game.Logic
 
 			TryResetTrackedStoreData();
 
-			var trackedPurchaseData = _trackedPlayerPurchases.SingleOrDefault(tpp => tpp.CatalogItemId.Equals(CatalogItemId));
+			var trackedPurchaseData = Data.TrackedStorePurchases.SingleOrDefault(tpp => tpp.CatalogItemId.Equals(CatalogItemId));
 
 			if (trackedPurchaseData == null)
 			{
-				_trackedPlayerPurchases.Add(new StorePurchaseData(
+				Data.TrackedStorePurchases.Add(new StorePurchaseData(
 					CatalogItemId,
 					storeItemData.ShouldDailyReset));
 				
@@ -86,13 +86,13 @@ namespace FirstLight.Game.Logic
 		{
 			var currentDate = DateTime.UtcNow;
 
-			var itemsToRemove = _trackedPlayerPurchases
-				.Where(tpp => tpp.ShouldDailyReset && (currentDate - tpp.LastPurchaseTime).TotalDays >= 1)
+			var itemsToRemove = Data.TrackedStorePurchases
+				.Where(tpp => tpp.ShouldDailyReset && (currentDate.Date > tpp.LastPurchaseTime.Date))
 				.ToList();
 
 			foreach (var item in itemsToRemove)
 			{
-				_trackedPlayerPurchases.Remove(item);
+				Data.TrackedStorePurchases.Remove(item);
 			}
 		}
 

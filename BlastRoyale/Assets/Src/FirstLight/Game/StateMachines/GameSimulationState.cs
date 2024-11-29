@@ -229,6 +229,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (callback.GameFailed)
 			{
+				FLog.Error("All players joined with errors, finishing simulation");
 				StopSimulation();
 				return;
 			}

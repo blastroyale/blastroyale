@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -199,13 +200,26 @@ namespace FirstLight.Game.Services
 
 		public unsafe void ReadMatchDataForEndingScreens(QuantumGame game)
 		{
-			if (game == null || game.Frames.Verified == null)
+			FLog.Verbose("Reading simulation data for match end sequence");
+			if (game == null || game.Frames.Verified == null || game.IsSessionDestroyed)
 			{
+				FLog.Error("Simulation was null or game was destroyed, could not read simulation data");
 				return;
 			}
 
 			var frame = game.Frames.Verified;
-			var gameContainer = frame.Unsafe.GetPointerSingleton<GameContainer>();
+			if (!frame.TryGetSingletonEntityRef<GameContainer>(out var containerEntity))
+			{
+				FLog.Error("Trying to read simulation data without a game container in memory");
+				return;
+			}
+
+			if (!frame.Unsafe.TryGetPointerSingleton<GameContainer>(out var gameContainer))
+			{
+				FLog.Error("Trying to read simulation data without a game container in memory");
+				return;
+			}
+			
 			LocalPlayer = game.GetLocalPlayerRef();
 			QuantumPlayerMatchData = gameContainer->GeneratePlayersMatchData(frame, out var leader, out _);
 			JoinedAsSpectator = _services.RoomService.IsLocalPlayerSpectator;

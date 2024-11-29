@@ -106,6 +106,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.NOOBSilver, new List<GameIdGroup>
+					{
+						GameIdGroup.Collectable,
+						GameIdGroup.NOOBRareTokens
+					}.AsReadOnly()
+				},
+				{
 					GameId.NOOBGolden, new List<GameIdGroup>
 					{
 						GameIdGroup.Collectable,
@@ -2828,6 +2835,76 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarAlien, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarBrazilianfestival, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarChinesedragon, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFieldmedic, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPolarexplorer, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPostapocalypticassasin, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSnowflake, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarStreetrunner, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarValkyrie, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarYeti, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -3385,7 +3462,17 @@ namespace Quantum
 						GameId.AvatarRennyBest,
 						GameId.AvatarRennyBanana,
 						GameId.AvatarRobot,
-						GameId.AvatarVikingfemale
+						GameId.AvatarVikingfemale,
+						GameId.AvatarAlien,
+						GameId.AvatarBrazilianfestival,
+						GameId.AvatarChinesedragon,
+						GameId.AvatarFieldmedic,
+						GameId.AvatarPolarexplorer,
+						GameId.AvatarPostapocalypticassasin,
+						GameId.AvatarSnowflake,
+						GameId.AvatarStreetrunner,
+						GameId.AvatarValkyrie,
+						GameId.AvatarYeti
 					}.AsReadOnly()
 				},
 				{
@@ -3468,6 +3555,7 @@ namespace Quantum
 				{
 					GameIdGroup.Collectable, new List<GameId>
 					{
+						GameId.NOOBSilver,
 						GameId.NOOBGolden,
 						GameId.NOOBRainbow,
 						GameId.Health,
@@ -3575,6 +3663,7 @@ namespace Quantum
 				{
 					GameIdGroup.NOOBRareTokens, new List<GameId>
 					{
+						GameId.NOOBSilver,
 						GameId.NOOBGolden,
 						GameId.NOOBRainbow
 					}.AsReadOnly()
@@ -3859,7 +3948,17 @@ namespace Quantum
 						GameId.AvatarRennyBest,
 						GameId.AvatarRennyBanana,
 						GameId.AvatarRobot,
-						GameId.AvatarVikingfemale
+						GameId.AvatarVikingfemale,
+						GameId.AvatarAlien,
+						GameId.AvatarBrazilianfestival,
+						GameId.AvatarChinesedragon,
+						GameId.AvatarFieldmedic,
+						GameId.AvatarPolarexplorer,
+						GameId.AvatarPostapocalypticassasin,
+						GameId.AvatarSnowflake,
+						GameId.AvatarStreetrunner,
+						GameId.AvatarValkyrie,
+						GameId.AvatarYeti
 					}.AsReadOnly()
 				},
 				{

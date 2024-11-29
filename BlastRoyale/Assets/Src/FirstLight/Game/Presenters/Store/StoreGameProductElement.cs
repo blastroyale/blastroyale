@@ -41,6 +41,11 @@ namespace FirstLight.Game.Presenters.Store
 		private const string USS_OWNED_STAMP = "owned-stamp";
 		private const string USS_OWNED_STAMP_TEXT = "owned-stamp__text";
 		private const string USS_OWNED_MODIFIER = "--owned";
+		private const string USS_COOLDOWN_AREA = "cooldown-area";
+		private const string USS_COOLDOWN_ICON = "cooldown-icon";
+		private const string USS_COOLDOWN_TIME = "cooldown-time";
+		private const string USS_PURCHASE_AMOUNT_AREA = "purchased-amount-area";
+		private const string USS_PURCHASE_AMOUNT = "purchased-amount";
 		private const string USS_SPRITE_CURRENCIES_BLASTBUCK = "sprite-currencies__blastbuck-1";
 
 		public StoreDisplaySize Size { get; set; }
@@ -63,7 +68,8 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			USS_BUNDLE_IMAGE, USS_GRADIENT_SIDES, USS_GRADIENT_BIG,
 			USS_GRADIENT_SMALL, USS_WIDGET_EFFECTS, USS_PRODUCT_WIDGET,
-			USS_PRODUCT_PRICE, USS_PRODUCT_IMAGE, USS_PRODUCT_NAME, USS_OWNED_STAMP, USS_OWNED_STAMP_TEXT
+			USS_PRODUCT_PRICE, USS_PRODUCT_IMAGE, USS_PRODUCT_NAME, USS_OWNED_STAMP, USS_OWNED_STAMP_TEXT,
+			USS_COOLDOWN_AREA, USS_COOLDOWN_ICON, USS_COOLDOWN_TIME, USS_PURCHASE_AMOUNT_AREA, USS_PURCHASE_AMOUNT
 		};
 
 		private VisualElement _root;
@@ -76,7 +82,7 @@ namespace FirstLight.Game.Presenters.Store
 		private VisualElement _infoIcon;
 		private VisualElement _ownedStamp;
 	
-		private VisualElement _ownedOverlay;
+		private VisualElement _purchaseDisabledOverlay;
 		
 		private VisualElement _cooldownArea;
 		private Label _cooldownTimeLabel;
@@ -89,12 +95,12 @@ namespace FirstLight.Game.Presenters.Store
 			var treeAsset = Resources.Load<VisualTreeAsset>("StoreGameProductElement");
 			treeAsset.CloneTree(this);
 			
+			_purchaseDisabledOverlay = this.Q("PurchaseDisabled").Required();
 			_background = this.Q<ImageButton>("ProductWidgetWrapper").Required();
 			_background.clicked += () => OnClicked?.Invoke(_product);
 			
 			_name = this.Q<Label>("ProductName").Required();
 			_infoIcon = this.Q("InformationIcon").Required();
-			_ownedOverlay = this.Q("OwnedOverlay").Required();
 			_price = this.Q<Label>("ProductPrice").Required();
 			
 			_icon = this.Q("ProductImage").Required();
@@ -144,13 +150,21 @@ namespace FirstLight.Game.Presenters.Store
 			if (product.PlayfabProductConfig.StoreItemData.MaxAmount > 0)
 			{
 				var amountPurchased = trackedPurchasedItem != null ? trackedPurchasedItem.AmountPurchased : 0;
+				var maxAmountPurchaseAllowed = product.PlayfabProductConfig.StoreItemData.MaxAmount;
+				
+				_purchasedAmountLabel.text = (maxAmountPurchaseAllowed - amountPurchased) +  "/" + maxAmountPurchaseAllowed;
+				
 				_purchasedAmountArea.SetDisplay(true);
-				_purchasedAmountLabel.text = amountPurchased +  "/" + product.PlayfabProductConfig.StoreItemData.MaxAmount;
+
+				if (!flags.HasFlag(ProductFlags.COOLDOWN))
+				{
+					_purchaseDisabledOverlay.SetDisplay(maxAmountPurchaseAllowed <= amountPurchased);	
+				}
 			}
 
 			if (flags.HasFlag(ProductFlags.OWNED))
 			{
-				_ownedOverlay.SetDisplay(true);
+				_purchaseDisabledOverlay.SetDisplay(true);
 				_ownedStamp.SetDisplay(true);
 				_icon.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
 				_name.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
@@ -192,6 +206,7 @@ namespace FirstLight.Game.Presenters.Store
 		private void ShowCooldown(StoreItemData storeItemData, StorePurchaseData trackedPurchasedItem, Action<GameProduct> CooldownExpiredCallback)
 		{
 			_cooldownArea.SetDisplay(true);
+			_purchaseDisabledOverlay.SetDisplay(true);
 			
 			var cooldownElapsedSeconds = (DateTime.UtcNow - trackedPurchasedItem.LastPurchaseTime).TotalSeconds;
 			var cooldownRemainingSeconds = storeItemData.PurchaseCooldown - cooldownElapsedSeconds;
@@ -201,7 +216,18 @@ namespace FirstLight.Game.Presenters.Store
 
 					var currentCooldown = TimeSpan.FromSeconds(cooldownRemainingSeconds);
 
-					_cooldownTimeLabel.text = $"{currentCooldown.Minutes}m {currentCooldown.Seconds}s";
+					if (currentCooldown.TotalDays >= 1)
+					{
+						_cooldownTimeLabel.text = $"{(int)currentCooldown.TotalDays}d {currentCooldown.Hours}h";
+					}
+					else if (currentCooldown.TotalHours >= 1)
+					{
+						_cooldownTimeLabel.text = $"{(int)currentCooldown.TotalHours}h {currentCooldown.Minutes}m";
+					}
+					else
+					{
+						_cooldownTimeLabel.text = $"{currentCooldown.Minutes}m {currentCooldown.Seconds}s";
+					}
 
 					cooldownRemainingSeconds--;
 
@@ -209,6 +235,7 @@ namespace FirstLight.Game.Presenters.Store
 					{
 						OnClicked = CooldownExpiredCallback;
 						_cooldownArea.SetDisplay(false);
+						_purchaseDisabledOverlay.SetDisplay(false);
 					}
 				})
 				.Every(1000)

@@ -97,7 +97,8 @@ namespace FirstLight.Game.Services
 
 		public event Action<ItemData, bool> PurchaseFinished;
 
-		private Dictionary<string, GameProductCategory> _availableProducts = new ();
+		private Dictionary<string, GameProductCategory> _availableProductCategories = new ();
+		private List<GameProduct> _availableProducts = new ();
 		private UnityStoreService _unityStore;
 		private readonly IGameCommandService _commandService;
 		private readonly IGameBackendService _gameBackendService;
@@ -108,7 +109,8 @@ namespace FirstLight.Game.Services
 
 		public bool RequiredToViewStore { get; set; }
 
-		public IReadOnlyCollection<GameProductCategory> AvailableProductCategories => _availableProducts.Values;
+		public IReadOnlyCollection<GameProductCategory> AvailableProductCategories => _availableProductCategories.Values;
+		public IReadOnlyCollection<GameProduct> AvailableProducts => _availableProducts;
 		public IUnityStoreSerivce UnityStore => _unityStore;
 		public IStoreService RemoteCatalogStore => _playfab;
 
@@ -144,7 +146,7 @@ namespace FirstLight.Game.Services
 			{
 				_unityStore.InitializeUnityCatalog(playfabProducts.Select(i => i.CatalogItem.ItemId).ToHashSet());
 
-				foreach (var categoryList in _availableProducts.Values)
+				foreach (var categoryList in _availableProductCategories.Values)
 				{
 					categoryList.Products.Clear();
 				}
@@ -152,18 +154,21 @@ namespace FirstLight.Game.Services
 				foreach (var playfabProduct in playfabProducts)
 				{
 					var category = string.IsNullOrEmpty(playfabProduct.StoreItemData.Category) ? "General" : playfabProduct.StoreItemData.Category;
-					if (!_availableProducts.TryGetValue(category, out var categoryList))
+					if (!_availableProductCategories.TryGetValue(category, out var categoryList))
 					{
 						categoryList = new GameProductCategory() {Name = category};
-						_availableProducts[category] = categoryList;
+						_availableProductCategories[category] = categoryList;
 					}
 
-					categoryList.Products.Add(new GameProduct()
+					var gameProduct = new GameProduct()
 					{
 						GameItem = ItemFactory.PlayfabCatalog(playfabProduct.CatalogItem),
 						PlayfabProductConfig = playfabProduct,
 						UnityIapProduct = () => _unityStore.GetUnityProduct(playfabProduct.CatalogItem.ItemId)
-					});
+					};
+					
+					categoryList.Products.Add(gameProduct);
+					_availableProducts.Add(gameProduct);
 				}
 			};
 		}
@@ -261,6 +266,23 @@ namespace FirstLight.Game.Services
 				PurchasedItemToClaim = item
 			});
 			_unityStore.Controller.ConfirmPendingPurchase(product);
+
+
+			var availableProduct = _availableProducts.FirstOrDefault(p => p.PlayfabProductConfig.CatalogItem.ItemId.Equals(product.definition.id));
+
+			if (availableProduct == null)
+			{
+				FLog.Warn("IAP", "Product has been purchased but was not found inside _availableProducts for fetching StoreItemData, it's not possible to track the item");
+			}
+			else
+			{
+				_commandService.ExecuteCommand(new UpdatePlayerStoreDataCommand()
+				{
+					CatalogItemId = product.definition.id,
+					StoreItemData = availableProduct.PlayfabProductConfig.StoreItemData
+				});
+			}
+
 			PurchaseFinished?.Invoke(item, true);
 		}
 	}

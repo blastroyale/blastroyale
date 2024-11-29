@@ -245,12 +245,12 @@
     flex-direction: row;
     position: absolute;
     width: auto;
-    top: 13;
+    top: 15;
     left: 15;
     padding: 2px 5px;
 }
 
-.cooldown-text {
+.cooldown-icon {
     font-size: 38px;
     color: rgb(255, 207, 51);
     -unity-text-outline-width: 3px;
@@ -259,15 +259,31 @@
     margin-left: 10px;
 }
 
+.cooldown-time {
+    font-size: 38px;
+    color: rgb(255, 207, 51);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 10px 0 rgb(0, 0, 0);
+    margin-left: 10px;
+}
+
+.cooldown-area--small {
+    top: 14;
+}
+
+.cooldown-icon--small, .cooldown-time--small{
+    font-size: 32px;
+}
 /*
  * Purchase Amount Available
  */
-.purchase-amount-area {
+.purchased-amount-area {
     flex-grow: 0;
     display: flex;
     position: absolute;
     width: auto;
-    top: 13;
+    top: 15;
     right: 15;
     flex-shrink: 0;
     padding: 2px 15px;
@@ -275,13 +291,22 @@
     border-radius: 15px;
 }
 
-.purchase-amount-text {
+.purchased-amount {
     font-size: 38px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     -unity-text-align: middle-center;
     text-shadow: 3px 6px 0 rgb(0, 0, 0);
+}
+
+.purchased-amount-area--small {
+    top: 13;
+    border-radius: 12px;
+}
+
+.purchased-amount--small {
+    font-size: 32px;
 }
 
 /*
@@ -387,7 +412,10 @@
     -unity-background-image-tint-color: rgb(90, 82, 106);
 }
 
-.owned-overlay {
+/*
+ * Misc
+ */
+.purchase-disabled-overlay {
     flex-grow: 1;
     position: absolute;
     width: 100%;

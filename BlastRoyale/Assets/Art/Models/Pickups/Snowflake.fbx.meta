@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 2584dd8e9173d8245bab7c46bd0da0e8
+guid: a4783e955d67acd4ab9e536f5f6f870e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
-    materialImportMode: 0
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -30,8 +30,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties:
-    - '#BAKERY{"meshName":["rubble_large_4","rubble_large_5","Rubble_small_2","Rubble_small_3","rubble_large_2","rubble_large_1"],"padding":[27,34,79,85,48,43],"unwrapper":[0,0,0,0,0,0]}'
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 0
   meshes:
@@ -49,7 +48,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

@@ -422,6 +422,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				case GameId.NOOB:
 				case GameId.NOOBRainbow:
 				case GameId.NOOBGolden:
+				case GameId.NOOBSilver:
 				case GameId.PartnerANCIENT8:
 				case GameId.PartnerAPECOIN:
 				case GameId.PartnerBEAM:

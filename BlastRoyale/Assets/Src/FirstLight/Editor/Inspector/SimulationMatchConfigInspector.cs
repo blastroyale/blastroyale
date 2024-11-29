@@ -15,7 +15,7 @@ namespace FirstLight.Editor.Inspector
 	{
 		private static IEnumerable<GameId> ValidMetaItems = new[]
 		{
-			GameId.NOOB, GameId.COIN, GameId.BPP, GameId.BlastBuck, GameId.NOOBGolden, GameId.NOOBRainbow,
+			GameId.NOOB, GameId.COIN, GameId.BPP, GameId.BlastBuck, GameId.NOOBGolden, GameId.NOOBRainbow, GameId.NOOBSilver,
 			GameId.PartnerANCIENT8, GameId.PartnerAPECOIN, GameId.PartnerBEAM, GameId.PartnerBLOCKLORDS,
 			GameId.PartnerBLOODLOOP, GameId.PartnerCROSSTHEAGES, GameId.PartnerFARCANA, GameId.PartnerGAM3SGG,
 			GameId.PartnerIMMUTABLE, GameId.PartnerMOCAVERSE, GameId.PartnerNYANHEROES, GameId.PartnerPIRATENATION,

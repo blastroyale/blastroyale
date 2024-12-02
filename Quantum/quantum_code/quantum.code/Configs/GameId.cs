@@ -1701,7 +1701,6 @@ namespace Quantum
 					GameId.FlagBanana, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1709,7 +1708,6 @@ namespace Quantum
 					GameId.FlagFire, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1717,7 +1715,6 @@ namespace Quantum
 					GameId.FlagGG, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1725,7 +1722,6 @@ namespace Quantum
 					GameId.FlagLaughing, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1733,7 +1729,6 @@ namespace Quantum
 					GameId.FlagNoob, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1749,7 +1744,6 @@ namespace Quantum
 					GameId.FlagPooEmoji, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1757,7 +1751,6 @@ namespace Quantum
 					GameId.FlagRoyalCrown, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1802,8 +1795,7 @@ namespace Quantum
 					GameId.MeleeSkinDaggerOfDestiny, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1855,8 +1847,7 @@ namespace Quantum
 					GameId.MeleeSkinPowerPan, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1877,24 +1868,21 @@ namespace Quantum
 					GameId.MeleeSkinThunderAxe, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
 					GameId.MeleeSkinToyMelee, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
 					GameId.MeleeSkinTvTakedown, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1967,7 +1955,8 @@ namespace Quantum
 					GameId.MeleeSkinAxe, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -2051,7 +2040,8 @@ namespace Quantum
 					GameId.MeleeSkinPickaxe, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -3512,27 +3502,17 @@ namespace Quantum
 						GameId.Demon,
 						GameId.Superstar,
 						GameId.Unicorn,
-						GameId.FlagBanana,
-						GameId.FlagFire,
-						GameId.FlagGG,
-						GameId.FlagLaughing,
-						GameId.FlagNoob,
 						GameId.FlagNumberOne,
-						GameId.FlagPooEmoji,
-						GameId.FlagRoyalCrown,
 						GameId.FlagSalt,
 						GameId.MeleeSkinDefault,
-						GameId.MeleeSkinDaggerOfDestiny,
 						GameId.MeleeSkinElectricSolo,
 						GameId.MeleeSkinMicDrop,
 						GameId.MeleeSkinOutOfThePark,
-						GameId.MeleeSkinPowerPan,
-						GameId.MeleeSkinThunderAxe,
-						GameId.MeleeSkinToyMelee,
-						GameId.MeleeSkinTvTakedown,
 						GameId.MeleeSkinWheelOfPain,
 						GameId.MeleeSkinYouGotMail,
 						GameId.MeleeSkinXmas2023,
+						GameId.MeleeSkinAxe,
+						GameId.MeleeSkinPickaxe,
 						GameId.FootprintDot
 					}.AsReadOnly()
 				},

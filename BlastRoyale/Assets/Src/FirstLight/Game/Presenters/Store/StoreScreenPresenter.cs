@@ -156,11 +156,11 @@ namespace FirstLight.Game.Presenters.Store
 			{
 				if (trackedPurchasedItem.AmountPurchased >= product.PlayfabProductConfig.StoreItemData.MaxAmount)
 				{
-					_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_daily_reset);	
+					_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_daily_reset);
 				}
 				else
 				{
-					_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_maxamount);	
+					_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_maxamount);
 				}
 			}
 			else if (!HasPurchaseCooldownExpired(trackedPurchasedItem.LastPurchaseTime, product.PlayfabProductConfig.StoreItemData.PurchaseCooldown))
@@ -315,7 +315,7 @@ namespace FirstLight.Game.Presenters.Store
 				_gameServices.RewardService,
 				_gameServices.GenericDialogService).ContinueWith(result =>
 			{
-				if (result == IAPHelpers.BuyProductResult.Rewarded) return;
+				if (result != IAPHelpers.BuyProductResult.Rewarded) return;
 				_gameServices.UIService.OpenScreen<StoreScreenPresenter>(Data).Forget();
 			});
 		}

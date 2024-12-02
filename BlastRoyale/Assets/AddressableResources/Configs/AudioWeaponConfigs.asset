@@ -86,8 +86,8 @@ MonoBehaviour:
     ProjectileEndOfLife: 0
     ChangeMagazineId: 0
   - GameId: 269
-    WeaponShotId: 179
-    WeaponShotLocalId: 180
+    WeaponShotId: 210
+    WeaponShotLocalId: 211
     WeaponShotWindUpId: 0
     WeaponShotWindDownId: 0
     ProjectileFlyTrailId: 0

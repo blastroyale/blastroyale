@@ -39,7 +39,6 @@ namespace FirstLight.Game.Domains.Flags
 
 		public UniTask LoadMandatoryAssets()
 		{
-			Debug.Log("MatchFlagService::LoadMandatoryAssets");
 			_meshes = new Dictionary<GameId, Mesh>(_flagConfig.Skins.Count);
 			var maxPlayers = _roomService.CurrentRoom.GetMaxPlayers();
 			_pool = new Stack<DeathFlagView>(maxPlayers);

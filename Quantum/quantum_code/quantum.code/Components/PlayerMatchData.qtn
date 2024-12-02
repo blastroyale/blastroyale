@@ -23,11 +23,7 @@ struct PlayerMatchData
 	UInt16 CurrentKillStreak;
 	UInt16 CurrentMultiKill;
 	FP MultiKillResetTime;
-	GameId DeathFlag;
 	bool KilledByBeingAFK;
-	
-	[AllocateOnComponentAdded, FreeOnComponentRemoved]
-    list<GameId> Cosmetics;
     
     [AllocateOnComponentAdded, FreeOnComponentRemoved]
     dictionary<GameId, ushort> CollectedMetaItems;

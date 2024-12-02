@@ -254,7 +254,7 @@ namespace Quantum.Systems.Bots
 			var botCharacter = new BotCharacter
 			{
 				Skin = f.RNG->RandomElement(ctx.SkinOptions),
-				DeathMarker = f.RNG->RandomElement(ctx.DeathMakers),
+				DeathMarker = GameId.FlagBanana, //f.RNG->RandomElement(ctx.DeathMakers),
 				Glider = f.RNG->RandomElement(ctx.Gliders),
 				BotNameIndex = listNamesIndex,
 				BehaviourType = config.BehaviourType,
@@ -421,9 +421,9 @@ namespace Quantum.Systems.Bots
 		private void SetupBotCosmetics(Frame f, EntityRef entity, EntityRef spawnerEntity)
 		{
 			f.Add<CosmeticsHolder>(entity);
-			if (f.Unsafe.TryGetPointer<CosmeticsHolder>(spawnerEntity, out var cosmetics))
+			if (f.Unsafe.TryGetPointer<CosmeticsHolder>(spawnerEntity, out var spawnerCosmetics))
 			{
-				var botCosmetics = f.ResolveList(cosmetics->Cosmetics).ToArray();
+				var botCosmetics = f.ResolveList(spawnerCosmetics->Cosmetics).ToArray();
 				f.Unsafe.GetPointer<CosmeticsHolder>(entity)->SetCosmetics(f, botCosmetics);
 				return;
 			}

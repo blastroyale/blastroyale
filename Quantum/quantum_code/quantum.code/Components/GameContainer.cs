@@ -29,19 +29,7 @@ namespace Quantum
 			data.PlayerLevel = (ushort)setup.playerLevel;
 			data.PlayerTrophies = setup.trophies;
 			data.TeamId = setup.teamId;
-			data.DeathFlag = setup.deathFlagID;
 			data.BotNameIndex = isBot ? (short)bot.BotNameIndex : (short)0;
-			var skins = f.ResolveList(data.Cosmetics);
-			if (f.TryGet<CosmeticsHolder>(setup.e, out var cosmeticsHolder))
-			{
-				var skinListFromComponent = f.ResolveList(cosmeticsHolder.Cosmetics);
-
-				foreach (var skinId in skinListFromComponent)
-				{
-					skins.Add(skinId);
-				}
-			}
-
 			PlayersData[setup.playerRef] = data;
 		}
 

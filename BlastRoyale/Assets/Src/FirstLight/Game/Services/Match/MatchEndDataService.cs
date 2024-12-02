@@ -249,7 +249,7 @@ namespace FirstLight.Game.Services
 					weapon = playerCharacter.CurrentWeapon;
 				}
 
-				var cosmetics = PlayerLoadout.GetCosmetics(frame, quantumPlayerData.Data.Player);
+				var cosmetics = PlayerLoadout.GetCosmetics(frame, quantumPlayerData.Data.Entity);
 				var playerData = new ClientCachedPlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, cosmetics);
 
 				if (game.PlayerIsLocal(playerData.PlayerRef))

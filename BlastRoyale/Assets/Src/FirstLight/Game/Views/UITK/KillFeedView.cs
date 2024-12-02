@@ -64,9 +64,10 @@ namespace FirstLight.Game.Views.UITK
 
 			var killerFriendly = killerData.TeamId == _matchServices.SpectateService.SpectatedPlayer.Value.Team;
 			var victimFriendly = victimData.TeamId == _matchServices.SpectateService.SpectatedPlayer.Value.Team;
-			
-			var killerCosmetics = callback.Game.Frames.Verified.ResolveList(killerData.Data.Cosmetics);
-			var victimCosmetics = callback.Game.Frames.Verified.ResolveList(victimData.Data.Cosmetics);
+
+			var f = callback.Game.Frames.Verified;
+			var killerCosmetics = PlayerLoadout.GetCosmetics(f, killerData.Data.Entity);
+			var victimCosmetics = PlayerLoadout.GetCosmetics(f, victimData.Data.Entity);
 			
 			var killerCharacterPfpSprite = await _collectionService.LoadCollectionItemSprite(_collectionService.GetCosmeticForGroup(killerCosmetics, GameIdGroup.PlayerSkin));
 			var victimCharacterPfpSprite = await _collectionService.LoadCollectionItemSprite(_collectionService.GetCosmeticForGroup(victimCosmetics, GameIdGroup.PlayerSkin));

@@ -20,7 +20,7 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
-			if (f.Context.GameModeConfig.Id != "Tutorial")
+			if (!f.Context.IsTutorial)
 			{
 				return;
 			}

@@ -17,6 +17,8 @@ namespace FirstLight.Game.Configs
 		{
 			public uint Number;
 
+			public string Title;
+			
 			[Tooltip("The price of the Pro BP in BlastBucks")]
 			public uint Price;
 

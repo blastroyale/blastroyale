@@ -15,6 +15,7 @@ MonoBehaviour:
   _config:
     Seasons:
     - Number: 6
+      Title: 
       Price: 300
       BuyLevelPrice: 10
       DefaultPointsPerLevel: 400
@@ -25,6 +26,7 @@ MonoBehaviour:
       EndGraphicName: 
       Highlighted: 
     - Number: 7
+      Title: 
       Price: 300
       BuyLevelPrice: 10
       DefaultPointsPerLevel: 400
@@ -35,6 +37,7 @@ MonoBehaviour:
       EndGraphicName: PUNK SPIKE
       Highlighted: 
     - Number: 8
+      Title: 
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 400
@@ -45,6 +48,7 @@ MonoBehaviour:
       EndGraphicName: BAM BOO
       Highlighted: 40:F,1,20,90
     - Number: 9
+      Title: 
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 400
@@ -55,6 +59,7 @@ MonoBehaviour:
       EndGraphicName: GOJI
       Highlighted: 45,1,40:F,90
     - Number: 10
+      Title: 
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
@@ -65,6 +70,7 @@ MonoBehaviour:
       EndGraphicName: PATTY BUN
       Highlighted: 45,1,40:F,90
     - Number: 11
+      Title: 
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
@@ -75,6 +81,7 @@ MonoBehaviour:
       EndGraphicName: G BONES
       Highlighted: 15:F,90:F,70,90
     - Number: 12
+      Title: 
       Price: 150
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
@@ -85,6 +92,7 @@ MonoBehaviour:
       EndGraphicName: FROST LORD
       Highlighted: 40:F,90:F,70,90
     - Number: 13
+      Title: NOOB SEASON 13
       Price: 60
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
@@ -95,6 +103,7 @@ MonoBehaviour:
       EndGraphicName: YETI
       Highlighted: 44:F,12,30:F,50
     - Number: 14
+      Title: 
       Price: 60
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300

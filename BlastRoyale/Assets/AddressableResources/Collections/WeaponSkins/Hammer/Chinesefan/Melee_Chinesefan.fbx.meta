@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: m_props
-    second: {fileID: -876546973899608171, guid: dc53cf42ebae3cf4da04ffdb3a8bcf27, type: 3}
+    second: {fileID: 2100000, guid: e8fa8f21907090640a854146d341e06c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

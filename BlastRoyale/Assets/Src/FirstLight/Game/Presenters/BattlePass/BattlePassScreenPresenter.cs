@@ -354,8 +354,16 @@ namespace FirstLight.Game.Presenters
 			float pctCurrentLevel = (float) predictedProgress.Item2 / predictedMaxProgress;
 			_bppProgressFill.style.width = Length.Percent(pctCurrentLevel * 100f);
 
-			_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
-				battlePassConfig.Season.Number);
+			if (!string.IsNullOrEmpty(battlePassConfig.Season.Title))
+			{
+				_seasonNumber.text = battlePassConfig.Season.Title;
+			}
+			else
+			{
+				_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
+					battlePassConfig.Season.Number);
+			}
+			
 
 			for (var i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{

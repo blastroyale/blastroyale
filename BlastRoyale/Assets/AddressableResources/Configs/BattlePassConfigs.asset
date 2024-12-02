@@ -17,6 +17,7 @@ MonoBehaviour:
     - Number: 6
       Title: 
       Price: 300
+      EnableIAP: 0
       BuyLevelPrice: 10
       DefaultPointsPerLevel: 400
       StartsAt: 25/10/2023
@@ -28,6 +29,7 @@ MonoBehaviour:
     - Number: 7
       Title: 
       Price: 300
+      EnableIAP: 0
       BuyLevelPrice: 10
       DefaultPointsPerLevel: 400
       StartsAt: 2/11/2023
@@ -39,6 +41,7 @@ MonoBehaviour:
     - Number: 8
       Title: 
       Price: 150
+      EnableIAP: 0
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 400
       StartsAt: 21/02/2024
@@ -50,6 +53,7 @@ MonoBehaviour:
     - Number: 9
       Title: 
       Price: 150
+      EnableIAP: 0
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 400
       StartsAt: 01/05/2024
@@ -61,6 +65,7 @@ MonoBehaviour:
     - Number: 10
       Title: 
       Price: 150
+      EnableIAP: 0
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 01/07/2024
@@ -72,6 +77,7 @@ MonoBehaviour:
     - Number: 11
       Title: 
       Price: 150
+      EnableIAP: 0
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 01/09/2024
@@ -83,6 +89,7 @@ MonoBehaviour:
     - Number: 12
       Title: 
       Price: 150
+      EnableIAP: 0
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 01/11/2024
@@ -92,8 +99,9 @@ MonoBehaviour:
       EndGraphicName: FROST LORD
       Highlighted: 40:F,90:F,70,90
     - Number: 13
-      Title: NOOB SEASON 13
+      Title: NOOB SEASON 1
       Price: 60
+      EnableIAP: 1
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 06/11/2024
@@ -103,14 +111,15 @@ MonoBehaviour:
       EndGraphicName: YETI
       Highlighted: 44:F,12,30:F,50
     - Number: 14
-      Title: 
+      Title: NOOB SEASON 2
       Price: 60
+      EnableIAP: 1
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 01/02/2025
       EndsAt: 28/02/2025
       RemovePaid: 0
-      EndGraphicImageClass: sprite-home__iceking-season-reward
+      EndGraphicImageClass: sprite-home__yeti-season-reward
       EndGraphicName: XANADU
       Highlighted: 44:F,12,30:F,50
     Levels:

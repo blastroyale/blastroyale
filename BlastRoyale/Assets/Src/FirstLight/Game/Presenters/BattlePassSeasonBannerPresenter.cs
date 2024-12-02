@@ -88,11 +88,17 @@ namespace FirstLight.Game.Presenters
 			var ingamePrice = inGame.GetPrice();
 			var sprite = CurrencyItemViewModel.GetRichTextIcon(ingamePrice.item);
 			_buyGameCurrency.BtnText = ingamePrice.amt + " " + sprite;
+
 			if (_dataProvider.BattlePassDataProvider.HasPurchasedSeason() || _services.BattlePassService.HasPendingPurchase())
 			{
 				_buyRM.SetDisplay(false);
 				_buyGameCurrency.SetDisplay(false);
 				return;
+			}
+
+			if (!_dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.EnableIAP)
+			{
+				_buyRM.SetDisplay(false);
 			}
 
 			_buyRM.clicked += () => ClosePopup(ScreenResult.BuyPremiumRealMoney);

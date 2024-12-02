@@ -235,7 +235,6 @@ namespace FirstLight.Game.Services
 				SetQueuedFailedMessage(data);
 			}
 
-			PurchaseFinished?.Invoke(null, null, false, data);
 			if (reason == PurchaseFailureReason.ExistingPurchasePending) // If there is already a pending one lets block user from trying again
 			{
 				_pending.Add(data.ProductId);
@@ -244,6 +243,8 @@ namespace FirstLight.Game.Services
 			{
 				_pending.Remove(data.ProductId);
 			}
+
+			PurchaseFinished?.Invoke(null, null, false, data);
 		}
 
 		public void SetQueuedFailedMessage(IUnityStoreService.PurchaseFailureData data)
@@ -326,8 +327,8 @@ namespace FirstLight.Game.Services
 				CatalogItemId = product.PlayfabProductConfig.CatalogItem.ItemId,
 				StoreItemData = product.PlayfabProductConfig.StoreItemData
 			});
-			PurchaseFinished?.Invoke(product.ID, item, true, null);
 			_pending.Remove(product.ID);
+			PurchaseFinished?.Invoke(product.ID, item, true, null);
 		}
 
 		private bool ShouldUseTextConfirmation(ItemData item)
@@ -364,12 +365,12 @@ namespace FirstLight.Game.Services
 					OnConfirm = () => ConfirmLogicalPurchase(product, generatedItem, price),
 					OnExit = () =>
 					{
+						_pending.Remove(product.ID);
 						PurchaseFinished?.Invoke(product.ID, generatedItem, false, new IUnityStoreService.PurchaseFailureData()
 						{
 							Reason = PurchaseFailureReason.UserCancelled,
 							ProductId = product.ID
 						});
-						_pending.Remove(product.ID);
 					}
 				}
 				: new GenericPurchaseDialogPresenter.TextPurchaseData()
@@ -450,8 +451,8 @@ namespace FirstLight.Game.Services
 				});
 			}
 
-			PurchaseFinished?.Invoke(product.definition.id, item, true, null);
 			_pending.Remove(product.definition.id);
+			PurchaseFinished?.Invoke(product.definition.id, item, true, null);
 		}
 	}
 

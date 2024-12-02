@@ -76,6 +76,11 @@ namespace FirstLight.Game.Logic
 		/// The config is a Chest Like" structure that defines rules for item generation.
 		/// </summary>
 		ItemData CreateItemFromConfig(EquipmentRewardConfig config);
+
+		/// <summary>
+		/// Check if there is a pending reward to be claimed with a given game id
+		/// </summary>
+		bool HasUnclaimedRewardWithId(GameId id);
 	}
 
 	/// <inheritdoc />
@@ -545,6 +550,11 @@ namespace FirstLight.Game.Logic
 			return ItemFactory.Currency(config.GameId, config.Amount);
 		}
 
+		public bool HasUnclaimedRewardWithId(GameId id)
+		{
+			return _unclaimedRewards.Any(data => data.Id == id);
+		}
+
 		public IReadOnlyCollection<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> rewardConfigs)
 		{
 			var items = new List<ItemData>();
@@ -658,6 +668,10 @@ namespace FirstLight.Game.Logic
 			}
 			else if (reward.TryGetMetadata<UnlockMetadata>(out var unlockMeta))
 			{
+				if (unlockMeta.Unlock == UnlockSystem.PaidBattlePass)
+				{
+					GameLogic.BattlePassLogic.Purchase(reward);
+				}
 				// unlocks dont need to do anything
 			}
 			else if (reward.Id.IsInGroup(GameIdGroup.Core)) // Cores auto-opens when added to inventory

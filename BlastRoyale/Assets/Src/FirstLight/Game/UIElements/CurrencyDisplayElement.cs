@@ -166,7 +166,8 @@ namespace FirstLight.Game.UIElements
 					lbl.text = previous.ToString();
 				}
 
-				await UniTask.WaitUntil(() => Target.worldBound.Overlaps(Root.worldBound), cancellationToken: CancellationToken);
+				await UniTask.WaitUntil(() => Target == null || Target.worldBound.Overlaps(Root.worldBound), cancellationToken: CancellationToken);
+				if (Target == null) return;
 				// Wait for currency view animation to finish
 				await UniTask.Delay(500, cancellationToken: CancellationToken);
 				var labelPosition = Target.GetPositionOnScreen(Root);

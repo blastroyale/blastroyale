@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using Newtonsoft.Json;
 using PlayFab.ClientModels;
@@ -10,13 +11,20 @@ using UnityEngine.Purchasing.Extension;
 
 namespace FirstLight.Game.Services
 {
-	public interface IUnityStoreSerivce
+	public interface IUnityStoreService
 	{
+		public class PurchaseFailureData
+		{
+			public string ProductId;
+			public PurchaseFailureReason Reason;
+			public string Message;
+		}
+
 		/// <summary>
 		/// Event for when a store purchase goes wrong
 		/// </summary>
-		public event Action<PurchaseFailureReason> OnPurchaseFailure;
-		
+		public event Action<PurchaseFailureData> OnPurchaseFailure;
+
 		/// <summary>
 		/// Request if the IAP service has been properly initialized.
 		/// </summary>
@@ -27,15 +35,16 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		IStoreController Controller { get; }
 	}
-	
+
 	/// <summary>
 	/// Unity Store API listener, specific to hook into Unity's SDK
 	/// </summary>
-	public class UnityStoreService :  IDetailedStoreListener, IUnityStoreSerivce
+	public class UnityStoreService : IDetailedStoreListener, IUnityStoreService
 	{
-		public event Action<PurchaseFailureReason> OnPurchaseFailure;
-		
+		public event Action<IUnityStoreService.PurchaseFailureData> OnPurchaseFailure;
+
 		public IStoreController Controller { get; private set; }
+		public IExtensionProvider Extensions { get; private set; }
 		public bool Initialized { get; private set; }
 
 		public Product GetUnityProduct(string id)
@@ -52,7 +61,7 @@ namespace FirstLight.Game.Services
 			_onPurchaseHandler = purchaseHandler;
 			_products = new Dictionary<string, Product>();
 		}
-		
+
 		public void InitializeUnityCatalog(HashSet<string> catalogItemIds)
 		{
 			var module = GetPurchasingModule();
@@ -61,9 +70,24 @@ namespace FirstLight.Game.Services
 			{
 				builder.AddProduct(itemId, ProductType.Consumable);
 			}
+
 			UnityPurchasing.Initialize(this, builder);
 		}
-		
+
+		public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
+		{
+			Extensions = extensions;
+			Controller = controller;
+			foreach (var p in controller.products.all)
+			{
+				_products[p.definition.id] = p;
+			}
+
+			FLog.Info("IAP", controller.GetType().Name);
+			FLog.Info("IAP", $"Initialized Unity SDK with Products {JsonConvert.SerializeObject(controller.products.all)}");
+			Initialized = true;
+		}
+
 		private StandardPurchasingModule GetPurchasingModule()
 		{
 #if UNITY_ANDROID
@@ -82,18 +106,8 @@ namespace FirstLight.Game.Services
 			module.useFakeStoreAlways = useFakeStore;
 			module.useFakeStoreUIMode = fakeStoreUiMode;
 #endif
+			FLog.Info("IAP", "Module: " + module.GetType().Name);
 			return module;
-		}
-
-		public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
-		{
-			Controller = controller;
-			foreach (var p in controller.products.all)
-			{
-				_products[p.definition.id] = p;
-			}
-			FLog.Verbose("STORE", $"Initialized Unity SDK with Products {JsonConvert.SerializeObject(controller.products.all)}");
-			Initialized = true;
 		}
 
 		public void OnInitializeFailed(InitializationFailureReason error)
@@ -103,7 +117,7 @@ namespace FirstLight.Game.Services
 
 		public void OnInitializeFailed(InitializationFailureReason error, string message)
 		{
-			FLog.Error("STORE",$"Unity Store initialization failed: {error} - {message}");
+			FLog.Error("IAP", $"Unity Store initialization failed: {error} - {message}");
 			Initialized = false;
 		}
 
@@ -111,16 +125,34 @@ namespace FirstLight.Game.Services
 		{
 			return _onPurchaseHandler.Invoke(purchaseEvent);
 		}
-		
+
 		public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
 		{
-			OnPurchaseFailed(product, failureDescription.reason);
+			var reason = failureDescription.reason;
+			FLog.Error("IAP", $"Purchase failed: {product.definition.id}, {failureDescription.reason} {failureDescription.message}");
+			// Google/Unity SDK returns unknown for this 
+			if (failureDescription.message.Contains("There is already a pending purchase"))
+			{
+				reason = PurchaseFailureReason.ExistingPurchasePending;
+			}
+
+			OnPurchaseFailure?.Invoke(new IUnityStoreService.PurchaseFailureData()
+			{
+				ProductId = product.definition.id,
+				Reason = reason,
+				Message = failureDescription.message
+			});
 		}
 
 		public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
 		{
-			FLog.Error("STORE", $"Purchase failed: {product.definition.id}, {failureReason}");
-			OnPurchaseFailure?.Invoke(failureReason);
+			FLog.Error("IAP", $"Purchase failed: {product.definition.id}, {failureReason}");
+			OnPurchaseFailure?.Invoke(new IUnityStoreService.PurchaseFailureData()
+			{
+				ProductId = product.definition.id,
+				Reason = failureReason,
+				Message = null
+			});
 		}
 	}
 }

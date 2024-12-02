@@ -89,16 +89,6 @@
       },
       "hash": "699315e1e8053b8c948685759c4fd38851c563b2"
     },
-    "com.immutable.passport": {
-      "version": "https://github.com/immutable/unity-immutable-sdk.git?path=/src/Packages/Passport",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.2.0",
-        "com.cysharp.unitask": "2.3.3"
-      },
-      "hash": "7d0a15d5658df6747d9ee5ecba310cbe783d463f"
-    },
     "com.kybernetik.animancer": {
       "version": "file:com.kybernetik.animancer",
       "depth": 0,

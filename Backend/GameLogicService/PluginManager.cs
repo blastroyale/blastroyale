@@ -5,8 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using BlastRoyaleNFTPlugin;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
+using FirstLightServerSDK.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Src.FirstLight.Server;
@@ -125,7 +127,8 @@ namespace Backend.Plugins
 		private List<ServerPlugin> LoadServerPlugins(IServiceProvider serviceProvider)
 		{
 			var loadedPlugins = new List<ServerPlugin>();
-			loadedPlugins.Add(new BlastRoyalePlugin(serviceProvider.GetService<IUserMutex>()));
+			loadedPlugins.Add(new BlastRoyalePlugin(serviceProvider.GetService<IUserMutex>(),
+				serviceProvider.GetService<IInventorySyncService<ItemData>>()));
 			return loadedPlugins;
 		}
 

@@ -52,6 +52,8 @@
                         <ui:VisualElement name="FinalRewardIcon" class="final-reward__icon" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-text="R$ 23" name="BuyRM" style="position: absolute; top: 410px; left: 1036px; height: 92px; width: 210px;" />
+                <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-text="42" name="BuyGame" style="position: absolute; top: 410px; left: 1292px; height: 92px; width: 210px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

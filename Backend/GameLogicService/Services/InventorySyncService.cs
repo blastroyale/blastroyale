@@ -22,7 +22,7 @@ namespace GameLogicService.Services
 	/// It will remove any pending items and currency from playfab inventory
 	/// and convert to our currency datas
 	/// </summary>
-	public class PlayfabInventorySyncService : IInventorySyncService
+	public class PlayfabInventorySyncService : IInventorySyncService<ItemData>
 	{
 		private PluginContext _ctx;
 		private ILogger _log;
@@ -34,7 +34,8 @@ namespace GameLogicService.Services
 			_catalog = catalog;
 		}
 
-		private async Task<int> SyncCurrency(string player, GetUserInventoryResult inventory, PlayerData playerData, GameId gameId)
+		private async Task<int> SyncCurrency(string player, GetUserInventoryResult inventory, PlayerData playerData,
+											 GameId gameId)
 		{
 			var playfabName = PlayfabCurrencies.GetPlayfabCurrencyName(gameId);
 			inventory.VirtualCurrency.TryGetValue(playfabName, out var playfabAmount);
@@ -55,9 +56,10 @@ namespace GameLogicService.Services
 			return 0;
 		}
 
-		public async Task<bool> SyncData(ServerState state, string player)
+		public async Task<IReadOnlyList<ItemData>> SyncData(ServerState state, string player)
 		{
 			var consumedItems = new List<ItemInstance>();
+			var givenGameItems = new List<ItemData>();
 			var consumedCurrencies = new Dictionary<GameId, int>();
 			try
 			{
@@ -74,6 +76,7 @@ namespace GameLogicService.Services
 				foreach (var gameId in currencies)
 				{
 					consumedCurrencies[gameId] = await SyncCurrency(player, inventory, playerData, gameId);
+					givenGameItems.Add(ItemFactory.Currency(gameId, consumedCurrencies[gameId]));
 				}
 
 				if (inventory.Inventory.Count > 0)
@@ -86,7 +89,9 @@ namespace GameLogicService.Services
 							{ ConsumeCount = 1, PlayFabId = player, ItemInstanceId = item.ItemInstanceId });
 						if (res.Error != null) throw new Exception(res.Error.GenerateErrorReport());
 						consumedItems.Add(item);
-						_log.LogInformation($"[Playfab Sync] Synced item {item.DisplayName} -> {itemData.Id} to player {player}");
+						givenGameItems.Add(itemData);
+						_log.LogInformation(
+							$"[Playfab Sync] Synced item {item.DisplayName} -> {itemData.Id} to player {player}");
 					}
 				}
 
@@ -108,7 +113,8 @@ namespace GameLogicService.Services
 					if (res.Error != null)
 					{
 						var itemsString = string.Join(",", itemIds);
-						_log.LogError($"CRITICAL ON ITEM ROLLBACK: Items {itemsString} to player {player}: {res.Error.GenerateErrorReport()}");
+						_log.LogError(
+							$"CRITICAL ON ITEM ROLLBACK: Items {itemsString} to player {player}: {res.Error.GenerateErrorReport()}");
 						_ctx.Analytics.EmitEvent("Item Vanished", new AnalyticsData()
 						{
 							{ "items", itemsString }, { "affectedPlayer", player }
@@ -127,10 +133,12 @@ namespace GameLogicService.Services
 					});
 					if (res2.Error != null)
 					{
-						_log.LogError($"CRITICAL ON CURRENCY ROLLBACK: Currency {amt} x {currency} to player {player}: {res2.Error.GenerateErrorReport()}");
+						_log.LogError(
+							$"CRITICAL ON CURRENCY ROLLBACK: Currency {amt} x {currency} to player {player}: {res2.Error.GenerateErrorReport()}");
 						_ctx.Analytics.EmitEvent("Item Vanished", new AnalyticsData()
 						{
-							{ "currency", currency.ToString() }, { "amount", amt.ToString() }, { "affectedPlayer", player }
+							{ "currency", currency.ToString() }, { "amount", amt.ToString() },
+							{ "affectedPlayer", player }
 						});
 					}
 				}
@@ -138,7 +146,7 @@ namespace GameLogicService.Services
 				throw;
 			}
 
-			return true;
+			return givenGameItems;
 		}
 	}
 }

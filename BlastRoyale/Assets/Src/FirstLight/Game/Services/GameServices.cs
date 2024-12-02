@@ -260,10 +260,11 @@ namespace FirstLight.Game.Services
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
 			NewsService = new PlayfabNewsService(MessageBrokerService);
-			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic, HomeScreenService);
+			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, gameLogic, HomeScreenService, LocalPrefsService,
+				GenericDialogService);
 			TutorialService = new TutorialService(RoomService, CommandService, ConfigsProvider, gameLogic);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
-			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
+			BattlePassService = new BattlePassService(gameLogic, MessageBrokerService, HomeScreenService);
 			GameAppService = new GameAppService(this);
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);

@@ -78,6 +78,7 @@ namespace FirstLight.Editor.Ids
 			{"XP", 3, Resource},
 			{"Trophies", 22, Resource},
 			{"BPP", 26, Resource, ResourcePool},
+			{"PremiumBattlePass", 950, IAP},
 			{"PartnerANCIENT8", 900, Currency, CryptoCurrency},
 			{"PartnerAPECOIN", 901, Currency, CryptoCurrency},
 			{"PartnerBEAM", 902, Currency, CryptoCurrency},

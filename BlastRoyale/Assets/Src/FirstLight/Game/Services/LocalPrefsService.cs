@@ -9,6 +9,9 @@ namespace FirstLight.Game.Services
 {
 	public class LocalPrefsService
 	{
+		public ObservableField<Dictionary<string, IUnityStoreService.PurchaseFailureData>> FailedTransactionMessages { get; } =
+			CreateObjectSetting(nameof(FailedTransactionMessages), new Dictionary<string, IUnityStoreService.PurchaseFailureData>());
+
 		/// <summary>
 		/// Stores the last selected gamemode 
 		/// </summary>
@@ -92,13 +95,14 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// The last CustomMatchSettings that were set up when creating a custom game.
 		/// </summary>
-		public ObservableField<CustomMatchSettings> LastCustomMatchSettings { get; } = CreateObjectSetting(nameof(LastCustomMatchSettings), new CustomMatchSettings());
+		public ObservableField<CustomMatchSettings> LastCustomMatchSettings { get; } =
+			CreateObjectSetting(nameof(LastCustomMatchSettings), new CustomMatchSettings());
 
 		/// <summary>
 		/// If we show the rate and review prompt
 		/// </summary>
 		public ObservableField<int> Performance { get; } = CreateIntSetting(nameof(Performance), -1);
-		
+
 		private static ObservableField<bool> CreateBoolSetting(string key, bool defaultValue)
 		{
 			return new ObservableResolverField<bool>(() => GetBool(key, defaultValue), val => SetBool(key, val));

@@ -41,6 +41,7 @@ namespace FirstLight.Game.Data.DataTypes
 		public static ItemData Collection(GameId id, params CollectionTrait[] traits) => new (id, new CollectionMetadata() {Traits = traits});
 		public static ItemData Collection(GameId id) => new (id, null);
 		public static ItemData Unlock(UnlockSystem unlock) => new (GameId.Random, new UnlockMetadata() {Unlock = unlock});
+		public static ItemData Unlock(GameId gameId, UnlockSystem unlock) => new (gameId, new UnlockMetadata() {Unlock = unlock});
 
 		public static ItemData PlayfabCatalog(CatalogItem catalogItem)
 		{
@@ -52,6 +53,7 @@ namespace FirstLight.Game.Data.DataTypes
 			if (legacy.RewardId.IsInGroup(GameIdGroup.Equipment)) return Equipment(new Equipment(legacy.RewardId));
 			if (legacy.RewardId.IsInGroup(GameIdGroup.Collection)) return Collection(legacy.RewardId);
 			if (legacy.RewardId.IsInGroup(GameIdGroup.Currency)) return Currency(legacy.RewardId, legacy.Value);
+			if (legacy.RewardId == GameId.PremiumBattlePass) return Unlock(legacy.RewardId, UnlockSystem.PaidBattlePass);
 			return new ItemData(legacy.RewardId, legacy.Value > 1 ? new CurrencyMetadata() {Amount = legacy.Value} : null);
 		}
 	}

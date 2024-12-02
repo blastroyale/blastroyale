@@ -26020,6 +26020,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITBattlePass/popup_already_bought_season_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Error
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/popup_already_bought_season_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - You already bought this season
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITGeneric/for
       TermType: 0
       Description: 
@@ -31141,6 +31163,161 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStore/pending_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Pending
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/pending_popup_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - There is a pending purchase, wait and try again.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Transactions Failed
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_PurchasingUnavailable
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchasing Unavailable
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_ExistingPurchasePending
+      TermType: 0
+      Description: 
+      Languages:
+      - Existing Pending Purchase
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_ProductUnavailable
+      TermType: 0
+      Description: 
+      Languages:
+      - Product Unavailable
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_SignatureInvalid
+      TermType: 0
+      Description: 
+      Languages:
+      - Invalid Signature
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_UserCancelled
+      TermType: 0
+      Description: 
+      Languages:
+      - User Cancelled
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_PaymentDeclined
+      TermType: 0
+      Description: 
+      Languages:
+      - Payment Declined
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_DuplicateTransaction
+      TermType: 0
+      Description: 
+      Languages:
+      - Duplicated Transaction
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_Unknown
+      TermType: 0
+      Description: 
+      Languages:
+      - Unknown
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/logical_purchase_popup_text
+      TermType: 0
+      Description: 
+      Languages:
+      - You are about to spend {0}
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/deferred_transaction_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Pending
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/deferred_transaction_popup_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Your purchase is taking a little longer than expected. We will notify you
+        when the purchase is finished
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSwipeTransition/lets_blast
       TermType: 0
       Description: 
@@ -32380,7 +32557,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1732901108824
+    Google_LastUpdatedVersion: 1732902222402
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

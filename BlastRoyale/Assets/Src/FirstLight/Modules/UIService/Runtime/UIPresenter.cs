@@ -24,6 +24,7 @@ namespace FirstLight.UIService
 		private bool _enableTriggered;
 		private CancellationTokenSource _cancellationTokenSource;
 		private List<AssetReference> _dynamicUsedAssets = new ();
+		private bool _closed = false;
 
 		private void OnEnable()
 		{
@@ -58,6 +59,7 @@ namespace FirstLight.UIService
 		internal async UniTask OnScreenOpenedInternal(bool reload = false)
 		{
 			_cancellationTokenSource = new CancellationTokenSource();
+			_closed = false;
 			// Assert.AreEqual(typeof(T), Data.GetType(), $"Screen opened with incorrect data type {Data.GetType()} instead of {typeof(T)}");
 
 			if (_document != null) // TODO: Only here to support legacy lobby screen, remove when it's UITK
@@ -93,6 +95,10 @@ namespace FirstLight.UIService
 
 		internal async UniTask OnScreenClosedInternal()
 		{
+			// There is concurrency if you open another same layer screen on OnScreenClosed(), when opening the new screen UIService will 
+			// try to close this again
+			if (_closed) return;
+			_closed = true;
 			_cancellationTokenSource.Cancel();
 			await OnScreenClose();
 			foreach (var dynamicUsedAsset in _dynamicUsedAssets)

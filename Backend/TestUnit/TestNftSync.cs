@@ -13,6 +13,7 @@ using Quantum;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Services;
 using Assert = NUnit.Framework.Assert;
 
 public class TestNftSync
@@ -34,7 +35,8 @@ public class TestNftSync
 		var log = _app.GetService<IPluginLogger>();
 		_events = new PluginEventManager(log);
 		var pluginCtx = new PluginContext(_events, _app.Services);
-		_plugin = new BlastRoyalePlugin(_app.GetService<IUserMutex>());
+		_plugin = new BlastRoyalePlugin(_app.GetService<IUserMutex>(),
+			_app.GetService<IInventorySyncService<ItemData>>());
 		_plugin.OnEnable(pluginCtx);
 		_blockchainApi = new StubbedBlockchainApi(pluginCtx, _plugin);
 		_analytics = _app.GetService<IServerAnalytics>() as InMemoryAnalytics;
@@ -42,8 +44,8 @@ public class TestNftSync
 		_app.ServerState.UpdatePlayerState(_playerID, state).GetAwaiter().GetResult();
 		_state = state;
 	}
-	
-	
+
+
 	// [Test]
 	// public async Task TestMasculineCorposCollectionSync_ETH_Success()
 	// {
@@ -107,22 +109,24 @@ public class TestNftSync
 	{
 		var collections = state.DeserializeModel<CollectionData>();
 		var skins = collections.OwnedCollectibles[CollectionCategories.PLAYER_SKINS];
-		
+
 		var ownedItems = skins.Where(s => s.TryGetMetadata<CollectionMetadata>(out var meta)
 			&& meta.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collectionFound)
 			&& collectionFound == collectionName);
-		
+
 		return ownedItems;
 	}
 
 
-	private Corpos CreateMasculineCorposNft() => CreateNft<Corpos>(new Dictionary<string, string>() {{"body", "Masculine"}});
-	
-	private Corpos CreateFeminineCorposNft() => CreateNft<Corpos>(new Dictionary<string, string>() {{"body", "Feminine"}});
-	
+	private Corpos CreateMasculineCorposNft() =>
+		CreateNft<Corpos>(new Dictionary<string, string>() { { "body", "Masculine" } });
+
+	private Corpos CreateFeminineCorposNft() =>
+		CreateNft<Corpos>(new Dictionary<string, string>() { { "body", "Feminine" } });
+
 	private GamesGGGamers CreateGamesggGamersNFt() => CreateNft<GamesGGGamers>();
 	private PlagueDoctor CreatePlagueDoctorNFt() => CreateNft<PlagueDoctor>();
-	
+
 	private T CreateNft<T>(Dictionary<string, string>? nftAttributes = null) where T : RemoteCollectionItem, new()
 	{
 		var parser = new FlgTraitTypeAttributeParser(new T

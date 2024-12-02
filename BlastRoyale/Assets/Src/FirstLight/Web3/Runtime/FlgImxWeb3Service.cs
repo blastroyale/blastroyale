@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+/*using Cysharp.Threading.Tasks;
 using FirstLight.Game.Services;
 using UnityEngine;
 using Immutable.Passport;
@@ -8,12 +8,12 @@ using System;
 using Environment = Immutable.Passport.Model.Environment;
 using Cysharp.Threading.Tasks.CompilerServices;
 using FirstLight.Game.Presenters;
-using FirstLight.FLogger;
+using FirstLight.FLogger;*/
 
 /// <summary>
 /// Integrates IMX Passport to FLG Game
 /// </summary>
-public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
+/*public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 {
 	/// <summary>
 	/// For testing purposes, if proof key should be enabled or not
@@ -157,4 +157,4 @@ public class FlgImxWeb3Service : MonoBehaviour, IWeb3Service
 	}
 
 	public string Web3Account => _wallet;
-}
+}*/

@@ -1,8 +1,10 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using FirstLight.Game.Utils;
 using JetBrains.Annotations;
 using UnityEditor;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Editor.Build.Utils
@@ -21,6 +23,7 @@ namespace FirstLight.Editor.Build.Utils
 		private const string ARG_BUILD_NUMBER = "-FLBuildNumber";
 		private const string ARG_DEV_BUILD = "-FLDevelopmentBuild";
 		private const string ARG_REMOTE_ADDRESSABLES = "-FLRemoteAddressables";
+		public static FLEnvironment.Definition OverwriteEnvironment;
 
 		/// <summary>
 		/// The version override for the addressable catalog.
@@ -34,6 +37,7 @@ namespace FirstLight.Editor.Build.Utils
 		/// </summary>
 		public static string GetEnvironment()
 		{
+			if (!string.IsNullOrEmpty(OverwriteEnvironment.Name)) return OverwriteEnvironment.Name;
 			return Environment.GetEnvironmentVariable(ENVAR_ENVIRONMENT) ?? GetCMDArgument(ARG_ENVIRONMENT) ?? FLEnvironment.DEVELOPMENT.Name;
 		}
 
@@ -96,6 +100,40 @@ namespace FirstLight.Editor.Build.Utils
 			Debug.Log("Setting build number to " + buildNumber);
 			PlayerSettings.Android.bundleVersionCode = buildNumber;
 			PlayerSettings.iOS.buildNumber = buildNumber.ToString();
+		}
+
+		public static void UpdateCloudDiagnosticEnable(bool enabled)
+		{
+			var projectDir = Path.GetDirectoryName(Application.dataPath) ?? "";
+			var assetFile = Path.Combine(projectDir, "ProjectSettings", "UnityConnectSettings.asset");
+			if (!File.Exists(assetFile))
+			{
+				Debug.LogError($"CloudBuildSettingsHelper._UpdateCloudDiagnosticEnable({enabled}) -> file {assetFile} does not exists");
+				return;
+			}
+
+			var lines = File.ReadAllLines(assetFile);
+			var isCrashReporting = false;
+			for (var i = 0; i < lines.Length; i++)
+			{
+				var line = lines[i];
+				if (isCrashReporting && line is "    m_Enabled: 1" or "    m_Enabled: 0")
+				{
+					var isEnabled = line == "    m_Enabled: 1";
+					if (isEnabled != enabled)
+					{
+						lines[i] = enabled ? "    m_Enabled: 1" : "    m_Enabled: 0";
+						File.WriteAllLines(assetFile, lines);
+					}
+
+					break;
+				}
+
+				if (line == "  CrashReportingSettings:")
+				{
+					isCrashReporting = true;
+				}
+			}
 		}
 	}
 }

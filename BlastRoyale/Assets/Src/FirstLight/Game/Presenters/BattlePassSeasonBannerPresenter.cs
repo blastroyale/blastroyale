@@ -2,15 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
+using FirstLight.Game.UIElements.Kit;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
+using I2.Loc;
 using Quantum;
+using QuickEye.UIToolkit;
+using UnityEngine;
+using UnityEngine.Purchasing;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -20,31 +27,85 @@ namespace FirstLight.Game.Presenters
 	/// Season change banner
 	/// </summary>
 	[UILayer(UILayer.Popup)]
-	public class BattlePassSeasonBannerPresenter : UIPresenter
+	public class BattlePassSeasonBannerPresenter : UIPresenterData<BattlePassSeasonBannerPresenter.StateData>
 	{
+		public enum ScreenResult
+		{
+			Close,
+			GoToBattlePass,
+			BuyPremiumRealMoney,
+			BuyPremiumInGame,
+		}
+
+		public class StateData
+		{
+			public Action<ScreenResult> OnClose;
+		}
+
 		private IGameServices _services;
 
-		private Label _timeLeft;
+		[Q("TimeLeft")] private Label _timeLeft;
+		[Q("FinalRewardIcon")] private VisualElement _finalReward;
+		[Q("Rewards")] private VisualElement _rewardsContainer;
+		[Q("BuyRM")] private KitButton _buyRM;
+		[Q("BuyGame")] private KitButton _buyGameCurrency;
 		private VisualElement[] _rewards;
-		private VisualElement _finalReward;
 		private Cooldown _closeCooldown;
-
+		private IGameDataProvider _dataProvider;
+		private ScreenResult _result = ScreenResult.Close;
 
 		private void Awake()
 		{
 			_services = MainInstaller.ResolveServices();
+			_dataProvider = MainInstaller.ResolveData();
 		}
 
 		protected override void QueryElements()
 		{
-			var rewards = Root.Q("Rewards").Required();
-			_timeLeft = Root.Q<Label>("TimeLeft").Required();
-			_rewards = rewards.Children().Select(r => r.Q("RewardIcon").Required()).ToArray();
-			_finalReward = Root.Q("FinalRewardIcon").Required();
-			Root.Q<LocalizedButton>("StartButton").Required().clicked += OnClick;
-			Root.Q<Button>("CloseButton").clicked += ClosePopup;
+			_rewards = _rewardsContainer.Children().Select(r => r.Q("RewardIcon").Required()).ToArray();
+			Root.Q<LocalizedButton>("StartButton").Required().clicked += OnClickOpenBP;
+			Root.Q<Button>("CloseButton").clicked += () => ClosePopup();
 			Root.Q<VisualElement>("Blocker").RegisterCallback<PointerDownEvent>(ClickedOutside);
 			_closeCooldown = new Cooldown(TimeSpan.FromSeconds(2));
+			_services.IAPService.PurchaseFinished += IAPServiceOnPurchaseFinished;
+			InitBuyButtons();
+		}
+
+		protected override UniTask OnScreenClose()
+		{
+			_services.IAPService.PurchaseFinished -= IAPServiceOnPurchaseFinished;
+			Data?.OnClose?.Invoke(_result);
+			return UniTask.CompletedTask;
+		}
+
+		public void InitBuyButtons()
+		{
+			var realMoney = _services.BattlePassService.FindProduct(true);
+			var inGame = _services.BattlePassService.FindProduct(false);
+			if (realMoney == null) throw new Exception("Unable to find real money bp product");
+			if (inGame == null) throw new Exception("Unable to find in game bp product");
+			_buyRM.BtnText = realMoney.UnityIapProduct().metadata.localizedPriceString;
+			var ingamePrice = inGame.GetPrice();
+			var sprite = CurrencyItemViewModel.GetRichTextIcon(ingamePrice.item);
+			_buyGameCurrency.BtnText = ingamePrice.amt + " " + sprite;
+			if (_dataProvider.BattlePassDataProvider.HasPurchasedSeason() || _services.BattlePassService.HasPendingPurchase())
+			{
+				_buyRM.SetDisplay(false);
+				_buyGameCurrency.SetDisplay(false);
+				return;
+			}
+
+			_buyRM.clicked += () => ClosePopup(ScreenResult.BuyPremiumRealMoney);
+			_buyGameCurrency.clicked += () => ClosePopup(ScreenResult.BuyPremiumInGame);
+		}
+
+		private void IAPServiceOnPurchaseFinished(string itemId, ItemData data, bool success, IUnityStoreService.PurchaseFailureData reason)
+		{
+			if (!success) return;
+			if (data.TryGetMetadata<UnlockMetadata>(out var metadata) && metadata.Unlock == UnlockSystem.PaidBattlePass)
+			{
+				ClosePopup();
+			}
 		}
 
 		private void ClickedOutside(PointerDownEvent evt)
@@ -53,16 +114,16 @@ namespace FirstLight.Game.Presenters
 			ClosePopup();
 		}
 
-		private void ClosePopup()
+		private void ClosePopup(ScreenResult result = ScreenResult.Close)
 		{
-			_services.UIService.CloseScreen<BattlePassSeasonBannerPresenter>().Forget();
+			_result = result;
+			_services.UIService.CloseScreen<BattlePassSeasonBannerPresenter>(false).Forget();
 		}
 
-		private void OnClick()
+		private void OnClickOpenBP()
 		{
 			var s = MainInstaller.ResolveServices();
-			ClosePopup();
-			s.MessageBrokerService.Publish(new NewBattlePassSeasonMessage());
+			ClosePopup(ScreenResult.GoToBattlePass);
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -73,7 +134,6 @@ namespace FirstLight.Game.Presenters
 			var endsAt = currentSeason.Season.GetEndsAtDateTime();
 
 			_timeLeft.text = (endsAt - DateTime.UtcNow).ToDayAndHours(true);
-
 
 			var goodies = GetHighlightedManual();
 			if (goodies.Count < 4)

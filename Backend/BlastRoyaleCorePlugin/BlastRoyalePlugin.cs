@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
+using FirstLightServerSDK.Services;
 
 namespace BlastRoyaleNFTPlugin
 {
@@ -12,10 +14,12 @@ namespace BlastRoyaleNFTPlugin
 		private readonly IUserMutex _userMutex;
 		private PluginContext _ctx;
 		private BlockchainApi _blockchainApi;
+		private IInventorySyncService<ItemData> _inventorySyncService;
 
-		public BlastRoyalePlugin(IUserMutex userMutex)
+		public BlastRoyalePlugin(IUserMutex userMutex, IInventorySyncService<ItemData> inventorySyncService)
 		{
-			this._userMutex = userMutex;
+			_inventorySyncService = inventorySyncService;
+			_userMutex = userMutex;
 		}
 
 		/// <summary>
@@ -24,10 +28,8 @@ namespace BlastRoyaleNFTPlugin
 		public override void OnEnable(PluginContext context)
 		{
 			_ctx = context;
-			
-			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad, EventPriority.LAST);
-			context.PluginEventManager.RegisterEventListener<InventoryUpdatedEvent>(OnInventoryUpdate);
 
+			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad, EventPriority.LAST);
 			SetupBlockchainAPI();
 		}
 
@@ -35,15 +37,16 @@ namespace BlastRoyaleNFTPlugin
 		{
 			if (!_ctx.ServerConfig.NftSync)
 			{
-				_ctx.Log?.LogInformation("NFT Sync EnvVar Flag is currently disabled, skipping BlockchainAPI configuration");
+				_ctx.Log?.LogInformation(
+					"NFT Sync EnvVar Flag is currently disabled, skipping BlockchainAPI configuration");
 				return;
 			}
 
 			var baseUrl = ReadPluginConfig("API_URL");
 			var apiSecret = ReadPluginConfig("API_KEY");
-			
+
 			_ctx.Log?.LogInformation($"Using blockchain URL at {baseUrl}");
-			
+
 			if (_ctx.ServerConfig.NftSync)
 			{
 				_blockchainApi = new BlockchainApi(baseUrl, apiSecret, _ctx, this);
@@ -54,22 +57,9 @@ namespace BlastRoyaleNFTPlugin
 		{
 			if (_blockchainApi != null)
 				await _blockchainApi.SyncData(onLoad.PlayerState, onLoad.PlayerId);
-			
-			// It needs to be the last one, because it may fail and need to rollback items back to playfab
-			await _ctx.InventorySync!.SyncData(onLoad.PlayerState, onLoad.PlayerId);
-		}
 
-		private async Task OnInventoryUpdate(InventoryUpdatedEvent onLoad)
-		{
-			await using (await _userMutex.LockUser(onLoad.PlayerId))
-			{
-				var state = await _ctx.ServerState.GetPlayerState(onLoad.PlayerId);
-				await _ctx.InventorySync!.SyncData(state, onLoad.PlayerId);
-				if (state.HasDelta())
-				{
-					await _ctx.ServerState.UpdatePlayerState(onLoad.PlayerId, state.GetOnlyUpdatedState());
-				}
-			}
+			// It needs to be the last one, because it may fail and need to rollback items back to playfab
+			await _inventorySyncService!.SyncData(onLoad.PlayerState, onLoad.PlayerId);
 		}
 
 		public bool CanSyncCollection(string collectionName)

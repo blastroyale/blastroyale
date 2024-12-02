@@ -4,12 +4,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using FirstLight.Editor.Build.Utils;
+using FirstLight.Game.Utils;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
+using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -41,12 +43,6 @@ namespace FirstLight.Editor.Build
 				"ServerData/Android/addressables_content_state.bin");
 		}
 
-		[MenuItem("FLG/Build/Addressable no debug")]
-		public static void BuildAddressablesNoDebug()
-		{
-			BuildAddressables(false);
-		}
-
 		/// <summary>
 		/// Combines the configure and build steps
 		/// </summary>
@@ -54,30 +50,14 @@ namespace FirstLight.Editor.Build
 		[MenuItem("FLG/Build/Batch Build")]
 		public static void BatchBuild()
 		{
-			var buildTarget = BuildUtils.GetBuildTarget();
-			var environment = BuildUtils.GetEnvironment();
-			var buildNumber = BuildUtils.GetBuildNumber();
-			var isDevelopmentBuild = BuildUtils.GetIsDevelopmentBuild();
-			var remoteAddressables = BuildUtils.GetUseRemoteAddressables();
-
-			var buildConfig = new BuildPlayerOptions();
-
-			SetupBuildNumber(buildNumber);
-			SetupDevelopmentBuild(isDevelopmentBuild, ref buildConfig);
-			SetupAddressables(remoteAddressables);
-			SetupAndroidKeystore();
-			SetupScenes(ref buildConfig);
-			SetupPath(ref buildConfig, buildTarget);
-
-			BuildAddressables(isDevelopmentBuild);
-
-			AssetDatabase.Refresh();
-
-			// Additional build options
-			buildConfig.target = buildTarget;
-			buildConfig.options |= BuildOptions.CompressWithLz4HC;
-
-			var buildReport = BuildPipeline.BuildPlayer(buildConfig);
+			var buildReport = Build(new BuildParameters()
+			{
+				BuildNumber = BuildUtils.GetBuildNumber(),
+				BuildTarget = BuildUtils.GetBuildTarget(),
+				DevelopmentBuild = BuildUtils.GetIsDevelopmentBuild(),
+				RemoteAddressables = BuildUtils.GetUseRemoteAddressables(),
+				UploadSymbolsToUnity = true,
+			});
 
 			if (buildReport.summary.result != BuildResult.Succeeded)
 			{
@@ -85,12 +65,45 @@ namespace FirstLight.Editor.Build
 			}
 		}
 
+		public class BuildParameters
+		{
+			public BuildTarget BuildTarget;
+			public int BuildNumber;
+			public bool DevelopmentBuild;
+			public bool RemoteAddressables;
+			public bool UploadSymbolsToUnity;
+			public BuildOptions AdditionalOptions;
+		}
+
+		internal static BuildReport Build(BuildParameters @params)
+		{
+			var buildConfig = new BuildPlayerOptions();
+
+			SetupBuildNumber(@params.BuildNumber);
+			SetupDevelopmentBuild(@params.DevelopmentBuild, ref buildConfig);
+			SetupAddressables(@params.RemoteAddressables);
+			SetupAndroidKeystore();
+			SetupScenes(ref buildConfig);
+			SetupPath(ref buildConfig, @params.BuildTarget);
+			BuildUtils.UpdateCloudDiagnosticEnable(@params.UploadSymbolsToUnity);
+			BuildAddressables(@params.DevelopmentBuild);
+
+			AssetDatabase.Refresh();
+
+			// Additional build options
+			buildConfig.target = @params.BuildTarget;
+			buildConfig.options |= BuildOptions.CompressWithLz4HC;
+			buildConfig.options |= @params.AdditionalOptions;
+
+			return BuildPipeline.BuildPlayer(buildConfig);
+		}
+
 		private static void SetupPath(ref BuildPlayerOptions buildConfig, BuildTarget buildTarget)
 		{
 			switch (buildTarget)
 			{
 				case BuildTarget.Android:
-					buildConfig.locationPathName = "BlastRoyale.apk";
+					buildConfig.locationPathName = "BlastRoyale." + (EditorUserBuildSettings.buildAppBundle ? "aab" : "apk");
 					break;
 				case BuildTarget.iOS:
 					buildConfig.locationPathName = "BlastRoyale";
@@ -120,7 +133,7 @@ namespace FirstLight.Editor.Build
 			AddressableAssetSettingsDefaultObject.Settings.activeProfileId = profileId;
 		}
 
-		private static void BuildAddressables(bool enableDebugPackages)
+		internal static void BuildAddressables(bool enableDebugPackages)
 		{
 			if (!enableDebugPackages) RemoveDebugBundles();
 			AddressableAssetSettings.BuildPlayerContent(out var result);

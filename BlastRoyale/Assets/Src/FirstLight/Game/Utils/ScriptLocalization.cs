@@ -2333,6 +2333,8 @@ namespace I2.Loc
 			public static string left_bar_premium_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/left_bar_premium_title"); } }
 			public static string max 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/max"); } }
 			public static string play_games_info 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/play_games_info"); } }
+			public static string popup_already_bought_season_desc 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/popup_already_bought_season_desc"); } }
+			public static string popup_already_bought_season_title 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/popup_already_bought_season_title"); } }
 			public static string random_equipment 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/random_equipment"); } }
 			public static string season_ended 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_ended"); } }
 			public static string season_ends_in 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_ends_in"); } }
@@ -2927,6 +2929,8 @@ namespace I2.Loc
 			public static string content_creator_invalid_code 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_invalid_code"); } }
 			public static string content_creator_stop_supporting 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_stop_supporting"); } }
 			public static string content_creator_support 		{ get{ return LocalizationManager.GetTranslation ("UITStore/content_creator_support"); } }
+			public static string deferred_transaction_popup_desc 		{ get{ return LocalizationManager.GetTranslation ("UITStore/deferred_transaction_popup_desc"); } }
+			public static string deferred_transaction_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITStore/deferred_transaction_popup_title"); } }
 			public static string description_blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_large"); } }
 			public static string description_blastbuck_pack_medium 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_medium"); } }
 			public static string description_blastbuck_pack_small 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_small"); } }
@@ -2939,12 +2943,24 @@ namespace I2.Loc
 			public static string epic_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/epic_core"); } }
 			public static string iap_error 		{ get{ return LocalizationManager.GetTranslation ("UITStore/iap_error"); } }
 			public static string legendary_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/legendary_core"); } }
+			public static string logical_purchase_popup_text 		{ get{ return LocalizationManager.GetTranslation ("UITStore/logical_purchase_popup_text"); } }
 			public static string notification_product_cooldown 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_cooldown"); } }
 			public static string notification_product_daily_reset 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_daily_reset"); } }
 			public static string notification_product_maxamount 		{ get{ return LocalizationManager.GetTranslation ("UITStore/notification_product_maxamount"); } }
+			public static string pending_popup_desc 		{ get{ return LocalizationManager.GetTranslation ("UITStore/pending_popup_desc"); } }
+			public static string pending_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITStore/pending_popup_title"); } }
 			public static string price 		{ get{ return LocalizationManager.GetTranslation ("UITStore/price"); } }
 			public static string rare_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/rare_core"); } }
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITStore/shop"); } }
+			public static string transaction_failed_DuplicateTransaction 		{ get{ return LocalizationManager.GetTranslation ("UITStore/transaction_failed_DuplicateTransaction"); } }
+			public static string transaction_failed_ExistingPurchasePending 		{ get{ return LocalizationManager.GetTranslation ("UITStore/transaction_failed_ExistingPurchasePending"); } }
+			public static string transaction_failed_PaymentDeclined 		{ get{ return LocalizationManager.GetTranslation ("UITStore/transaction_failed_PaymentDeclined"); } }
+			public static string transaction_failed_ProductUnavailable 		{ get{ return LocalizationManager.GetTranslation ("UITStore/transaction_failed_ProductUnavailable"); } }
+			public static string transaction_failed_PurchasingUnavailable 		{ get{ return LocalizationManager.GetTranslation ("UITStore/transaction_failed_PurchasingUnavailable"); } }
+			public static string transaction_failed_SignatureInvalid 		{ get{ return LocalizationManager.GetTranslation ("UITStore/transaction_failed_SignatureInvalid"); } }
+			public static string transaction_failed_Unknown 		{ get{ return LocalizationManager.GetTranslation ("UITStore/transaction_failed_Unknown"); } }
+			public static string transaction_failed_UserCancelled 		{ get{ return LocalizationManager.GetTranslation ("UITStore/transaction_failed_UserCancelled"); } }
+			public static string transaction_failed_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITStore/transaction_failed_popup_title"); } }
 			public static string you_own_this_item 		{ get{ return LocalizationManager.GetTranslation ("UITStore/you_own_this_item"); } }
 		}
 
@@ -5333,6 +5349,8 @@ namespace I2.Loc
 		    public const string left_bar_premium_title = "UITBattlePass/left_bar_premium_title";
 		    public const string max = "UITBattlePass/max";
 		    public const string play_games_info = "UITBattlePass/play_games_info";
+		    public const string popup_already_bought_season_desc = "UITBattlePass/popup_already_bought_season_desc";
+		    public const string popup_already_bought_season_title = "UITBattlePass/popup_already_bought_season_title";
 		    public const string random_equipment = "UITBattlePass/random_equipment";
 		    public const string season_ended = "UITBattlePass/season_ended";
 		    public const string season_ends_in = "UITBattlePass/season_ends_in";
@@ -5927,6 +5945,8 @@ namespace I2.Loc
 		    public const string content_creator_invalid_code = "UITStore/content_creator_invalid_code";
 		    public const string content_creator_stop_supporting = "UITStore/content_creator_stop_supporting";
 		    public const string content_creator_support = "UITStore/content_creator_support";
+		    public const string deferred_transaction_popup_desc = "UITStore/deferred_transaction_popup_desc";
+		    public const string deferred_transaction_popup_title = "UITStore/deferred_transaction_popup_title";
 		    public const string description_blastbuck_pack_large = "UITStore/description_blastbuck_pack_large";
 		    public const string description_blastbuck_pack_medium = "UITStore/description_blastbuck_pack_medium";
 		    public const string description_blastbuck_pack_small = "UITStore/description_blastbuck_pack_small";
@@ -5939,12 +5959,24 @@ namespace I2.Loc
 		    public const string epic_core = "UITStore/epic_core";
 		    public const string iap_error = "UITStore/iap_error";
 		    public const string legendary_core = "UITStore/legendary_core";
+		    public const string logical_purchase_popup_text = "UITStore/logical_purchase_popup_text";
 		    public const string notification_product_cooldown = "UITStore/notification_product_cooldown";
 		    public const string notification_product_daily_reset = "UITStore/notification_product_daily_reset";
 		    public const string notification_product_maxamount = "UITStore/notification_product_maxamount";
+		    public const string pending_popup_desc = "UITStore/pending_popup_desc";
+		    public const string pending_popup_title = "UITStore/pending_popup_title";
 		    public const string price = "UITStore/price";
 		    public const string rare_core = "UITStore/rare_core";
 		    public const string shop = "UITStore/shop";
+		    public const string transaction_failed_DuplicateTransaction = "UITStore/transaction_failed_DuplicateTransaction";
+		    public const string transaction_failed_ExistingPurchasePending = "UITStore/transaction_failed_ExistingPurchasePending";
+		    public const string transaction_failed_PaymentDeclined = "UITStore/transaction_failed_PaymentDeclined";
+		    public const string transaction_failed_ProductUnavailable = "UITStore/transaction_failed_ProductUnavailable";
+		    public const string transaction_failed_PurchasingUnavailable = "UITStore/transaction_failed_PurchasingUnavailable";
+		    public const string transaction_failed_SignatureInvalid = "UITStore/transaction_failed_SignatureInvalid";
+		    public const string transaction_failed_Unknown = "UITStore/transaction_failed_Unknown";
+		    public const string transaction_failed_UserCancelled = "UITStore/transaction_failed_UserCancelled";
+		    public const string transaction_failed_popup_title = "UITStore/transaction_failed_popup_title";
 		    public const string you_own_this_item = "UITStore/you_own_this_item";
 		}
 

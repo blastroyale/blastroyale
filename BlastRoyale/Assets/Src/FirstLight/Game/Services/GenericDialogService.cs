@@ -60,6 +60,11 @@ namespace FirstLight.Game.Services
 		UniTask OpenSimpleMessage(string title, string desc, Action onClick = null);
 
 		/// <summary>
+		/// Displays a simple message and wait for it to be closed
+		/// </summary>
+		public UniTask OpenSimpleMessageAndWait(string title, string desc);
+
+		/// <summary>
 		/// Open the purchase confirmation dialog, and if the player doesn't have the amount of blast bucks open not enough popup
 		/// </summary>
 		UniTask OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.IPurchaseData data);
@@ -120,6 +125,23 @@ namespace FirstLight.Game.Services
 					onClick?.Invoke();
 				}
 			});
+		}
+
+		public async UniTask OpenSimpleMessageAndWait(string title, string desc)
+		{
+			var completionSource = new UniTaskCompletionSource();
+			await OpenButtonDialog(title, desc, false, new GenericDialogButton()
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () =>
+				{
+					CloseDialog();
+				}
+			}, () =>
+			{
+				completionSource.TrySetResult();
+			});
+			await completionSource.Task;
 		}
 
 		public async UniTask OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.IPurchaseData data)

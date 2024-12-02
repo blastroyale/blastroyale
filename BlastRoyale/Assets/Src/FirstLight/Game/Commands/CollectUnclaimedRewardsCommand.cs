@@ -13,12 +13,18 @@ namespace FirstLight.Game.Commands
 	/// <summary>
 	/// Collects all the reward on the to the player's current inventory.
 	/// </summary>
-	public class CollectUnclaimedRewardsCommand : IGameCommandWithResult<IReadOnlyList<ItemData>> // This needs to be a class due to the GivenRewards use after command execution
+	public class
+		CollectUnclaimedRewardsCommand : IGameCommandWithResult<IReadOnlyList<ItemData>> // This needs to be a class due to the GivenRewards use after command execution
 	{
 		/// <summary>
 		/// Set during command execution as a "Result"
 		/// </summary>
 		public IReadOnlyList<ItemData> GivenRewards { get; private set; }
+
+		/// <summary>
+		/// If this field is != null it will only claim this specific reward, otherwise it will claim it all
+		/// </summary>
+		public ItemData UncollectedReward;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
@@ -27,6 +33,13 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public UniTask Execute(CommandExecutionContext ctx)
 		{
+			if (UncollectedReward != null)
+			{
+				var given = ctx.Logic.RewardLogic().ClaimUnclaimedReward(UncollectedReward);
+				GivenRewards = new[] {given};
+				return UniTask.CompletedTask;
+			}
+
 			var trophiesBefore = ctx.Logic.PlayerLogic().Trophies.Value;
 			var rewards = ctx.Logic.RewardLogic().ClaimUnclaimedRewards();
 			ctx.Services.MessageBrokerService().Publish(new ClaimedRewardsMessage()

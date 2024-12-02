@@ -8,7 +8,6 @@
     "com.google.play.common": "https://github.com/pancake-llc/google-play-common.git#1.9.1",
     "com.google.play.core": "https://github.com/pancake-llc/google-play-core.git#1.8.4",
     "com.google.play.review": "https://github.com/pancake-llc/in-app-review.git#1.8.2",
-    "com.immutable.passport": "https://github.com/immutable/unity-immutable-sdk.git?path=/src/Packages/Passport",
     "com.quickeye.ui-toolkit-plus": "https://github.com/ErnSur/UI-Toolkit-Plus.git",
     "com.unity.2d.animation": "9.1.3",
     "com.unity.2d.sprite": "1.0.0",

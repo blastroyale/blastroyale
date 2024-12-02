@@ -30,6 +30,7 @@ using Unity.Services.Friends.Notifications;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.Purchasing;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
@@ -220,6 +221,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyUpdate;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnPartyJoined;
+			_services.IAPService.PurchaseFinished += OnPurchaseFinished;
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnDisplayNameChanged);
 			FriendsService.Instance.PresenceUpdated += OnPresenceUpdated;
@@ -229,6 +231,31 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
 
 			return base.OnScreenOpen(reload);
+		}
+
+		/// <summary>
+		/// Handles when a deffered purchase finishes and the user is on the home screen
+		/// </summary>
+		/// <param name="data"></param>
+		/// <param name="succeeded"></param>
+		/// <param name="failurereason"></param>
+		private void OnPurchaseFinished(string itemId, ItemData data, bool succeeded, IUnityStoreService.PurchaseFailureData failurereason)
+		{
+			if (!succeeded)
+			{
+				return;
+			}
+			if (IAPHelpers.IsUIBeingHandled(itemId)) return;
+			ShowPurchaseRewardScreen(data).Forget();
+		}
+
+		private async UniTaskVoid ShowPurchaseRewardScreen(ItemData data)
+		{
+			// Do not show if user is matchmaking
+			if (_services.MatchmakingService.IsMatchmaking.Value) return;
+			var opened = await _services.RewardService.ClaimRewardsAndWaitForRewardsScreenToClose(data);
+			if (!opened) return;
+			await _services.UIService.OpenScreen<HomeScreenPresenter>(Data);
 		}
 
 		private void OnPartyJoined(Lobby l)
@@ -264,6 +291,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyUpdated -= OnPartyLobbyUpdate;
 			_services.FLLobbyService.CurrentPartyCallbacks.LocalLobbyJoined -= OnPartyJoined;
+			_services.IAPService.PurchaseFinished -= OnPurchaseFinished;
 			_dataProvider.PlayerDataProvider.Level.StopObserving(OnFameChanged);
 			FriendsService.Instance.PresenceUpdated -= OnPresenceUpdated;
 

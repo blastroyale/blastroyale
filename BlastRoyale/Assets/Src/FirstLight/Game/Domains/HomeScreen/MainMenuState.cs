@@ -228,7 +228,9 @@ namespace FirstLight.Game.Domains.HomeScreen
 				.OnTransition(HideMatchmaking)
 				.Target(homeCheck);
 
-			validateRewardsPaidEvent.WaitingFor(() => _services.HomeScreenService.CollectAndDisplayRewards()).Target(chooseGameMode);
+			validateRewardsPaidEvent.WaitingFor(() => _services.HomeScreenService
+					.ShowNotifications(typeof(GameModeScreenPresenter)))
+				.Target(chooseGameMode);
 
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeCheck);
@@ -459,15 +461,9 @@ namespace FirstLight.Game.Domains.HomeScreen
 			{
 				OnBackClicked = () => { activity.Complete(); },
 				OnHomeClicked = () => { activity.Complete(); },
-				OnPurchaseItem = PurchaseItem,
 			};
 			await _services.UIService.OpenScreen<StoreScreenPresenter>(data);
 			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
-		}
-
-		private void PurchaseItem(GameProduct product)
-		{
-			_services.IAPService.BuyProduct(product);
 		}
 
 		private void OpenCustomGameLobby()
@@ -521,10 +517,13 @@ namespace FirstLight.Game.Domains.HomeScreen
 			}
 
 			// This fetches the rewards asynchronously and if any rewards are chosen open the home screen back
-			_services.HomeScreenService.CollectAndDisplayRewards().ContinueWith((displayed) =>
+			_services.HomeScreenService.ShowNotifications(typeof(HomeScreenPresenter)).ContinueWith((breakFlow) =>
 			{
-				if (!displayed) return;
-				OpenHomeScreen().Forget();
+				if (breakFlow) return;
+				if (!_services.UIService.IsScreenOpen<HomeScreenPresenter>())
+				{
+					OpenHomeScreen().Forget();
+				}
 			}).Forget();
 			_services.MessageBrokerService.Publish(new MainMenuOpenedMessage());
 		}

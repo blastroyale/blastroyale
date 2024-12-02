@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Models;
@@ -181,7 +182,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Purchase the pro level of the current season of BattlePass.
 		/// </summary>
-		bool Purchase();
+		bool Purchase(ItemData premiumTicket);
 
 		/// <summary>
 		/// Purchase a battlepass level.
@@ -474,12 +475,11 @@ namespace FirstLight.Game.Logic
 			data.SeenBanner = true;
 		}
 
-		public bool Purchase()
+		public bool Purchase(ItemData premiumTicket)
 		{
 			var config = GetCurrentSeasonConfig();
-			if (!HasCurrencyForPremiumPurchase()) return false;
-			if (config.Season.RemovePaid) return false;
-			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, config.Season.Price);
+			if (config.Season.RemovePaid) throw new LogicException("Unable to buy season! RemovePaid = true");
+			if (GetCurrentSeasonData().Purchased) throw new LogicException("Player already have the BP purchased!");
 			GetCurrentSeasonData().Purchased = true;
 			GameLogic.MessageBrokerService.Publish(new BattlePassPurchasedMessage());
 			return true;

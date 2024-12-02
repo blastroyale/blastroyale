@@ -1,9 +1,13 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
@@ -30,17 +34,27 @@ namespace GameLogicService.Services
 	public class ShopService
 	{
 		private ILogger _log;
+
+		private IUserMutex _userMutex;
+		private IInventorySyncService<ItemData> _inventorySync;
+		private readonly IServerStateService _serverState;
+
 		private IErrorService<PlayFabError> _errorHandler;
 		private IBaseServiceConfiguration _cfg;
 		private IEventManager _events;
 		private IItemCatalog<ItemData> _catalog;
 
-		public ShopService(ILogger log, IItemCatalog<ItemData> catalog, IErrorService<PlayFabError> errorHandler, IBaseServiceConfiguration cfg, IEventManager events)
+		public ShopService(ILogger log, IItemCatalog<ItemData> catalog, IErrorService<PlayFabError> errorHandler,
+						   IBaseServiceConfiguration cfg, IEventManager events, IUserMutex userMutex,
+						   IServerStateService serverState, IInventorySyncService<ItemData> inventorySync)
 		{
 			_log = log;
 			_errorHandler = errorHandler;
 			_cfg = cfg;
 			_events = events;
+			_userMutex = userMutex;
+			_serverState = serverState;
+			_inventorySync = inventorySync;
 			_catalog = catalog;
 		}
 
@@ -60,19 +74,42 @@ namespace GameLogicService.Services
 				var res = await PlayFabServerAPI.GrantItemsToUserAsync(new()
 				{
 					CatalogVersion = "Store",
-					ItemIds = new () {catalogItemId},
+					ItemIds = new() { catalogItemId },
 					PlayFabId = playerId
 				});
 				if (res.Error != null) throw new Exception(res.Error.GenerateErrorReport());
 				_log.LogInformation($"Given store test free item {catalogItemId} to player {playerId}");
 			}
-			
+
 			await _events.CallEvent(new IAPPurchasedEvent(playerId));
-			await _events.CallEvent(new InventoryUpdatedEvent(playerId));
+			await SyncPurchaseItems(playerId, item);
 
 			var result = Playfab.Result(playerId);
 			ModelSerializer.SerializeToData(result.Result.Data, item);
 			return result;
+		}
+
+		public async Task SyncPurchaseItems(string playerId, ItemData purchasedItem)
+		{
+			await using (await _userMutex.LockUser(playerId))
+			{
+				var state = await _serverState.GetPlayerState(playerId);
+				var givenItems = await _inventorySync!.SyncData(state, playerId);
+				if (state.HasDelta())
+				{
+					await _serverState.UpdatePlayerState(playerId, state.GetOnlyUpdatedState());
+					if (givenItems.Contains(purchasedItem))
+					{
+						var contentCreatorData = state.DeserializeModel<ContentCreatorData>();
+						var msg = new PurchaseClaimedMessage
+						{
+							ItemPurchased = purchasedItem,
+							SupportingContentCreator = contentCreatorData.SupportingCreatorCode
+						};
+						await _events.CallEvent(new GameLogicMessageEvent<PurchaseClaimedMessage>(playerId, msg));
+					}
+				}
+			}
 		}
 	}
 }

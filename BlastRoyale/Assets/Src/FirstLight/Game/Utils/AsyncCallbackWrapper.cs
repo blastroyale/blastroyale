@@ -5,6 +5,10 @@ using UnityEngine.Events;
 
 namespace FirstLight.Game.Utils
 {
+	
+	/// <summary>
+	/// This is a copy of <see cref="AsyncUnityEventHandler{T}"/>
+	/// </summary>
 	public class AsyncCallbackWrapper : IUniTaskSource, IDisposable
 	{
 		static Action<object> cancellationCallback = CancellationCallback;

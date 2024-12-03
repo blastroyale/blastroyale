@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/Art/UI/Styles/Kit/ButtonsNew.uss?fileID=7433441132597879392&amp;guid=dd84415d17f77de48b05cef3a874fca2&amp;type=3#ButtonsNew" />
     <ui:VisualElement name="root" class="banner-root">
         <ui:VisualElement name="Blocker" class="blocker" />
-        <ui:Button name="CloseButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="close-button" />
+        <ui:Button name="CloseButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="close-button" style="position: absolute; right: 49px; bottom: auto; top: 94px;" />
         <ui:VisualElement name="Banner" class="banner">
             <ui:VisualElement name="Background" class="banner-background">
                 <ui:VisualElement name="LeftSide" class="banner-left-side">
@@ -35,7 +35,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="SeasonTextContainer" picking-mode="Ignore" class="season-text-container">
-                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="NOOB SEASON 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SeasonNumberText" class="season-text-container__title" />
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="SEASON NUMBER" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SeasonNumberText" class="season-text-container__title" />
                         <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="IS HERE!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IsHereText" class="season-text-container__desc" />
                     </ui:VisualElement>
                 </ui:VisualElement>

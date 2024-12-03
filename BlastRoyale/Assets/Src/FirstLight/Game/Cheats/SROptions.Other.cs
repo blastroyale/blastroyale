@@ -24,7 +24,7 @@ public partial class SROptions
 	{
 		MainInstaller.ResolveServices().UIService.OpenScreen<BattlePassSeasonBannerPresenter>(new BattlePassSeasonBannerPresenter.StateData()
 		{
-			ShowBeginSeason = true
+			ShowBeginSeason = false
 		}).Forget();
 	}
 

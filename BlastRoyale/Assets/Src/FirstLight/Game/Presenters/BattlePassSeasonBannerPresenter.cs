@@ -46,6 +46,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 
 		[Q("TimeLeft")] private Label _timeLeft;
+		[Q("SeasonNumberText")] private Label _seasonNumber;
 		[Q("ButtonsBeginSeason")] private VisualElement _beginSeasonContainer;
 		[Q("ButtonsBuy")] private VisualElement _purchaseContainer;
 
@@ -135,13 +136,13 @@ namespace FirstLight.Game.Presenters
 
 			if (realMoney)
 			{
-				button.text = "PREMIUM PASS\n" + product.UnityIapProduct().metadata.localizedPriceString;
+				button.text = product.UnityIapProduct().metadata.localizedPriceString;
 			}
 			else
 			{
 				var ingamePrice = product.GetPrice();
 				var sprite = CurrencyItemViewModel.GetRichTextIcon(ingamePrice.item);
-				button.text = "PREMIUM PASS\n" + ingamePrice.amt + " " + sprite;
+				button.text = $"{ingamePrice.amt} {sprite}";
 			}
 
 			button.clicked += () => ClosePopup(realMoney ? ScreenResult.BuyPremiumRealMoney : ScreenResult.BuyPremiumInGame);
@@ -209,7 +210,16 @@ namespace FirstLight.Game.Presenters
 			var currentSeason = data.BattlePassDataProvider.GetCurrentSeasonConfig();
 			var endsAt = currentSeason.Season.GetEndsAtDateTime();
 
-			_timeLeft.text = (endsAt - DateTime.UtcNow).ToDayAndHours(true);
+			_timeLeft.text = "<sprite name=\"ClockIcon\"> " + (endsAt - DateTime.UtcNow).ToDayAndHours(true);
+			if (!string.IsNullOrEmpty(currentSeason.Season.Title))
+			{
+				_seasonNumber.text = currentSeason.Season.Title;
+			}
+			else
+			{
+				_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
+					currentSeason.Season.Number);
+			}
 
 			FillGoodies(PassType.Paid);
 			FillGoodies(PassType.Free);

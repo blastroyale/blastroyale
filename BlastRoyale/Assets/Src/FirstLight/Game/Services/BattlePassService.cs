@@ -118,7 +118,7 @@ namespace FirstLight.Game.Services
 			var callbackWrapper = new UniTaskCompletionSource<BattlePassSeasonBannerPresenter.ScreenResult>();
 			await _services.UIService.OpenScreen<BattlePassSeasonBannerPresenter>(new BattlePassSeasonBannerPresenter.StateData()
 			{
-				ShowBeginSeason = true,
+				ShowBeginSeason = false,
 				OnClose = (v) => callbackWrapper.TrySetResult(v)
 			});
 			var result = await callbackWrapper.Task;

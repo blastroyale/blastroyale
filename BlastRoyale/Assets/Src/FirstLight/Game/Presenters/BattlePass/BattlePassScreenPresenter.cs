@@ -235,7 +235,8 @@ namespace FirstLight.Game.Presenters
 
 			_services.UIService.OpenScreen<BattlePassSeasonBannerPresenter>(new BattlePassSeasonBannerPresenter.StateData()
 			{
-				OnClose = OnClosedBanner
+				OnClose = OnClosedBanner,
+				ShowBeginSeason = false,
 			}).Forget();
 		}
 

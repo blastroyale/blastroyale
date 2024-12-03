@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
+using I2.Loc;
 using Quantum;
 using QuickEye.UIToolkit;
 using UnityEngine;
@@ -53,7 +54,7 @@ namespace FirstLight.Game.Presenters
 			{
 				rewardSections.Add(new RewardSection()
 				{
-					Title =  "Collected in Map",
+					Title =  ScriptLocalization.UITStandings.collected_in_map,
 					Currencies = collectedInMap
 				});
 			}
@@ -62,7 +63,7 @@ namespace FirstLight.Game.Presenters
 			{
 				rewardSections.Add(new RewardSection()
 				{
-					Title =  "Winner Bonus",
+					Title =  ScriptLocalization.UITStandings.place_bonus,
 					Currencies = winBonus
 				});
 			}
@@ -78,7 +79,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var nftBonus = CreateItemList(new RewardSection()
 				{
-					Title = "NFT Buffs",
+					Title = ScriptLocalization.UITStandings.nft_buffs,
 					Currencies = _rewards.CollectedBonuses,
 				});
 				tooltip.Add(nftBonus);

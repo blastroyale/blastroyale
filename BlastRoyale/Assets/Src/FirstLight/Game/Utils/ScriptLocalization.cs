@@ -2915,7 +2915,14 @@ namespace I2.Loc
 			public static string defeated_you 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/defeated_you"); } }
 			public static string spectating 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/spectating"); } }
 		}
-
+		
+		public static class UITStandings
+		{
+			public static string collected_in_map 		{ get{ return LocalizationManager.GetTranslation ("UITStandings/collected_in_map"); } }
+			public static string place_bonus 		{ get{ return LocalizationManager.GetTranslation ("UITStandings/place_bonus"); } }
+			public static string nft_buffs 		{ get{ return LocalizationManager.GetTranslation ("UITStandings/nft_buffs"); } }
+		}
+		
 		public static class UITStore
 		{
 			public static string blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/blastbuck_pack_large"); } }
@@ -5931,6 +5938,14 @@ namespace I2.Loc
 		    public const string defeated_you = "UITSpectate/defeated_you";
 		    public const string spectating = "UITSpectate/spectating";
 		}
+		
+		public static class UITStandings
+		{
+			public static string collected_in_map = "UITStandings/collected_in_map";
+			public static string place_bonus = "UITStandings/place_bonus";
+			public static string nft_buffs = "UITStandings/nft_buffs";
+		}
+
 
 		public static class UITStore
 		{

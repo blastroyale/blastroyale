@@ -1,6 +1,7 @@
 /* AUTO GENERATED */
 :root {
     --sprite-home__AirdropIconOnfield: url('/Assets/Art/UI/Sprites/Home/AirdropIconOnfield.png');
+    --sprite-home__alien-season-reward: url('/Assets/Art/UI/Sprites/Home/alien-season-reward.png');
     --sprite-home__ArrowBig: url('/Assets/Art/UI/Sprites/Home/ArrowBig.png');
     --sprite-home__background-avatar-nft: url('/Assets/Art/UI/Sprites/Home/background-avatar-nft.png');
     --sprite-home__background-big-bundle: url('/Assets/Art/UI/Sprites/Home/background-big-bundle.png');
@@ -43,9 +44,11 @@
     --sprite-home__background-tab-friends-selected: url('/Assets/Art/UI/Sprites/Home/background-tab-friends-selected.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
+    --sprite-home__banner-alien: url('/Assets/Art/UI/Sprites/Home/banner-alien.png');
     --sprite-home__banner-back-orange: url('/Assets/Art/UI/Sprites/Home/banner-back-orange.png');
     --sprite-home__banner-back-purple: url('/Assets/Art/UI/Sprites/Home/banner-back-purple.png');
     --sprite-home__banner-back-purpleorange: url('/Assets/Art/UI/Sprites/Home/banner-back-purpleorange.png');
+    --sprite-home__banner-iceking: url('/Assets/Art/UI/Sprites/Home/banner-iceking.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__banner-speed-lines-bottom: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-bottom.png');
     --sprite-home__banner-speed-lines-top: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-top.png');
@@ -253,6 +256,12 @@
     background-image: var(--sprite-home__AirdropIconOnfield);
     width: 320px;
     height: 320px;
+}
+
+.sprite-home__alien-season-reward {
+    background-image: var(--sprite-home__alien-season-reward);
+    width: 1175px;
+    height: 943px;
 }
 
 .sprite-home__ArrowBig {
@@ -507,6 +516,12 @@
     height: 760px;
 }
 
+.sprite-home__banner-alien {
+    background-image: var(--sprite-home__banner-alien);
+    width: 526px;
+    height: 698px;
+}
+
 .sprite-home__banner-back-orange {
     background-image: var(--sprite-home__banner-back-orange);
     width: 190px;
@@ -523,6 +538,12 @@
     background-image: var(--sprite-home__banner-back-purpleorange);
     width: 299px;
     height: 712px;
+}
+
+.sprite-home__banner-iceking {
+    background-image: var(--sprite-home__banner-iceking);
+    width: 526px;
+    height: 698px;
 }
 
 .sprite-home__banner-mapselection {

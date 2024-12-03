@@ -45,6 +45,8 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 
+		[Q("SeasonNumberText")] private Label _seasonName;
+		[Q("CharacterImage")] private VisualElement _characterImage;
 		[Q("TimeLeft")] private Label _timeLeft;
 		[Q("SeasonNumberText")] private Label _seasonNumber;
 		[Q("ButtonsBeginSeason")] private VisualElement _beginSeasonContainer;
@@ -209,7 +211,7 @@ namespace FirstLight.Game.Presenters
 			var data = MainInstaller.ResolveData();
 			var currentSeason = data.BattlePassDataProvider.GetCurrentSeasonConfig();
 			var endsAt = currentSeason.Season.GetEndsAtDateTime();
-
+			
 			_timeLeft.text = "<sprite name=\"ClockIcon\"> " + (endsAt - DateTime.UtcNow).ToDayAndHours(true);
 			if (!string.IsNullOrEmpty(currentSeason.Season.Title))
 			{
@@ -220,10 +222,20 @@ namespace FirstLight.Game.Presenters
 				_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
 					currentSeason.Season.Number);
 			}
-
+			
 			FillGoodies(PassType.Paid);
 			FillGoodies(PassType.Free);
 
+			if (string.IsNullOrEmpty(currentSeason.Season.BannerGraphicImageClass))
+			{
+				_characterImage.SetDisplay(false);
+			}
+			else
+			{
+				_characterImage.RemoveSpriteClasses();
+				_characterImage.AddToClassList(currentSeason.Season.BannerGraphicImageClass);
+				_characterImage.SetDisplay(true);
+			}
 			return base.OnScreenOpen(reload);
 		}
 

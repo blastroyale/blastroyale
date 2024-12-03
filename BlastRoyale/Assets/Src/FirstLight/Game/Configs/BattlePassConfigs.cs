@@ -37,6 +37,7 @@ namespace FirstLight.Game.Configs
 			public string EndsAt;
 			public bool RemovePaid;
 			public string EndGraphicImageClass;
+			public string BannerGraphicImageClass;
 			public string EndGraphicName;
 			public string Highlighted;
 

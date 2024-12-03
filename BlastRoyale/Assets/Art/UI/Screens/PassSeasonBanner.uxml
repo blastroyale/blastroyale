@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/PassSeasonBannerNew.uss?fileID=7433441132597879392&amp;guid=7e5e50a50dba3fe4a943d4fc3872be31&amp;type=3#PassSeasonBannerNew" />
     <Style src="project://database/Assets/Art/UI/Styles/Kit/ButtonsNew.uss?fileID=7433441132597879392&amp;guid=dd84415d17f77de48b05cef3a874fca2&amp;type=3#ButtonsNew" />
+    <Style src="project://database/Assets/Art/UI/Styles/Sprites-Home.uss?fileID=7433441132597879392&amp;guid=4e46a3e4ef7f24e058d10676af705f67&amp;type=3#Sprites-Home" />
     <ui:VisualElement name="root" class="banner-root">
         <ui:VisualElement name="Blocker" class="blocker" />
         <ui:Button name="CloseButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="close-button" style="position: absolute; right: 49px; bottom: auto; top: 94px;" />

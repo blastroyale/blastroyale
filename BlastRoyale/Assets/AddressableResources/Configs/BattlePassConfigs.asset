@@ -24,6 +24,7 @@ MonoBehaviour:
       EndsAt: 1/11/2023
       RemovePaid: 1
       EndGraphicImageClass: 
+      BannerGraphicImageClass: 
       EndGraphicName: 
       Highlighted: 
     - Number: 7
@@ -36,6 +37,7 @@ MonoBehaviour:
       EndsAt: 20/02/2024
       RemovePaid: 1
       EndGraphicImageClass: sprite-home__malepunk-season-reward
+      BannerGraphicImageClass: 
       EndGraphicName: PUNK SPIKE
       Highlighted: 
     - Number: 8
@@ -48,6 +50,7 @@ MonoBehaviour:
       EndsAt: 30/04/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__bamboo-season-reward
+      BannerGraphicImageClass: 
       EndGraphicName: BAM BOO
       Highlighted: 40:F,1,20,90
     - Number: 9
@@ -60,6 +63,7 @@ MonoBehaviour:
       EndsAt: 30/06/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__goji-season-reward
+      BannerGraphicImageClass: 
       EndGraphicName: GOJI
       Highlighted: 45,1,40:F,90
     - Number: 10
@@ -72,6 +76,7 @@ MonoBehaviour:
       EndsAt: 31/08/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__pattybun-season-reward
+      BannerGraphicImageClass: 
       EndGraphicName: PATTY BUN
       Highlighted: 45,1,40:F,90
     - Number: 11
@@ -84,6 +89,7 @@ MonoBehaviour:
       EndsAt: 31/10/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__gbones-season-reward
+      BannerGraphicImageClass: 
       EndGraphicName: G BONES
       Highlighted: 15:F,90:F,70,90
     - Number: 12
@@ -96,6 +102,7 @@ MonoBehaviour:
       EndsAt: 05/11/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__iceking-season-reward
+      BannerGraphicImageClass: sprite-home__banner-iceking
       EndGraphicName: FROST LORD
       Highlighted: 40:F,90:F,70,90
     - Number: 13
@@ -108,6 +115,7 @@ MonoBehaviour:
       EndsAt: 10/11/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__yeti-season-reward
+      BannerGraphicImageClass: sprite-home__banner-yeti
       EndGraphicName: YETI
       Highlighted: 44:F,12,30:F,50
     - Number: 14
@@ -119,7 +127,8 @@ MonoBehaviour:
       StartsAt: 11/11/2024
       EndsAt: 28/02/2025
       RemovePaid: 0
-      EndGraphicImageClass: sprite-home__yeti-season-reward
+      EndGraphicImageClass: sprite-home__alien-season-reward
+      BannerGraphicImageClass: sprite-home__banner-alien
       EndGraphicName: XANADU
       Highlighted: 44:F,12,30:F,50
     Levels:

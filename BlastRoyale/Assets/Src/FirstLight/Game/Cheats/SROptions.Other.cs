@@ -22,7 +22,10 @@ public partial class SROptions
 	[Category("Other")]
 	public void OpenBattlePassBanner()
 	{
-		MainInstaller.ResolveServices().UIService.OpenScreen<BattlePassSeasonBannerPresenter>().Forget();
+		MainInstaller.ResolveServices().UIService.OpenScreen<BattlePassSeasonBannerPresenter>(new BattlePassSeasonBannerPresenter.StateData()
+		{
+			ShowBeginSeason = true
+		}).Forget();
 	}
 
 	[Category("Other")]

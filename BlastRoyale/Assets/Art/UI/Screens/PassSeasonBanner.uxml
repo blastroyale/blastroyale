@@ -1,59 +1,83 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/PassSeasonBanner.uss?fileID=7433441132597879392&amp;guid=6b607a5f5d390413abee30b075a16eff&amp;type=3#PassSeasonBanner" />
+    <Style src="project://database/Assets/Art/UI/Screens/PassSeasonBannerNew.uss?fileID=7433441132597879392&amp;guid=7e5e50a50dba3fe4a943d4fc3872be31&amp;type=3#PassSeasonBannerNew" />
+    <Style src="project://database/Assets/Art/UI/Styles/Kit/ButtonsNew.uss?fileID=7433441132597879392&amp;guid=dd84415d17f77de48b05cef3a874fca2&amp;type=3#ButtonsNew" />
     <ui:VisualElement name="root" class="banner-root">
         <ui:VisualElement name="Blocker" class="blocker" />
+        <ui:Button name="CloseButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="close-button" />
         <ui:VisualElement name="Banner" class="banner">
-            <ui:Button name="CloseButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="close-button" />
             <ui:VisualElement name="Background" class="banner-background">
-                <ui:VisualElement name="DotLeft" class="banner-dots banner-dots-left" />
-                <ui:VisualElement name="LeftPart" class="banner-background__left">
-                    <ui:VisualElement name="LeftPart" class="purple-fill" />
+                <ui:VisualElement name="LeftSide" class="banner-left-side">
+                    <ui:VisualElement name="SpeedLinesTop" class="banner-speedlines-top banner-speedlines-top_left" />
+                    <ui:VisualElement name="SpeedLinesBottom" class="banner-speedlines-bottom banner-speedlines-bottom_left" />
                 </ui:VisualElement>
-                <ui:VisualElement name="DotRight" class="banner-dots" />
-                <ui:VisualElement name="RightPart" class="banner-background__right">
-                    <ui:VisualElement name="PinkBorder" class="banner-pink-border">
-                        <ui:VisualElement name="YellowAngle" class="banner-background__right-yellow" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Dots" class="banner-dots-white" />
+                <ui:VisualElement name="ColorConnection" class="banner-color-connection" />
+                <ui:VisualElement name="RightSide" class="banner-right-side">
+                    <ui:VisualElement name="SpeedLinesTop" class="banner-speedlines-top_right banner-speedlines-top" />
+                    <ui:VisualElement name="SpeedLinesBottom" class="banner-speedlines-bottom banner-speedlines-bottom_right" style="position: absolute; bottom: 22px; right: 0;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Contents" class="banner-contents">
-                <ui:VisualElement name="LeftSide" picking-mode="Ignore" class="banner-contents__left">
-                    <ui:VisualElement name="GradientTicket" class="banner-icon-gradient">
-                        <ui:VisualElement name="TicketIcon" picking-mode="Ignore" class="banner-icon">
-                            <ui:VisualElement name="SparkTicketBig" class="banner-icon__spark" />
-                            <ui:VisualElement name="SparkTicketSmall" class="banner-icon__spark-small" />
+            <ui:VisualElement name="Content" class="banner-content" style="flex-grow: 1;">
+                <ui:VisualElement name="Spotlight" class="banner-spotlight">
+                    <ui:VisualElement name="RewardsImpactCircle" class="rewards-one__circle-impact" style="bottom: -268px;" />
+                    <ui:VisualElement name="CharacterImage" class="banner-character-image" />
+                </ui:VisualElement>
+                <ui:VisualElement name="RewardsFree" class="banner-rewards-free">
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="FREE" parse-escape-sequences="false" display-tooltip-when-elided="true" name="FreeLabel" class="banner-label-free" />
+                    <ui:VisualElement name="RewardsContainerFree" class="banner-rewards">
+                        <ui:VisualElement name="ItemDisplay" class="reward-display">
+                            <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="ItemDisplay" class="reward-display">
+                            <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="ItemDisplay" class="reward-display">
+                            <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <FirstLight.Game.UIElements.LocalizedButton text="BEGIN SEASON" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" enable-rich-text="true" tabindex="5" class="button-long button-long--yellow begin-button" />
-                    <ui:VisualElement name="TimeLeftWidget" class="time-left-widget">
-                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="TIME LEFT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeftTitle" class="time-left-widget__title" />
-                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="1D 45H" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeft" class="time-left-widget__time" />
+                    <ui:VisualElement name="SeasonTextContainer" picking-mode="Ignore" class="season-text-container">
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="NOOB SEASON 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SeasonNumberText" class="season-text-container__title" />
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="IS HERE!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IsHereText" class="season-text-container__desc" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="TextContainer" picking-mode="Ignore" class="season-text-container">
-                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="GET BLAST PASS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BPText" class="season-text-container__title" />
-                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="CLAIM EXCLUSIVE REWARDS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IsHereText" class="season-text-container__desc" />
+                <ui:VisualElement name="TimeLeftWidget" class="time-left-widget">
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="&lt;sprite name=&quot;ClockIcon&quot;&gt;  1d 45h" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLeft" class="time-left-widget__time" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Rewards" class="banner-rewards">
-                    <ui:VisualElement name="ItemDisplay" class="reward-display">
-                        <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                <ui:VisualElement name="RewardsPremium" class="banner-rewards-premium" style="flex-grow: 1;">
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="PREMIUM" parse-escape-sequences="false" display-tooltip-when-elided="true" name="PremiumLabel" class="banner-label-free" />
+                    <ui:VisualElement name="RewardsContainerPremium" class="banner-rewards">
+                        <ui:VisualElement name="ItemDisplay" class="reward-display">
+                            <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="ItemDisplay" class="reward-display">
+                            <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="ItemDisplay" class="reward-display">
+                            <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="ItemDisplay" class="reward-display">
-                        <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
+                    <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="EARN EXCLUSIVE&#10;ITEMS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EarnExclusiveItemsLabel" class="banner-items-label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ButtonsBeginSeason" style="flex-grow: 1; position: absolute; bottom: -45px; right: 0; left: 0; flex-direction: row; justify-content: center; align-self: center; display: none;">
+                    <ui:VisualElement name="FreePassButton" class="banner-free-pass-button" style="position: relative; left: auto; bottom: auto; flex-shrink: 9; width: 376px; height: 139px; margin-right: 32px;">
+                        <FirstLight.Game.UIElements.LocalizedButton text="BEGIN SEASON" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" enable-rich-text="true" tabindex="5" class="banner-begin-label-button button-secondary" style="-unity-text-align: middle-center;" />
+                        <ui:VisualElement name="FreePassIcon" class="banner-free-pass-icon" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="ItemDisplay" class="reward-display">
-                        <ui:VisualElement name="RewardIcon" class="reward-display__icon" />
-                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="UNLOCK NEW ITEMS" parse-escape-sequences="false" display-tooltip-when-elided="true" name="GetExclusiveRewards" class="get-rewards-text" />
+                    <ui:VisualElement name="PremiumPassButton" class="banner-premium-pass-button" style="width: 376px; height: 139px; right: auto; bottom: auto; position: relative;">
+                        <FirstLight.Game.UIElements.LocalizedButton text="PREMIUM PASS&#10;£ 5.99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseButton" enable-rich-text="true" tabindex="5" class="banner-purchase-label-button buttom-main_glowing" style="top: -62px; right: 72px;" />
+                        <ui:VisualElement name="PremiumPassIcon" class="banner-premium-pass-icon" style="top: -102px; right: auto; left: 112px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="RightSide" class="banner-contents__right">
-                    <ui:VisualElement name="FinalReward" class="final-reward">
-                        <ui:VisualElement name="FinalRewardIcon" class="final-reward__icon" />
+                <ui:VisualElement name="ButtonsBuy" style="flex-grow: 1; position: absolute; bottom: -45px; right: 0; left: 0; flex-direction: row; justify-content: center; align-self: center;">
+                    <ui:VisualElement name="RealMoneyBuyButton" class="banner-premium-pass-button" style="width: 376px; height: 139px; right: auto; bottom: auto; position: relative;">
+                        <FirstLight.Game.UIElements.LocalizedButton text="PREMIUM PASS&#10;£ 5.99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseButton" enable-rich-text="true" tabindex="5" class="banner-purchase-label-button buttom-main_glowing" style="top: -62px; right: 72px;" />
+                        <ui:VisualElement name="PremiumPassIcon" class="banner-premium-pass-icon" />
+                    </ui:VisualElement>
+                    <FirstLight.Game.UIElements.LocalizedLabel text="OR" name="OrLabel" class="or-label" style="justify-content: center; align-self: center; bottom: auto; width: auto; margin-right: 12px;" />
+                    <ui:VisualElement name="InGameBuyButton" class="banner-premium-pass-button" style="width: 376px; height: 139px; right: auto; bottom: auto; position: relative;">
+                        <FirstLight.Game.UIElements.LocalizedButton text="PREMIUM PASS&#10;50 &lt;sprite name=&quot;NoobIcon&quot;&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseButton" enable-rich-text="true" tabindex="5" class="banner-purchase-label-button buttom-main_glowing" style="top: -62px; right: 72px;" />
+                        <ui:VisualElement name="PremiumPassIcon" class="banner-premium-pass-icon" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-text="R$ 23" name="BuyRM" style="position: absolute; top: 410px; left: 1036px; height: 92px; width: 210px;" />
-                <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-text="42" name="BuyGame" style="position: absolute; top: 410px; left: 1292px; height: 92px; width: 210px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 4129183337993711194}
   - component: {fileID: 5684069254530388031}
   m_Layer: 5
-  m_Name: BattlePassSeasonBanner
+  m_Name: BattlePassSeasonBannerNew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 5fd65fc44ec1c4925b7b13946cd5626e, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: b805b4718b79b4bba89113de5aba6883, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 67af37dfe881e3b458a38cdc55eac1d3, type: 3}
   m_SortingOrder: 1
 --- !u!225 &4129183337993711194
 CanvasGroup:

@@ -1,0 +1,336 @@
+.blocker {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.67);
+    top: 0;
+    left: 0;
+}
+
+.banner {
+    flex-grow: 0;
+    width: 100%;
+    height: 692px;
+    align-self: center;
+}
+
+.banner-background {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+.begin-button {
+    height: 102px;
+    position: absolute;
+    width: 378px;
+    top: 313px;
+    left: 184px;
+}
+
+.time-left-widget {
+    -unity-text-align: middle-center;
+    font-size: 36px;
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: black;
+    color: white;
+    position: absolute;
+    bottom: 45px;
+    right: 105px;
+}
+
+.time-left-widget__title {
+}
+
+.time-left-widget__time {
+}
+
+.season-text-container {
+    align-items: center;
+    align-self: center;
+    top: -320px;
+}
+
+.season-text-container__title {
+    font-size: 84px;
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 6px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 6px 6px 0 rgb(0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Rubik-Black%20SDF.asset?fileID=11400000&guid=82951ee0c88a775439646cc2d7ea7e9d&type=2#Rubik-Black SDF");
+    -unity-font-style: normal;
+    -unity-text-align: upper-center;
+}
+
+.season-text-container__desc {
+    font-size: 64px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Rubik-Black%20SDF.asset?fileID=11400000&guid=82951ee0c88a775439646cc2d7ea7e9d&type=2#Rubik-Black SDF");
+    -unity-text-align: upper-center;
+    top: -10px;
+}
+
+.banner-rewards {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    align-self: auto;
+    position: absolute;
+}
+
+.reward-display {
+    flex-grow: 0;
+    background-color: rgb(12, 18, 78);
+    width: 178px;
+    height: 178px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 9px;
+    margin-right: 9px;
+    margin-bottom: 9px;
+    margin-left: 14px;
+    flex-shrink: 0;
+}
+
+.reward-display__icon {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/AddressableResources/Collections/Flags/old%20flags/old_demon/flag-demon.png?fileID=21300000&guid=200f11153aed542e3aeb0adb534ade89&type=3#flag-demon');
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.get-rewards-text {
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 4px 4px 0 rgb(156, 36, 12);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    position: absolute;
+    top: 206px;
+    -unity-text-align: upper-right;
+    left: -185px;
+}
+
+.banner-root {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-button {
+    width: 62px;
+    height: 62px;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon-close-white.png?fileID=21300000&guid=4df85ce872a81074581fef9150897ae5&type=3#icon-close-white");
+    bottom: 32px;
+    right: -1040px;
+}
+
+.banner-left-side {
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/banner-back-purple.png?fileID=21300000&guid=9ec236b093f5cbb49b44d2389a7391f3&type=3#banner-back-purple");
+    width: 100%;
+    height: 100%;
+}
+
+.banner-right-side {
+    width: 100%;
+    height: 100%;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/banner-back-orange.png?fileID=21300000&guid=6a7754c281889504c915f49b0afcfd8f&type=3#banner-back-orange");
+}
+
+.banner-color-connection {
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/banner-back-purpleorange.png?fileID=21300000&guid=4d182a9a9d570e54d8d2678f8b8f6425&type=3#banner-back-purpleorange");
+    height: 100%;
+    width: 299px;
+}
+
+.banner-center-part {
+    height: 100%;
+}
+
+.banner-content {
+    position: absolute;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+.banner-spotlight {
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/banner-spotlight-orange.png?fileID=21300000&guid=763c2be641b7dd2498ae736c3c78cdd3&type=3#banner-spotlight-orange");
+    width: 1334px;
+    height: 914px;
+    align-self: center;
+    align-items: center;
+}
+
+.banner-character-image {
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/banner-yeti.png?fileID=21300000&guid=48f266c9beaac6f448264d9ecdaaf04f&type=3#banner-yeti");
+    position: absolute;
+    width: 526px;
+    height: 698px;
+    align-self: center;
+    bottom: 291px;
+}
+
+.banner-begin-label-button {
+    font-size: 48px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-color: rgb(58, 13, 121);
+    -unity-text-outline-width: 6px;
+    text-shadow: 5px 5px 0 rgb(58, 13, 121);
+    padding-bottom: 20px;
+    -unity-paragraph-spacing: -30px;
+    -unity-text-align: middle-left;
+}
+
+.banner-free-pass-icon {
+    position: absolute;
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/icon_free-pass-no-effects.png?fileID=21300000&guid=f8b4c677be302ff44be35fb2a261cd5b&type=3#icon_free-pass-no-effects");
+    width: 130px;
+    height: 78px;
+    align-self: center;
+    left: 131px;
+    top: -53px;
+}
+
+.banner-purchase-label-button {
+    font-size: 48px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 6px;
+    text-shadow: 5px 5px 0 rgb(156, 36, 12);
+    -unity-text-outline-color: rgb(156, 36, 12);
+    padding-bottom: -19px;
+    -unity-paragraph-spacing: -30px;
+}
+
+.banner-premium-pass-icon {
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/icon_premium-pass_no_gradient.png?fileID=21300000&guid=48f9187df2ec3a7408325105da0c6a65&type=3#icon_premium-pass_no_gradient");
+    position: absolute;
+    width: 170px;
+    height: 162px;
+    align-self: center;
+    top: -118px;
+    left: 110px;
+}
+
+.banner-free-pass-button {
+    position: absolute;
+    bottom: 99px;
+    left: 730px;
+}
+
+.banner-premium-pass-button {
+    position: absolute;
+    bottom: -80px;
+    right: 716px;
+}
+
+.banner-label-free {
+    font-size: 44px;
+    color: rgb(255, 199, 0);
+    -unity-text-outline-width: 5px;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-align: upper-center;
+    bottom: 60px;
+}
+
+.or-label {
+    font-size: 44px;
+    color: rgb(255, 199, 0);
+    -unity-text-outline-width: 5px;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-align: upper-center;
+    bottom: 60px;
+}
+
+.banner-rewards-free {
+    position: absolute;
+    top: 324px;
+    align-items: center;
+    left: 184px;
+}
+
+.banner-rewards-premium {
+    position: absolute;
+    right: 260px;
+    top: 324px;
+    align-items: center;
+}
+
+.banner-items-label {
+    -unity-text-outline-width: 3px;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    font-size: 64px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Rubik-Black%20SDF.asset?fileID=11400000&guid=82951ee0c88a775439646cc2d7ea7e9d&type=2#Rubik-Black SDF");
+    -unity-text-align: upper-center;
+    top: -300px;
+    max-width: 600px;
+    -unity-paragraph-spacing: -16px;
+}
+
+.banner-speedlines-top {
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/banner-speed-lines-top.png?fileID=21300000&guid=e68229df8661d164695e700f7f296ca4&type=3#banner-speed-lines-top");
+    width: 528px;
+    height: 336px;
+}
+
+.banner-speedlines-bottom {
+    width: 616px;
+    height: 296px;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/banner-speed-lines-bottom.png?fileID=21300000&guid=20840430da52b86428d5a47b3914657d&type=3#banner-speed-lines-bottom");
+}
+
+.banner-speedlines-top_right {
+    scale: -1 1;
+    top: 0;
+    right: 0;
+    position: absolute;
+}
+
+.banner-speedlines-bottom_left {
+    position: absolute;
+    left: 0;
+    bottom: 22px;
+    scale: -1 1;
+}
+
+.banner-speedlines-top_left {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.banner-speedlines-bottom_right {
+}
+
+.rewards-one__circle-impact {
+    position: relative;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Home/rewards-impact-circle.png?fileID=21300000&guid=8c8d1d6f0c927dc4e8de8a8ba2bc3967&type=3#rewards-impact-circle");
+    width: 100px;
+    height: 100px;
+    align-self: center;
+}

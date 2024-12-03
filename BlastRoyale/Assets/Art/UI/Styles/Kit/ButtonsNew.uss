@@ -1,0 +1,18 @@
+.button-secondary {
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/button-purple-new.png?fileID=21300000&guid=a49cc2548ed0585428d65239aae12870&type=3#button-purple-new");
+    width: 376px;
+    height: 139px;
+    position: absolute;
+}
+
+.button-main {
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/button-yellow-new.png?fileID=21300000&guid=c30b7bf0c9000094a820c2dad08743f6&type=3#button-yellow-new");
+    width: 376px;
+    height: 124px;
+}
+
+.buttom-main_glowing {
+    width: 499px;
+    height: 240px;
+    background-image: url("project://database/Assets/Art/UI/Sprites/Shared/button-yellow-glowing.png?fileID=21300000&guid=40d278c885cfb5341aa7917f0901610c&type=3#button-yellow-glowing");
+}

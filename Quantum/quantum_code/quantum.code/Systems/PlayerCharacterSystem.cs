@@ -259,7 +259,6 @@ namespace Quantum.Systems
 				teamId = teamId,
 				modifiers = null,
 				minimumHealth = f.Context.GameModeConfig.MinimumHealth,
-				deathFlagID = playerData.DeathFlagID
 			};
 			// Skin stuff
 			f.Add<CosmeticsHolder>(playerEntity);

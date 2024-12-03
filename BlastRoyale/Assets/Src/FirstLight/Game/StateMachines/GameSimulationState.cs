@@ -429,7 +429,6 @@ namespace FirstLight.Game.StateMachines
 				UnityId = AuthenticationService.Instance.PlayerId,
 				PlayerName = AuthenticationService.Instance.GetPlayerNameWithSpaces(),
 				Cosmetics = equippedCosmetics,
-				DeathFlagID = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.GRAVE)!.Id,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),

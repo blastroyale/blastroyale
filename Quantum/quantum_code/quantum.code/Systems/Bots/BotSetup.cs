@@ -251,11 +251,9 @@ namespace Quantum.Systems.Bots
 
 
 			entities.Add(botEntity);
+			
 			var botCharacter = new BotCharacter
 			{
-				Skin = f.RNG->RandomElement(ctx.SkinOptions),
-				DeathMarker = GameId.FlagBanana, //f.RNG->RandomElement(ctx.DeathMakers),
-				Glider = f.RNG->RandomElement(ctx.Gliders),
 				BotNameIndex = listNamesIndex,
 				BehaviourType = config.BehaviourType,
 				DecisionInterval = config.DecisionInterval,
@@ -362,7 +360,6 @@ namespace Quantum.Systems.Bots
 				trophies = trophies,
 				teamId = teamId,
 				modifiers = modifiers,
-				deathFlagID = botCharacter.DeathMarker
 			};
 
 			SetupBotCosmetics(f, botEntity, spawner.Entity);

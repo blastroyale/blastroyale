@@ -15,7 +15,6 @@ namespace Quantum
 		public int teamId = -1; // This cannot be 0 for a valid value, component initialization will fail at TeamSystem
 		public List<Modifier> modifiers = null;
 		public uint minimumHealth = 0;
-		public GameId deathFlagID;
 	}
 
 	public unsafe partial struct PlayerCharacter

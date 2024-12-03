@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 994a7bace68083848964ec23d8235de9
+guid: 0143f5cba0074974fafc0062645cb54e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Valkyrie
-    second: {fileID: 2100000, guid: 096ad7fed08d2654e866a84ac8bf5720, type: 2}
+    second: {fileID: 2100000, guid: 794f4ad7c54caa940820d799ed5d2023, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1
@@ -49,7 +49,7 @@ ModelImporter:
       takeName: meta_flair
       internalID: -4311744423893859263
       firstFrame: 0
-      lastFrame: 140
+      lastFrame: 134
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -78,7 +78,7 @@ ModelImporter:
       takeName: meta_idle1_loop
       internalID: -1533404506062787293
       firstFrame: 0
-      lastFrame: 583
+      lastFrame: 446
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

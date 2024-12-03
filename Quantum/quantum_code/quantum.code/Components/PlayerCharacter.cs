@@ -184,6 +184,7 @@ namespace Quantum
 
 			var equipmentData = new EquipmentEventData();
 			equipmentData.CurrentWeapon = CurrentWeapon;
+			equipmentData.Skin = PlayerLoadout.GetCosmetic(f, e, GameIdGroup.PlayerSkin) ?? GameId.MalePunk;
 			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker), equipmentData);
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker, fromRoofDamage);
 			f.Signals.PlayerDead(Player, e);

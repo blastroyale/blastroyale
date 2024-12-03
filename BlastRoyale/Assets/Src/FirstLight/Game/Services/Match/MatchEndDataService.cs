@@ -123,7 +123,9 @@ namespace FirstLight.Game.Services
 		public PlayerRef LocalPlayerKiller { get; private set; }
 		public bool DiedFromRoofDamage { get; private set; }
 		public Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; private set; } = new ();
-
+		
+		private Dictionary<EntityRef, GameId[]> _cosmeticsCache = new ();
+		
 		public void Reload()
 		{
 			ReadMatchDataForEndingScreens(QuantumRunner.Default.Game);
@@ -235,7 +237,7 @@ namespace FirstLight.Game.Services
 				}
 
 				var frameData = frame.GetPlayerData(quantumPlayerData.Data.Player);
-
+				
 				Equipment weapon = Equipment.None;
 
 				if (PlayersFinalEquipment.ContainsKey(quantumPlayerData.Data.Player))
@@ -250,6 +252,19 @@ namespace FirstLight.Game.Services
 				}
 
 				var cosmetics = PlayerLoadout.GetCosmetics(frame, quantumPlayerData.Data.Entity);
+				
+				if (!quantumPlayerData.IsBot && cosmetics.Length == 0 && frameData != null)
+				{
+					cosmetics = frameData.Cosmetics;
+				}
+				else if(_cosmeticsCache.TryGetValue(quantumPlayerData.Data.Entity, out var cached))
+				{
+					cosmetics = cached;
+				} else if (cosmetics.Length == 0 && PlayersFinalEquipment.TryGetValue(quantumPlayerData.Data.Player, out var equipmentEventData))
+				{
+					cosmetics = new [] { equipmentEventData.Skin };
+				}
+				
 				var playerData = new ClientCachedPlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, cosmetics);
 
 				if (game.PlayerIsLocal(playerData.PlayerRef))

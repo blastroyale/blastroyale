@@ -33,9 +33,32 @@ namespace Quantum
 
 		public static GameId[] GetCosmetics(Frame f, EntityRef player)
 		{
-			if (!f.TryGet<CosmeticsHolder>(player, out var c)) return Array.Empty<GameId>();
-			if(!f.TryResolveList(c.Cosmetics, out var list)) return Array.Empty<GameId>();
+			if (!f.TryGet<CosmeticsHolder>(player, out var c))
+			{
+				Log.Warn("No Holder");
+				return Array.Empty<GameId>();
+			}
+
+			if (!f.TryResolveList(c.Cosmetics, out var list))
+			{
+				Log.Warn("No List Allocated");
+				return Array.Empty<GameId>();
+			}
 			return list.ToArray();
+		}
+		
+		public static GameId? GetCosmetic(Frame f, EntityRef player, GameIdGroup group)
+		{
+			if (!f.TryGet<CosmeticsHolder>(player, out var c))
+			{
+				return null;
+			}
+
+			if (!f.TryResolveList(c.Cosmetics, out var list))
+			{
+				return null;
+			}
+			return list.FirstOrDefault(c => c.IsInGroup(group));
 		}
 	}
 }

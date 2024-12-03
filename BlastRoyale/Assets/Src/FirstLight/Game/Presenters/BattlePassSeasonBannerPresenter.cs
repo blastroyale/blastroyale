@@ -12,6 +12,8 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.UIElements.Kit;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views;
+using FirstLight.Modules.UIService.Runtime;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
@@ -51,6 +53,7 @@ namespace FirstLight.Game.Presenters
 		[Q("SeasonNumberText")] private Label _seasonNumber;
 		[Q("ButtonsBeginSeason")] private VisualElement _beginSeasonContainer;
 		[Q("ButtonsBuy")] private VisualElement _purchaseContainer;
+		[QView("TopCurrenciesBar")] private CurrencyTopBarView _currencyTopBarView;
 
 		private KitButton _buyGameCurrency; // Todo
 		private LocalizedButton _buyRMButton;
@@ -114,6 +117,7 @@ namespace FirstLight.Game.Presenters
 			var realMoneyButton = _purchaseContainer.Q<VisualElement>("RealMoneyBuyButton").Q<LocalizedButton>("PurchaseButton");
 			var inGameButton = _purchaseContainer.Q<VisualElement>("InGameBuyButton").Q<LocalizedButton>("PurchaseButton");
 			var orLabel = _purchaseContainer.Q<VisualElement>("OrLabel");
+
 			if (_dataProvider.BattlePassDataProvider.HasPurchasedSeason() || _services.BattlePassService.HasPendingPurchase())
 			{
 				_purchaseContainer.SetDisplay(false);
@@ -130,6 +134,10 @@ namespace FirstLight.Game.Presenters
 				orLabel.SetDisplay(false);
 				realMoneyButton.parent.SetDisplay(false);
 			}
+
+			_currencyTopBarView.Configure(
+				realMoneyButton,
+				new List<GameId>() {_services.BattlePassService.FindProduct(false).GetPrice().item});
 		}
 
 		public void SetupButton(LocalizedButton button, bool realMoney)

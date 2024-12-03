@@ -47,7 +47,7 @@
                             <FirstLight.Game.UIElements.LabelOutlined text="NEW EVENT !" name="NewEventLabel" enable-rich-text="false" display-tooltip-when-elided="false" class="game-mode-button__new-event-label" />
                             <ui:VisualElement name="SelectedContainer" class="game-mode-button__selected-container">
                                 <ui:VisualElement name="GameModeIcon" class="game-mode-button__icon sprite-shared__icon-gamemode-solo" />
-                                <FirstLight.Game.UIElements.AutoSizeLabel name="GameModeLabel" text="ASDASDSDASDAASDSDAASDASDASDASDASDDASDAS" min-font-size="18" max-font-size="199" class="game-mode-button__selected-mode" />
+                                <FirstLight.Game.UIElements.AutoSizeLabel name="GameModeLabel" text="VERY LONG EVENT NAME" min-font-size="18" max-font-size="199" class="game-mode-button__selected-mode" />
                                 <FirstLight.Game.UIElements.LabelOutlined text="MODE" name="Mode" class="game-mode-button__mode" />
                             </ui:VisualElement>
                         </ui:VisualElement>

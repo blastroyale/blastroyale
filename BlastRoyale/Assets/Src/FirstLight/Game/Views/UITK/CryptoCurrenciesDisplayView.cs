@@ -60,7 +60,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var cryptoCurrencies = _gameDataProvider.CurrencyDataProvider.Currencies
 				.Where(c =>
-					GameIdGroup.CryptoCurrency.GetIds().Contains(c.Key) && c.Value > 0 && (ShowOnly == null || ShowOnly.Contains(c.Key)))
+					GameIdGroup.CryptoCurrency.GetIds().Contains(c.Key) && ((c.Value > 0 && ShowOnly == null) || (ShowOnly?.Contains(c.Key) ?? false)))
 				.ToDictionary(c => c.Key, c => c.Value);
 
 			CryptoCurrenciesElement.SetData(cryptoCurrencies);

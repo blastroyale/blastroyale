@@ -342,8 +342,8 @@ namespace FirstLight.Game.Presenters
 			{
 				_isRotate = false;
 				_degreesToRotate = _deathMarkerSpawnRotation.y;
-				_collectionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-				_collectionObject.transform.localPosition = new Vector3(0.4f, 0, 0.15f);
+				_collectionObject.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+				_collectionObject.transform.localPosition = new Vector3(0.35f, -0.15f, 0.15f);
 				_collectionObject.transform.localEulerAngles = new Vector3(0, 180f, 0);
 				var view = _collectionObject.GetComponent<DeathFlagView>();
 				view.TriggerFlag();

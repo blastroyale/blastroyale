@@ -519,7 +519,14 @@ namespace FirstLight.Game.Domains.HomeScreen
 			// This fetches the rewards asynchronously and if any rewards are chosen open the home screen back
 			_services.HomeScreenService.ShowNotifications(typeof(HomeScreenPresenter)).ContinueWith((breakFlow) =>
 			{
-				if (breakFlow) return;
+				if (breakFlow)
+				{
+					if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Store)
+					{
+						_statechartTrigger(_storeClickedEvent);
+					}
+					return;
+				}
 				if (!_services.UIService.IsScreenOpen<HomeScreenPresenter>())
 				{
 					OpenHomeScreen().Forget();

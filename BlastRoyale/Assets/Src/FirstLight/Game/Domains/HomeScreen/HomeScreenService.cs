@@ -43,7 +43,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 		/// <param name="openingScreen"></param>
 		/// <returns></returns>
 		public UniTask<bool> ShowNotifications(Type openingScreen);
-		
+
 		/// <summary>
 		/// Register a task that will be processed in a queue when opening the home screen, this is used for queueing notifications
 		/// </summary>

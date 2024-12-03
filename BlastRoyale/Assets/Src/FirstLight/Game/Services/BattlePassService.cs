@@ -97,11 +97,16 @@ namespace FirstLight.Game.Services
 						return false;
 					}
 
+					if (purchaseResult == IAPHelpers.BuyProductResult.ForcePlayerToShop)
+					{
+						MarkSeen();
+						return true;
+					}
 					if (purchaseResult == IAPHelpers.BuyProductResult.Rejected)
 					{
 						continue;
 					}
-					// Deferred let close the popup
+					
 				}
 
 				return false;

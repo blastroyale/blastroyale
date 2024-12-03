@@ -403,6 +403,9 @@ namespace FirstLight.Game.Logic
 						case GameId.BlastBuck:
 							mp += buffs.GetStat(BuffStat.PctBonusBBs).AsDouble / 100d;
 							break;
+						case GameId.FestiveSNOWFLAKE:
+							mp += buffs.GetStat(BuffStat.PctBonusSnowflakes).AsDouble / 100d;
+							break;
 					}
 
 					if (result.CollectedRewards.TryGetValue(reward.Id, out var collected))

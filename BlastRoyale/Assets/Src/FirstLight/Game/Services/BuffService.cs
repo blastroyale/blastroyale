@@ -42,6 +42,7 @@ namespace FirstLight.Game.Services
 			if (stat == BuffStat.PctBonusNoob) return "Noob";
 			if (stat == BuffStat.PctBonusPartnerToken) return "Crypto";
 			if (stat == BuffStat.PctBonusBBs) return "Blast Bucks";
+			if (stat == BuffStat.PctBonusSnowflakes) return "Snowflake";
 			return "Goo";
 		}
 
@@ -53,6 +54,7 @@ namespace FirstLight.Game.Services
 			if (stat == BuffStat.PctBonusNoob) return GameId.NOOB;
 			if (stat == BuffStat.PctBonusPartnerToken) return GameId.Any;
 			if (stat == BuffStat.PctBonusBBs) return GameId.BlastBuck;
+			if (stat == BuffStat.PctBonusSnowflakes) return GameId.FestiveSNOWFLAKE;
 			return GameId.Any;
 		}
 

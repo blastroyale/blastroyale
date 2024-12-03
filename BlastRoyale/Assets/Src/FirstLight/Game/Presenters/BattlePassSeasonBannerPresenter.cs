@@ -39,17 +39,21 @@ namespace FirstLight.Game.Presenters
 
 		public class StateData
 		{
+			public bool ShowBeginSeason;
 			public Action<ScreenResult> OnClose;
 		}
 
 		private IGameServices _services;
 
 		[Q("TimeLeft")] private Label _timeLeft;
-		[Q("FinalRewardIcon")] private VisualElement _finalReward;
-		[Q("Rewards")] private VisualElement _rewardsContainer;
-		[Q("BuyRM")] private KitButton _buyRM;
-		[Q("BuyGame")] private KitButton _buyGameCurrency;
-		private VisualElement[] _rewards;
+		[Q("ButtonsBeginSeason")] private VisualElement _beginSeasonContainer;
+		[Q("ButtonsBuy")] private VisualElement _purchaseContainer;
+
+		private KitButton _buyGameCurrency; // Todo
+		private LocalizedButton _buyRMButton;
+
+		private VisualElement[] _paidRewards;
+		private VisualElement[] _freeRewards;
 		private Cooldown _closeCooldown;
 		private IGameDataProvider _dataProvider;
 		private ScreenResult _result = ScreenResult.Close;
@@ -62,13 +66,85 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements()
 		{
-			_rewards = _rewardsContainer.Children().Select(r => r.Q("RewardIcon").Required()).ToArray();
-			Root.Q<LocalizedButton>("StartButton").Required().clicked += OnClickOpenBP;
+			_freeRewards = Root
+				.Q<VisualElement>("RewardsContainerFree")
+				.Children().Select(r => r.Q("RewardIcon").Required())
+				.ToArray();
+
+			_paidRewards = Root.Q<VisualElement>("RewardsContainerPremium")
+				.Children().Select(r => r.Q("RewardIcon").Required())
+				.ToArray();
+
 			Root.Q<Button>("CloseButton").clicked += () => ClosePopup();
 			Root.Q<VisualElement>("Blocker").RegisterCallback<PointerDownEvent>(ClickedOutside);
 			_closeCooldown = new Cooldown(TimeSpan.FromSeconds(2));
 			_services.IAPService.PurchaseFinished += IAPServiceOnPurchaseFinished;
-			InitBuyButtons();
+			if (Data.ShowBeginSeason)
+			{
+				SetupBeginSeasonLayout();
+			}
+			else
+			{
+				SetupPurchaseLayout();
+			}
+		}
+
+		private void SetupBeginSeasonLayout()
+		{
+			_purchaseContainer.SetDisplay(false);
+			_beginSeasonContainer.SetDisplay(true);
+			Root.Q<LocalizedButton>("StartButton").Required().clicked += OnClickOpenBP;
+			var button = _beginSeasonContainer.Q<VisualElement>("PremiumPassButton").Q<LocalizedButton>("PurchaseButton");
+			if (_dataProvider.BattlePassDataProvider.HasPurchasedSeason() || _services.BattlePassService.HasPendingPurchase())
+			{
+				button.parent.SetDisplay(false);
+				return;
+			}
+
+			SetupButton(button, _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.EnableIAP);
+		}
+
+		private void SetupPurchaseLayout()
+		{
+			_purchaseContainer.SetDisplay(true);
+			_beginSeasonContainer.SetDisplay(false);
+			var realMoneyButton = _purchaseContainer.Q<VisualElement>("RealMoneyBuyButton").Q<LocalizedButton>("PurchaseButton");
+			var inGameButton = _purchaseContainer.Q<VisualElement>("InGameBuyButton").Q<LocalizedButton>("PurchaseButton");
+			var orLabel = _purchaseContainer.Q<VisualElement>("OrLabel");
+			if (_dataProvider.BattlePassDataProvider.HasPurchasedSeason() || _services.BattlePassService.HasPendingPurchase())
+			{
+				_purchaseContainer.SetDisplay(false);
+				return;
+			}
+
+			SetupButton(inGameButton, false);
+			if (_dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.EnableIAP)
+			{
+				SetupButton(realMoneyButton, true);
+			}
+			else
+			{
+				orLabel.SetDisplay(false);
+				realMoneyButton.parent.SetDisplay(false);
+			}
+		}
+
+		public void SetupButton(LocalizedButton button, bool realMoney)
+		{
+			var product = _services.BattlePassService.FindProduct(realMoney);
+
+			if (realMoney)
+			{
+				button.text = "PREMIUM PASS\n" + product.UnityIapProduct().metadata.localizedPriceString;
+			}
+			else
+			{
+				var ingamePrice = product.GetPrice();
+				var sprite = CurrencyItemViewModel.GetRichTextIcon(ingamePrice.item);
+				button.text = "PREMIUM PASS\n" + ingamePrice.amt + " " + sprite;
+			}
+
+			button.clicked += () => ClosePopup(realMoney ? ScreenResult.BuyPremiumRealMoney : ScreenResult.BuyPremiumInGame);
 		}
 
 		protected override UniTask OnScreenClose()
@@ -76,33 +152,6 @@ namespace FirstLight.Game.Presenters
 			_services.IAPService.PurchaseFinished -= IAPServiceOnPurchaseFinished;
 			Data?.OnClose?.Invoke(_result);
 			return UniTask.CompletedTask;
-		}
-
-		public void InitBuyButtons()
-		{
-			var realMoney = _services.BattlePassService.FindProduct(true);
-			var inGame = _services.BattlePassService.FindProduct(false);
-			if (realMoney == null) throw new Exception("Unable to find real money bp product");
-			if (inGame == null) throw new Exception("Unable to find in game bp product");
-			_buyRM.BtnText = realMoney.UnityIapProduct().metadata.localizedPriceString;
-			var ingamePrice = inGame.GetPrice();
-			var sprite = CurrencyItemViewModel.GetRichTextIcon(ingamePrice.item);
-			_buyGameCurrency.BtnText = ingamePrice.amt + " " + sprite;
-
-			if (_dataProvider.BattlePassDataProvider.HasPurchasedSeason() || _services.BattlePassService.HasPendingPurchase())
-			{
-				_buyRM.SetDisplay(false);
-				_buyGameCurrency.SetDisplay(false);
-				return;
-			}
-
-			if (!_dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.EnableIAP)
-			{
-				_buyRM.SetDisplay(false);
-			}
-
-			_buyRM.clicked += () => ClosePopup(ScreenResult.BuyPremiumRealMoney);
-			_buyGameCurrency.clicked += () => ClosePopup(ScreenResult.BuyPremiumInGame);
 		}
 
 		private void IAPServiceOnPurchaseFinished(string itemId, ItemData data, bool success, IUnityStoreService.PurchaseFailureData reason)
@@ -132,6 +181,27 @@ namespace FirstLight.Game.Presenters
 			ClosePopup(ScreenResult.GoToBattlePass);
 		}
 
+		protected void FillGoodies(PassType type)
+		{
+			var list = type == PassType.Paid ? _paidRewards : _freeRewards;
+			var highlighted = GetHighlightedManual(type);
+			if (highlighted.Count < 3)
+			{
+				highlighted = GetHighlightedAutomatic(type);
+			}
+
+			for (var x = 0; x < 3; x++)
+			{
+				var item = ItemFactory.Legacy(new LegacyItemData()
+				{
+					RewardId = highlighted[x].GameId,
+					Value = highlighted[x].Amount
+				});
+				var itemView = item.GetViewModel();
+				itemView.DrawIcon(list[x]);
+			}
+		}
+
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_closeCooldown.Trigger();
@@ -141,80 +211,40 @@ namespace FirstLight.Game.Presenters
 
 			_timeLeft.text = (endsAt - DateTime.UtcNow).ToDayAndHours(true);
 
-			var goodies = GetHighlightedManual();
-			if (goodies.Count < 4)
-			{
-				goodies = GetHighlightedAutomatic();
-			}
-
-			var best = goodies.Last();
-			goodies.Remove(best);
-			var lastRewardView = ItemFactory.Legacy(new LegacyItemData()
-			{
-				RewardId = best.GameId,
-				Value = best.Amount
-			}).GetViewModel();
-			lastRewardView.DrawIcon(_finalReward);
-
-			for (var x = 0; x < 3; x++)
-			{
-				var item = ItemFactory.Legacy(new LegacyItemData()
-				{
-					RewardId = goodies[x].GameId,
-					Value = goodies[x].Amount
-				});
-				var itemView = item.GetViewModel();
-				itemView.DrawIcon(_rewards[x]);
-			}
+			FillGoodies(PassType.Paid);
+			FillGoodies(PassType.Free);
 
 			return base.OnScreenOpen(reload);
 		}
 
-		private List<EquipmentRewardConfig> GetHighlightedManual()
+		private List<EquipmentRewardConfig> GetHighlightedManual(PassType type)
 		{
 			var data = MainInstaller.ResolveData();
 			var currentSeason = data.BattlePassDataProvider.GetCurrentSeasonConfig();
 
 			var highlighted = currentSeason.Season.GetHighlighted();
-			var goodies = highlighted.Select(t => data.BattlePassDataProvider.GetRewardConfigs(new[] {t.level}, t.passType).First()).ToList();
+			var goodies = highlighted
+				.Where(t => t.passType == type)
+				.Select(t => data.BattlePassDataProvider.GetRewardConfigs(new[] {t.level}, t.passType).First()).ToList();
 
 			return goodies;
 		}
 
-		private List<EquipmentRewardConfig> GetHighlightedAutomatic()
+		private List<EquipmentRewardConfig> GetHighlightedAutomatic(PassType type)
 		{
 			var data = MainInstaller.ResolveData();
 			var currentSeason = data.BattlePassDataProvider.GetCurrentSeasonConfig();
-			var type = currentSeason.Season.RemovePaid ? PassType.Free : PassType.Paid;
 
-			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((a, e) => (uint) e + 1), type);
-			rewards.Reverse();
+			var rewards = data.BattlePassDataProvider.GetRewardConfigs(currentSeason.Levels.Select((a, e) => (uint) e + 1), type)
+				.Where(ShouldShowcase)
+				.Reverse();
 
-			var bestReward = rewards.First();
-			rewards.Remove(bestReward);
-			var lastRewardView = ItemFactory.Legacy(new LegacyItemData()
-			{
-				RewardId = bestReward.GameId,
-				Value = bestReward.Amount
-			}).GetViewModel();
-			lastRewardView.DrawIcon(_finalReward);
-
-			var goodies = rewards.Where(ShouldShowcase).ToList();
-			goodies.Add(bestReward);
-			foreach (var goodie in goodies) rewards.Remove(goodie);
-			while (goodies.Count < 3)
-			{
-				var reward = rewards.First();
-				goodies.Add(reward);
-				rewards.Remove(reward);
-			}
-
-			return goodies;
+			return rewards.TakeLast(3).ToList();
 		}
 
 		private bool ShouldShowcase(EquipmentRewardConfig reward)
 		{
-			return reward.GameId.IsInGroup(GameIdGroup.Collection);
+			return reward.GameId.IsInGroup(GameIdGroup.Collection) && !reward.GameId.IsInGroup(GameIdGroup.ProfilePicture);
 		}
 	}
 }

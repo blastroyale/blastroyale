@@ -7,6 +7,9 @@
     --sprite-shared__background-rewards-fame: url('/Assets/Art/UI/Sprites/Shared/background-rewards-fame.png');
     --sprite-shared__background-stat: url('/Assets/Art/UI/Sprites/Shared/background-stat.png');
     --sprite-shared__background-stat-dark: url('/Assets/Art/UI/Sprites/Shared/background-stat-dark.png');
+    --sprite-shared__button-purple-new: url('/Assets/Art/UI/Sprites/Shared/button-purple-new.png');
+    --sprite-shared__button-yellow-glowing: url('/Assets/Art/UI/Sprites/Shared/button-yellow-glowing.png');
+    --sprite-shared__button-yellow-new: url('/Assets/Art/UI/Sprites/Shared/button-yellow-new.png');
     --sprite-shared__cloud-left: url('/Assets/Art/UI/Sprites/Shared/cloud-left.png');
     --sprite-shared__copy-icon: url('/Assets/Art/UI/Sprites/Shared/copy-icon.png');
     --sprite-shared__highlight-leaderboard-localplayer: url('/Assets/Art/UI/Sprites/Shared/highlight-leaderboard-localplayer.png');
@@ -92,6 +95,24 @@
     background-image: var(--sprite-shared__background-stat-dark);
     width: 48px;
     height: 52px;
+}
+
+.sprite-shared__button-purple-new {
+    background-image: var(--sprite-shared__button-purple-new);
+    width: 246px;
+    height: 136px;
+}
+
+.sprite-shared__button-yellow-glowing {
+    background-image: var(--sprite-shared__button-yellow-glowing);
+    width: 372px;
+    height: 240px;
+}
+
+.sprite-shared__button-yellow-new {
+    background-image: var(--sprite-shared__button-yellow-new);
+    width: 246px;
+    height: 136px;
 }
 
 .sprite-shared__cloud-left {

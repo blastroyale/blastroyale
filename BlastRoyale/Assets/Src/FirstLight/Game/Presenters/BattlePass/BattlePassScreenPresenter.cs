@@ -241,7 +241,6 @@ namespace FirstLight.Game.Presenters
 
 		public void OnClosedBanner(BattlePassSeasonBannerPresenter.ScreenResult result)
 		{
-			FLog.Info("RESULT=" + result);
 			// In this case the banner trigerred the reward screen and closed BPScreen automatically
 			if (result == BattlePassSeasonBannerPresenter.ScreenResult.BuyPremiumInGame
 				|| result == BattlePassSeasonBannerPresenter.ScreenResult.BuyPremiumRealMoney

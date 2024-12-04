@@ -126,6 +126,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_newsNotificationShine.AddRotatingEffect(40, 10);
 			_newsNotificationShine.AnimatePingOpacity(fromAmount: 0.3f, duration: 2000, repeat: true);
 
+			
 			Root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
 
 			_playButton = Root.Q<LocalizedButton>("PlayButton");

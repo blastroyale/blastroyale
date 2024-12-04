@@ -153,21 +153,20 @@ namespace FirstLight.Game.Services
 			_homeScreen.RegisterNotificationQueueProcessor(OnHomeScreenNotification);
 		}
 
-		private async UniTask<bool> OnHomeScreenNotification(Type arg)
+		private async UniTask<IHomeScreenService.ProcessorResult> OnHomeScreenNotification(Type arg)
 		{
 			if (arg != typeof(HomeScreenService))
 			{
-				return false;
+				return IHomeScreenService.ProcessorResult.None;
 			}
 
 			var failed = _localPrefs.FailedTransactionMessages.Value;
-			if (failed.Count == 0) return false;
+			if (failed.Count == 0) return IHomeScreenService.ProcessorResult.None;
 			// We need the store to get the product names
 			await UniTask.WaitUntil(() => _unityStore.Initialized);
 			await ShowQueuedTransactionFailedMessagesAndWait();
-			return false;
+			return IHomeScreenService.ProcessorResult.None;
 		}
-
 		public string BuildMessage(IUnityStoreService.PurchaseFailureData data)
 		{
 			var product = AvailableProducts.FirstOrDefault(product => product.ID == data.ProductId);

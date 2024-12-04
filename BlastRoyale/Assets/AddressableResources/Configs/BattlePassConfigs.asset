@@ -99,7 +99,7 @@ MonoBehaviour:
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 01/11/2024
-      EndsAt: 03/12/2024
+      EndsAt: 31/12/2024
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__iceking-season-reward
       BannerGraphicImageClass: sprite-home__banner-iceking
@@ -111,8 +111,8 @@ MonoBehaviour:
       EnableIAP: 1
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
-      StartsAt: 04/12/2024
-      EndsAt: 10/12/2024
+      StartsAt: 01/01/2025
+      EndsAt: 31/01/2025
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__yeti-season-reward
       BannerGraphicImageClass: sprite-home__banner-yeti
@@ -124,7 +124,7 @@ MonoBehaviour:
       EnableIAP: 1
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
-      StartsAt: 11/12/2024
+      StartsAt: 01/02/2025
       EndsAt: 28/02/2025
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__alien-season-reward

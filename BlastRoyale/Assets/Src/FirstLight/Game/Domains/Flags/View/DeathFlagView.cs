@@ -6,12 +6,14 @@ namespace FirstLight.Game.Domains.Flags.View
 	{
 		private static readonly int _show = Animator.StringToHash("Show");
 		[SerializeField] private SkinnedMeshRenderer _renderer;
+		[SerializeField] private MeshRenderer _shadow;
 		[SerializeField] private Animator _animator;
 
 		public void Initialise(Mesh mesh)
 		{
 			_renderer.sharedMesh = mesh;
 			_renderer.enabled = true;
+			_shadow.enabled = true;
 			_animator.enabled = true;
 		}
 
@@ -21,6 +23,7 @@ namespace FirstLight.Game.Domains.Flags.View
 			_animator.Rebind();
 			_renderer.sharedMesh = null;
 			_renderer.enabled = false;
+			_shadow.enabled = false;
 			_animator.enabled = false;
 		}
 

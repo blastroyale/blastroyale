@@ -122,39 +122,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: _default.Top.b
-      value: 0.9254902
+      value: 0.6901961
       objectReference: {fileID: 0}
     - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: _default.Top.g
-      value: 0.4
+      value: 0.827451
       objectReference: {fileID: 0}
     - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: _default.Top.r
-      value: 0.11764706
+      value: 0.4392157
       objectReference: {fileID: 0}
     - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: _default.Bottom.b
-      value: 0.9607843
+      value: 0.7137255
       objectReference: {fileID: 0}
     - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: _default.Bottom.g
-      value: 0.77254903
+      value: 0.1882353
       objectReference: {fileID: 0}
     - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: _default.Bottom.r
-      value: 0.23921569
+      value: 0.25882354
       objectReference: {fileID: 0}
     - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Pattern.b
-      value: 0.14117648
+      propertyPath: _default.Middle.b
+      value: 0.7254902
       objectReference: {fileID: 0}
     - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Pattern.g
-      value: 0.05444148
+      propertyPath: _default.Middle.g
+      value: 0.4862745
       objectReference: {fileID: 0}
     - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Pattern.r
-      value: 0.03529412
+      propertyPath: _default.Middle.r
+      value: 0.003921569
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

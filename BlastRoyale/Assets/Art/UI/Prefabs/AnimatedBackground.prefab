@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2304870670114574604}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -247,10 +247,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _quadRenderer: {fileID: 9143211546483603550}
   _default:
-    Bottom: {r: 0.047058824, g: 0.30980393, b: 0.8745098, a: 1}
-    Middle: {r: 0.047058824, g: 0.30980393, b: 0.8745098, a: 1}
-    Top: {r: 0.29411766, g: 0.627451, b: 1, a: 1}
-    Pattern: {r: 0.019607844, g: 0.015686275, b: 0.3882353, a: 0.05490196}
+    Bottom: {r: 0.2509804, g: 0.2, b: 0.44705883, a: 1}
+    Middle: {r: 0.28235295, g: 0.40784314, b: 1, a: 1}
+    Top: {r: 0, g: 0.76862746, b: 0.99607843, a: 1}
+    Pattern: {r: 0, g: 0.03529412, b: 0.7647059, a: 0.05490196}
   _common:
     Bottom: {r: 0.7264151, g: 0.71189326, b: 0.59278214, a: 1}
     Middle: {r: 0.7254902, g: 0.7137255, b: 0.5921569, a: 1}

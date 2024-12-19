@@ -115,46 +115,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AnimatedBackground
       objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Top.b
-      value: 0.78431374
-      objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Top.g
-      value: 0.44313726
-      objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Top.r
-      value: 0.20392157
-      objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Bottom.b
-      value: 0.9098039
-      objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Bottom.g
-      value: 0.61960787
-      objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Bottom.r
-      value: 0.28235295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Pattern.a
-      value: 0.101960786
-      objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Pattern.b
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Pattern.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
-      propertyPath: _default.Pattern.r
-      value: 0.02745098
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

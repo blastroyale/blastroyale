@@ -58,16 +58,18 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Radius: 0.001
+    - _SizeMiddle: 9.77
+    - _SizeVinette: 4.07
     - _Speed: 0.002
-    - _xSkew: -0.4
+    - _xSkew: -0.34
     - _ySkew: 0.1
     - _zSkew: 0
     m_Colors:
     - _Center: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _ColorBottom: {r: 0.18860771, g: 0.09711642, b: 0.20754719, a: 1}
-    - _ColorMiddle: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorPattern: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorTop: {r: 0.83108425, g: 0, b: 1, a: 1}
+    - _ColorBottom: {r: 0.2509804, g: 0.2, b: 0.44705883, a: 1}
+    - _ColorMiddle: {r: 0.28235295, g: 0.40784314, b: 1, a: 1}
+    - _ColorPattern: {r: 0, g: 0.03529412, b: 0.7647059, a: 0.05490196}
+    - _ColorTop: {r: 0, g: 0.76862746, b: 0.99607843, a: 1}
     - _Offset: {r: -3.49, g: 0, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

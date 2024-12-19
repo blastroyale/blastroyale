@@ -30,6 +30,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var flag = _matchServices.FlagService.Spawn(deathFlagId);
 			OnLoaded(deathFlagId, flag.gameObject, true);
 			flag.TriggerFlag();
+			flag.transform.localEulerAngles = new Vector3(14, 28, 5);
 		}
 	}
 }

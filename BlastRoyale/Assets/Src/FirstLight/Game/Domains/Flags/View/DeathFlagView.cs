@@ -17,7 +17,7 @@ namespace FirstLight.Game.Domains.Flags.View
 			_animator.enabled = true;
 		}
 
-		public void Dispose()
+		public void Reset()
 		{
 			_animator.SetBool(_show, false);
 			_animator.Rebind();

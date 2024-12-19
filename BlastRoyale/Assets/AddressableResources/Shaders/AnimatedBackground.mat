@@ -65,6 +65,7 @@ Material:
     m_Colors:
     - _Center: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _ColorBottom: {r: 0.18860771, g: 0.09711642, b: 0.20754719, a: 1}
+    - _ColorMiddle: {r: 1, g: 1, b: 1, a: 1}
     - _ColorPattern: {r: 1, g: 1, b: 1, a: 1}
     - _ColorTop: {r: 0.83108425, g: 0, b: 1, a: 1}
     - _Offset: {r: -3.49, g: 0, b: 0, a: 0}

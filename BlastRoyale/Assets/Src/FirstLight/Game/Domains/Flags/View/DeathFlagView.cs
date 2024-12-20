@@ -8,6 +8,7 @@ namespace FirstLight.Game.Domains.Flags.View
 		[SerializeField] private SkinnedMeshRenderer _renderer;
 		[SerializeField] private MeshRenderer _shadow;
 		[SerializeField] private Animator _animator;
+		[field: SerializeField] public Transform RotatedChild { get; private set; }
 
 		public void Initialise(Mesh mesh)
 		{

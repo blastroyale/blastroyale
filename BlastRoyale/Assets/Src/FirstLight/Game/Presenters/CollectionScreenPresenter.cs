@@ -346,6 +346,7 @@ namespace FirstLight.Game.Presenters
 				_collectionObject.transform.localPosition = new Vector3(0.35f, 0f, 0.15f);
 				_collectionObject.transform.localEulerAngles = new Vector3(0, 180f, 0);
 				var view = _collectionObject.GetComponent<DeathFlagView>();
+				view.RotatedChild.localRotation = Quaternion.identity;
 				view.TriggerFlag();
 			}
 			else if (_selectedCategory.Id == GameIdGroup.PlayerSkin)

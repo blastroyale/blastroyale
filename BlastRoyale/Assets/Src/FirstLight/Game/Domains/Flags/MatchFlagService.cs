@@ -54,7 +54,7 @@ namespace FirstLight.Game.Domains.Flags
 			var prefabInstance = Object.Instantiate(_flagConfig.FlagPrefab);
 			var view = prefabInstance.GetComponent<DeathFlagView>();
 			view.transform.SetParent(_container.transform, false);
-			view.Dispose();
+			view.Reset();
 			return view;
 		}
 
@@ -80,7 +80,7 @@ namespace FirstLight.Game.Domains.Flags
 
 		public void Despawn(DeathFlagView view)
 		{
-			view.Dispose();
+			view.Reset();
 			_pool.Push(view);
 		}
 
@@ -100,7 +100,7 @@ namespace FirstLight.Game.Domains.Flags
 			while (_pool.Count > 0)
 			{
 				var view = _pool.Pop();
-				view.Dispose();
+				view.Reset();
 				Object.Destroy(view);
 			}
 			_meshes.Clear();

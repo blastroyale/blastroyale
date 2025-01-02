@@ -15,11 +15,13 @@ public class AnimatedBackground : MonoBehaviour
 	public class AnimatedBackgroundColor
 	{
 		[SerializeField, Required] public Color Bottom;
+		[SerializeField, Required] public Color Middle;
 		[SerializeField, Required] public Color Top;
 		[SerializeField, Required] public Color Pattern;
 	}
 
 	private static readonly int _colorTopPID = Shader.PropertyToID("_ColorTop");
+	private static readonly int _colorMiddlePID = Shader.PropertyToID("_ColorMiddle");
 	private static readonly int _colorBottomPID = Shader.PropertyToID("_ColorBottom");
 	private static readonly int _colorPatternPID = Shader.PropertyToID("_ColorPattern");
 
@@ -75,6 +77,7 @@ public class AnimatedBackground : MonoBehaviour
 	public void SetColor(AnimatedBackgroundColor color)
 	{
 		_quadRenderer.material.SetColor(_colorTopPID, color.Top);
+		_quadRenderer.material.SetColor(_colorMiddlePID, color.Middle);
 		_quadRenderer.material.SetColor(_colorBottomPID, color.Bottom);
 		_quadRenderer.material.SetColor(_colorPatternPID, color.Pattern);
 	}

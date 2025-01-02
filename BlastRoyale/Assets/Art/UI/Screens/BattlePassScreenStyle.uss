@@ -381,7 +381,7 @@
 
 .left-bar__background {
     flex-grow: 0;
-    background-image: var(--sprite-battlepass__background-left-bar);
+    background-image: url("project://database/Assets/Art/UI/Sprites/BattlePass/background-left-bar-free-only.png?fileID=21300000&guid=5ccdbb54c75feba4a93460039a0a24b4&type=3#background-left-bar-free-only");
     width: 636px;
     height: 2156px;
     top: auto;

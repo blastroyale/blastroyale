@@ -900,3 +900,21 @@ MonoBehaviour:
         RawValue: 0
       ShieldCapacityRatioToBase:
         RawValue: 0
+    - Id: 292
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 131072
+      AttackRangeRatioToBase:
+        RawValue: 0
+      PickupSpeedRatioToBase:
+        RawValue: 0
+      AmmoCapacityRatioToBase:
+        RawValue: 0
+      ShieldCapacityRatioToBase:
+        RawValue: 0

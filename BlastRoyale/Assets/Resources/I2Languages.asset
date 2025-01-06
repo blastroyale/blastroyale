@@ -11211,6 +11211,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/GunShotgunAuto
+      TermType: 0
+      Description: 
+      Languages:
+      - BLASTER SHOTGUN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Armor
       TermType: 0
       Description: 
@@ -30750,6 +30761,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStandings/collected_in_map
+      TermType: 0
+      Description: 
+      Languages:
+      - Collected in Map
+      - 
+      - Coletado no mapa
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStandings/place_bonus
+      TermType: 0
+      Description: 
+      Languages:
+      - Placement Bonus
+      - 
+      - "Bonus de coloca\xE7\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStandings/nft_buffs
+      TermType: 0
+      Description: 
+      Languages:
+      - NFT Buffs
+      - 
+      - Bonus NFT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSpectate/camera_1
       TermType: 0
       Description: 
@@ -32533,39 +32577,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITStandings/collected_in_map
-      TermType: 0
-      Description: 
-      Languages:
-      - Collected in Map
-      - 
-      - Coletado no mapa
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStandings/place_bonus
-      TermType: 0
-      Description: 
-      Languages:
-      - Place Bonus
-      - 
-      - "Bonus de coloca\xE7\xE3o"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStandings/nft_buffs
-      TermType: 0
-      Description: 
-      Languages:
-      - NFT Buffs
-      - 
-      - Bonus NFT
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -32590,7 +32601,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1733228647367
+    Google_LastUpdatedVersion: 1736157207446
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

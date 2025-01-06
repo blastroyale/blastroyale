@@ -313,6 +313,20 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.FestiveLUNARCOIN, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
+					}.AsReadOnly()
+				},
+				{
+					GameId.FestiveFEATHER, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
+					}.AsReadOnly()
+				},
+				{
 					GameId.FloodCity, new List<GameIdGroup>
 					{
 						GameIdGroup.Map,
@@ -681,6 +695,13 @@ namespace Quantum
 				},
 				{
 					GameId.GunARBurst, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.GunShotgunAuto, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
@@ -2950,7 +2971,9 @@ namespace Quantum
 						GameId.PartnerMEME,
 						GameId.PartnerYGG,
 						GameId.FestiveSNOWFLAKE,
-						GameId.EventTicket
+						GameId.EventTicket,
+						GameId.FestiveLUNARCOIN,
+						GameId.FestiveFEATHER
 					}.AsReadOnly()
 				},
 				{
@@ -3040,6 +3063,7 @@ namespace Quantum
 						GameId.SciMelter,
 						GameId.GunSniperHeavy,
 						GameId.GunARBurst,
+						GameId.GunShotgunAuto,
 						GameId.MouseAmulet,
 						GameId.RiotAmulet,
 						GameId.SoldierAmulet,
@@ -3130,7 +3154,8 @@ namespace Quantum
 						GameId.SciCannon,
 						GameId.SciMelter,
 						GameId.GunSniperHeavy,
-						GameId.GunARBurst
+						GameId.GunARBurst,
+						GameId.GunShotgunAuto
 					}.AsReadOnly()
 				},
 				{
@@ -3680,7 +3705,9 @@ namespace Quantum
 						GameId.PartnerMEME,
 						GameId.PartnerYGG,
 						GameId.FestiveSNOWFLAKE,
-						GameId.EventTicket
+						GameId.EventTicket,
+						GameId.FestiveLUNARCOIN,
+						GameId.FestiveFEATHER
 					}.AsReadOnly()
 				},
 				{

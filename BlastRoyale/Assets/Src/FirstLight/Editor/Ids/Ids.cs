@@ -101,6 +101,8 @@ namespace FirstLight.Editor.Ids
 			{"PartnerYGG", 919, Currency, CryptoCurrency},
 			{"FestiveSNOWFLAKE", 271, Currency, CryptoCurrency},
 			{"EventTicket", 272, Currency, CryptoCurrency},
+			{"FestiveLUNARCOIN", 293, Currency, CryptoCurrency},
+			{"FestiveFEATHER", 294, Currency, CryptoCurrency},
 			{"FloodCity", 137, Map, Deprecated},
 			{"MainDeck", 143, Map},
 			{"FtueDeck", 5, Map},

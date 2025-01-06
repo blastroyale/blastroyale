@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2f54ec9aff255e544bb3f268cc572cdd
+guid: ab71e9ff50e8e2d4796dde8e75635e8b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Chinesedragon
-    second: {fileID: 2100000, guid: 2c697ffba58f9b545809c4aecbeff227, type: 2}
+    second: {fileID: 2100000, guid: 48443e0b531d76840aacd7aff4a54676, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

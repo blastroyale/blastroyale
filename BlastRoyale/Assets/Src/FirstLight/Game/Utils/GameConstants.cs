@@ -237,7 +237,9 @@ namespace FirstLight.Game.Utils
 				GameId.PartnerMEME,
 				GameId.PartnerYGG,
 				GameId.FestiveSNOWFLAKE,
-				GameId.EventTicket
+				GameId.EventTicket,
+				GameId.FestiveLUNARCOIN,
+				GameId.FestiveFEATHER
 			};
 		}
 

@@ -15,7 +15,6 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public BuffVirtualEntity MetaEntity { get; }
 
-		public GameId GetRelatedGameId(BuffStat stat);
 		public string GetDisplayString(BuffStat stat);
 	}
 
@@ -38,26 +37,14 @@ namespace FirstLight.Game.Services
 		{
 			if (stat == BuffStat.PctBonusXP) return "Fame";
 			if (stat == BuffStat.PctBonusCoins) return "Coins";
-			if (stat == BuffStat.PctBonusBPP) return "Bpp";
+			if (stat == BuffStat.PctBonusBPP) return "BPPs";
 			if (stat == BuffStat.PctBonusNoob) return "Noob";
 			if (stat == BuffStat.PctBonusPartnerToken) return "Crypto";
 			if (stat == BuffStat.PctBonusBBs) return "Blast Bucks";
-			if (stat == BuffStat.PctBonusSnowflakes) return "Snowflake";
+			if (stat == BuffStat.PctBonusFestiveCurrencies) return "Festive Currencies";
 			return "Goo";
 		}
-
-		public GameId GetRelatedGameId(BuffStat stat)
-		{
-			if (stat == BuffStat.PctBonusXP) return GameId.XP;
-			if (stat == BuffStat.PctBonusCoins) return GameId.COIN;
-			if (stat == BuffStat.PctBonusBPP) return GameId.BPP;
-			if (stat == BuffStat.PctBonusNoob) return GameId.NOOB;
-			if (stat == BuffStat.PctBonusPartnerToken) return GameId.Any;
-			if (stat == BuffStat.PctBonusBBs) return GameId.BlastBuck;
-			if (stat == BuffStat.PctBonusSnowflakes) return GameId.FestiveSNOWFLAKE;
-			return GameId.Any;
-		}
-
+		
 		public BuffVirtualEntity MetaEntity => _data.BuffsLogic.CalculateMetaEntity();
 	}
 }

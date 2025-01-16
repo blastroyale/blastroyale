@@ -1320,6 +1320,12 @@ namespace I2.Loc
 			public static string FemalePunkDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FemalePunkDescription"); } }
 			public static string FemaleSuperstar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FemaleSuperstar"); } }
 			public static string FemaleSuperstarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FemaleSuperstarDescription"); } }
+			public static string FestiveFEATHER 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveFEATHER"); } }
+			public static string FestiveFEATHERDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveFEATHERDescription"); } }
+			public static string FestiveFEATHER_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveFEATHER_Plural"); } }
+			public static string FestiveLUNARCOIN 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLUNARCOIN"); } }
+			public static string FestiveLUNARCOINDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLUNARCOINDescription"); } }
+			public static string FestiveLUNARCOIN_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLUNARCOIN_Plural"); } }
 			public static string FestiveSNOWFLAKE 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveSNOWFLAKE"); } }
 			public static string FestiveSNOWFLAKEDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveSNOWFLAKEDescription"); } }
 			public static string FestiveSNOWFLAKE_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveSNOWFLAKE_Plural"); } }
@@ -1360,6 +1366,7 @@ namespace I2.Loc
 			public static string GoldenBoots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBoots"); } }
 			public static string GoldenBootsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBootsDescription"); } }
 			public static string GunARBurst 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GunARBurst"); } }
+			public static string GunShotgunAuto 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GunShotgunAuto"); } }
 			public static string GunSniperHeavy 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GunSniperHeavy"); } }
 			public static string HC 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HC"); } }
 			public static string Hammer 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Hammer"); } }
@@ -2915,14 +2922,14 @@ namespace I2.Loc
 			public static string defeated_you 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/defeated_you"); } }
 			public static string spectating 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/spectating"); } }
 		}
-		
+
 		public static class UITStandings
 		{
 			public static string collected_in_map 		{ get{ return LocalizationManager.GetTranslation ("UITStandings/collected_in_map"); } }
-			public static string place_bonus 		{ get{ return LocalizationManager.GetTranslation ("UITStandings/place_bonus"); } }
 			public static string nft_buffs 		{ get{ return LocalizationManager.GetTranslation ("UITStandings/nft_buffs"); } }
+			public static string place_bonus 		{ get{ return LocalizationManager.GetTranslation ("UITStandings/place_bonus"); } }
 		}
-		
+
 		public static class UITStore
 		{
 			public static string blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/blastbuck_pack_large"); } }
@@ -4343,6 +4350,12 @@ namespace I2.Loc
 		    public const string FemalePunkDescription = "GameIds/FemalePunkDescription";
 		    public const string FemaleSuperstar = "GameIds/FemaleSuperstar";
 		    public const string FemaleSuperstarDescription = "GameIds/FemaleSuperstarDescription";
+		    public const string FestiveFEATHER = "GameIds/FestiveFEATHER";
+		    public const string FestiveFEATHERDescription = "GameIds/FestiveFEATHERDescription";
+		    public const string FestiveFEATHER_Plural = "GameIds/FestiveFEATHER_Plural";
+		    public const string FestiveLUNARCOIN = "GameIds/FestiveLUNARCOIN";
+		    public const string FestiveLUNARCOINDescription = "GameIds/FestiveLUNARCOINDescription";
+		    public const string FestiveLUNARCOIN_Plural = "GameIds/FestiveLUNARCOIN_Plural";
 		    public const string FestiveSNOWFLAKE = "GameIds/FestiveSNOWFLAKE";
 		    public const string FestiveSNOWFLAKEDescription = "GameIds/FestiveSNOWFLAKEDescription";
 		    public const string FestiveSNOWFLAKE_Plural = "GameIds/FestiveSNOWFLAKE_Plural";
@@ -4383,6 +4396,7 @@ namespace I2.Loc
 		    public const string GoldenBoots = "GameIds/GoldenBoots";
 		    public const string GoldenBootsDescription = "GameIds/GoldenBootsDescription";
 		    public const string GunARBurst = "GameIds/GunARBurst";
+		    public const string GunShotgunAuto = "GameIds/GunShotgunAuto";
 		    public const string GunSniperHeavy = "GameIds/GunSniperHeavy";
 		    public const string HC = "GameIds/HC";
 		    public const string Hammer = "GameIds/Hammer";
@@ -5938,14 +5952,13 @@ namespace I2.Loc
 		    public const string defeated_you = "UITSpectate/defeated_you";
 		    public const string spectating = "UITSpectate/spectating";
 		}
-		
+
 		public static class UITStandings
 		{
-			public static string collected_in_map = "UITStandings/collected_in_map";
-			public static string place_bonus = "UITStandings/place_bonus";
-			public static string nft_buffs = "UITStandings/nft_buffs";
+		    public const string collected_in_map = "UITStandings/collected_in_map";
+		    public const string nft_buffs = "UITStandings/nft_buffs";
+		    public const string place_bonus = "UITStandings/place_bonus";
 		}
-
 
 		public static class UITStore
 		{

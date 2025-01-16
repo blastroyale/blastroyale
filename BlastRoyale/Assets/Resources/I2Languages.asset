@@ -11211,6 +11211,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/GunShotgunAuto
+      TermType: 0
+      Description: 
+      Languages:
+      - BLASTER SHOTGUN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Armor
       TermType: 0
       Description: 
@@ -16416,14 +16427,14 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Earn Snowflakes in special winter
+      - 'Earn Snowflakes in special events
 
-        events or buy them in the shop.
+        or buy them in the shop.
 
         Use
-        them to purchase special winter
+        them to purchase
 
-        items in the shop.'
+        special event''s items in the shop.'
       - 
       - 
       - 
@@ -16435,6 +16446,86 @@ MonoBehaviour:
       Description: 
       Languages:
       - SNOWFLAKES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveLUNARCOIN
+      TermType: 0
+      Description: 
+      Languages:
+      - LUNAR COIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveLUNARCOINDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Lunar Coins in special events
+
+        or buy them in the shop.
+
+        Use
+        them to purchase
+
+        special event''s items in the shop.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveLUNARCOIN_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - LUNAR COINS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveFEATHER
+      TermType: 0
+      Description: 
+      Languages:
+      - FEATHER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveFEATHERDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Feathers in special events
+
+        or buy them in the shop.
+
+        Use
+        them to purchase
+
+        special event''s items in the shop.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveFEATHER_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - FEATHERS
       - 
       - 
       - 
@@ -30750,6 +30841,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStandings/collected_in_map
+      TermType: 0
+      Description: 
+      Languages:
+      - Collected in Map
+      - 
+      - Coletado no mapa
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStandings/place_bonus
+      TermType: 0
+      Description: 
+      Languages:
+      - Placement Bonus
+      - 
+      - "Bonus de coloca\xE7\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStandings/nft_buffs
+      TermType: 0
+      Description: 
+      Languages:
+      - NFT Buffs
+      - 
+      - Bonus NFT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSpectate/camera_1
       TermType: 0
       Description: 
@@ -32533,39 +32657,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITStandings/collected_in_map
-      TermType: 0
-      Description: 
-      Languages:
-      - Collected in Map
-      - 
-      - Coletado no mapa
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStandings/place_bonus
-      TermType: 0
-      Description: 
-      Languages:
-      - Place Bonus
-      - 
-      - "Bonus de coloca\xE7\xE3o"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStandings/nft_buffs
-      TermType: 0
-      Description: 
-      Languages:
-      - NFT Buffs
-      - 
-      - Bonus NFT
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -32590,7 +32681,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1733228647367
+    Google_LastUpdatedVersion: 1737027565837
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

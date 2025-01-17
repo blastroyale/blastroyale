@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FlagSkinConfigs
   m_EditorClassIdentifier: 
   _config:
-    FlagPrefab: {fileID: 1514387195843107143, guid: 3ef7daf711c539b4a9d48c1a2ce08fc9, type: 3}
+    FlagPrefab: {fileID: 5255778678298435521, guid: 4b41d5362cd3eda4886cda8ce27e1f95, type: 3}
     Skins:
     - GameId: 37
       Mesh:

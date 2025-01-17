@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Match;
@@ -145,10 +146,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_specialIndicators[i] = null;
 				_specialRadiusIndicators[i] = null;
 			}
-
+			
 			foreach (var indicator in _indicators)
 			{
-				indicator?.Init(playerView);
+				try
+				{
+					indicator?.Init(playerView);
+				}
+				catch (Exception e)
+				{
+					FLog.Error("Error initializing indicator", e);
+				}
 			}
 
 			((SafeAreaIndicatorMonoComponent) _indicators[(int) IndicatorVfxId.SafeArea])?.SetSafeArea(

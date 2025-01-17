@@ -129,6 +129,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							_itemGameObject.transform.localScale = new Vector3(2f, 2f, 2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.65f, -0.42f);
 							break;
+						case GameId.GunShotgunAuto:
+							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.23f);
+							break;
 						case GameId.ModShotgun:
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.09f);

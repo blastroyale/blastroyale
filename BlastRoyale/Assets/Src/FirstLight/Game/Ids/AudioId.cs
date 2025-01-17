@@ -243,6 +243,7 @@ namespace FirstLight.Game.Ids
 		
 		HunterSniperShot,
 		HunterSniperShotLocal,
+		ShotgunAutoShotLocal,
 	}
 	
 	/// <summary>

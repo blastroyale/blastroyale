@@ -2644,3 +2644,17 @@ MonoBehaviour:
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
       PitchModPerLoop: 0
+  - Key: 212
+    Value:
+      AudioClips:
+      - m_AssetGUID: 04e2968df2c7f57469cb009cee8095a8
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      RandomiseStartTime: 0
+      BaseVolume: 0.45
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0

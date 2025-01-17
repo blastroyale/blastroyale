@@ -1115,7 +1115,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChinesecoinIcon
+      name: FestiveLUNARCOINIcon
       rect:
         serializedVersion: 2
         x: 700
@@ -1136,7 +1136,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FeatherIcon
+      name: FestiveFEATHERIcon
       rect:
         serializedVersion: 2
         x: 700
@@ -1175,7 +1175,6 @@ TextureImporter:
       BadgePlace3: -2140602434
       Blastbuckicon: -293577173
       Checked: 629293485
-      ChinesecoinIcon: 73108823
       ClockIcon: 1041827533
       Coinicon: 1531515103
       CollectionIcon: 114395148
@@ -1184,7 +1183,8 @@ TextureImporter:
       EnergylevelIcon: -624212523
       EventTicketIcon: 1326438006
       FLGBadge: -1477479967
-      FeatherIcon: 944128841
+      FestiveFEATHERIcon: 944128841
+      FestiveLUNARCOINIcon: 73108823
       FestiveSNOWFLAKEIcon: -707364249
       HPicon: -283004889
       MATICicon: 130259644

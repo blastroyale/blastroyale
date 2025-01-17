@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1095234304140310859}
   - component: {fileID: 2877719543181944878}
   m_Layer: 9
-  m_Name: CollectableFestiveChineseCoin
+  m_Name: CollectableFestiveLUNARCOIN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -162,6 +162,17 @@ namespace Quantum.Systems
 				StatusModifiers.AddStatusModifierToEntity(f, spell->Victim, StatusModifierType.Stun, source->StunDuration);
 			}
 			
+			if (f.Context.Mutators.HasFlagFast(Mutator.Bloodthirst)
+				&& f.Unsafe.TryGetPointer<Stats>(spell->Attacker, out var attackerStats))
+			{
+				var healingAmount = (uint)(spell->PowerAmount * FP._0_33);
+				if (healingAmount > 0)
+				{
+					var bloodthirstHealingSpell = new Spell {PowerAmount = healingAmount};
+					attackerStats->GainHealth(f, spell->Attacker, &bloodthirstHealingSpell);
+				}
+			}
+			
 			f.Events.OnProjectileTargetableHit(spell->SpellSource, spell->Victim, spell->OriginalHitPosition);
 		}
 

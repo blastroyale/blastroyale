@@ -1065,6 +1065,8 @@ namespace I2.Loc
 			public static string AvatarBallDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBallDescription"); } }
 			public static string AvatarBanana 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBanana"); } }
 			public static string AvatarBananaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBananaDescription"); } }
+			public static string AvatarBase 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBase"); } }
+			public static string AvatarBaseDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBaseDescription"); } }
 			public static string AvatarBlastcatads 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBlastcatads"); } }
 			public static string AvatarBlastcatadsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBlastcatadsDescription"); } }
 			public static string AvatarBrandfemale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarBrandfemale"); } }
@@ -4095,6 +4097,8 @@ namespace I2.Loc
 		    public const string AvatarBallDescription = "GameIds/AvatarBallDescription";
 		    public const string AvatarBanana = "GameIds/AvatarBanana";
 		    public const string AvatarBananaDescription = "GameIds/AvatarBananaDescription";
+		    public const string AvatarBase = "GameIds/AvatarBase";
+		    public const string AvatarBaseDescription = "GameIds/AvatarBaseDescription";
 		    public const string AvatarBlastcatads = "GameIds/AvatarBlastcatads";
 		    public const string AvatarBlastcatadsDescription = "GameIds/AvatarBlastcatadsDescription";
 		    public const string AvatarBrandfemale = "GameIds/AvatarBrandfemale";

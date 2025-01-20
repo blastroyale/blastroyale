@@ -308,6 +308,16 @@ MonoBehaviour:
     m_GlyphIndex: 45
     m_Scale: 1
     m_Name: FestiveSNOWFLAKEIcon
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 46
+    m_Scale: 1
+    m_Name: FestiveFEATHERIcon
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 47
+    m_Scale: 1
+    m_Name: FestiveLUNARCOINIcon
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -506,7 +516,7 @@ MonoBehaviour:
       m_Width: 100
       m_Height: 100
       m_HorizontalBearingX: -9
-      m_HorizontalBearingY: 80
+      m_HorizontalBearingY: 76
       m_HorizontalAdvance: 80
     m_GlyphRect:
       m_X: 400
@@ -973,8 +983,8 @@ MonoBehaviour:
       m_HorizontalBearingY: 50
       m_HorizontalAdvance: 100
     m_GlyphRect:
-      m_X: 600
-      m_Y: 924
+      m_X: 598
+      m_Y: 923
       m_Width: 100
       m_Height: 100
     m_Scale: 1
@@ -1045,4 +1055,36 @@ MonoBehaviour:
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: -707364249, guid: a8ab3985bd248420b8f28f5bc1f408f3, type: 3}
+  - m_Index: 46
+    m_Metrics:
+      m_Width: 100
+      m_Height: 100
+      m_HorizontalBearingX: -9
+      m_HorizontalBearingY: 80
+      m_HorizontalAdvance: 70
+    m_GlyphRect:
+      m_X: 700
+      m_Y: 424
+      m_Width: 100
+      m_Height: 100
+    m_Scale: 1.5
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 944128841, guid: a8ab3985bd248420b8f28f5bc1f408f3, type: 3}
+  - m_Index: 47
+    m_Metrics:
+      m_Width: 100
+      m_Height: 100
+      m_HorizontalBearingX: -9
+      m_HorizontalBearingY: 74
+      m_HorizontalAdvance: 70
+    m_GlyphRect:
+      m_X: 700
+      m_Y: 524
+      m_Width: 100
+      m_Height: 100
+    m_Scale: 1.5
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 73108823, guid: a8ab3985bd248420b8f28f5bc1f408f3, type: 3}
   fallbackSpriteAssets: []

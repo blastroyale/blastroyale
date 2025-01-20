@@ -494,6 +494,7 @@ namespace FirstLight.Editor.Ids
 			{"AvatarStreetrunner", 548, ProfilePicture, Collection},
 			{"AvatarValkyrie", 549, ProfilePicture, Collection},
 			{"AvatarYeti", 550, ProfilePicture, Collection},
+			{"AvatarBase", 551, ProfilePicture, Collection},
 
 			#endregion
 

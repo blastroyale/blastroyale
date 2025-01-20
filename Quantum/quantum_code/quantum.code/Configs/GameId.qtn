@@ -38,9 +38,9 @@ enum GameId
 	PartnerMEME = 918,
 	PartnerYGG = 919,
 	FestiveSNOWFLAKE = 271,
+	EventTicket = 272,
 	FestiveLUNARCOIN = 293,
 	FestiveFEATHER = 294,
-	EventTicket = 272,
 	FloodCity = 137,
 	MainDeck = 143,
 	FtueDeck = 5,
@@ -405,6 +405,7 @@ enum GameId
 	AvatarStreetrunner = 548,
 	AvatarValkyrie = 549,
 	AvatarYeti = 550,
+	AvatarBase = 551,
 	FootprintDot = 111,
 }
 

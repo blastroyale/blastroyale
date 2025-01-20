@@ -2922,6 +2922,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarBase, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,

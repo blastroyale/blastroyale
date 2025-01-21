@@ -239,6 +239,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				activePointer.Despawn();
 			}
+
+			_activeLocationPointers.Clear();
 		}
 
 		private void SpawnNewPointer(Vector3 spawnLocation, Transform followTransform)

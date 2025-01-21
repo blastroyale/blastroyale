@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Domains.HomeScreen.UI;
@@ -44,40 +45,40 @@ namespace FirstLight.Game.Services
 			homeScreenService.RegisterNotificationQueueProcessor(ProcessHomeScreenBanner);
 		}
 
-		private async UniTask<bool> ProcessHomeScreenBanner(Type arg)
+		private async UniTask<IHomeScreenService.ProcessorResult> ProcessHomeScreenBanner(Type arg)
 		{
 			while (true)
 			{
-				if (arg != typeof(HomeScreenPresenter)) return false;
+				if (arg != typeof(HomeScreenPresenter)) return IHomeScreenService.ProcessorResult.None;
 				var seen = _hasSeenCurrentSeason;
-				if (seen) return false;
-				if (_gameDataProvider.PlayerDataProvider.Level.Value < 2)
+				if (seen) return IHomeScreenService.ProcessorResult.None;
+				if (!_gameDataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.BattlePass))
 				{
-					return false;
+					return IHomeScreenService.ProcessorResult.None;
 				}
 
 				await UniTask.WaitUntil(() => _services.IAPService.UnityStore.Initialized);
 				if (FindProduct(true) == null || FindProduct(false) == null)
 				{
 					FLog.Warn("Not displaying battlepass banner because didn't found store products");
-					return false;
+					return IHomeScreenService.ProcessorResult.None;
 				}
 
-				if (_services.RoomService.InRoom) return false;
-				if (_services.MatchmakingService.IsMatchmaking.Value) return false;
-				if (HasPendingPurchase()) return false;
+				if (_services.RoomService.InRoom) return IHomeScreenService.ProcessorResult.None;
+				if (_services.MatchmakingService.IsMatchmaking.Value) return IHomeScreenService.ProcessorResult.None;
+				if (HasPendingPurchase()) return IHomeScreenService.ProcessorResult.None;
 				var result = await OpenAndWaitBannerResult();
 				if (result == BattlePassSeasonBannerPresenter.ScreenResult.GoToBattlePass)
 				{
 					MarkSeen();
 					_msgBroker.Publish(new NewBattlePassSeasonMessage());
-					return true;
+					return IHomeScreenService.ProcessorResult.CustomBehaviour;
 				}
 
 				if (result == BattlePassSeasonBannerPresenter.ScreenResult.Close)
 				{
 					MarkSeen();
-					return false;
+					return IHomeScreenService.ProcessorResult.None;
 				}
 
 				if (result is BattlePassSeasonBannerPresenter.ScreenResult.BuyPremiumRealMoney
@@ -88,23 +89,28 @@ namespace FirstLight.Game.Services
 					{
 						MarkSeen();
 						_msgBroker.Publish(new NewBattlePassSeasonMessage());
-						return true;
+						return IHomeScreenService.ProcessorResult.CustomBehaviour;
 					}
 
 					if (purchaseResult == IAPHelpers.BuyProductResult.Deferred)
 					{
 						MarkSeen();
-						return false;
+						return IHomeScreenService.ProcessorResult.None;
 					}
 
+					if (purchaseResult == IAPHelpers.BuyProductResult.ForcePlayerToShop)
+					{
+						MarkSeen();
+						return IHomeScreenService.ProcessorResult.CustomBehaviour;
+					}
 					if (purchaseResult == IAPHelpers.BuyProductResult.Rejected)
 					{
 						continue;
 					}
-					// Deferred let close the popup
+					
 				}
 
-				return false;
+				return IHomeScreenService.ProcessorResult.None;
 			}
 		}
 

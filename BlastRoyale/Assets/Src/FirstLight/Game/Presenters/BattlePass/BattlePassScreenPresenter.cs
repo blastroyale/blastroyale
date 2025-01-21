@@ -229,7 +229,8 @@ namespace FirstLight.Game.Presenters
 		{
 			if (_services.BattlePassService.HasPendingPurchase())
 			{
-				_services.GenericDialogService.OpenSimpleMessage(ScriptLocalization.UITStore.pending_popup_title, ScriptLocalization.UITStore.pending_popup_desc).Forget();
+				_services.GenericDialogService
+					.OpenSimpleMessage(ScriptLocalization.UITStore.pending_popup_title, ScriptLocalization.UITStore.pending_popup_desc).Forget();
 				return;
 			}
 
@@ -255,7 +256,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var screenData = Data;
 			var result = await _services.BattlePassService.OpenPurchasePopup(realMoney);
-			if (result == IAPHelpers.BuyProductResult.Deferred)
+			if (result == IAPHelpers.BuyProductResult.Deferred || result == IAPHelpers.BuyProductResult.ForcePlayerToShop)
 			{
 				Data.BackClicked?.Invoke();
 			}
@@ -294,7 +295,7 @@ namespace FirstLight.Game.Presenters
 						{
 							_services.CommandService.ExecuteCommand(new BuyBattlepassLevelCommand {Levels = 1});
 						},
-						OnExit = OnExit
+						OnExit = (_) => OnExit()
 					});
 				return;
 			}
@@ -406,7 +407,6 @@ namespace FirstLight.Game.Presenters
 				_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
 					battlePassConfig.Season.Number);
 			}
-			
 
 			for (var i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{

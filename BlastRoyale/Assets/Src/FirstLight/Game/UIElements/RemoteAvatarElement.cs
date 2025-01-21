@@ -35,7 +35,9 @@ namespace FirstLight.Game.UIElements
 
 			Add(_realAvatar = new VisualElement {name = "RealAvatar"}.AddClass(USS_IMAGE, USS_REAL));
 			SetLoading();
-			RegisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
+			// TODO: Fix this - causes issues when changing tabs on friend screen
+			// because the elements detached and gets cleaned up
+			// RegisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
 		}
 		
 		private void OnDetachFromPanel(DetachFromPanelEvent evt)

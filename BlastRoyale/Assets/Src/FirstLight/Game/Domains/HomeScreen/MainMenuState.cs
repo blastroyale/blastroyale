@@ -229,7 +229,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 				.Target(homeCheck);
 
 			validateRewardsPaidEvent.WaitingFor(() => _services.HomeScreenService
-					.ShowNotifications(typeof(GameModeScreenPresenter)))
+					.ShowNotifications(typeof(GameModeScreenPresenter), null))
 				.Target(chooseGameMode);
 
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
@@ -492,7 +492,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 			}).Forget();
 		}
 
-		private async UniTaskVoid OpenHomeScreen()
+		private async UniTask OpenHomeScreen(bool triggerNotifications = true)
 		{
 			if (!_services.UIService.IsScreenOpen<HomeScreenPresenter>())
 			{
@@ -516,15 +516,21 @@ namespace FirstLight.Game.Domains.HomeScreen
 				await _services.UIService.OpenScreen<HomeScreenPresenter>(data);
 			}
 
-			// This fetches the rewards asynchronously and if any rewards are chosen open the home screen back
-			_services.HomeScreenService.ShowNotifications(typeof(HomeScreenPresenter)).ContinueWith((breakFlow) =>
+			if (triggerNotifications)
 			{
-				if (breakFlow) return;
-				if (!_services.UIService.IsScreenOpen<HomeScreenPresenter>())
-				{
-					OpenHomeScreen().Forget();
-				}
-			}).Forget();
+				// This fetches the rewards asynchronously and if any rewards are chosen open the home screen back
+				_services.HomeScreenService.ShowNotifications(typeof(HomeScreenPresenter), () => OpenHomeScreen(false))
+					.ContinueWith((result) =>
+					{
+						if (result != IHomeScreenService.ProcessorResult.CustomBehaviour) return;
+						if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Store)
+						{
+							_statechartTrigger(_storeClickedEvent);
+						}
+					})
+					.Forget();
+			}
+
 			_services.MessageBrokerService.Publish(new MainMenuOpenedMessage());
 		}
 

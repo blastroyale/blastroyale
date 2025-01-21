@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen.UI;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
@@ -42,12 +43,20 @@ namespace FirstLight.Game.Domains.HomeScreen
 		/// </summary>
 		/// <param name="openingScreen"></param>
 		/// <returns></returns>
-		public UniTask<bool> ShowNotifications(Type openingScreen);
-		
+		public UniTask<ProcessorResult> ShowNotifications(Type openingScreen, Func<UniTask> openOriginalScreenTask);
+
+		enum ProcessorResult
+		{
+			None, // Nothing needs to be done after finishing handling
+			OpenOriginalScreen, // After finishing handling the original screen should be opened 
+			CustomBehaviour // Break the current notification flow and let the handler to everything
+		}
+
+		delegate UniTask<ProcessorResult> QueueProcessorDelegate(Type screenType);
 		/// <summary>
 		/// Register a task that will be processed in a queue when opening the home screen, this is used for queueing notifications
 		/// </summary>
-		public void RegisterNotificationQueueProcessor(Func<Type, UniTask<bool>> task);
+		public void RegisterNotificationQueueProcessor(QueueProcessorDelegate @delegate);
 	}
 
 	public class HomeScreenService : IHomeScreenService
@@ -59,7 +68,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 		private readonly IGameCommandService _commandService;
 		private readonly IGameBackendService _gameBackendService;
 		private readonly IGenericDialogService _genericDialogService;
-		private readonly List<Func<Type, UniTask<bool>>> _queuedNotificationHandlers;
+		private readonly List<IHomeScreenService.QueueProcessorDelegate> _queuedNotificationHandlers;
 
 		public HomeScreenService(IGameDataProvider gameDataProvider, UIService.UIService uiService, IMessageBrokerService msgBroker,
 								 IRoomService roomService, IGameCommandService commandService, IGameBackendService gameBackendService,
@@ -72,8 +81,8 @@ namespace FirstLight.Game.Domains.HomeScreen
 			_commandService = commandService;
 			_gameBackendService = gameBackendService;
 			_genericDialogService = genericDialogService;
-			_queuedNotificationHandlers = new List<Func<Type, UniTask<bool>>>();
-			_queuedNotificationHandlers.Add((_) => CollectAndDisplayRewards());
+			_queuedNotificationHandlers = new List<IHomeScreenService.QueueProcessorDelegate>();
+			_queuedNotificationHandlers.Add(CollectAndDisplayRewards);
 		}
 
 		public event Action<List<string>> CustomPlayButtonValidations;
@@ -93,25 +102,35 @@ namespace FirstLight.Game.Domains.HomeScreen
 			return errors;
 		}
 
-		public async UniTask<bool> ShowNotifications(Type openingScreen)
+		public async UniTask<IHomeScreenService.ProcessorResult> ShowNotifications(Type openingScreen, Func<UniTask> openOriginalScreen)
 		{
+			var lastResult = IHomeScreenService.ProcessorResult.None;
 			foreach (var queuedNotificationHandler in _queuedNotificationHandlers)
 			{
-				if (await queuedNotificationHandler(openingScreen))
+				lastResult = await queuedNotificationHandler(openingScreen);
+				if (lastResult == IHomeScreenService.ProcessorResult.OpenOriginalScreen)
 				{
-					return true;
+					if (openOriginalScreen != null)
+					{
+						await openOriginalScreen.Invoke();
+					}
+				}
+
+				if (lastResult == IHomeScreenService.ProcessorResult.CustomBehaviour)
+				{
+					return IHomeScreenService.ProcessorResult.CustomBehaviour;
 				}
 			}
 
-			return false;
+			return lastResult;
 		}
 
-		public void RegisterNotificationQueueProcessor(Func<Type, UniTask<bool>> task)
+		public void RegisterNotificationQueueProcessor(IHomeScreenService.QueueProcessorDelegate @delegate)
 		{
-			_queuedNotificationHandlers.Add(task);
+			_queuedNotificationHandlers.Add(@delegate);
 		}
 
-		public async UniTask<bool> CollectAndDisplayRewards()
+		public async UniTask<IHomeScreenService.ProcessorResult> CollectAndDisplayRewards(Type screen)
 		{
 			var oldFameLevel = _gameDataProvider.PlayerDataProvider.Level.Value;
 			var rewards = await TryClaimUncollectedRewards();
@@ -148,7 +167,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 				}
 			}
 
-			return false;
+			return IHomeScreenService.ProcessorResult.OpenOriginalScreen;
 		}
 
 		private async UniTask<IReadOnlyList<ItemData>> TryClaimUncollectedRewards()

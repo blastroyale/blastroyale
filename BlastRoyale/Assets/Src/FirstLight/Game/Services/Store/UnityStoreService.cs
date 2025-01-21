@@ -18,6 +18,7 @@ namespace FirstLight.Game.Services
 			public string ProductId;
 			public PurchaseFailureReason Reason;
 			public string Message;
+			public bool RequiredtoSeeShop;
 		}
 
 		/// <summary>

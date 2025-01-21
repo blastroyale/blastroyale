@@ -39,25 +39,21 @@ namespace FirstLight.Game.Presenters
 
 			/// <summary>
 			/// Called everytime the screen is closed
+			/// The boolean is true if player is required to see the shop
 			/// </summary>
-			public Action OnExit { get; }
+			public Action<bool> OnExit { get; }
 
 			/// <summary>
 			/// Called when the user confirm the transaction and has the currency
 			/// </summary>
 			public Action OnConfirm { get; }
-
-			/// <summary>
-			/// This is called after onExit if going to the shop is required
-			/// </summary>
-			public Action OnGoToShopRequired { get; set; }
 		}
 
 		public class TextPurchaseData : IPurchaseData
 		{
 			public string Title { get; set; }
 			public ItemData Price { get; set; }
-			public Action OnExit { get; set; }
+			public Action<bool> OnExit { get; set; }
 			public Action OnConfirm { get; set; }
 
 			public Action OnGoToShopRequired { get; set; }
@@ -72,16 +68,15 @@ namespace FirstLight.Game.Presenters
 			public string OverwriteTitle;
 			public string OverwriteItemName;
 			public Action OnConfirm;
-			public Action OnExit;
+			public Action<bool> OnExit;
 			public Sprite ItemSprite;
 			public string Title => OverwriteTitle;
 			public ItemData Price => ItemFactory.Currency(Currency, (int) Value);
 
-			Action IPurchaseData.OnExit => OnExit;
+			Action<bool> IPurchaseData.OnExit => OnExit;
 
 			Action IPurchaseData.OnConfirm => OnConfirm;
 
-			public Action OnGoToShopRequired { get; set; }
 		}
 
 		public class TextPurchaseView : UIView
@@ -219,8 +214,8 @@ namespace FirstLight.Game.Presenters
 		[QView("TextSetup")] private TextPurchaseView _textPurchaseView;
 		[Q("BlockerButton")] private Button _blockerButton;
 
-		private Action _closeCallback;
 		private Action _confirmCallback;
+		private bool _forcePlayerToShop;
 
 		private void Awake()
 		{
@@ -229,7 +224,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
-			_closeCallback?.Invoke();
+			Data.PurchaseData.OnExit?.Invoke(_forcePlayerToShop);
 			return base.OnScreenClose();
 		}
 
@@ -242,7 +237,6 @@ namespace FirstLight.Game.Presenters
 			_blockerButton.clicked += CloseRequested;
 
 			_confirmCallback = null;
-			_closeCallback = null;
 
 			FLog.Verbose("Generic Purchase Dialog", "Opened and registered callbacks");
 		}
@@ -255,9 +249,9 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
+			_forcePlayerToShop = false;
 			var purchaseData = Data.PurchaseData;
 			var hasCurrency = Data.OwnedCurrency >= (ulong) purchaseData.Price.GetMetadata<CurrencyMetadata>().Amount;
-			_closeCallback = purchaseData.OnExit;
 			var canBeBought = CanBeBoughtOnShop(Data.PurchaseData.Price.Id);
 			_confirmCallback = !hasCurrency ? canBeBought ? GoToShop : () => { } : purchaseData.OnConfirm;
 
@@ -308,10 +302,6 @@ namespace FirstLight.Game.Presenters
 		private void CloseRequested()
 		{
 			_services.UIService.CloseScreen<GenericPurchaseDialogPresenter>();
-			if (_confirmCallback == GoToShop)
-			{
-				Data.PurchaseData.OnGoToShopRequired?.Invoke();
-			}
 		}
 
 		private void OnBuyButtonClicked()
@@ -323,6 +313,7 @@ namespace FirstLight.Game.Presenters
 
 		private void GoToShop()
 		{
+			_forcePlayerToShop = true;
 			FLog.Verbose("Generic Purchase Dialog", "Go To Shop");
 			if (!_services.UIService.IsScreenOpen<StoreScreenPresenter>())
 			{

@@ -153,21 +153,20 @@ namespace FirstLight.Game.Services
 			_homeScreen.RegisterNotificationQueueProcessor(OnHomeScreenNotification);
 		}
 
-		private async UniTask<bool> OnHomeScreenNotification(Type arg)
+		private async UniTask<IHomeScreenService.ProcessorResult> OnHomeScreenNotification(Type arg)
 		{
 			if (arg != typeof(HomeScreenService))
 			{
-				return false;
+				return IHomeScreenService.ProcessorResult.None;
 			}
 
 			var failed = _localPrefs.FailedTransactionMessages.Value;
-			if (failed.Count == 0) return false;
+			if (failed.Count == 0) return IHomeScreenService.ProcessorResult.None;
 			// We need the store to get the product names
 			await UniTask.WaitUntil(() => _unityStore.Initialized);
 			await ShowQueuedTransactionFailedMessagesAndWait();
-			return false;
+			return IHomeScreenService.ProcessorResult.None;
 		}
-
 		public string BuildMessage(IUnityStoreService.PurchaseFailureData data)
 		{
 			var product = AvailableProducts.FirstOrDefault(product => product.ID == data.ProductId);
@@ -363,12 +362,13 @@ namespace FirstLight.Game.Services
 					Value = price.amt,
 					Currency = price.item,
 					OnConfirm = () => ConfirmLogicalPurchase(product, generatedItem, price),
-					OnExit = () =>
+					OnExit = (shouldSeeShop) =>
 					{
 						_pending.Remove(product.ID);
 						PurchaseFinished?.Invoke(product.ID, generatedItem, false, new IUnityStoreService.PurchaseFailureData()
 						{
 							Reason = PurchaseFailureReason.UserCancelled,
+							RequiredtoSeeShop = shouldSeeShop,
 							ProductId = product.ID
 						});
 					}
@@ -378,10 +378,11 @@ namespace FirstLight.Game.Services
 					TextFormat = ScriptLocalization.UITStore.logical_purchase_popup_text,
 					Price = ItemFactory.Currency(price.item, (int) price.amt),
 					OnConfirm = () => ConfirmLogicalPurchase(product, generatedItem, price),
-					OnExit = () =>
+					OnExit = (shouldSeeShop) =>
 					{
 						PurchaseFinished?.Invoke(product.ID, generatedItem, false, new IUnityStoreService.PurchaseFailureData()
 						{
+							RequiredtoSeeShop = shouldSeeShop,
 							Reason = PurchaseFailureReason.UserCancelled,
 							ProductId = product.ID
 						});
@@ -473,6 +474,7 @@ namespace FirstLight.Game.Services
 
 		public enum BuyProductResult
 		{
+			ForcePlayerToShop,
 			Rewarded,
 			Rejected,
 			Deferred,
@@ -503,6 +505,10 @@ namespace FirstLight.Game.Services
 				var logicPurchaseResult = await purchaseFinishTask;
 				if (!logicPurchaseResult.succeeded)
 				{
+					if (logicPurchaseResult.failureData.RequiredtoSeeShop)
+					{
+						return BuyProductResult.ForcePlayerToShop;
+					}
 					_handled.Remove(productId);
 					return BuyProductResult.Rejected;
 				}

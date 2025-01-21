@@ -1165,7 +1165,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 28
+          Weight: 32
         - ItemConfig:
             SimpleGameId: 4
             EquipmentMetadata:
@@ -1177,7 +1177,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 72
+          Weight: 67
         - ItemConfig:
             SimpleGameId: 127
             EquipmentMetadata:
@@ -1189,7 +1189,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 2
+          Weight: 1
       CollectableChestPickupRadius:
         RawValue: 65536
       CollectTime:

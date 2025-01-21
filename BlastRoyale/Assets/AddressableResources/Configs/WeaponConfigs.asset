@@ -97,7 +97,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 560333
+        RawValue: 543556
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 404685
+        RawValue: 392561
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
@@ -182,14 +182,14 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 85197
       PowerToDamageRatio:
-        RawValue: 6619
+        RawValue: 7274
       AttackHitSpeed:
         RawValue: 2621440
       MinAttackAngle: 40
       NumberOfShots: 5
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 280494
+        RawValue: 272105
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
         RawValue: 0
       UseRangedCam: 0
       AimDelayTime:
-        RawValue: 32768
+        RawValue: 26214
       BurstGapTime:
         RawValue: 0
     - Id: 92
@@ -235,7 +235,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 483000
+        RawValue: 468517
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 560333
+        RawValue: 543556
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 75366
@@ -327,7 +327,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 435814
+        RawValue: 422773
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
@@ -373,7 +373,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 622592
+        RawValue: 597688
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
@@ -408,9 +408,9 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 78643
+        RawValue: 88474
       AttackCooldown:
-        RawValue: 78643
+        RawValue: 88474
       PowerToDamageRatio:
         RawValue: 21692
       AttackHitSpeed:
@@ -419,7 +419,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 655360
+        RawValue: 602931
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
         RawValue: 0
       UseRangedCam: 1
       AimDelayTime:
-        RawValue: 32768
+        RawValue: 36045
       BurstGapTime:
         RawValue: 0
     - Id: 270
@@ -465,7 +465,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 3
       AttackRange:
-        RawValue: 458850
+        RawValue: 445091
       CanHitSameTarget: 0
       SplashRadius:
         RawValue: 0
@@ -511,7 +511,7 @@ MonoBehaviour:
       NumberOfShots: 3
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 308543
+        RawValue: 299316
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0

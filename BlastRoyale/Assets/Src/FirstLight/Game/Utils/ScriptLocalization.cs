@@ -2393,6 +2393,8 @@ namespace I2.Loc
 			public static string max_players 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/max_players"); } }
 			public static string max_players_desc 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/max_players_desc"); } }
 			public static string mode 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mode"); } }
+			public static string mutator_Bloodthirst 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_Bloodthirst"); } }
+			public static string mutator_Bloodthirst_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_Bloodthirst_Description"); } }
 			public static string mutator_ConsumableSharing 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_ConsumableSharing"); } }
 			public static string mutator_ConsumableSharing_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_ConsumableSharing_Description"); } }
 			public static string mutator_DisableRevive 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_DisableRevive"); } }
@@ -5425,6 +5427,8 @@ namespace I2.Loc
 		    public const string max_players = "UITCustomGames/max_players";
 		    public const string max_players_desc = "UITCustomGames/max_players_desc";
 		    public const string mode = "UITCustomGames/mode";
+		    public const string mutator_Bloodthirst = "UITCustomGames/mutator_Bloodthirst";
+		    public const string mutator_Bloodthirst_Description = "UITCustomGames/mutator_Bloodthirst_Description";
 		    public const string mutator_ConsumableSharing = "UITCustomGames/mutator_ConsumableSharing";
 		    public const string mutator_ConsumableSharing_Description = "UITCustomGames/mutator_ConsumableSharing_Description";
 		    public const string mutator_DisableRevive = "UITCustomGames/mutator_DisableRevive";

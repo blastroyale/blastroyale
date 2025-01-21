@@ -32192,6 +32192,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/mutator_Bloodthirst
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOODTHIRST
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_Bloodthirst_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Heals you for 33% of your damage
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCustomGames/mutators
       TermType: 0
       Description: 
@@ -32703,7 +32725,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1737370652018
+    Google_LastUpdatedVersion: 1737389447168
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

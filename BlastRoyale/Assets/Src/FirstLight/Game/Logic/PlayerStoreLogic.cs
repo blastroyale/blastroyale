@@ -15,7 +15,22 @@ namespace FirstLight.Game.Logic
 		/// List last purchases player did (In case Purchases has Cooldown)
 		/// </summary>
 		List<StorePurchaseData> GetTrackedPlayerPurchases();
+
+		/// <summary>
+		/// Check if Player has purchased the bundle already.
+		/// </summary>
+		bool HasPurchasedProductsBundle(string bundleId);
 		
+		/// <summary>
+		/// Check if the banner has already shown to the Player.
+		/// </summary>
+		bool HasSeenProductsBundleBanner(string bundleId);
+
+		/// <summary>
+		/// If ProductBundle has limited time per player (i.e. expires 5 days after playing saw the banner for the first time)
+		/// We use this function to get it, otherwise, player has never seen the Bundle banner before.
+		/// </summary>
+		DateTime? GetFirstTimeBundleHasShowToPlayer(string bundleId);
 	}
 
 	
@@ -27,6 +42,12 @@ namespace FirstLight.Game.Logic
 		void TryResetTrackedStoreData();
 
 		bool IsPurchasedAllowed(string CatalogItemId, StoreItemData storeItemData);
+
+		void MarkProductsBundleAsSeen(string bundleId);
+		
+		void MarkProductsBundleAsPurchased(string bundleId);
+		
+		DateTime MarkProductsBundleFirstAppeared(string bundleId);
 	}
 
 	
@@ -57,6 +78,81 @@ namespace FirstLight.Game.Logic
 			return _trackedPlayerPurchases.ToList();
 		}
 
+		public bool HasPurchasedProductsBundle(string bundleId)
+		{
+			var bundle = Data.ProductsBundlePurchases.SingleOrDefault(pbp => pbp.ProductsBundleId == bundleId);
+			return bundle?.HasPurchasedProductsBundle ?? false;
+		}
+
+		public bool HasSeenProductsBundleBanner(string bundleId)
+		{
+			var bundle = Data.ProductsBundlePurchases.SingleOrDefault(pbp => pbp.ProductsBundleId == bundleId);
+			return bundle?.HasSeenProductsBundleBanner ?? false;
+		}
+
+		public DateTime? GetFirstTimeBundleHasShowToPlayer(string bundleId)
+		{
+			var bundle = Data.ProductsBundlePurchases.SingleOrDefault(pbp => pbp.ProductsBundleId == bundleId);
+			return bundle?.ProductsBundleFirstAppearance;
+		}
+
+		public DateTime MarkProductsBundleFirstAppeared(string bundleId)
+		{
+			var bundlePurchaseData = Data.ProductsBundlePurchases.SingleOrDefault(pbp => pbp.ProductsBundleId == bundleId);
+
+			if (bundlePurchaseData == null)
+			{
+				var firstAppearance = DateTime.UtcNow;
+				
+				Data.ProductsBundlePurchases.Add(new ProductBundlePurchaseData(bundleId)
+				{
+					ProductsBundleFirstAppearance = firstAppearance
+				});
+
+				return firstAppearance;
+			}
+
+			return bundlePurchaseData.ProductsBundleFirstAppearance;
+		}
+		
+		public void MarkProductsBundleAsSeen(string bundleId)
+		{
+			var bundle = Data.ProductsBundlePurchases.SingleOrDefault(pbp => pbp.ProductsBundleId == bundleId);
+
+			if (bundle == null)
+			{
+				Data.ProductsBundlePurchases.Add(new ProductBundlePurchaseData(bundleId)
+				{
+					HasSeenProductsBundleBanner = true
+				});
+				
+				return;
+			}
+			
+			bundle.HasSeenProductsBundleBanner = true;
+		}
+
+		public void MarkProductsBundleAsPurchased(string bundleId)
+		{
+			var bundle = Data.ProductsBundlePurchases.SingleOrDefault(pbp => pbp.ProductsBundleId == bundleId);
+
+			if (bundle == null)
+			{
+				Data.ProductsBundlePurchases.Add(new ProductBundlePurchaseData(bundleId)
+				{
+					HasSeenProductsBundleBanner = true,	
+					ProductsBundleFirstAppearance = DateTime.UtcNow,
+					HasPurchasedProductsBundle = true
+				});
+				return;
+			}
+			
+			bundle.HasSeenProductsBundleBanner = true;	
+			bundle.HasPurchasedProductsBundle = true;
+			bundle.HasPurchasedProductsBundleAt = DateTime.UtcNow;
+		}
+
+		
 		public void UpdateLastPlayerPurchase(string CatalogItemId, StoreItemData storeItemData)
 		{
 			
@@ -108,6 +204,7 @@ namespace FirstLight.Game.Logic
 
 			return true;
 		}
+
 
 		// Determine if the product has restrictions that require tracking after purchase.
 		// Examples of such restrictions include:

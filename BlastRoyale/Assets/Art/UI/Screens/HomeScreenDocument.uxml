@@ -20,13 +20,30 @@
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
                 <ui:VisualElement class="anim-delay-3 anim-translate anim-translate--left-xl" style="flex-direction: row; margin-bottom: 38px;">
+                    <FirstLight.Game.UIElements.ImageButton name="OpenBundleButton" class="sfx-click-forwards main-button-margin" style="margin-bottom: 5px;">
+                        <ui:VisualElement name="BundleEffects" picking-mode="Ignore" class="fill-parent bundle-shine-effect">
+                            <ui:VisualElement name="BundleShine" picking-mode="Ignore" class="bundle-shine-effect__shine" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="button-with-icon button-with-icon--bundle">
+                            <ui:VisualElement name="Mask" class="mask">
+                                <ui:VisualElement name="BundleIcon" class="button-with-icon__icon" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="BundleDiscountBalloon" class="discount-balloon">
+                                <ui:Label text="-90%" name="BundleDiscount" class="discount-text" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="BundleCurrencyIcon" class="bundle-currency-icon" />
+                        </ui:VisualElement>
+                        <FirstLight.Game.UIElements.LabelOutlined name="BundleCooldown" text="31d 18h 53m" class="bundle-cooldown" />
+                    </FirstLight.Game.UIElements.ImageButton>
+                </ui:VisualElement>
+                <ui:VisualElement class="anim-delay-3 anim-translate anim-translate--left-xl" style="flex-direction: row; margin-bottom: 38px;">
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyUpButton" class="sfx-click-forwards button-with-icon button-with-icon--party main-button-margin" style="margin-bottom: 5px;">
                         <ui:VisualElement name="TeamIcon" class="button-with-icon__icon" />
                         <ui:VisualElement name="OnlineFriendsNotification" class="circle-background circle-background--green button-with-icon__notification">
                             <ui:Label text="999" name="OnlineFriendsCount" />
                         </ui:VisualElement>
                     </FirstLight.Game.UIElements.LocalizedButton>
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes main-button-margin" style="margin-bottom: 5px;">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes main-button-margin" style="margin-bottom: 5px; -unity-font-style: normal;">
                         <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
                         <ui:VisualElement name="FriendsNotification" class="notification-icon button-with-icon__notification" />
                     </FirstLight.Game.UIElements.LocalizedButton>

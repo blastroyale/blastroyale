@@ -67,18 +67,18 @@
                         <ui:VisualElement name="FreePassIcon" class="banner-free-pass-icon" />
                     </ui:VisualElement>
                     <ui:VisualElement name="PremiumPassButton" class="banner-premium-pass-button" style="width: 376px; height: 139px; right: auto; bottom: auto; position: relative;">
-                        <FirstLight.Game.UIElements.LocalizedButton text="PREMIUM PASS&#10;£ 5.99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseButton" enable-rich-text="true" tabindex="5" class="banner-purchase-label-button buttom-main_glowing" style="top: -62px; right: 72px;" />
+                        <FirstLight.Game.UIElements.LocalizedButton text="PREMIUM PASS&#10;£ 5.99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseButton" enable-rich-text="true" tabindex="5" class="banner-purchase-label-button button-main_glowing" style="top: -62px; right: 72px;" />
                         <ui:VisualElement name="PremiumPassIcon" class="banner-premium-pass-icon" style="top: -102px; right: auto; left: 112px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="ButtonsBuy" style="flex-grow: 1; position: absolute; bottom: -45px; right: 0; left: 0; flex-direction: row; justify-content: center; align-self: center;">
                     <ui:VisualElement name="RealMoneyBuyButton" class="banner-premium-pass-button" style="width: 376px; height: 139px; right: auto; bottom: auto; position: relative;">
-                        <FirstLight.Game.UIElements.LocalizedButton text="PREMIUM PASS&#10;£ 5.99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseButton" enable-rich-text="true" tabindex="5" class="banner-purchase-label-button buttom-main_glowing" style="top: -62px; right: 72px;" />
+                        <FirstLight.Game.UIElements.LocalizedButton text="PREMIUM PASS&#10;£ 5.99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseButton" enable-rich-text="true" tabindex="5" class="banner-purchase-label-button button-main_glowing" style="top: -62px; right: 72px;" />
                         <ui:VisualElement name="PremiumPassIcon" class="banner-premium-pass-icon" />
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedLabel text="OR" name="OrLabel" class="or-label" style="justify-content: center; align-self: center; bottom: auto; width: auto; margin-right: 12px;" />
                     <ui:VisualElement name="InGameBuyButton" class="banner-premium-pass-button" style="width: 376px; height: 139px; right: auto; bottom: auto; position: relative;">
-                        <FirstLight.Game.UIElements.LocalizedButton text="PREMIUM PASS&#10;50 &lt;sprite name=&quot;NoobIcon&quot;&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseButton" enable-rich-text="true" tabindex="5" class="banner-purchase-label-button buttom-main_glowing" style="top: -62px; right: 72px;" />
+                        <FirstLight.Game.UIElements.LocalizedButton text="PREMIUM PASS&#10;50 &lt;sprite name=&quot;NoobIcon&quot;&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseButton" enable-rich-text="true" tabindex="5" class="banner-purchase-label-button button-main_glowing" style="top: -62px; right: 72px;" />
                         <ui:VisualElement name="PremiumPassIcon" class="banner-premium-pass-icon" />
                     </ui:VisualElement>
                 </ui:VisualElement>

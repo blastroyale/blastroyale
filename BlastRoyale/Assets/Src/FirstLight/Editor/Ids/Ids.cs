@@ -46,7 +46,7 @@ namespace FirstLight.Editor.Ids
 			GenericCollectionItem = 39,
 			NOOBRareTokens = 40,
 			CryptoCurrency = 41,
-
+			ProductBundle = 295,
 
 			#region CollectionGroup
 
@@ -78,6 +78,7 @@ namespace FirstLight.Editor.Ids
 			{"XP", 3, Resource},
 			{"Trophies", 22, Resource},
 			{"BPP", 26, Resource, ResourcePool},
+			{"Bundle", 296, ProductBundle},
 			{"PremiumBattlePass", 950, IAP},
 			{"PartnerANCIENT8", 900, Currency, CryptoCurrency},
 			{"PartnerAPECOIN", 901, Currency, CryptoCurrency},

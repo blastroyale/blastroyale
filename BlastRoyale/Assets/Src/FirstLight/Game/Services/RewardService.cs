@@ -113,6 +113,7 @@ namespace FirstLight.Game.Services
 			await _services.UIService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData()
 			{
 				Items = new[] {item},
+				SkipSummary = true,
 				OnFinish = waiter.Invoke
 			});
 			await waiter.OnInvokeAsync();
@@ -129,7 +130,7 @@ namespace FirstLight.Game.Services
 			var waiter = new AsyncCallbackWrapper();
 			if (itemFilter != null)
 			{
-				if (!_data.RewardDataProvider.UnclaimedRewards.Contains(itemFilter))
+				if (!_data.RewardDataProvider.UnclaimedRewards.Contains(itemFilter) && itemFilter.Id != GameId.Bundle)
 				{
 					return false;
 				}
@@ -140,6 +141,7 @@ namespace FirstLight.Game.Services
 			await _services.UIService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData()
 			{
 				Items = given,
+				SkipSummary = true,
 				OnFinish = waiter.Invoke
 			});
 			await waiter.OnInvokeAsync();

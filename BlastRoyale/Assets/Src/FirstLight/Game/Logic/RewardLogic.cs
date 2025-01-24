@@ -508,7 +508,7 @@ namespace FirstLight.Game.Logic
 			var claimed = new List<ItemData>(Data.UncollectedRewards);
 			foreach (var reward in claimed)
 			{
-				if (reward.Id == GameId.Random) Data.UncollectedRewards.Remove(reward);
+				if (reward.Id is GameId.Random or GameId.Bundle) Data.UncollectedRewards.Remove(reward);
 				else ClaimUnclaimedReward(reward);
 			}
 

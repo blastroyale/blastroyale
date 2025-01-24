@@ -54,6 +54,7 @@ namespace FirstLight.Tests.EditorMode
 		public IRoomService RoomService { get; }
 		public IGameAppService GameAppService { get; set; }
 		public IBattlePassService BattlePassService { get; }
+		public IProductsBundleService ProductsBundleService { get; }
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; set; }

@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/ProductBundleBanner.uss?fileID=7433441132597879392&amp;guid=722e2d582722687418d9b320cb47e3e7&amp;type=3#ProductBundleBanner" />
+    <ui:VisualElement name="RewardDisplayContainer" class="reward-display-container">
+        <ui:VisualElement name="RewardDisplay" class="reward-display">
+            <ui:VisualElement name="RewardIcon" class="reward-display-icon reward-display-icon--currency sprite-background" />
+            <FirstLight.Game.UIElements.LabelOutlined name="RewardCurrency" text="6400" class="reward-display-text reward-display-text--currency" />
+        </ui:VisualElement>
+        <FirstLight.Game.UIElements.LabelOutlined name="RewardItemCategory" text="BLAST BUCKS" class="reward-display-text reward-display-text_item-category" />
+    </ui:VisualElement>
+</ui:UXML>

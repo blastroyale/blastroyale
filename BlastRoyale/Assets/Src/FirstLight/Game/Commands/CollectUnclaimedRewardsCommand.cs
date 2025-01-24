@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
@@ -7,6 +8,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Services;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.Commands;
+using Quantum;
 
 namespace FirstLight.Game.Commands
 {
@@ -35,8 +37,18 @@ namespace FirstLight.Game.Commands
 		{
 			if (UncollectedReward != null)
 			{
-				var given = ctx.Logic.RewardLogic().ClaimUnclaimedReward(UncollectedReward);
-				GivenRewards = new[] {given};
+				var given = new List<ItemData>();
+				
+				if (UncollectedReward.Id == GameId.Bundle)
+				{
+					given.AddRange(ctx.Logic.RewardLogic().ClaimUnclaimedRewards());
+				}
+				else
+				{
+					given.Add(ctx.Logic.RewardLogic().ClaimUnclaimedReward(UncollectedReward));	
+				}
+				
+				GivenRewards = given.ToArray();
 				return UniTask.CompletedTask;
 			}
 

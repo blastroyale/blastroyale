@@ -153,6 +153,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Bundle, new List<GameIdGroup>
+					{
+						GameIdGroup.ProductBundle
+					}.AsReadOnly()
+				},
+				{
 					GameId.PremiumBattlePass, new List<GameIdGroup>
 					{
 						GameIdGroup.IAP
@@ -3715,6 +3721,12 @@ namespace Quantum
 						GameId.EventTicket,
 						GameId.FestiveLUNARCOIN,
 						GameId.FestiveFEATHER
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.ProductBundle, new List<GameId>
+					{
+						GameId.Bundle
 					}.AsReadOnly()
 				},
 				{

@@ -1,26 +1,20 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.UITK;
 using FirstLight.Modules.UIService.Runtime;
-using FirstLight.Statechart;
-using FirstLight.UiService;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
-using QuickEye.UIToolkit;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Utils
 {
@@ -346,6 +340,38 @@ namespace FirstLight.Game.Utils
 			tree.CloneTree(visualElement);
 			visualElement.AssignElementResults(visualElement);
 		}
+		
+		/*
+		 * An Extension method that formats the given Label text to Cooldown/Expires from UTC now to given time in miliseconds  
+		 */
+		public static void ShowCooldown(this Label cooldownTimeLabel, DateTime cooldownRemaining, bool showClockSprite = false, Action cooldownExpiredCallback = null)
+		{
+
+			var cooldownRemainingSeconds = (cooldownRemaining - DateTime.UtcNow).TotalSeconds;
+			
+			cooldownTimeLabel.schedule.Execute(() =>
+				{
+
+					var currentCooldown = TimeSpan.FromSeconds(cooldownRemainingSeconds);
+					
+					cooldownTimeLabel.text = currentCooldown.ToDaysHourMinutesOrHourMinutesSeconds(true);
+					
+					if (showClockSprite)
+					{
+						cooldownTimeLabel.text = "<sprite name=\"ClockIcon\"> " + cooldownTimeLabel.text;
+					}
+
+					cooldownRemainingSeconds--;
+
+					if (cooldownRemainingSeconds <= 0)
+					{
+						cooldownExpiredCallback?.Invoke();
+					}
+				})
+				.Every(1000)
+				.Until(() => cooldownRemainingSeconds <= 0);
+		}
+		
 
 		public static VisualElement GetRoot(this VisualElement vs)
 		{

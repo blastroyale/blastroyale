@@ -1,0 +1,48 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="TemplateRewardDIsplay" src="project://database/Assets/Art/UI/Templates/Resources/TemplateRewardDIsplay.uxml?fileID=9197481963319205126&amp;guid=61940b38786c2a742985d802960e4a9e&amp;type=3#TemplateRewardDIsplay" />
+    <Style src="project://database/Assets/Art/UI/Screens/ProductBundleBanner.uss?fileID=7433441132597879392&amp;guid=722e2d582722687418d9b320cb47e3e7&amp;type=3#ProductBundleBanner" />
+    <Style src="project://database/Assets/Art/UI/Styles/Kit/ButtonsNew.uss?fileID=7433441132597879392&amp;guid=dd84415d17f77de48b05cef3a874fca2&amp;type=3#ButtonsNew" />
+    <ui:VisualElement name="root" class="banner-root">
+        <ui:VisualElement name="Blocker" class="blocker" />
+        <ui:VisualElement name="Banner" class="banner">
+            <ui:Button name="CloseButton" parse-escape-sequences="true" display-tooltip-when-elided="true" class="close-button" />
+            <ui:VisualElement name="BannerBackground" class="banner__background" />
+            <ui:VisualElement name="Contents" class="banner-content">
+                <ui:VisualElement name="Container" class="banner-content-container mainreward-spotlight__container">
+                    <ui:VisualElement name="RewardSpotlight" picking-mode="Ignore" class="mainreward-spotlight">
+                        <ui:VisualElement name="MainReward" class="mainreward-spotlight__item" />
+                        <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="LIMITED TIME OFFER" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LimitedOfferText" class="mainreward-spotlight__item-text" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Container" class="banner-content-container">
+                    <ui:VisualElement name="RewardContent" class="reward-content">
+                        <ui:VisualElement name="BundleTextContainer" picking-mode="Ignore" class="bundle-text-container ">
+                            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="STARTER PACK" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BundleTitleText" class="bundle-text-container__title" style="-unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Rubik-Black%20SDF.asset?fileID=11400000&amp;guid=82951ee0c88a775439646cc2d7ea7e9d&amp;type=2#Rubik-Black SDF&quot;);" />
+                            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="ONLY ONE CHANCE TO BUY!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BundleDescriptionText" class="bundle-text-container__description" style="-unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Rubik-Black%20SDF.asset?fileID=11400000&amp;guid=82951ee0c88a775439646cc2d7ea7e9d&amp;type=2#Rubik-Black SDF&quot;);" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="BundleContentsContainer" picking-mode="Ignore" class="bundle-content-container">
+                            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="ITEMS IN THE PACK" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PackContent" class="bundle-rewards-text" />
+                            <ui:VisualElement name="BundleRewardsContainer" class="bundle-rewards-container">
+                                <ui:Instance template="TemplateRewardDIsplay" name="TemplateRewardDIsplay" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Container" class="banner-content-container">
+                    <ui:VisualElement name="PurchaseContent" class="purchase-content">
+                        <ui:VisualElement name="RibbonTextContainer" picking-mode="Ignore" class="ribbon-text-container">
+                            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="-90 %" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RibbonText" class="ribbon-text" />
+                            <FirstLight.Game.UIElements.LabelOutlined tabindex="-1" text="x10 Value" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RibbonTextDesc" class="ribbon-text__desc" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="PurchaseBundleButtonContainer" class="purchase-bundle-button-container">
+                            <ui:VisualElement name="TimeLeftWidgetContainer" class="purchase-bundle-timer-container">
+                                <FirstLight.Game.UIElements.LabelOutlined name="TimeLeftText" tabindex="-1" text="&lt;sprite name=&quot;ClockIcon&quot;&gt;  31d 45h 37s" parse-escape-sequences="true" display-tooltip-when-elided="true" class="purchase-bundle-timer-text" />
+                            </ui:VisualElement>
+                            <FirstLight.Game.UIElements.LocalizedButton text="£ 5.99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchaseBundleButton" enable-rich-text="true" tabindex="5" class="button-main_glowing purchase-bundle-button" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

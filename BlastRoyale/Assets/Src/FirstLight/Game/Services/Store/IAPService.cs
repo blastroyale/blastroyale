@@ -18,7 +18,6 @@ using FirstLight.Models;
 using FirstLight.SDK.Services;
 using FirstLightServerSDK.Services;
 using I2.Loc;
-using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine.Purchasing;
 
@@ -35,7 +34,8 @@ namespace FirstLight.Game.Services
 
 		public (GameId item, uint amt) GetPrice()
 		{
-			var cost = PlayfabProductConfig.StoreItem.VirtualCurrencyPrices.First();
+			var cost = PlayfabProductConfig.StoreItem.VirtualCurrencyPrices.FirstOrDefault();
+
 			return (PlayfabCurrencies.GetCurrency(cost.Key), cost.Value);
 		}
 
@@ -52,6 +52,13 @@ namespace FirstLight.Game.Services
 		public List<GameProduct> Products = new ();
 
 		public bool IsHidden => Name == "Hidden";
+	}
+	
+	public class GameProductsBundle
+	{
+		public string Name;
+		public GameProduct Bundle;
+		public List<GameProduct> BundleProducts = new ();
 	}
 
 	/// <summary>
@@ -86,6 +93,16 @@ namespace FirstLight.Game.Services
 		IReadOnlyCollection<GameProductCategory> AvailableProductCategories { get; }
 
 		/// <summary>
+		/// Gets all available products on the shop
+		/// </summary>
+		IReadOnlyCollection<GameProductsBundle> AvailableGameProductBundles { get; }
+
+		/// <summary>
+		/// Find GameProduct with ItemId
+		/// </summary>
+		IReadOnlyCollection<GameProduct> AvailableProducts { get;  }
+
+		/// <summary>
 		/// Initializes the purchasing module.
 		/// </summary>
 		void Init();
@@ -117,6 +134,7 @@ namespace FirstLight.Game.Services
 		public event IIAPService.PurchaseFinishedDelegate PurchaseFinished;
 
 		private Dictionary<string, GameProductCategory> _availableProductCategories = new ();
+		private Dictionary<string, GameProductsBundle> _availableGameProductBundles = new ();
 		private List<GameProduct> _availableProducts = new ();
 		private UnityStoreService _unityStore;
 		private readonly IGameCommandService _commandService;
@@ -128,6 +146,7 @@ namespace FirstLight.Game.Services
 		private readonly IGenericDialogService _genericDialogService;
 
 		public IReadOnlyCollection<GameProductCategory> AvailableProductCategories => _availableProductCategories.Values;
+		public IReadOnlyCollection<GameProductsBundle> AvailableGameProductBundles => _availableGameProductBundles.Values;
 		public IReadOnlyCollection<GameProduct> AvailableProducts => _availableProducts;
 		public IUnityStoreService UnityStore => _unityStore;
 		public IStoreService RemoteCatalogStore => _playfab;
@@ -264,39 +283,85 @@ namespace FirstLight.Game.Services
 
 			TryUpdateStoreCatalog();
 		}
-
+		
 		public void Init()
 		{
 			_playfab.Init();
-			_playfab.OnStoreLoaded += playfabProducts =>
+			_playfab.OnStoreLoaded += (playfabProducts, playfabBundles) =>
 			{
-				_unityStore.InitializeUnityCatalog(playfabProducts.Select(i => i.CatalogItem.ItemId).ToHashSet());
+				_unityStore.InitializeUnityCatalog(playfabProducts
+					.Select(i => i.CatalogItem.ItemId)
+					.Union(playfabBundles?.Keys.Select(i => i.CatalogItem.ItemId) ?? Array.Empty<string>())
+					.ToHashSet());
 
-				foreach (var categoryList in _availableProductCategories.Values)
+				ResolveCategoryProducts(playfabProducts);
+				ResolveBundles(playfabBundles);
+			};
+		}
+
+		private void ResolveBundles(Dictionary<PlayfabProductConfig, List<PlayfabProductConfig>> playfabGameProductBundles)
+		{
+			_availableGameProductBundles.Clear();
+
+			foreach (var playfabBundle in playfabGameProductBundles)
+			{
+				var bundleId = playfabBundle.Key.CatalogItem.ItemId;
+				
+				//Resolve Bundle
+				if (!_availableGameProductBundles.TryGetValue(bundleId, out var gameProductBundle))
 				{
-					categoryList.Products.Clear();
+					gameProductBundle = new GameProductsBundle()
+					{
+						Name = bundleId,
+						Bundle = new GameProduct()
+						{
+							GameItem = ItemFactory.PlayfabCatalog(playfabBundle.Key.CatalogItem),
+							PlayfabProductConfig = playfabBundle.Key,
+							UnityIapProduct = () => _unityStore.GetUnityProduct(playfabBundle.Key.CatalogItem.ItemId)
+						}
+					};
+					_availableGameProductBundles[bundleId] = gameProductBundle;
 				}
 
-				foreach (var playfabProduct in playfabProducts)
+				//Resolve Bundle Products
+				foreach (var playfabProduct in playfabBundle.Value)
 				{
-					var category = string.IsNullOrEmpty(playfabProduct.StoreItemData.Category) ? "General" : playfabProduct.StoreItemData.Category;
-					if (!_availableProductCategories.TryGetValue(category, out var categoryList))
-					{
-						categoryList = new GameProductCategory() {Name = category};
-						_availableProductCategories[category] = categoryList;
-					}
-
-					var gameProduct = new GameProduct()
+					gameProductBundle.BundleProducts.Add(new GameProduct()
 					{
 						GameItem = ItemFactory.PlayfabCatalog(playfabProduct.CatalogItem),
 						PlayfabProductConfig = playfabProduct,
 						UnityIapProduct = () => _unityStore.GetUnityProduct(playfabProduct.CatalogItem.ItemId)
-					};
-
-					categoryList.Products.Add(gameProduct);
-					_availableProducts.Add(gameProduct);
+					});
 				}
-			};
+			}
+		}
+
+		private void ResolveCategoryProducts(List<PlayfabProductConfig> playfabProducts)
+		{
+			foreach (var categoryList in _availableProductCategories.Values)
+			{
+				categoryList.Products.Clear();
+			}
+
+			foreach (var playfabProduct in playfabProducts)
+			{
+				var category = string.IsNullOrEmpty(playfabProduct.StoreItemData.Category) ? "General" : playfabProduct.StoreItemData.Category;
+				if (!_availableProductCategories.TryGetValue(category, out var categoryList))
+				{
+					categoryList = new GameProductCategory() {Name = category};
+					_availableProductCategories[category] = categoryList;
+				}
+
+				var gameProduct = new GameProduct()
+				{
+					GameItem = ItemFactory.PlayfabCatalog(playfabProduct.CatalogItem),
+					PlayfabProductConfig = playfabProduct,
+					UnityIapProduct = () => _unityStore.GetUnityProduct(playfabProduct.CatalogItem.ItemId)
+				};
+
+				categoryList.Products.Add(gameProduct);
+				_availableProducts.Add(gameProduct);
+			}
 		}
 
 		private void TryUpdateStoreCatalog()
@@ -432,10 +497,33 @@ namespace FirstLight.Game.Services
 		private void OnServerRewardConfirmed(Product product, ItemData item)
 		{
 			// The first command (client only) syncs up client state with the server, as the
-			// server adds the reward item to UnclaimedRewards on its end, and we have to do the same.
-			_commandService.ExecuteCommand(new AddIAPRewardLocalCommand {Reward = item});
+			// server adds the reward item to UnclaimedRewards on its end, and we have to do the same,
+			//TODO Doc
+			if (item.Id == GameId.Bundle)
+			{
+				//TODO I might need to add some extras check for this one since we dont filter for expired bundles.
+				_availableGameProductBundles.TryGetValue(product.definition.id, out var gameProductsBundle);
+
+				if (gameProductsBundle != null)
+				{
+					var bundleRewards = new List<ItemData>();
+					
+					foreach (var bundleProduct in gameProductsBundle.BundleProducts)
+					{
+						bundleRewards.Add(bundleProduct.GameItem);						
+					}
+					
+					_commandService.ExecuteCommand(new AddIAPBundleRewardLocalCommand() {BundleRewards = bundleRewards.ToArray()});
+				}
+			}
+			else
+			{
+				_commandService.ExecuteCommand(new AddIAPRewardLocalCommand {Reward = item});
+			}
+			
 			_unityStore.Controller.ConfirmPendingPurchase(product);
 
+			
 			var availableProduct = _availableProducts.FirstOrDefault(p => p.PlayfabProductConfig.CatalogItem.ItemId.Equals(product.definition.id));
 
 			if (availableProduct == null)
@@ -469,7 +557,10 @@ namespace FirstLight.Game.Services
 
 		public static bool IsRealMoney(this IIAPService iapService, GameProduct product)
 		{
-			return product.PlayfabProductConfig.StoreItem.VirtualCurrencyPrices.Keys.Contains("RM");
+			//TODO Might not need to add
+			return product.PlayfabProductConfig.StoreItem != null ? 
+				product.PlayfabProductConfig.StoreItem.VirtualCurrencyPrices.Keys.Contains("RM") : 
+				product.PlayfabProductConfig.CatalogItem.VirtualCurrencyPrices.Keys.Contains("RM");
 		}
 
 		public enum BuyProductResult

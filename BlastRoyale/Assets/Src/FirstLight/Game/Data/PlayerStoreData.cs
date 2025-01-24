@@ -9,6 +9,7 @@ namespace FirstLight.Game.Data
 	{
 		
 		public readonly List<StorePurchaseData> TrackedStorePurchases = new ();
+		public readonly List<ProductBundlePurchaseData> ProductsBundlePurchases = new ();
 
 		public override int GetHashCode()
 		{
@@ -16,7 +17,9 @@ namespace FirstLight.Game.Data
 			
 			foreach (var e in TrackedStorePurchases)
 				hash = hash * 23 + e.GetHashCode();
-
+			foreach (var e in ProductsBundlePurchases)
+				hash = hash * 23 + e.GetHashCode();
+			
 			return hash;
 		}
 	}

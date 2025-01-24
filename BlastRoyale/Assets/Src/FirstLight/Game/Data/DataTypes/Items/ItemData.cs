@@ -15,7 +15,8 @@ namespace FirstLight.Game.Data.DataTypes
 		Equipment,
 		Unlock,
 		Currency,
-		Collection
+		Collection,
+		Bundle
 	}
 
 	public interface IItemMetadata
@@ -33,6 +34,18 @@ namespace FirstLight.Game.Data.DataTypes
 		public int Value;
 	}
 
+	/// <summary>
+	/// Used for handling Bundles Item Data
+	/// </summary>
+	[Serializable]
+	public class BundleItemData
+	{
+		public GameId RewardId;
+		public int Value;
+		
+		
+	}
+	
 	public static class ItemFactory
 	{
 		public static ItemData Simple(GameId id) => new (id, null);
@@ -42,7 +55,8 @@ namespace FirstLight.Game.Data.DataTypes
 		public static ItemData Collection(GameId id) => new (id, null);
 		public static ItemData Unlock(UnlockSystem unlock) => new (GameId.Random, new UnlockMetadata() {Unlock = unlock});
 		public static ItemData Unlock(GameId gameId, UnlockSystem unlock) => new (gameId, new UnlockMetadata() {Unlock = unlock});
-
+		public static ItemData Bundle(GameId gameId, params string[] productIDs) => new (gameId, new BundleMetadata() {ProductIDs = productIDs});
+		public static ItemData Bundle(GameId gameId) => new (gameId, null);
 		public static ItemData PlayfabCatalog(CatalogItem catalogItem)
 		{
 			return Legacy(ModelSerializer.Deserialize<LegacyItemData>(catalogItem.CustomData));
@@ -54,6 +68,7 @@ namespace FirstLight.Game.Data.DataTypes
 			if (legacy.RewardId.IsInGroup(GameIdGroup.Collection)) return Collection(legacy.RewardId);
 			if (legacy.RewardId.IsInGroup(GameIdGroup.Currency)) return Currency(legacy.RewardId, legacy.Value);
 			if (legacy.RewardId == GameId.PremiumBattlePass) return Unlock(legacy.RewardId, UnlockSystem.PaidBattlePass);
+			if (legacy.RewardId == GameId.Bundle) return Bundle(legacy.RewardId);
 			return new ItemData(legacy.RewardId, legacy.Value > 1 ? new CurrencyMetadata() {Amount = legacy.Value} : null);
 		}
 	}

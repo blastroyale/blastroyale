@@ -83,16 +83,24 @@ namespace GameLogicService.Services
 				{
 					foreach (var item in inventory.Inventory)
 					{
-						var itemData = await _catalog.GetCatalogItem(item.ItemId);
-						playerData.UncollectedRewards.Add(itemData);
 						var res = await PlayFabServerAPI.ConsumeItemAsync(new ConsumeItemRequest
 							{ ConsumeCount = 1, PlayFabId = player, ItemInstanceId = item.ItemInstanceId });
 						if (res.Error != null) throw new Exception(res.Error.GenerateErrorReport());
+						
+						var itemData = await _catalog.GetCatalogItem(item.ItemId);
+						playerData.UncollectedRewards.Add(itemData);
 						consumedItems.Add(item);
 						givenGameItems.Add(itemData);
 						_log.LogInformation(
 							$"[Playfab Sync] Synced item {item.DisplayName} -> {itemData.Id} to player {player}");
 					}
+					
+					//If any item synced is a Bundle, there's no need to keep track on it inside UnclaimedRewards
+					if (playerData.UncollectedRewards.FirstOrDefault(ur => ur.Id == GameId.Bundle) != null)
+					{
+						playerData.UncollectedRewards.Remove(playerData.UncollectedRewards.FirstOrDefault(ur => ur.Id == GameId.Bundle));
+					}
+
 				}
 
 				state.UpdateModel(playerData);
@@ -145,7 +153,7 @@ namespace GameLogicService.Services
 
 				throw;
 			}
-
+			
 			return givenGameItems;
 		}
 	}

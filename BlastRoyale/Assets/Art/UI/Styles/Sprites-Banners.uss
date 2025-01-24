@@ -1,0 +1,32 @@
+/* AUTO GENERATED */
+:root {
+    --sprite-banners__banner-background-green: url('/Assets/Art/UI/Sprites/Banners/banner-background-green.png');
+    --sprite-banners__banner-character-valkyrie: url('/Assets/Art/UI/Sprites/Banners/banner-character-valkyrie.png');
+    --sprite-banners__banner-ribbon-copper: url('/Assets/Art/UI/Sprites/Banners/banner-ribbon-copper.png');
+    --sprite-banners__banner-spotlight-green: url('/Assets/Art/UI/Sprites/Banners/banner-spotlight-green.png');
+}
+
+.sprite-banners__banner-background-green {
+    background-image: var(--sprite-banners__banner-background-green);
+    width: 140px;
+    height: 723px;
+}
+
+.sprite-banners__banner-character-valkyrie {
+    background-image: var(--sprite-banners__banner-character-valkyrie);
+    width: 469px;
+    height: 753px;
+}
+
+.sprite-banners__banner-ribbon-copper {
+    background-image: var(--sprite-banners__banner-ribbon-copper);
+    width: 162px;
+    height: 216px;
+}
+
+.sprite-banners__banner-spotlight-green {
+    background-image: var(--sprite-banners__banner-spotlight-green);
+    width: 1459px;
+    height: 1080px;
+}
+

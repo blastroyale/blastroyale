@@ -14,7 +14,6 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using I2.Loc;
-using Quantum;
 
 namespace FirstLight.Game.Services
 {

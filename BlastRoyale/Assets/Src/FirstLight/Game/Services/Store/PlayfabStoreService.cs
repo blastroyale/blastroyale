@@ -38,6 +38,10 @@ namespace FirstLight.Game.Services
 		public string UssModifier;
 		public string ImageOverride;
 		public string Description;
+		//Bundle Configurations
+		public DateTime PurchaseExpiresAt;
+		public bool IsTimeLimitedByPlayer;
+		public int TimeLimitedByPlayerExpiresAfterSeconds;
 	}
 
 	/// <summary>
@@ -67,9 +71,10 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public class PlayfabStoreService : IStoreService, IItemCatalog<ItemData>
 	{
-		public event Action<List<PlayfabProductConfig>> OnStoreLoaded;
+		public event Action<List<PlayfabProductConfig>, Dictionary<PlayfabProductConfig, List<PlayfabProductConfig>>> OnStoreLoaded;
 
 		public const string CATALOG_NAME = "Store";
+		// public const string STORE_NAME = "Marcelo";
 		public const string STORE_NAME = "MainShop";
 
 		private IGameBackendService _backend;
@@ -85,9 +90,21 @@ namespace FirstLight.Game.Services
 		private Dictionary<string, StoreItem> _storeItems = new ();
 
 		/// <summary>
+		/// Catalogs hold information of each bundle (Bundles is a set of Items that can be used to make an ItemData instance)
+		/// </summary>
+		private Dictionary<string, CatalogItem> _bundleItems = new ();
+		
+		/// <summary>
 		/// Final result of all playfab data containing all store catalog items and store items
 		/// </summary>
 		private Dictionary<string, PlayfabProductConfig> _products = new ();
+		
+		/// <summary>
+		/// Final result of all playfab data containing all Bundles in Bundles/BundlesProducts Dictionary
+		/// </summary>
+		private Dictionary<string, Dictionary<PlayfabProductConfig,List<PlayfabProductConfig>>> _bundles = new ();
+		
+		
 
 		/// <summary>
 		/// Represents a cooldown mechanism for managing the rate of store reloading
@@ -134,6 +151,7 @@ namespace FirstLight.Game.Services
 
 			_catalogItems = getCatalogItemsResult.Catalog.ToDictionary(i => i.ItemId, i => i);
 			_storeItems = getStoreItemsResult.Store.ToDictionary(i => i.ItemId, i => i);
+			_bundleItems = getCatalogItemsResult.Catalog.Where(c => c.Bundle != null).ToDictionary(i => i.ItemId, i => i);
 
 			OnLoaded();
 		}
@@ -151,8 +169,37 @@ namespace FirstLight.Game.Services
 					StoreItemData = ModelSerializer.Deserialize<StoreItemData>(storeItem.CustomData.ToString())
 				};
 			}
+			
+			foreach (var (itemId, bundleCatalogItem) in _bundleItems)
+			{
+				var bundleProducts = _catalogItems
+					.Where(item => bundleCatalogItem.Bundle.BundledItems.Contains(item.Key))
+					.Select(item => new PlayfabProductConfig()
+					{
+						CatalogItem = item.Value
+					})
+					.ToList();
 
-			OnStoreLoaded?.Invoke(_products.Values.ToList());
+				var bundleStoreItem = _storeItems?.FirstOrDefault(s => s.Value.ItemId == bundleCatalogItem.ItemId).Value;
+				
+				_bundles[itemId] = new Dictionary<PlayfabProductConfig, List<PlayfabProductConfig>>
+				{
+					{
+						new PlayfabProductConfig()
+						{
+							CatalogItem = bundleCatalogItem,
+							StoreItem = bundleStoreItem,
+							StoreItemData = bundleStoreItem != null ? ModelSerializer.Deserialize<StoreItemData>(bundleStoreItem.CustomData.ToString()) : null
+						},
+						bundleProducts
+					}
+				};
+			}
+
+			var bundleProductsDictionary = _bundles.SelectMany(entry => entry.Value)
+												   .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+			OnStoreLoaded?.Invoke(_products.Values.ToList(), bundleProductsDictionary);
 		}
 
 		private void HandlePlayfabRequestError(PlayFabError error)

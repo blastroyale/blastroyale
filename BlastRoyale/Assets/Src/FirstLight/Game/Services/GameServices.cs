@@ -116,6 +116,7 @@ namespace FirstLight.Game.Services
 		public IRoomService RoomService { get; }
 		public IGameAppService GameAppService { get; }
 		public IBattlePassService BattlePassService { get; }
+		public IProductsBundleService ProductsBundleService { get; }
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; }
@@ -181,6 +182,7 @@ namespace FirstLight.Game.Services
 		public IControlSetupService ControlsSetup { get; }
 		public IRoomService RoomService { get; }
 		public IBattlePassService BattlePassService { get; }
+		public IProductsBundleService ProductsBundleService { get; }
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; }
@@ -265,6 +267,7 @@ namespace FirstLight.Game.Services
 			TutorialService = new TutorialService(RoomService, CommandService, ConfigsProvider, gameLogic);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 			BattlePassService = new BattlePassService(gameLogic, MessageBrokerService, HomeScreenService);
+			ProductsBundleService = new ProductsBundleService(gameLogic, MessageBrokerService, HomeScreenService);
 			GameAppService = new GameAppService(this);
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);

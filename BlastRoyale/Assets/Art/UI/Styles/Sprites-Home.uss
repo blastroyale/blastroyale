@@ -45,16 +45,21 @@
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
     --sprite-home__banner-alien: url('/Assets/Art/UI/Sprites/Home/banner-alien.png');
+    --sprite-home__banner-back-green: url('/Assets/Art/UI/Sprites/Home/banner-back-green.png');
     --sprite-home__banner-back-orange: url('/Assets/Art/UI/Sprites/Home/banner-back-orange.png');
     --sprite-home__banner-back-purple: url('/Assets/Art/UI/Sprites/Home/banner-back-purple.png');
     --sprite-home__banner-back-purpleorange: url('/Assets/Art/UI/Sprites/Home/banner-back-purpleorange.png');
+    --sprite-home__banner-character-valkyrie: url('/Assets/Art/UI/Sprites/Home/banner-character-valkyrie.png');
     --sprite-home__banner-iceking: url('/Assets/Art/UI/Sprites/Home/banner-iceking.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
+    --sprite-home__banner-ribbon-copper: url('/Assets/Art/UI/Sprites/Home/banner-ribbon-copper.png');
     --sprite-home__banner-speed-lines-bottom: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-bottom.png');
     --sprite-home__banner-speed-lines-top: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-top.png');
+    --sprite-home__banner-spotlight-green: url('/Assets/Art/UI/Sprites/Home/banner-spotlight-green.png');
     --sprite-home__banner-spotlight-orange: url('/Assets/Art/UI/Sprites/Home/banner-spotlight-orange.png');
     --sprite-home__banner-yeti: url('/Assets/Art/UI/Sprites/Home/banner-yeti.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
+    --sprite-home__bundle-icon-valkyrie: url('/Assets/Art/UI/Sprites/Home/bundle-icon-valkyrie.png');
     --sprite-home__button-addbubble: url('/Assets/Art/UI/Sprites/Home/button-addbubble.png');
     --sprite-home__button-add-friends: url('/Assets/Art/UI/Sprites/Home/button-add-friends.png');
     --sprite-home__button-add-friends-disabled: url('/Assets/Art/UI/Sprites/Home/button-add-friends-disabled.png');
@@ -118,10 +123,14 @@
     --sprite-home__button-under-light: url('/Assets/Art/UI/Sprites/Home/button-under-light.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
+    --sprite-home__chat_balloon: url('/Assets/Art/UI/Sprites/Home/chat_balloon.png');
+    --sprite-home__citysilhouette: url('/Assets/Art/UI/Sprites/Home/citysilhouette.png');
     --sprite-home__cloud-exclusive-reward: url('/Assets/Art/UI/Sprites/Home/cloud-exclusive-reward.png');
     --sprite-home__cross-x-button: url('/Assets/Art/UI/Sprites/Home/cross-x-button.png');
     --sprite-home__customizable-back-part: url('/Assets/Art/UI/Sprites/Home/customizable-back-part.png');
     --sprite-home__dark-pattern-piece: url('/Assets/Art/UI/Sprites/Home/dark-pattern-piece.png');
+    --sprite-home__FG_Smoke_1: url('/Assets/Art/UI/Sprites/Home/FG_Smoke_1.png');
+    --sprite-home__FG_Smoke_2: url('/Assets/Art/UI/Sprites/Home/FG_Smoke_2.png');
     --sprite-home__gamemode-border-glow: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-border-glow.png');
     --sprite-home__gamemode-card-blue: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-blue.png');
     --sprite-home__gamemode-card-purple: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-purple.png');
@@ -141,6 +150,7 @@
     --sprite-home__glider-rocket: url('/Assets/Art/UI/Sprites/Home/glider-rocket.png');
     --sprite-home__glider-turbine: url('/Assets/Art/UI/Sprites/Home/glider-turbine.png');
     --sprite-home__goji-season-reward: url('/Assets/Art/UI/Sprites/Home/goji-season-reward.png');
+    --sprite-home__ground: url('/Assets/Art/UI/Sprites/Home/ground.png');
     --sprite-home__header-back: url('/Assets/Art/UI/Sprites/Home/header-back.png');
     --sprite-home__header-back-pressed: url('/Assets/Art/UI/Sprites/Home/header-back-pressed.png');
     --sprite-home__header-home: url('/Assets/Art/UI/Sprites/Home/header-home.png');
@@ -247,8 +257,11 @@
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
     --sprite-home__vfx-lightrays-reward: url('/Assets/Art/UI/Sprites/Home/vfx-lightrays-reward.png');
+    --sprite-home__vfx-purple-ray-glow: url('/Assets/Art/UI/Sprites/Home/vfx-purple-ray-glow.png');
+    --sprite-home__vfx-reward_rays_dark: url('/Assets/Art/UI/Sprites/Home/vfx-reward_rays_dark.png');
     --sprite-home__vfx-rewards-rays: url('/Assets/Art/UI/Sprites/Home/vfx-rewards-rays.png');
     --sprite-home__volume-header: url('/Assets/Art/UI/Sprites/Home/volume-header.png');
+    --sprite-home__winLightBlue: url('/Assets/Art/UI/Sprites/Home/winLightBlue.png');
     --sprite-home__yeti-season-reward: url('/Assets/Art/UI/Sprites/Home/yeti-season-reward.png');
 }
 
@@ -522,6 +535,12 @@
     height: 698px;
 }
 
+.sprite-home__banner-back-green {
+    background-image: var(--sprite-home__banner-back-green);
+    width: 140px;
+    height: 723px;
+}
+
 .sprite-home__banner-back-orange {
     background-image: var(--sprite-home__banner-back-orange);
     width: 190px;
@@ -540,6 +559,12 @@
     height: 712px;
 }
 
+.sprite-home__banner-character-valkyrie {
+    background-image: var(--sprite-home__banner-character-valkyrie);
+    width: 469px;
+    height: 753px;
+}
+
 .sprite-home__banner-iceking {
     background-image: var(--sprite-home__banner-iceking);
     width: 526px;
@@ -552,6 +577,12 @@
     height: 275px;
 }
 
+.sprite-home__banner-ribbon-copper {
+    background-image: var(--sprite-home__banner-ribbon-copper);
+    width: 162px;
+    height: 216px;
+}
+
 .sprite-home__banner-speed-lines-bottom {
     background-image: var(--sprite-home__banner-speed-lines-bottom);
     width: 616px;
@@ -562,6 +593,12 @@
     background-image: var(--sprite-home__banner-speed-lines-top);
     width: 528px;
     height: 336px;
+}
+
+.sprite-home__banner-spotlight-green {
+    background-image: var(--sprite-home__banner-spotlight-green);
+    width: 1902px;
+    height: 1247px;
 }
 
 .sprite-home__banner-spotlight-orange {
@@ -580,6 +617,12 @@
     background-image: var(--sprite-home__blastroyale-logo);
     width: 1568px;
     height: 859px;
+}
+
+.sprite-home__bundle-icon-valkyrie {
+    background-image: var(--sprite-home__bundle-icon-valkyrie);
+    width: 256px;
+    height: 256px;
 }
 
 .sprite-home__button-addbubble {
@@ -916,6 +959,18 @@
     height: 304px;
 }
 
+.sprite-home__chat_balloon {
+    background-image: var(--sprite-home__chat_balloon);
+    width: 149px;
+    height: 96px;
+}
+
+.sprite-home__citysilhouette {
+    background-image: var(--sprite-home__citysilhouette);
+    width: 2048px;
+    height: 449px;
+}
+
 .sprite-home__cloud-exclusive-reward {
     background-image: var(--sprite-home__cloud-exclusive-reward);
     width: 501px;
@@ -938,6 +993,18 @@
     background-image: var(--sprite-home__dark-pattern-piece);
     width: 43px;
     height: 483px;
+}
+
+.sprite-home__FG_Smoke_1 {
+    background-image: var(--sprite-home__FG_Smoke_1);
+    width: 1183px;
+    height: 401px;
+}
+
+.sprite-home__FG_Smoke_2 {
+    background-image: var(--sprite-home__FG_Smoke_2);
+    width: 1644px;
+    height: 665px;
 }
 
 .sprite-home__gamemode-border-glow {
@@ -1052,6 +1119,12 @@
     background-image: var(--sprite-home__goji-season-reward);
     width: 454px;
     height: 732px;
+}
+
+.sprite-home__ground {
+    background-image: var(--sprite-home__ground);
+    width: 2048px;
+    height: 524px;
 }
 
 .sprite-home__header-back {
@@ -1686,6 +1759,18 @@
     height: 198px;
 }
 
+.sprite-home__vfx-purple-ray-glow {
+    background-image: var(--sprite-home__vfx-purple-ray-glow);
+    width: 452px;
+    height: 452px;
+}
+
+.sprite-home__vfx-reward_rays_dark {
+    background-image: var(--sprite-home__vfx-reward_rays_dark);
+    width: 718px;
+    height: 718px;
+}
+
 .sprite-home__vfx-rewards-rays {
     background-image: var(--sprite-home__vfx-rewards-rays);
     width: 718px;
@@ -1696,6 +1781,12 @@
     background-image: var(--sprite-home__volume-header);
     width: 20px;
     height: 38px;
+}
+
+.sprite-home__winLightBlue {
+    background-image: var(--sprite-home__winLightBlue);
+    width: 444px;
+    height: 266px;
 }
 
 .sprite-home__yeti-season-reward {

@@ -30,7 +30,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 	/// Hack service to force behaviours when opening home screen
 	/// this is due to the huge amount of complexity on the state machine, this is just a way of isolating weird code changing it here
 	/// </summary>
-	public interface IHomeScreenService
+	public interface  IHomeScreenService
 	{
 		public event Action<List<string>> CustomPlayButtonValidations;
 		public HomeScreenForceBehaviourType ForceBehaviour { get; }
@@ -144,6 +144,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 				await _uiService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData
 				{
 					FameRewards = true,
+					SkipSummary = true,
 					Items = levelRewards,
 					OnFinish = levelUpWaiter.Invoke
 				});
@@ -161,6 +162,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 					await _uiService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData
 					{
 						Items = rewardsCopy,
+						SkipSummary = true,
 						OnFinish = rewardsAwaiter.Invoke
 					});
 					await rewardsAwaiter.OnInvokeAsync();

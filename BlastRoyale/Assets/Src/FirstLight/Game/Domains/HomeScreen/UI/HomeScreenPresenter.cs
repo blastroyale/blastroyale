@@ -74,11 +74,18 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 		private VisualElement _newsNotificationShine;
 		private VisualElement _onlineFriendsNotification;
 
+		private ImageButton _starterPackBundle;
+		private VisualElement _starterPackShine;
+		private Label _starterPackCooldown;
+
 		private Label _onlineFriendLabel;
 		private Label _outOfSyncWarningLabel;
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
-
+		
+		//Hardcoded for while
+		private const string STARTER_PACK = "com.firstlight.blastroyale.starterpack";
+		
 		[SerializeField] private HomePartyCharacterView _homePartyCharacterView = new ();
 
 		private HashSet<GameId> _currentAnimations = new ();
@@ -110,7 +117,8 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 
 				OpenStats(data);
 			};
-
+			
+	
 			_playerNameLabel = Root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = Root.Q<Label>("TrophiesAmount").Required();
 			_onlineFriendLabel = Root.Q<Label>("OnlineFriendsCount").Required();
@@ -125,6 +133,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_newsNotificationShine = Root.Q("NewsShine").Required();
 			_newsNotificationShine.AddRotatingEffect(40, 10);
 			_newsNotificationShine.AnimatePingOpacity(fromAmount: 0.3f, duration: 2000, repeat: true);
+			
 
 			
 			Root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
@@ -162,15 +171,53 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			{
 				storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
+			
+			LoadStarterPackAndSetupButton().Forget();
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 			Root.Q<LocalizedButton>("FriendsButton").Required().LevelLock(this, Root, UnlockSystem.Friends, () => Data.FriendsClicked?.Invoke());
 			Root.Q<LocalizedButton>("PartyUpButton").Required().LevelLock(this, Root, UnlockSystem.Squads, ShowPartyUpPopup);
-
 			Root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
 			Root.SetupClicks(_services);
+		}
+
+		private async UniTaskVoid LoadStarterPackAndSetupButton()
+		{
+			_starterPackBundle = Root.Q<ImageButton>("OpenBundleButton").Required();
+			_starterPackBundle.SetDisplay(false);
+			
+			_starterPackCooldown = Root.Q<Label>("BundleCooldown").Required();
+			_starterPackShine = Root.Q("BundleShine").Required();
+			
+			await UniTask.WaitUntil(() => _services.IAPService.UnityStore.Initialized);
+			
+			var bundle = _services.IAPService.AvailableGameProductBundles.FirstOrDefault(b => b.Name == STARTER_PACK);
+			if (bundle == null || 
+				_dataProvider.PlayerDataProvider.Level.Value < 4 ||
+				_dataProvider.PlayerStoreDataProvider.HasPurchasedProductsBundle(STARTER_PACK))
+			{
+				return;
+			}
+			
+
+			_starterPackBundle.SetDisplay(true);
+			_starterPackBundle.clicked += async () =>
+			{
+				await _services.ProductsBundleService.OpenProductsBundleBanner(STARTER_PACK);
+			};
+
+			var bundleRemainingTime = _services.ProductsBundleService.GetBundlePurchaseTimeExpireAt(STARTER_PACK).Value;
+			
+			_starterPackShine.AnimatePingOpacity(fromAmount: 0.7f, toAmount: 1f, duration: 1000, repeat: true);
+			_starterPackShine.AddRotatingEffect(40f, 10);
+			_starterPackCooldown.ShowCooldown(bundleRemainingTime, false, HideProductBundleButton);
+		}
+
+		private void HideProductBundleButton()
+		{
+			_starterPackBundle.SetDisplay(false);
 		}
 
 		private void ShowPartyUpPopup()
@@ -247,6 +294,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 				return;
 			}
 			if (IAPHelpers.IsUIBeingHandled(itemId)) return;
+			
 			ShowPurchaseRewardScreen(data).Forget();
 		}
 

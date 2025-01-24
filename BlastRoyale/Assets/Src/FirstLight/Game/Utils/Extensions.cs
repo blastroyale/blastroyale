@@ -238,6 +238,23 @@ namespace FirstLight.Game.Utils
 
 			return ts.Hours + (simplified ? "h" : " hours");
 		}
+		
+		/// <summary>
+		/// Formats a string in seconds to Days, Hours and Minutes or Hours Minutes and Seconds
+		/// </summary>
+		public static string ToDaysHourMinutesOrHourMinutesSeconds(this TimeSpan ts, bool simplified = false)
+		{
+			if (ts.Days > 0)
+			{
+				return simplified
+					? $"{ts.Days.ToString()}d {ts.Hours.ToString()}h {ts.Minutes.ToString()}m"
+					: $"{ts.Days.ToString()} days, {ts.Hours.ToString()} hours and {ts.Minutes.ToString()} minutes";
+			}
+
+			return simplified
+				? $"{ts.Hours.ToString()}h {ts.Minutes.ToString()}m {ts.Seconds.ToString()}s"
+				: $"{ts.Hours.ToString()} hours, {ts.Minutes.ToString()} minutes and {ts.Seconds.ToString()} seconds";
+		}
 
 		/// <summary>
 		/// Requests the <see cref="GameIdGroup"/> slot representing the given <see cref="item"/>

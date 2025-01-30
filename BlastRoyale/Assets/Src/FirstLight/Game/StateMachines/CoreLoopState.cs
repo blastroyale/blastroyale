@@ -4,6 +4,8 @@ using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
@@ -13,9 +15,11 @@ using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using Photon.Realtime;
+using Quantum;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -32,6 +36,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IInternalGameNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		public static bool AUTO_TEST_SCENE => FeatureFlags.GetLocalConfiguration().StartTestGameAutomatically;
 
 		private Coroutine _csPoolTimerCoroutine;
 
@@ -61,6 +67,7 @@ namespace FirstLight.Game.StateMachines
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var joinTutorialRoom = stateFactory.State("Room Join Wait");
 			var connectionWait = stateFactory.TaskWait("Connection Wait");
+			var joinTestScene = stateFactory.State("Join Test Scene");
 
 			initial.Transition().Target(connectionWait);
 			initial.OnExit(SubscribeEvents);
@@ -69,8 +76,13 @@ namespace FirstLight.Game.StateMachines
 
 			reconnection.Nest(_reconnection.Setup).Target(firstMatchCheck);
 
-			firstMatchCheck.Transition().Condition(InRoom).Target(match);
-			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
+			firstMatchCheck.Transition().Condition(() => AUTO_TEST_SCENE).Target(joinTestScene);
+			firstMatchCheck.Transition().Condition(InRoom)
+				.OnTransition(() => _services.MessageBrokerService.Publish(new CoreLoopInitialized {ConnectedToMatch = true}))
+				.Target(match);
+			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial)
+				.OnTransition(() => _services.MessageBrokerService.Publish(new CoreLoopInitialized {ConnectedToMatch = false}))
+				.Target(mainMenu);
 			firstMatchCheck.Transition().Target(joinTutorialRoom);
 
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
@@ -81,9 +93,12 @@ namespace FirstLight.Game.StateMachines
 			joinTutorialRoom.OnEnter(AttemptJoinTutorialRoom);
 			joinTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(match);
 
+			joinTestScene.OnEnter(UniTask.Action(AttemptJoinTestGame));
+			joinTestScene.Event(NetworkState.JoinedRoomEvent).Target(match);
+
 			final.OnEnter(UnsubscribeEvents);
 		}
-		
+
 		private bool InRoom()
 		{
 			FLog.Info("InRoom: " + _networkService.QuantumClient.InRoom + " Status: " + _networkService.QuantumClient.State);
@@ -109,7 +124,6 @@ namespace FirstLight.Game.StateMachines
 				// before the event of starting the match is fireds causing an infinite loop and crash.
 				// This can still happen on some devices so this hack needs to be solved.
 				await UniTask.Delay(GameConstants.Tutorial.TIME_1000MS);
-				
 			}
 
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
@@ -143,6 +157,27 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			TutorialJoinTask().Forget();
+		}
+
+		private async UniTaskVoid AttemptJoinTestGame()
+		{
+			await UniTask.Delay(250);
+
+			var config = await Addressables.LoadAssetAsync<SimulationConfigAsset>(AddressableId.Configs_Settings_SimulationConfig.GetConfig()
+				.Address);
+			config.Settings.DeltaTimeType = SimulationUpdateTime.EngineDeltaTime;
+			_services.RoomService.CreateRoom(new MatchRoomSetup()
+			{
+				RoomIdentifier = Guid.NewGuid().ToString(),
+				SimulationConfig = new SimulationMatchConfig()
+				{
+					MapId = GameId.TestScene.ToString(),
+					GameModeID = "Testing",
+					MatchType = MatchType.Custom,
+					TeamSize = 1,
+					UniqueConfigId = "duashhuasd",
+				}
+			}, true);
 		}
 
 		private void SubscribeEvents()

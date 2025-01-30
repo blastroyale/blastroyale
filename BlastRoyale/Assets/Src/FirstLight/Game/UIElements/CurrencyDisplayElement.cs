@@ -8,6 +8,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -40,14 +41,12 @@ namespace FirstLight.Game.UIElements
 		private CurrencyItemViewModel _currencyView;
 
 		/* Other private variables */
-		private CancellationToken _cancellationToken;
-		private Tween _animationTween;
-		private VisualElement _originElement;
-		private bool _playingAnimation;
+		private CurrencyAnimationHandler _animationHandler;
 
 		/* The internal structure of the element is created in the constructor. */
 		public CurrencyDisplayElement()
 		{
+			_animationHandler = new CurrencyAnimationHandler();
 			AddToClassList(UssBlock);
 
 			// Icon outline
@@ -73,7 +72,7 @@ namespace FirstLight.Game.UIElements
 			Currency = gameId;
 			UpdateCurrencyView();
 		}
-		
+
 		public void SetCurrency(GameId gameId, ulong amount)
 		{
 			Currency = gameId;
@@ -89,7 +88,8 @@ namespace FirstLight.Game.UIElements
 			_icon.AddToClassList(UssIcon);
 			_currencyView.DrawIcon(_icon);
 
-			_iconOutline.ClearClassList(); _iconOutline.AddToClassList(UssIconOutline);
+			_iconOutline.ClearClassList();
+			_iconOutline.AddToClassList(UssIconOutline);
 			_currencyView.DrawIcon(_iconOutline);
 		}
 
@@ -115,7 +115,6 @@ namespace FirstLight.Game.UIElements
 		public void UnsubscribeFromEvents()
 		{
 			_gameDataProvider.CurrencyDataProvider.Currencies.StopObservingAll(this);
-			_animationTween?.Kill();
 		}
 
 		/// <summary>
@@ -123,17 +122,21 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetData(VisualElement animationOrigin, bool hideIfPlayerDoesntHaveIt = false, CancellationToken cancellationToken = default)
 		{
-			_originElement = animationOrigin;
+			_animationHandler.CancellationToken = cancellationToken;
+			_animationHandler.Origin = animationOrigin;
+			_animationHandler.Root = this.GetRoot();
+			_animationHandler.Target = _label;
+			_animationHandler.GameId = Currency;
+
 			_hideIfPlayerDoesntHaveIt = hideIfPlayerDoesntHaveIt;
-			_cancellationToken = cancellationToken;
 		}
 
 		private void OnCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType type)
 		{
 			this.SetDisplay(current > 0 || !_hideIfPlayerDoesntHaveIt);
-			if (!_playingAnimation && current > previous)
+			if (!_animationHandler.Playing && current > previous)
 			{
-				AnimateCurrency(previous, current).Forget();
+				_animationHandler.AnimateCurrency(previous, current).Forget();
 			}
 			else
 			{
@@ -141,45 +144,56 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		private async UniTaskVoid AnimateCurrency(ulong previous, ulong current)
+		public class CurrencyAnimationHandler
 		{
-			_playingAnimation = true;
-			_animationTween?.Kill();
+			public bool Playing;
 
-			await UniTask.WaitUntil(() => _label.worldBound.Overlaps(GetRoot().worldBound), cancellationToken: _cancellationToken);
-			// Wait for currency view animation to finish
-			await UniTask.Delay(500, cancellationToken: _cancellationToken);
-			var labelPosition = _label.GetPositionOnScreen(GetRoot());
-			for (int i = 0; i < Mathf.Min(10, current - previous); i++)
+			public GameId GameId;
+			public CancellationToken CancellationToken;
+			public VisualElement Root;
+			public VisualElement Origin;
+			public VisualElement Target;
+
+			public UIVFXService UIVFXService => MainInstaller.ResolveServices().UIVFXService;
+			public IAudioFxService<AudioId> AudioFxService => MainInstaller.ResolveServices().AudioFxService;
+
+			public async UniTaskVoid AnimateCurrency(ulong previous,
+													 ulong current)
 			{
-				var originPosition = _originElement != null
-					? _originElement.GetPositionOnScreen(GetRoot())
-					: GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100;
+				Playing = true;
+				if (Target is Label lbl)
+				{
+					lbl.text = previous.ToString();
+				}
 
-				_services.UIVFXService.PlayVfx(Currency,
-					i * 0.1f,
-					originPosition,
-					labelPosition,
-					() =>
-					{
-						DOVirtual.Float(previous, current, 0.3f, val => { _label.text = val.ToString("F0"); });
-						_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
-					});
+				await UniTask.WaitUntil(() => Target == null || Target.worldBound.Overlaps(Root.worldBound), cancellationToken: CancellationToken);
+				if (Target == null) return;
+				// Wait for currency view animation to finish
+				await UniTask.Delay(500, cancellationToken: CancellationToken);
+				var labelPosition = Target.GetPositionOnScreen(Root);
+				for (int i = 0; i < Mathf.Min(10, current - previous); i++)
+				{
+					var originPosition = Origin != null
+						? Origin.GetPositionOnScreen(Root)
+						: Root.GetPositionOnScreen(Root) + Random.insideUnitCircle * 100;
+
+					UIVFXService.PlayVfx(GameId,
+						i * 0.1f,
+						originPosition,
+						labelPosition,
+						() =>
+						{
+							if (Target is Label lbl)
+							{
+								DOVirtual.Float(previous, current, 0.3f, val => { lbl.text = val.ToString("F0"); });
+							}
+
+							AudioFxService.PlayClip2D(AudioId.CounterTick1);
+						});
+				}
+
+				Playing = false;
 			}
-
-			_playingAnimation = false;
-		}
-
-		private VisualElement GetRoot()
-		{
-			var p = parent;
-
-			while (p.parent != null)
-			{
-				p = p.parent;
-			}
-
-			return p;
 		}
 
 		/* The factory is at the bottom - this allows you to use the element in UXML with it's C# class name */

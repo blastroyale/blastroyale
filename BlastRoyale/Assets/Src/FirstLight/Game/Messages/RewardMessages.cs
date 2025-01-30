@@ -32,6 +32,11 @@ namespace FirstLight.Game.Messages
 	public class NewBattlePassSeasonMessage : IMessage
 	{
 	}
+	
+	public class PurchasedBundleMessage : IMessage
+	{
+	}
+
 
 	public struct FinishedClaimingBpRewardsMessage : IMessage
 	{

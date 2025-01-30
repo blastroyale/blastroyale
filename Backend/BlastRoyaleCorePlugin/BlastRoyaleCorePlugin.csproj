@@ -38,9 +38,21 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
       <PackageReference Include="PlayFabAllSDK" Version="1.108.220118" />
+        <PackageReference Include="DistributedLock.Core" Version="1.0.7" />
+
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="NftSyncs\BlockchainApi.cs" />
+      <Compile Remove="AnalyticsExtensions.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Collections\Data\" />
     </ItemGroup>
 
 </Project>

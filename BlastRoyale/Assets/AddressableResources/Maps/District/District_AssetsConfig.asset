@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87748ec297e468d8c996980a88d3c98, type: 3}
+  m_Name: District_AssetsConfig
+  m_EditorClassIdentifier: 
+  Scene:
+    m_AssetGUID: 5fc05c78bb0518349b009b01f360d673
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  QuantumMap:
+    m_AssetGUID: 7b1b5589f93df224881f76f8239b581c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapPreview:
+    m_AssetGUID: 56695b7a2fc99af4492f502db31496e5
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapAreas:
+    AreaTextureRef:
+      m_AssetGUID: 43387684aee34a84baadb58bf4c49f9d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    Areas:
+    - Color:
+        serializedVersion: 2
+        rgba: 4278228223
+      Name: SLUM
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255593
+      Name: CINEMA
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901832
+      Name: CENTRAL PARK
+    - Color:
+        serializedVersion: 2
+        rgba: 4285464320
+      Name: PLAYGROUND
+    - Color:
+        serializedVersion: 2
+        rgba: 4294115072
+      Name: GALLERIA
+    - Color:
+        serializedVersion: 2
+        rgba: 4294926592
+      Name: CAMP
+    - Color:
+        serializedVersion: 2
+        rgba: 4278205439
+      Name: DINER
+    - Color:
+        serializedVersion: 2
+        rgba: 4282908927
+      Name: FOUNTAIN PARK
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901934
+      Name: TOWNHALL
+    - Color:
+        serializedVersion: 2
+        rgba: 4289003775
+      Name: MOTEL

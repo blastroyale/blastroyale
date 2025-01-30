@@ -158,6 +158,12 @@
     right: 37px;
 }
 
+.button-with-icon__red-balloon {
+    position: absolute;
+    top: 45px;
+    right: 10;
+}
+
 .button-with-icon__icon {
     width: auto;
     height: 82px;
@@ -1124,4 +1130,9 @@
     -unity-background-scale-mode: scale-to-fit;
     width: 64px;
     height: 64px;
+}
+
+.currency-display-space {
+    margin-right: 50px;
+    -unity-text-align: upper-left;
 }

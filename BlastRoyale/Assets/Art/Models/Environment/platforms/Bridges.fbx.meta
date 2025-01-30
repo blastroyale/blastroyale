@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Straight_bridge_medium","Straight_bridge_short","Straight_bridge_wide","Straight_bridge_medium_short","T_bridge_long","Straight_bridge_long","T_bridge_short","Right_angle_bridge","T_bridge_medium","Bbidge_open_back_long"],"padding":[24,44,22,27,18,21,20,21,20,18],"unwrapper":[0,0,0,0,0,0,0,0,0,0]}'
+    - '#BAKERY{"meshName":["Straight_bridge_medium","Straight_bridge_short","Straight_bridge_wide","Straight_bridge_medium_short","T_bridge_long","Straight_bridge_long","T_bridge_short","Right_angle_bridge","T_bridge_medium"],"padding":[29,53,27,33,19,25,24,25,21],"unwrapper":[0,0,0,0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

@@ -20,6 +20,7 @@ using Photon.Deterministic;
 using PlayFab;
 using Quantum;
 using Quantum.Commands;
+using Quantum.Systems;
 using Unity.Services.Authentication;
 using Assert = UnityEngine.Assertions.Assert;
 
@@ -79,9 +80,8 @@ namespace FirstLight.Game.StateMachines
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
-			battleRoyale.OnExit(CleanUpMatch);
 
-			simulationInitializationError.Transition().OnTransition(() => _ = MatchError()).Target(final);
+			simulationInitializationError.Transition().OnTransition(MatchError).Target(final);
 
 			stopSimulationForDisconnection.OnEnter(StopSimulation);
 			stopSimulationForDisconnection.Event(NetworkState.JoinedRoomEvent).OnTransition(UnloadSimulation).Target(startSimulation);
@@ -114,6 +114,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnGameDestroyed);
+			QuantumCallback.SubscribeManual<CallbackPluginDisconnect>(this, OnPluginDisconnected);
 		}
 
 		private void UnsubscribeEvents()
@@ -139,6 +140,22 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Verbose("Game Destroyed");
 			_statechartTrigger(SimulationDestroyedEvent);
+		}
+
+		private void OnPluginDisconnected(CallbackPluginDisconnect callback)
+		{
+			if (callback.Reason == GameConstants.QuantumPluginDisconnectReasons.NOT_ENOUGH_PLAYERS)
+			{
+				_services.InGameNotificationService.QueueNotification(
+					ScriptLocalization.UITMatchmaking.failed_to_find_players,
+					InGameNotificationStyle.Error,
+					InGameNotificationDuration.Long);
+			}
+
+			_services.MessageBrokerService.Publish(new QuantumServerSimulationDisconnectedMessage()
+			{
+				Reason = callback.Reason
+			});
 		}
 
 		private async UniTask WaitForCameraOnPlayer()
@@ -187,6 +204,8 @@ namespace FirstLight.Game.StateMachines
 			//await UniTask.Delay(1000); // tech debt, leftover shall eb removed
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
 
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
+
 			var f = game.Frames.Verified;
 			var entityRef = game.GetLocalPlayerEntityRef();
 			if (f != null && entityRef.IsValid && f.TryGet<PlayerCharacter>(entityRef, out var pc))
@@ -205,6 +224,13 @@ namespace FirstLight.Game.StateMachines
 			// paused on Start means waiting for Snapshot
 			if (callback.Game.Session.IsPaused)
 			{
+				return;
+			}
+
+			if (callback.GameFailed)
+			{
+				FLog.Error("All players joined with errors, finishing simulation");
+				StopSimulation();
 				return;
 			}
 
@@ -254,15 +280,15 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(MatchState.MatchQuitEvent);
 		}
 
-		private async UniTask MatchError()
+		private void MatchError()
 		{
+			MatchState.SharedData.Simulation = MatchState.Data.SimulationResult.Error;
 			FLog.Verbose("Raising Match Error");
-			await UniTask.NextFrame(); // to avoid state machine fork https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/2737
-			_statechartTrigger(MatchState.MatchErrorEvent);
 		}
 
 		private void StartSimulation()
 		{
+			MatchState.SharedData.Simulation = MatchState.Data.SimulationResult.Success;
 			Assert.IsNull(QuantumRunner.Default, "Simulation already running");
 
 			FLog.Info($"Starting simulation from source {_services.NetworkService.JoinSource.ToString()}");
@@ -322,11 +348,6 @@ namespace FirstLight.Game.StateMachines
 			_services.RoomService.LeaveRoom(false);
 		}
 
-		private void CleanUpMatch()
-		{
-			_services.VfxService.DespawnAll();
-		}
-
 		private async UniTask PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
 			if (!isResync)
@@ -334,10 +355,12 @@ namespace FirstLight.Game.StateMachines
 				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData(game);
 			}
+
 			await UniTask.WaitUntil(IsSimulationReady);
 
 			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});
 		}
+
 
 		private unsafe bool IsSimulationReady()
 		{
@@ -356,6 +379,13 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			if (!container->PlayersData[game.GetLocalPlayerRef()].IsValid)
+			{
+				return false;
+			}
+			
+			// Waiting specific system initializations until we update photon 2.1.9
+			var hasCircle = game.Frames.Verified.Context.GameModeConfig.Systems.Any(s => s == typeof(ShrinkingCircleSystem).FullName);
+			if (hasCircle && !game.Frames.Verified.Unsafe.TryGetPointerSingleton<ShrinkingCircle>(out var circle))
 			{
 				return false;
 			}
@@ -384,6 +414,14 @@ namespace FirstLight.Game.StateMachines
 			var useBotBehaviour = (FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour) ||
 				FeatureFlags.GetLocalConfiguration().UseBotBehaviour;
 
+#if UNITY_EDITOR || (DEVELOPMENT_BUILD && !DISABLE_SRDEBUGGER)
+
+			if (SROptions.Current.DontSendPlayerData)
+			{
+				FLog.Warn("Not sending runtime player data. This is a hack for the local player, not an exception!");
+				return;
+			}
+#endif
 			FLog.Info("Sending player runtime data");
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
@@ -391,7 +429,6 @@ namespace FirstLight.Game.StateMachines
 				UnityId = AuthenticationService.Instance.PlayerId,
 				PlayerName = AuthenticationService.Instance.GetPlayerNameWithSpaces(),
 				Cosmetics = equippedCosmetics,
-				DeathFlagID = _gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.GRAVE)!.Id,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),

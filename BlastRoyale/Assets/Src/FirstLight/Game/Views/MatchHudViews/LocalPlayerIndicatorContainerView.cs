@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Match;
@@ -18,6 +19,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class LocalPlayerIndicatorContainerView : IDisposable
 	{
 		private readonly IGameServices _services;
+		
 		private EntityRef _localPlayerEntity;
 		private EntityView _playerView;
 		private QuantumWeaponConfig _weaponConfig;
@@ -43,7 +45,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public LocalPlayerIndicatorContainerView()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, HandleOnLocalPlayerAmmoEmpty);
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
@@ -90,14 +91,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
 		{
-			if (!IsInitialized()) return;
 			_localPlayerLanded = true;
+			if (!IsInitialized()) return;
+		
 			GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(1, -1, -1);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
 			_localPlayerDropped = true;
+			if (!IsInitialized()) return;
 			GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(0, -1, -1);
 		}
 
@@ -133,7 +136,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_localPlayerEntity = playerView.EntityRef;
 			_playerView = playerView;
-			var aim = _services.VfxService.Spawn(VfxId.WeaponAim);
+			var aim = MainInstaller.ResolveMatchServices().VfxService.Spawn(VfxId.WeaponAim);
 			_weaponAim = aim.GetComponent<WeaponAim>();
 			_weaponAim.SetView(playerView);
 			_weaponAim.gameObject.SetActive(false);
@@ -143,14 +146,31 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_specialIndicators[i] = null;
 				_specialRadiusIndicators[i] = null;
 			}
-
+			
 			foreach (var indicator in _indicators)
 			{
-				indicator?.Init(playerView);
+				try
+				{
+					indicator?.Init(playerView);
+				}
+				catch (Exception e)
+				{
+					FLog.Error("Error initializing indicator", e);
+				}
 			}
 
 			((SafeAreaIndicatorMonoComponent) _indicators[(int) IndicatorVfxId.SafeArea])?.SetSafeArea(
 				_shrinkCircleCenter, _shrinkingCircleRadius, _shrinkingCircleStartTime);
+
+			if (_localPlayerDropped)
+			{
+				GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(0, -1, -1);
+			}
+
+			if (_localPlayerLanded)
+			{
+				GetIndicator((int) IndicatorVfxId.Movement)?.SetVisualProperties(1, -1, -1);
+			}
 		}
 
 		/// <summary>
@@ -167,7 +187,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		///  Instantiates all possible indicators
 		/// </summary>
-		public async UniTaskVoid InstantiateAllIndicators()
+		public async UniTask InstantiateAllIndicators()
 		{
 			var loader = _services.AssetResolverService;
 
@@ -304,7 +324,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			else
 			{
 				// Handling wind up and down sounds here; e.g. Minigun
-				if (_weaponAudioConfig.WeaponShotWindUpId != AudioId.None)//(_weaponConfig.Id == GameId.ApoMinigun)
+				if (_weaponAudioConfig.WeaponShotWindUpId != AudioId.None) //(_weaponConfig.Id == GameId.ApoMinigun)
 				{
 					if (shooting & !_weaponAim.gameObject.activeSelf)
 					{
@@ -315,7 +335,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 						_services.AudioFxService.PlayClip2D(_weaponAudioConfig.WeaponShotWindDownId, GameConstants.Audio.MIXER_GROUP_SFX_3D_ID);
 					}
 				}
-				
+
 				_weaponAim.gameObject.SetActive(shooting);
 				if (shooting)
 				{

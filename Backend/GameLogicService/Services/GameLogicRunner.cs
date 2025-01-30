@@ -2,11 +2,9 @@ using System.Threading.Tasks;
 using FirstLight.Server.SDK;
 using Microsoft.Extensions.Logging;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 using GameLogicService.Models;
-using GameLogicService.Services;
 
 
 namespace Backend.Game.Services

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
@@ -80,7 +81,7 @@ namespace FirstLight.Game.Services
 		public EntityRef GetSpectatedEntity();
 	}
 
-	public class SpectateService : ISpectateService, MatchServices.IMatchService
+	public class SpectateService : ISpectateService, IMatchService
 	{
 		private readonly IGameServices _gameServices;
 		private readonly IMatchServices _matchServices;
@@ -126,7 +127,6 @@ namespace FirstLight.Game.Services
 			if (_gameServices.RoomService.IsLocalPlayerSpectator)
 			{
 				SwipeRight(game);
-
 				return;
 			}
 
@@ -134,14 +134,29 @@ namespace FirstLight.Game.Services
 
 			if (isReconnect && !localPlayer.Entity.IsAlive(f))
 			{
+				FLog.Verbose("Swiping right, reconnection or local player not alive");
 				SwipeRight(game);
 			}
 			else
 			{
-				SetSpectatedEntity(game.Frames.Verified, localPlayer.Entity, localPlayer.Player, isReconnect);
+				// This is a workaround until we refactor how we load assets and match start flow
+				// The initial spectator update depends on having the entity view loaded else camera will fail
+				// setting its target. 
+				UniTask.NextFrame().ContinueWith(async () =>
+				{
+					await UniTaskUtils.WaitUntilTimeout(
+						() => IsEntityViewLoaded(localPlayer.Entity), TimeSpan.FromSeconds(10)
+					);
+					SetSpectatedEntity(game.Frames.Verified, localPlayer.Entity, localPlayer.Player, isReconnect);
+				});
 			}
 		}
 
+		private bool IsEntityViewLoaded(EntityRef e)
+		{
+			return _matchServices.EntityViewUpdaterService.TryGetView(e, out var _);
+		}
+		
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
 			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
@@ -271,6 +286,7 @@ namespace FirstLight.Game.Services
 
 		private unsafe bool SetSpectatedEntity(Frame f, EntityRef entity, PlayerRef player, bool safe = false)
 		{
+			FLog.Verbose("Spectating entity "+entity);
 			if (f != null && _matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{
 				var team = f.Unsafe.TryGetPointer<TeamMember>(entity, out var t) ? t->TeamId : -1;

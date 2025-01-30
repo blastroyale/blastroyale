@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Domains.VFX;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -64,14 +65,13 @@ namespace FirstLight.Tests.EditorMode
 			RemoteConfigProvider = new UnityRemoteConfigProvider();
 			TestNetwork = new GameNetworkService(TestConfigs);
 
-			TestVfx = new VfxService<VfxId>();
 
 			TestData = SetupPlayer(TestConfigs);
 			TestLogic = new GameLogic(messageBroker, RemoteConfigProvider, TimeService, TestData, TestConfigs);
 
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 				TestConfigs, TestLogic, TestData,
-				TestAssetResolver, TestTutorial, TestVfx);
+				TestAssetResolver, TestTutorial);
 			TestNetwork.StartNetworking(TestLogic, TestServices);
 			TestLogic.Init();
 

@@ -8,7 +8,10 @@ enum BuffStat : Byte
     PctBonusNoob,
     PctBonusPartnerToken,
     PctBonusBurnForRewards,
-    PctBonusBBs
+    PctBonusBBs,
+    PctBonusSnowflakes,
+    PctBonusEventTickets,
+    PctBonusFestiveCurrencies
 }
 
 enum BuffId : UInt16

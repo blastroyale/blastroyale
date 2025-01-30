@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87748ec297e468d8c996980a88d3c98, type: 3}
+  m_Name: MazeMayhem_AssetsConfig
+  m_EditorClassIdentifier: 
+  Scene:
+    m_AssetGUID: 368bf89a47cbb404b92c463d44a0e59f
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  QuantumMap:
+    m_AssetGUID: 9a64727ee7300524ca22c7fa8d7626f4
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapPreview:
+    m_AssetGUID: 9925399d46561064eb3665e7a998aada
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapAreas:
+    AreaTextureRef:
+      m_AssetGUID: 3733ffe6ac7b940b9afcb65bb0b3b302
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    Areas:
+    - Color:
+        serializedVersion: 2
+        rgba: 4280856831
+      Name: CONTAINERS
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255589
+      Name: ARCHIPELAGO
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255440
+      Name: COVE
+    - Color:
+        serializedVersion: 2
+        rgba: 4290711551
+      Name: WAREHOUSE
+    - Color:
+        serializedVersion: 2
+        rgba: 4278190335
+      Name: INDUSTRIAL COMPLEX
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255517
+      Name: STRANDED BAY
+    - Color:
+        serializedVersion: 2
+        rgba: 4286054144
+      Name: SHOAL
+    - Color:
+        serializedVersion: 2
+        rgba: 4291886848
+      Name: ABANDONED HOUSE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294955269
+      Name: CONSTRUCTION SITE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901934
+      Name: JUNKYARD
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901849
+      Name: CAR CRASH PARK
+    - Color:
+        serializedVersion: 2
+        rgba: 4294936069
+      Name: RUINS
+    - Color:
+        serializedVersion: 2
+        rgba: 4293460223
+      Name: MEADOWS
+    - Color:
+        serializedVersion: 2
+        rgba: 4294916864
+      Name: MANSION

@@ -1,0 +1,315 @@
+﻿.banner-root {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.blocker {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(9, 4, 19, 0.9);
+    top: 0;
+    left: 0;
+}
+
+.close-button {
+    position: absolute;
+    right: 75px;
+    width: 76px;
+    height: 76px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-close-white.png?fileID=21300000&guid=4df85ce872a81074581fef9150897ae5&type=3#icon-close-white');
+    top: -120px;
+}
+
+.banner {
+    flex-grow: 0;
+    width: 100%;
+    height: 692px;
+    align-self: center;
+}
+
+.banner__background {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-around;
+    background-image: var(--sprite-home__banner-back-green);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.banner__background--green {
+    background-image: var(--sprite-home__banner-back-green);
+}
+
+.banner__background--orange {
+    background-image: var(--sprite-home__banner-back-orange);
+}
+
+.banner-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between; 
+    align-items: stretch;
+}
+
+.banner-content-container {
+    flex-grow: 2; 
+    flex-shrink: 2; 
+    flex-basis: 0; 
+    height: 100%; 
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-content-container__mid-large {
+    flex-grow: 2.5;
+}
+
+.banner-content-container__mid-small {
+    flex-grow: 1.5;
+}
+
+.mainreward-spotlight__container {
+    top: -30px;
+    left: 80px;
+}
+
+.mainreward-spotlight {
+    position: absolute;
+    width: 1902px;
+    height: 1247px;
+    
+    align-items: center;
+    align-self: center;
+    background-image: var(--sprite-home__banner-spotlight-green);
+}
+
+.mainreward-spotlight__item {
+    width: 60%;
+    height: 60%;
+    background-image: var(--sprite-home__banner-character-valkyrie);
+    -unity-background-scale-mode: scale-to-fit;
+    align-self: center;
+    top: 240px;
+    left: -20px;
+}
+
+.mainreward-spotlight__item-text {
+    font-size: 28px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(216, 75, 121, 1);
+    padding: 5px 60px;
+    border-radius: 25px;
+    top: 130px;
+    left: -35px;
+}
+
+.reward-content {
+    flex-direction: column;
+    height: 100%;
+    padding: 15px 0;
+}
+
+.bundle-text-container {
+    height: 35%;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.bundle-text-container__title {
+    font-size: 84px;
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 6px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 6px 6px 0 rgb(0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Rubik-Black%20SDF.asset?fileID=11400000&guid=82951ee0c88a775439646cc2d7ea7e9d&type=2#Rubik-Black SDF");
+    -unity-font-style: normal;
+    -unity-text-align: upper-center;
+    letter-spacing: 3px;
+}
+
+.bundle-text-container__description {
+    font-size: 48px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    margin-top: -10px;
+    letter-spacing: 3px;
+}
+
+.bundle-content-container {
+    height: 65%;
+    align-items: center;
+    padding: 15px;
+}
+
+.bundle-rewards-text {
+    font-size: 44px;
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 6px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 6px 6px 0 rgb(0, 0, 0);
+    letter-spacing: 3px;
+}
+
+.bundle-rewards-container {
+    flex-grow: 1;
+    flex-direction: row;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: auto;
+}
+
+.reward-display-container {
+    width: 182px;
+    margin: 9px;
+}
+
+.reward-display {
+    flex-grow: 0;
+    background-color: rgb(12, 18, 78);
+    border-radius: 10px;
+    width: 182px;
+    height: 204px;
+    align-items: center;
+}
+
+.reward-display-icon {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+    
+}
+
+.reward-display-icon--currency {
+    width: 90%;
+    height: 90%;
+    margin-top: 15px;
+    position: absolute;
+    
+}
+
+.reward-display-icon--character {
+    width: 113%;
+    height: 113%;
+    position: absolute;
+    top: -6px;
+    overflow: visible;
+}
+
+
+
+.sprite-background {
+    background-image: var(--sprite-currencies__coin-3);
+}
+
+.reward-display-text {
+    overflow: visible;
+    font-size: 48px;
+    text-shadow: 3px 5px 0 rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-text-align: lower-center;
+    align-items: center;
+    letter-spacing: -1px;
+    padding: 0;
+    scale: 1;
+}
+
+.reward-display-text--currency {
+    position: absolute;
+    bottom: 5;
+    right: 15;
+}
+
+.reward-display-text_item-category {
+    font-size: 32px;
+    margin-top: 15px;
+} 
+
+
+.purchase-content {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.ribbon-text-container {
+    width: 1000px;
+    height: 200px;
+    align-self: flex-end;
+    align-items: center;
+    justify-content: center;
+    background-image: var(--sprite-home__banner-ribbon-copper);
+    rotate: 40deg;
+    top: 55;
+    right: -330;
+}
+
+.ribbon-text {
+    font-size: 128px;
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 6px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 6px 6px 0 rgb(156, 36, 12);
+    letter-spacing: -3px;
+}
+
+.ribbon-text__desc {
+    font-size: 64px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 6px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 6px 6px 0 rgb(156, 36, 12);
+    letter-spacing: -3px;
+    margin-bottom: 30px;
+}
+
+.purchase-bundle-button-container {
+    position: absolute;
+    bottom: 100;
+    align-self: center;
+    justify-content: flex-start;
+}
+
+.purchase-bundle-button {
+    font-size: 64px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 6px;
+    text-shadow: 5px 5px 0 rgb(156, 36, 12);
+    -unity-text-outline-color: rgb(156, 36, 12);
+    -unity-background-image-tint-color: rgba(255, 255, 255, 1);
+    padding-bottom: -19px;
+    -unity-paragraph-spacing: -30px;
+}
+
+.purchase-bundle-timer-container {
+    width: 360px;
+    height: 80px;
+    position: absolute;
+    top:170px;
+    padding-top: 20px;
+    background-color: rgb(12, 18, 78);
+    border-radius: 15px;
+    align-self: center;
+}
+
+.purchase-bundle-timer-text{
+    height: 100%;
+    -unity-text-align: middle-center;
+    font-size: 38px;
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: black;
+    color: rgb(248, 199, 46);
+}

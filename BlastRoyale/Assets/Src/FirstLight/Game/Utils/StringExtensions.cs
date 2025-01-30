@@ -1,7 +1,6 @@
-using System;
 using System.Text.RegularExpressions;
 
-namespace Src.FirstLight.Game.Utils
+namespace FirstLight.Game.Utils
 {
 	public static class StringExtensions
 	{
@@ -13,5 +12,16 @@ namespace Src.FirstLight.Game.Utils
 		{
 			return Regex.Replace(s, "(\\B[A-Z])", " $1").ToLowerInvariant();
 		}
+
+		public static string WithLineHeight(this string s, string value)
+		{
+			return "<line-height=" + value + ">" + s + "</line-height>";
+		}
+		
+		public static string WithFontSize(this string s, string value)
+		{
+			return "<size=" + value + ">" + s + "</size>";
+		}
+		
 	}
 }

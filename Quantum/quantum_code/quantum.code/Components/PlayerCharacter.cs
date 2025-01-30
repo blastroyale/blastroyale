@@ -12,10 +12,9 @@ namespace Quantum
 		public Transform2D spawnPosition;
 		public uint playerLevel;
 		public uint trophies;
-		public int teamId = -1;
+		public int teamId = -1; // This cannot be 0 for a valid value, component initialization will fail at TeamSystem
 		public List<Modifier> modifiers = null;
 		public uint minimumHealth = 0;
-		public GameId deathFlagID;
 	}
 
 	public unsafe partial struct PlayerCharacter
@@ -185,6 +184,7 @@ namespace Quantum
 
 			var equipmentData = new EquipmentEventData();
 			equipmentData.CurrentWeapon = CurrentWeapon;
+			equipmentData.Skin = PlayerLoadout.GetCosmetic(f, e, GameIdGroup.PlayerSkin) ?? GameId.MalePunk;
 			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker), equipmentData);
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker, fromRoofDamage);
 			f.Signals.PlayerDead(Player, e);
@@ -342,9 +342,8 @@ namespace Quantum
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
 
-			//the total time it takes for a burst to complete should be divded by the burst_interval_divider
-			//if we are only firing one shot, burst interval is 0
-			var burstCooldown = weaponConfig.NumberOfBursts > 1 ? weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER / (weaponConfig.NumberOfBursts - 1) : 0;
+			//If we are only firing one shot, burst interval is 0
+			var burstCooldown = weaponConfig.NumberOfBursts > 1 ? weaponConfig.BurstGapTime : 0;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.TapCooldown), weaponConfig.TapCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);

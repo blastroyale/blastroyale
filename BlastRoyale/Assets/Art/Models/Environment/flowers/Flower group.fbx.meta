@@ -36,7 +36,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["yellow_flower","Red_flower","pink_flower"],"padding":[256,256,256],"unwrapper":[0,0,0]}'
+    - '#BAKERY{"meshName":["yellow_flower","Red_flower","pink_flower"],"padding":[213,256,256],"unwrapper":[0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

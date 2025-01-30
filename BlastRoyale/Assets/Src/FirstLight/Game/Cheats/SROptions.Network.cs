@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Domains.HomeScreen.UI;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -15,6 +16,8 @@ public partial class SROptions
 
 	public bool IsMultiClient;
 
+	[Category("Quantum")] public bool DontSendPlayerData { get; set; }
+	
 	[Category("Photon")]
 	public void PrintCurrentServer()
 	{

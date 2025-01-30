@@ -52,14 +52,13 @@ namespace FirstLight.Game.Utils
 
 		public static bool IsLocalPlayerNotPresent()
 		{
-			if (QuantumRunner.Default != null && QuantumRunner.Default.Game != null)
+			if (QuantumRunner.Default.IsDefinedAndRunning(false))
 			{
 				var game = QuantumRunner.Default.Game;
 				var entity = game.GetLocalPlayerEntityRef();
 				if (!entity.IsValid || !game.Frames.Verified.Exists(entity)) return false;
 				return !game.Frames.Verified.Get<PlayerCharacter>(entity).RealPlayer;
 			}
-
 			return false;
 		}
 

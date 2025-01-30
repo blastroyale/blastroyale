@@ -32,11 +32,11 @@
       "dependencies": {}
     },
     "com.google.android.appbundle": {
-      "version": "https://github.com/google-unity/android-app-bundle.git#1.9.0",
-      "depth": 0,
-      "source": "git",
+      "version": "1.9.0",
+      "depth": 1,
+      "source": "registry",
       "dependencies": {},
-      "hash": "949f3b068fea450d96de8fc2a30def2d3de92315"
+      "url": "https://packages.unity.com"
     },
     "com.google.external-dependency-manager": {
       "version": "file:com.google.external-dependency-manager-1.2.179.tgz",
@@ -61,7 +61,7 @@
       }
     },
     "com.google.play.common": {
-      "version": "https://github.com/google-unity/google-play-common.git#1.9.1",
+      "version": "https://github.com/pancake-llc/google-play-common.git#1.9.1",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -70,7 +70,7 @@
       "hash": "8f1d52237ff0a5577416f15983ac509aa36c4e18"
     },
     "com.google.play.core": {
-      "version": "https://github.com/google-unity/google-play-core.git#1.8.4",
+      "version": "https://github.com/pancake-llc/google-play-core.git#1.8.4",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -80,7 +80,7 @@
       "hash": "9d676fdea835d32484e18fdbc94d1598045f7407"
     },
     "com.google.play.review": {
-      "version": "https://github.com/google-unity/in-app-review.git#1.8.2",
+      "version": "https://github.com/pancake-llc/in-app-review.git#1.8.2",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -88,16 +88,6 @@
         "com.google.play.core": "1.8.4"
       },
       "hash": "699315e1e8053b8c948685759c4fd38851c563b2"
-    },
-    "com.immutable.passport": {
-      "version": "https://github.com/immutable/unity-immutable-sdk.git?path=/src/Packages/Passport",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.2.0",
-        "com.cysharp.unitask": "2.3.3"
-      },
-      "hash": "7d0a15d5658df6747d9ee5ecba310cbe783d463f"
     },
     "com.kybernetik.animancer": {
       "version": "file:com.kybernetik.animancer",
@@ -181,11 +171,11 @@
       }
     },
     "com.unity.2d.animation": {
-      "version": "9.1.0",
+      "version": "9.1.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.common": "8.0.2",
+        "com.unity.2d.common": "8.0.4",
         "com.unity.2d.sprite": "1.0.0",
         "com.unity.collections": "1.1.0",
         "com.unity.modules.animation": "1.0.0",
@@ -194,7 +184,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.common": {
-      "version": "8.0.2",
+      "version": "8.0.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -213,7 +203,7 @@
       "dependencies": {}
     },
     "com.unity.addressables": {
-      "version": "1.21.21",
+      "version": "1.22.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -221,7 +211,7 @@
         "com.unity.modules.jsonserialize": "1.0.0",
         "com.unity.modules.imageconversion": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.scriptablebuildpipeline": "1.21.23",
+        "com.unity.scriptablebuildpipeline": "1.21.25",
         "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -243,18 +233,19 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.asset-manager-for-unity": {
-      "version": "0.9.0",
+      "version": "1.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.cloud.assets": "1.2.0",
-        "com.unity.cloud.identity": "1.2.0",
-        "com.unity.settings-manager": "1.0.2"
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.settings-manager": "2.0.1",
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.modules.unitywebrequest": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.13",
+      "version": "1.8.18",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -264,40 +255,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "2.10.0",
+      "version": "2.10.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.31"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.cloud.assets": {
-      "version": "1.2.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.cloud.common": "1.1.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.cloud.common": {
-      "version": "1.1.0",
-      "depth": 2,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.imgui": "1.0.0",
-        "com.unity.nuget.newtonsoft-json": "3.2.1",
-        "com.unity.modules.unitywebrequest": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.cloud.identity": {
-      "version": "1.2.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.cloud.common": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -333,7 +295,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.31",
+      "version": "3.0.34",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -351,7 +313,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.7.0",
+      "version": "1.11.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -367,7 +329,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.memoryprofiler": {
-      "version": "1.1.0",
+      "version": "1.1.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -376,14 +338,14 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.mobile.android-logcat": {
-      "version": "1.4.2",
+      "version": "1.4.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.mobile.notifications": {
-      "version": "2.3.2",
+      "version": "2.4.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -399,7 +361,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.probuilder": {
-      "version": "5.2.2",
+      "version": "5.2.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -485,7 +447,7 @@
       }
     },
     "com.unity.scriptablebuildpipeline": {
-      "version": "1.21.23",
+      "version": "1.21.25",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -499,12 +461,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.analytics": {
-      "version": "5.1.1",
+      "version": "6.0.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.ugui": "1.0.0",
-        "com.unity.services.core": "1.12.5",
+        "com.unity.services.core": "1.12.4",
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -621,7 +583,7 @@
       }
     },
     "com.unity.services.wire": {
-      "version": "1.2.6",
+      "version": "1.2.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {

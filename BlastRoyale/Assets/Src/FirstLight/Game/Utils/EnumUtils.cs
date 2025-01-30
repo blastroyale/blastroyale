@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Src.FirstLight.Game.Utils;
 
 namespace FirstLight.Game.Utils
 {

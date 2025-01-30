@@ -1,12 +1,10 @@
 using System;
-using System.Net.Http;
 using Backend.Db;
 using Backend.Game;
 using Backend.Game.Services;
 using Backend.Plugins;
 using Backend.Models;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -20,8 +18,11 @@ using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 using GameLogicService.Services;
 using GameLogicService.Services.Providers;
+using Medallion.Threading;
+using Medallion.Threading.Redis;
 using ServerCommon;
 using ServerCommon.CommonServices;
+using StackExchange.Redis;
 using PluginManager = Backend.Plugins.PluginManager;
 
 namespace Backend
@@ -55,12 +56,13 @@ namespace Backend
 			services.AddSingleton<IGameConfigurationService, GameConfigurationService>();
 			services.AddSingleton<IConfigBackendService, PlayfabConfigurationBackendService>();
 			services.AddSingleton<ServerEnvironmentService>();
-			services.AddSingleton<IInventorySyncService, PlayfabInventorySyncService>();
+			services.AddSingleton<IInventorySyncService<ItemData>, PlayfabInventorySyncService>();
 			services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
 			services.AddSingleton<IStoreService, PlayfabServerStoreService>();
 			services.AddSingleton<IItemCatalog<ItemData>, PlayfabItemCatalogService>();
 			services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 			services.AddSingleton<JsonConverter, StringEnumConverter>();
+
 			services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 			services.AddSingleton<GameServer>();
 			services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();
@@ -68,18 +70,36 @@ namespace Backend
 			services.AddSingleton<UnityCloudService>();
 			services.AddSingleton<IRemoteConfigService, UnityRemoteConfigService>();
 			services.AddHttpClient();
+			ConfigureRedisLock(services);
+			services.AddSingleton<IUserMutex, UserMutexWrapper>();
 			services.AddSingleton<IEventManager, PluginEventManager>(p =>
 			{
 				var pluginLogger = p.GetService<IPluginLogger>();
 				var eventManager = new PluginEventManager(pluginLogger);
 				var pluginSetup = new PluginContext(eventManager, p);
-				pluginManager.LoadPlugins(pluginSetup, appPath, services);
+				pluginManager.LoadPlugins(pluginSetup, p);
 				return eventManager;
 			});
 			services.AddSingleton<IConfigsProvider>(SetupConfigsProvider);
 			builder.SetupSharedServices(appPath);
 			pluginManager.LoadServerSetup(services);
 			return envConfig;
+		}
+
+		private static void ConfigureRedisLock(IServiceCollection services)
+		{
+			services.AddSingleton<IDistributedLockProvider>((p) =>
+			{
+				var connectionString = p.GetService<IBaseServiceConfiguration>().RedisLockConnectionString;
+				var connection = ConnectionMultiplexer.Connect(connectionString);
+				if (!connection.IsConnected)
+				{
+					throw new Exception("Failed to connect to distributed lock redis!");
+				}
+
+				return new RedisDistributedSynchronizationProvider(connection.GetDatabase(),
+					(b) => { b.Expiry(TimeSpan.FromSeconds(5)); });
+			});
 		}
 
 		private static IConfigsProvider SetupConfigsProvider(IServiceProvider services)

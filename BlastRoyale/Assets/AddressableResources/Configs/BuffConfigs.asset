@@ -32,6 +32,10 @@ MonoBehaviour:
         Value:
           RawValue: 6553600
         Stat: 3
+      - Op: 0
+        Value:
+          RawValue: 6553600
+        Stat: 9
     - Id: 1
       Modifiers:
       - Op: 0
@@ -46,6 +50,10 @@ MonoBehaviour:
         Value:
           RawValue: 2621440
         Stat: 3
+      - Op: 0
+        Value:
+          RawValue: 2621440
+        Stat: 9
     - Id: 2
       Modifiers:
       - Op: 0

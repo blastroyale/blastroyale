@@ -1013,6 +1013,7 @@ MonoBehaviour:
     MapEntities: []
   Prototypes:
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1098,6 +1099,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1183,6 +1185,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1268,6 +1271,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1353,6 +1357,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1438,6 +1443,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1523,6 +1529,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1608,6 +1615,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1693,6 +1701,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1778,6 +1787,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1863,6 +1873,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -1948,6 +1959,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2033,6 +2045,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2118,6 +2131,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2203,6 +2217,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2288,6 +2303,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2373,6 +2389,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2458,6 +2475,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2543,6 +2561,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2628,6 +2647,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2713,6 +2733,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2798,6 +2819,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2883,6 +2905,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -2968,6 +2991,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -3055,12 +3079,29 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
-    BotLoadout: []
+    BotLoadout:
+    - Weapon:
+        GameId:
+          Value: 90
+        Rarity:
+          Value: 0
+        Material:
+          Value: 0
+        Level: 1
+        Edition:
+          Value: 0
+        Grade:
+          Value: 0
+        Faction:
+          Value: 0
+        Adjective:
+          Value: 0
     Chest: []
     ChestContents: []
     ChunkDebug: []
@@ -3142,6 +3183,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -3245,6 +3287,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -3348,6 +3391,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -3451,6 +3495,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -3554,6 +3599,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -3657,101 +3703,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    BotLoadout: []
-    Chest: []
-    ChestContents: []
-    ChunkDebug: []
-    Collectable: []
-    CollectableChunks: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 10
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 90
-      RarityModifier: 0
-      Disabled:
-        Value: 0
-      DoNotDestroy:
-        Value: 0
-    CollectableTime: []
-    CompoundBTAgent: []
-    Consumable: []
-    CosmeticsHolder: []
-    DeadPlayerCharacter: []
-    DeathFlag: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EntityGroup: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    KnockedOut: []
-    KnockedOutCollider: []
-    LandMine: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerInventory: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    Revivable: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    TeamMember: []
-    TopDownController: []
-    Trigger: []
-    TutorialRuntimeData: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D:
-    - Position:
-        X:
-          RawValue: -251134
-        Y:
-          RawValue: -1679294
-      Rotation:
-        RawValue: 0
-    Transform2DVertical: []
-    Transform3D: []
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -3855,6 +3807,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -3940,6 +3893,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -3979,7 +3933,7 @@ MonoBehaviour:
     PlayerInventory: []
     PlayerSpawner:
     - SpawnerType:
-        Value: 3
+        Value: 2
       BehaviourType:
         Value: 2
     Projectile: []
@@ -4025,6 +3979,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4110,6 +4065,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4195,6 +4151,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4290,6 +4247,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4385,6 +4343,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4480,6 +4439,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4575,6 +4535,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4670,6 +4631,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4765,6 +4727,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4860,6 +4823,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -4955,6 +4919,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5050,6 +5015,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5145,6 +5111,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5240,6 +5207,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5335,6 +5303,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5430,6 +5399,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5525,6 +5495,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5620,6 +5591,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5715,6 +5687,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5810,6 +5783,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -5905,6 +5879,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -6000,6 +5975,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -6095,6 +6071,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -6190,6 +6167,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -6285,6 +6263,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -6353,7 +6332,7 @@ MonoBehaviour:
     PhysicsBody3D: []
     PhysicsCollider2D:
     - ShapeConfig:
-        ShapeType: 4
+        ShapeType: 16
         PolygonCollider:
           Id:
             Value: 0
@@ -6423,6 +6402,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop:
     - Position:
         X:
@@ -6556,6 +6536,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -6651,6 +6632,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -6746,6 +6728,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -6841,6 +6824,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -6936,6 +6920,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7031,6 +7016,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7126,6 +7112,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7221,6 +7208,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7316,6 +7304,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7339,11 +7328,11 @@ MonoBehaviour:
     EntityDestroyer: []
     EntityGroup:
     - Entities:
+      - SceneIndexPlusOne: 65
       - SceneIndexPlusOne: 66
       - SceneIndexPlusOne: 67
-      - SceneIndexPlusOne: 68
+      - SceneIndexPlusOne: 79
       - SceneIndexPlusOne: 80
-      - SceneIndexPlusOne: 81
       EntitiesToKeep: 3
     EquipmentCollectable: []
     GOAPAgent: []
@@ -7404,6 +7393,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7427,11 +7417,11 @@ MonoBehaviour:
     EntityDestroyer: []
     EntityGroup:
     - Entities:
+      - SceneIndexPlusOne: 70
       - SceneIndexPlusOne: 71
-      - SceneIndexPlusOne: 72
+      - SceneIndexPlusOne: 77
       - SceneIndexPlusOne: 78
-      - SceneIndexPlusOne: 79
-      - SceneIndexPlusOne: 69
+      - SceneIndexPlusOne: 68
       EntitiesToKeep: 2
     EquipmentCollectable: []
     GOAPAgent: []
@@ -7492,6 +7482,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7587,6 +7578,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7682,6 +7674,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7777,6 +7770,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7872,6 +7866,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -7967,6 +7962,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -8062,6 +8058,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -8157,6 +8154,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -8180,11 +8178,11 @@ MonoBehaviour:
     EntityDestroyer: []
     EntityGroup:
     - Entities:
+      - SceneIndexPlusOne: 72
       - SceneIndexPlusOne: 73
       - SceneIndexPlusOne: 74
       - SceneIndexPlusOne: 75
       - SceneIndexPlusOne: 76
-      - SceneIndexPlusOne: 77
       EntitiesToKeep: 1
     EquipmentCollectable: []
     GOAPAgent: []
@@ -8245,6 +8243,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -8268,11 +8267,11 @@ MonoBehaviour:
     EntityDestroyer: []
     EntityGroup:
     - Entities:
+      - SceneIndexPlusOne: 60
       - SceneIndexPlusOne: 61
       - SceneIndexPlusOne: 62
       - SceneIndexPlusOne: 63
       - SceneIndexPlusOne: 64
-      - SceneIndexPlusOne: 65
       EntitiesToKeep: 2
     EquipmentCollectable: []
     GOAPAgent: []
@@ -8333,6 +8332,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []
@@ -8428,6 +8428,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AfkPlayer: []
     AirDrop: []
     AirDropSpawner: []
     AlivePlayerCharacter: []

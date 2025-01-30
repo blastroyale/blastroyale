@@ -1,19 +1,9 @@
 using System;
-using System.IO;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Backend;
-using Backend.Game.Services;
 using FirstLight.Game.Data;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using PlayFab;
 using Quantum;
 using ServerCommon.Authentication.ApiKey;
 using ServerCommon.Cloudscript.Models;
@@ -27,14 +17,14 @@ namespace ServerCommon.Cloudscript
 	public class EconomyController : ControllerBase
 	{
 		private readonly IServerStateService _serverState;
-		private readonly IServerMutex _mutex;
+		private readonly IUserMutex _userMutex;
 
-		public EconomyController(IServerStateService state, IServerMutex mutex)
+		public EconomyController(IServerStateService state, IUserMutex userMutex)
 		{
 			_serverState = state;
-			_mutex = mutex;
+			_userMutex = userMutex;
 		}
-		
+
 		[HttpGet]
 		[RequiresApiKey]
 		[Route("getcurrency")]
@@ -46,15 +36,14 @@ namespace ServerCommon.Cloudscript
 			playerData.Currencies.TryGetValue(currencyGameId, out var currencyAmount);
 			return Ok(currencyAmount);
 		}
-		
+
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("modifycurrency")]
 		public async Task<dynamic> ModifyCurrency([FromBody] CurrencyUpdateRequest request)
 		{
-			try
+			await using (await _userMutex.LockUser(request.PlayerId))
 			{
-				await _mutex.Lock(request.PlayerId);
 				var state = await _serverState.GetPlayerState(request.PlayerId);
 				var playerData = state.DeserializeModel<PlayerData>();
 				var currencyGameId = (GameId) request.CurrencyId;
@@ -63,16 +52,14 @@ namespace ServerCommon.Cloudscript
 				castedAmount += request.Delta;
 				if (castedAmount < 0)
 				{
-					return Conflict($"{castedAmount} of currency {currencyGameId}, not enough for delta {request.Delta}");
-				} 
+					return Conflict(
+						$"{castedAmount} of currency {currencyGameId}, not enough for delta {request.Delta}");
+				}
+
 				playerData.Currencies[currencyGameId] = Convert.ToUInt64(castedAmount);
 				state.UpdateModel(playerData);
 				await _serverState.UpdatePlayerState(request.PlayerId, state);
 				return Ok(castedAmount);
-			}
-			finally
-			{
-				_mutex.Unlock(request.PlayerId);
 			}
 		}
 	}

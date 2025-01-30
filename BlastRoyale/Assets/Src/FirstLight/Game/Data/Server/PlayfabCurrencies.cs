@@ -16,7 +16,30 @@ namespace FirstLight.Models
 			{ GameId.BlastBuck, "BB" },
 			{ GameId.XP, "XP" },
 			{ GameId.RealMoney, "RM" },
-			{ GameId.NOOB, "NB" }
+			{ GameId.NOOB, "NB" },
+			{ GameId.PartnerAPECOIN, "AP"},
+			{ GameId.PartnerBEAM, "BE" },
+			{ GameId.PartnerBLOCKLORDS, "BK" },
+			{ GameId.PartnerBLOODLOOP, "BL" },
+			{ GameId.PartnerBREED, "BD" },
+			{ GameId.PartnerCROSSTHEAGES, "CA" },
+			{ GameId.PartnerFARCANA, "FC" },
+			{ GameId.PartnerGAM3SGG, "GG" },
+			{ GameId.PartnerIMMUTABLE, "IM" },
+			{ GameId.PartnerMEME, "MM" },
+			{ GameId.PartnerMOCAVERSE, "MV" },
+			{ GameId.PartnerNYANHEROES, "NH" },
+			{ GameId.PartnerPIRATENATION, "PN" },
+			{ GameId.PartnerPIXELMON, "PX" },
+			{ GameId.PartnerPLANETMOJO, "PM" },
+			{ GameId.PartnerSEEDIFY, "SD" },
+			{ GameId.PartnerWILDERWORLD, "WW" },
+			{ GameId.PartnerXBORG, "XB" },
+			{ GameId.PartnerYGG, "YG"},
+			{ GameId.FestiveSNOWFLAKE, "SF"},
+			{ GameId.EventTicket, "ET"},
+			{ GameId.FestiveLUNARCOIN, "LC"},
+			{ GameId.FestiveFEATHER, "FT"}
 		};
 
 		/// <summary>

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using FirstLight.Server.SDK.Models;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.Metrics;
-using Microsoft.Extensions.Logging;
 
 namespace ServerCommon.CommonServices
 {

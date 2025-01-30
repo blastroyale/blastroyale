@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Domains.HomeScreen.UI;
 using FirstLight.Game.Presenters;
 using UnityEngine;
 using Random = UnityEngine.Random;

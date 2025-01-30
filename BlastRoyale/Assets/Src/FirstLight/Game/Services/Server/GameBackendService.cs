@@ -68,7 +68,7 @@ namespace FirstLight.Game.Services
 		/// Introduced as a workaround due to requiring two synchronous commands
 		/// from two different services (Logic Service & Quantum Server)
 		/// </summary>
-		void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError);
+		UniTask<bool> CheckIfRewardsMatch();
 
 		/// <summary>
 		/// Obtains all segments the player is in.
@@ -204,26 +204,26 @@ namespace FirstLight.Game.Services
 			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccessWrapper, onError);
 		}
 
-		public void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError)
+		public async UniTask<bool> CheckIfRewardsMatch()
 		{
-			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest() {Keys = new List<string>() {typeof(PlayerData).FullName}}, result =>
-			{
-				var modelJson = result.Data[typeof(PlayerData).FullName].Value;
-				var model = ModelSerializer.Deserialize<PlayerData>(modelJson);
-				var serverState = model.UncollectedRewards;
-				var clientState = _dataProvider.RewardDataProvider.UnclaimedRewards;
-				var inSync = serverState.SequenceEqual(clientState);
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-				if (!inSync)
-				{
-					FLog.Error("Client Rewards: " + ModelSerializer.Serialize(clientState));
-					FLog.Error("Server Rewards: " + ModelSerializer.Serialize(serverState));
-				}
-#endif
-				onSuccess(inSync);
-			}, e => { HandleError(e, onError); });
-		}
+			var req = new GetUserDataRequest() {Keys = new List<string>() {typeof(PlayerData).FullName}};
+			var result = await AsyncPlayfabAPI.ClientAPI.GetUserReadOnlyData(req);
 
+			var modelJson = result.Data[typeof(PlayerData).FullName].Value;
+			var model = ModelSerializer.Deserialize<PlayerData>(modelJson);
+			var serverState = model.UncollectedRewards;
+			var clientState = _dataProvider.RewardDataProvider.UnclaimedRewards;
+			var inSync = serverState.SequenceEqual(clientState);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+			if (!inSync)
+			{
+				FLog.Error("Client Rewards: " + ModelSerializer.Serialize(clientState));
+				FLog.Error("Server Rewards: " + ModelSerializer.Serialize(serverState));
+			}
+#endif
+			return inSync;
+		}
+		
 		public UniTask<ExecuteFunctionResult> CallGenericFunction(string functionName, Dictionary<string, string> data = null)
 		{
 			return CallFunctionAsync("Generic", new LogicRequest()

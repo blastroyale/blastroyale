@@ -17,6 +17,7 @@ namespace FirstLight.Game.Services
 {
 	/// <summary>
 	/// Service to extend the behaviour to load assets into the project based on it's own custom needs
+	///  TODO: Remove this, causes a lot of confusion not needed abstractions
 	/// </summary>
 	public interface IAssetResolverService : IAssetLoader, ISceneLoader
 	{

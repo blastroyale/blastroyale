@@ -1,85 +1,95 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Styles/MatchSettingsButtonStyle.uss?fileID=7433441132597879392&amp;guid=49dfa0136e894e18a6e53beb23b7a53e&amp;type=3#MatchSettingsButtonStyle" />
     <Style src="project://database/Assets/Art/UI/Templates/MatchInfoPopupStyle.uss?fileID=7433441132597879392&amp;guid=24c96d0135f8f44c2ba264c9f99851d9&amp;type=3#MatchInfoPopupStyle" />
-    <ui:VisualElement name="Content" class="content">
-        <ui:VisualElement name="Left" class="content__left">
-            <ui:VisualElement name="EventContainer" class="event-container">
-                <ui:VisualElement name="TopPart" class="event-container__top">
-                    <FirstLight.Game.UIElements.LabelOutlined text="BATTLE ROYALE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EventTitle" class="title" />
-                    <ui:Label name="EventTimer" text="ENDS IN 23h 24m 34s" class="event-ends-label" />
-                    <ui:VisualElement name="EventThumbnail" class="event-thumbnail">
-                        <ui:VisualElement class="event-thumbnail__mask">
-                            <ui:VisualElement name="EventImage" class="event-thumbnail__image" />
+    <Style src="project://database/Assets/Art/UI/Screens/PopupStyle.uss?fileID=7433441132597879392&amp;guid=a80bca05a36ab4f39abe7eca214be5f7&amp;type=3#PopupStyle" />
+    <ui:VisualElement name="root" class="root fill-parent">
+        <FirstLight.Game.UIElements.ImageButton name="Blocker" class="fill-parent blocker" />
+        <FirstLight.Game.UIElements.GenericPopupElement name="Popup">
+            <ui:VisualElement name="Content" class="content event-container--custom-image">
+                <ui:VisualElement name="Left" class="content__left">
+                    <ui:VisualElement name="EventContainer" class="event-container event-container--custom-image">
+                        <ui:VisualElement name="TopPart" class="event-container__top">
+                            <FirstLight.Game.UIElements.LabelOutlined text="BATTLE ROYALE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EventTitle" class="title" />
+                            <ui:Label name="EventTimer" text="ENDS IN 23h 24m 34s" class="event-ends-label" />
+                            <ui:VisualElement name="EventThumbnail" class="event-thumbnail">
+                                <ui:VisualElement class="event-thumbnail__mask">
+                                    <ui:VisualElement name="EventImage" class="event-thumbnail__image" style="background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/gamemode/gamemode-solo-event-characters.png?fileID=2800000&amp;guid=30c73b73a6ea714498312b9827d87a46&amp;type=3#gamemode-solo-event-characters&quot;);" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="rewards-container">
+                            <FirstLight.Game.UIElements.LocalizedLabel name="RewardsTitle" localization-key="UITGameModeSelection/rewards" class="left-container-label" />
+                            <ui:VisualElement name="RewardsListContainer" class="rewards-list-container">
+                                <ui:Label text="x2" class="event-reward" />
+                                <ui:Label text="x2" class="event-reward" />
+                                <ui:Label text="x2" class="event-reward" />
+                                <ui:Label text="x2" class="event-reward" />
+                                <ui:Label text="x2" class="event-reward" />
+                                <ui:Label text="x2" class="event-reward" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement class="rewards-container">
-                    <FirstLight.Game.UIElements.LocalizedLabel name="RewardsTitle" localization-key="UITGameModeSelection/rewards" class="left-container-label" />
-                    <ui:VisualElement name="RewardsListContainer" class="rewards-list-container">
-                        <ui:Label text="x2" class="event-reward" />
-                        <ui:Label text="x2" class="event-reward" />
-                        <ui:Label text="x2" class="event-reward" />
-                        <ui:Label text="x2" class="event-reward" />
-                        <ui:Label text="x2" class="event-reward" />
-                        <ui:Label text="x2" class="event-reward" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="CustomGameContainer" class="custom-game-container">
-                <FirstLight.Game.UIElements.LabelOutlined text="BATTLE ROYALE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="title" />
-                <ui:VisualElement name="CustomThumbnail" class="thumbnail sprite-home__icon-match-solos" />
-                <ui:VisualElement style="flex-grow: 1;" />
-                <FirstLight.Game.UIElements.LocalizedLabel name="FriendsTitle" localization-key="UITCustomGames/friends_playing" class="left-container-label" />
-                <ui:ScrollView name="FriendsInMatchScrollView" class="friends-match-scroll-container">
-                    <ui:Label tabindex="-1" text="Squeazer#443" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    <ui:Label tabindex="-1" text="DaveTheMagicalCheeseWizard#42" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    <ui:Label tabindex="-1" text="Player#332" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    <ui:Label tabindex="-1" text="Chalmers#444" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    <ui:Label tabindex="-1" text="LittleJoseph#443" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    <ui:Label tabindex="-1" text="FullPlateCat#42" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    <ui:Label tabindex="-1" text="Lychee#332" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    <ui:Label tabindex="-1" text="Potato#444" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    <ui:Label tabindex="-1" text="PrincessDonuts#443" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                    <ui:Label tabindex="-1" text="DoidaMaria#42" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                </ui:ScrollView>
-            </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement name="Right" class="content__right">
-            <ui:ScrollView horizontal-scroller-visibility="Hidden" class="right-scroll" style="flex-grow: 1;">
-                <FirstLight.Game.UIElements.LocalizedLabel name="SummaryTitle" localization-key="UITShared/summary" class="summary-title" />
-                <ui:Label tabindex="-1" text="Classic Battle Royale, created by Playername123" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Summary" class="summary" />
-                <ui:VisualElement name="Row1" class="row">
-                    <FirstLight.Game.UIElements.MatchSettingsButtonElement title-localization-key="UITCustomGames/mode" name="GameMode" class="match-settings-button--margin" />
-                    <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MaxPlayers" numerical="true" title-localization-key="UITCustomGames/max_players" />
-                </ui:VisualElement>
-                <ui:VisualElement name="Row2" class="row">
-                    <FirstLight.Game.UIElements.MatchSettingsButtonElement name="Map" title-localization-key="UITCustomGames/map" class="match-settings-button--margin" />
-                    <FirstLight.Game.UIElements.MatchSettingsButtonElement name="SquadSize" numerical="true" title-localization-key="UITCustomGames/team_size" />
-                </ui:VisualElement>
-                <ui:VisualElement name="MutatorsContainer" class="horizontal-label-list__container">
-                    <FirstLight.Game.UIElements.LabelOutlined text="MUTATORS" class="horizontal-label-list__container__label" />
-                    <ui:VisualElement class="horizontal-label-list__background">
-                        <ui:ScrollView name="MutatorsScroll" mode="Horizontal" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" class="horizontal-label-list__scroll ">
-                            <ui:Label text="No Revive" />
-                            <ui:Label text="No Revive" />
-                            <ui:Label text="No Revive" />
-                            <ui:Label text="No Revive" />
-                            <ui:Label text="No Revive" />
-                            <ui:Label text="No Revive" />
-                            <ui:Label text="No Revive" />
+                    <ui:VisualElement name="CustomGameContainer" class="custom-game-container">
+                        <FirstLight.Game.UIElements.LabelOutlined text="BATTLE ROYALE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="title" />
+                        <ui:VisualElement name="CustomThumbnail" class="thumbnail sprite-home__icon-match-solos" />
+                        <ui:VisualElement style="flex-grow: 1;" />
+                        <FirstLight.Game.UIElements.LocalizedLabel name="FriendsTitle" localization-key="UITCustomGames/friends_playing" class="left-container-label" />
+                        <ui:ScrollView name="FriendsInMatchScrollView" class="friends-match-scroll-container">
+                            <ui:Label tabindex="-1" text="Squeazer#443" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                            <ui:Label tabindex="-1" text="DaveTheMagicalCheeseWizard#42" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                            <ui:Label tabindex="-1" text="Player#332" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                            <ui:Label tabindex="-1" text="Chalmers#444" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                            <ui:Label tabindex="-1" text="LittleJoseph#443" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                            <ui:Label tabindex="-1" text="FullPlateCat#42" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                            <ui:Label tabindex="-1" text="Lychee#332" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                            <ui:Label tabindex="-1" text="Potato#444" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                            <ui:Label tabindex="-1" text="PrincessDonuts#443" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                            <ui:Label tabindex="-1" text="DoidaMaria#42" parse-escape-sequences="true" display-tooltip-when-elided="true" />
                         </ui:ScrollView>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="AllowedWeaponsContainer" class="horizontal-label-list__container">
-                    <FirstLight.Game.UIElements.LabelOutlined text="ALLOWED WEAPONS" class="horizontal-label-list__container__label" />
-                    <ui:VisualElement class="horizontal-label-list__background">
-                        <ui:ScrollView name="AllowedWeaponsScroll" mode="Horizontal" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" class="horizontal-label-list__scroll ">
-                            <ui:Label text="PISTOL" />
-                        </ui:ScrollView>
-                    </ui:VisualElement>
+                <ui:VisualElement name="Right" class="content__right">
+                    <ui:ScrollView horizontal-scroller-visibility="Hidden" class="right-scroll" style="flex-grow: 1;">
+                        <FirstLight.Game.UIElements.LocalizedLabel name="SummaryTitle" localization-key="UITShared/summary" class="summary-title" />
+                        <ui:Label tabindex="-1" text="Classic Battle Royale, created by Playername123" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Summary" class="summary" />
+                        <ui:VisualElement name="Row1" class="row">
+                            <FirstLight.Game.UIElements.MatchSettingsButtonElement title-localization-key="UITCustomGames/mode" name="GameMode" class="match-settings-button--margin" />
+                            <FirstLight.Game.UIElements.MatchSettingsButtonElement name="MaxPlayers" numerical="true" title-localization-key="UITCustomGames/max_players" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Row2" class="row">
+                            <FirstLight.Game.UIElements.MatchSettingsButtonElement name="Map" title-localization-key="UITCustomGames/map" class="match-settings-button--margin" />
+                            <FirstLight.Game.UIElements.MatchSettingsButtonElement name="SquadSize" numerical="true" title-localization-key="UITCustomGames/team_size" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="MutatorsContainer" class="horizontal-label-list__container">
+                            <FirstLight.Game.UIElements.LabelOutlined text="MUTATORS" class="horizontal-label-list__container__label" />
+                            <ui:VisualElement class="horizontal-label-list__background">
+                                <ui:ScrollView name="MutatorsScroll" mode="Horizontal" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" class="horizontal-label-list__scroll ">
+                                    <ui:Label text="No Revive" />
+                                    <ui:Label text="No Revive" />
+                                    <ui:Label text="No Revive" />
+                                    <ui:Label text="No Revive" />
+                                    <ui:Label text="No Revive" />
+                                    <ui:Label text="No Revive" />
+                                    <ui:Label text="No Revive" />
+                                </ui:ScrollView>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="AllowedWeaponsContainer" class="horizontal-label-list__container">
+                            <FirstLight.Game.UIElements.LabelOutlined text="ALLOWED WEAPONS" class="horizontal-label-list__container__label" />
+                            <ui:VisualElement class="horizontal-label-list__background">
+                                <ui:ScrollView name="AllowedWeaponsScroll" mode="Horizontal" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" class="horizontal-label-list__scroll ">
+                                    <ui:Label text="PISTOL" />
+                                </ui:ScrollView>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+                    <FirstLight.Game.UIElements.LabelOutlined text="ABOVE BUTTON LABEL" name="AboveButtonLabel" class="game-label game-label--small" />
+                    <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-color="Primary" btn-text="&lt;line-height=80%&gt;20 &lt;sprite name=&quot;BB&quot;&gt;" name="ActionButton" class="participate-button" style="align-self: center;" />
                 </ui:VisualElement>
-            </ui:ScrollView>
-            <FirstLight.Game.UIElements.LocalizedButton text="##" name="ActionButton" localization-key="UITCustomGames/join" class="button-long button-long--yellow join-button" />
-        </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="TopButtons" class="top-buttons" style="flex-grow: 0; position: absolute; top: -154px; right: auto; align-self: flex-end; margin-right: 0; margin-bottom: 20px; height: 16px; width: 293px; left: 1079px;">
+                <ui:VisualElement name="TopCurrenciesBar" style="flex-grow: 1; flex-direction: row;" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.GenericPopupElement>
     </ui:VisualElement>
 </ui:UXML>

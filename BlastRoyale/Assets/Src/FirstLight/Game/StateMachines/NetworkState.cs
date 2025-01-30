@@ -106,17 +106,14 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
-			_services.MatchmakingService.OnGameMatched += OnGameMatched;
-			_services.MatchmakingService.OnMatchmakingJoined += OnMatchmakingJoined;
-			_services.MatchmakingService.OnMatchmakingCancelled += OnMatchmakingCancelled;
+			_services.MessageBrokerService.Subscribe<MatchmakingMatchFoundMessage>(OnGameMatched);
+			_services.MessageBrokerService.Subscribe<MatchmakingJoinedMessage>(OnMatchmakingJoined);
+			_services.MessageBrokerService.Subscribe<MatchmakingLeftMessage>(OnMatchmakingCancelled);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services.MatchmakingService.OnGameMatched -= OnGameMatched;
-			_services.MatchmakingService.OnMatchmakingJoined -= OnMatchmakingJoined;
-			_services.MatchmakingService.OnMatchmakingCancelled -= OnMatchmakingCancelled;
 		}
 
 		private void SubscribeDisconnectEvents()
@@ -179,8 +176,9 @@ namespace FirstLight.Game.StateMachines
 			_networkService.ReconnectPhoton(out _requiresManualRoomReconnection);
 		}
 
-		private void OnGameMatched(GameMatched match)
+		private void OnGameMatched(MatchmakingMatchFoundMessage msg)
 		{
+			var match = msg.Game;
 			if (match.RoomSetup.SimulationConfig.MapId == GameId.Any.ToString())
 			{
 				var maps = _services.GameModeService.ValidMatchmakingMaps;
@@ -192,8 +190,9 @@ namespace FirstLight.Game.StateMachines
 			_services.GenericDialogService.CloseDialog();
 		}
 
-		private void OnMatchmakingJoined(JoinedMatchmaking match)
+		private void OnMatchmakingJoined(MatchmakingJoinedMessage msg)
 		{
+			var match = msg.Config;
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 			_networkService.LastUsedSetup.Value = match.DeserializeRoomSetup();
 			_statechartTrigger(JoinedPlayfabMatchmaking);
@@ -204,26 +203,35 @@ namespace FirstLight.Game.StateMachines
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 		}
 
-		private void OnMatchmakingCancelled()
+		private void OnMatchmakingCancelled(MatchmakingLeftMessage matchmakingLeftMessage)
 		{
 			_statechartTrigger(CanceledMatchmakingEvent);
 		}
 
-		private void StartRandomMatchmaking(MatchRoomSetup setup)
+		private async UniTaskVoid StartRandomMatchmaking(MatchRoomSetup setup)
 		{
 			_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 
 			FLog.Verbose("Using playfab matchmaking!");
 			_networkService.LastUsedSetup.Value = setup;
-			IsCurrentConfigsValid(setup).ContinueWith((valid) =>
+			var isConfigsValid = await IsCurrentConfigsValid(setup);
+			if (!isConfigsValid)
 			{
-				if (!valid) {
-					_statechartTrigger(CanceledMatchmakingEvent);
-					return;
-				}
-				_services.MatchmakingService.JoinMatchmaking(setup);
-			}).Forget();
+				_statechartTrigger(CanceledMatchmakingEvent);
+				return;
+			}
+
+			try
+			{
+				await _services.MatchmakingService.JoinMatchmaking(setup);
+			}
+			catch (Exception ex)
+			{
+				_services.InGameNotificationService.QueueNotification("Failed to join matchmaking!", InGameNotificationStyle.Error);
+				FLog.Error("Failed to join playfab matchmaking", ex);
+				_statechartTrigger(CanceledMatchmakingEvent);
+			}
 		}
 
 		private async UniTask<bool> IsCurrentConfigsValid(MatchRoomSetup setup)
@@ -536,7 +544,7 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose("Received play ready matchmaking at network state");
 			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
 			// This is the same flow as the first match setup
-			if (_services.TutorialService.IsTutorialRunning)
+			if (_services.TutorialService.IsTutorialRunning && FeatureFlags.TUTORIAL_BATTLE)
 			{
 				FLog.Verbose("Tutorial running!");
 				return;
@@ -557,11 +565,12 @@ namespace FirstLight.Game.StateMachines
 				SimulationConfig = simulationConfig,
 			};
 
-			StartRandomMatchmaking(matchmakingSetup);
+			StartRandomMatchmaking(matchmakingSetup).Forget();
 		}
 
 		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)
 		{
+			Debug.Log("POCO LEAVING MATCHMAKING");
 			_services.MatchmakingService.LeaveMatchmaking();
 		}
 

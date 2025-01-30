@@ -12,9 +12,9 @@ namespace FirstLight.Editor.Artifacts
 		{
 			var serializer = new ConfigsSerializer();
 			var configs = new ConfigsProvider();
-			var configsLoader = new GameConfigsLoader(new AssetResolverService());
+			var configsLoader = new GameConfigsLoader(new AssetResolverService(), configs);
 			Debug.Log("Parsing Configs");
-			configsLoader.LoadConfigEditor(configs);
+			configsLoader.LoadConfigEditor();
 
 			return serializer.Serialize(configs, "develop");
 		}

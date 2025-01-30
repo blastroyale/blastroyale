@@ -160,6 +160,7 @@ namespace FirstLight.Game.Presenters
 				}).Forget();
 			}
 
+			FLog.Info("Data on finish invoked!");
 			Data.OnFinish?.Invoke();
 		}
 

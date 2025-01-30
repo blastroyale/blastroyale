@@ -96,7 +96,7 @@ namespace FirstLight.Game.Presenters
 
 			if (playVfxMarker != null && !_entityViewTransform.IsDestroyed())
 			{
-				_services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _entityViewTransform.position;
+				_matchService.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _entityViewTransform.position;
 			}
 		}
 

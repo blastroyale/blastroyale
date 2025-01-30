@@ -16,11 +16,26 @@
                     <ui:VisualElement name="Icon" class="settings-button__icon" />
                     <ui:VisualElement name="SettingsNotification" class="notification-icon button-with-icon__notification" style="top: -1px; right: -5px;" />
                 </FirstLight.Game.UIElements.ImageButton>
-                <FirstLight.Game.UIElements.CryptoCurrenciesDisplayElement name="CryptoCurrency" class="anim-delay-1 anim-translate anim-translate--down-s currency-display-space" />
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-2 anim-translate anim-translate--down-s currency-display-space" />
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="BlastBuckCurrency" currency="BlastBuck" class="anim-delay-3 anim-translate anim-translate--down-s currency-display-space" />
+                <ui:VisualElement name="TopCurrenciesBar" style="flex-grow: 1; flex-direction: row;" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
+                <ui:VisualElement class="anim-delay-3 anim-translate anim-translate--left-xl" style="flex-direction: row; margin-bottom: 38px;">
+                    <FirstLight.Game.UIElements.ImageButton name="OpenBundleButton" class="sfx-click-forwards main-button-margin" style="margin-bottom: 5px;">
+                        <ui:VisualElement name="BundleEffects" picking-mode="Ignore" class="fill-parent bundle-shine-effect">
+                            <ui:VisualElement name="BundleShine" picking-mode="Ignore" class="bundle-shine-effect__shine" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="button-with-icon button-with-icon--bundle">
+                            <ui:VisualElement name="Mask" class="mask">
+                                <ui:VisualElement name="BundleIcon" class="button-with-icon__icon" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="BundleDiscountBalloon" class="discount-balloon">
+                                <ui:Label text="-90%" name="BundleDiscount" class="discount-text" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="BundleCurrencyIcon" class="bundle-currency-icon" />
+                        </ui:VisualElement>
+                        <FirstLight.Game.UIElements.LabelOutlined name="BundleCooldown" text="31d 18h 53m" class="bundle-cooldown" />
+                    </FirstLight.Game.UIElements.ImageButton>
+                </ui:VisualElement>
                 <ui:VisualElement class="anim-delay-3 anim-translate anim-translate--left-xl" style="flex-direction: row; margin-bottom: 38px;">
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyUpButton" class="sfx-click-forwards button-with-icon button-with-icon--party main-button-margin" style="margin-bottom: 5px;">
                         <ui:VisualElement name="TeamIcon" class="button-with-icon__icon" />
@@ -28,7 +43,7 @@
                             <ui:Label text="999" name="OnlineFriendsCount" />
                         </ui:VisualElement>
                     </FirstLight.Game.UIElements.LocalizedButton>
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes main-button-margin" style="margin-bottom: 5px;">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/friends" name="FriendsButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes main-button-margin" style="margin-bottom: 5px; -unity-font-style: normal;">
                         <ui:VisualElement name="FriendsIcon" class="button-with-icon__icon" />
                         <ui:VisualElement name="FriendsNotification" class="notification-icon button-with-icon__notification" />
                     </FirstLight.Game.UIElements.LocalizedButton>
@@ -45,12 +60,11 @@
                         <ui:VisualElement name="NewEventGlow" picking-mode="Ignore" class="game-mode-button__new-event-glow" />
                     </ui:VisualElement>
                     <ui:VisualElement name="GameModeButtonBG" class=" game-mode-button__bg">
-                        <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />
                         <ui:VisualElement name="ContentContainer" class="game-mode-button__content-container">
                             <FirstLight.Game.UIElements.LabelOutlined text="NEW EVENT !" name="NewEventLabel" enable-rich-text="false" display-tooltip-when-elided="false" class="game-mode-button__new-event-label" />
                             <ui:VisualElement name="SelectedContainer" class="game-mode-button__selected-container">
                                 <ui:VisualElement name="GameModeIcon" class="game-mode-button__icon sprite-shared__icon-gamemode-solo" />
-                                <FirstLight.Game.UIElements.AutoSizeLabel name="GameModeLabel" text="ASDASDSDASDAASDSDAASDASDASDASDASDDASDAS" min-font-size="18" max-font-size="199" class="game-mode-button__selected-mode" />
+                                <FirstLight.Game.UIElements.AutoSizeLabel name="GameModeLabel" text="VERY LONG EVENT NAME" min-font-size="18" max-font-size="199" class="game-mode-button__selected-mode" />
                                 <FirstLight.Game.UIElements.LabelOutlined text="MODE" name="Mode" class="game-mode-button__mode" />
                             </ui:VisualElement>
                         </ui:VisualElement>

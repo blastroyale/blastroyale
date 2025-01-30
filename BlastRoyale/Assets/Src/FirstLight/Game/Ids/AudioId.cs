@@ -240,6 +240,10 @@ namespace FirstLight.Game.Ids
 		NoobPickupLocal,
 		WeaponPickupLocal,
 		GearPickupLocal,
+		
+		HunterSniperShot,
+		HunterSniperShotLocal,
+		ShotgunAutoShotLocal,
 	}
 	
 	/// <summary>

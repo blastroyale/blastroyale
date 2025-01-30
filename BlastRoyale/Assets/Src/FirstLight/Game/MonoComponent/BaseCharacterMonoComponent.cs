@@ -43,7 +43,6 @@ namespace FirstLight.Game.MonoComponent
 				Destroy(CharacterViewComponent.gameObject);
 			}
 
-
 			var obj = await _services.CollectionService.LoadCollectionItem3DModel(skinId, true, true);
 			var container = obj.AddComponent<RenderersContainerMonoComponent>();
 			container.UpdateRenderers();
@@ -78,7 +77,6 @@ namespace FirstLight.Game.MonoComponent
 			newCollider.direction = 1; // Y axis
 			newCollider.isTrigger = false;
 		}
-
 
 		public void AnimateVictory()
 		{

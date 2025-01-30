@@ -1,15 +1,5 @@
-
-using System.Collections.Generic;
-using System.Linq;
-using FirstLight.Game.Commands;
-using FirstLight.Game.Services;
-using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using Quantum;
-using FirstLight.Server.SDK;
-using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
-using Assert = NUnit.Framework.Assert;
 
 
 /// <summary>

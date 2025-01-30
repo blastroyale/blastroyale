@@ -7,10 +7,12 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters.BattlePass;
 using FirstLight.Game.Services;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
@@ -21,6 +23,7 @@ using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
+using UnityEngine.Purchasing;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -125,16 +128,51 @@ namespace FirstLight.Game.Presenters
 			_screenHeader.backClicked = Data.BackClicked;
 			//_fullScreenClaimButton.clicked += OnClaimClicked;
 			//_claimButton.clicked += OnClaimClicked;
-			_activateButton.clicked += ActivateClicked;
+			_activateButton.clicked += OpenBattlePassBanner;
 			_currentReward.clicked += GoToCurrentReward;
 
 			_fullScreenClaimButton.SetDisplay(false);
 			Root.Q("RewardShineBlue").Required().AddRotatingEffect(15, 10);
 			Root.Q("RewardShineYellow").Required().AddRotatingEffect(25, 10);
-			_services.MessageBrokerService.Subscribe<BattlePassPurchasedMessage>(OnBpPurchase);
 			_services.MessageBrokerService.Subscribe<BattlePassLevelPurchasedMessage>(OnBoughtBpLevel);
+			_services.IAPService.PurchaseFinished += OnPurchaseFinished;
 		}
-		
+
+		protected override UniTask OnScreenClose()
+		{
+			_services.MessageBrokerService.UnsubscribeAll(this);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
+			_services.IAPService.PurchaseFinished -= OnPurchaseFinished;
+
+			return base.OnScreenClose();
+		}
+
+		private void OnPurchaseFinished(string itemId, ItemData itemData, bool succeeded, IUnityStoreService.PurchaseFailureData _3)
+		{
+			if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Store)
+			{
+				Data.BackClicked?.Invoke();
+			}
+
+			// The purchase is trigerred inside the BattlePassScreenPresenter, this is just in case the transaction takes longer to process.
+			if (IAPHelpers.IsUIBeingHandled(itemId)) return;
+			if (succeeded && itemData.TryGetMetadata<UnlockMetadata>(out var metadata) && metadata.Unlock == UnlockSystem.PaidBattlePass)
+			{
+				if (itemData.Id == GameId.PremiumBattlePass)
+				{
+					ShowPremiumBattlepassPurchase(itemData).Forget();
+				}
+			}
+		}
+
+		private async UniTaskVoid ShowPremiumBattlepassPurchase(ItemData data)
+		{
+			var shown = await _services.RewardService.ClaimRewardsAndWaitForRewardsScreenToClose(data);
+			if (!shown) return;
+			var battlePassData = Data;
+			_services.UIService.OpenScreen<BattlePassScreenPresenter>(battlePassData).Forget();
+		}
+
 		private void OnBPPsClicked()
 		{
 			_bppIcon.OpenTooltip(Root, ScriptLocalization.Tooltips.ToolTip_BPP_pool);
@@ -146,11 +184,6 @@ namespace FirstLight.Game.Presenters
 			InitScreen(true);
 		}
 
-		private void OnBpPurchase(BattlePassPurchasedMessage msg)
-		{
-			ShowRewards(new[] {ItemFactory.Unlock(UnlockSystem.PaidBattlePass)});
-		}
-
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			InitScreenAndSegments();
@@ -160,14 +193,6 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
 
 			return base.OnScreenOpen(reload);
-		}
-
-		protected override UniTask OnScreenClose()
-		{
-			_services.MessageBrokerService.UnsubscribeAll(this);
-			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
-
-			return base.OnScreenClose();
 		}
 
 		private void OnClickLastRewardIcon()
@@ -200,28 +225,49 @@ namespace FirstLight.Game.Presenters
 			UpdateTimeLeft();
 		}
 
-		private void ActivateClicked()
+		private void OpenBattlePassBanner()
 		{
-			var price = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.Price;
+			if (_services.BattlePassService.HasPendingPurchase())
+			{
+				_services.GenericDialogService
+					.OpenSimpleMessage(ScriptLocalization.UITStore.pending_popup_title, ScriptLocalization.UITStore.pending_popup_desc).Forget();
+				return;
+			}
 
-			_services.GenericDialogService.OpenPurchaseOrNotEnough(
-				new GenericPurchaseDialogPresenter.StateData
-				{
-					ItemSprite = _battlepassPremiumSprite,
-					OverwriteItemName = ScriptLocalization.UITBattlePass.buy_premium_batttlepass_popup_item_name,
-					Value = price,
-					OnConfirm = () =>
-					{
-						_services.CommandService.ExecuteCommand(new ActivateBattlepassCommand());
-					},
-					OnExit = () =>
-					{
-						if (_services.IAPService.RequiredToViewStore)
-						{
-							Data.BackClicked.Invoke();
-						}
-					}
-				});
+			_services.UIService.OpenScreen<BattlePassSeasonBannerPresenter>(new BattlePassSeasonBannerPresenter.StateData()
+			{
+				OnClose = OnClosedBanner,
+				ShowBeginSeason = false,
+			}).Forget();
+		}
+
+		public void OnClosedBanner(BattlePassSeasonBannerPresenter.ScreenResult result)
+		{
+			// In this case the banner trigerred the reward screen and closed BPScreen automatically
+			if (result == BattlePassSeasonBannerPresenter.ScreenResult.BuyPremiumInGame
+				|| result == BattlePassSeasonBannerPresenter.ScreenResult.BuyPremiumRealMoney
+			   )
+			{
+				BuyPremium(result == BattlePassSeasonBannerPresenter.ScreenResult.BuyPremiumRealMoney).Forget();
+			}
+		}
+
+		public async UniTaskVoid BuyPremium(bool realMoney)
+		{
+			var screenData = Data;
+			var result = await _services.BattlePassService.OpenPurchasePopup(realMoney);
+			if (result == IAPHelpers.BuyProductResult.Deferred || result == IAPHelpers.BuyProductResult.ForcePlayerToShop)
+			{
+				Data.BackClicked?.Invoke();
+			}
+			else if (result == IAPHelpers.BuyProductResult.Rewarded)
+			{
+				_services.UIService.OpenScreen<BattlePassScreenPresenter>(screenData).Forget();
+			}
+			else if (result == IAPHelpers.BuyProductResult.Rejected)
+			{
+				OpenBattlePassBanner();
+			}
 		}
 
 		private void BuyLevelClicked()
@@ -231,7 +277,7 @@ namespace FirstLight.Game.Presenters
 
 			void OnExit()
 			{
-				if (_services.IAPService.RequiredToViewStore)
+				if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Store)
 				{
 					Data.BackClicked.Invoke();
 				}
@@ -240,7 +286,7 @@ namespace FirstLight.Game.Presenters
 			if (canBuy <= 1)
 			{
 				_services.GenericDialogService.OpenPurchaseOrNotEnough(
-					new GenericPurchaseDialogPresenter.StateData
+					new GenericPurchaseDialogPresenter.IconPurchaseData
 					{
 						Value = _dataProvider.BattlePassDataProvider.GetPriceForBuying(1),
 						ItemSprite = _battlepassLevelSprite,
@@ -249,7 +295,7 @@ namespace FirstLight.Game.Presenters
 						{
 							_services.CommandService.ExecuteCommand(new BuyBattlepassLevelCommand {Levels = 1});
 						},
-						OnExit = OnExit
+						OnExit = (_) => OnExit()
 					});
 				return;
 			}
@@ -352,8 +398,15 @@ namespace FirstLight.Game.Presenters
 			float pctCurrentLevel = (float) predictedProgress.Item2 / predictedMaxProgress;
 			_bppProgressFill.style.width = Length.Percent(pctCurrentLevel * 100f);
 
-			_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
-				battlePassConfig.Season.Number);
+			if (!string.IsNullOrEmpty(battlePassConfig.Season.Title))
+			{
+				_seasonNumber.text = battlePassConfig.Season.Title;
+			}
+			else
+			{
+				_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
+					battlePassConfig.Season.Number);
+			}
 
 			for (var i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{
@@ -465,7 +518,8 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			element.SetData(segment, GetRewardState(segment), _dataProvider.BattlePassDataProvider.HasPurchasedSeason(), segment.PassType == PassType.Free && !IsDisablePremium());
+			element.SetData(segment, GetRewardState(segment), _dataProvider.BattlePassDataProvider.HasPurchasedSeason(),
+				segment.PassType == PassType.Free && !IsDisablePremium());
 			if (update) return;
 			element.Clicked += OnSegmentRewardClicked;
 		}
@@ -478,7 +532,8 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateGoToCurrentRewardButton()
 		{
-			var level = Math.Min((int) _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1, (int) _dataProvider.BattlePassDataProvider.MaxLevel - 1);
+			var level = Math.Min((int) _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1,
+				(int) _dataProvider.BattlePassDataProvider.MaxLevel - 1);
 			var isCurrentLevelOnScreen = _levelElements[level].IsInScreen(_rightContent);
 			if (isCurrentLevelOnScreen)
 			{

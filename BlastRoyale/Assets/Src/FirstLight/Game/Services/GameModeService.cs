@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Presenters;
+using FirstLight.Game.Services.RoomService;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.Services;
+using I2.Loc;
 using Quantum;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -75,6 +85,7 @@ namespace FirstLight.Game.Services
 
 		TeamSizeConfig GetTeamSizeFor(IGameModeEntry entry);
 		TeamSizeConfig GetTeamSizeFor(SimulationMatchConfig simulationMatchConfig);
+		PlayfabMatchmakingConfig GetMatchMakingConfigFor(SimulationMatchConfig simulationMatchConfig);
 
 		/// <summary>
 		/// Check if the local player has seen a given event
@@ -91,6 +102,12 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public bool IsInRotation(SimulationMatchConfig matchConfig);
 
+		/// <summary>
+		/// Return a entry witht he given uniqueConfigId, if you want to check if the entry is in rotation use onlyValid = true
+		/// if you want to get an entry even if it's not in rotation use onlyvalid =false
+		/// </summary>
+		public IGameModeEntry GetGameModeInfo(string uniqueConfigId, bool onlyValid = true);
+
 		public void SelectValidGameMode();
 	}
 
@@ -98,14 +115,17 @@ namespace FirstLight.Game.Services
 	public class GameModeService : IGameModeService
 	{
 		private const int NextEventsDisplayDaysBefore = 3;
+		private readonly IGameDataProvider _dataProvider;
+		private readonly IGameCommandService _commandService;
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IFLLobbyService _lobbyService;
 		private readonly IAppDataProvider _appDataProvider;
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly IRemoteTextureService _remoteTextureService;
+		private readonly IHomeScreenService _homeScreenService;
+		private readonly InGameNotificationService _inGameNotificationService;
 
 		private GameId _selectedMap;
-
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
 
 		public GameId SelectedMap
@@ -144,26 +164,186 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public GameModeService(IConfigsProvider configsProvider, IFLLobbyService lobbyService,
+		public GameModeService(IGameDataProvider dataProvider, IGameCommandService commandService, IConfigsProvider configsProvider,
+							   IFLLobbyService lobbyService,
 							   IAppDataProvider appDataProvider, LocalPrefsService localPrefsService, IRemoteTextureService remoteTextureService,
-							   IMessageBrokerService msgBroker)
+							   IMessageBrokerService msgBroker, IHomeScreenService homeScreenService, IRoomService roomService,
+							   InGameNotificationService inGameNotificationService)
 		{
+			_dataProvider = dataProvider;
+			_commandService = commandService;
 			_configsProvider = configsProvider;
 			_lobbyService = lobbyService;
 			_appDataProvider = appDataProvider;
 			_localPrefsService = localPrefsService;
 			_remoteTextureService = remoteTextureService;
+			_homeScreenService = homeScreenService;
+			_inGameNotificationService = inGameNotificationService;
 
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe(OnGameModeSet);
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyUpdated += OnPartyLobbyChanged;
 			_lobbyService.CurrentPartyCallbacks.LocalLobbyJoined += OnPartyLocalLobbyJoined;
+			msgBroker.Subscribe<MatchmakingLeftMessage>(OnMatchmakingLeft);
+			msgBroker.Subscribe<CoreLoopInitialized>(OnCoreLoopInitialized);
+			msgBroker.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
+			msgBroker.Subscribe<MatchInfoPopupOpenedMessage>(OnMatchInfoOpened);
+			msgBroker.Subscribe<GameCompletedRewardsMessage>(OnGameRewards);
+			msgBroker.Subscribe<QuantumServerSimulationDisconnectedMessage>(OnQuantumServerDisconnected);
+			msgBroker.Subscribe<TicketsRefundedMessage>(OnTicketRefunded);
+			homeScreenService.CustomPlayButtonValidations += ValidatePlayButton;
+			roomService.OnNotEnoughPlayers += FailedToStartMatch;
+		}
+
+		private void OnTicketRefunded(TicketsRefundedMessage obj)
+		{
+			foreach (var item in obj.Refunds)
+			{
+				var msg = ScriptLocalization.UITGameModeSelection.ticket_refunded_message;
+				msg = string.Format(msg, item.GetMetadata<CurrencyMetadata>().Amount,
+					CurrencyItemViewModel.GetRichTextIcon(item.Id));
+				_inGameNotificationService.QueueNotification(msg, InGameNotificationStyle.Info, InGameNotificationDuration.Long);
+			}
+		}
+
+		/// <summary>
+		/// Happens quantum server, it disconnect the clients when there is not enough players to start.
+		/// </summary>
+		/// <param name="obj"></param>
+		private void OnQuantumServerDisconnected(QuantumServerSimulationDisconnectedMessage obj)
+		{
+			if (obj.Reason == GameConstants.QuantumPluginDisconnectReasons.NOT_ENOUGH_PLAYERS)
+			{
+				if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+				{
+					var pass = _dataProvider.GameEventsDataProvider.GetPasses().First();
+					_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, pass);
+					SelectValidGameMode();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Happens before starting the simulation
+		/// </summary>
+		private void FailedToStartMatch()
+		{
+			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+			{
+				var pass = _dataProvider.GameEventsDataProvider.GetPasses().First();
+				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, pass);
+				SelectValidGameMode();
+			}
+		}
+
+		/// <summary>
+		/// Happens when Playfab matchmaking fails
+		/// If player was in a paid event change to default gamemode and let him go again through the menu of selecting it
+		/// And also refund the pass price
+		/// </summary>
+		private void OnMatchmakingLeft(MatchmakingLeftMessage msg)
+		{
+			if (SelectedGameMode.Value.Entry is EventGameModeEntry ev && ev.IsPaid)
+			{
+				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, ev.MatchConfig.UniqueConfigId);
+
+				SelectValidGameMode();
+			}
+		}
+
+		private void ValidatePlayButton(List<string> errors)
+		{
+			if ((_lobbyService.CurrentPartyLobby?.Players?.Count ?? 1) >
+				SelectedGameMode.Value.Entry.MatchConfig.TeamSize)
+			{
+				errors.Add("Invalid party size!");
+				return;
+			}
+
+			if (_lobbyService.CurrentPartyLobby != null && _lobbyService.CurrentPartyLobby.IsLocalPlayerHost() &&
+				!_lobbyService.CurrentPartyLobby.IsEveryoneReady())
+			{
+				errors.Add("Waiting for team members to be ready!");
+				return;
+			}
+
+			if (SelectedGameMode.Value.Entry is EventGameModeEntry ev && ev.IsPaid &&
+				!_dataProvider.GameEventsDataProvider.HasPass(ev.MatchConfig.UniqueConfigId))
+			{
+				errors.Add("You need a pass to play this event. Try selecting it again!");
+				SelectValidGameMode();
+			}
+		}
+
+		/// <summary>
+		/// Player got kicked by being afk so did not use the ticket, lets refund
+		/// </summary>
+		private void OnGameRewards(GameCompletedRewardsMessage obj)
+		{
+			if (!obj.Rewards.UsedEventPass && _dataProvider.GameEventsDataProvider.HasAnyPass())
+			{
+				Debug.Log("SET FORCE BEHAVIOUR GO TO PAID EVENT " + obj.Rewards.SimulationConfigId);
+				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, obj.Rewards.SimulationConfigId);
+			}
+
+			if (obj.Rewards.UsedEventPass)
+			{
+				_homeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.PaidEvent, obj.Rewards.SimulationConfigId);
+			}
+
+			SelectValidGameMode();
+		}
+
+		/// <summary>
+		/// Change back the gamemode to a not paid one when going back to the home screen
+		/// </summary>
+		private void OnMainMenuOpened(MainMenuOpenedMessage msg)
+		{
+			if (SelectedGameMode.Value.Entry is EventGameModeEntry ev && ev.IsPaid)
+			{
+				if (!_dataProvider.GameEventsDataProvider.HasPass(ev.MatchConfig.UniqueConfigId))
+				{
+					SelectValidGameMode();
+				}
+			}
+
+			if (_homeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.None)
+			{
+				SelectValidGameMode();
+				if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+				{
+					_commandService.ExecuteCommand(new RefundEventPassesCommand());
+				}
+			}
+		}
+
+		private void OnMatchInfoOpened(MatchInfoPopupOpenedMessage obj)
+		{
+			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+			{
+				_commandService.ExecuteCommand(new RefundEventPassesCommand());
+			}
+		}
+
+		/// <summary>
+		/// When opening the game refund tickets if the player is not reconnecting to a match
+		/// </summary>
+		private void OnCoreLoopInitialized(CoreLoopInitialized msg)
+		{
+			if (msg.ConnectedToMatch) return; // if player is reconnecting we don't want to remove the ticket he may use
+			if (_dataProvider.GameEventsDataProvider.HasAnyPass())
+			{
+				//	_commandService.ExecuteCommand(new RefundEventPassesCommand());
+			}
 		}
 
 		public void Init()
 		{
+			// Pre load event images
 			foreach (var uniqueUrls in Slots.Where(slot => slot.Entry is EventGameModeEntry)
-						 .Select(slot => ((EventGameModeEntry) slot.Entry).ImageURL).Distinct())
+						 .Select(slot => slot.Entry)
+						 .Cast<EventGameModeEntry>()
+						 .SelectMany(slot => new[] {slot.ImageURL, slot.BackgroundImageURL}).Distinct())
 			{
 				if (uniqueUrls == null) continue;
 				_remoteTextureService.RequestTexture(uniqueUrls).Forget();
@@ -173,7 +353,8 @@ namespace FirstLight.Game.Services
 			if (!string.IsNullOrEmpty(_localPrefsService.SelectedGameMode.Value))
 			{
 				var configId = _localPrefsService.SelectedGameMode.Value;
-				var firstOrDefault = Slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == configId && IsInRotation(a.Entry));
+				var firstOrDefault =
+					Slots.FirstOrDefault(a => a.Entry.MatchConfig.UniqueConfigId == configId && IsInRotation(a.Entry) && !IsPaid(a.Entry));
 				if (firstOrDefault.Entry != null)
 				{
 					SelectedGameMode.Value = firstOrDefault;
@@ -249,7 +430,6 @@ namespace FirstLight.Game.Services
 
 		public bool IsInRotation(SimulationMatchConfig matchConfig)
 		{
-			var match = matchConfig.ToByteArray();
 			foreach (var gameModeInfo in Slots)
 			{
 				if (IsInRotation(gameModeInfo.Entry) && matchConfig.UniqueConfigId == gameModeInfo.Entry.MatchConfig.UniqueConfigId)
@@ -259,6 +439,16 @@ namespace FirstLight.Game.Services
 			}
 
 			return false;
+		}
+
+		public IGameModeEntry GetGameModeInfo(string uniqueConfigId, bool onlyValid = true)
+		{
+			var data = MainInstaller.ResolveData().RemoteConfigProvider;
+			var eventConfigs = data.GetConfig<EventGameModesConfig>();
+			var fixedSlotsConfig = data.GetConfig<FixedGameModesConfig>();
+			return eventConfigs.Cast<IGameModeEntry>()
+				.Concat(fixedSlotsConfig)
+				.FirstOrDefault(ev => ev.MatchConfig.UniqueConfigId == uniqueConfigId && (!onlyValid || IsInRotation(ev)));
 		}
 
 		public void SelectValidGameMode()
@@ -288,9 +478,17 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
+		public bool IsPaid(IGameModeEntry gamemode)
+		{
+			return gamemode is EventGameModeEntry ev && ev.IsPaid;
+		}
+
 		private void AutoSelectGameModeForTeamSize(int size, bool forceMinSize = false)
 		{
-			if (SelectedGameMode.Value.Entry != null && SelectedGameMode.Value.Entry.MatchConfig.TeamSize >= size && !forceMinSize)
+			if (SelectedGameMode.Value.Entry != null
+				&& !IsPaid(SelectedGameMode.Value.Entry)
+				&& SelectedGameMode.Value.Entry.MatchConfig.TeamSize >= size
+				&& !forceMinSize)
 			{
 				// Already have a proper selected gamemode
 				return;
@@ -328,6 +526,17 @@ namespace FirstLight.Game.Services
 		{
 			var fixedConfig = MainInstaller.ResolveData().RemoteConfigProvider.GetConfig<MatchmakingQueuesConfig>();
 			return fixedConfig[simulationMatchConfig.TeamSize.ToString()];
+		}
+
+		public PlayfabMatchmakingConfig GetMatchMakingConfigFor(SimulationMatchConfig simulationMatchConfig)
+		{
+			var info = GetGameModeInfo(simulationMatchConfig.UniqueConfigId, false);
+			if (info != null && info is EventGameModeEntry ev && ev.OverwriteMatchmaking != null)
+			{
+				return ev.OverwriteMatchmaking;
+			}
+
+			return GetTeamSizeFor(simulationMatchConfig);
 		}
 
 		public bool HasSeenEvent(GameModeInfo info)

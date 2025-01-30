@@ -66,6 +66,7 @@ MonoBehaviour:
   _document: {fileID: 1971436955827305704}
   _buttonAsset: {fileID: 9197481963319205126, guid: 1acd361f6f23744e4b060f6c7339014b, type: 3}
   _newEventDirector: {fileID: 4565728818201693878}
+  _buyEventTicketSprite: {fileID: 21300000, guid: 20df40c5c2b434d5ebeafb5b8561e3a3, type: 3}
 --- !u!1 &9106152680101475467
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,15 +130,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2949304956738128959, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 525.9292
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2949304956738128959, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2748.7305
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2949304956738128959, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1281.6954
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2949304956738128959, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -170,6 +171,42 @@ PrefabInstance:
     - target: {fileID: 7580220932082907920, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
       propertyPath: m_Name
       value: AnimatedBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
+      propertyPath: _default.Top.b
+      value: 0.96862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
+      propertyPath: _default.Top.g
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
+      propertyPath: _default.Top.r
+      value: 0.79607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
+      propertyPath: _default.Bottom.b
+      value: 0.7294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
+      propertyPath: _default.Bottom.g
+      value: 0.18431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
+      propertyPath: _default.Bottom.r
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
+      propertyPath: _default.Middle.b
+      value: 0.7647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
+      propertyPath: _default.Middle.g
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925188912424810450, guid: 1345048504cb60373bf0ba2afb4072d7, type: 3}
+      propertyPath: _default.Middle.r
+      value: 0.45490196
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -13,48 +13,161 @@ MonoBehaviour:
   m_Name: FlagSkinConfigs
   m_EditorClassIdentifier: 
   _config:
+    FlagPrefab: {fileID: 5255778678298435521, guid: 4b41d5362cd3eda4886cda8ce27e1f95, type: 3}
     Skins:
     - GameId: 37
-      Prefab:
-        m_AssetGUID: ae8ec920e9f48473385f24aed78298b7
-        m_SubObjectName: 
-        m_SubObjectType: 
+      Mesh:
+        m_AssetGUID: ce305c7a0b7893245a24277ec6584d49
+        m_SubObjectName: Flag_Skull
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: d3812d1e1c56b4a188ccfb9324966a36
+        m_AssetGUID: e43cc03cb87dc4442a21ed3248159b8d
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
     - GameId: 76
-      Prefab:
-        m_AssetGUID: da98372c442664d45ac1c3ecb81bc76c
-        m_SubObjectName: 
-        m_SubObjectType: 
+      Mesh:
+        m_AssetGUID: 774cea6ede90c3a45afb8addeb0a3bfd
+        m_SubObjectName: Flag_Unicorn
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 55356cbdba04d48d9b5a996b1db941ca
+        m_AssetGUID: ca4cd30a7ca7bc24ba10c5ee8c825228
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
     - GameId: 75
-      Prefab:
-        m_AssetGUID: f6c173c933c71754d9387a78820777a6
-        m_SubObjectName: 
-        m_SubObjectType: 
+      Mesh:
+        m_AssetGUID: 21c6a8d74b110e14bb46708bfdab6bb8
+        m_SubObjectName: Flag_Music
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: cdc7358579aa94ba0a86ff51775df66b
+        m_AssetGUID: 2c57fb491b0b00949ac4c3027eeaa469
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
     - GameId: 25
-      Prefab:
-        m_AssetGUID: 77a9492a77347492db60c2dad822db89
+      Mesh:
+        m_AssetGUID: 0cbecbd1fc9a23e4da81c2c825ffb6bc
+        m_SubObjectName: Flag_Demon
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 1fdfaaef645b4c2498fc5c58a2931cc7
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+    - GameId: 273
+      Mesh:
+        m_AssetGUID: 1fd0a2b57d1156a4a9f46c79c8784b07
+        m_SubObjectName: Flag_Banana
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 200f11153aed542e3aeb0adb534ade89
+        m_AssetGUID: f04a21368c940924680a1846da7dd95b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 274
+      Mesh:
+        m_AssetGUID: f878bed71b3bd6c4597e5978b8a3cd89
+        m_SubObjectName: Flag_Fire
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 4f7bbb9fe5478f54f9c15beb7a390531
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 275
+      Mesh:
+        m_AssetGUID: dd201a62dbfcb15499138217d054d3f8
+        m_SubObjectName: Flag_GG
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: fc3769292fb2a8f42a586c1019e18764
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 276
+      Mesh:
+        m_AssetGUID: 85d7a0d677f24094d8f013aa83953a55
+        m_SubObjectName: Flag_Laughing
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 69659d12cd5b0cc4b8bbfa8c7102621e
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 277
+      Mesh:
+        m_AssetGUID: aa33e6eaf7901d944955aa551550d9a6
+        m_SubObjectName: Flag_Noob
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 0fe2aaf91d698344f9185d6d752be56d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 278
+      Mesh:
+        m_AssetGUID: 3b62206de8098cc4cb28284ea84e5d5c
+        m_SubObjectName: Flag_NumberOne
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 9f5f7ee704d92f442a8fbe39b7b51d4b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 279
+      Mesh:
+        m_AssetGUID: e583cd60dae6e9947af7428d3e8eb76e
+        m_SubObjectName: Flag_PooEmoji
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 695e95379b919724d822aa6b6b07d209
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 280
+      Mesh:
+        m_AssetGUID: 7414c237da103d14a820a563d747526d
+        m_SubObjectName: Flag_RoyalCrown
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: f6a3d127ea4bc884a85a1ff08f3b3fc7
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+    - GameId: 281
+      Mesh:
+        m_AssetGUID: 5f0fd445f29119742bad82fd73cad6b5
+        m_SubObjectName: Flag_Salt
+        m_SubObjectType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_EditorAssetChanged: 0
+      Sprite:
+        m_AssetGUID: 0bf36cd9e155c514f8b380bc207abe92
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

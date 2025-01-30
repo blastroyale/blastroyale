@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87748ec297e468d8c996980a88d3c98, type: 3}
+  m_Name: BattlelandsMap_AssetsConfig
+  m_EditorClassIdentifier: 
+  Scene:
+    m_AssetGUID: 2e637bcb30c7f0a44b8c7ab15d9e3cda
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  QuantumMap:
+    m_AssetGUID: 47849fde33a339d4c8f9d916ed3a384a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapPreview:
+    m_AssetGUID: 74568dfe818139143a5af1a592af5c3a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapAreas:
+    AreaTextureRef:
+      m_AssetGUID: 85715bbd26fe68f43a91b7ff89fc98a5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    Areas:
+    - Color:
+        serializedVersion: 2
+        rgba: 4294936320
+      Name: WOODS
+    - Color:
+        serializedVersion: 2
+        rgba: 4294904832
+      Name: PORT
+    - Color:
+        serializedVersion: 2
+        rgba: 4292083967
+      Name: RESEARCH FACILITY
+    - Color:
+        serializedVersion: 2
+        rgba: 4293263104
+      Name: PARK
+    - Color:
+        serializedVersion: 2
+        rgba: 4294903228
+      Name: CONSTRUCTION SITE
+    - Color:
+        serializedVersion: 2
+        rgba: 4278249983
+      Name: MAZE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901874
+      Name: CITY
+    - Color:
+        serializedVersion: 2
+        rgba: 4278222847
+      Name: FARM
+    - Color:
+        serializedVersion: 2
+        rgba: 4278201087
+      Name: FORESTRY
+    - Color:
+        serializedVersion: 2
+        rgba: 4285661439
+      Name: OUTSKIRTS

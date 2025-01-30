@@ -170,6 +170,11 @@ namespace FirstLight.Game.Utils
 		/// If the tutorial is active, useful for testing
 		/// </summary>
 		public static bool TUTORIAL = true;
+		
+		/// <summary>
+		/// If the tutorial first battle is active or not
+		/// </summary>
+		public static bool TUTORIAL_BATTLE = false;
 
 		/// <summary>
 		/// If the main menu systems start locked, useful for testing
@@ -261,6 +266,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("TUTORIAL", overrideData, out var tutorial))
 			{
 				TUTORIAL = tutorial;
+			}
+			
+			if (TrySetFlag("TUTORIAL_BATTLE", overrideData, out var tutorialBattle))
+			{
+				TUTORIAL_BATTLE = tutorialBattle;
 			}
 
 			if (TrySetFlag("PAUSE_FREEZE", overrideData, out var pauseFreeze))

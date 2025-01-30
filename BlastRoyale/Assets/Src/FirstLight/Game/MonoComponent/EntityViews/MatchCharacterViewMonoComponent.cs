@@ -68,6 +68,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				HideAllEquipment();
 			}
+			else
+			{
+				DestroyGlider();
+			}
 		}
 	}
 }

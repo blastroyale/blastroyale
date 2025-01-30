@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -20,7 +22,10 @@ public partial class SROptions
 	[Category("Other")]
 	public void OpenBattlePassBanner()
 	{
-		MainInstaller.ResolveServices().UIService.OpenScreen<BattlePassSeasonBannerPresenter>().Forget();
+		MainInstaller.ResolveServices().UIService.OpenScreen<BattlePassSeasonBannerPresenter>(new BattlePassSeasonBannerPresenter.StateData()
+		{
+			ShowBeginSeason = false
+		}).Forget();
 	}
 
 	[Category("Other")]
@@ -44,7 +49,7 @@ public partial class SROptions
 		{
 			FLog.Warn("Close callback.");
 		}
-	} 
+	}
 
 	[Category("Other")]
 	public void OpenInputDialog()
@@ -177,5 +182,14 @@ public partial class SROptions
 			},
 			OnFinish = () => { uiService.CloseScreen<RewardsScreenPresenter>().Forget(); }
 		}).Forget();
+	}
+
+	[Category("Other")]
+	public void FuckUpGamemode()
+	{
+		var gm = MainInstaller.Resolve<IGameServices>().GameModeService;
+
+		var a = gm.Slots.FirstOrDefault(a => a.Entry is EventGameModeEntry ev && ev.IsPaid);
+		gm.SelectedGameMode.Value = a;
 	}
 }

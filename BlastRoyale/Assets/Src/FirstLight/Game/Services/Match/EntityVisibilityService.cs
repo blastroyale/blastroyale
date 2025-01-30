@@ -28,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// <summary>
 	/// This class handles showing/hiding player renderers inside and outside of visibility volumes based on various factors
 	/// </summary>
-	public class EntityVisibilityService : IEntityVisibilityService, MatchServices.IMatchService
+	public class EntityVisibilityService : IEntityVisibilityService, IMatchService
 	{
 		private IGameServices _gameServices;
 		private IMatchServices _matchServices;

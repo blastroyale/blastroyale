@@ -5,7 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using BlastRoyaleNFTPlugin;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Models;
+using FirstLightServerSDK.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Src.FirstLight.Server;
@@ -77,10 +80,10 @@ namespace Backend.Plugins
 		/// <summary>
 		/// Loads server plugins and perform hooks to PluginSetup
 		/// </summary>
-		public void LoadPlugins(PluginContext context, string appPath, IServiceCollection services)
+		public void LoadPlugins(PluginContext context, IServiceProvider services)
 		{
-			var allPlugins = LoadServerPlugins();
-			var clientPlugins = GetClientPlugins(services);
+			var allPlugins = LoadServerPlugins(services);
+			var clientPlugins = GetClientPlugins();
 			if (clientPlugins != null)
 			{
 				allPlugins.AddRange(clientPlugins);
@@ -95,7 +98,8 @@ namespace Backend.Plugins
 				}
 				catch (Exception e)
 				{
-					context.Log.LogError($"Error initializing plugin {plugin.GetType().Name} {e.Message} {e.StackTrace}");
+					context.Log.LogError(
+						$"Error initializing plugin {plugin.GetType().Name} {e.Message} {e.StackTrace}");
 				}
 			}
 		}
@@ -105,7 +109,7 @@ namespace Backend.Plugins
 		/// Client plugins might not have simple access to things like environemnt variables
 		/// Their intent is to add specific behaviour on server without requiring to modify server code.
 		/// </summary>
-		private List<ServerPlugin> GetClientPlugins(IServiceCollection services)
+		private List<ServerPlugin> GetClientPlugins()
 		{
 			if (_serverSetup == null)
 			{
@@ -120,10 +124,11 @@ namespace Backend.Plugins
 		/// Plugins declared on server as opposed to client are the ones that have specific
 		/// networking requirements, therefore maintained primarily by server engineers.
 		/// </summary>
-		private List<ServerPlugin> LoadServerPlugins()
+		private List<ServerPlugin> LoadServerPlugins(IServiceProvider serviceProvider)
 		{
 			var loadedPlugins = new List<ServerPlugin>();
-			loadedPlugins.Add(new BlastRoyalePlugin());
+			loadedPlugins.Add(new BlastRoyalePlugin(serviceProvider.GetService<IUserMutex>(),
+				serviceProvider.GetService<IInventorySyncService<ItemData>>()));
 			return loadedPlugins;
 		}
 

@@ -35,7 +35,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private VisualTreeAsset _selectMutatorsDocument;
 		[SerializeField, Required] private VisualTreeAsset _selectWeaponsDocument;
 		[SerializeField, Required] private VisualTreeAsset _partyDocument;
-		[SerializeField, Required] private VisualTreeAsset _matchInfoDocument;
 		[SerializeField, Required] private VisualTreeAsset _inviteFriendsDocument;
 		[SerializeField, Required] private VisualTreeAsset _enterCreatorCodeDocument;
 		[SerializeField, Required] private VisualTreeAsset _genericInfoDocument;
@@ -70,10 +69,6 @@ namespace FirstLight.Game.Presenters
 					break;
 				case TeamPopupView view:
 					SetupPopup(_partyDocument, view);
-					break;
-				case MatchInfoPopupView view:
-					_popup.Configure(false, view.IsEvent());
-					SetupPopup(_matchInfoDocument, view);
 					break;
 				case InviteFriendsPopupView view:
 					SetupPopup(_inviteFriendsDocument, view);
@@ -129,16 +124,7 @@ namespace FirstLight.Game.Presenters
 		{
 			return OpenPopup(new TeamPopupView(), ScriptTerms.UITHomeScreen.party);
 		}
-
-		public static UniTaskVoid OpenMatchInfo(SimulationMatchConfig matchSettings, List<string> friendsPlaying, Action selectAction)
-		{
-			return OpenPopup(new MatchInfoPopupView(matchSettings, friendsPlaying, selectAction), ScriptTerms.UITCustomGames.match_info);
-		}
-
-		public static UniTaskVoid OpenMatchInfo(GameModeInfo info, Action selectClicked)
-		{
-			return OpenPopup(new MatchInfoPopupView(info, selectClicked), ScriptTerms.UITGameModeSelection.event_info_popup_title);
-		}
+		
 
 		public static UniTaskVoid OpenInviteFriends()
 		{
@@ -186,6 +172,7 @@ namespace FirstLight.Game.Presenters
 			{
 				return false;
 			}
+
 			var s = services.UIService.GetScreen<PopupPresenter>();
 			return s.Data.View.GetType() == typeof(T);
 		}

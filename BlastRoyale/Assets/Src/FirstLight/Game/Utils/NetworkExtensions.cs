@@ -67,7 +67,7 @@ namespace FirstLight.Game.Utils
 
 		public static bool IsDefinedAndRunning(this QuantumRunner runner, bool considerStalling = true)
 		{
-			return runner != null && !runner.IsDestroyed() && runner.isActiveAndEnabled && runner.IsRunning && (!considerStalling || !runner.Session.IsStalling) &&
+			return runner != null && !runner.Game.IsSessionDestroyed && !runner.IsDestroyed() && runner.isActiveAndEnabled && runner.IsRunning && (!considerStalling || !runner.Session.IsStalling) &&
 				!runner.Session.IsPaused;
 		}
 

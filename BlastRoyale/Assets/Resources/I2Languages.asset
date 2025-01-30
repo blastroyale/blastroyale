@@ -11189,6 +11189,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/GunSniperHeavy
+      TermType: 0
+      Description: 
+      Languages:
+      - HUNTER SNIPER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/GunARBurst
+      TermType: 0
+      Description: 
+      Languages:
+      - BURST AR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/GunShotgunAuto
+      TermType: 0
+      Description: 
+      Languages:
+      - BLASTER SHOTGUN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Armor
       TermType: 0
       Description: 
@@ -16085,6 +16118,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/NOOBSilver
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/NOOBDescription
       TermType: 0
       Description: 
@@ -16108,7 +16152,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOOBS
+      - NOOB
       - 
       - 
       - 
@@ -16122,6 +16166,395 @@ MonoBehaviour:
       - NEW BR MAP
       - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
       - Novo mapa BR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerANCIENT8
+      TermType: 0
+      Description: 
+      Languages:
+      - ANCIENT8
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerAPECOIN
+      TermType: 0
+      Description: 
+      Languages:
+      - APECOIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerAPECOIN_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - APECOINS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBEAM
+      TermType: 0
+      Description: 
+      Languages:
+      - BEAM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBEAM_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - BEAMS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBLOCKLORDS
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOCKLORDS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBLOODLOOP
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOODLOOP
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerCROSSTHEAGES
+      TermType: 0
+      Description: 
+      Languages:
+      - CROSS THE AGES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerFARCANA
+      TermType: 0
+      Description: 
+      Languages:
+      - FARCANA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerGAM3SGG
+      TermType: 0
+      Description: 
+      Languages:
+      - GAM3S.GG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerIMMUTABLE
+      TermType: 0
+      Description: 
+      Languages:
+      - IMMUTABLE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerMOCAVERSE
+      TermType: 0
+      Description: 
+      Languages:
+      - MOCAVERSE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerNYANHEROES
+      TermType: 0
+      Description: 
+      Languages:
+      - NYAN HEROES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerPIRATENATION
+      TermType: 0
+      Description: 
+      Languages:
+      - PIRATE NATION
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerPIXELMON
+      TermType: 0
+      Description: 
+      Languages:
+      - PIXELMON
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerPLANETMOJO
+      TermType: 0
+      Description: 
+      Languages:
+      - PLANET MOJO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerSEEDIFY
+      TermType: 0
+      Description: 
+      Languages:
+      - SEEDIFY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerWILDERWORLD
+      TermType: 0
+      Description: 
+      Languages:
+      - WILDER WORLD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerXBORG
+      TermType: 0
+      Description: 
+      Languages:
+      - X.BORG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerBREED
+      TermType: 0
+      Description: 
+      Languages:
+      - BREED
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerMEME
+      TermType: 0
+      Description: 
+      Languages:
+      - MEME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PartnerYGG
+      TermType: 0
+      Description: 
+      Languages:
+      - YGG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveSNOWFLAKE
+      TermType: 0
+      Description: 
+      Languages:
+      - SNOWFLAKE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveSNOWFLAKEDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Snowflakes in special events
+
+        or buy them in the shop.
+
+        Use
+        them to purchase
+
+        special event''s items in the shop.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveSNOWFLAKE_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - SNOWFLAKES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveLUNARCOIN
+      TermType: 0
+      Description: 
+      Languages:
+      - LUNAR COIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveLUNARCOINDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Lunar Coins in special events
+
+        or buy them in the shop.
+
+        Use
+        them to purchase
+
+        special event''s items in the shop.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveLUNARCOIN_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - LUNAR COINS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveFEATHER
+      TermType: 0
+      Description: 
+      Languages:
+      - FEATHER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveFEATHERDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Feathers in special events
+
+        or buy them in the shop.
+
+        Use
+        them to purchase
+
+        special event''s items in the shop.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveFEATHER_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - FEATHERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/EventTicket
+      TermType: 0
+      Description: 
+      Languages:
+      - EVENT TICKET
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/EventTicketDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Tickets in regular game modes
+
+        or buy them in the shop.
+
+        Use
+        them to enter and play special events.'
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16146,6 +16579,842 @@ MonoBehaviour:
         \u0433\u043E\u0440\u043E\u0434, \u0442\u0435\u043F\u0435\u0440\u044C \u043F\u043E\u043B\u044F
         \u0431\u043E\u0435\u0432\u044B\u0445 \u0441\u0430\u043B\u043E\u043D\u043E\u0432"
       - Uma vez uma cidade movimentada, agora um campo de batalha de saqueadores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinAlien
+      TermType: 0
+      Description: 
+      Languages:
+      - XANADU
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinAlienDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrazillianfestival
+      TermType: 0
+      Description: 
+      Languages:
+      - BEATRIZ
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinBrazillianfestivalDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinChinesedragon
+      TermType: 0
+      Description: 
+      Languages:
+      - TING TING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinChinesedragonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinValkyrie
+      TermType: 0
+      Description: 
+      Languages:
+      - VALKYRIE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinValkyrieDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinYeti
+      TermType: 0
+      Description: 
+      Languages:
+      - YETI
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinYetiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPostapocalypticassassin
+      TermType: 0
+      Description: 
+      Languages:
+      - HANZO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPostapocalypticassassinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPolarexplorer
+      TermType: 0
+      Description: 
+      Languages:
+      - SARA SNOW
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPolarexplorerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFieldmedic
+      TermType: 0
+      Description: 
+      Languages:
+      - DR. VARGOVA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFieldmedicDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinStreetrunner
+      TermType: 0
+      Description: 
+      Languages:
+      - JOHN BAKER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinStreetrunnerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBigsyringe
+      TermType: 0
+      Description: 
+      Languages:
+      - INJECTOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBigsyringeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinValkyriesword
+      TermType: 0
+      Description: 
+      Languages:
+      - HOFUTH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinValkyrieswordDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinIceclub
+      TermType: 0
+      Description: 
+      Languages:
+      - ICEMASHER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinIceclubDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinHotdog
+      TermType: 0
+      Description: 
+      Languages:
+      - HOT DOG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinHotdogDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFish
+      TermType: 0
+      Description: 
+      Languages:
+      - BIG TUNA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFishDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFestivefeather
+      TermType: 0
+      Description: 
+      Languages:
+      - FESTIVE FEATHERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFestivefeatherDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinChinesefan
+      TermType: 0
+      Description: 
+      Languages:
+      - LUNAR FAN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinChinesefanDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToxicatorSword
+      TermType: 0
+      Description: 
+      Languages:
+      - TOXICATOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToxicatorSwordDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCarrepairHammer
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOCKING HAMMER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCarrepairHammerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagBanana
+      TermType: 0
+      Description: 
+      Languages:
+      - BANANA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagBananaDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagFire
+      TermType: 0
+      Description: 
+      Languages:
+      - FLAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagFireDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagGG
+      TermType: 0
+      Description: 
+      Languages:
+      - GG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagGGDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagLaughing
+      TermType: 0
+      Description: 
+      Languages:
+      - LOL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagLaughingDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNoob
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNoobDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNumberOne
+      TermType: 0
+      Description: 
+      Languages:
+      - NUMBER ONE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNumberOneDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagPooEmoji
+      TermType: 0
+      Description: 
+      Languages:
+      - POO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagPooEmojiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagRoyalCrown
+      TermType: 0
+      Description: 
+      Languages:
+      - ROYALTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagRoyalCrownDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagSalt
+      TermType: 0
+      Description: 
+      Languages:
+      - SALTY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagSaltDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarAlien
+      TermType: 0
+      Description: 
+      Languages:
+      - FUNKY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarAlienDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrazilianfestival
+      TermType: 0
+      Description: 
+      Languages:
+      - LET'S DANCE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBrazilianfestivalDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarChinesedragon
+      TermType: 0
+      Description: 
+      Languages:
+      - DRAGON VISION
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarChinesedragonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFieldmedic
+      TermType: 0
+      Description: 
+      Languages:
+      - NO TIME TO HEAL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFieldmedicDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPolarexplorer
+      TermType: 0
+      Description: 
+      Languages:
+      - FROZEN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPolarexplorerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPostapocalypticassasin
+      TermType: 0
+      Description: 
+      Languages:
+      - TOXIC
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPostapocalypticassasinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSnowflake
+      TermType: 0
+      Description: 
+      Languages:
+      - WINTER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSnowflakeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarStreetrunner
+      TermType: 0
+      Description: 
+      Languages:
+      - READY TO ROLL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarStreetrunnerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarValkyrie
+      TermType: 0
+      Description: 
+      Languages:
+      - TO ASGARD!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarValkyrieDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarYeti
+      TermType: 0
+      Description: 
+      Languages:
+      - CHILL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarYetiDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBase
+      TermType: 0
+      Description: 
+      Languages:
+      - BASE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarBaseDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Special avatar
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -17177,7 +18446,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Blast Pass - Beta Season 12
+      - Appears in the Shop
       - 
       - 
       - 
@@ -24864,6 +26133,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITBattlePass/popup_already_bought_season_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Error
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITBattlePass/popup_already_bought_season_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - You already bought this season
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITGeneric/for
       TermType: 0
       Description: 
@@ -24945,7 +26236,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT ENOUGH
+      - NOT ENOUGH {0}
       - more vodka
       - INSUFICIENTE
       - 
@@ -24970,6 +26261,53 @@ MonoBehaviour:
       - YOU NEED {0} MORE {1}
       - want vodka
       - "VOC\xCA PRECISA DE MAIS {0} {1}"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_noob_text
+      TermType: 0
+      Description: 
+      Languages:
+      - '<line-height=80%><size=48px><color=#F8C72E>\n\n\nEarn <sprite name="NOOBIcon">
+        <color=#09B3FF>NOOB</color> in events and special\ncontests</color></size>
+
+
+        <color=white><size=38px>
+
+        Join
+        our Discord for more information
+
+        or
+
+        Read a guide on how
+        to acquire NOOB
+
+        </color></size></line-height>'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_noob_discord_button
+      TermType: 0
+      Description: 
+      Languages:
+      - GO TO DISCORD
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_noob_guide_button
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB GUIDE
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -26945,6 +28283,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITGameModeSelection/participate_event_label
+      TermType: 0
+      Description: 
+      Languages:
+      - PARTICIPATE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/ticket_refunded_message
+      TermType: 0
+      Description: 
+      Languages:
+      - You got {0} {1} back from the event participation fee.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/blast_pass
       TermType: 0
       Description: 
@@ -28028,6 +29388,28 @@ MonoBehaviour:
       - WINS THE MATCH
       - "\u0412\u044B\u0438\u0433\u0440\u044B\u0432\u0430\u0435\u0442 \u043C\u0430\u0442\u0447"
       - Vence a partida
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/failed_to_find_players
+      TermType: 0
+      Description: 
+      Languages:
+      - Failed to find players, please try again.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/unknown_matchmaking_error
+      TermType: 0
+      Description: 
+      Languages:
+      - Unkown matchmaking error ocurred, please try again.
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -29481,6 +30863,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStandings/collected_in_map
+      TermType: 0
+      Description: 
+      Languages:
+      - Collected in Map
+      - 
+      - Coletado no mapa
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStandings/place_bonus
+      TermType: 0
+      Description: 
+      Languages:
+      - Placement Bonus
+      - 
+      - "Bonus de coloca\xE7\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStandings/nft_buffs
+      TermType: 0
+      Description: 
+      Languages:
+      - NFT Buffs
+      - 
+      - Bonus NFT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSpectate/camera_1
       TermType: 0
       Description: 
@@ -29856,6 +31271,195 @@ MonoBehaviour:
       - YOU OWN THIS ITEM
       - YOU OWN THIS ITEM
       - "VOC\xCA J\xC1 POSSUI ESTE ITEM"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/notification_product_cooldown
+      TermType: 0
+      Description: 
+      Languages:
+      - The purchase is on cooldown. You will be able to buy when the cooldown time
+        ends.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/notification_product_maxamount
+      TermType: 0
+      Description: 
+      Languages:
+      - You've purchased all available items.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/notification_product_daily_reset
+      TermType: 0
+      Description: 
+      Languages:
+      - You've purchased all available items for today. Come back tomorrow for more!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/pending_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Pending
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/pending_popup_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - There is a pending purchase, wait and try again.
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Transactions Failed
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_PurchasingUnavailable
+      TermType: 0
+      Description: 
+      Languages:
+      - Purchasing Unavailable
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_ExistingPurchasePending
+      TermType: 0
+      Description: 
+      Languages:
+      - Existing Pending Purchase
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_ProductUnavailable
+      TermType: 0
+      Description: 
+      Languages:
+      - Product Unavailable
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_SignatureInvalid
+      TermType: 0
+      Description: 
+      Languages:
+      - Invalid Signature
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_UserCancelled
+      TermType: 0
+      Description: 
+      Languages:
+      - User Cancelled
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_PaymentDeclined
+      TermType: 0
+      Description: 
+      Languages:
+      - Payment Declined
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_DuplicateTransaction
+      TermType: 0
+      Description: 
+      Languages:
+      - Duplicated Transaction
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/transaction_failed_Unknown
+      TermType: 0
+      Description: 
+      Languages:
+      - Unknown
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/logical_purchase_popup_text
+      TermType: 0
+      Description: 
+      Languages:
+      - You are about to spend {0}
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/deferred_transaction_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Pending
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/deferred_transaction_popup_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Your purchase is taking a little longer than expected. We will notify you
+        when the purchase is finished
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -30588,6 +32192,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/mutator_Bloodthirst
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOODTHIRST
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_Bloodthirst_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Heals you for 33% of your damage
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCustomGames/mutators
       TermType: 0
       Description: 
@@ -31099,7 +32725,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1729004926730
+    Google_LastUpdatedVersion: 1737389447168
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

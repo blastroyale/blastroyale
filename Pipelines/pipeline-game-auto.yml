@@ -159,6 +159,8 @@ stages:
     lockBehavior: sequential
     jobs:
       - job: DisplayAndTagBuild
+        timeoutInMinutes: 1
+        cancelTimeoutInMinutes: 0
         pool:
           vmImage: "ubuntu-latest"
         steps:
@@ -215,7 +217,8 @@ stages:
         dependsOn: DisplayAndTagBuild
 
       - job: AndroidBuild
-        timeoutInMinutes: 90
+        cancelTimeoutInMinutes: 0
+        timeoutInMinutes: 50
         dependsOn: EditorTests
         displayName: Android Build
         condition: and(in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'),not(or(failed(), canceled())),ne('${{ parameters.param_platforms }}', 'iOS'))
@@ -249,7 +252,8 @@ stages:
               remote_addressables: false
 
       - job: iOSBuild
-        timeoutInMinutes: 90
+        cancelTimeoutInMinutes: 0
+        timeoutInMinutes: 50
         dependsOn: EditorTests
         displayName: iOS Build
         condition: |

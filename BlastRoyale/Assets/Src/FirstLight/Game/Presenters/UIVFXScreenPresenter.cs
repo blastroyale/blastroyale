@@ -1,6 +1,6 @@
+using FirstLight.Game.Domains.HomeScreen.UI;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
-using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Services;
 using FirstLight.UIService;
 using Sirenix.OdinInspector;

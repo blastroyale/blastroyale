@@ -1,11 +1,7 @@
-
-using System.Collections.Generic;
 using Backend.Game.Services;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using NUnit.Framework;
 using Quantum;
 using FirstLight.Server.SDK.Modules;
@@ -20,6 +16,7 @@ public class TestCommandManager
 	public void SetUp()
 	{
 		_server = new TestServer();
+		_server.SetupInMemoryServer();
 		_service = (GameCommandService?)_server.GetService<IGameCommandService>();
 	}
 	

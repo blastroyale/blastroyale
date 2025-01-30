@@ -1,17 +1,13 @@
 using Backend.Game;
 using Backend.Game.Services;
-using FirstLight;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
 using Quantum;
 using FirstLight.Server.SDK.Services;
-using FirstLight.Services;
 using GameLogicService.Services;
 using Assert = NUnit.Framework.Assert;
 

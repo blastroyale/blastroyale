@@ -17,8 +17,12 @@ namespace FirstLight.Game.Configs
 		{
 			public uint Number;
 
+			public string Title;
+			
 			[Tooltip("The price of the Pro BP in BlastBucks")]
 			public uint Price;
+
+			public bool EnableIAP;
 
 			[Tooltip("Buy level price, set 0 to disable functionality")]
 			public uint BuyLevelPrice;
@@ -33,6 +37,7 @@ namespace FirstLight.Game.Configs
 			public string EndsAt;
 			public bool RemovePaid;
 			public string EndGraphicImageClass;
+			public string BannerGraphicImageClass;
 			public string EndGraphicName;
 			public string Highlighted;
 

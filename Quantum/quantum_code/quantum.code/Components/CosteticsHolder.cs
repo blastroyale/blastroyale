@@ -1,4 +1,6 @@
-﻿using Quantum.Collections;
+﻿using System;
+using System.Linq;
+using Quantum.Collections;
 using Quantum.Core;
 
 namespace Quantum
@@ -14,6 +16,12 @@ namespace Quantum
 			{
 				list.Add(gameId);
 			}
+		}
+
+		public GameId? GetEquipped(Frame f, GameIdGroup group)
+		{
+			var list =  f.ResolveList(Cosmetics);
+			return list.FirstOrDefault(c => c.IsInGroup(group));
 		}
 	}
 }

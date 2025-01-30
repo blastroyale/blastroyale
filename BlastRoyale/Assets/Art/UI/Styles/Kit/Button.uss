@@ -2,16 +2,78 @@
 
 }
 
+.flg-btn-text {
+}
+
+
 .flg-btn-icon {
     width: 56px;
     height: 56px;
     -unity-background-scale-mode: scale-to-fit;
 }
 
+
+.flg-btn-long.flg-btn-solid {
+    background-image: var(--sprite-kit__long-primary);
+    width: 378px;
+    height: 102px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: #9C240C;
+    text-shadow: 4px 4px 0 #9C240C;
+    padding: 0 0 7px;
+    -unity-text-align: middle-center;
+    overflow: visible;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.flg-btn-long.flg-btn-solid:active {
+    padding-bottom: 0;
+    background-image: var(--sprite-kit__long-primary-pressed);
+}
+
+.flg-btn-long.flg-btn-secondary {
+    background-image: var(--sprite-kit__long-secondary);
+    -unity-text-outline-color: #3A0D79;
+    text-shadow: 3px 3px 0 #3A0D79;
+}
+
+.flg-btn-long.flg-btn-secondary:active {
+    background-image: var(--sprite-kit__long-secondary-pressed);
+}
+
+.flg-btn-long.flg-btn-success {
+    background-image: var(--sprite-kit__long-success);
+    -unity-text-outline-color: #265A06;
+    text-shadow: 3px 3px 0 #265A06;
+}
+
+.flg-btn-long.flg-btn-success:active {
+    background-image: var(--sprite-kit__long-success-pressed);
+}
+
+.flg-btn-long.flg-btn-error {
+    background-image: var(--sprite-kit__long-error);
+    -unity-text-outline-color: #6A0B0B;
+    text-shadow: 3px 3px 0 #6A0B0B;
+}
+
+.flg-btn-long.flg-btn-error:active {
+    background-image: var(--sprite-kit__long-error-pressed);
+}
+
+
 .flg-btn-square.flg-btn-solid {
     width: 98px;
     height: 98px;
-    background-image: var(--sprite-kit__square);
+    background-image: var(--sprite-kit__square-primary);
     align-self: auto;
     justify-content: center;
     align-items: center;
@@ -19,7 +81,7 @@
 }
 
 .flg-btn-square.flg-btn-solid:active {
-    background-image: var(--sprite-kit__square-pressed);
+    background-image: var(--sprite-kit__square-primary-pressed);
     padding-bottom: 3px;
 }
 
@@ -37,7 +99,7 @@
     transition: all 0.1s;
 }
 
-.flg-btn-primary {
-    /*Only one color so far so ignore it*/
+.flg-btn-default-gap {
+    margin-left: 37px;
 }
 

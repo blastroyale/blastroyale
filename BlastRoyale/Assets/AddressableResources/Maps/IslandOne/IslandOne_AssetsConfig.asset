@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87748ec297e468d8c996980a88d3c98, type: 3}
+  m_Name: IslandOne_AssetsConfig
+  m_EditorClassIdentifier: 
+  Scene:
+    m_AssetGUID: 3a12465aa292a074faf2e16b63bcdd23
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  QuantumMap:
+    m_AssetGUID: 2d2775ddc60875247af631df98b233d1
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapPreview:
+    m_AssetGUID: a2afe444d91f1374e89c51db7e1c2329
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  MapAreas:
+    AreaTextureRef:
+      m_AssetGUID: 131edb4bf54774dc68f063ab57f36c03
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    Areas:
+    - Color:
+        serializedVersion: 2
+        rgba: 4294945007
+      Name: PRIMEVAL FOREST
+    - Color:
+        serializedVersion: 2
+        rgba: 4294956937
+      Name: OUTPOST
+    - Color:
+        serializedVersion: 2
+        rgba: 4291886975
+      Name: PORT
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901823
+      Name: PRISON
+    - Color:
+        serializedVersion: 2
+        rgba: 4294940553
+      Name: TRAIN STATION
+    - Color:
+        serializedVersion: 2
+        rgba: 4294909184
+      Name: FARM
+    - Color:
+        serializedVersion: 2
+        rgba: 4278208767
+      Name: RESORT
+    - Color:
+        serializedVersion: 2
+        rgba: 4294956032
+      Name: HIGH STREET
+    - Color:
+        serializedVersion: 2
+        rgba: 4291297024
+      Name: COMMERCIAL DISTRICT
+    - Color:
+        serializedVersion: 2
+        rgba: 4294934272
+      Name: BUSHY PARK
+    - Color:
+        serializedVersion: 2
+        rgba: 4279828735
+      Name: PLAZA
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901895
+      Name: FISHERMEN
+    - Color:
+        serializedVersion: 2
+        rgba: 4278230527
+      Name: WAREHOUSE
+    - Color:
+        serializedVersion: 2
+        rgba: 4287365375
+      Name: ESTATE
+    - Color:
+        serializedVersion: 2
+        rgba: 4293198079
+      Name: EASTSIDE
+    - Color:
+        serializedVersion: 2
+        rgba: 4294901959
+      Name: NEW FOREST
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255598
+      Name: ALLOTMENTS
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255381
+      Name: MILITARY BASE
+    - Color:
+        serializedVersion: 2
+        rgba: 4285726464
+      Name: POWER PLANT
+    - Color:
+        serializedVersion: 2
+        rgba: 4278255504
+      Name: CEMETERY

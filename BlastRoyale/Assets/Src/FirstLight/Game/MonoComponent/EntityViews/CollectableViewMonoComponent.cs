@@ -42,7 +42,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private readonly Dictionary<EntityRef, CollectingData> _collectors = new ();
 		private EntityRef _displayedCollector;
-		private CollectableIndicatorVfxMonoComponent _collectingVfx;
+		private CollectableIndicatorVfxMonoBehaviour _collectingVfx;
 
 		/// <summary>
 		/// Sets the visibility of the static Pickup Circle to provided value
@@ -116,6 +116,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.19f);
 							break;
+						case GameId.GunSniperHeavy:
 						case GameId.ModSniper:
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.07f);
@@ -128,6 +129,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							_itemGameObject.transform.localScale = new Vector3(2f, 2f, 2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.65f, -0.42f);
 							break;
+						case GameId.GunShotgunAuto:
+							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.23f);
+							break;
 						case GameId.ModShotgun:
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.8f, 0.09f);
@@ -136,6 +141,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							_itemGameObject.transform.localScale = new Vector3(2.3f, 2.3f, 2.5f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.8f, -0.08f);
 							break;
+						case GameId.GunARBurst:
 						case GameId.ModRifle:
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.75f, -0.23f);
@@ -302,6 +308,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (_collectingVfx != null)
 			{
 				_collectingVfx.Despawn();
+				_collectingVfx = null;
 			}
 
 			transform.parent = null;
@@ -344,7 +351,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				var vfxId = collectingData.IsLargeCollectable
 					? VfxId.CollectableIndicatorLarge
 					: VfxId.CollectableIndicator;
-				_collectingVfx = (CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(vfxId);
+				_collectingVfx = (CollectableIndicatorVfxMonoBehaviour) MatchServices.VfxService.Spawn(vfxId);
 				
 				UpdateVfxPosition();
 				_collectingVfx.transform.rotation = Quaternion.AngleAxis(145, Vector3.up);

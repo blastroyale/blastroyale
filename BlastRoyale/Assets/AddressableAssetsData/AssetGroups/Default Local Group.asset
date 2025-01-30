@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 0e52a60771cc149338b91a85f39606ae
   m_SerializeEntries:
-  - m_GUID: 0394e693bae9541f7aa521525867ece2
-    m_Address: VFX
+  - m_GUID: 08479ab7af738d34ebb93daac48a8dc5
+    m_Address: Assets/Art/UI/Sprites/Currencies
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -27,8 +27,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 11d57e767718d493580978f3366fb7b5
-    m_Address: AdventureAssets
+  - m_GUID: 1c02f793964ff49eab93c941b5a9c290
+    m_Address: AdventureAssets/Footprint/FootprintDot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 21325777ff90a47868a374eee1fb564f
+    m_Address: Assets/Art/UI/Screens/BattlePassScreenDocument.uxml
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 350f086b55bb35148aa6c056929e28e1
+    m_Address: Audio/Match/WalkLoops/PlayerWalkRoad2.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b196d1a9145c4220b265b4d0ff754a1
+    m_Address: Assets/Art/UI/Sprites/Home/glider-divinci.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e60c5949fa400d45802af22e47974d7
+    m_Address: Sprites/T_Projectiles_E.tga
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -42,141 +62,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aa29c48334b522d4591d90c5b472c698
-    m_Address: Sprites
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bb2c68c2697e4e4428ad4dddf3390ba4
-    m_Address: QuantumAssets
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Quantum
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e03e6e2a82c494767b45513bc3068782
-    m_Address: CustomAssets
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e8d470cf8919e4bb78638804bc4397ba
-    m_Address: Maps
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cf2e71bde4a694081a6c35be5418d3e2
-    m_Address: VFX/WeaponAim.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1c02f793964ff49eab93c941b5a9c290
-    m_Address: AdventureAssets/Footprint/FootprintDot.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 350f086b55bb35148aa6c056929e28e1
-    m_Address: Audio/Match/WalkLoops/PlayerWalkRoad2.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aa5050f727055de409e7b5dded842305
-    m_Address: Collections
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - ScriptableObjectsOnly
-    - GenerateIds
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 200f11153aed542e3aeb0adb534ade89
-    m_Address: Assets/Art/UI/Sprites/Home/flag-demon.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cdc7358579aa94ba0a86ff51775df66b
-    m_Address: Assets/Art/UI/Sprites/Home/flag-superstar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 55356cbdba04d48d9b5a996b1db941ca
-    m_Address: Assets/Art/UI/Sprites/Home/flag-unicorn.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9ce754ea943f24c39812ee0c1156204a
-    m_Address: Assets/Art/UI/Sprites/Home/glider-turbine.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d3812d1e1c56b4a188ccfb9324966a36
-    m_Address: Assets/Art/UI/Sprites/Home/flag-tombstone.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 939f9d55c3bea4ada9601d4a0843b2f3
-    m_Address: Assets/Art/UI/Sprites/Home/glider-rocket.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ce83c8bea7bca44b893b799aca685404
-    m_Address: Assets/Art/UI/Sprites/Home/glider-falcon.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3b196d1a9145c4220b265b4d0ff754a1
-    m_Address: Assets/Art/UI/Sprites/Home/glider-divinci.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dcd6238cca50f4181b0953d56e9abee6
-    m_Address: Assets/BattlePassLevelBar.uxml
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f373736db2a4c4418acd0b1c689d767
     m_Address: Assets/Art/UI/Sprites/Shared/icon-currency-blastbuck.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 21325777ff90a47868a374eee1fb564f
-    m_Address: Assets/Art/UI/Screens/BattlePassScreenDocument.uxml
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f8b4c677be302ff44be35fb2a261cd5b
-    m_Address: Assets/Art/UI/Sprites/BattlePass/icon_free-pass-no-effects.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4e60c5949fa400d45802af22e47974d7
-    m_Address: Sprites/T_Projectiles_E.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 08479ab7af738d34ebb93daac48a8dc5
-    m_Address: Assets/Art/UI/Sprites/Currencies
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fa861bc1e98024abcb664233179fcdb2
-    m_Address: Assets/AddressableResources/Gliders/Divinci/Glider_Divinci.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 942576c79c1084f2aae780de3e558fd4
-    m_Address: Assets/AddressableResources/Gliders/Turbine/Glider_Turbine.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dfaa234ed67534e65ac8136d5d3387a7
-    m_Address: Assets/AddressableResources/Gliders/Falcon/Glider_Falcon.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ed6fd1588abc74d7fb1f30d63ab8f7bf
-    m_Address: Assets/AddressableResources/Gliders/Rocket/Glider_Rocket.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e8fa8f21907090640a854146d341e06c
-    m_Address: Assets/AddressableResources/Collections/WeaponSkins/M_props.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -185,9 +72,81 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 939f9d55c3bea4ada9601d4a0843b2f3
+    m_Address: Assets/Art/UI/Sprites/Home/glider-rocket.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 942576c79c1084f2aae780de3e558fd4
+    m_Address: Assets/AddressableResources/Gliders/Turbine/Glider_Turbine.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ce754ea943f24c39812ee0c1156204a
+    m_Address: Assets/Art/UI/Sprites/Home/glider-turbine.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa29c48334b522d4591d90c5b472c698
+    m_Address: Sprites
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa5050f727055de409e7b5dded842305
+    m_Address: Collections
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GenerateIds
+    - ScriptableObjectsOnly
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce83c8bea7bca44b893b799aca685404
+    m_Address: Assets/Art/UI/Sprites/Home/glider-falcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf2e71bde4a694081a6c35be5418d3e2
+    m_Address: VFX/WeaponAim.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcd6238cca50f4181b0953d56e9abee6
+    m_Address: Assets/BattlePassLevelBar.uxml
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dfaa234ed67534e65ac8136d5d3387a7
+    m_Address: Assets/AddressableResources/Gliders/Falcon/Glider_Falcon.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e03e6e2a82c494767b45513bc3068782
+    m_Address: CustomAssets
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8fa8f21907090640a854146d341e06c
+    m_Address: Assets/AddressableResources/Collections/WeaponSkins/M_props.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed6fd1588abc74d7fb1f30d63ab8f7bf
+    m_Address: Assets/AddressableResources/Gliders/Rocket/Glider_Rocket.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8b4c677be302ff44be35fb2a261cd5b
+    m_Address: Assets/Art/UI/Sprites/BattlePass/icon_free-pass-no-effects.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa861bc1e98024abcb664233179fcdb2
+    m_Address: Assets/AddressableResources/Gliders/Divinci/Glider_Divinci.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: c32dff4ab6bc046de85dbdf83e14d2bc, type: 2}
     - {fileID: 11400000, guid: 89ce90b9cfa1b466cb303fb9ad77aba0, type: 2}
+    - {fileID: 11400000, guid: c32dff4ab6bc046de85dbdf83e14d2bc, type: 2}

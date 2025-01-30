@@ -20,12 +20,9 @@ namespace FirstLight.Game.Views.UITK
 
 			_currency.Init(MainInstaller.Resolve<IGameDataProvider>(),
 				MainInstaller.Resolve<IGameServices>());
-		}
-
-		public override void OnScreenOpen(bool reload)
-		{
 			_currency.SubscribeToEvents();
 		}
+		
 
 		public override void OnScreenClose()
 		{

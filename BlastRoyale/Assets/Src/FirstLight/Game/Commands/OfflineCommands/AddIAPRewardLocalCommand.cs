@@ -1,9 +1,7 @@
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.Commands;
-using FirstLight.Services;
 
 namespace FirstLight.Game.Commands.OfflineCommands
 {

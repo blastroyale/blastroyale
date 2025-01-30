@@ -70,8 +70,8 @@ PlayerSettings:
   disableDepthAndStencilBuffers: 0
   androidStartInFullscreen: 1
   androidRenderOutsideSafeArea: 1
-  androidUseSwappy: 0
-  androidBlitType: 1
+  androidUseSwappy: 1
+  androidBlitType: 2
   androidResizableWindow: 0
   androidDefaultWindowWidth: 1920
   androidDefaultWindowHeight: 1080
@@ -86,6 +86,7 @@ PlayerSettings:
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
   Force IOS Speakers When Recording: 0
+  audioSpatialExperience: 0
   deferSystemGesturesMode: 4
   hideHomeButton: 0
   submitAnalytics: 1
@@ -141,7 +142,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.24.0
+  bundleVersion: 0.26.0
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -156,8 +157,8 @@ PlayerSettings:
   allowHDRDisplaySupport: 0
   useHDRDisplay: 0
   hdrBitDepth: 0
-  m_ColorGamuts: 0000000003000000
-  targetPixelDensity: 30
+  m_ColorGamuts: 00000000
+  targetPixelDensity: 240
   resolutionScalingMode: 0
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
@@ -172,7 +173,7 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 22
+  AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 34
   AndroidPreferredInstallLocation: 0
   aotOptions: 
@@ -184,9 +185,9 @@ PlayerSettings:
   CreateWallpaper: 0
   APKExpansionFiles: 0
   keepLoadedShadersAlive: 0
-  StripUnusedMeshComponents: 1
+  StripUnusedMeshComponents: 0
   strictShaderVariantMatching: 0
-  VertexChannelCompressionMask: -1
+  VertexChannelCompressionMask: 247
   iPhoneSdkVersion: 988
   iOSTargetOSVersionString: 12.0
   tvOSSdkVersion: 0
@@ -292,13 +293,45 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 76096bdad897b4d799869ece63199d9b, type: 3}
+      m_Icon: {fileID: 2800000, guid: 4af4d6c3dde628341ac5d68219436523, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: Android
     m_Icons:
+    - m_Textures:
+      - {fileID: 2800000, guid: 6112f156812564066b4fcc1c21f15918, type: 3}
+      - {fileID: 2800000, guid: 2ab1201aeb66547d8b7a8e54e03e58c0, type: 3}
+      m_Width: 432
+      m_Height: 432
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 324
+      m_Height: 324
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 216
+      m_Height: 216
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 162
+      m_Height: 162
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 108
+      m_Height: 108
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 81
+      m_Height: 81
+      m_Kind: 2
+      m_SubKind: 
     - m_Textures:
       - {fileID: 2800000, guid: 028e96a38d8ac44fc8ce49ad4e017b42, type: 3}
       m_Width: 192
@@ -334,38 +367,6 @@ PlayerSettings:
       m_Width: 36
       m_Height: 36
       m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 2800000, guid: 6112f156812564066b4fcc1c21f15918, type: 3}
-      - {fileID: 2800000, guid: 2ab1201aeb66547d8b7a8e54e03e58c0, type: 3}
-      m_Width: 432
-      m_Height: 432
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 324
-      m_Height: 324
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 216
-      m_Height: 216
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 162
-      m_Height: 162
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 108
-      m_Height: 108
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 81
-      m_Height: 81
-      m_Kind: 2
       m_SubKind: 
     - m_Textures:
       - {fileID: 2800000, guid: 028e96a38d8ac44fc8ce49ad4e017b42, type: 3}
@@ -574,7 +575,10 @@ PlayerSettings:
     m_Automatic: 0
   - m_BuildTarget: LinuxStandaloneSupport
     m_APIs: 1500000011000000
-    m_Automatic: 0
+    m_Automatic: 1
+  - m_BuildTarget: MacStandaloneSupport
+    m_APIs: 10000000
+    m_Automatic: 1
   m_BuildTargetVRSettings: []
   m_DefaultShaderChunkSizeInMB: 16
   m_DefaultShaderChunkCount: 0
@@ -586,8 +590,12 @@ PlayerSettings:
     Android: 1
     iPhone: 1
     tvOS: 1
-  m_BuildTargetGroupLightmapEncodingQuality: []
-  m_BuildTargetGroupHDRCubemapEncodingQuality: []
+  m_BuildTargetGroupLightmapEncodingQuality:
+  - m_BuildTarget: Standalone
+    m_EncodingQuality: 0
+  m_BuildTargetGroupHDRCubemapEncodingQuality:
+  - m_BuildTarget: Standalone
+    m_EncodingQuality: 0
   m_BuildTargetGroupLightmapSettings:
   - m_BuildTarget: Android
     m_TextureStreamingEnabled: 0
@@ -595,11 +603,14 @@ PlayerSettings:
   - m_BuildTarget: iPhone
     m_TextureStreamingEnabled: 0
     m_TextureStreamingPriority: 0
+  - m_BuildTarget: Standalone
+    m_TextureStreamingEnabled: 0
+    m_TextureStreamingPriority: 0
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding: []
   m_BuildTargetDefaultTextureCompressionFormat:
   - m_BuildTarget: Android
-    m_Format: 1
+    m_Format: 2
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
@@ -868,7 +879,7 @@ PlayerSettings:
     PS5: TextMeshPro
     QNX: TextMeshPro
     Stadia: TextMeshPro
-    Standalone: QUANTUM_ADDRESSABLES;TextMeshPro;LOG_LEVEL_INFO;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_VALIDATOR;ODIN_INSPECTOR;BAKERY_INCLUDED;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2
+    Standalone: QUANTUM_ADDRESSABLES;TextMeshPro;MOREMOUNTAINS_NICEVIBRATIONS;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;ODIN_VALIDATOR;ODIN_INSPECTOR;BAKERY_INCLUDED;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;LOG_LEVEL_VERBOSE
     VisionOS: TextMeshPro
     WebGL: TextMeshPro;BAKERY_INCLUDED;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3;LOG_LEVEL_INFO
     Windows Store Apps: 

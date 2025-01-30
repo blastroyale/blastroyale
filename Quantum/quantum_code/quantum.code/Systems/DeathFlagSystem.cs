@@ -7,14 +7,24 @@ namespace Quantum.Systems
 	/// </summary>
 	public unsafe class DeathFlagSystem : SystemSignalsOnly, ISignalPlayerKilledPlayer
 	{
-	
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
 									   EntityRef entityKiller)
 		{
-			var playerPosition = f.Unsafe.GetPointer<Transform2D>(entityDead)->Position;
+			if (f.Context.IsTutorial)
+			{
+				return;
+			}
 			
-			var killerDeathFlag = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[playerKiller].DeathFlag;
-			Spawn(f, killerDeathFlag, playerPosition);
+			var playerPosition = f.Unsafe.GetPointer<Transform2D>(entityDead)->Position;
+			if (!f.Unsafe.TryGetPointer<CosmeticsHolder>(entityKiller, out var cosmetics))
+			{
+				return;
+			}
+
+			var equippedFlag = cosmetics->GetEquipped(f, GameIdGroup.DeathMarker);
+			if (equippedFlag == null) return;
+			
+			Spawn(f, equippedFlag.Value, playerPosition);
 		}
 		
 		private static void Spawn(Frame f, GameId id, FPVector2 position)

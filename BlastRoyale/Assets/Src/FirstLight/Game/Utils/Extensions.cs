@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Ids;
@@ -237,6 +238,23 @@ namespace FirstLight.Game.Utils
 
 			return ts.Hours + (simplified ? "h" : " hours");
 		}
+		
+		/// <summary>
+		/// Formats a string in seconds to Days, Hours and Minutes or Hours Minutes and Seconds
+		/// </summary>
+		public static string ToDaysHourMinutesOrHourMinutesSeconds(this TimeSpan ts, bool simplified = false)
+		{
+			if (ts.Days > 0)
+			{
+				return simplified
+					? $"{ts.Days.ToString()}d {ts.Hours.ToString()}h {ts.Minutes.ToString()}m"
+					: $"{ts.Days.ToString()} days, {ts.Hours.ToString()} hours and {ts.Minutes.ToString()} minutes";
+			}
+
+			return simplified
+				? $"{ts.Hours.ToString()}h {ts.Minutes.ToString()}m {ts.Seconds.ToString()}s"
+				: $"{ts.Hours.ToString()} hours, {ts.Minutes.ToString()} minutes and {ts.Seconds.ToString()} seconds";
+		}
 
 		/// <summary>
 		/// Requests the <see cref="GameIdGroup"/> slot representing the given <see cref="item"/>
@@ -362,8 +380,14 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static unsafe ref PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
 		{
-			var localPlayers = game.GetLocalPlayers();
 			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
+			if (game.Frames.Verified == null || game.IsSessionDestroyed)
+			{
+				FLog.Warn("Trying to access simulation data without simulation running.");
+				return ref _defaultPlayerMatchDataReference;
+			}
+
+			var localPlayers = game.GetLocalPlayers();
 			if (localPlayers.Length == 0) return ref _defaultPlayerMatchDataReference;
 			return ref *f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData.GetPointer(localPlayers[0]);
 		}
@@ -375,7 +399,6 @@ namespace FirstLight.Game.Utils
 		public static PlayerRef GetLocalPlayerRef(this QuantumGame game)
 		{
 			var localPlayers = game.GetLocalPlayers();
-
 			return localPlayers.Length == 0 ? PlayerRef.None : localPlayers[0];
 		}
 
@@ -503,6 +526,14 @@ namespace FirstLight.Game.Utils
 		public static T RandomElement<T>(this IList<T> source)
 		{
 			return source[Random.Range(0, source.Count)];
+		}
+
+		public static bool IsImplementationOf(this Type intInit, Type generic)
+		{
+			return intInit
+				.GetInterfaces()
+				.Any(i => i.IsGenericType &&
+					i.GetGenericTypeDefinition() == generic);
 		}
 	}
 }

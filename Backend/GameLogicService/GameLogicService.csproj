@@ -10,6 +10,7 @@
     <ItemGroup>
       <PackageReference Include="DistributedLock" Version="2.3.4" />
       <PackageReference Include="DistributedLock.Postgres" Version="1.0.5" />
+      <PackageReference Include="DistributedLock.Redis" Version="1.0.3" />
       <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
       <PackageReference Include="Microsoft.ApplicationInsights.TraceListener" Version="2.22.0" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />

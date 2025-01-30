@@ -8,6 +8,11 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using FirstLight.AssetImporter;
+using FirstLight.FLogger;
+using FirstLight.Game.Configs.AssetConfigs;
+using UnityEngine.Video;
+using static FirstLight.Game.Ids.AddressableId;
 using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.Configs
@@ -20,12 +25,22 @@ namespace FirstLight.Game.Configs
 		/// <summary>
 		/// Using the given asset resolver, loads and fills the IConfigsAdder object.
 		/// </summary>
-		IEnumerable<UniTask> LoadConfigTasks(IConfigsAdder cfg);
+		IEnumerable<UniTask> LoadConfigTasks();
+
+		/// <summary>
+		/// Fills the IConfigs with the configs needed for assets (like VFX, map assets and etc)
+		/// </summary>
+		/// <param name="assetService"></param>
+		public IEnumerable<UniTask> LoadAssetConfigTasks(IAssetAdderService assetService);
 
 		/// <summary>
 		/// Loads a specific config using the given asset resolver. 
 		/// </summary>
 		UniTask LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete) where TContainer : ScriptableObject;
+	}
+
+	public static class IConfigLoaderExtensions
+	{
 	}
 
 	/// <summary>
@@ -34,73 +49,122 @@ namespace FirstLight.Game.Configs
 	public class GameConfigsLoader : IConfigsLoader
 	{
 		private IAssetAdderService _assetLoader;
+		private readonly IConfigsAdder _configsAdder;
 
-		public GameConfigsLoader(IAssetAdderService assetLoader)
+		public GameConfigsLoader(IAssetAdderService assetLoader, IConfigsAdder configsAdder)
 		{
 			_assetLoader = assetLoader;
-		}
-
-		public IEnumerable<UniTask> LoadConfigTasks(IConfigsAdder configsAdder)
-		{
-			return GetLoadHandlers(configsAdder).Select(cld => cld.LoadConfigRuntime());
-		}
-
-		public void LoadConfigEditor(IConfigsAdder configsAdder)
-		{
-			foreach (var clh in GetLoadHandlers(configsAdder))
-			{
-				clh.LoadConfigEditor();
-			}
+			_configsAdder = configsAdder;
 		}
 
 		// TODO: load via addressable bundle in a single go
-		public IEnumerable<IConfigLoadHandler> GetLoadHandlers(IConfigsAdder configsAdder)
+		private IEnumerable<IConfigLoadHandler> GetLoadHandlersForConfigs()
 		{
 			return new List<IConfigLoadHandler>
 			{
-				new ConfigLoadDefinition<QuantumRunnerConfigs>(_assetLoader, AddressableId.Configs_Settings_QuantumRunnerConfigs, configsAdder.AddSingletonConfig),
-				new ConfigLoadDefinition<LiveopsFeatureFlagConfigs>(_assetLoader, AddressableId.Configs_LiveopsFeatureFlagConfigs, asset => configsAdder.AddConfigs(data => data.UniqueIdentifier(), asset.Configs)),
-				new ConfigLoadDefinition<GameConfigs>(_assetLoader, AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<MapAreaConfigs>(_assetLoader, AddressableId.Configs_MapAreaConfigs, configsAdder.AddSingletonConfig, false),
-				new ConfigLoadDefinition<MapConfigs>(_assetLoader, AddressableId.Configs_QuantumMapConfigs, asset => configsAdder.AddConfigs(data => data.Map.ToString(), asset.Configs)),
-				new ConfigLoadDefinition<MapAssetConfigs>(_assetLoader, AddressableId.Configs_MapAssetConfigs, configsAdder.AddSingletonConfig),
-				new ConfigLoadDefinition<WeaponConfigs>(_assetLoader, AddressableId.Configs_WeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				new ConfigLoadDefinition<PlayerLevelConfigs>(_assetLoader, AddressableId.Configs_PlayerLevelConfigs, asset => configsAdder.AddConfigs(data => (int) data.LevelStart, asset.Configs)),
-				new ConfigLoadDefinition<SpecialConfigs>(_assetLoader, AddressableId.Configs_SpecialConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				new ConfigLoadDefinition<ConsumableConfigs>(_assetLoader, AddressableId.Configs_ConsumableConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				new ConfigLoadDefinition<DestructibleConfigs>(_assetLoader, AddressableId.Configs_DestructibleConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				new ConfigLoadDefinition<ShrinkingCircleConfigs>(_assetLoader, AddressableId.Configs_ShrinkingCircleConfigs, asset => configsAdder.AddConfigs(data => data.Key, asset.Configs)),
-				new ConfigLoadDefinition<ResourcePoolConfigs>(_assetLoader, AddressableId.Configs_ResourcePoolConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				new ConfigLoadDefinition<AudioWeaponConfigs>(_assetLoader, AddressableId.Configs_AudioWeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.GameId, asset.Configs)),
-				new ConfigLoadDefinition<MatchRewardConfigs>(_assetLoader, AddressableId.Configs_MatchRewardConfigs, asset => configsAdder.AddConfigs(data => data.MatchRewardId, asset.Configs)),
-				new ConfigLoadDefinition<TrophyRewardConfigs>(_assetLoader, AddressableId.Configs_TrophyRewardConfigs, asset => configsAdder.AddConfigs(data => data.MatchRewardId, asset.Configs)),
-				new ConfigLoadDefinition<ChestConfigs>(_assetLoader, AddressableId.Configs_ChestConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				new ConfigLoadDefinition<EquipmentStatConfigs>(_assetLoader, AddressableId.Configs_EquipmentStatConfigs, asset => configsAdder.AddConfigs(data => data.GetKey(), asset.Configs)),
-				new ConfigLoadDefinition<EquipmentMaterialStatConfigs>(_assetLoader, AddressableId.Configs_EquipmentMaterialStatConfigs, asset => configsAdder.AddConfigs(data => data.GetKey(), asset.Configs)),
-				new ConfigLoadDefinition<BaseEquipmentStatConfigs>(_assetLoader, AddressableId.Configs_BaseEquipmentStatConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				new ConfigLoadDefinition<StatConfigs>(_assetLoader, AddressableId.Configs_StatConfigs, asset => configsAdder.AddConfigs(data => (int) data.StatType, asset.Configs)),
-				new ConfigLoadDefinition<BattlePassConfigs>(_assetLoader, AddressableId.Configs_BattlePassConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<EquipmentRewardConfigs>(_assetLoader, AddressableId.Configs_EquipmentRewardConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
-				new ConfigLoadDefinition<RarityDataConfigs>(_assetLoader, AddressableId.Configs_RarityDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
-				new ConfigLoadDefinition<FuseConfigs>(_assetLoader, AddressableId.Configs_FuseConfigs, asset => configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
-				new ConfigLoadDefinition<AdjectiveDataConfigs>(_assetLoader, AddressableId.Configs_AdjectiveDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Adjective, asset.Configs)),
-				new ConfigLoadDefinition<GradeDataConfigs>(_assetLoader, AddressableId.Configs_GradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Grade, asset.Configs)),
-				new ConfigLoadDefinition<GameModeConfigs>(_assetLoader, AddressableId.Configs_GameModeConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
-				new ConfigLoadDefinition<ReviveConfigs>(_assetLoader, AddressableId.Configs_ReviveConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<ScrapConfigs>(_assetLoader, AddressableId.Configs_ScrapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
-				new ConfigLoadDefinition<UpgradeDataConfigs>(_assetLoader, AddressableId.Configs_UpgradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
-				new ConfigLoadDefinition<RepairDataConfigs>(_assetLoader, AddressableId.Configs_RepairDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
-				new ConfigLoadDefinition<LiveopsSegmentActionConfigs>(_assetLoader, AddressableId.Configs_LiveopsSegmentActionConfigs, asset => configsAdder.AddConfigs(data => data.ActionIdentifier, asset.Configs)),
-				new ConfigLoadDefinition<BotDifficultyConfigs>(_assetLoader, AddressableId.Configs_BotDifficultyConfigs, configsAdder.AddSingletonConfig),
-				new ConfigLoadDefinition<MatchmakingAndRoomConfigs>(_assetLoader, AddressableId.Configs_MatchmakingAndRoomConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<CharacterSkinConfigs>(_assetLoader, AddressableId.Collections_CharacterSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<FlagSkinConfigs>(_assetLoader, AddressableId.Collections_Flags_FlagSkinConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<WeaponSkinsConfigContainer>(_assetLoader, AddressableId.Collections_WeaponSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<AvatarCollectableConfigs>(_assetLoader, AddressableId.Collections_ProfilePicture_AvatarCollectableConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-				new ConfigLoadDefinition<CurrencySpriteConfigs>(_assetLoader, AddressableId.Configs_CurrencySpriteConfigs, cfg => configsAdder.AddSingletonConfig(cfg.Config)),
-				new ConfigLoadDefinition<TutorialConfigs>(_assetLoader, AddressableId.Configs_TutorialConfigs, cfg => configsAdder.AddSingletonConfig(cfg.Config)),
-				new ConfigLoadDefinition<BuffConfigs>(_assetLoader, AddressableId.Configs_BuffConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				// last type argument is the one added to the container
+				// TODO: Remove this pile of shit 
+				AddStringKeyValue<GameModeConfigs, QuantumGameModeConfig>(Configs_GameModeConfigs, v => v.Id),
+				AddStringKeyValue<MapConfigs, QuantumMapConfig>(Configs_QuantumMapConfigs, v => v.Map.ToString()),
+				AddKeyValue<LiveopsFeatureFlagConfigs, LiveopsFeatureFlagConfig>(Configs_LiveopsFeatureFlagConfigs,
+					v => v.UniqueIdentifier()),
+				AddKeyValue<WeaponConfigs, QuantumWeaponConfig>(Configs_WeaponConfigs, v => (int) v.Id),
+				AddKeyValue<PlayerLevelConfigs, PlayerLevelConfig>(Configs_PlayerLevelConfigs, v => (int) v.LevelStart),
+				AddKeyValue<SpecialConfigs, QuantumSpecialConfig>(Configs_SpecialConfigs, v => (int) v.Id),
+				AddKeyValue<ConsumableConfigs, QuantumConsumableConfig>(Configs_ConsumableConfigs, v => (int) v.Id),
+				AddKeyValue<DestructibleConfigs, QuantumDestructibleConfig>(Configs_DestructibleConfigs, v => (int) v.Id),
+				AddKeyValue<ShrinkingCircleConfigs, QuantumShrinkingCircleConfig>(Configs_ShrinkingCircleConfigs, v => v.Key),
+				AddKeyValue<ResourcePoolConfigs, ResourcePoolConfig>(Configs_ResourcePoolConfigs, v => (int) v.Id),
+				AddKeyValue<AudioWeaponConfigs, AudioWeaponConfig>(Configs_AudioWeaponConfigs, v => (int) v.GameId),
+				AddKeyValue<MatchRewardConfigs, MatchRewardConfig>(Configs_MatchRewardConfigs, v => v.MatchRewardId),
+				AddKeyValue<TrophyRewardConfigs, TrophyRewardConfig>(Configs_TrophyRewardConfigs, v => v.MatchRewardId),
+				AddKeyValue<ChestConfigs, QuantumChestConfig>(Configs_ChestConfigs, v => (int) v.Id),
+				AddKeyValue<EquipmentStatConfigs, QuantumEquipmentStatConfig>(Configs_EquipmentStatConfigs, v => v.GetKey()),
+				AddKeyValue<EquipmentMaterialStatConfigs, QuantumEquipmentMaterialStatConfig>(Configs_EquipmentMaterialStatConfigs,
+					v => v.GetKey()),
+				AddKeyValue<BaseEquipmentStatConfigs, QuantumBaseEquipmentStatConfig>(Configs_BaseEquipmentStatConfigs,
+					v => (int) v.Id),
+				AddKeyValue<StatConfigs, QuantumStatConfig>(Configs_StatConfigs, v => (int) v.StatType),
+				AddKeyValue<EquipmentRewardConfigs, EquipmentRewardConfig>(Configs_EquipmentRewardConfigs, v => v.Id),
+				AddKeyValue<RarityDataConfigs, RarityDataConfig>(Configs_RarityDataConfigs, v => (int) v.Rarity), // REMOVE
+				AddKeyValue<FuseConfigs, FuseConfig>(Configs_FuseConfigs, v => (int) v.Rarity), // REMOVE
+				AddKeyValue<AdjectiveDataConfigs, AdjectiveDataConfig>(Configs_AdjectiveDataConfigs, v => (int) v.Adjective), // REMOVE
+				AddKeyValue<GradeDataConfigs, GradeDataConfig>(Configs_GradeDataConfigs, v => (int) v.Grade), // REMOVE
+				AddKeyValue<ScrapConfigs, ScrapConfig>(Configs_ScrapConfigs, v => (int) v.Rarity), // REMOVE
+				AddKeyValue<UpgradeDataConfigs, UpgradeDataConfig>(Configs_UpgradeDataConfigs, v => (int) v.Level), // REMOVE
+				AddKeyValue<RepairDataConfigs, RepairDataConfig>(Configs_RepairDataConfigs, v => (int) v.ResourceType), // REMOVE
+				AddKeyValue<LiveopsSegmentActionConfigs, LiveopsSegmentActionConfig>(Configs_LiveopsSegmentActionConfigs,
+					v => v.ActionIdentifier),
+				AddSingleton<BotDifficultyConfigs>(Configs_BotDifficultyConfigs),
+				AddSingleton<QuantumRunnerConfigs>(Configs_Settings_QuantumRunnerConfigs),
+				AddWrappedSingleton<BuffConfigs, QuantumBuffConfigs>(Configs_BuffConfigs),
+				AddWrappedSingleton<TutorialConfigs, TutorialConfig>(Configs_TutorialConfigs),
+				// This one is needed on the server so we can set the url in playfab profile
+				AddWrappedSingleton<AvatarCollectableConfigs, AvatarCollectableConfig>(Collections_ProfilePicture_AvatarCollectableConfigs),
+				AddWrappedSingleton<WeaponSkinsConfigContainer, WeaponSkinsConfig>(Collections_WeaponSkins_Config),
+				AddWrappedSingleton<MatchmakingAndRoomConfigs, MatchmakingAndRoomConfig>(Configs_MatchmakingAndRoomConfigs),
+				AddWrappedSingleton<GameConfigs, QuantumGameConfig>(Configs_GameConfigs),
+				AddWrappedSingleton<BattlePassConfigs, BattlePassConfig>(Configs_BattlePassConfigs),
+				AddWrappedSingleton<ReviveConfigs, QuantumReviveConfigs>(Configs_ReviveConfigs),
 			};
+		}
+
+		private IEnumerable<IConfigLoadHandler> GetLoadHandlersForAssets(IAssetAdderService _assetService)
+		{
+			return new List<IConfigLoadHandler>
+			{
+				// Collections
+				AddWrappedSingleton<FlagSkinConfigs, FlagSkinConfig>(Collections_Flags_FlagSkinConfigs),
+				AddWrappedSingleton<CharacterSkinConfigs, CharacterSkinsConfig>(Collections_CharacterSkins_Config),
+				// Others
+				AddWrappedSingleton<CurrencySpriteConfigs, CurrencySpriteConfig>(Configs_CurrencySpriteConfigs),
+				AddSingleton<MapAssetConfigIndex>(Configs_MapAssetConfigs),
+				AddSingleton<AudioMixerConfigs>(Configs_AudioMixerConfigs),
+				AddSingleton<AudioMatchAssetConfigs>(Configs_AudioMatchAssetConfigs),
+				AddSingleton<AudioMainMenuAssetConfigs>(Configs_AudioMainMenuAssetConfigs),
+				AddSingleton<AudioSharedAssetConfigs>(Configs_AudioSharedAssetConfigs),
+				AddSingleton<MatchAssetConfigs>(Configs_AdventureAssetConfigs),
+				AddSingleton<MainMenuAssetConfigs>(Configs_MainMenuAssetConfigs),
+				AddSingleton<DummyAssetConfigs>(Configs_DummyAssetConfigs),
+
+				AddSingletonToAssetService<MaterialVfxConfigs, MaterialVfxId, Material>(Configs_MaterialVfxConfigs),
+				AddSingletonToAssetService<SpriteAssetConfigs, GameId, Sprite>(Configs_SpriteAssetConfigs),
+				AddSingletonToAssetService<SpecialMoveAssetConfigs, SpecialType, Sprite>(Configs_SpecialMoveAssetConfigs),
+				AddSingletonToAssetService<IndicatorVfxAssetConfigs, IndicatorVfxId, GameObject>(Configs_IndicatorVfxAssetConfigs),
+				AddSingletonToAssetService<VideoAssetConfigs, GameId, VideoClip>(Configs_VideoAssetConfigs),
+
+				AddSingleton<PooledVFXConfigs>(VFX_PooledVFXConfigs),
+			};
+
+			ConfigLoadDefinition<T> AddSingletonToAssetService<T, I, A>(AddressableId id)
+				where I : struct
+				where T : AssetConfigsScriptableObject<I, A>
+			{
+				return new ConfigLoadDefinition<T>(id, cfg => _assetLoader.AddConfigs<I, A>(cfg));
+			}
+		}
+
+		private ConfigLoadDefinition<W> AddStringKeyValue<W, T>(AddressableId id, Func<T, string> convertToKey)
+			where W : ScriptableObject, IConfigsContainer<T>
+		{
+			return new ConfigLoadDefinition<W>(id, asset => _configsAdder.AddConfigs(convertToKey, asset.Configs));
+		}
+
+		private ConfigLoadDefinition<T> AddSingleton<T>(AddressableId id) where T : ScriptableObject
+		{
+			return new ConfigLoadDefinition<T>(id, _configsAdder.AddSingletonConfig);
+		}
+
+		private ConfigLoadDefinition<W> AddWrappedSingleton<W, T>(AddressableId id)
+			where W : ScriptableObject, ISingleConfigContainer<T>
+		{
+			return new ConfigLoadDefinition<W>(id, asset => _configsAdder.AddSingletonConfig(asset.Config));
+		}
+
+		private ConfigLoadDefinition<W> AddKeyValue<W, T>(AddressableId id, Func<T, int> convertToKey)
+			where W : ScriptableObject, IConfigsContainer<T>
+		{
+			return new ConfigLoadDefinition<W>(id, asset => _configsAdder.AddConfigs(convertToKey, asset.Configs));
 		}
 
 		private bool ConfigComesFromServer<TContainer>()
@@ -115,9 +179,29 @@ namespace FirstLight.Game.Configs
 			_assetLoader.UnloadAsset(asset);
 		}
 
+		public IEnumerable<UniTask> LoadConfigTasks()
+		{
+			return GetLoadHandlersForConfigs()
+				.Select(cld => cld.LoadConfigRuntime(_assetLoader));
+		}
+
+		public IEnumerable<UniTask> LoadAssetConfigTasks(IAssetAdderService assetService)
+		{
+			return GetLoadHandlersForAssets(assetService)
+				.Select(cld => cld.LoadConfigRuntime(_assetLoader));
+		}
+
+		public void LoadConfigEditor()
+		{
+			foreach (var clh in GetLoadHandlersForConfigs())
+			{
+				clh.LoadConfigEditor();
+			}
+		}
+
 		public interface IConfigLoadHandler
 		{
-			public UniTask LoadConfigRuntime();
+			public UniTask LoadConfigRuntime(IAssetAdderService assetLoader);
 
 			public void LoadConfigEditor();
 		}
@@ -125,27 +209,24 @@ namespace FirstLight.Game.Configs
 		private class ConfigLoadDefinition<TContainer> : IConfigLoadHandler
 			where TContainer : ScriptableObject
 		{
-			private readonly IAssetAdderService _assetLoader;
-
 			private readonly AddressableId _id;
 			private readonly Action<TContainer> _onLoadComplete;
 			private readonly bool _unloadConfig;
 
-			public ConfigLoadDefinition(IAssetAdderService assetLoader, AddressableId id, Action<TContainer> onLoadComplete, bool unloadConfig = true)
+			public ConfigLoadDefinition(AddressableId id, Action<TContainer> onLoadComplete, bool unloadConfig = true)
 			{
-				_assetLoader = assetLoader;
 				_id = id;
 				_onLoadComplete = onLoadComplete;
 				_unloadConfig = unloadConfig;
 			}
 
-			public async UniTask LoadConfigRuntime()
+			public async UniTask LoadConfigRuntime(IAssetAdderService assetLoader)
 			{
-				var asset = await _assetLoader.LoadAssetAsync<TContainer>(_id.GetConfig().Address);
+				var asset = await assetLoader.LoadAssetAsync<TContainer>(_id.GetConfig().Address);
 				_onLoadComplete(asset);
 				if (_unloadConfig)
 				{
-					_assetLoader.UnloadAsset(asset);
+					assetLoader.UnloadAsset(asset);
 				}
 			}
 
@@ -173,8 +254,8 @@ namespace FirstLight.Game.Configs
 				if (_provider == null)
 				{
 					_provider = new ConfigsProvider();
-					var configsLoader = new GameConfigsLoader(new AssetResolverService());
-					configsLoader.LoadConfigEditor(_provider);
+					var configsLoader = new GameConfigsLoader(new AssetResolverService(), _provider);
+					configsLoader.LoadConfigEditor();
 				}
 
 				return _provider;

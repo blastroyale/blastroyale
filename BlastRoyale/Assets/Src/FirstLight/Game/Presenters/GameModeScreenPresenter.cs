@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Configs.Utils;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Domains.HomeScreen;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
+using FirstLight.Game.Views.UITK.Popups;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
@@ -31,9 +39,9 @@ namespace FirstLight.Game.Presenters
 
 		public class StateData
 		{
+			public string ForceViewEventDetails;
 			public Action<GameModeInfo> GameModeChosen;
 			public Action CustomGameChosen;
-
 			public Action OnBackClicked;
 		}
 
@@ -42,20 +50,25 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _newEventDirector;
 
+		[SerializeField] private Sprite _buyEventTicketSprite;
+
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
 		private MatchSettingsButtonElement _mapButton;
+		private CurrencyTopBarView _currencyTopBarView;
 		private List<GameId> _mapGameIds;
 
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
 
 		private CancellationTokenSource _cancelSelection = null;
+		private IGameDataProvider _dataProviders;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_dataProviders = MainInstaller.ResolveData();
 		}
 
 		protected override void QueryElements()
@@ -83,6 +96,7 @@ namespace FirstLight.Game.Presenters
 				slot.Entry.MatchConfig.MatchType = MatchType.Matchmaking;
 				view.SetData("GameModeButton" + orderNumber, slot, GetVisibleClass(orderNumber++));
 				view.Clicked += OnModeButtonClicked;
+				view.ClickedInfo += OnInfoButtonClicked;
 				_buttonViews.Add(view);
 
 				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
@@ -113,6 +127,19 @@ namespace FirstLight.Game.Presenters
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
 			UpdateMapDropdownVisibility();
+
+			if (Data.ForceViewEventDetails != null)
+			{
+				foreach (var view in _buttonViews)
+				{
+					if (view.GameModeInfo.Entry is EventGameModeEntry ev &&
+						Data.ForceViewEventDetails == view.GameModeInfo.Entry.MatchConfig.UniqueConfigId)
+					{
+						OnInfoButtonClicked(view);
+						break;
+					}
+				}
+			}
 		}
 
 		private void OnMapButtonClicked()
@@ -176,9 +203,85 @@ namespace FirstLight.Game.Presenters
 
 		private void OnModeButtonClicked(GameModeSelectionButtonView info)
 		{
+			var entry = info.GameModeInfo.Entry;
+			if (entry is EventGameModeEntry ev && ev.PriceToJoin != null)
+			{
+				OnInfoButtonClicked(info);
+				return;
+			}
+
+			SelectGameMode(info);
+		}
+
+		private void OnInfoButtonClicked(GameModeSelectionButtonView info)
+		{
+			var entry = info.GameModeInfo.Entry;
+			if (entry is EventGameModeEntry ev && ev.PriceToJoin != null)
+			{
+				var text = (ev.PriceToJoin.Value + " " + CurrencyItemViewModel.GetRichTextIcon(ev.PriceToJoin.RewardId))
+					.WithFontSize("150%");
+
+				_services.UIService.OpenScreen<MatchInfoPopupPresenter>(new MatchInfoPopupPresenter.StateData()
+					{
+						ButtonText = text,
+						EntryInfo = info.GameModeInfo,
+						MatchSettings = info.GameModeInfo.Entry.MatchConfig,
+						ClickAction = () => _services.UIService.CloseScreen<MatchInfoPopupPresenter>().ContinueWith(() =>
+						{
+							_services.GenericDialogService.OpenPurchaseOrNotEnough(new GenericPurchaseDialogPresenter.TextPurchaseData()
+							{
+								Price = ItemFactory.Legacy(ev.PriceToJoin),
+								TextFormat = "You are about to spend {0}\non event participation",
+								OnConfirm = () =>
+								{
+									_services.CommandService.ExecuteCommand(new BuyEventPassCommand()
+										{UniqueEventId = entry.MatchConfig.UniqueConfigId});
+									SelectAndStartMatchmaking(info);
+								},
+								OnGoToShopRequired = () =>
+								{
+									Data.OnBackClicked?.Invoke();
+								}
+							});
+						})
+					})
+					.ContinueWith( (_) =>
+					{
+						_services.MessageBrokerService.Publish(new MatchInfoPopupOpenedMessage());
+					})
+					.Forget();
+				return;
+			}
+
+			_services.UIService.OpenScreen<MatchInfoPopupPresenter>(new MatchInfoPopupPresenter.StateData()
+			{
+				EntryInfo = info.GameModeInfo,
+				MatchSettings = info.GameModeInfo.Entry.MatchConfig,
+				ClickAction = () => _services.UIService.CloseScreen<MatchInfoPopupPresenter>().ContinueWith(() =>
+				{
+					SelectAndStartMatchmaking(info);
+				})
+			}).Forget();
+		}
+
+		private void SelectAndStartMatchmaking(GameModeSelectionButtonView info)
+		{
+			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
+			_services.HomeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.Matchmaking);
+			Data.GameModeChosen(info.GameModeInfo);
+		}
+
+		private void SelectGameMode(GameModeSelectionButtonView info)
+		{
 			SelectButton(info);
 			_cancelSelection?.Cancel();
 			_cancelSelection = new CancellationTokenSource();
+
+			if (info.GameModeInfo.Entry is EventGameModeEntry ev && ev.IsPaid)
+			{
+				return;
+			}
+
 			ChangeGameModeCoroutine(info, _cancelSelection.Token).Forget();
 		}
 

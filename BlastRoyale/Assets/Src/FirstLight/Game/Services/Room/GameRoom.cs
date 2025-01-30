@@ -159,17 +159,9 @@ namespace FirstLight.Game.Services.RoomService
 		/// <summary>
 		/// Defines the <see cref="RuntimeConfig"/> to set on the Quantum's simulation when starting
 		/// </summary>
-		public void SetRuntimeConfig()
+		public void SetRuntimeConfig(MapAsset mapAsset)
 		{
-			var configProvider = _roomService._configsProvider;
 			var simulationConfig = Properties.SimulationMatchConfig.Value;
-			var map = Enum.Parse<GameId>(simulationConfig.MapId);
-			if (!configProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
-			{
-				throw new Exception("Asset map config not found for map " + map);
-			}
-
-			var op = Addressables.LoadAssetAsync<MapAsset>(config.QuantumMap);
 			var runtimeConfig = _roomService._configsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig;
 			if (FeatureFlags.GetLocalConfiguration().FixedQuantumSeed)
 			{
@@ -181,7 +173,7 @@ namespace FirstLight.Game.Services.RoomService
 			}
 
 			runtimeConfig.MatchConfigs = simulationConfig;
-			runtimeConfig.Map = op.WaitForCompletion().Settings;
+			runtimeConfig.Map = mapAsset.Settings;
 		}
 
 		/// <summary>

@@ -1,6 +1,7 @@
 synced event OnAllPlayersJoined
 {
     UInt32 NumberOfPlayers;
+    bool GameFailed;
 }
 
 synced server event FireQuantumServerCommand 
@@ -27,7 +28,7 @@ synced event OnGameEnded
     Int32 LeaderTeam;
 }
 
-event OnGameProgressUpdated
+synced event OnGameProgressUpdated
 {
 	UInt32 PreviousProgress;
 	UInt32 CurrentProgress;

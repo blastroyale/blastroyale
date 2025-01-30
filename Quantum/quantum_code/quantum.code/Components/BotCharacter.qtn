@@ -27,12 +27,6 @@ component BotCharacter
 	BotBehaviourType BehaviourType;
 	Int32 BotNameIndex;
 	
-	// TODO: Remove from bot character
-	// centralize in player data
-	GameId Skin;
-	GameId DeathMarker;
-	GameId Glider;
-	
 	FP DecisionInterval;
     FP LookForTargetsToShootAtInterval;
     bool SpeedResetAfterLanding;

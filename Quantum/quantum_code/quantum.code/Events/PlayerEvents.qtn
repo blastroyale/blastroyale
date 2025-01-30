@@ -57,8 +57,10 @@ synced event OnPlayerDead
 	EquipmentEventData EquipmentData;
 }
 
+/* Please remove this */
 struct EquipmentEventData {
     Equipment CurrentWeapon;
+    GameId Skin;
 }
 
 synced event OnPlayerEmojiSent

@@ -70,6 +70,7 @@ namespace Quantum
 	{
 		public GameId Id;
 		public int Amount;
+		public int MinPosition = 1;
 		
 		public GameModeReward Clone()
 		{
@@ -78,7 +79,7 @@ namespace Quantum
 
 		protected bool Equals(GameModeReward other)
 		{
-			return Id == other.Id && Amount.Equals(other.Amount);
+			return Id == other.Id && Amount.Equals(other.Amount) && MinPosition == other.MinPosition;
 		}
 
 		public override bool Equals(object obj)
@@ -95,6 +96,7 @@ namespace Quantum
 			{
 				var hashCode = (int)Id;
 				hashCode = (hashCode * 397) ^ Amount.GetHashCode();
+				hashCode = (hashCode * 397) ^ MinPosition.GetHashCode();
 				return hashCode;
 			}
 		}
@@ -141,6 +143,8 @@ namespace Quantum
 	[Serializable]
 	public class SimulationMatchConfig
 	{
+		public static byte Version = 4; // UsedImplicitly
+		
 		public string UniqueConfigId = "CHANGEMETOSOMETHINGUNIQUE";
 		[DefaultValue("BattleRoyale")] public string GameModeID = "BattleRoyale";
 		[DefaultValue("Any")] public string MapId = GameId.Any.ToString();
@@ -151,6 +155,7 @@ namespace Quantum
 		public GameModeReward[] WinRewardBonus;
 		public RewardModifier[] RewardModifiers;
 		public bool DisableBots;
+		public byte MinPlayersToStartMatch;
 		[DefaultValue(-1)] public int BotOverwriteDifficulty = -1;
 		[DefaultValue(0)] public int MaxPlayersOverwrite;
 		[DefaultValue(MatchType.Matchmaking)] public MatchType MatchType = MatchType.Matchmaking;
@@ -179,7 +184,7 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// If you change this need to bump version in MatchRoomSetup
+		/// If you change this need to bump version in the constant above
 		/// </summary>
 		public void Serialize(BitStream stream)
 		{
@@ -241,6 +246,7 @@ namespace Quantum
 				stream.Serialize(ref reward.Id);
 				stream.Serialize(ref reward.Amount);
 			}
+			stream.Serialize(ref MinPlayersToStartMatch);
 		}
 	}
 }

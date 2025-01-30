@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Input;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -16,7 +17,7 @@ namespace FirstLight.Game.Services
 	{
 	}
 
-	public class PlayerIndicatorsService : IPlayerIndicatorService, MatchServices.IMatchService
+	public class PlayerIndicatorsService : IPlayerIndicatorService, IMatchService, IMatchAssetsService
 	{
 		private readonly IGameServices _services;
 		private readonly IMatchServices _matchServices;
@@ -28,12 +29,14 @@ namespace FirstLight.Game.Services
 		private int _specialPressed = -1;
 		private bool _inCancel = false;
 		private bool _registered;
+		private readonly IAssetAdderService _assetAdderService;
 
 		public PlayerIndicatorsService(IMatchServices matchServices, IGameServices gameServices)
 		{
 			_matchServices = matchServices;
 			_services = gameServices;
 			_indicatorContainerView = new LocalPlayerIndicatorContainerView();
+			_assetAdderService = _services.AssetResolverService as IAssetAdderService;
 
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDied);
@@ -43,7 +46,6 @@ namespace FirstLight.Game.Services
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
 			_inputs = _matchServices.PlayerInputService.Input.Gameplay;
-			_indicatorContainerView.InstantiateAllIndicators().Forget(); // TODO: Not great need to rethink indicators
 			RegisterListeners();
 			if (_services.RoomService.IsLocalPlayerSpectator || !isReconnect)
 			{
@@ -252,6 +254,21 @@ namespace FirstLight.Game.Services
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
 			_indicatorContainerView.SetupSpecials(inventory);
+		}
+
+		public async UniTask LoadMandatoryAssets()
+		{
+			await _indicatorContainerView.InstantiateAllIndicators();
+		}
+
+		public UniTask LoadOptionalAssets()
+		{
+			return UniTask.CompletedTask;
+		}
+
+		public UniTask UnloadAssets()
+		{
+			return UniTask.CompletedTask;
 		}
 	}
 }

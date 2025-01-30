@@ -1,3 +1,5 @@
+using FirstLight.Game.Domains.HomeScreen;
+using FirstLight.Game.Domains.VFX;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -7,6 +9,7 @@ using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Social;
+using FirstLight.Game.StateMachines;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -32,7 +35,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IAssetResolverService AssetResolverService { get; }
 		public virtual IAnalyticsService AnalyticsService { get; }
 		public virtual IGenericDialogService GenericDialogService { get; }
-		public virtual IVfxService<VfxId> VfxService { get; }
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
 		public virtual IGameBackendService GameBackendService { get; }
 		public virtual IPlayerProfileService ProfileService { get; }
@@ -45,7 +47,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IMatchmakingService MatchmakingService { get; }
 		public virtual IIAPService IAPService { get; }
 		public RateAndReviewService RateAndReviewService { get; }
-		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public UIService.UIService UIService { get; }
 		public UIVFXService UIVFXService { get; }
 		public ICollectionService CollectionService { get; }
@@ -53,6 +54,7 @@ namespace FirstLight.Tests.EditorMode
 		public IRoomService RoomService { get; }
 		public IGameAppService GameAppService { get; set; }
 		public IBattlePassService BattlePassService { get; }
+		public IProductsBundleService ProductsBundleService { get; }
 		public ITeamService TeamService { get; }
 		public IServerListService ServerListService { get; }
 		public INewsService NewsService { get; set; }
@@ -67,6 +69,7 @@ namespace FirstLight.Tests.EditorMode
 
 		public INotificationService NotificationService { get; }
 		public IBuffService BuffService { get; set; }
+		public IHomeScreenService HomeScreenService { get; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -77,8 +80,7 @@ namespace FirstLight.Tests.EditorMode
 		public StubGameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 								ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
 								IGameLogic gameLogic, IDataProvider dataProvider,
-								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService,
-								IVfxService<VfxId> vfxService)
+								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService)
 		{
 			NetworkService = networkService;
 			MessageBrokerService = messageBrokerService;
@@ -89,7 +91,6 @@ namespace FirstLight.Tests.EditorMode
 			AssetResolverService = assetResolverService;
 			GenericDialogService = new GenericDialogService(UIService, gameLogic.CurrencyDataProvider);
 			TutorialService = tutorialService;
-			VfxService = vfxService;
 			GameLogic = gameLogic;
 			LocalPrefsService = new LocalPrefsService();
 			AudioFxService = new GameAudioFxService(assetResolverService, LocalPrefsService);
@@ -109,14 +110,16 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			FLLobbyService = new StubFLLobbyService();
 			CoroutineService = new StubCoroutineService();
+			HomeScreenService = new HomeScreenService(gameLogic, UIService, MessageBrokerService, RoomService, CommandService, GameBackendService,
+				GenericDialogService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService, gameLogic.RemoteConfigProvider);
-			GameModeService = new GameModeService(ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider, LocalPrefsService, RemoteTextureService,
-				MessageBrokerService);
+			RoomService = Substitute.For<IRoomService>();
+			GameModeService = new GameModeService(gameLogic, CommandService, ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider,
+				LocalPrefsService, RemoteTextureService,
+				MessageBrokerService, HomeScreenService, RoomService, InGameNotificationService);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, FLLobbyService, MessageBrokerService, NetworkService,
 				GameBackendService, ConfigsProvider, LocalPrefsService, GameModeService);
-			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
-			RoomService = Substitute.For<IRoomService>();
 			CollectionService = Substitute.For<ICollectionService>();
 			NewsService = Substitute.For<INewsService>();
 			BattlePassService = Substitute.For<IBattlePassService>();

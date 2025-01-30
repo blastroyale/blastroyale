@@ -103,6 +103,9 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
+    - _Radius1: 0.02
+    - _Radius2: 0.55
+    - _Radius3: 0.74
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -115,9 +118,13 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color1: {r: 0.19607842, g: 0.9199058, b: 1, a: 1}
+    - _Color2: {r: 0.19607843, g: 0.5176471, b: 1, a: 1}
+    - _Color3: {r: 0.13333334, g: 0.36862746, b: 0.88235295, a: 1}
+    - _Color4: {r: 0.2784314, g: 0.28627452, b: 0.7882353, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _InnerColor: {r: 0.24056602, g: 0.96865904, b: 1, a: 1}
-    - _OuterColor: {r: 0, g: 0.35398197, b: 1, a: 1}
+    - _InnerColor: {r: 0.19607843, g: 0.8509804, b: 1, a: 1}
+    - _OuterColor: {r: 0.13333334, g: 0.36862746, b: 0.88235295, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8639187366914427896

@@ -18,11 +18,15 @@ namespace FirstLight.Server.SDK.Modules.Commands
 		/// Defines the execution mode of the given command.
 		/// </summary>
 		CommandExecutionMode ExecutionMode();
-		
+
 		/// <summary>
 		/// Executes the command logic
 		/// </summary>
 		UniTask Execute(CommandExecutionContext ctx);
 	}
-}
 
+	public interface IGameCommandWithResult<out T> : IGameCommand
+	{
+		T GetResult();
+	}
+}

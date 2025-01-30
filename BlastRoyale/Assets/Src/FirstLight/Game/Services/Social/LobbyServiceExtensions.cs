@@ -149,7 +149,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		{
 			return player.Data.TryGetValue(FLLobbyService.KEY_SPECTATOR, out var v) && v.Value == "true";
 		}
-		
+
 		/// <summary>
 		/// Gets non spectators and bots
 		/// </summary>
@@ -157,16 +157,16 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		{
 			return l.Players.Where(p => !p.IsSpectator()).ToList();
 		}
-		
+
 		/// <summary>
 		/// Gets non spectators and bots
 		/// </summary>
 		public static IReadOnlyList<Player> PlayersInGrid(this Lobby l)
 		{
 			var grid = l.GetPlayerGrid();
-			return l.Players.Where(p =>  grid.GetPosition(p.Id) != -1).ToList();
+			return l.Players.Where(p => grid.GetPosition(p.Id) != -1).ToList();
 		}
-		
+
 		public static Player LocalPlayer(this Lobby l)
 		{
 			return l.Players.First(p => p.IsLocal());
@@ -177,7 +177,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			var maxPlayers = lobby.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
 			return lobby.NonSpectators().Count < maxPlayers;
 		}
-		
+
 		public static bool HasRoomInSpectators(this Lobby lobby)
 		{
 			return lobby.Players.Count(p => p.IsSpectator()) < GameConstants.Data.MATCH_SPECTATOR_SPOTS;
@@ -193,22 +193,28 @@ namespace FirstLight.Game.Utils.UCSExtensions
 			return e.ErrorCode.ToStringSeparatedWords();
 		}
 
-		public static string ParseError(this LobbyServiceException e)
+		public static string ParseError(this LobbyServiceException e, string lobbyType = "team")
 		{
 			if (e.Reason == LobbyExceptionReason.UnknownErrorCode)
 			{
 				return string.IsNullOrEmpty(e.Message) ? "lobby error" : e.Message; // fuck unity more
 			}
 
+			if (e.Reason == LobbyExceptionReason.IncorrectPassword)
+			{
+				return $"host playing in another region or {lobbyType} not found.";
+			}
+
 			return e.Reason.ToStringSeparatedWords();
 		}
-		
+
 		public static bool ShouldBeVisible(this LobbyServiceException e)
 		{
 			if (e.Reason == LobbyExceptionReason.RateLimited || e.Reason == LobbyExceptionReason.UnknownErrorCode)
 			{
 				return false;
 			}
+
 			return true;
 		}
 

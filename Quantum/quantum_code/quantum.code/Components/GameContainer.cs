@@ -29,19 +29,7 @@ namespace Quantum
 			data.PlayerLevel = (ushort)setup.playerLevel;
 			data.PlayerTrophies = setup.trophies;
 			data.TeamId = setup.teamId;
-			data.DeathFlag = setup.deathFlagID;
 			data.BotNameIndex = isBot ? (short)bot.BotNameIndex : (short)0;
-			var skins = f.ResolveList(data.Cosmetics);
-			if (f.TryGet<CosmeticsHolder>(setup.e, out var cosmeticsHolder))
-			{
-				var skinListFromComponent = f.ResolveList(cosmeticsHolder.Cosmetics);
-
-				foreach (var skinId in skinListFromComponent)
-				{
-					skins.Add(skinId);
-				}
-			}
-
 			PlayersData[setup.playerRef] = data;
 		}
 
@@ -65,7 +53,7 @@ namespace Quantum
 		/// </summary>
 		internal void UpdateGameProgress(Frame f, uint amount)
 		{
-			if (amount <= 0)
+			if (amount <= 0 || IsGameOver)
 			{
 				return;
 			}
@@ -78,7 +66,7 @@ namespace Quantum
 
 			if (CurrentProgress >= TargetProgress)
 			{
-				f.Signals.GameEnded();
+				f.Signals.GameEnded(true);
 			}
 		}
 
@@ -99,10 +87,10 @@ namespace Quantum
 			// We count how many teams are alive towards our goal (we remove ours)
 			var teamsAliveForGoal = teamsAlive.Count - 1;
 			CurrentProgress = (uint)(TargetProgress - teamsAliveForGoal);
-
-			if (CurrentProgress >= TargetProgress)
+			
+			if (CurrentProgress >= TargetProgress && GameOverTime == 0)
 			{
-				f.Signals.GameEnded();
+				f.Signals.GameEnded(true);
 			}
 		}
 

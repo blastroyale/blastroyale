@@ -111,7 +111,7 @@ steps:
     displayName: 'Quantum Build'
 
   - script: |
-      /Applications/Unity/Hub/Editor/2022.3.30f1/Unity.app/Contents/MacOS/Unity \
+      /Applications/Unity/Hub/Editor/2022.3.52f1/Unity.app/Contents/MacOS/Unity \
       -batchmode -buildTarget ${{ parameters.platform }} \
       -projectPath $(System.DefaultWorkingDirectory)/BlastRoyale \
       -logfile - \
@@ -237,7 +237,7 @@ steps:
       tokenRegex: '__(\w+)__'  # regex pattern to use to find tokens
 
   - script: |
-      cp manifest-template.plist "$(FL_INTERNAL_VERSION_FILENAME).plist"
+      cp manifest-template.plist "BlastRoyale.plist"
     condition: and(eq('${{ parameters.platform }}', 'iOS'),not(or(failed(), canceled())))
     displayName: 'Rename plist'
 
@@ -252,8 +252,8 @@ steps:
         az storage blob upload `
         --account-name prodflgbuildstorage `
         --container-name $(platformLower) `
-        --name "$(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).plist" `
-        --file '$(FL_INTERNAL_VERSION_FILENAME).plist' `
+        --name "$(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale.plist" `
+        --file 'BlastRoyale.plist' `
         --auth-mode login
 
   - task: AzureCLI@2
@@ -282,7 +282,7 @@ steps:
         az storage blob upload `
         --account-name prodflgbuildstorage `
         --container-name $(platformLower) `
-        --name $(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).ipa `
+        --name $(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale.ipa `
         --file 'BlastRoyale.ipa' `
         --auth-mode login
 
@@ -294,7 +294,7 @@ steps:
       $file_name = "$(FL_INTERNAL_VERSION_FILENAME)"
       
       if ($platform -eq "ios") {
-          $url = [System.Uri]::EscapeUriString("itms-services://0.0.0.0?action=download-manifest&url=https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/$file_name.plist")
+          $url = [System.Uri]::EscapeUriString("itms-services://0.0.0.0?action=download-manifest&url=https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/BlastRoyale.plist")
       } else {
           $url = [System.Uri]::EscapeUriString("https://prodflgbuildstorage.blob.core.windows.net/$platform/$name/$build_number/BlastRoyale.apk")
       }

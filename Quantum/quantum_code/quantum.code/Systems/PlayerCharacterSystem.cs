@@ -138,9 +138,15 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			// Don't drop items for last player dead
 			if (f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameGoingToEndWithKill(f, entity))
+			{
+				return;
+			}
+
+			// Bots dying in no match bot don't drop anything, this is a hack,becase bots needed to be created toa void fucking the whole game state
+			if (f.RuntimeConfig.MatchConfigs.DisableBots && f.Has<BotCharacter>(entity))
 			{
 				return;
 			}
@@ -159,7 +165,8 @@ namespace Quantum.Systems
 				consumablesToDrop.Add(consumable);
 
 				if (playerDead->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()
-					&& f.RNG->Next(FP._0, FP._1) < Constants.CHANCE_TO_DROP_WEAPON_ON_DEATH) //also drop the target player's weapon
+					&& f.RNG->Next(FP._0, FP._1) <
+					Constants.CHANCE_TO_DROP_WEAPON_ON_DEATH) //also drop the target player's weapon
 				{
 					equipmentToDrop.Add(playerDead->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
 				}
@@ -172,21 +179,23 @@ namespace Quantum.Systems
 							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.Health, GameId.ShieldSmall));
 							break;
 						case GameId.Health:
-							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall));
+							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall,
+								GameId.ShieldSmall));
 							break;
 						case GameId.ShieldSmall:
 							consumablesToDrop.Add(QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.Health));
 							break;
 					}
 				}
-				
+
 				foreach (var metaItemDropOverwrite in f.RuntimeConfig.MatchConfigs.MetaItemDropOverwrites
 							 .Where(d => d.Place == DropPlace.Player))
 				{
 					var rnd = f.RNG->Next();
 					if (rnd <= metaItemDropOverwrite.DropRate)
 					{
-						var amount = f.RNG->Next(metaItemDropOverwrite.MinDropAmount, metaItemDropOverwrite.MaxDropAmount);
+						var amount = f.RNG->Next(metaItemDropOverwrite.MinDropAmount,
+							metaItemDropOverwrite.MaxDropAmount);
 						for (var i = 0; i < amount; i++)
 						{
 							consumablesToDrop.Add(metaItemDropOverwrite.Id);
@@ -238,7 +247,8 @@ namespace Quantum.Systems
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 					f.RNG->Next(-gridSquareSize, gridSquareSize));
 			var spawner = QuantumHelpers.GetPlayerSpawnPosition(f, spawnPosition);
-			var spawnTransform = new Transform2D { Position = spawner.Component->Position, Rotation = spawner.Component->Rotation };
+			var spawnTransform = new Transform2D
+				{ Position = spawner.Component->Position, Rotation = spawner.Component->Rotation };
 			var setup = new PlayerCharacterSetup()
 			{
 				e = playerEntity,
@@ -249,7 +259,6 @@ namespace Quantum.Systems
 				teamId = teamId,
 				modifiers = null,
 				minimumHealth = f.Context.GameModeConfig.MinimumHealth,
-				deathFlagID = playerData.DeathFlagID
 			};
 			// Skin stuff
 			f.Add<CosmeticsHolder>(playerEntity);
@@ -289,6 +298,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
+
 			var input = f.GetPlayerInput(filter.Player->Player);
 
 			// Check inactivity only up to certain time and only in ranked matches
@@ -346,11 +356,11 @@ namespace Quantum.Systems
 			{
 				OnStartAiming(f, bb, weaponConfig);
 			}
-	
+
 			bb->Set(f, Constants.IS_AIM_PRESSED_KEY, shooting);
 			bb->Set(f, Constants.AIM_DIRECTION_KEY, targetAimDirection);
 			bb->Set(f, Constants.MOVE_SPEED_KEY, 1);
-			
+
 			var kcc = f.Unsafe.GetPointer<TopDownController>(filter.Entity);
 			var maxSpeed = f.Unsafe.GetPointer<Stats>(filter.Entity)->GetStatData(StatType.Speed).StatValue;
 
@@ -380,7 +390,8 @@ namespace Quantum.Systems
 				else if (f.Time - filter.Player->LastNoInputTimeSnapshot > f.GameConfig.NoInputWarningTime
 						 && f.Time - filter.Player->LastNoInputTimeSnapshot < f.GameConfig.NoInputWarningTime + FP._1)
 				{
-					f.Events.OnLocalPlayerNoInput(f.Unsafe.GetPointer<PlayerCharacter>(filter.Entity)->Player, filter.Entity);
+					f.Events.OnLocalPlayerNoInput(f.Unsafe.GetPointer<PlayerCharacter>(filter.Entity)->Player,
+						filter.Entity);
 
 					// A hack with a time counter to avoid sending more than a single event
 					filter.Player->LastNoInputTimeSnapshot -= FP._1_50;
@@ -401,7 +412,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			var seconds = Constants.MUTATOR_HEALTHPERSECONDS_DURATION;
 
 			// It will heal every x frames
@@ -428,7 +439,8 @@ namespace Quantum.Systems
 
 		public bool OnCharacterCollision2D(Frame f, EntityRef character, Hit hit)
 		{
-			var blockMovement = !QuantumFeatureFlags.TEAM_IGNORE_COLLISION || !TeamSystem.HasSameTeam(f, character, hit.Entity);
+			var blockMovement = !QuantumFeatureFlags.TEAM_IGNORE_COLLISION ||
+				!TeamSystem.HasSameTeam(f, character, hit.Entity);
 			if (!QuantumFeatureFlags.PLAYER_PUSHING) return blockMovement;
 			if (blockMovement && f.TryGet<TopDownController>(hit.Entity, out var enemyKcc) &&
 				f.TryGet<TopDownController>(character, out var myKcc))
@@ -439,12 +451,12 @@ namespace Quantum.Systems
 				pushAngle.Y = 0;
 				enemyKcc.Move(f, hit.Entity, pushAngle);
 			}
+
 			return blockMovement;
 		}
 
 		public void OnCharacterTrigger2D(FrameBase frame, EntityRef character, Hit hit)
 		{
-			
 		}
 	}
 }

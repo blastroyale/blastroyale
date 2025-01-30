@@ -17,6 +17,7 @@ namespace Quantum
 		public string AvatarUrl;
 		public uint LeaderboardRank;
 		public string UnityId;
+		
 
 		public QuantumPlayerMatchData(Frame f, PlayerRef player) : this(f, f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[player])
 		{

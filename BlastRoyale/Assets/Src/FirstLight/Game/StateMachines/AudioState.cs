@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -768,6 +769,7 @@ namespace FirstLight.Game.StateMachines
 					case GameId.NOOB:
 					case GameId.NOOBRainbow:
 					case GameId.NOOBGolden:
+					case GameId.NOOBSilver:
 					case GameId.PartnerANCIENT8:
 					case GameId.PartnerAPECOIN:
 					case GameId.PartnerBEAM:
@@ -788,6 +790,10 @@ namespace FirstLight.Game.StateMachines
 					case GameId.PartnerBREED:
 					case GameId.PartnerMEME:
 					case GameId.PartnerYGG:
+					case GameId.FestiveSNOWFLAKE:
+					case GameId.EventTicket:
+					case GameId.FestiveLUNARCOIN:
+					case GameId.FestiveFEATHER:
 						audio = isLocal ? AudioId.NoobPickupLocal : AudioId.NoobPickup;
 						break;
 				}

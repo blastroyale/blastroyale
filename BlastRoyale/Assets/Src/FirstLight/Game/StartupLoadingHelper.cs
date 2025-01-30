@@ -29,11 +29,11 @@ namespace FirstLight.Game
 			_services = services;
 			_assetService = assetService;
 			_configsAdder = configsAdder;
-			_configsLoader = new GameConfigsLoader(_assetService);
+			_configsLoader = new GameConfigsLoader(_assetService, _configsAdder);
 
 			var tasks = new List<UniTask>();
-			tasks.AddRange(_configsLoader.LoadConfigTasks(_configsAdder));
-			tasks.AddRange(LoadAssetConfigs());
+			tasks.AddRange(_configsLoader.LoadConfigTasks());
+			tasks.AddRange(_configsLoader.LoadAssetConfigTasks(_assetService));
 			await UniTask.WhenAll(tasks);
 
 			var audioTasks = new List<UniTask>
@@ -43,54 +43,7 @@ namespace FirstLight.Game
 			};
 
 			await UniTask.WhenAll(audioTasks);
-
-			LoadVfx(); // This is not awaited
 		}
-
-		private static IEnumerable<UniTask> LoadAssetConfigs()
-		{
-			return new List<UniTask>
-			{
-				_configsLoader.LoadConfig<AudioMixerConfigs>(AddressableId.Configs_AudioMixerConfigs,
-					asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs,
-					asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs,
-					asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs,
-					asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<MatchAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs,
-					asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<MainMenuAssetConfigs>(AddressableId.Configs_MainMenuAssetConfigs,
-					asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs,
-					asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<SpriteAssetConfigs>(AddressableId.Configs_SpriteAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<SpecialMoveAssetConfigs>(AddressableId.Configs_SpecialMoveAssetConfigs,
-					asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<VfxAssetConfigs>(AddressableId.Configs_VfxConfigs, asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<MaterialVfxConfigs>(AddressableId.Configs_MaterialVfxConfigs, asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<IndicatorVfxAssetConfigs>(AddressableId.Configs_IndicatorVfxAssetConfigs,
-					asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<EquipmentRarityAssetConfigs>(AddressableId.Configs_EquipmentRarityAssetConfigs,
-					asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<VideoAssetConfigs>(AddressableId.Configs_VideoAssetConfigs, asset => _assetService.AddConfigs(asset)),
-			};
-		}
-
-		private static void LoadVfx()
-		{
-			foreach (var vfx in Enum.GetValues(typeof(VfxId)).Cast<VfxId>())
-			{
-				_assetService.RequestAsset<VfxId, GameObject>(vfx, true, false, VfxLoaded).AsUniTask().Forget();
-			}
-
-			void VfxLoaded(VfxId id, GameObject vfxAsset, bool instantiate)
-			{
-				var reference = vfxAsset.GetComponent<Vfx<VfxId>>();
-				if (reference == null) return;
-				_services.VfxService.AddPool(reference);
-			}
-		}
+		
 	}
 }

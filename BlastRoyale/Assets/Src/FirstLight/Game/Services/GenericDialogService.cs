@@ -59,12 +59,15 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		UniTask OpenSimpleMessage(string title, string desc, Action onClick = null);
 
+		/// <summary>
+		/// Displays a simple message and wait for it to be closed
+		/// </summary>
+		public UniTask OpenSimpleMessageAndWait(string title, string desc);
 
 		/// <summary>
 		/// Open the purchase confirmation dialog, and if the player doesn't have the amount of blast bucks open not enough popup
 		/// </summary>
-		UniTask OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.StateData data);
-
+		UniTask OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.IPurchaseData data);
 
 		/// <summary>
 		/// Closes the <see cref="GenericButtonDialogPresenter"/> if opened
@@ -124,11 +127,31 @@ namespace FirstLight.Game.Services
 			});
 		}
 
-		public async UniTask OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.StateData data)
+		public async UniTask OpenSimpleMessageAndWait(string title, string desc)
 		{
-			var ownedCurrency = _currencyDataProvider.GetCurrencyAmount(data.Currency);
-			data.OwnedCurrency = ownedCurrency;
-			await _uiService.OpenScreen<GenericPurchaseDialogPresenter>(data);
+			var completionSource = new UniTaskCompletionSource();
+			await OpenButtonDialog(title, desc, false, new GenericDialogButton()
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () =>
+				{
+					CloseDialog();
+				}
+			}, () =>
+			{
+				completionSource.TrySetResult();
+			});
+			await completionSource.Task;
+		}
+
+		public async UniTask OpenPurchaseOrNotEnough(GenericPurchaseDialogPresenter.IPurchaseData data)
+		{
+			var ownedCurrency = _currencyDataProvider.GetCurrencyAmount(data.Price.Id);
+			await _uiService.OpenScreen<GenericPurchaseDialogPresenter>(new GenericPurchaseDialogPresenter.StateData
+			{
+				PurchaseData = data,
+				OwnedCurrency = ownedCurrency
+			});
 		}
 
 		/// <inheritdoc />
@@ -141,6 +164,5 @@ namespace FirstLight.Game.Services
 		{
 			return _uiService.HasUIPresenterOpenOnLayer(UILayer.Popup);
 		}
-
 	}
 }

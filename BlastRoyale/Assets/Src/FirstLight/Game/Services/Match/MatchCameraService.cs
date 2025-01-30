@@ -1,4 +1,5 @@
 using Cinemachine;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -32,7 +33,7 @@ namespace FirstLight.Game.Services
 	}
 
 	/// <inheritdoc />
-	public class MatchCameraService : IMatchCameraService, MatchServices.IMatchService
+	public class MatchCameraService : IMatchCameraService, IMatchService
 	{
 		
 		private IGameDataProvider _gameDataProvider;
@@ -84,12 +85,16 @@ namespace FirstLight.Game.Services
 			newImpulse.CreateAndReturnEvent(this._adventureCamera.transform.position, a.normalized * strength);
 		}
 
-
 		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength, Vector3 position = default)
 		{
 			if (!_services.LocalPrefsService.IsScreenShakeEnabled.Value || _adventureCamera == null)
 				return;
 
+			if (_adventureCamera.Follow == null)
+			{
+				FLog.Warn("Camera tried to perform animation while screen have not finished loading and spectated player is not being watched");
+				return;
+			}
 			var newImpulse = new CinemachineImpulseDefinition
 			{
 				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Dissipating,

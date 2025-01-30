@@ -11,6 +11,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
 using Quantum;
+using QuickEye.UIToolkit;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -33,6 +34,7 @@ namespace FirstLight.Game.Views
 		public PlayableDirector NewEventDirector;
 
 		public event Action<GameModeSelectionButtonView> Clicked;
+		public event Action<GameModeSelectionButtonView> ClickedInfo;
 
 		public bool Selected
 		{
@@ -62,6 +64,7 @@ namespace FirstLight.Game.Views
 		private VisualElement _newEventEffectsHolder;
 		private VisualElement _rewardContainer;
 		private ImageButton _infoButton;
+		private VisualElement _cardBackground;
 		private IVisualElementScheduledItem _scheduled;
 
 		protected override void Attached()
@@ -72,6 +75,7 @@ namespace FirstLight.Game.Views
 			_lobbyService = services.FLLobbyService;
 			_gameModeService = services.GameModeService;
 			_char = Element.Q<VisualElement>("Char").Required();
+			_cardBackground = Element.Q<VisualElement>("Background").Required();
 			_button = Element.Q<AngledContainerElement>().Required();
 
 			var dataPanel = Element.Q<VisualElement>("TextContainer");
@@ -84,8 +88,7 @@ namespace FirstLight.Game.Views
 			_infoButton = Element.Q<ImageButton>("InfoButton").Required();
 			_rewardContainer = Element.Q<VisualElement>("RewardsContainer").Required();
 			_button.clicked += OnClicked;
-			_infoButton.clicked += () => PopupPresenter.OpenMatchInfo(GameModeInfo, () =>
-				PopupPresenter.Close().ContinueWith(() => Clicked?.Invoke(this))).Forget();
+			_infoButton.clicked += OnClickedInfoButton;
 		}
 
 		/// <summary>
@@ -106,6 +109,11 @@ namespace FirstLight.Game.Views
 		public void OnClicked()
 		{
 			Clicked?.Invoke(this);
+		}
+
+		private void OnClickedInfoButton()
+		{
+			ClickedInfo?.Invoke(this);
 		}
 
 		public void LevelLock(UnlockSystem unlockSystem)
@@ -156,7 +164,8 @@ namespace FirstLight.Game.Views
 				_button.AddToClassList(USS_COMING_SOON);
 			}
 
-			var showEventAnimation = !GameModeInfo.IsFixed && GameModeInfo.Duration.Contains(DateTime.UtcNow) && !_gameModeService.HasSeenEvent(GameModeInfo);
+			var showEventAnimation = !GameModeInfo.IsFixed && GameModeInfo.Duration.Contains(DateTime.UtcNow) &&
+				!_gameModeService.HasSeenEvent(GameModeInfo);
 			if (showEventAnimation)
 			{
 				_gameModeService.MarkSeen(GameModeInfo);
@@ -192,32 +201,50 @@ namespace FirstLight.Game.Views
 		{
 			if (GameModeInfo.Entry is EventGameModeEntry ev)
 			{
-				var url = ev.ImageURL;
-				if (string.IsNullOrWhiteSpace(url))
+				var hasCustomImage = !string.IsNullOrWhiteSpace(ev.ImageURL);
+				var hasCustomBg = !string.IsNullOrWhiteSpace(ev.BackgroundImageURL);
+
+				if (!hasCustomImage && !hasCustomBg) return;
+				UniTask<Texture2D>? customBgRequest = null;
+				UniTask<Texture2D>? customImageRequest = null;
+				if (hasCustomBg)
 				{
-					return;
+					customBgRequest =
+						_remoteTexture.RequestTexture(ev.BackgroundImageURL, cancellationToken: Presenter.GetCancellationTokenOnClose());
 				}
 
-				var request = _remoteTexture.RequestTexture(url, cancellationToken: Presenter.GetCancellationTokenOnClose());
+				if (hasCustomImage)
+				{
+					customImageRequest = _remoteTexture.RequestTexture(ev.ImageURL, cancellationToken: Presenter.GetCancellationTokenOnClose());
+				}
+
 				_button.AddToClassList(USS_EVENT_CUSTOM_IMAGE);
 				_button.ListenOnce<GeometryChangedEvent>(() =>
 				{
-					SetTexture(request).Forget();
+					if (customBgRequest.HasValue)
+					{
+						SetTexture(_cardBackground, customBgRequest.Value).Forget();
+					}
+
+					if (customImageRequest.HasValue)
+					{
+						SetTexture(_char, customImageRequest.Value).Forget();
+					}
 				});
 			}
 		}
 
-		private async UniTaskVoid SetTexture(UniTask<Texture2D> task)
+		private async UniTaskVoid SetTexture(VisualElement element, UniTask<Texture2D> task)
 		{
 			// Didn't load before geometry change, so add a loading effect
 			if (task.Status == UniTaskStatus.Pending)
 			{
-				_char.AddToClassList("anim-fade");
+				element.AddToClassList("anim-fade");
 			}
 
 			var tex = await task;
-			_char.style.backgroundImage = new StyleBackground(tex);
-			_char.style.opacity = 1;
+			element.style.backgroundImage = new StyleBackground(tex);
+			element.style.opacity = 1;
 		}
 
 		private void UpdateRewards()

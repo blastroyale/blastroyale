@@ -70,6 +70,7 @@ namespace FirstLight.Game.MonoComponent
 		{
 			var skinId = _services.CollectionService.GetCosmeticForGroup(_cosmetics, GameIdGroup.MeleeSkin);
 			var weapon = await _services.CollectionService.LoadCollectionItem3DModel(skinId);
+			if (!weapon) return null;
 			var weaponTransform = weapon.transform;
 			_meleeWeaponType = weapon.GetComponent<WeaponSkinMonoComponent>().WeaponType;
 			var anchor = _meleeWeaponType is WeaponType.XLMelee or WeaponType.KnifeMelee ? _skin.WeaponXLMeleeAnchor : _skin.WeaponMeleeAnchor;

@@ -7,10 +7,12 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UIService;
+using I2.Loc;
 using Quantum;
 using QuickEye.UIToolkit;
 using UnityEngine;
 using UnityEngine.UIElements;
+
 
 namespace FirstLight.Game.Presenters
 {
@@ -28,41 +30,84 @@ namespace FirstLight.Game.Presenters
 		private void OnClicked(ClickEvent evt)
 		{
 			var tooltip = new VisualElement();
-
-			var temp = new Dictionary<GameId, int>(_rewards.CollectedRewards);
+			
+			var collectedInMap = new Dictionary<GameId, int>(_rewards.CollectedRewards);
+			var winBonus = new Dictionary<GameId, int>(_rewards.BonusFromWinning);
+			
 			foreach (var (key, value) in _rewards.CollectedBonuses)
 			{
-				if (temp.TryGetValue(key, out var collected))
+				// Deduct non-collected to only show what was being collected
+				if (collectedInMap.TryGetValue(key, out var collected))
 				{
-					temp[key] = collected - value;
+					collectedInMap[key] = collected - value;
+					
+					// Deduct win bonuses too so we show them separated
+					if (winBonus.TryGetValue(key, out var wonAsBonus))
+					{
+						collectedInMap[key] -= wonAsBonus;
+					}
 				}
 			}
 
-			var foundInMap = CreateItemList(temp, "Collected in Map");
-			tooltip.Add(foundInMap);
+			var rewardSections = new List<RewardSection>();
+			if (collectedInMap?.Count > 0 && collectedInMap.Any(c => c.Value > 0))
+			{
+				rewardSections.Add(new RewardSection()
+				{
+					Title =  ScriptLocalization.UITStandings.collected_in_map,
+					Currencies = collectedInMap
+				});
+			}
+
+			if (winBonus?.Count > 0 && winBonus.Any(c => c.Value > 0))
+			{
+				rewardSections.Add(new RewardSection()
+				{
+					Title =  ScriptLocalization.UITStandings.place_bonus,
+					Currencies = winBonus
+				});
+			}
+
+			if (rewardSections.Count > 0)
+			{
+				var foundInMap = CreateItemList(rewardSections.ToArray());
+				tooltip.Add(foundInMap);
+			}
 
 			var hasAnyNftBonus = _rewards.CollectedBonuses.Any(kv => kv.Value > 0);
 			if (hasAnyNftBonus)
 			{
-				var nftBonus = CreateItemList(_rewards.CollectedBonuses, "NFT Buffs");
+				var nftBonus = CreateItemList(new RewardSection()
+				{
+					Title = ScriptLocalization.UITStandings.nft_buffs,
+					Currencies = _rewards.CollectedBonuses,
+				});
 				tooltip.Add(nftBonus);
 			}
-
 			_rewardContainer.OpenTooltip(Presenter.Root, tooltip);
 		}
 
-		private VisualElement CreateItemList(Dictionary<GameId, int> currencies, string title)
+		public class RewardSection
 		{
-			if (currencies.Count == 0)
+			public string Title;
+			public Dictionary<GameId, int> Currencies;
+		}
+		
+		private VisualElement CreateItemList(params RewardSection [] rewards)
+		{
+			
+			if (rewards.Length == 0 || rewards.All(r => r.Currencies == null || r.Currencies.Count == 0))
 			{
-				FLog.Verbose("No buffs to display");
 				return null;
 			}
 
 			var parent = new VisualElement().AddClass("item-list");
-			parent.Add(new LabelOutlined(title).AddClass("item-list__title"));
-			var holder = CreateItemList(currencies);
-			parent.Add(holder);
+			foreach (var reward in rewards)
+			{
+				parent.Add(new LabelOutlined(reward.Title).AddClass("item-list__title"));
+				var holder = CreateItemList(reward.Currencies);
+				parent.Add(holder);
+			}
 			return parent;
 		}
 

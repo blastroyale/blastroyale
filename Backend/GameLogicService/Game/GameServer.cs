@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 using PlayFab;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Modules;
@@ -31,19 +30,22 @@ namespace Backend.Game
 		private ServerEnvironmentService _environmentService;
 		private ILogger _log;
 		private IServerStateService _state;
-		private IServerMutex _mutex;
 		private IEventManager _eventManager;
+		private IUserMutex _userMutex;
 		private IMetricsService _metrics;
 		private IBaseServiceConfiguration _baseServiceConfig;
 		private IRemoteConfigService _remoteConfig;
 
 
-		public GameServer(IBaseServiceConfiguration baseServiceConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics, ServerEnvironmentService environmentService, IRemoteConfigService remoteConfig)
+		public GameServer(IBaseServiceConfiguration baseServiceConfig, IServerCommahdHandler cmdHandler, ILogger log,
+						  IServerStateService state, IUserMutex userMutex,
+						  IEventManager eventManager, IMetricsService metrics,
+						  ServerEnvironmentService environmentService, IRemoteConfigService remoteConfig)
 		{
 			_cmdHandler = cmdHandler;
 			_log = log;
 			_state = state;
-			_mutex = mutex;
+			_userMutex = userMutex;
 			_eventManager = eventManager;
 			_metrics = metrics;
 			_environmentService = environmentService;
@@ -57,6 +59,7 @@ namespace Backend.Game
 		/// </summary>
 		public async Task<BackendLogicResult> RunLogic(string playerId, LogicRequest logicRequest)
 		{
+			var id = Guid.NewGuid();
 			var requestData = logicRequest.Data;
 			var savedDataAmount = 0;
 			try
@@ -74,35 +77,38 @@ namespace Backend.Game
 				var commandInstance = _cmdHandler.BuildCommandInstance(commandData, cmdType);
 				var isService = commandInstance.AccessLevel() == CommandAccessLevel.Service;
 				int clientRemoteConfigVersion = 0;
-				if (!isService && (!requestData.TryGetValue(CommandFields.ServerConfigurationVersion, out var srvCmdVersionString) || !int.TryParse(srvCmdVersionString, out clientRemoteConfigVersion)))
+				if (!isService &&
+					(!requestData.TryGetValue(CommandFields.ServerConfigurationVersion, out var srvCmdVersionString) ||
+						!int.TryParse(srvCmdVersionString, out clientRemoteConfigVersion)))
 				{
-					throw new LogicException($"Input dict requires field key for cmd: {CommandFields.ServerConfigurationVersion}");
+					throw new LogicException(
+						$"Input dict requires field key for cmd: {CommandFields.ServerConfigurationVersion}");
 				}
 
-				await _mutex.Lock(playerId);
-				var (currentPlayerState, serverConfig) = await _state.FetchStateAndConfigs(_remoteConfig, playerId, clientRemoteConfigVersion);
-				if (!isService && serverConfig.GetConfigVersion() > clientRemoteConfigVersion) // Client is outdated
+				await using (await _userMutex.LockUser(playerId))
 				{
-					throw new LogicException("Remote configs outdated", CommandErrorCodes.OUTDATED_SERVER_CONFIG);
+					var (currentPlayerState, serverConfig) =
+						await _state.FetchStateAndConfigs(_remoteConfig, playerId, clientRemoteConfigVersion);
+
+					_log.LogInformation($"{playerId} running {cmdType}");
+					ValidateCommand(currentPlayerState, commandInstance, requestData);
+
+					var newState = await RunCommands(playerId, new[] { commandInstance }, currentPlayerState,
+						serverConfig);
+
+					if (newState.HasDelta())
+					{
+						var onlyUpdatedState = newState.GetOnlyUpdatedState();
+						await _state.UpdatePlayerState(playerId, onlyUpdatedState);
+						savedDataAmount = onlyUpdatedState.Count;
+					}
+
+					var response = new Dictionary<string, string>();
+
+
+					ModelSerializer.SerializeToData(response, newState.GetDeltas());
+					return new BackendLogicResult() { Command = cmdType, Data = response, PlayFabId = playerId };
 				}
-
-				_log.LogInformation($"{playerId} running {cmdType}");
-				ValidateCommand(currentPlayerState, commandInstance, requestData);
-
-				var newState = await RunCommands(playerId, new[] { commandInstance }, currentPlayerState, serverConfig);
-
-				if (newState.HasDelta())
-				{
-					var onlyUpdatedState = newState.GetOnlyUpdatedState();
-					await _state.UpdatePlayerState(playerId, onlyUpdatedState);
-					savedDataAmount = onlyUpdatedState.Count;
-				}
-
-				var response = new Dictionary<string, string>();
-
-
-				ModelSerializer.SerializeToData(response, newState.GetDeltas());
-				return new BackendLogicResult() { Command = cmdType, Data = response, PlayFabId = playerId };
 			}
 			catch (Exception ex)
 			{
@@ -111,7 +117,6 @@ namespace Backend.Game
 			}
 			finally
 			{
-				_mutex.Unlock(playerId);
 				_metrics.EmitEvent("GameCommand", new Dictionary<string, string>()
 				{
 					{ "command", logicRequest.Command },
@@ -124,21 +129,26 @@ namespace Backend.Game
 		/// <summary>
 		/// Run all initialization commands and SAVES the player state if it has modifications
 		/// </summary>
-		public Task<ServerState> RunInitializationCommands(string playerId, ServerState state, IRemoteConfigProvider remoteConfigProvider)
+		public Task<ServerState> RunInitializationCommands(string playerId, ServerState state,
+														   IRemoteConfigProvider remoteConfigProvider)
 		{
 			var cmds = _cmdHandler.GetInitializationCommands();
-			_log.LogInformation($"{playerId} running initialization commands: {string.Join(", ", cmds.Select(a => a.GetType().Name))}");
+			_log.LogInformation(
+				$"{playerId} running initialization commands: {string.Join(", ", cmds.Select(a => a.GetType().Name))}");
 			return RunCommands(playerId, cmds, state, remoteConfigProvider);
 		}
 
-		private async Task<ServerState> RunCommands(string playerId, IGameCommand[] commandInstances, ServerState currentPlayerState, IRemoteConfigProvider remoteConfigProvider)
+		private async Task<ServerState> RunCommands(string playerId, IGameCommand[] commandInstances,
+													ServerState currentPlayerState,
+													IRemoteConfigProvider remoteConfigProvider)
 		{
 			var currentState = currentPlayerState;
 			var deltas = new StateDelta();
 			currentState.GetDeltas().Merge(deltas);
 			foreach (var commandInstance in commandInstances)
 			{
-				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentState, remoteConfigProvider);
+				var newState =
+					await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentState, remoteConfigProvider);
 				await _eventManager.CallCommandEvent(playerId, commandInstance, newState);
 				currentState = newState;
 				deltas.Merge(currentState.GetDeltas());
@@ -179,7 +189,8 @@ namespace Backend.Game
 
 			if (!cmdData.TryGetValue(CommandFields.ClientVersion, out var clientVersionString))
 			{
-				throw new LogicException($"Command data requires a version to be ran: Key {CommandFields.ClientVersion}");
+				throw new LogicException(
+					$"Command data requires a version to be ran: Key {CommandFields.ClientVersion}");
 			}
 
 			var minVersion = _baseServiceConfig.MinClientVersion;
@@ -194,7 +205,8 @@ namespace Backend.Game
 			Int64.TryParse(currentCommandTimeString, out var currentCmdTimestamp);
 			if (currentCmdTimestamp <= lastCmdTimestamp)
 			{
-				throw new LogicException($"Outdated command timestamp for command {cmd.GetType().Name}. Command out of order ?");
+				throw new LogicException(
+					$"Outdated command timestamp for command {cmd.GetType().Name}. Command out of order ?");
 			}
 
 			return true;
@@ -215,7 +227,12 @@ namespace Backend.Game
 			}
 
 			request.Data.TryGetValue(CommandFields.CommandType, out var commandType);
-			return new BackendErrorResult() { Error = exp, Command = commandType, Data = new Dictionary<string, string>() { { "LogicException", exp.Message }, { "ErrorCode", errorCode.ToString() } } };
+			return new BackendErrorResult()
+			{
+				Error = exp, Command = commandType,
+				Data = new Dictionary<string, string>()
+					{ { "LogicException", exp.Message }, { "ErrorCode", errorCode.ToString() } }
+			};
 		}
 
 		/// <summary>

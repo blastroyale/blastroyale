@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -26,7 +27,7 @@ namespace FirstLight.Game.UIElements
 		//Crypto Currency
 
 		private const string USS_CRYPTO_PARENT = "crypto-currencies-parent";
-		private const string USS_CRYPTO_PARENT_PLUS = "crypto-currencies-parent"+USS_PLUSSIGN_MODIFIER;
+		private const string USS_CRYPTO_PARENT_PLUS = "crypto-currencies-parent" + USS_PLUSSIGN_MODIFIER;
 		private const string USS_CRYPTO_CURRENCY_BLOCK = "crypto-currencies-display";
 		private const string USS_CRYPTO_CURRENCY_BLOCK_ARROW = USS_CRYPTO_CURRENCY_BLOCK + "__arrow";
 		private const string USS_INNER_ELEMENT_CRYPTO_CURRENCY_BLOCK = USS_BLOCK + "__inner-element-crypto-currency";
@@ -46,17 +47,24 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _partnerCryptoCurrenciesContainer;
 		private readonly VisualElement _partnerCryptoCurrenciesArrow;
 
+		private Dictionary<GameId, ulong> _cryptoCurrenciesDict;
 		private Action OnClickedAction;
 		private VisualElement _buttonView;
+		private CurrencyDisplayElement.CurrencyAnimationHandler _animationHandler;
+
+		private bool IsOnlyMainCurrency => _cryptoCurrenciesDict.Count == 1 && _cryptoCurrenciesDict.First().Key == MainCurrency;
 
 		/* The internal structure of the element is created in the constructor. */
 		public CryptoCurrenciesDisplayElement()
 		{
+			_animationHandler = new CurrencyDisplayElement.CurrencyAnimationHandler();
 			AddToClassList(USS_CRYPTO_PARENT);
 			{
 				_buttonView = new VisualElement();
 				_buttonView.AddToClassList(USS_BLOCK);
 				_buttonView.AddToClassList(USS_BLOCK_CRYPTO_MODIFIER);
+				_buttonView.RegisterCallback<ClickEvent>(OnClicked);
+
 				// Icon outline
 				_mainCryptoCurrencyIconOutline = new VisualElement() {name = "MainCurrencyIconContainer"};
 				_mainCryptoCurrencyIconOutline.AddToClassList(USS_ICON_OUTLINE);
@@ -87,7 +95,21 @@ namespace FirstLight.Game.UIElements
 			_partnerCryptoCurrenciesContainer.SetVisibility(false);
 		}
 
-		private void SetMainCurrency(GameId gameId)
+		public void SetAnimationOrigin(VisualElement origin)
+		{
+			_animationHandler.Origin = origin;
+		}
+
+		public void AnimateCurrencyEffect(GameId id, ulong previous, ulong amount, CancellationToken cc)
+		{
+			_animationHandler.CancellationToken = cc;
+			_animationHandler.Target = IsOnlyMainCurrency ? _mainCryptoCurrencyAmount : this;
+			_animationHandler.Root = this.GetRoot();
+			_animationHandler.GameId = id;
+			_animationHandler.AnimateCurrency(previous, amount).Forget();
+		}
+
+		public void SetMainCurrency(GameId gameId)
 		{
 			MainCurrency = gameId;
 			UpdateMainCurrencyView();
@@ -95,6 +117,12 @@ namespace FirstLight.Game.UIElements
 
 		private void OnClicked(ClickEvent evt)
 		{
+			if (_cryptoCurrenciesDict.Count == 1 && _cryptoCurrenciesDict.First().Key == MainCurrency)
+			{
+				this.OpenTooltip(panel.visualTree, MainCurrency.GetDescriptionLocalization());
+				return;
+			}
+
 			OpenCryptoTokenContainer();
 		}
 
@@ -118,6 +146,7 @@ namespace FirstLight.Game.UIElements
 
 		public void SetData(Dictionary<GameId, ulong> playerCryptoCurrenciesDict)
 		{
+			_cryptoCurrenciesDict = playerCryptoCurrenciesDict;
 			var shouldHideElement = playerCryptoCurrenciesDict.Count == 0;
 
 			this.SetDisplay(!shouldHideElement);
@@ -142,8 +171,6 @@ namespace FirstLight.Game.UIElements
 			_buttonView.AddToClassList(USS_BLOCK_PLUSSIGN);
 			_mainCryptoCurrencyAmount.AddToClassList(USS_MULTIPLE_CURRENCY_LABEL);
 			_mainCryptoCurrencyAmount.text = "+";
-
-			_buttonView.RegisterCallback<ClickEvent>(OnClicked);
 
 			if (cryptoCurrenciesDict.Count <= 8)
 			{

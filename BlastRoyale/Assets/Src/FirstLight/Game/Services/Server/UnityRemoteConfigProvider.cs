@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs.Remote;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
@@ -107,6 +108,7 @@ namespace FirstLight.Game.Services
 			// Fetch regular configs
 			_runtimeConfig = await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes(), filter);
 			_lastUpdatedTime = DateTime.Now;
+			MainInstaller.ResolveServices().MessageBrokerService.Publish(new RemoteConfigsLoadedMessage());
 		}
 
 		public async UniTask<bool> UpdateConfigWhenExpired(TimeSpan ttl, params Type[] types)

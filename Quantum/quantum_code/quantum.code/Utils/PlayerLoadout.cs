@@ -9,6 +9,7 @@ namespace Quantum
 	/// </summary>
 	public struct PlayerLoadout
 	{
+		
 		public GameId[] Cosmetics;
 		public Equipment Weapon;
 		public Equipment[] Equipment;
@@ -19,9 +20,9 @@ namespace Quantum
 		public static PlayerLoadout GetLoadout(Frame f, EntityRef entity)
 		{
 			var playerCharacter = f.Get<PlayerCharacter>(entity);
-			var playerData = f.GetSingleton<GameContainer>().PlayersData[playerCharacter.Player];
+			var playerData = f.Get<CosmeticsHolder>(entity);
 
-			var cosmetics = playerData.Cosmetics != default ? f.ResolveList(playerData.Cosmetics).ToArray() : new GameId[] { };
+			var cosmetics = playerData.Cosmetics != default ? f.ResolveList(playerData.Cosmetics).ToArray() : Array.Empty<GameId>();
 			return new PlayerLoadout()
 			{
 				Equipment = Array.Empty<Equipment>(),
@@ -30,11 +31,34 @@ namespace Quantum
 			};
 		}
 
-		public static GameId[] GetCosmetics(Frame f, PlayerRef player)
+		public static GameId[] GetCosmetics(Frame f, EntityRef player)
 		{
-			var playerData = f.GetSingleton<GameContainer>().PlayersData[player];
-			if (playerData.Cosmetics == default) return new GameId[] { };
-			return f.ResolveList(playerData.Cosmetics).ToArray();
+			if (!f.TryGet<CosmeticsHolder>(player, out var c))
+			{
+				Log.Warn("No Holder");
+				return Array.Empty<GameId>();
+			}
+
+			if (!f.TryResolveList(c.Cosmetics, out var list))
+			{
+				Log.Warn("No List Allocated");
+				return Array.Empty<GameId>();
+			}
+			return list.ToArray();
+		}
+		
+		public static GameId? GetCosmetic(Frame f, EntityRef player, GameIdGroup group)
+		{
+			if (!f.TryGet<CosmeticsHolder>(player, out var c))
+			{
+				return null;
+			}
+
+			if (!f.TryResolveList(c.Cosmetics, out var list))
+			{
+				return null;
+			}
+			return list.FirstOrDefault(c => c.IsInGroup(group));
 		}
 	}
 }

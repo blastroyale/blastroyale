@@ -76,6 +76,11 @@ namespace FirstLight.Game.Logic
 		/// The config is a Chest Like" structure that defines rules for item generation.
 		/// </summary>
 		ItemData CreateItemFromConfig(EquipmentRewardConfig config);
+
+		/// <summary>
+		/// Check if there is a pending reward to be claimed with a given game id
+		/// </summary>
+		bool HasUnclaimedRewardWithId(GameId id);
 	}
 
 	/// <inheritdoc />
@@ -123,6 +128,21 @@ namespace FirstLight.Game.Logic
 	public class MatchRewardsResult
 	{
 		/// <summary>
+		/// Simulation config ID used in the match
+		/// </summary>
+		public string SimulationConfigId;
+
+		/// <summary>
+		/// Used event pass to get the rewards
+		/// </summary>
+		public bool UsedEventPass;
+
+		/// <summary>
+		/// If player got killed by being afk
+		/// </summary>
+		public bool KilledByBeingAFK;
+
+		/// <summary>
 		/// Contains all rewards obtained on the match
 		/// </summary>
 		public List<ItemData> FinalRewards { get; set; } = new ();
@@ -138,6 +158,11 @@ namespace FirstLight.Game.Logic
 		/// Bonuses
 		/// </summary>
 		public Dictionary<GameId, int> CollectedBonuses { get; set; } = new ();
+
+		/// <summary>
+		/// Stores how much the player got as a bonus from wining
+		/// </summary>
+		public Dictionary<GameId, int> BonusFromWinning { get; set; } = new ();
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -236,7 +261,28 @@ namespace FirstLight.Game.Logic
 				return false;
 			}
 
+			// Players trying to start paid events alone
+			if (source.MatchConfig.MinPlayersToStartMatch != usedConfig.MinPlayersToStartMatch)
+			{
+				return false;
+			}
+
 			return true;
+		}
+
+		public bool HasPassForEvent(SimulationMatchConfig matchConfig, out bool usedTicket)
+		{
+			var events = GameLogic.RemoteConfigProvider.GetConfig<EventGameModesConfig>();
+			var foundEvent = events.FirstOrDefault(ev => ev.MatchConfig.UniqueConfigId == matchConfig.UniqueConfigId);
+			if (foundEvent == null || !foundEvent.IsPaid)
+			{
+				usedTicket = false;
+				return true;
+			}
+
+			var hasTicket = GameLogic.GameEventsLogic.HasPass(foundEvent.MatchConfig.UniqueConfigId);
+			usedTicket = hasTicket;
+			return hasTicket;
 		}
 
 		public MatchRewardsResult CalculateMatchRewards(RewardSource source, out int trophyChange)
@@ -253,11 +299,19 @@ namespace FirstLight.Game.Logic
 			}
 
 			var usedSimConfig = ValidMatchRewardConfigs().FirstOrDefault(valid => valid.UniqueConfigId == source.MatchConfig.UniqueConfigId);
-
+			result.SimulationConfigId = usedSimConfig?.UniqueConfigId;
+			result.KilledByBeingAFK = localMatchData.Data.KilledByBeingAFK;
 			if (!IsEventValid(source, usedSimConfig) || localMatchData.Data.KilledByBeingAFK)
 			{
 				return result;
 			}
+
+			if (!HasPassForEvent(usedSimConfig, out var usedPass)) // player trying to play event without ticket
+			{
+				return result;
+			}
+
+			result.UsedEventPass = usedPass;
 
 			var teamSize = Math.Max(1, usedSimConfig.TeamSize);
 			var maxTeamsInMatch = source.GamePlayerCount / teamSize;
@@ -308,11 +362,19 @@ namespace FirstLight.Game.Logic
 				return result;
 			}
 
+			CalculateEventBonuses(result, source, localMatchData, usedSimConfig);
 			CalculateBPPReward(result, rewardConfig, usedSimConfig);
 			CalculateXPReward(result, rewardConfig, usedSimConfig);
 			CalculateCollectedRewards(result, source, usedSimConfig);
 			CalculateBuffs(result);
 			return result;
+		}
+
+		private void AddRewardViewData(Dictionary<GameId, int> dict, GameId id, int qtd)
+		{
+			dict.TryGetValue(id, out var amt);
+			amt += qtd;
+			dict[id] = amt;
 		}
 
 		private void CalculateBuffs(MatchRewardsResult result)
@@ -340,6 +402,11 @@ namespace FirstLight.Game.Logic
 							break;
 						case GameId.BlastBuck:
 							mp += buffs.GetStat(BuffStat.PctBonusBBs).AsDouble / 100d;
+							break;
+						case GameId.FestiveSNOWFLAKE:
+						case GameId.FestiveLUNARCOIN:
+						case GameId.FestiveFEATHER:
+							mp += buffs.GetStat(BuffStat.PctBonusFestiveCurrencies).AsDouble / 100d;
 							break;
 					}
 
@@ -391,6 +458,20 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		public void SumRewardToList(List<ItemData> rewards, GameId id, int amount)
+		{
+			var existing = rewards.FirstOrDefault(r => r.Id == id);
+			if (existing == null)
+			{
+				rewards.Add(ItemFactory.Currency(id, amount));
+			}
+			else
+			{
+				existing.TryGetMetadata<CurrencyMetadata>(out var meta);
+				meta.Amount += amount;
+			}
+		}
+
 		public MatchRewardsResult GiveMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var rewards = CalculateMatchRewards(source, out trophyChange);
@@ -401,6 +482,14 @@ namespace FirstLight.Game.Logic
 				{
 					meta.Amount =
 						(int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.Id, (uint) meta.Amount);
+				}
+			}
+
+			if (rewards.UsedEventPass)
+			{
+				if (!GameLogic.GameEventsLogic.ConsumeEventPass(rewards.SimulationConfigId))
+				{
+					throw new LogicException("Player trying to get event rewards without event pass!");
 				}
 			}
 
@@ -419,7 +508,7 @@ namespace FirstLight.Game.Logic
 			var claimed = new List<ItemData>(Data.UncollectedRewards);
 			foreach (var reward in claimed)
 			{
-				if (reward.Id == GameId.Random) Data.UncollectedRewards.Remove(reward);
+				if (reward.Id is GameId.Random or GameId.Bundle) Data.UncollectedRewards.Remove(reward);
 				else ClaimUnclaimedReward(reward);
 			}
 
@@ -466,6 +555,11 @@ namespace FirstLight.Game.Logic
 			return ItemFactory.Currency(config.GameId, config.Amount);
 		}
 
+		public bool HasUnclaimedRewardWithId(GameId id)
+		{
+			return _unclaimedRewards.Any(data => data.Id == id);
+		}
+
 		public IReadOnlyCollection<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> rewardConfigs)
 		{
 			var items = new List<ItemData>();
@@ -478,6 +572,31 @@ namespace FirstLight.Game.Logic
 			var config = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>()
 				.First(cfg => cfg.GameId == id);
 			return CreateItemFromConfig(config);
+		}
+
+		private void CalculateEventBonuses(MatchRewardsResult rewards, RewardSource source, QuantumPlayerMatchData data,
+										   SimulationMatchConfig simulationMatchConfig)
+		{
+			if (simulationMatchConfig?.WinRewardBonus == null) return;
+
+			foreach (var bonus in simulationMatchConfig.WinRewardBonus)
+			{
+				if (data.PlayerRank > bonus.MinPosition)
+				{
+					continue;
+				}
+
+				// To view specific bonuses
+				AddRewardViewData(rewards.BonusFromWinning, bonus.Id, bonus.Amount);
+
+				// To view that this was collected
+				AddRewardViewData(rewards.CollectedRewards, bonus.Id, bonus.Amount);
+
+				// This is the actual reward being given
+				SumRewardToList(rewards.FinalRewards, bonus.Id, bonus.Amount);
+
+				break;
+			}
 		}
 
 		private void CalculateBPPReward(MatchRewardsResult rewards, MatchRewardConfig rewardConfig, SimulationMatchConfig simulationMatchConfig)
@@ -554,6 +673,10 @@ namespace FirstLight.Game.Logic
 			}
 			else if (reward.TryGetMetadata<UnlockMetadata>(out var unlockMeta))
 			{
+				if (unlockMeta.Unlock == UnlockSystem.PaidBattlePass)
+				{
+					GameLogic.BattlePassLogic.Purchase(reward);
+				}
 				// unlocks dont need to do anything
 			}
 			else if (reward.Id.IsInGroup(GameIdGroup.Core)) // Cores auto-opens when added to inventory

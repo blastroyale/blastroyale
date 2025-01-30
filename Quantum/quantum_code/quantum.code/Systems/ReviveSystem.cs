@@ -6,7 +6,8 @@ namespace Quantum.Systems
 	/// <summary>
 	/// System handling knockout logic, this contains knocking out the player when he dies, knockout collider, and reviving the player.
 	/// </summary>
-	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>, ISignalOnComponentRemoved<KnockedOut>,
+	public unsafe class ReviveSystem : SystemMainThreadFilter<ReviveSystem.KnockedOutFilter>,
+									   ISignalOnComponentRemoved<KnockedOut>,
 									   ISignalPlayerDead, ISignalGameEnded,
 									   ISignalOnFeetCollisionEnter, ISignalOnFeetCollisionLeft
 	{
@@ -59,7 +60,6 @@ namespace Quantum.Systems
 				return;
 			}
 
-
 			if (filter.KnockedOut->NextDamageAt <= f.Time)
 			{
 				// Do damage
@@ -82,7 +82,6 @@ namespace Quantum.Systems
 				filter.Stats->ReduceHealth(f, filter.Entity, &spell);
 			}
 		}
-
 
 		public void OnFeetCollisionEnter(Frame f, EntityRef entity, EntityRef collidedWith, FPVector2 point)
 		{
@@ -133,7 +132,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-
+			
 			StopRevivingPlayer(f, knockedOut, knockedOutCollider->KnockedOutEntity, entity);
 		}
 
@@ -142,7 +141,7 @@ namespace Quantum.Systems
 			f.Add<EntityDestroyer>(component->ColliderEntity);
 		}
 
-		public void GameEnded(Frame f)
+		public void GameEnded(Frame f, QBoolean _)
 		{
 			ReviveAllKnockedOutPlayers(f);
 			f.SystemDisable<ReviveSystem>();

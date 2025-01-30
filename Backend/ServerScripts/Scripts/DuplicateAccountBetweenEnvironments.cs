@@ -1,17 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FirstLight.Server.SDK.Modules;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.ServerModels;
 using AddUserVirtualCurrencyRequest = PlayFab.ServerModels.AddUserVirtualCurrencyRequest;
-using BanRequest = PlayFab.AdminModels.BanRequest;
-using BanUsersRequest = PlayFab.AdminModels.BanUsersRequest;
 using GetPlayerCombinedInfoRequestParams = PlayFab.ClientModels.GetPlayerCombinedInfoRequestParams;
 using GetPlayerStatisticsRequest = PlayFab.ServerModels.GetPlayerStatisticsRequest;
-using SendAccountRecoveryEmailRequest = PlayFab.AdminModels.SendAccountRecoveryEmailRequest;
 using StatisticUpdate = PlayFab.ServerModels.StatisticUpdate;
 using UpdatePlayerStatisticsRequest = PlayFab.ServerModels.UpdatePlayerStatisticsRequest;
 
@@ -31,7 +26,6 @@ public class DuplicateAccountBetweenEnvironments : PlayfabScript
 
 	public override void Execute(ScriptParameters parameters)
 	{
-
 		RunAsync().Wait();
 	}
 
@@ -49,7 +43,7 @@ public class DuplicateAccountBetweenEnvironments : PlayfabScript
 			Console.WriteLine("Invalid environment, available ones: " + availableEnvironments);
 			return;
 		}
-		
+
 		// Target
 		Console.WriteLine();
 		Console.WriteLine("Input the environment to copy to: ");
@@ -59,9 +53,14 @@ public class DuplicateAccountBetweenEnvironments : PlayfabScript
 			Console.WriteLine("Invalid environment, available ones: " + availableEnvironments);
 			return;
 		}
-		Console.WriteLine("Input the account id");
+
+		Console.WriteLine("Input the source account id");
 		var baseAccount = Console.ReadLine();
-		
+
+
+		Console.WriteLine("Input the target account id (you can type NEW) to create a new one");
+		var targetAccount = Console.ReadLine();
+
 		SetEnvironment(copyFrom);
 
 		// Get User State
@@ -79,23 +78,32 @@ public class DuplicateAccountBetweenEnvironments : PlayfabScript
 
 		// Start copying to new accoutn
 		SetEnvironment(copyTo);
-		var newTestAccount = "clone-" + Guid.NewGuid();
-		// Create new account
-		var newAccount = HandleError(await PlayFabClientAPI.LoginWithCustomIDAsync(new LoginWithCustomIDRequest()
+
+		var newPlayFabId = targetAccount;
+		var customId = "";
+		if (targetAccount.ToLowerInvariant().Equals("new"))
 		{
-			CustomId = newTestAccount,
-			InfoRequestParameters = StandardLoginInfoRequestParams,
-			CreateAccount = true
-		}));
+			var newTestAccount = "clone-" + Guid.NewGuid();
+			// Create new account
+			var newAccount = HandleError(await PlayFabClientAPI.LoginWithCustomIDAsync(new LoginWithCustomIDRequest()
+			{
+				CustomId = newTestAccount,
+				InfoRequestParameters = StandardLoginInfoRequestParams,
+				CreateAccount = true
+			}));
+			customId = newTestAccount;
+			var changeName = HandleError(await PlayFabClientAPI.UpdateUserTitleDisplayNameAsync(
+				new UpdateUserTitleDisplayNameRequest()
+				{
+					DisplayName = "Clone" + DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH'-'mm'-'ss")
+				}));
+			newPlayFabId = newAccount.PlayFabId;
+		}
 
 		var d = DateTime.Now;
-		var changeName = HandleError(await PlayFabClientAPI.UpdateUserTitleDisplayNameAsync(new UpdateUserTitleDisplayNameRequest()
-		{
-			DisplayName = "Clone" + DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH'-'mm'-'ss")
-		}));
-		var newPlayFabId = newAccount.PlayFabId;
 
-		await SetUserState(newAccount.PlayFabId, state);
+
+		await SetUserState(newPlayFabId, state);
 
 		foreach (var chunk in getStatistics.Statistics.Chunk(25))
 		{
@@ -115,7 +123,7 @@ public class DuplicateAccountBetweenEnvironments : PlayfabScript
 		{
 			HandleError(await PlayFabServerAPI.GrantItemsToUserAsync(new GrantItemsToUserRequest()
 			{
-				PlayFabId = newAccount.PlayFabId,
+				PlayFabId = targetAccount,
 				ItemIds = inventoryResult.Inventory.Select(a => a.ItemId).ToList()
 			}));
 		}
@@ -125,13 +133,14 @@ public class DuplicateAccountBetweenEnvironments : PlayfabScript
 			if (kv.Value == 0) continue;
 			HandleError(await PlayFabServerAPI.AddUserVirtualCurrencyAsync(new AddUserVirtualCurrencyRequest()
 			{
-				PlayFabId = newAccount.PlayFabId,
+				PlayFabId = targetAccount,
 				VirtualCurrency = kv.Key,
 				Amount = kv.Value
 			}));
 		}
 
-		Console.WriteLine("Copied account to id " + newAccount.PlayFabId + " with customId " + newTestAccount);
-		Console.WriteLine($"Link: https://developer.playfab.com/en-us/r/t/{PlayFabSettings.staticSettings.TitleId}/players/{newPlayFabId}/data");
+		Console.WriteLine("Copied account to id " + targetAccount + " with customId " + customId);
+		Console.WriteLine(
+			$"Link: https://developer.playfab.com/en-us/r/t/{PlayFabSettings.staticSettings.TitleId}/players/{newPlayFabId}/data");
 	}
 }

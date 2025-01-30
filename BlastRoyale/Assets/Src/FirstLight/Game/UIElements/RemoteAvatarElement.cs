@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
@@ -26,6 +27,7 @@ namespace FirstLight.Game.UIElements
 		private VisualElement _realAvatar;
 		private VisualElement _placeHolder;
 		private VisualElement _loader;
+		private Texture2D _texture;
 
 		public RemoteAvatarElement()
 		{
@@ -33,9 +35,26 @@ namespace FirstLight.Game.UIElements
 
 			Add(_realAvatar = new VisualElement {name = "RealAvatar"}.AddClass(USS_IMAGE, USS_REAL));
 			SetLoading();
+			// TODO: Fix this - causes issues when changing tabs on friend screen
+			// because the elements detached and gets cleaned up
+			// RegisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
+		}
+		
+		private void OnDetachFromPanel(DetachFromPanelEvent evt)
+		{
+			UnregisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
+			if (_realAvatar != null)
+			{
+				_realAvatar.style.backgroundImage = null;
+				_realAvatar.style.opacity = 0;
+			}
+				
+			if (_texture == null) return;
+			UnityEngine.Object.Destroy(_texture);
+			_texture  = null;
 		}
 
-		public async UniTaskVoid SetAvatar(string url)
+		public async UniTaskVoid SetAvatar(string url, CancellationToken cancellationToken)
 		{
 			if (url == null)
 			{
@@ -48,8 +67,11 @@ namespace FirstLight.Game.UIElements
 				return;
 			}
 
-			var task = MainInstaller.ResolveServices().RemoteTextureService.RequestTexture(url);
-			await SetAvatar(task);
+			var task = MainInstaller.ResolveServices().RemoteTextureService.RequestTexture(url, true, cancellationToken);
+			if (!cancellationToken.IsCancellationRequested)
+			{
+				await SetAvatar(task);	
+			}
 		}
 
 		public async UniTask SetAvatar(UniTask<Texture2D> task)
@@ -60,7 +82,8 @@ namespace FirstLight.Game.UIElements
 			{
 				var texture = await task;
 				if (!this.IsAttached()) return;
-				_realAvatar.style.backgroundImage = texture;
+				_texture = texture;
+				_realAvatar.style.backgroundImage = _texture;
 				_realAvatar.style.opacity = 1;
 				CleanLoadingState(false);
 			}

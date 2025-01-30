@@ -9,6 +9,8 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using I2.Loc;
+using JetBrains.Annotations;
 using Photon.Realtime;
 using Quantum;
 using Unity.Services.Authentication;
@@ -67,6 +69,11 @@ namespace FirstLight.Game.Services.RoomService
 		/// </summary>
 		public event Action OnLocalPlayerKicked;
 
+		/// <summary>
+		/// Called when a room doesn't start a simulation becasue the minimum number of players didn't join
+		/// </summary>
+		public event Action OnNotEnoughPlayers;
+
 		bool InRoom { get; }
 		bool IsJoiningRoom { get; }
 
@@ -75,9 +82,6 @@ namespace FirstLight.Game.Services.RoomService
 		int LastMatchPlayerAmount { get; }
 		public bool IsLocalPlayerSpectator { get; }
 		byte GetMaxSpectators(MatchType matchType);
-
-		byte GetMaxPlayers(MatchRoomSetup setup,
-						   bool spectators = true);
 
 		QuantumGameModeConfig GetGameModeConfig(string gameModeId);
 
@@ -144,7 +148,11 @@ namespace FirstLight.Game.Services.RoomService
 		private readonly ICoroutineService _coroutineService;
 		internal readonly IGameDataProvider _dataProvider;
 		private readonly ILeaderboardService _leaderboardService;
-		private readonly HashSet<ClientState> _joiningStates = new (new[] {ClientState.Joining, ClientState.Joined, ClientState.JoinedLobby, ClientState.JoiningLobby});
+		private readonly InGameNotificationService _inGameNotificationService;
+
+		private readonly HashSet<ClientState> _joiningStates = new (new[]
+			{ClientState.Joining, ClientState.Joined, ClientState.JoinedLobby, ClientState.JoiningLobby});
+
 		public bool IsJoiningRoom => _joiningStates.Contains(_networkService.QuantumClient.State);
 		public GameRoom CurrentRoom { get; private set; }
 		public GameRoom LastRoom { get; private set; }
@@ -157,6 +165,7 @@ namespace FirstLight.Game.Services.RoomService
 		public static bool AutoStartWhenLoaded = false;
 		public event Action<Player, PlayerChangeReason> OnPlayersChange;
 		public event Action OnRoomPropertiesChanged;
+		public event Action OnNotEnoughPlayers;
 		public event Action OnMatchStarted;
 		public event Action OnMasterChanged;
 		public event Action OnJoinedRoom;
@@ -186,7 +195,8 @@ namespace FirstLight.Game.Services.RoomService
 		private UniTaskCompletionSource _roomJoinTcs;
 
 		public RoomService(IGameNetworkService networkService, IGameBackendService backendService, IConfigsProvider configsProvider,
-						   ICoroutineService coroutineService, IGameDataProvider dataProvider, ILeaderboardService leaderboardService)
+						   ICoroutineService coroutineService, IGameDataProvider dataProvider, ILeaderboardService leaderboardService,
+						   InGameNotificationService inGameNotificationService)
 		{
 			_networkService = networkService;
 			_backendService = backendService;
@@ -194,6 +204,7 @@ namespace FirstLight.Game.Services.RoomService
 			_coroutineService = coroutineService;
 			_dataProvider = dataProvider;
 			_leaderboardService = leaderboardService;
+			_inGameNotificationService = inGameNotificationService;
 			_parameters = new RoomServiceParameters(this);
 			_commands = new RoomServiceCommands(this);
 			RegisterListeners();
@@ -276,7 +287,8 @@ namespace FirstLight.Game.Services.RoomService
 
 			FLog.Info($"JoinOrCreateRoom: {setup}");
 
-			var createParams = _parameters.GetRoomCreateParams(setup);
+			var createParams = _parameters.GetRoomCreateParams(setup, expectedPlayers: expectedPlayers);
+
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
 
 			ResetLocalPlayerProperties(playerProperties);
@@ -320,9 +332,19 @@ namespace FirstLight.Game.Services.RoomService
 		}
 
 		public byte GetMaxPlayers(MatchRoomSetup setup,
+								  string[] expectedPlayers = null,
 								  bool spectators = true)
 		{
-			var maxPlayers = setup.SimulationConfig.MaxPlayersOverwrite > 0 ? setup.SimulationConfig.MaxPlayersOverwrite : GetMapConfig(setup.SimulationConfig.MapId).MaxPlayers;
+			// Matchmaking no bot matches will only have the matched players slots
+			if (setup.SimulationConfig.DisableBots && expectedPlayers != null)
+			{
+				return (byte) expectedPlayers.Length;
+			}
+
+			var maxPlayers = setup.SimulationConfig.MaxPlayersOverwrite > 0
+				? setup.SimulationConfig.MaxPlayersOverwrite
+				: GetMapConfig(setup.SimulationConfig.MapId).MaxPlayers;
+
 			if (spectators)
 			{
 				maxPlayers += GetMaxSpectators(setup.SimulationConfig.MatchType);
@@ -509,6 +531,18 @@ namespace FirstLight.Game.Services.RoomService
 			if (!CurrentRoom.AreAllPlayersReady() && CurrentRoom.GameStartsAt() >
 				_networkService.ServerTimeInMilliseconds)
 			{
+				return;
+			}
+
+			var minPlayers = CurrentRoom.Properties.SimulationMatchConfig.Value.MinPlayersToStartMatch;
+			if (CurrentRoom.PlayerCount < minPlayers)
+			{
+				_inGameNotificationService.QueueNotification(
+					ScriptLocalization.UITMatchmaking.failed_to_find_players,
+					InGameNotificationStyle.Error,
+					InGameNotificationDuration.Long);
+				OnNotEnoughPlayers?.Invoke();
+				LeaveRoom();
 				return;
 			}
 

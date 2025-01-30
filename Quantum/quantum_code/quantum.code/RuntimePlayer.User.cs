@@ -18,7 +18,6 @@ namespace Quantum
 		public string AvatarUrl;
 		public bool UseBotBehaviour;
 		public byte TeamColor;
-		public GameId DeathFlagID;
 
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -34,16 +33,15 @@ namespace Quantum
 			stream.Serialize(ref TeamColor);
 			stream.Serialize(ref LeaderboardRank);
 			stream.SerializeArrayLength(ref Cosmetics);
-			for (var i = 0; i < Cosmetics.Length; i++)
+			if (Cosmetics != null)
 			{
-				var skinId = (int)Cosmetics[i];
-				stream.Serialize(ref skinId);
-				Cosmetics[i] = (GameId)skinId;
+				for (var i = 0; i < Cosmetics.Length; i++)
+				{
+					var skinId = (int)Cosmetics[i];
+					stream.Serialize(ref skinId);
+					Cosmetics[i] = (GameId)skinId;
+				}
 			}
-
-			var deathFlagID = (int)DeathFlagID;
-			stream.Serialize(ref deathFlagID);
-			DeathFlagID = (GameId) deathFlagID;
 		}
 	}
 }

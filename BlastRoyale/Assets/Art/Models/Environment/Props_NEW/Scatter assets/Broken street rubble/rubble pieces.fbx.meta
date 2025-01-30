@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["rubble_large_4","rubble_large_5","Rubble_small_2","Rubble_small_3","rubble_large_2","rubble_large_1"],"padding":[25,31,72,85,44,39],"unwrapper":[0,0,0,0,0,0]}'
+    - '#BAKERY{"meshName":["rubble_large_4","rubble_large_5","Rubble_small_2","Rubble_small_3","rubble_large_2","rubble_large_1"],"padding":[27,34,79,85,48,43],"unwrapper":[0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

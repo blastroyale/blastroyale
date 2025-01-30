@@ -30,7 +30,6 @@ namespace FirstLight.Game.Presenters.Store
 	{
 		public class StateData
 		{
-			public Action<GameProduct> OnPurchaseItem;
 			public Action OnHomeClicked;
 			public Action OnBackClicked;
 		}
@@ -47,7 +46,7 @@ namespace FirstLight.Game.Presenters.Store
 		private VisualElement _blocker;
 		private ScreenHeaderElement _header;
 		private VisualElement _productList;
-		private VisualElement _categoryList;
+		private ScrollView _categoryList;
 		private ScrollView _scroll;
 		private Dictionary<string, VisualElement> _categoriesElements = new ();
 
@@ -63,49 +62,111 @@ namespace FirstLight.Game.Presenters.Store
 
 			_header = Root.Q<ScreenHeaderElement>("Header").Required();
 			_productList = Root.Q("ProductList").Required();
-			_categoryList = Root.Q("Categories").Required();
+			_categoryList = Root.Q<ScrollView>("Categories").Required();
 			_scroll = Root.Q<ScrollView>("ProductScrollView").Required();
 			_header.backClicked = Data.OnBackClicked;
 
-			Root.Q<CurrencyDisplayElement>("CryptoCurrency")
-				.AttachView(this, out CurrencyDisplayView _);
+			Root.Q<CryptoCurrenciesDisplayElement>("CryptoCurrency").AttachView(this, out CryptoCurrenciesDisplayView _);
+			Root.Q<CurrencyDisplayElement>("Coins").AttachView(this, out CurrencyDisplayView _);
+			Root.Q<CurrencyDisplayElement>("BlastBucks").AttachView(this, out CurrencyDisplayView _);
 
-			Root.Q<CurrencyDisplayElement>("Coins")
-				.AttachView(this, out CurrencyDisplayView _);
+			LoadStore();
+		}
 
-			Root.Q<CurrencyDisplayElement>("BlastBucks")
-				.AttachView(this, out CurrencyDisplayView _);
-
+		private void LoadStore()
+		{
 			_categoriesElements.Clear();
+
 			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
 			{
+				if (category.IsHidden)
+				{
+					continue;
+				}
+
 				var categoryElement = new StoreCategoryElement(category.Name);
+
 				foreach (var product in category.Products)
 				{
 					var productElement = new StoreGameProductElement();
 
 					categoryElement.Add(productElement);
 					categoryElement.EnsureSize(product.PlayfabProductConfig.StoreItemData.Size);
+
+					var trackedPurchasedItem = GetTrackedPurchasedItem(product);
 					var flags = ProductFlags.NONE;
+
 					if (IsItemOwned(product))
 					{
 						flags |= ProductFlags.OWNED;
 					}
 					else
 					{
-						productElement.OnClicked = BuyItem;
+						if (IsBuyAllowed(product))
+						{
+							productElement.OnClicked = BuyItem;
+						}
+						else
+						{
+							productElement.OnClicked = ShowBuyNotAllowedNotification;
+
+							flags = SetupBuyNotAllowedFlags(product, flags);
+						}
 					}
 
-					productElement.SetData(product, flags, Root);
+					productElement.SetData(product, flags, trackedPurchasedItem, BuyItem, Root);
 				}
 
 				_productList.Add(categoryElement);
+
 				var categoryButton = CreateCategoryButton(category.Name, categoryElement);
 				_categoryList.Add(categoryButton);
 				_categoriesElements[category.Name] = categoryElement;
+
+				//Resize Category Element Container after adding all products to it.
+				categoryElement.RegisterCallback<GeometryChangedEvent>(_ => categoryElement.ResizeContainer());
 			}
 
 			SetupCreatorsCodeSupport();
+		}
+
+		private ProductFlags SetupBuyNotAllowedFlags(GameProduct product, ProductFlags flags)
+		{
+			var trackedPurchasedItem = GetTrackedPurchasedItem(product);
+
+			//Should have a better mechanism to prioritize what are the orders of notification
+			if (HasMaxAmountReached(trackedPurchasedItem, product.PlayfabProductConfig.StoreItemData))
+			{
+				flags |= ProductFlags.MAXAMOUNT;
+			}
+			else if (!HasPurchaseCooldownExpired(trackedPurchasedItem.LastPurchaseTime, product.PlayfabProductConfig.StoreItemData.PurchaseCooldown))
+			{
+				flags |= ProductFlags.COOLDOWN;
+			}
+
+			return flags;
+		}
+
+		private void ShowBuyNotAllowedNotification(GameProduct product)
+		{
+			var trackedPurchasedItem = GetTrackedPurchasedItem(product);
+
+			//Should have a better mechanism to prioritize what are the orders of notification
+			if (HasMaxAmountReached(trackedPurchasedItem, product.PlayfabProductConfig.StoreItemData))
+			{
+				if (trackedPurchasedItem.AmountPurchased >= product.PlayfabProductConfig.StoreItemData.MaxAmount)
+				{
+					_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_daily_reset);
+				}
+				else
+				{
+					_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_maxamount);
+				}
+			}
+			else if (!HasPurchaseCooldownExpired(trackedPurchasedItem.LastPurchaseTime, product.PlayfabProductConfig.StoreItemData.PurchaseCooldown))
+			{
+				_gameServices.InGameNotificationService.QueueNotification(ScriptLocalization.UITStore.notification_product_cooldown);
+			}
 		}
 
 		private ButtonOutlined CreateCategoryButton(string categoryName, VisualElement categoryElement)
@@ -121,8 +182,6 @@ namespace FirstLight.Game.Presenters.Store
 		protected override UniTask OnScreenOpen(bool reload)
 		{
 			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
-			_gameServices.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
-			_gameServices.IAPService.UnityStore.OnPurchaseFailure += OnPurchaseFailed;
 			_gameServices.IAPService.PurchaseFinished += OnPurchaseFinished;
 
 			return base.OnScreenOpen(reload);
@@ -131,7 +190,6 @@ namespace FirstLight.Game.Presenters.Store
 		protected override UniTask OnScreenClose()
 		{
 			_gameServices.MessageBrokerService.UnsubscribeAll(this);
-			_gameServices.IAPService.UnityStore.OnPurchaseFailure -= OnPurchaseFailed;
 			_gameServices.IAPService.PurchaseFinished -= OnPurchaseFinished;
 			return base.OnScreenClose();
 		}
@@ -143,6 +201,54 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			if (!product.GameItem.Id.IsInGroup(GameIdGroup.Collection)) return false;
 			return _data.CollectionDataProvider.IsItemOwned(product.GameItem);
+		}
+
+		private bool IsBuyAllowed(GameProduct product)
+		{
+			var storeItemData = product.PlayfabProductConfig.StoreItemData;
+
+			if (HasCooldownConfiguration(storeItemData) | HasMaxAmountConfiguration(storeItemData))
+			{
+				var trackedPurchasedItem = GetTrackedPurchasedItem(product);
+
+				if (trackedPurchasedItem != null)
+				{
+					return !HasMaxAmountReached(trackedPurchasedItem, storeItemData) &&
+						HasPurchaseCooldownExpired(trackedPurchasedItem.LastPurchaseTime, storeItemData.PurchaseCooldown);
+				}
+
+				return true;
+			}
+
+			return true;
+		}
+
+		private StorePurchaseData GetTrackedPurchasedItem(GameProduct product)
+		{
+			return _data.PlayerStoreDataProvider.GetTrackedPlayerPurchases()
+				.Find(m => m.CatalogItemId.Equals(product.PlayfabProductConfig.CatalogItem.ItemId));
+		}
+
+		private static bool HasMaxAmountReached(StorePurchaseData trackedPurchasedItem, StoreItemData storeItemData)
+		{
+			return trackedPurchasedItem.AmountPurchased >= storeItemData.MaxAmount;
+		}
+
+		private bool HasPurchaseCooldownExpired(DateTime lastPurchaseTime, int cooldownMinutes)
+		{
+			var timeSinceLastAction = DateTime.UtcNow - lastPurchaseTime;
+
+			return timeSinceLastAction.TotalMinutes >= cooldownMinutes;
+		}
+
+		private bool HasCooldownConfiguration(StoreItemData storeItemData)
+		{
+			return storeItemData.PurchaseCooldown > 0;
+		}
+
+		private bool HasMaxAmountConfiguration(StoreItemData storeItemData)
+		{
+			return storeItemData.MaxAmount > 0;
 		}
 
 		private void SelectCategory(VisualElement categoryContainer)
@@ -168,25 +274,22 @@ namespace FirstLight.Game.Presenters.Store
 			}
 		}
 
-		private void OnPurchaseFinished(ItemData item, bool success)
+		/// <summary>
+		/// This is here in case the purchase takes longer then expected and the player is still on the screen when getting the reward
+		/// </summary>
+		private void OnPurchaseFinished(string itemId, ItemData item, bool success, IUnityStoreService.PurchaseFailureData reason)
 		{
-			_blocker.style.display = DisplayStyle.None;
-		}
-
-		[Button]
-		private void OnPurchaseFailed(PurchaseFailureReason reason)
-		{
-			_blocker.style.display = DisplayStyle.None;
-			if (reason is PurchaseFailureReason.UserCancelled or PurchaseFailureReason.PaymentDeclined) return;
-
-			var confirmButton = new GenericDialogButton
+			if (!success) return;
+			if (IAPHelpers.IsUIBeingHandled(itemId))
 			{
-				ButtonText = ScriptLocalization.UITShared.ok,
-				ButtonOnClick = () => _gameServices.GenericDialogService.CloseDialog()
-			};
+				return;
+			}
 
-			_gameServices.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error,
-				string.Format(ScriptLocalization.UITStore.iap_error, reason.ToString()), false, confirmButton);
+			_gameServices.RewardService.ClaimRewardsAndWaitForRewardsScreenToClose(item).ContinueWith((openedRewards) =>
+			{
+				if (!openedRewards) return;
+				_gameServices.UIService.OpenScreen<StoreScreenPresenter>(Data).Forget();
+			});
 		}
 
 		private void OnCoresOpened(OpenedCoreMessage msg)
@@ -205,29 +308,16 @@ namespace FirstLight.Game.Presenters.Store
 				}).Forget();
 		}
 
-		private void OnItemRewarded(ItemRewardedMessage msg)
-		{
-			// Cores are handled above separately
-			FLog.Verbose("Store Screen", $"Viewing Reward {msg.Item}");
-			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency) && !msg.Item.Id.IsInGroup(GameIdGroup.Collection)) return;
-			_gameServices.UIService.OpenScreen<RewardsScreenPresenter>(
-				new RewardsScreenPresenter.StateData()
-				{
-					Items = new List<ItemData> {msg.Item},
-					FameRewards = false,
-					OnFinish = () =>
-					{
-						_gameServices.UIService.OpenScreen<StoreScreenPresenter>(Data).Forget();
-					}
-				}).Forget();
-		}
-
 		private void BuyItem(GameProduct product)
 		{
-			if (_blocker.style.display == DisplayStyle.Flex) return;
-
-			_blocker.style.display = DisplayStyle.Flex;
-			Data.OnPurchaseItem(product);
+			_gameServices.IAPService.BuyProductHandleUI(product,
+				_gameServices.UIService,
+				_gameServices.RewardService,
+				_gameServices.GenericDialogService).ContinueWith(result =>
+			{
+				if (result != IAPHelpers.BuyProductResult.Rewarded) return;
+				_gameServices.UIService.OpenScreen<StoreScreenPresenter>(Data).Forget();
+			});
 		}
 
 		//Content Creator
@@ -280,7 +370,8 @@ namespace FirstLight.Game.Presenters.Store
 
 		private void OpenStopSupportingCreatorPopup()
 		{
-			PopupPresenter.OpenGenericConfirm(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_stop_supporting, OnStopSupportingCreatorSubmitted).Forget();
+			PopupPresenter.OpenGenericConfirm(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_stop_supporting,
+				OnStopSupportingCreatorSubmitted).Forget();
 		}
 
 		private void OnCreatorCodeSubmitted(string creatorCode)
@@ -289,7 +380,8 @@ namespace FirstLight.Game.Presenters.Store
 
 			if (!IsValidCreatorCode(creatorCodeValue))
 			{
-				PopupPresenter.OpenGenericInfo(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_invalid_code).Forget();
+				PopupPresenter.OpenGenericInfo(ScriptTerms.UITStore.content_creator, ScriptLocalization.UITStore.content_creator_invalid_code)
+					.Forget();
 				return;
 			}
 

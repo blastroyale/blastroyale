@@ -57,6 +57,9 @@ namespace FirstLight.Game.TestCases
 			Wrap<BenchmarkStartedLoadingMatchAssets>();
 			Wrap<BenchmarkLoadedMandatoryMatchAssets>();
 			Wrap<BenchmarkLoadedOptionalMatchAssets>();
+			Wrap<MatchmakingJoinedMessage>();
+			Wrap<MatchmakingMatchFoundMessage>();
+			Wrap<MatchmakingLeftMessage>();
 			services.MessageBrokerService.Subscribe<BenchmarkStartedLoadingMatchAssets>((msg) =>
 			{
 				matchCount++;
@@ -67,8 +70,6 @@ namespace FirstLight.Game.TestCases
 				currentLocation = "MainMenu";
 			});
 			services.UIService.OnScreenOpened += (screen, layer) => LogMessage("OpenScreen " + screen);
-			services.MatchmakingService.OnGameMatched += (g) => LogMessage("OnGameMatched");
-			services.MatchmakingService.OnMatchmakingJoined += (g) => LogMessage("OnMatchmakingJoined");
 			services.AuthenticationService.OnLogin += (g) => LogMessage("OnLogin");
 		}
 

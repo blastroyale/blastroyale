@@ -10,6 +10,10 @@ BlastRoyale/Logs/
 BlastRoyale/MemoryCaptures/
 BlastRoyale/UserSettings/
 BlastRoyale/SerializedBuildInfo/
+BlastRoyale/ServerData/
+BlastRoyale/Blast\ Royale_BurstDebugInformation_DoNotShip
+BlastRoyale/BlastRoyale.apk
+BlastRoyale/BlastRoyale.aab
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/BlastRoyale/Assets/**/*.meta
@@ -156,3 +160,6 @@ BlastRoyale_clone_*
 # Remote addressables
 /ServerData/
 Quantum/quantum_server/quantum.custom.plugin/assetDatabase.json
+BlastRoyale/Assets/AssetManager
+BlastRoyale/Assets/AssetManager.meta
+BlastRoyale/Builds

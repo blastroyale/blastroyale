@@ -20,11 +20,14 @@ namespace FirstLight.Game.Presenters.Store
 	{
 		NONE = 0,
 		OWNED = 1 << 1,
-		NEW = 1 << 2
+		NEW = 1 << 2,
+		COOLDOWN = 1 << 4,
+		MAXAMOUNT = 1 << 6
 	}
 
 	public class StoreGameProductElement : VisualElement
 	{
+		//USS Modifiers
 		private const string USS_PRODUCT_NAME = "product-name";
 		private const string USS_PRODUCT_IMAGE = "product-image";
 		private const string USS_PRODUCT_PRICE = "product-price";
@@ -38,11 +41,16 @@ namespace FirstLight.Game.Presenters.Store
 		private const string USS_OWNED_STAMP = "owned-stamp";
 		private const string USS_OWNED_STAMP_TEXT = "owned-stamp__text";
 		private const string USS_OWNED_MODIFIER = "--owned";
+		private const string USS_COOLDOWN_AREA = "cooldown-area";
+		private const string USS_COOLDOWN_ICON = "cooldown-icon";
+		private const string USS_COOLDOWN_TIME = "cooldown-time";
+		private const string USS_PURCHASE_AMOUNT_AREA = "purchased-amount-area";
+		private const string USS_PURCHASE_AMOUNT = "purchased-amount";
 		private const string USS_SPRITE_CURRENCIES_BLASTBUCK = "sprite-currencies__blastbuck-1";
 
-		public StoreDisplaySize size { get; set; }
-		public GameId gameId { get; set; }
-		public string imageOverwrite { get; set; }
+		public StoreDisplaySize Size { get; set; }
+		public GameId GameId { get; set; }
+		public string ImageOverwrite { get; set; }
 
 		public Action<GameProduct> OnClicked;
 		private GameProduct _product;
@@ -60,38 +68,60 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			USS_BUNDLE_IMAGE, USS_GRADIENT_SIDES, USS_GRADIENT_BIG,
 			USS_GRADIENT_SMALL, USS_WIDGET_EFFECTS, USS_PRODUCT_WIDGET,
-			USS_PRODUCT_PRICE, USS_PRODUCT_IMAGE, USS_PRODUCT_NAME, USS_OWNED_STAMP, USS_OWNED_STAMP_TEXT
+			USS_PRODUCT_PRICE, USS_PRODUCT_IMAGE, USS_PRODUCT_NAME, USS_OWNED_STAMP, USS_OWNED_STAMP_TEXT,
+			USS_COOLDOWN_AREA, USS_COOLDOWN_ICON, USS_COOLDOWN_TIME, USS_PURCHASE_AMOUNT_AREA, USS_PURCHASE_AMOUNT
 		};
 
+		private VisualElement _root;
+		private ImageButton _background;
 		private Label _name;
 		private VisualElement _icon;
-		private VisualElement _root;
 		private Label _price;
+		
 		private ImageButton _infoButton;
-		private ImageButton _background;
-		private VisualElement _ownedStamp;
 		private VisualElement _infoIcon;
-		private VisualElement _ownedOverlay;
+		private VisualElement _ownedStamp;
+	
+		private VisualElement _purchaseDisabledOverlay;
+		
+		private VisualElement _cooldownArea;
+		private Label _cooldownTimeLabel;
+		
+		private VisualElement _purchasedAmountArea;
+		private Label _purchasedAmountLabel;
 
 		public StoreGameProductElement()
 		{
 			var treeAsset = Resources.Load<VisualTreeAsset>("StoreGameProductElement");
 			treeAsset.CloneTree(this);
+			
+			_purchaseDisabledOverlay = this.Q("PurchaseDisabled").Required();
 			_background = this.Q<ImageButton>("ProductWidgetWrapper").Required();
 			_background.clicked += () => OnClicked?.Invoke(_product);
+			
 			_name = this.Q<Label>("ProductName").Required();
+			_infoIcon = this.Q("InformationIcon").Required();
+			_price = this.Q<Label>("ProductPrice").Required();
+			
 			_icon = this.Q("ProductImage").Required();
 			_icon.AddToClassList(USS_SPRITE_CURRENCIES_BLASTBUCK);
-			_price = this.Q<Label>("ProductPrice").Required();
+			
 			_ownedStamp = this.Q("OwnedStamp").Required();
 			_ownedStamp.SetDisplay(false);
+			
 			_infoButton = this.Q<ImageButton>("InformationClickArea").Required();
-			_infoIcon = this.Q("InformationIcon").Required();
-			_ownedOverlay = this.Q("OwnedOverlay").Required();
 			_infoButton.clicked += OnClickInfo;
 
+			_cooldownArea = this.Q<VisualElement>("CooldownArea").Required();
+			_cooldownTimeLabel = this.Q<Label>("CooldownTime").Required();
+			_cooldownArea.SetDisplay(false);
+			
+			_purchasedAmountArea = this.Q<VisualElement>("PurchasedAmountArea").Required();
+			_purchasedAmountLabel = this.Q<Label>("PurchasedAmount").Required();
+			_purchasedAmountArea.SetDisplay(false);
+			
 			// Apply the pop-up effect to the product widget
-			new PopUpEffectAnimation(_background);
+			_ = new PopUpEffectAnimation(_background);
 		}
 
 		private void OnClickInfo()
@@ -100,18 +130,41 @@ namespace FirstLight.Game.Presenters.Store
 			_infoButton.OpenTooltip(_root, desc);
 		}
 
-		public void SetData(GameProduct product, ProductFlags flags, VisualElement rootDocument)
+		public void SetData(GameProduct product, ProductFlags flags, StorePurchaseData trackedPurchasedItem, Action<GameProduct> CooldownExpiredAction, VisualElement rootDocument)
 		{
 			_root = rootDocument;
 			_product = product;
+			
 			var itemView = product.GameItem.GetViewModel();
 			_name.text = "";
+			
 			if (itemView.Amount > 1) _name.text += itemView.Amount + " ";
 			_name.text += itemView.DisplayName;
 
+			
+			if ((flags.HasFlag(ProductFlags.COOLDOWN) || product.PlayfabProductConfig.StoreItemData.ShouldDailyReset) && trackedPurchasedItem != null)
+			{
+				ShowCooldown(product.PlayfabProductConfig.StoreItemData, trackedPurchasedItem, CooldownExpiredAction);
+			}
+
+			if (product.PlayfabProductConfig.StoreItemData.MaxAmount > 0)
+			{
+				var amountPurchased = trackedPurchasedItem != null ? trackedPurchasedItem.AmountPurchased : 0;
+				var maxAmountPurchaseAllowed = product.PlayfabProductConfig.StoreItemData.MaxAmount;
+				
+				_purchasedAmountLabel.text = (maxAmountPurchaseAllowed - amountPurchased) +  "/" + maxAmountPurchaseAllowed;
+				
+				_purchasedAmountArea.SetDisplay(true);
+
+				if (!flags.HasFlag(ProductFlags.COOLDOWN))
+				{
+					_purchaseDisabledOverlay.SetDisplay(maxAmountPurchaseAllowed <= amountPurchased);	
+				}
+			}
+
 			if (flags.HasFlag(ProductFlags.OWNED))
 			{
-				_ownedOverlay.SetDisplay(true);
+				_purchaseDisabledOverlay.SetDisplay(true);
 				_ownedStamp.SetDisplay(true);
 				_icon.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
 				_name.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
@@ -121,7 +174,6 @@ namespace FirstLight.Game.Presenters.Store
 			var price = product.GetPrice();
 			FLog.Verbose("Store Screen", $"Setting up store item {product.GameItem}, price={price}");
 
-			var priceConfig = product.PlayfabProductConfig.CatalogItem.VirtualCurrencyPrices.First();
 
 			if (flags.HasFlag(ProductFlags.OWNED))
 			{
@@ -133,16 +185,71 @@ namespace FirstLight.Game.Presenters.Store
 			}
 			else
 			{
-				var currencyItem = ItemFactory.Currency(price.item, 1);
-				var currencyView = (CurrencyItemViewModel) currencyItem.GetViewModel();
-				var priceIcon = currencyView.GetRichTextIcon();
-				_price.text = priceIcon + " " + priceConfig.Value;
+				SetPrice(price);
 			}
 
 			itemView.DrawIcon(_icon);
 
 			_infoButton.SetDisplay(flags.HasFlag(ProductFlags.OWNED) || !string.IsNullOrEmpty(_product.PlayfabProductConfig.StoreItemData.Description));
+			
 			FormatByStoreData();
+		}
+
+		private void SetPrice((GameId item, uint amt) price)
+		{
+			var currencyItem = ItemFactory.Currency(price.item, 1);
+			var currencyView = (CurrencyItemViewModel) currencyItem.GetViewModel();
+			var priceIcon = currencyView.GetRichTextIcon();
+			_price.text = priceIcon + " " + price.amt;
+		}
+
+		private void ShowCooldown(StoreItemData storeItemData, StorePurchaseData trackedPurchasedItem, Action<GameProduct> CooldownExpiredCallback)
+		{
+			_cooldownArea.SetDisplay(true);
+			_purchaseDisabledOverlay.SetDisplay(true);
+
+			double cooldownRemainingSeconds;
+
+			if (storeItemData.ShouldDailyReset && trackedPurchasedItem.AmountPurchased >= storeItemData.MaxAmount)
+			{
+				cooldownRemainingSeconds = (DateTime.UtcNow.AddDays(1).Date - DateTime.UtcNow).TotalSeconds;
+			}
+			else
+			{
+				cooldownRemainingSeconds = storeItemData.PurchaseCooldown - (DateTime.UtcNow - trackedPurchasedItem.LastPurchaseTime).TotalSeconds;	
+			}
+		
+			
+
+			schedule.Execute(() =>
+				{
+
+					var currentCooldown = TimeSpan.FromSeconds(cooldownRemainingSeconds);
+
+					if (currentCooldown.TotalDays >= 1)
+					{
+						_cooldownTimeLabel.text = $"{(int)currentCooldown.TotalDays}d {currentCooldown.Hours}h";
+					}
+					else if (currentCooldown.TotalHours >= 1)
+					{
+						_cooldownTimeLabel.text = $"{(int)currentCooldown.TotalHours}h {currentCooldown.Minutes}m";
+					}
+					else
+					{
+						_cooldownTimeLabel.text = $"{currentCooldown.Minutes}m {currentCooldown.Seconds}s";
+					}
+
+					cooldownRemainingSeconds--;
+
+					if (cooldownRemainingSeconds <= 0)
+					{
+						OnClicked = CooldownExpiredCallback;
+						_cooldownArea.SetDisplay(false);
+						_purchaseDisabledOverlay.SetDisplay(false);
+					}
+				})
+				.Every(1000)
+				.Until(() => cooldownRemainingSeconds <= 0);
 		}
 
 		/// <summary>
@@ -161,7 +268,7 @@ namespace FirstLight.Game.Presenters.Store
 
 		private void FormatByStoreData()
 		{
-			size = _product.PlayfabProductConfig.StoreItemData.Size;
+			Size = _product.PlayfabProductConfig.StoreItemData.Size;
 			if (_product.PlayfabProductConfig.StoreItemData.Size == StoreDisplaySize.Half)
 			{
 				foreach (var sizeable in _sizeable)
@@ -243,7 +350,7 @@ namespace FirstLight.Game.Presenters.Store
 							}
 						}
 					},
-				}, 0, ve);
+				}, 0, null, null, ve);
 			}
 		}
 	}

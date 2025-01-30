@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using FirstLight.Game.Infos;
 using FirstLight.Server.SDK.Modules;
-using FirstLight.Server.SDK.Services;
 using GameLogicService.Models;
-using Npgsql.Internal.TypeHandlers;
 using PlayFab;
 using Quantum;
 using Assert = NUnit.Framework.Assert;

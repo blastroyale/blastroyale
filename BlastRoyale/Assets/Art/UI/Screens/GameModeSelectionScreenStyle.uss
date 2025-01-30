@@ -29,9 +29,6 @@
     overflow: visible;
 }
 
-.anim-delay-1 {
-    transition-delay: 0.5s;
-}
 
 .selectors-options-column {
     position: absolute;

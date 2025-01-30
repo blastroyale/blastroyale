@@ -18,9 +18,11 @@ namespace Quantum.Systems.Bots
 			{ GameId.ModMachineGun, 1 },
 			{ GameId.ModShotgun, 3 },
 			{ GameId.ModRifle, 2 },
+			{ GameId.GunARBurst, 2 },
 			{ GameId.ModLauncher, 3 },
 			{ GameId.ModPistol, 1 },
 			{ GameId.ModSniper, 3 },
+			{ GameId.GunSniperHeavy, 2 },
 		};
 
 		private class BotSetupContext
@@ -59,7 +61,6 @@ namespace Quantum.Systems.Bots
 
 			var playerLimit = f.PlayerCount;
 			var botIds = new List<PlayerRef>();
-
 			var maxPlayers = f.Context.MapConfig.MaxPlayers;
 			if (playerLimit == 1 && maxPlayers > 1) // offline game with bots
 			{
@@ -69,11 +70,12 @@ namespace Quantum.Systems.Bots
 			for (var i = 0; i < playerLimit; i++)
 			{
 				if (i >= f.PlayerCount || (f.GetPlayerInputFlags(i) & DeterministicInputFlags.PlayerNotPresent) ==
-					DeterministicInputFlags.PlayerNotPresent)
+					DeterministicInputFlags.PlayerNotPresent || f.GetPlayerData(i) == null)
 				{
 					botIds.Add(i);
 				}
 			}
+
 
 			if (botIds.Count != playerLimit)
 			{
@@ -249,11 +251,9 @@ namespace Quantum.Systems.Bots
 
 
 			entities.Add(botEntity);
+			
 			var botCharacter = new BotCharacter
 			{
-				Skin = f.RNG->RandomElement(ctx.SkinOptions),
-				DeathMarker = f.RNG->RandomElement(ctx.DeathMakers),
-				Glider = f.RNG->RandomElement(ctx.Gliders),
 				BotNameIndex = listNamesIndex,
 				BehaviourType = config.BehaviourType,
 				DecisionInterval = config.DecisionInterval,
@@ -360,7 +360,6 @@ namespace Quantum.Systems.Bots
 				trophies = trophies,
 				teamId = teamId,
 				modifiers = modifiers,
-				deathFlagID = botCharacter.DeathMarker
 			};
 
 			SetupBotCosmetics(f, botEntity, spawner.Entity);
@@ -419,9 +418,9 @@ namespace Quantum.Systems.Bots
 		private void SetupBotCosmetics(Frame f, EntityRef entity, EntityRef spawnerEntity)
 		{
 			f.Add<CosmeticsHolder>(entity);
-			if (f.Unsafe.TryGetPointer<CosmeticsHolder>(spawnerEntity, out var cosmetics))
+			if (f.Unsafe.TryGetPointer<CosmeticsHolder>(spawnerEntity, out var spawnerCosmetics))
 			{
-				var botCosmetics = f.ResolveList(cosmetics->Cosmetics).ToArray();
+				var botCosmetics = f.ResolveList(spawnerCosmetics->Cosmetics).ToArray();
 				f.Unsafe.GetPointer<CosmeticsHolder>(entity)->SetCosmetics(f, botCosmetics);
 				return;
 			}
@@ -450,7 +449,7 @@ namespace Quantum.Systems.Bots
 		{
 			if (frame.GetTeamSize() == 1)
 			{
-				return bot;
+				return Constants.TEAM_ID_START_BOT_PARTIES + bot;
 			}
 
 			var @override = frame.Context.GameModeConfig.BotsTeamOverride;
@@ -468,7 +467,7 @@ namespace Quantum.Systems.Bots
 				}
 			}
 
-			return bot;
+			return Constants.TEAM_ID_START_BOT_PARTIES + bot;
 		}
 
 		private List<EntityComponentPointerPair<PlayerSpawner>> GetFreeSpawnPoints(Frame f)
@@ -492,7 +491,8 @@ namespace Quantum.Systems.Bots
 
 		private int GetSpawnPointForBot(Frame f, BotSetupContext ctx, ref QuantumBotConfig botConfig, int teamId)
 		{
-			if (GetSpecificSpawn(f, ctx, ref botConfig, SpawnerType.BotOfType, out var specificSpawnPoint)) return specificSpawnPoint;
+			if (GetSpecificSpawn(f, ctx, ref botConfig, SpawnerType.BotOfType, out var specificSpawnPoint))
+				return specificSpawnPoint;
 			if (GetSpecificSpawn(f, ctx, ref botConfig, SpawnerType.AnyBot, out var anyBotSpawn)) return anyBotSpawn;
 
 			if (GetSpawnClosestToTeam(f, ctx, teamId, out var spawnPointForBot)) return spawnPointForBot;
@@ -511,7 +511,8 @@ namespace Quantum.Systems.Bots
 			for (var i = 0; i < ctx.AvailableSpawners.Count; i++)
 			{
 				var playerSpawner = ctx.AvailableSpawners[i].Component;
-				if (type == SpawnerType.BotOfType && playerSpawner->SpawnerType == SpawnerType.BotOfType && playerSpawner->BehaviourType == botType)
+				if (type == SpawnerType.BotOfType && playerSpawner->SpawnerType == SpawnerType.BotOfType &&
+					playerSpawner->BehaviourType == botType)
 				{
 					specificSpawnPoints.Add(i);
 				}

@@ -631,6 +631,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2720163322646296028, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -107.28583
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720163322646296028, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1767.1249
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720163322646296028, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1074.7695
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720163322646296028, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9759776
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720163322646296028, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.17964314
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720163322646296028, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.12121417
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720163322646296028, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.022431945
+      objectReference: {fileID: 0}
+    - target: {fileID: 4941015840127702297, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
+      propertyPath: field of view
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4941015840127702297, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
     - target: {fileID: 4941015840127702297, guid: ccf0d5cdd96f84cdab78efc6603147f6, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 458721
@@ -718,6 +754,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!4 &4712800652547058977
 Transform:
   m_ObjectHideFlags: 0

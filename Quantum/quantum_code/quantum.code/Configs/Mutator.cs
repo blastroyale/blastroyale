@@ -14,7 +14,8 @@ namespace Quantum
 		ConsumableSharing = 1 << 4,
 		DisableRevive = 1 << 5,
 		Hardcore = 1 << 6,
-		SafeZoneInPlayableArea = 1 << 7
+		SafeZoneInPlayableArea = 1 << 7,
+		Bloodthirst = 1 << 8
 	}
 
 	public static class MutatorExtensions

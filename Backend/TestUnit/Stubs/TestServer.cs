@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using Backend;
 using Backend.Game;
-using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -21,6 +19,8 @@ using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 using GameLogicService.Services;
 using GameLogicService.Services.Providers;
+using Medallion.Threading;
+using Medallion.Threading.FileSystem;
 using Quantum;
 using Environment = System.Environment;
 
@@ -31,16 +31,13 @@ public class TestServer
 {
 	private IServiceProvider _services;
 	private string? _testPlayerId = null;
+	private IBaseServiceConfiguration _initialBaseCfg;
 
 	public TestServer(IBaseServiceConfiguration cfg)
 	{
+		_initialBaseCfg = cfg;
 		SetupTestEnv();
 		_services = SetupServices().BuildServiceProvider();
-		UpdateDependencies(services =>
-		{
-			services.RemoveAll(typeof(IBaseServiceConfiguration));
-			services.AddSingleton<IBaseServiceConfiguration>(p => cfg);
-		});
 	}
 
 	public TestServer()
@@ -58,7 +55,10 @@ public class TestServer
 		{
 			OwnedCollectibles =
 			{
-				{ CollectionCategories.PLAYER_SKINS, new List<ItemData> { ItemFactory.Collection(GameId.FemaleAssassin) } }
+				{
+					CollectionCategories.PLAYER_SKINS,
+					new List<ItemData> { ItemFactory.Collection(GameId.FemaleAssassin) }
+				}
 			}
 		};
 		var serializedModel = ModelSerializer.Serialize(collectionData);
@@ -69,7 +69,9 @@ public class TestServer
 	}
 
 	public IServerStateService ServerState => GetService<IServerStateService>()!;
-	public InMemoryRemoteConfigService RemoteConfig => (InMemoryRemoteConfigService) GetService<IRemoteConfigService>()!;
+
+	public InMemoryRemoteConfigService RemoteConfig =>
+		(InMemoryRemoteConfigService) GetService<IRemoteConfigService>()!;
 
 	public IServiceProvider Services => _services;
 
@@ -117,10 +119,16 @@ public class TestServer
 			services.RemoveAll(typeof(IServerStateService));
 			services.RemoveAll(typeof(IRemoteConfigService));
 			services.RemoveAll(typeof(ITestPlayerSetup));
-			services.RemoveAll(typeof(IServerMutex));
+			services.RemoveAll(typeof(IDistributedLockProvider));
 			services.AddSingleton<IServerStateService>(p => new InMemoryPlayerState());
 			services.AddSingleton<ITestPlayerSetup, InMemoryTestSetup>();
-			services.AddSingleton<IServerMutex, InMemoryMutex>();
+			services.AddSingleton<IDistributedLockProvider, FileDistributedSynchronizationProvider>(_ =>
+			{
+				var lockFileDirectory =
+					new DirectoryInfo(Environment.CurrentDirectory +
+						"/Temp_Locks"); // choose where the lock files will live
+				return new FileDistributedSynchronizationProvider(lockFileDirectory);
+			});
 			services.AddSingleton<IServerAnalytics, InMemoryAnalytics>();
 			services.AddSingleton<IRemoteConfigService, InMemoryRemoteConfigService>();
 		});
@@ -154,23 +162,31 @@ public class TestServer
 		services.AddSingleton<IDataProvider, ServerTestData>();
 		services.AddSingleton<ITestPlayerSetup, TestPlayerSetup>();
 		services.RemoveAll<IAnalyticsProvider>();
+		services.RemoveAll<IDistributedLockProvider>();
 		services.RemoveAll<ILogger>();
 		services.AddSingleton<ILogger>(p => new LoggerFactory().CreateLogger("Log"));
+		if (_initialBaseCfg != null)
+		{
+			services.RemoveAll(typeof(IBaseServiceConfiguration));
+			services.AddSingleton<IBaseServiceConfiguration>(p => _initialBaseCfg);
+		}
+
 		return services;
 	}
 
 	private void SetupTestEnv()
 	{
-		Environment.SetEnvironmentVariable("SqlConnectionString", "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;");
+		Environment.SetEnvironmentVariable("SqlConnectionString",
+			"Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;");
 		Environment.SetEnvironmentVariable("API_URL", "stub-api", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("API_BLOCKCHAIN_SERVICE", "stub-service", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("API_KEY", "stub-key", EnvironmentVariableTarget.Process);
-		Environment.SetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY", "***REMOVED***", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY",
+			"***REMOVED***", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", "***REMOVED***", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("REMOTE_CONFIGURATION", "false", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("APPLICATION_ENVIRONMENT", "dev", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAGUEDOCTOR_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("GAMESGGGAMERS_SYNC_ENABLED", "true", EnvironmentVariableTarget.Process);
-		
 	}
 }

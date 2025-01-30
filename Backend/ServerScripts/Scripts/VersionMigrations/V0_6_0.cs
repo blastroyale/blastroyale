@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Models;
-using Quantum;
 
 namespace Scripts.Scripts.VersionMigrations
 {

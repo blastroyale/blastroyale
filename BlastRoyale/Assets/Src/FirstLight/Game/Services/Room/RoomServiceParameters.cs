@@ -20,22 +20,6 @@ namespace FirstLight.Game.Services.RoomService
 			_service = service;
 		}
 
-		/// <summary>
-		/// Returns random room entry parameters used for matchmaking room joining
-		/// </summary>
-		public OpJoinRandomRoomParams GetJoinRandomRoomParams(MatchRoomSetup setup)
-		{
-			return new OpJoinRandomRoomParams
-			{
-				ExpectedCustomRoomProperties = GetJoinRoomProperties(setup).ToHashTable(),
-				ExpectedMaxPlayers = _service.GetMaxPlayers(setup),
-				ExpectedUsers = null,
-				MatchingType = MatchmakingMode.FillRoom,
-				SqlLobbyFilter = "",
-				TypedLobby = TypedLobby.Default,
-			};
-		}
-
 		private RoomProperties GetCreateRoomProperties(MatchRoomSetup setup)
 		{
 			var properties = GetJoinRoomProperties(setup);
@@ -63,7 +47,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, bool offline = false)
+		public EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, bool offline = false, string[] expectedPlayers = null)
 		{
 			var roomNameFinal = string.IsNullOrEmpty(setup.RoomIdentifier) ? null : setup.RoomIdentifier;
 			// In offline games we need to create the room with the correct TTL as we cannot update TTL
@@ -102,7 +86,7 @@ namespace FirstLight.Game.Services.RoomService
 					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
 					IsVisible = setup.SimulationConfig.MatchType == MatchType.Custom,
-					MaxPlayers = _service.GetMaxPlayers(setup),
+					MaxPlayers = _service.GetMaxPlayers(setup, expectedPlayers),
 					PlayerTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
 				},
 			};

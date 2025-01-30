@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
-using FirstLight.Server.SDK.Models;
 using Quantum;
 using Scripts.Base;
 using PlayerProfile = PlayFab.ServerModels.PlayerProfile;

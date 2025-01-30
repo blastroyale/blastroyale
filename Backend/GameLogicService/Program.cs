@@ -1,24 +1,17 @@
 using System;
 using System.IO;
-using System.Text.Json;
 using Backend;
-using Backend.Game;
 using FirstLight.Server.SDK;
-using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using GameLogicService;
+using Medallion.Threading;
+using Medallion.Threading.FileSystem;
 using ServerCommon.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
-using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.SystemConsole.Themes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,14 +26,23 @@ if (env.Standalone)
 	Console.WriteLine("Initializing Standalone Server");
 	builder.Services.AddHttpLogging(options =>
 	{
-			options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders |
-				HttpLoggingFields.RequestBody;
+		options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders |
+			HttpLoggingFields.RequestBody;
 	});
-	
+
 	builder.Services.AddEndpointsApiExplorer();
 	builder.Services.AddSwaggerGen();
-	builder.Services.RemoveAll(typeof(IServerMutex));
-	builder.Services.AddSingleton<IServerMutex, NoMutex>();
+	if (string.IsNullOrEmpty(env.RedisLockConnectionString))
+	{
+		builder.Services.RemoveAll(typeof(IDistributedLockProvider));
+		builder.Services.AddSingleton<IDistributedLockProvider>(provider =>
+		{
+			var lockFileDirectory =
+				new DirectoryInfo(Environment.CurrentDirectory +
+					"/Temp_Locks"); // choose where the lock files will live
+			return new FileDistributedSynchronizationProvider(lockFileDirectory);
+		});
+	}
 }
 
 var app = builder.Build();

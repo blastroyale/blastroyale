@@ -11,6 +11,8 @@ namespace Quantum
 		public QuantumGameModeConfig GameModeConfig { get; internal set; }
 
 		public IDictionary<int, QuantumShrinkingCircleConfig> MapShrinkingCircleConfigs { get; internal set; }
+
+		public bool IsTutorial => GameModeConfig.Id == "Tutorial";
 		
 		public int TargetAllLayerMask { get; internal set; }
 		public int TargetMapOnlyLayerMask { get; internal set; }

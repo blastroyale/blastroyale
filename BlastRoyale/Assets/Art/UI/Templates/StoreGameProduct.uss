@@ -40,8 +40,8 @@
 }
 
 .product-image {
-    height: 480px;
-    width: 480px;
+    height: 400px;
+    width: 400px;
     position: absolute;
     align-self: center;
 }
@@ -77,14 +77,6 @@
     position: absolute;
 }
 
-.product-name--small {
-    bottom: 56px;
-    font-size: 33px;
-    -unity-text-outline-width: 2px;
-    text-shadow: 2px 4px 0 rgb(0, 0, 0);
-    width: 296px;
-}
-
 .product-image-gradient-sides {
     position: absolute;
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-bundle-image-gradient.png?fileID=21300000&guid=f2508f9cfda92404e868de558956a4bb&type=3#background-bundle-image-gradient');
@@ -110,11 +102,23 @@
     justify-content: center;
 }
 
+
+/*
+ * Widget Small Modifier
+ */
 .product-widget--small {
     width: 312px;
     height: 312px;
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/background-small-bundle.png?fileID=21300000&guid=a9cca8098829b3644beb246b0ca28c57&type=3#background-small-bundle');
-    margin-bottom: 30px;
+    margin: 5px 0;
+}
+
+.product-name--small {
+    bottom: 56px;
+    font-size: 33px;
+    -unity-text-outline-width: 2px;
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    width: 296px;
 }
 
 .product-image-gradient-small {
@@ -162,6 +166,10 @@
     height: 290px;
 }
 
+
+/*
+ * Widget Background Colors and Effects
+ */
 .product-background-image--purple {
     -unity-background-image-tint-color: rgb(182, 51, 228);
 }
@@ -178,13 +186,6 @@
     -unity-background-image-tint-color: rgb(252, 172, 255);
 }
 
-.widget-effect--purple {
-    -unity-background-image-tint-color: rgba(255, 126, 247, 0.42);
-}
-
-.image-tint--yellow {
-    color: rgb(255, 192, 0);
-}
 
 .product-background-image--yellow {
     -unity-background-image-tint-color: rgb(255, 140, 0);
@@ -204,6 +205,14 @@
 
 .widget-effect--yellow {
     -unity-background-image-tint-color: rgba(254, 216, 101, 0.68);
+}
+
+.widget-effect--purple {
+    -unity-background-image-tint-color: rgba(255, 126, 247, 0.42);
+}
+
+.image-tint--yellow {
+    color: rgb(255, 192, 0);
 }
 
 .image-tint--green {
@@ -229,7 +238,80 @@
 .widget-effect--green {
     -unity-background-image-tint-color: rgba(221, 255, 164, 0.35);
 }
+/*
+ * Cooldown
+ */
+.cooldown-area {
+    flex-direction: row;
+    position: absolute;
+    width: auto;
+    top: 15;
+    left: 15;
+    padding: 2px 5px;
+}
 
+.cooldown-icon {
+    font-size: 38px;
+    color: rgb(255, 207, 51);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 10px 0 rgb(0, 0, 0);
+    margin-left: 10px;
+}
+
+.cooldown-time {
+    font-size: 38px;
+    color: rgb(255, 207, 51);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 10px 0 rgb(0, 0, 0);
+    margin-left: 10px;
+}
+
+.cooldown-area--small {
+    top: 14;
+}
+
+.cooldown-icon--small, .cooldown-time--small{
+    font-size: 32px;
+}
+/*
+ * Purchase Amount Available
+ */
+.purchased-amount-area {
+    flex-grow: 0;
+    display: flex;
+    position: absolute;
+    width: auto;
+    top: 15;
+    right: 15;
+    flex-shrink: 0;
+    padding: 2px 15px;
+    background-color: rgb(49, 45, 71);
+    border-radius: 15px;
+}
+
+.purchased-amount {
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-align: middle-center;
+    text-shadow: 3px 6px 0 rgb(0, 0, 0);
+}
+
+.purchased-amount-area--small {
+    top: 13;
+    border-radius: 12px;
+}
+
+.purchased-amount--small {
+    font-size: 32px;
+}
+
+/*
+ * Info
+ */
 .info-click-area {
     flex-grow: 0;
     display: flex;
@@ -254,6 +336,11 @@
     align-items: center;
 }
 
+
+
+/*
+ * Owned 
+ */
 .owned-stamp {
     flex-grow: 1;
     position: absolute;
@@ -325,7 +412,10 @@
     -unity-background-image-tint-color: rgb(90, 82, 106);
 }
 
-.owned-overlay {
+/*
+ * Misc
+ */
+.purchase-disabled-overlay {
     flex-grow: 1;
     position: absolute;
     width: 100%;

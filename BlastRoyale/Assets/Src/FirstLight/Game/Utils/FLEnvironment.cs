@@ -214,8 +214,11 @@ namespace FirstLight.Game.Utils
 			throw new NotSupportedException("Invalid environment type");
 		}
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 		private static async Task<(bool Success, Definition Definition)> TryGetEnvironmentRedirect(string gameBuild)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 		{
+			#if !UNITY_EDITOR
 			var path = string.Format(BUILD_FILE_TEMPLATE, Application.platform.ToString(), gameBuild);
 			FLog.Info($"Downloading redirect info from {path}");
 			try
@@ -249,7 +252,7 @@ namespace FirstLight.Game.Utils
 			{
 				FLog.Warn("Failed to download build redirect", ex);
 			}
-
+			#endif
 			return (false, default);
 		}
 

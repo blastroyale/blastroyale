@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -16,6 +17,7 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
+		public List<GameId> ShowOnly;
 
 		protected CryptoCurrenciesDisplayElement CryptoCurrenciesElement { get; set; }
 
@@ -23,15 +25,15 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
-			CryptoCurrenciesElement = (CryptoCurrenciesDisplayElement) Element;
-		}
 
-		public override void OnScreenOpen(bool reload)
+			CryptoCurrenciesElement = (CryptoCurrenciesDisplayElement) Element;
+			Setup();
+		}
+		
+		public void Setup()
 		{
 			SetupCryptoCurrenciesChangeObservable();
 			SetupCryptoCurrenciesView();
-			
 		}
 
 		private void SetupCryptoCurrenciesChangeObservable()
@@ -42,6 +44,11 @@ namespace FirstLight.Game.Views.UITK
 		private void ReloadCryptoCurrencies(GameId cryptoCurrencyID, ulong val1, ulong val2, ObservableUpdateType observableUpdateType)
 		{
 			SetupCryptoCurrenciesView();
+
+			if (cryptoCurrencyID == GameId.NOOB && val2 > val1)
+			{
+				CryptoCurrenciesElement.AnimateCurrencyEffect(GameId.NOOB, val1, val2, Presenter.GetCancellationTokenOnClose());
+			}
 		}
 
 		public override void OnScreenClose()
@@ -49,17 +56,14 @@ namespace FirstLight.Game.Views.UITK
 			_gameDataProvider.CurrencyDataProvider.Currencies.StopObservingAll(this);
 		}
 
-
-		
 		private void SetupCryptoCurrenciesView()
 		{
 			var cryptoCurrencies = _gameDataProvider.CurrencyDataProvider.Currencies
-												.Where(c => GameIdGroup.CryptoCurrency.GetIds().Contains(c.Key) && c.Value > 0)
-												.ToDictionary(c => c.Key, c => c.Value);
-			
+				.Where(c =>
+					GameIdGroup.CryptoCurrency.GetIds().Contains(c.Key) && ((c.Value > 0 && ShowOnly == null) || (ShowOnly?.Contains(c.Key) ?? false)))
+				.ToDictionary(c => c.Key, c => c.Value);
+
 			CryptoCurrenciesElement.SetData(cryptoCurrencies);
 		}
-		
-		
 	}
 }

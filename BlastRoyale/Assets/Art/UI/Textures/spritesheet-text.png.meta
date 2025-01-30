@@ -955,7 +955,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -976,7 +976,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -997,7 +997,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1005,6 +1005,153 @@ TextureImporter:
       bones: []
       spriteID: db3eb0921ca1e0944b8756d6166a04e1
       internalID: 1656422333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: XPIcon
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15b4e65f37583d14480ca0c01707b0cf
+      internalID: -1242341349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BPXPIcon
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 177542c869d1017479ed6c586c977fbb
+      internalID: -2018773346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FestiveSNOWFLAKEIcon
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 824
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ff47121670440c4d8dd886732ae7ff3
+      internalID: -707364249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EventTicketIcon
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 724
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a2f7d9b8971ee943a47a1fe94184be7
+      internalID: 1326438006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClockIcon
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 624
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa6831427aa1b744eb7fecb6f0d0b37d
+      internalID: 1041827533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FestiveLUNARCOINIcon
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 524
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 484fb457051fc9046b03ec44de7b23e5
+      internalID: 73108823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FestiveFEATHERIcon
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 424
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d076ba756e461e41aa0a83fcaf470ba
+      internalID: 944128841
       vertices: []
       indices: 
       edges: []
@@ -1021,18 +1168,24 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Ammoicon: -69452386
+      BPXPIcon: -2018773346
       BPicon: 1114762273
       BadgePlace1: -702431576
       BadgePlace2: -448797168
       BadgePlace3: -2140602434
       Blastbuckicon: -293577173
       Checked: 629293485
+      ClockIcon: 1041827533
       Coinicon: 1531515103
       CollectionIcon: 114395148
       CraftSpiceicon: -2079736262
       Crown: 1930290386
       EnergylevelIcon: -624212523
+      EventTicketIcon: 1326438006
       FLGBadge: -1477479967
+      FestiveFEATHERIcon: 944128841
+      FestiveLUNARCOINIcon: 73108823
+      FestiveSNOWFLAKEIcon: -707364249
       HPicon: -283004889
       MATICicon: 130259644
       ModBadge: -1992110180
@@ -1063,6 +1216,7 @@ TextureImporter:
       TextSpriteSheet_2: -2062587647
       TextSpriteSheet_3: 1785650691
       TrophyIcon: 1513400146
+      XPIcon: -1242341349
       spritesheet-text_0: 278038002
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

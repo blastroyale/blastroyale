@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.UIElements;
-using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.UiService;
 using UnityEngine;

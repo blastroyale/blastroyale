@@ -79,6 +79,11 @@ namespace FirstLight.Tests.EditorMode
 		{
 		}
 
+		public UniTask<bool> CheckIfRewardsMatch()
+		{
+			return new UniTask<bool>(true);
+		}
+
 		public void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError)
 		{
 		}

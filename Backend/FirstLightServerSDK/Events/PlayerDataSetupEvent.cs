@@ -1,5 +1,3 @@
-using FirstLight.SDK.Services;
-
 namespace FirstLight.Server.SDK.Models
 {
 	/// <summary>

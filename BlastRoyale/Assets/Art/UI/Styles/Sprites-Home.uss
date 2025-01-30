@@ -1,6 +1,7 @@
 /* AUTO GENERATED */
 :root {
     --sprite-home__AirdropIconOnfield: url('/Assets/Art/UI/Sprites/Home/AirdropIconOnfield.png');
+    --sprite-home__alien-season-reward: url('/Assets/Art/UI/Sprites/Home/alien-season-reward.png');
     --sprite-home__ArrowBig: url('/Assets/Art/UI/Sprites/Home/ArrowBig.png');
     --sprite-home__background-avatar-nft: url('/Assets/Art/UI/Sprites/Home/background-avatar-nft.png');
     --sprite-home__background-big-bundle: url('/Assets/Art/UI/Sprites/Home/background-big-bundle.png');
@@ -14,10 +15,6 @@
     --sprite-home__background-dots-effect: url('/Assets/Art/UI/Sprites/Home/background-dots-effect.png');
     --sprite-home__background-dropzone-effect: url('/Assets/Art/UI/Sprites/Home/background-dropzone-effect.png');
     --sprite-home__background-friends-player: url('/Assets/Art/UI/Sprites/Home/background-friends-player.png');
-    --sprite-home__background-gamemode-battleroyale-duos: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-duos.png');
-    --sprite-home__background-gamemode-battleroyale-quads: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-quads.png');
-    --sprite-home__background-gamemode-battleroyale-solo: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-solo.png');
-    --sprite-home__background-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/background-gamemode-custom.png');
     --sprite-home__background-game-option: url('/Assets/Art/UI/Sprites/Home/background-game-option.png');
     --sprite-home__background-inputfield: url('/Assets/Art/UI/Sprites/Home/background-inputfield.png');
     --sprite-home__background-matchmakingstatus: url('/Assets/Art/UI/Sprites/Home/background-matchmakingstatus.png');
@@ -47,8 +44,22 @@
     --sprite-home__background-tab-friends-selected: url('/Assets/Art/UI/Sprites/Home/background-tab-friends-selected.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
     --sprite-home__bamboo-season-reward: url('/Assets/Art/UI/Sprites/Home/bamboo-season-reward.png');
+    --sprite-home__banner-alien: url('/Assets/Art/UI/Sprites/Home/banner-alien.png');
+    --sprite-home__banner-back-green: url('/Assets/Art/UI/Sprites/Home/banner-back-green.png');
+    --sprite-home__banner-back-orange: url('/Assets/Art/UI/Sprites/Home/banner-back-orange.png');
+    --sprite-home__banner-back-purple: url('/Assets/Art/UI/Sprites/Home/banner-back-purple.png');
+    --sprite-home__banner-back-purpleorange: url('/Assets/Art/UI/Sprites/Home/banner-back-purpleorange.png');
+    --sprite-home__banner-character-valkyrie: url('/Assets/Art/UI/Sprites/Home/banner-character-valkyrie.png');
+    --sprite-home__banner-iceking: url('/Assets/Art/UI/Sprites/Home/banner-iceking.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
+    --sprite-home__banner-ribbon-copper: url('/Assets/Art/UI/Sprites/Home/banner-ribbon-copper.png');
+    --sprite-home__banner-speed-lines-bottom: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-bottom.png');
+    --sprite-home__banner-speed-lines-top: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-top.png');
+    --sprite-home__banner-spotlight-green: url('/Assets/Art/UI/Sprites/Home/banner-spotlight-green.png');
+    --sprite-home__banner-spotlight-orange: url('/Assets/Art/UI/Sprites/Home/banner-spotlight-orange.png');
+    --sprite-home__banner-yeti: url('/Assets/Art/UI/Sprites/Home/banner-yeti.png');
     --sprite-home__blastroyale-logo: url('/Assets/Art/UI/Sprites/Home/blastroyale-logo.png');
+    --sprite-home__bundle-icon-valkyrie: url('/Assets/Art/UI/Sprites/Home/bundle-icon-valkyrie.png');
     --sprite-home__button-addbubble: url('/Assets/Art/UI/Sprites/Home/button-addbubble.png');
     --sprite-home__button-add-friends: url('/Assets/Art/UI/Sprites/Home/button-add-friends.png');
     --sprite-home__button-add-friends-disabled: url('/Assets/Art/UI/Sprites/Home/button-add-friends-disabled.png');
@@ -69,7 +80,6 @@
     --sprite-home__button-copy-pressed: url('/Assets/Art/UI/Sprites/Home/button-copy-pressed.png');
     --sprite-home__button-gamemode: url('/Assets/Art/UI/Sprites/Home/button-gamemode.png');
     --sprite-home__button-gamemode-event: url('/Assets/Art/UI/Sprites/Home/button-gamemode-event.png');
-    --sprite-home__button-gamemode-overlay-battleroyale: url('/Assets/Art/UI/Sprites/Home/button-gamemode-overlay-battleroyale.png');
     --sprite-home__button-gamemode-pressed: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed.png');
     --sprite-home__button-gamemode-pressed-event: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed-event.png');
     --sprite-home__button-generic-popup-close: url('/Assets/Art/UI/Sprites/Home/button-generic-popup-close.png');
@@ -110,12 +120,17 @@
     --sprite-home__button-small-red: url('/Assets/Art/UI/Sprites/Home/button-small-red.png');
     --sprite-home__button-small-red-pressed: url('/Assets/Art/UI/Sprites/Home/button-small-red-pressed.png');
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
+    --sprite-home__button-under-light: url('/Assets/Art/UI/Sprites/Home/button-under-light.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
+    --sprite-home__chat_balloon: url('/Assets/Art/UI/Sprites/Home/chat_balloon.png');
+    --sprite-home__citysilhouette: url('/Assets/Art/UI/Sprites/Home/citysilhouette.png');
     --sprite-home__cloud-exclusive-reward: url('/Assets/Art/UI/Sprites/Home/cloud-exclusive-reward.png');
     --sprite-home__cross-x-button: url('/Assets/Art/UI/Sprites/Home/cross-x-button.png');
     --sprite-home__customizable-back-part: url('/Assets/Art/UI/Sprites/Home/customizable-back-part.png');
     --sprite-home__dark-pattern-piece: url('/Assets/Art/UI/Sprites/Home/dark-pattern-piece.png');
+    --sprite-home__FG_Smoke_1: url('/Assets/Art/UI/Sprites/Home/FG_Smoke_1.png');
+    --sprite-home__FG_Smoke_2: url('/Assets/Art/UI/Sprites/Home/FG_Smoke_2.png');
     --sprite-home__gamemode-border-glow: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-border-glow.png');
     --sprite-home__gamemode-card-blue: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-blue.png');
     --sprite-home__gamemode-card-purple: url('/Assets/Art/UI/Sprites/Home/gamemode/gamemode-card-purple.png');
@@ -135,14 +150,13 @@
     --sprite-home__glider-rocket: url('/Assets/Art/UI/Sprites/Home/glider-rocket.png');
     --sprite-home__glider-turbine: url('/Assets/Art/UI/Sprites/Home/glider-turbine.png');
     --sprite-home__goji-season-reward: url('/Assets/Art/UI/Sprites/Home/goji-season-reward.png');
+    --sprite-home__ground: url('/Assets/Art/UI/Sprites/Home/ground.png');
     --sprite-home__header-back: url('/Assets/Art/UI/Sprites/Home/header-back.png');
     --sprite-home__header-back-pressed: url('/Assets/Art/UI/Sprites/Home/header-back-pressed.png');
     --sprite-home__header-home: url('/Assets/Art/UI/Sprites/Home/header-home.png');
     --sprite-home__header-home-pressed: url('/Assets/Art/UI/Sprites/Home/header-home-pressed.png');
     --sprite-home__header-popup: url('/Assets/Art/UI/Sprites/Home/header-popup.png');
     --sprite-home__header-popup-equipment: url('/Assets/Art/UI/Sprites/Home/header-popup-equipment.png');
-    --sprite-home__header-profile: url('/Assets/Art/UI/Sprites/Home/header-profile.png');
-    --sprite-home__header-profile-pressed: url('/Assets/Art/UI/Sprites/Home/header-profile-pressed.png');
     --sprite-home__iceking-season-reward: url('/Assets/Art/UI/Sprites/Home/iceking-season-reward.png');
     --sprite-home__icon_premium-pass_no_gradient: url('/Assets/Art/UI/Sprites/Home/icon_premium-pass_no_gradient.png');
     --sprite-home__icon-airplane: url('/Assets/Art/UI/Sprites/Home/icon-airplane.png');
@@ -160,16 +174,12 @@
     --sprite-home__icon-collection: url('/Assets/Art/UI/Sprites/Home/icon-collection.png');
     --sprite-home__icon-collection-lock: url('/Assets/Art/UI/Sprites/Home/icon-collection-lock.png');
     --sprite-home__icon-cooldown-cs: url('/Assets/Art/UI/Sprites/Home/icon-cooldown-cs.png');
-    --sprite-home__icon-core-epic: url('/Assets/Art/UI/Sprites/Home/icon-core-epic.png');
-    --sprite-home__icon-core-legendary: url('/Assets/Art/UI/Sprites/Home/icon-core-legendary.png');
-    --sprite-home__icon-core-rare: url('/Assets/Art/UI/Sprites/Home/icon-core-rare.png');
     --sprite-home__icon-creatorcode: url('/Assets/Art/UI/Sprites/Home/icon-creatorcode.png');
     --sprite-home__icon-crown: url('/Assets/Art/UI/Sprites/Home/icon-crown.png');
     --sprite-home__icon-crown-2: url('/Assets/Art/UI/Sprites/Home/icon-crown-2.png');
     --sprite-home__icon-crown-ranked: url('/Assets/Art/UI/Sprites/Home/icon-crown-ranked.png');
     --sprite-home__icon-customgame: url('/Assets/Art/UI/Sprites/Home/icon-customgame.png');
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
-    --sprite-home__icon-durability: url('/Assets/Art/UI/Sprites/Home/icon-durability.png');
     --sprite-home__icon-edit: url('/Assets/Art/UI/Sprites/Home/icon-edit.png');
     --sprite-home__icon-equipment: url('/Assets/Art/UI/Sprites/Home/icon-equipment.png');
     --sprite-home__icon-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale.png');
@@ -211,9 +221,9 @@
     --sprite-home__icon-twitter: url('/Assets/Art/UI/Sprites/Home/icon-twitter.png');
     --sprite-home__icon-youtube: url('/Assets/Art/UI/Sprites/Home/icon-youtube.png');
     --sprite-home__loading_background: url('/Assets/Art/UI/Sprites/Home/loading_background.png');
-    --sprite-home__loading_background_s10: url('/Assets/Art/UI/Sprites/Home/loading_background_s10.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__malepunk-season-reward: url('/Assets/Art/UI/Sprites/Home/malepunk-season-reward.png');
+    --sprite-home__new-battle-pass-banner-ref: url('/Assets/Art/UI/Sprites/Home/new-battle-pass-banner-ref.png');
     --sprite-home__news-icon: url('/Assets/Art/UI/Sprites/Home/news-icon.png');
     --sprite-home__nft-badge: url('/Assets/Art/UI/Sprites/Home/nft-badge.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
@@ -241,23 +251,30 @@
     --sprite-home__rewards-gradient-purple: url('/Assets/Art/UI/Sprites/Home/rewards-gradient-purple.png');
     --sprite-home__rewards-impact-circle: url('/Assets/Art/UI/Sprites/Home/rewards-impact-circle.png');
     --sprite-home__reward-slot: url('/Assets/Art/UI/Sprites/Home/reward-slot.png');
-    --sprite-home__shop-screen: url('/Assets/Art/UI/Sprites/Home/shop-screen.png');
     --sprite-home__tag-body: url('/Assets/Art/UI/Sprites/Home/tag-body.png');
-    --sprite-home__temp-icon-profile-neil: url('/Assets/Art/UI/Sprites/Home/temp-icon-profile-neil.png');
     --sprite-home__text-blast: url('/Assets/Art/UI/Sprites/Home/text-blast.png');
     --sprite-home__text-royale: url('/Assets/Art/UI/Sprites/Home/text-royale.png');
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
     --sprite-home__vfx-lightrays-reward: url('/Assets/Art/UI/Sprites/Home/vfx-lightrays-reward.png');
+    --sprite-home__vfx-purple-ray-glow: url('/Assets/Art/UI/Sprites/Home/vfx-purple-ray-glow.png');
+    --sprite-home__vfx-reward_rays_dark: url('/Assets/Art/UI/Sprites/Home/vfx-reward_rays_dark.png');
     --sprite-home__vfx-rewards-rays: url('/Assets/Art/UI/Sprites/Home/vfx-rewards-rays.png');
     --sprite-home__volume-header: url('/Assets/Art/UI/Sprites/Home/volume-header.png');
-    --sprite-home__weapon-placeholder: url('/Assets/Art/UI/Sprites/Home/weapon-placeholder.png');
+    --sprite-home__winLightBlue: url('/Assets/Art/UI/Sprites/Home/winLightBlue.png');
+    --sprite-home__yeti-season-reward: url('/Assets/Art/UI/Sprites/Home/yeti-season-reward.png');
 }
 
 .sprite-home__AirdropIconOnfield {
     background-image: var(--sprite-home__AirdropIconOnfield);
     width: 320px;
     height: 320px;
+}
+
+.sprite-home__alien-season-reward {
+    background-image: var(--sprite-home__alien-season-reward);
+    width: 1175px;
+    height: 943px;
 }
 
 .sprite-home__ArrowBig {
@@ -336,30 +353,6 @@
     background-image: var(--sprite-home__background-friends-player);
     width: 1191px;
     height: 238px;
-}
-
-.sprite-home__background-gamemode-battleroyale-duos {
-    background-image: var(--sprite-home__background-gamemode-battleroyale-duos);
-    width: 430px;
-    height: 461px;
-}
-
-.sprite-home__background-gamemode-battleroyale-quads {
-    background-image: var(--sprite-home__background-gamemode-battleroyale-quads);
-    width: 430px;
-    height: 461px;
-}
-
-.sprite-home__background-gamemode-battleroyale-solo {
-    background-image: var(--sprite-home__background-gamemode-battleroyale-solo);
-    width: 430px;
-    height: 461px;
-}
-
-.sprite-home__background-gamemode-custom {
-    background-image: var(--sprite-home__background-gamemode-custom);
-    width: 430px;
-    height: 461px;
 }
 
 .sprite-home__background-game-option {
@@ -536,16 +529,100 @@
     height: 760px;
 }
 
+.sprite-home__banner-alien {
+    background-image: var(--sprite-home__banner-alien);
+    width: 526px;
+    height: 698px;
+}
+
+.sprite-home__banner-back-green {
+    background-image: var(--sprite-home__banner-back-green);
+    width: 140px;
+    height: 723px;
+}
+
+.sprite-home__banner-back-orange {
+    background-image: var(--sprite-home__banner-back-orange);
+    width: 190px;
+    height: 712px;
+}
+
+.sprite-home__banner-back-purple {
+    background-image: var(--sprite-home__banner-back-purple);
+    width: 184px;
+    height: 712px;
+}
+
+.sprite-home__banner-back-purpleorange {
+    background-image: var(--sprite-home__banner-back-purpleorange);
+    width: 299px;
+    height: 712px;
+}
+
+.sprite-home__banner-character-valkyrie {
+    background-image: var(--sprite-home__banner-character-valkyrie);
+    width: 469px;
+    height: 753px;
+}
+
+.sprite-home__banner-iceking {
+    background-image: var(--sprite-home__banner-iceking);
+    width: 526px;
+    height: 698px;
+}
+
 .sprite-home__banner-mapselection {
     background-image: var(--sprite-home__banner-mapselection);
     width: 932px;
     height: 275px;
 }
 
+.sprite-home__banner-ribbon-copper {
+    background-image: var(--sprite-home__banner-ribbon-copper);
+    width: 162px;
+    height: 216px;
+}
+
+.sprite-home__banner-speed-lines-bottom {
+    background-image: var(--sprite-home__banner-speed-lines-bottom);
+    width: 616px;
+    height: 296px;
+}
+
+.sprite-home__banner-speed-lines-top {
+    background-image: var(--sprite-home__banner-speed-lines-top);
+    width: 528px;
+    height: 336px;
+}
+
+.sprite-home__banner-spotlight-green {
+    background-image: var(--sprite-home__banner-spotlight-green);
+    width: 1902px;
+    height: 1247px;
+}
+
+.sprite-home__banner-spotlight-orange {
+    background-image: var(--sprite-home__banner-spotlight-orange);
+    width: 700px;
+    height: 422px;
+}
+
+.sprite-home__banner-yeti {
+    background-image: var(--sprite-home__banner-yeti);
+    width: 526px;
+    height: 698px;
+}
+
 .sprite-home__blastroyale-logo {
     background-image: var(--sprite-home__blastroyale-logo);
     width: 1568px;
     height: 859px;
+}
+
+.sprite-home__bundle-icon-valkyrie {
+    background-image: var(--sprite-home__bundle-icon-valkyrie);
+    width: 256px;
+    height: 256px;
 }
 
 .sprite-home__button-addbubble {
@@ -652,12 +729,6 @@
     background-image: var(--sprite-home__button-gamemode-event);
     width: 414px;
     height: 168px;
-}
-
-.sprite-home__button-gamemode-overlay-battleroyale {
-    background-image: var(--sprite-home__button-gamemode-overlay-battleroyale);
-    width: 264px;
-    height: 134px;
 }
 
 .sprite-home__button-gamemode:active {
@@ -870,6 +941,12 @@
     height: 142px;
 }
 
+.sprite-home__button-under-light {
+    background-image: var(--sprite-home__button-under-light);
+    width: 172px;
+    height: 194px;
+}
+
 .sprite-home__card-selected {
     background-image: var(--sprite-home__card-selected);
     width: 410px;
@@ -880,6 +957,18 @@
     background-image: var(--sprite-home__card-shadow-pink);
     width: 288px;
     height: 304px;
+}
+
+.sprite-home__chat_balloon {
+    background-image: var(--sprite-home__chat_balloon);
+    width: 149px;
+    height: 96px;
+}
+
+.sprite-home__citysilhouette {
+    background-image: var(--sprite-home__citysilhouette);
+    width: 2048px;
+    height: 449px;
 }
 
 .sprite-home__cloud-exclusive-reward {
@@ -904,6 +993,18 @@
     background-image: var(--sprite-home__dark-pattern-piece);
     width: 43px;
     height: 483px;
+}
+
+.sprite-home__FG_Smoke_1 {
+    background-image: var(--sprite-home__FG_Smoke_1);
+    width: 1183px;
+    height: 401px;
+}
+
+.sprite-home__FG_Smoke_2 {
+    background-image: var(--sprite-home__FG_Smoke_2);
+    width: 1644px;
+    height: 665px;
 }
 
 .sprite-home__gamemode-border-glow {
@@ -1020,6 +1121,12 @@
     height: 732px;
 }
 
+.sprite-home__ground {
+    background-image: var(--sprite-home__ground);
+    width: 2048px;
+    height: 524px;
+}
+
 .sprite-home__header-back {
     background-image: var(--sprite-home__header-back);
     width: 742px;
@@ -1052,20 +1159,10 @@
     height: 86px;
 }
 
-.sprite-home__header-profile {
-    background-image: var(--sprite-home__header-profile);
-    width: 772px;
-    height: 208px;
-}
-
-.sprite-home__header-profile:active {
-    background-image: var(--sprite-home__header-profile-pressed);
-}
-
 .sprite-home__iceking-season-reward {
     background-image: var(--sprite-home__iceking-season-reward);
-    width: 510px;
-    height: 719px;
+    width: 1000px;
+    height: 959px;
 }
 
 .sprite-home__icon_premium-pass_no_gradient {
@@ -1142,8 +1239,8 @@
 
 .sprite-home__icon-close-white {
     background-image: var(--sprite-home__icon-close-white);
-    width: 26px;
-    height: 26px;
+    width: 62px;
+    height: 62px;
 }
 
 .sprite-home__icon-collection {
@@ -1162,24 +1259,6 @@
     background-image: var(--sprite-home__icon-cooldown-cs);
     width: 38px;
     height: 38px;
-}
-
-.sprite-home__icon-core-epic {
-    background-image: var(--sprite-home__icon-core-epic);
-    width: 280px;
-    height: 280px;
-}
-
-.sprite-home__icon-core-legendary {
-    background-image: var(--sprite-home__icon-core-legendary);
-    width: 280px;
-    height: 280px;
-}
-
-.sprite-home__icon-core-rare {
-    background-image: var(--sprite-home__icon-core-rare);
-    width: 280px;
-    height: 280px;
 }
 
 .sprite-home__icon-creatorcode {
@@ -1216,12 +1295,6 @@
     background-image: var(--sprite-home__icon-discord);
     width: 48px;
     height: 48px;
-}
-
-.sprite-home__icon-durability {
-    background-image: var(--sprite-home__icon-durability);
-    width: 40px;
-    height: 40px;
 }
 
 .sprite-home__icon-edit {
@@ -1470,12 +1543,6 @@
     height: 945px;
 }
 
-.sprite-home__loading_background_s10 {
-    background-image: var(--sprite-home__loading_background_s10);
-    width: 2048px;
-    height: 945px;
-}
-
 .sprite-home__logo-blasthub {
     background-image: var(--sprite-home__logo-blasthub);
     width: 260px;
@@ -1486,6 +1553,12 @@
     background-image: var(--sprite-home__malepunk-season-reward);
     width: 552px;
     height: 713px;
+}
+
+.sprite-home__new-battle-pass-banner-ref {
+    background-image: var(--sprite-home__new-battle-pass-banner-ref);
+    width: 2048px;
+    height: 945px;
 }
 
 .sprite-home__news-icon {
@@ -1650,22 +1723,10 @@
     height: 270px;
 }
 
-.sprite-home__shop-screen {
-    background-image: var(--sprite-home__shop-screen);
-    width: 2048px;
-    height: 945px;
-}
-
 .sprite-home__tag-body {
     background-image: var(--sprite-home__tag-body);
     width: 30px;
     height: 30px;
-}
-
-.sprite-home__temp-icon-profile-neil {
-    background-image: var(--sprite-home__temp-icon-profile-neil);
-    width: 110px;
-    height: 110px;
 }
 
 .sprite-home__text-blast {
@@ -1698,6 +1759,18 @@
     height: 198px;
 }
 
+.sprite-home__vfx-purple-ray-glow {
+    background-image: var(--sprite-home__vfx-purple-ray-glow);
+    width: 452px;
+    height: 452px;
+}
+
+.sprite-home__vfx-reward_rays_dark {
+    background-image: var(--sprite-home__vfx-reward_rays_dark);
+    width: 718px;
+    height: 718px;
+}
+
 .sprite-home__vfx-rewards-rays {
     background-image: var(--sprite-home__vfx-rewards-rays);
     width: 718px;
@@ -1710,9 +1783,15 @@
     height: 38px;
 }
 
-.sprite-home__weapon-placeholder {
-    background-image: var(--sprite-home__weapon-placeholder);
-    width: 688px;
-    height: 687px;
+.sprite-home__winLightBlue {
+    background-image: var(--sprite-home__winLightBlue);
+    width: 444px;
+    height: 266px;
+}
+
+.sprite-home__yeti-season-reward {
+    background-image: var(--sprite-home__yeti-season-reward);
+    width: 1280px;
+    height: 1228px;
 }
 

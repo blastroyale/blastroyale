@@ -1,8 +1,16 @@
 /* AUTO GENERATED */
 :root {
     --sprite-kit__avatar-default: url('/Assets/Art/UI/Sprites/Kit/avatar-default.png');
-    --sprite-kit__square: url('/Assets/Art/UI/Sprites/Kit/Button/square.png');
-    --sprite-kit__square-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/square-pressed.png');
+    --sprite-kit__long-error: url('/Assets/Art/UI/Sprites/Kit/Button/long-error.png');
+    --sprite-kit__long-error-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/long-error-pressed.png');
+    --sprite-kit__long-primary: url('/Assets/Art/UI/Sprites/Kit/Button/long-primary.png');
+    --sprite-kit__long-primary-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/long-primary-pressed.png');
+    --sprite-kit__long-secondary: url('/Assets/Art/UI/Sprites/Kit/Button/long-secondary.png');
+    --sprite-kit__long-secondary-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/long-secondary-pressed.png');
+    --sprite-kit__long-success: url('/Assets/Art/UI/Sprites/Kit/Button/long-success.png');
+    --sprite-kit__long-success-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/long-success-pressed.png');
+    --sprite-kit__square-primary: url('/Assets/Art/UI/Sprites/Kit/Button/square-primary.png');
+    --sprite-kit__square-primary-pressed: url('/Assets/Art/UI/Sprites/Kit/Button/square-primary-pressed.png');
     --sprite-kit__copy: url('/Assets/Art/UI/Sprites/Kit/Icon/copy.png');
     --sprite-kit__hide: url('/Assets/Art/UI/Sprites/Kit/Icon/hide.png');
     --sprite-kit__show: url('/Assets/Art/UI/Sprites/Kit/Icon/show.png');
@@ -15,14 +23,54 @@
     height: 125px;
 }
 
-.sprite-kit__square {
-    background-image: var(--sprite-kit__square);
+.sprite-kit__long-error {
+    background-image: var(--sprite-kit__long-error);
+    width: 319px;
+    height: 107px;
+}
+
+.sprite-kit__long-error:active {
+    background-image: var(--sprite-kit__long-error-pressed);
+}
+
+.sprite-kit__long-primary {
+    background-image: var(--sprite-kit__long-primary);
+    width: 218px;
+    height: 73px;
+}
+
+.sprite-kit__long-primary:active {
+    background-image: var(--sprite-kit__long-primary-pressed);
+}
+
+.sprite-kit__long-secondary {
+    background-image: var(--sprite-kit__long-secondary);
+    width: 218px;
+    height: 73px;
+}
+
+.sprite-kit__long-secondary:active {
+    background-image: var(--sprite-kit__long-secondary-pressed);
+}
+
+.sprite-kit__long-success {
+    background-image: var(--sprite-kit__long-success);
+    width: 319px;
+    height: 107px;
+}
+
+.sprite-kit__long-success:active {
+    background-image: var(--sprite-kit__long-success-pressed);
+}
+
+.sprite-kit__square-primary {
+    background-image: var(--sprite-kit__square-primary);
     width: 96px;
     height: 96px;
 }
 
-.sprite-kit__square:active {
-    background-image: var(--sprite-kit__square-pressed);
+.sprite-kit__square-primary:active {
+    background-image: var(--sprite-kit__square-primary-pressed);
 }
 
 .sprite-kit__copy {

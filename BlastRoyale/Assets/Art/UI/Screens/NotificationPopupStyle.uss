@@ -21,3 +21,6 @@
     height: 90px;
     -unity-background-image-tint-color: rgba(255, 255, 255, 0.71);
 }
+
+.notification--error {
+}

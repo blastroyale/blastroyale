@@ -1,5 +1,4 @@
 using System;
-using FirstLight.Server.SDK.Models;
 
 namespace FirstLight.Server.SDK.Events
 {

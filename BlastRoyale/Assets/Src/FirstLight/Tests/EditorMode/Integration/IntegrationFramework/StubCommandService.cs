@@ -35,6 +35,11 @@ namespace FirstLight.Tests.EditorMode
 				_data);
 			deserialized.Execute(ctx);
 		}
+
+		public T ExecuteCommandWithResult<T>(IGameCommandWithResult<T> command)
+		{
+			throw new NotImplementedException();
+		}
 	}
 
 }

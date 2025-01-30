@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -107,7 +108,7 @@ namespace FirstLight.Game.Services
 		public MatchRewardsResult ReceivedInCommand { get; set; } = new ();
 	}
 
-	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService
+	public class MatchEndDataService : IMatchEndDataService, IMatchService
 	{
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
 		public bool LeftBeforeMatchFinished { get; set; }
@@ -122,7 +123,7 @@ namespace FirstLight.Game.Services
 		public PlayerRef LocalPlayerKiller { get; private set; }
 		public bool DiedFromRoofDamage { get; private set; }
 		public Dictionary<PlayerRef, ClientCachedPlayerMatchData> PlayerMatchData { get; private set; } = new ();
-
+		
 		public void Reload()
 		{
 			ReadMatchDataForEndingScreens(QuantumRunner.Default.Game);
@@ -199,13 +200,26 @@ namespace FirstLight.Game.Services
 
 		public unsafe void ReadMatchDataForEndingScreens(QuantumGame game)
 		{
-			if (game == null || game.Frames.Verified == null)
+			FLog.Verbose("Reading simulation data for match end sequence");
+			if (game == null || game.Frames.Verified == null || game.IsSessionDestroyed)
 			{
+				FLog.Error("Simulation was null or game was destroyed, could not read simulation data");
 				return;
 			}
 
 			var frame = game.Frames.Verified;
-			var gameContainer = frame.Unsafe.GetPointerSingleton<GameContainer>();
+			if (!frame.TryGetSingletonEntityRef<GameContainer>(out var containerEntity))
+			{
+				FLog.Error("Trying to read simulation data without a game container in memory");
+				return;
+			}
+
+			if (!frame.Unsafe.TryGetPointerSingleton<GameContainer>(out var gameContainer))
+			{
+				FLog.Error("Trying to read simulation data without a game container in memory");
+				return;
+			}
+			
 			LocalPlayer = game.GetLocalPlayerRef();
 			QuantumPlayerMatchData = gameContainer->GeneratePlayersMatchData(frame, out var leader, out _);
 			JoinedAsSpectator = _services.RoomService.IsLocalPlayerSpectator;
@@ -221,7 +235,7 @@ namespace FirstLight.Game.Services
 				}
 
 				var frameData = frame.GetPlayerData(quantumPlayerData.Data.Player);
-
+				
 				Equipment weapon = Equipment.None;
 
 				if (PlayersFinalEquipment.ContainsKey(quantumPlayerData.Data.Player))
@@ -235,7 +249,17 @@ namespace FirstLight.Game.Services
 					weapon = playerCharacter.CurrentWeapon;
 				}
 
-				var cosmetics = PlayerLoadout.GetCosmetics(frame, quantumPlayerData.Data.Player);
+				var cosmetics = PlayerLoadout.GetCosmetics(frame, quantumPlayerData.Data.Entity);
+				
+				if (!quantumPlayerData.IsBot && cosmetics.Length == 0 && frameData != null)
+				{
+					cosmetics = frameData.Cosmetics;
+				}
+				else if (cosmetics.Length == 0 && PlayersFinalEquipment.TryGetValue(quantumPlayerData.Data.Player, out var equipmentEventData))
+				{
+					cosmetics = new [] { equipmentEventData.Skin };
+				}
+				
 				var playerData = new ClientCachedPlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, cosmetics);
 
 				if (game.PlayerIsLocal(playerData.PlayerRef))

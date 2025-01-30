@@ -78,6 +78,10 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(Root.Q<LocalizedToggle>("ScreenShake").Required(), _services.LocalPrefsService.IsScreenShakeEnabled);
 			SetupToggle(Root.Q<Toggle>("SwitchJoysticks").Required(), _services.LocalPrefsService.SwapJoysticks);
 
+			SetupRadioButtonGroup(Root.Q<RadioButtonGroup>("PerformanceMode").Required(), 
+				() => _services.GameAppService.PerformanceManager.Mode, 
+				m => _services.GameAppService.PerformanceManager.UpdatePerformanceMode(m));
+			
 			_customizeHudButton = Root.Q<LocalizedButton>("CustomizeHud").Required();
 			_customizeHudButton.clicked += OpenCustomizeHud;
 

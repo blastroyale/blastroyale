@@ -89,6 +89,7 @@ namespace FirstLight.Game.Presenters
 			var playerBundleTimeLeft = _gameServices.ProductsBundleService.GetBundlePurchaseTimeExpireAt(Data?.BundleId).Value;
 
 			_timeLeftText.ShowCooldown(playerBundleTimeLeft, true, () => CloseBannerPopup());
+			_buyBundleButton.text = gameProductsBundle.Bundle.UnityIapProduct().metadata.localizedPriceString;
 
 			foreach (var bundleProduct in gameProductsBundle.BundleProducts)
 			{

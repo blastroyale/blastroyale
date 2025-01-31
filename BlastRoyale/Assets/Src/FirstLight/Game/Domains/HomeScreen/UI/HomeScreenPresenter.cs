@@ -82,10 +82,10 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 		private Label _outOfSyncWarningLabel;
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
-		
+
 		//Hardcoded for while
 		private const string STARTER_PACK = "com.firstlight.blastroyale.starterpack";
-		
+
 		[SerializeField] private HomePartyCharacterView _homePartyCharacterView = new ();
 
 		private HashSet<GameId> _currentAnimations = new ();
@@ -117,8 +117,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 
 				OpenStats(data);
 			};
-			
-	
+
 			_playerNameLabel = Root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = Root.Q<Label>("TrophiesAmount").Required();
 			_onlineFriendLabel = Root.Q<Label>("OnlineFriendsCount").Required();
@@ -133,9 +132,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_newsNotificationShine = Root.Q("NewsShine").Required();
 			_newsNotificationShine.AddRotatingEffect(40, 10);
 			_newsNotificationShine.AnimatePingOpacity(fromAmount: 0.3f, duration: 2000, repeat: true);
-			
 
-			
 			Root.Q<ImageButton>("NewsButton").clicked += Data.NewsClicked;
 
 			_playButton = Root.Q<LocalizedButton>("PlayButton");
@@ -171,7 +168,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			{
 				storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
-			
+
 			LoadStarterPackAndSetupButton().Forget();
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
@@ -187,29 +184,32 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 		{
 			_starterPackBundle = Root.Q<ImageButton>("OpenBundleButton").Required();
 			_starterPackBundle.SetDisplay(false);
-			
+
 			_starterPackCooldown = Root.Q<Label>("BundleCooldown").Required();
 			_starterPackShine = Root.Q("BundleShine").Required();
-			
+
 			await UniTask.WaitUntil(() => _services.IAPService.UnityStore.Initialized);
-			
+
 			var bundle = _services.IAPService.AvailableGameProductBundles.FirstOrDefault(b => b.Name == STARTER_PACK);
-			if (bundle == null || 
+			if (bundle == null ||
 				_dataProvider.PlayerDataProvider.Level.Value < 4 ||
 				_dataProvider.PlayerStoreDataProvider.HasPurchasedProductsBundle(STARTER_PACK))
 			{
 				return;
 			}
-			
 
 			_starterPackBundle.SetDisplay(true);
 			_starterPackBundle.clicked += async () =>
 			{
-				await _services.ProductsBundleService.OpenProductsBundleBanner(STARTER_PACK);
+				var result = await _services.ProductsBundleService.OpenProductsBundleBanner(STARTER_PACK);
+				if (result == IHomeScreenService.ProcessorResult.OpenOriginalScreen)
+				{
+					await _services.UIService.OpenScreen<HomeScreenPresenter>(Data);
+				}
 			};
 
 			var bundleRemainingTime = _services.ProductsBundleService.GetBundlePurchaseTimeExpireAt(STARTER_PACK).Value;
-			
+
 			_starterPackShine.AnimatePingOpacity(fromAmount: 0.7f, toAmount: 1f, duration: 1000, repeat: true);
 			_starterPackShine.AddRotatingEffect(40f, 10);
 			_starterPackCooldown.ShowCooldown(bundleRemainingTime, false, HideProductBundleButton);
@@ -293,8 +293,9 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			{
 				return;
 			}
+
 			if (IAPHelpers.IsUIBeingHandled(itemId)) return;
-			
+
 			ShowPurchaseRewardScreen(data).Forget();
 		}
 

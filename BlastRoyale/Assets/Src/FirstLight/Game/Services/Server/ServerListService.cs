@@ -62,11 +62,12 @@ namespace FirstLight.Game.Services
 			_threadService = threadService;
 			_coroutineService = coroutineService;
 			_backendService = backendService;
-			_messageBrokerService.Subscribe<SuccessAuthentication>(OnAuthentication);
+			_messageBrokerService.Subscribe<SuccessfullyAuthenticated>(OnAuthentication);
 		}
 
-		private void OnAuthentication(SuccessAuthentication obj)
+		private void OnAuthentication(SuccessfullyAuthenticated msg)
 		{
+			if (msg.PreviouslyLoggedIn) return;
 			FetchServersAndPing();
 		}
 

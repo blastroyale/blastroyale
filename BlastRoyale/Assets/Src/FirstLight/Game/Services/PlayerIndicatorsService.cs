@@ -149,7 +149,7 @@ namespace FirstLight.Game.Services
 			if (!CanListen()) return;
 			if (_specialPressed != -1)
 			{
-				_indicatorContainerView.GetSpecialIndicator(_specialPressed)
+				_indicatorContainerView.GetSpecialIndicator(_specialPressed)?
 					.SetTransformState(_inputs.SpecialAim.ReadValue<Vector2>());
 			}
 		}

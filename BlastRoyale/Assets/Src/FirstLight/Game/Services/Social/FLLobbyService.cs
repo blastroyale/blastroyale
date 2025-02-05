@@ -9,6 +9,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Presenters.Social.Team;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
@@ -275,6 +276,7 @@ namespace FirstLight.Game.Services
 
 		private readonly IGameDataProvider _dataProvider;
 		private readonly InGameNotificationService _inGameNotificationService;
+		private readonly IAuthService _authService;
 		private readonly LocalPrefsService _localPrefsService;
 		private readonly Dictionary<string, PartyInvite> _sentPartyInvites = new ();
 		private readonly List<string> _sentMatchInvites = new ();
@@ -285,11 +287,12 @@ namespace FirstLight.Game.Services
 
 		public FLLobbyService(IMessageBrokerService messageBrokerService, IGameDataProvider dataProvider,
 							  InGameNotificationService inGameNotificationService,
-							  LocalPrefsService localPrefsService)
+							  LocalPrefsService localPrefsService, IAuthService authService)
 		{
 			_dataProvider = dataProvider;
 			_inGameNotificationService = inGameNotificationService;
 			_localPrefsService = localPrefsService;
+			_authService = authService;
 
 			Tick().Forget();
 
@@ -488,7 +491,7 @@ namespace FirstLight.Game.Services
 			var playerID = relationship.Member.Id;
 			_sentPartyInvites[playerID] = new PartyInvite()
 			{
-				PlayerName = relationship.Member?.Profile?.Name,
+				PlayerName = AuthServiceNameExtensions.PrettifyUnityDisplayName(relationship.Member?.Profile?.Name),
 				PlayerId = playerID
 			};
 			CurrentPartyCallbacks.TriggerOnInvitesUpdated();
@@ -725,8 +728,7 @@ namespace FirstLight.Game.Services
 			Assert.IsNull(CurrentMatchLobby, "Trying to create a match but the player is already in one!");
 
 			var lobbyName = matchOptions.ShowCreatorName
-				? string.Format(MATCH_LOBBY_NAME,
-					AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
+				? string.Format(MATCH_LOBBY_NAME, _authService.GetPrettyLocalPlayerName())
 				: Enum.Parse<GameId>(matchOptions.MapID).GetLocalization();
 
 			var positions = new string[matchOptions.MaxPlayers];
@@ -877,7 +879,7 @@ namespace FirstLight.Game.Services
 
 				var lobbyName = settings.ShowCreatorName
 					? string.Format(MATCH_LOBBY_NAME,
-						AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()))
+						_authService.GetPrettyLocalPlayerName())
 					: Enum.Parse<GameId>(settings.MapID).GetLocalization();
 
 				var options = new UpdateLobbyOptions
@@ -1088,7 +1090,7 @@ namespace FirstLight.Game.Services
 				{
 					// Reminder: there is a 10 key limit and 2KB size here
 					// TODO mihak: Need to figure out how to get the name from profile but it's always null
-					{KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, AuthenticationService.Instance.PlayerName)},
+					{KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, _authService.GetPrettyLocalPlayerName())},
 					{KEY_SKIN_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, skinID.ToString())},
 					{KEY_MELEE_ID, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, meleeID.ToString())},
 					{KEY_READY, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, ready.ToString().ToLowerInvariant())},

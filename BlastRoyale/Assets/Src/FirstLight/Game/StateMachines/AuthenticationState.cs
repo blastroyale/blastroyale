@@ -8,6 +8,8 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
+using FirstLight.Game.Services.Authentication.Hooks;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Server.SDK.Modules;
@@ -44,11 +46,19 @@ namespace FirstLight.Game.StateMachines
 		private UniTask _asyncLogin;
 		private bool _usingAsyncLogin;
 
+		public class InnerState
+		{
+			public bool Success;
+		}
+
+		public InnerState State;
+
 		public AuthenticationState(IGameServices services, IDataService dataService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_dataService = dataService;
 			_statechartTrigger = statechartTrigger;
+			State = new InnerState();
 		}
 
 		/// <summary>
@@ -59,62 +69,27 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var authLoginGuest = stateFactory.State("Guest Login");
-			var authLoginDevice = stateFactory.State("Login Device Authentication");
 			var authFail = stateFactory.State("Authentication Fail Dialog");
 			var postAuthCheck = stateFactory.Choice("Post Authentication Checks");
-			var accountDeleted = stateFactory.Wait("Account Deleted Dialog");
 			var gameMaintenance = stateFactory.State("Game Blocked Dialog");
 			var asyncLoginWait = stateFactory.TaskWait("Async Login Wait");
 
 			initial.Transition().Target(asyncLoginWait);
 
 			asyncLoginWait.WaitingFor(WaitForAsyncLogin).Target(postAuthCheck);
-			authLoginGuest.OnEnter(SetupLoginGuest);
-			authLoginGuest.Event(_authSuccessEvent).Target(final);
-			authLoginGuest.Event(_authFailEvent).Target(authFail);
 
-			authLoginDevice.OnEnter(LoginWithDevice);
-			authLoginDevice.Event(_authSuccessEvent).Target(final);
-			authLoginDevice.Event(_authFailEvent).Target(authFail);
-			authLoginDevice.Event(_authFailAccountDeletedEvent).Target(authFail);
-
-			postAuthCheck.Transition().Condition(() => _services.AuthenticationService.State.LastAttemptFailed).Target(authFail);
-			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
+			postAuthCheck.Transition().Condition(() => !State.Success).Target(authFail);
 			postAuthCheck.Transition().Condition(IsGameOutdatedOrMaintenance).Target(gameMaintenance);
 			postAuthCheck.Transition().Target(final);
 
-			accountDeleted.WaitingFor(OpenAccountDeletedDialog).Target(authLoginGuest);
-
 			gameMaintenance.OnEnter(OpenMaintenanceDialog);
 
-			final.OnEnter(PublishAuthenticationSuccessMessage);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
 		private async UniTask WaitForAsyncLogin()
 		{
 			await UniTask.WaitUntil(() => _asyncLogin.Status.IsCompleted());
-		}
-
-		private async UniTask AsyncDeviceLogin()
-		{
-			bool complete = false;
-			_services.AuthenticationService.State.StartedWithAccount = true;
-			_services.AuthenticationService.LoginWithDevice(r => { complete = true; },
-				(error) =>
-				{
-					OnAuthFail(error, true);
-					complete = true;
-				});
-			await UniTask.WaitUntil(() => complete);
-		}
-
-		private async UniTask AsyncGuestLogin()
-		{
-			bool complete = false;
-			_services.AuthenticationService.LoginSetupGuest(r => { complete = true; },
-				(error) => { OnAuthFail(error, true); });
-			await UniTask.WaitUntil(() => complete);
 		}
 
 		public void QuickAsyncLogin()
@@ -125,72 +100,31 @@ namespace FirstLight.Game.StateMachines
 		private async UniTask LoginTask()
 		{
 			FLog.Info("Starting async login");
-			_services.GameBackendService.SetupBackendEnvironment();
-
-			if (HasLinkedDevice())
+			await _services.GameBackendService.SetupBackendEnvironment();
+			var retries = 0;
+			int maxRetries = 3;
+			while (retries < maxRetries)
 			{
-				await AsyncDeviceLogin();
+				try
+				{
+					await _services.AuthService.AutomaticLogin();
+					State.Success = true;
+					return;
+				}
+				catch (Exception ex)
+				{
+					retries++;
+					if (retries >= maxRetries)
+					{
+						State.Success = false;
+						OnLoginError(ex);
+						return;
+					}
+
+					FLog.Warn("Auth exception, retrying!", ex);
+					await UniTask.Delay((int) (2000 * Math.Pow(2, retries - 1)));
+				}
 			}
-			else
-			{
-				await AsyncGuestLogin();
-			}
-		}
-
-		private void UnsubscribeEvents()
-		{
-			_services.MessageBrokerService?.UnsubscribeAll(this);
-		}
-
-		private bool IsAccountDeleted()
-		{
-			return _services.AuthenticationService.IsAccountDeleted();
-		}
-
-		private bool IsGameOutdatedOrMaintenance()
-		{
-			return _services.GameBackendService.IsGameInMaintenance(out _) || _services.GameBackendService.IsGameOutdated(out _);
-		}
-
-		private bool IsGameOutdated()
-		{
-			return _services.GameBackendService.IsGameOutdated(out _);
-		}
-
-		private bool HasLinkedDevice()
-		{
-			return !string.IsNullOrWhiteSpace(_services.AuthenticationService.GetDeviceSavedAccountData().DeviceId);
-		}
-
-		private void LoginWithDevice()
-		{
-			_services.AuthenticationService.LoginWithDevice(OnAuthSuccess, error => { OnAuthFail(error, true); });
-		}
-
-		private void SetupLoginGuest()
-		{
-			_services.AuthenticationService.LoginSetupGuest(OnAuthSuccess, (error) => { OnAuthFail(error, true); });
-		}
-
-		private void OnAuthSuccess(LoginData data)
-		{
-			_services.AuthenticationService.State.LastAttemptFailed = false;
-			_statechartTrigger(_authSuccessEvent);
-		}
-
-		private void OnAuthFail(PlayFabError error, bool automaticLogin)
-		{
-			var hasAccount = _services.AuthenticationService.State.StartedWithAccount;
-			_services.AuthenticationService.State.LastAttemptFailed = true;
-
-			// If unauthorized/session ticket expired, try to re-log without moving the state machine
-			var recoverable = IsAuthErrorRecoverable(error);
-
-			// Some unrecoverable shit happen, show a button to clear account data and reopen the game.
-			// Send error
-			OnLoginError(error);
-
-			return;
 		}
 
 		private bool IsAuthErrorRecoverable(PlayFabError err)
@@ -201,28 +135,40 @@ namespace FirstLight.Game.StateMachines
 				);
 		}
 
-		private void OnLoginError(PlayFabError error)
+		private void OnLoginError(Exception exception)
 		{
-			var recoverable = IsAuthErrorRecoverable(error);
+			bool recoverable = true;
+			var message = "";
+
+			FLog.Error("Login Error", exception);
+
+			if (exception is WrappedPlayFabException playFabException)
+			{
+				message = playFabException.Error.ErrorMessage;
+				recoverable = IsAuthErrorRecoverable(playFabException.Error);
+				if (playFabException.Error.ErrorDetails != null)
+				{
+					FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(playFabException.Error.ErrorDetails));
+				}
+			}
+			else if (exception is AuthenticationException authenticationException)
+			{
+				message = authenticationException.Message;
+				recoverable = authenticationException.Recoverable;
+			}
 
 			var account = _dataService.GetData<AccountData>();
 			Analytics.SendEvent("loginError", new Dictionary<string, object>
 			{
-				{"report", error.GenerateErrorReport()},
+				{"report", exception.ToString()},
 				{"device_id", account.DeviceId ?? "null"},
 				{"last_login_email", account.LastLoginEmail ?? "null"},
 				{"recoverable", recoverable},
 			});
-			if (error.ErrorDetails != null)
-			{
-				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
-			}
-
-			FLog.Info("Error: " + error.Error);
 
 			if (!recoverable)
 			{
-				_services.AuthenticationService.SetLinkedDevice(false);
+				_services.AuthService.Logout().Forget();
 			}
 
 			var confirmButton = new GenericDialogButton
@@ -230,11 +176,10 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = () =>
 				{
-					_services.QuitGame("OnLoginError " + error.GenerateErrorReport());
+					_services.QuitGame("OnLoginError");
 				}
 			};
 
-			var message = error.ErrorMessage;
 			if (!recoverable)
 			{
 				message = $"<color=red>You will be logged out of this account!</color>\n\n<size=70%>{message}</size>";
@@ -249,31 +194,19 @@ namespace FirstLight.Game.StateMachines
 				false, confirmButton);
 		}
 
-		private void OpenAccountDeletedDialog(IWaitActivity activity)
+		private void UnsubscribeEvents()
 		{
-			var title = ScriptLocalization.UITSettings.account_deleted_title;
-			var desc = ScriptLocalization.UITSettings.account_deleted_desc;
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.UITShared.ok,
-				ButtonOnClick = () =>
-				{
-					activity.Complete();
-					_services.QuitGame("Deleted User");
-				}
-			};
+			_services.MessageBrokerService?.UnsubscribeAll(this);
+		}
 
-			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
+		private bool IsGameOutdatedOrMaintenance()
+		{
+			return _services.GameBackendService.IsGameInMaintenance(out _) || _services.GameBackendService.IsGameOutdated(out _);
 		}
 
 		private void OpenMaintenanceDialog()
 		{
 			_services.GameBackendService.IsGameInMaintenanceOrOutdated(true);
-		}
-
-		private void PublishAuthenticationSuccessMessage()
-		{
-			_services.MessageBrokerService.Publish(new SuccessAuthentication());
 		}
 	}
 }

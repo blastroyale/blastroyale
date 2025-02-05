@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -53,7 +54,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var sender = FriendsService.Instance.GetFriendByID(Data.SenderID);
-			var senderName = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(sender.Member.Profile.Name.TrimPlayerNameNumbers());
+			var senderName = AuthServiceNameExtensions.PrettifyUnityDisplayName(sender.Member.Profile.Name);
 			_sender.SetFromRelationship(sender)
 				.DisableActivity();
 			switch (Data.Type)

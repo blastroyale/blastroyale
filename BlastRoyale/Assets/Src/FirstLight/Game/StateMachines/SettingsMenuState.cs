@@ -23,7 +23,6 @@ namespace FirstLight.Game.StateMachines
 	public class SettingsMenuState
 	{
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
-		private readonly IStatechartEvent _logoutConfirmClickedEvent = new StatechartEvent("Logout Confirm Clicked Event");
 		private readonly IStatechartEvent _logoutFailedEvent = new StatechartEvent("Logout Failed Event");
 		private readonly IStatechartEvent _connectIdClickedEvent = new StatechartEvent("Connect ID Clicked Event");
 		private readonly IStatechartEvent _connectIdBackEvent = new StatechartEvent("Connect ID Back Event");
@@ -54,14 +53,12 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var connectId = stateFactory.State("Connect ID Screen");
-			var logoutWait = stateFactory.State("Wait For Logout");
 
 			initial.Transition().Target(settingsMenu);
 			initial.OnExit(SubscribeEvents);
 
 			settingsMenu.OnEnter(OpenSettingsScreen);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(final);
-			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
 			settingsMenu.Event(_connectIdClickedEvent).Target(connectId);
 
 			connectId.OnEnter(OpenConnectIdUI);
@@ -69,9 +66,6 @@ namespace FirstLight.Game.StateMachines
 			connectId.Event(_connectIdRegisterSuccessEvent).OnTransition(UpdateAccountStatus).Target(settingsMenu);
 			connectId.Event(_connectIdLoginSuccessEvent).OnTransition(UpdateAccountStatus).Target(settingsMenu);
 			connectId.OnExit(CloseConnectUI);
-
-			logoutWait.OnEnter(TryLogOut);
-			logoutWait.Event(_logoutFailedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -98,17 +92,28 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new SettingsScreenPresenter.StateData
 			{
-				LogoutClicked = TryLogOut,
+				LogoutClicked = () => TryLogOut().Forget(),
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
-				OnDeleteAccountClicked = () =>
-					_services.GameBackendService.CallGenericFunction(CommandNames.REMOVE_PLAYER_DATA, OnAccountDeleted, null)
+				OnDeleteAccountClicked = () => OnDeleteAccountClicked().Forget()
 			};
 
 			_services.UIService.OpenScreen<SettingsScreenPresenter>(data).Forget();
 		}
 
-
+		private async UniTaskVoid OnDeleteAccountClicked()
+		{
+			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
+			try
+			{
+				await _services.AuthService.DeleteAccount();
+				OnLogoutComplete();
+			}
+			catch (WrappedPlayFabException ex)
+			{
+				OnLogoutFail(ex.Error);
+			}
+		}
 
 		private async void OpenConnectIdUI()
 		{
@@ -127,10 +132,18 @@ namespace FirstLight.Game.StateMachines
 			_services.UIService.CloseScreen<ConnectFlgIdScreenPresenter>().Forget();
 		}
 
-		private void TryLogOut()
+		private async UniTask TryLogOut()
 		{
-			_services.AuthenticationService.Logout(OnLogoutComplete, OnLogoutFail);
-			_services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>().Forget();
+			await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
+			try
+			{
+				await _services.AuthService.Logout();
+				OnLogoutComplete();
+			}
+			catch (WrappedPlayFabException ex)
+			{
+				OnLogoutFail(ex.Error);
+			}
 		}
 
 		private void OnLogoutComplete()
@@ -176,7 +189,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnAccountDeleted(ExecuteFunctionResult res)
 		{
-			TryLogOut();
+			TryLogOut().Forget();
 		}
 	}
 }

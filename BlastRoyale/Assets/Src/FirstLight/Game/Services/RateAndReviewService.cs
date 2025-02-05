@@ -31,9 +31,16 @@ namespace FirstLight.Game.Services
 			_localPrefsService = localPrefsService;
 			_remoteConfigProvider = remoteConfigProvider;
 			_messageBrokerService = msgBroker;
+			msgBroker.Subscribe<SuccessfullyAuthenticated>(OnAuthenticated);
 		}
 
-		public void Init()
+		private void OnAuthenticated(SuccessfullyAuthenticated msg)
+		{
+			if (msg.PreviouslyLoggedIn) return;
+			Init();
+		}
+
+		private void Init()
 		{
 			if (!_remoteConfigProvider.GetConfig<GeneralConfig>().EnableReviewPrompt || _localPrefsService.RateAndReviewPromptShown)
 			{

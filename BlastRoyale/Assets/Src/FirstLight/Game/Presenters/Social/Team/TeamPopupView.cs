@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -57,7 +58,8 @@ namespace FirstLight.Game.Presenters.Social.Team
 			_joinTeamButton.clicked += () =>
 			{
 				PopupPresenter.Close()
-					.ContinueWith(() => PopupPresenter.OpenJoinWithCode(code => JoinParty(code).ContinueWith(PopupPresenter.Close).ContinueWith(PopupPresenter.OpenParty).Forget()))
+					.ContinueWith(() => PopupPresenter.OpenJoinWithCode(code =>
+						JoinParty(code).ContinueWith(PopupPresenter.Close).ContinueWith(PopupPresenter.OpenParty).Forget()))
 					.Forget();
 			};
 			_leaveTeamButton.clicked += UniTask.Action(LeaveParty);
@@ -82,7 +84,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 			// We always show the local player
 			_localPlayer = new FriendListElement()
 				.SetLocal()
-				.SetPlayerName(AuthenticationServiceExtensions.GetPlayerNameWithSpaces(AuthenticationService.Instance.PlayerName.TrimPlayerNameNumbers()), (int) data.PlayerDataProvider.Trophies.Value)
+				.SetPlayerName(_services.AuthService.GetPrettyLocalPlayerName(), (int) data.PlayerDataProvider.Trophies.Value)
 				.SetAvatar(data.CollectionDataProvider.GetEquippedAvatarUrl())
 				.SetElementClickAction(el =>
 				{
@@ -228,10 +230,11 @@ namespace FirstLight.Game.Presenters.Social.Team
 
 						currentElement.SetFromParty(partyMember).SetElementClickAction((el) =>
 						{
-							_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(), new PlayerContextSettings()
-							{
-								ShowTeamOptions = true
-							});
+							_services.GameSocialService.OpenPlayerOptions(el, Presenter.Root, partyMember.Id, partyMember.GetPlayerName(),
+								new PlayerContextSettings()
+								{
+									ShowTeamOptions = true
+								});
 						});
 						currentElement.SetCrown(partyLobby.HostId == partyMember.Id);
 					}

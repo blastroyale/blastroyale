@@ -114,22 +114,31 @@ namespace FirstLight.Game.Presenters
 
 		private void LoginWithAccount()
 		{
-			LoginClicked(_loginEmailField.text.Trim(), _loginPasswordField.text.Trim());
+			LoginClicked(_loginEmailField.text.Trim(), _loginPasswordField.text.Trim()).Forget();
 		}
 
 		private void RegisterAttachAccountDetails()
 		{
-			RegisterClicked(_registerEmailField.text.Trim(), _registerUsernameField.text.Trim(), _registerPasswordField.text.Trim());
+			RegisterClicked(_registerEmailField.text.Trim(), _registerUsernameField.text.Trim(), _registerPasswordField.text.Trim()).Forget();
 		}
 
-		private void RegisterClicked(string email, string username, string password)
+		private async UniTask RegisterClicked(string email, string username, string password)
 		{
 			if (AuthenticationUtils.IsUsernameFieldValid(username)
 				&& AuthenticationUtils.IsEmailFieldValid(email)
 				&& AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>().Forget();
-				_services.AuthenticationService.AttachLoginDataToAccount(email, username, password, OnRegisterSuccess, OnRegisterFail);
+
+				try
+				{
+					await _services.AuthService.AddUserNamePassword(email, username, password);
+					OnRegisterSuccess();
+				}
+				catch (WrappedPlayFabException ex)
+				{
+					OnRegisterFail(ex.Error);
+				}
 			}
 			else
 			{
@@ -144,11 +153,11 @@ namespace FirstLight.Game.Presenters
 						? translation
 						: $"#{"UITLoginRegister/invalid_input"}#";
 				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
-					confirmButton);
+					confirmButton).Forget();
 			}
 		}
 
-		private void OnRegisterSuccess(LoginData data)
+		private void OnRegisterSuccess()
 		{
 			var title = ScriptLocalization.UITSettings.success;
 			var desc = ScriptLocalization.UITSettings.flg_id_connect_register_success;
@@ -184,16 +193,20 @@ namespace FirstLight.Game.Presenters
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 		}
 
-		private void LoginClicked(string email, string password)
+		private async UniTaskVoid LoginClicked(string email, string password)
 		{
 			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
-				_services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>().Forget();
-
-				// We need to disconnect photon to re-authenticate and re-generate an auth token
-				// when logging in with a different user
-				_services.NetworkService.DisconnectPhoton();
-				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnLoginFail, true);
+				await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
+				try
+				{
+					await _services.AuthService.LoginWithEmail(email, password);
+					OnLoginSuccess();
+				}
+				catch (Exception ex)
+				{
+					OnLoginFail(ex);
+				}
 			}
 			else
 			{
@@ -207,12 +220,12 @@ namespace FirstLight.Game.Presenters
 					LocalizationManager.TryGetTranslation("UITLoginRegister/invalid_input", out var translation)
 						? translation
 						: $"#{"UITLoginRegister/invalid_input"}#";
-				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
+				await _services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
 					confirmButton);
 			}
 		}
 
-		void OnLoginSuccess(LoginData data)
+		void OnLoginSuccess()
 		{
 			var title = ScriptLocalization.UITSettings.success;
 			var desc = ScriptLocalization.UITSettings.flg_id_connect_login_success;
@@ -228,10 +241,11 @@ namespace FirstLight.Game.Presenters
 			Data.AuthLoginSuccess();
 		}
 
-		void OnLoginFail(PlayFabError error)
+		void OnLoginFail(Exception exception)
 		{
+			var message = exception is WrappedPlayFabException playfabEx ? GetErrorString(playfabEx.Error) : ScriptLocalization.General.ErrorGeneric;
 			var title = ScriptLocalization.UITSettings.failure;
-			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_login_fail, GetErrorString(error));
+			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_login_fail, message);
 
 			var confirmButton = new GenericDialogButton
 			{
@@ -250,7 +264,7 @@ namespace FirstLight.Game.Presenters
 				ButtonText = ScriptLocalization.UITLoginRegister.reset_button,
 				ButtonOnClick = (input) =>
 				{
-					_services.AuthenticationService.SendAccountRecoveryEmail(input, OnRecoveryEmailSuccess, OnRecoveryEmailError);
+					SendRecoveryEmail(input).Forget();
 				}
 			};
 
@@ -262,6 +276,19 @@ namespace FirstLight.Game.Presenters
 		private void OnCloseClicked()
 		{
 			Data.CloseClicked();
+		}
+
+		public async UniTaskVoid SendRecoveryEmail(string email)
+		{
+			try
+			{
+				await _services.AuthService.SendAccountRecoveryEmail(email);
+				OnRecoveryEmailSuccess();
+			}
+			catch (WrappedPlayFabException ex)
+			{
+				OnRecoveryEmailError(ex.Error);
+			}
 		}
 
 		private void OnRecoveryEmailSuccess()

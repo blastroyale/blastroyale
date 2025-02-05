@@ -26,6 +26,6 @@ namespace FirstLight.Game.Messages
 
 	public struct FeatureFlagsReceived : IMessage
 	{
-		public IReadOnlyDictionary<string, string> AppData;
+		public IReadOnlyDictionary<string, string> TitleData;
 	}
 }

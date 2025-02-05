@@ -7,11 +7,13 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules.Commands;
@@ -24,6 +26,8 @@ using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Models;
+using Unity.Services.Friends.Notifications;
+using Unity.Services.Friends.Options;
 using UnityEngine.UIElements;
 using Unity.Services.Lobbies.Models;
 
@@ -84,8 +88,9 @@ namespace FirstLight.Game.Services
 		public GameActivities GetCurrentPlayerActivity();
 		UniTask FakeInviteBot(string botName);
 		bool IsBotInvited(string botName);
-		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName, PlayerContextSettings settings = null);
-		public string PlayerName { get; }
+
+		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName,
+									  PlayerContextSettings settings = null);
 	}
 
 	public class GameSocialService : IGameSocialService
@@ -96,8 +101,6 @@ namespace FirstLight.Game.Services
 		private HashSet<string> _fakeBotRequests = new ();
 		private FriendActivity _playerActivity = new ();
 
-		public string PlayerName => AuthenticationService.Instance.PlayerName;
-		
 		public GameSocialService(IGameServices services, IGameDataProvider dataProvider)
 		{
 			_services = services;
@@ -126,13 +129,72 @@ namespace FirstLight.Game.Services
 			};
 			services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnEquippedAvatar);
 			services.MessageBrokerService.Subscribe<DisplayNameChangedMessage>(OnNameChanged);
+			services.MessageBrokerService.Subscribe<SuccessfullyAuthenticated>(OnAuthenticated);
 		}
-		
-		
+
+		private void OnAuthenticated(SuccessfullyAuthenticated obj)
+		{
+			FriendsService.Instance.MessageReceived += OnFriendMessageReceived;
+		}
+
+		private void OnFriendMessageReceived(IMessageReceivedEvent e)
+		{
+			var message = e.GetAs<FriendMessage>();
+			var uiService = _services.UIService;
+			if (message.MessageType == FriendMessage.FriendMessageType.Cancel)
+			{
+				if (uiService.IsScreenOpen<InvitePopupPresenter>())
+				{
+					var screen = uiService.GetScreen<InvitePopupPresenter>();
+					if (screen.LobbyCode == message.LobbyID)
+					{
+						uiService.CloseScreen<InvitePopupPresenter>().Forget();
+						return;
+					}
+				}
+			}
+
+			// We skip inviting to party if the player already has an invite open
+			if (uiService.IsScreenOpen<InvitePopupPresenter>()) return;
+			var services = MainInstaller.ResolveServices();
+			var dataProvider = MainInstaller.ResolveData();
+			switch (message.MessageType)
+			{
+				case FriendMessage.FriendMessageType.Invite:
+
+					var isBusy = !services.GameSocialService.GetCurrentPlayerActivity().CanReceiveInvite();
+					var blockTeamInviteByLevel = message.InviteType == FriendMessage.FriendInviteType.Party &&
+						!dataProvider.PlayerDataProvider.HasUnlocked(UnlockSystem.Squads);
+					if (isBusy || blockTeamInviteByLevel)
+					{
+						FriendsService.Instance.MessageAsync(e.UserId, FriendMessage.CreateDecline(message.LobbyID, message.InviteType)).AsUniTask()
+							.Forget();
+						return;
+					}
+
+					services.UIService.OpenScreen<InvitePopupPresenter>(new InvitePopupPresenter.StateData
+					{
+						Type = message.InviteType,
+						SenderID = e.UserId,
+						LobbyCode = message.LobbyID
+					}).Forget();
+					break;
+				case FriendMessage.FriendMessageType.Decline:
+					var callbacks = message.InviteType == FriendMessage.FriendInviteType.Match
+						? services.FLLobbyService.CurrentMatchCallbacks
+						: services.FLLobbyService.CurrentPartyCallbacks;
+					callbacks.TriggerInviteDeclined(e.UserId);
+					break;
+				case FriendMessage.FriendMessageType.Cancel:
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
 
 		private void OnNameChanged(DisplayNameChangedMessage obj)
 		{
-            _services.GameBackendService.CallGenericFunction(CommandNames.SYNC_NAME).Forget();
+			_services.GameBackendService.CallGenericFunction(CommandNames.SYNC_NAME).Forget();
 		}
 
 		private void OnEquippedAvatar(CollectionItemEquippedMessage msg)
@@ -164,6 +226,11 @@ namespace FirstLight.Game.Services
 
 		private void UpdateCurrentPlayerActivity()
 		{
+			if (!_services.AuthService.SessionData.IsAuthenticated)
+			{
+				return;
+			}
+
 			SetCurrentActivity(GetCurrentPlayerActivity());
 		}
 
@@ -252,7 +319,7 @@ namespace FirstLight.Game.Services
 					reason = "already_member";
 					return false;
 				}
-				
+
 				if (_services.FLLobbyService.CurrentPartyLobby.Players.Count >= 4)
 				{
 					reason = "team_full";
@@ -309,7 +376,8 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private void AddOpenProfileAndFriendsOptions(string playerName, string unityId, List<PlayerContextButton> buttons, PlayerContextSettings settings)
+		private void AddOpenProfileAndFriendsOptions(string playerName, string unityId, List<PlayerContextButton> buttons,
+													 PlayerContextSettings settings)
 		{
 			if (buttons == null) buttons = new List<PlayerContextButton>();
 			if (unityId == null) // bot
@@ -328,7 +396,8 @@ namespace FirstLight.Game.Services
 				if (settings.ShowBlock)
 				{
 					buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.option_unblock,
-						() => FriendsService.Instance.UnblockHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
+						() => FriendsService.Instance.UnblockHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke())
+							.Forget()));
 				}
 
 				return;
@@ -348,7 +417,8 @@ namespace FirstLight.Game.Services
 					buttons.Add(new PlayerContextButton(
 						PlayerButtonContextStyle.Red,
 						ScriptLocalization.UITFriends.option_cancel_invite,
-						() => FriendsService.Instance.RemoveRelationshipHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()
+						() => FriendsService.Instance.RemoveRelationshipHandled(relationship)
+							.ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()
 					));
 				}
 				else
@@ -359,7 +429,8 @@ namespace FirstLight.Game.Services
 			else if (relationship is {Type: RelationshipType.Friend} && settings.ShowRemoveFriend)
 			{
 				buttons.Add(new PlayerContextButton(PlayerButtonContextStyle.Red, ScriptLocalization.UITFriends.remove_friend,
-					() => FriendsService.Instance.RemoveRelationshipHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke()).Forget()));
+					() => FriendsService.Instance.RemoveRelationshipHandled(relationship).ContinueWith(_ => settings.OnRelationShipChange?.Invoke())
+						.Forget()));
 			}
 
 			if (settings.ShowBlock)
@@ -369,7 +440,8 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName, PlayerContextSettings settings = null)
+		public void OpenPlayerOptions(VisualElement element, VisualElement root, string unityId, string playerName,
+									  PlayerContextSettings settings = null)
 		{
 			if (unityId == AuthenticationService.Instance.PlayerId)
 			{

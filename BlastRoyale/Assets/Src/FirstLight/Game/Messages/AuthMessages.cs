@@ -1,10 +1,13 @@
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {
-	public struct SuccessAuthentication : IMessage
+	public struct SuccessfullyAuthenticated : IMessage
 	{
+		public bool PreviouslyLoggedIn;
+		public ISessionData SessionData;
 	}
 
 	public struct DataReinitializedMessage : IMessage

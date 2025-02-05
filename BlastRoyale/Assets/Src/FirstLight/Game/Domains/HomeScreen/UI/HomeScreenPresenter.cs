@@ -14,6 +14,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -246,7 +247,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
+			_settingsNotification.SetDisplay(_services.AuthService.SessionData.IsGuest);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
 			_friendsNotification.SetDisplay(FriendsService.Instance.IncomingFriendRequests.ToList().Count > 0);
 
@@ -276,7 +277,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 
 			UpdatePlayButton();
 
-			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
+			_playerNameLabel.text = _services.AuthService.GetPrettyLocalPlayerName();
 
 			return base.OnScreenOpen(reload);
 		}
@@ -350,7 +351,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 
 		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
 		{
-			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
+			_playerNameLabel.text = _services.AuthService.GetPrettyLocalPlayerName();
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)

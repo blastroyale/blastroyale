@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.Services.Social;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -81,7 +82,8 @@ namespace FirstLight.Game.UIElements
 				background.Add(backgroundMask);
 				{
 					backgroundMask.Add(new VisualElement {name = "background-pattern-left"}.AddClass(USS_BACKGROUND_PATTERN));
-					backgroundMask.Add(new VisualElement {name = "background-pattern-right"}.AddClass(USS_BACKGROUND_PATTERN).AddClass(USS_BACKGROUND_PATTERN_RIGHT));
+					backgroundMask.Add(new VisualElement {name = "background-pattern-right"}.AddClass(USS_BACKGROUND_PATTERN)
+						.AddClass(USS_BACKGROUND_PATTERN_RIGHT));
 				}
 				var playerBarContainer = new VisualElement {name = "player-bar-container"};
 				background.Add(playerBarContainer);
@@ -99,7 +101,8 @@ namespace FirstLight.Game.UIElements
 					{
 						textContainer.Add(_nameLabel = new LabelOutlined("Longplayername12442222") {name = "name-label"}
 							.AddClass(USS_NAME_AND_TROPHIES));
-						textContainer.Add(_trophiesLabel = new LabelOutlined("<color=#FFC700>123123</color>" + " <sprite name=\"Ammoicon\">") {name = "trophies-label"}
+						textContainer.Add(_trophiesLabel = new LabelOutlined("<color=#FFC700>123123</color>" + " <sprite name=\"Ammoicon\">")
+								{name = "trophies-label"}
 							.AddClass(USS_NAME_AND_TROPHIES));
 					}
 					playerBarContainer.Add(textContainer);
@@ -166,7 +169,7 @@ namespace FirstLight.Game.UIElements
 			_userId = relationship.Member.Id;
 			var services = MainInstaller.ResolveServices();
 			var activity = relationship.Member?.Presence?.GetActivity<FriendActivity>();
-			SetPlayerName(relationship.Member?.Profile.Name);
+			SetPlayerName(AuthServiceNameExtensions.PrettifyUnityDisplayName(relationship.Member?.Profile.Name));
 
 			if (activity?.Region != null && activity?.Region != services.LocalPrefsService.ServerRegion?.Value)
 			{
@@ -184,7 +187,7 @@ namespace FirstLight.Game.UIElements
 				{
 					Trophies = activity.Trophies,
 					AvatarUrl = activity.AvatarUrl,
-					PlayerName = relationship.Member?.Profile.Name
+					PlayerName = AuthServiceNameExtensions.PrettifyUnityDisplayName(relationship.Member?.Profile.Name)
 				});
 			}
 			else
@@ -206,7 +209,8 @@ namespace FirstLight.Game.UIElements
 			var services = MainInstaller.ResolveServices();
 			var unityId = relationship.Member.Id;
 
-			var data = await services.PlayfabUnityBridgeService.LoadDataForPlayer(unityId, relationship.Member.Profile?.Name?.TrimPlayerNameNumbers());
+			var data = await services.PlayfabUnityBridgeService.LoadDataForPlayer(unityId,
+				AuthServiceNameExtensions.PrettifyUnityDisplayName(relationship.Member.Profile?.Name));
 			if (panel == null || parent == null) return;
 			if (data == null)
 			{
@@ -220,7 +224,7 @@ namespace FirstLight.Game.UIElements
 		public FriendListElement SetPlayerName(string playerName, int trophies)
 		{
 			_trophiesLabel.SetDisplay(true);
-			_nameLabel.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(playerName?.TrimPlayerNameNumbers());
+			_nameLabel.text = playerName;
 			_trophiesLabel.text = $"<color=#FFC700>{trophies}</color> <size=+2px><sprite name=\"TrophyIcon\"></size>";
 			return this;
 		}
@@ -228,7 +232,7 @@ namespace FirstLight.Game.UIElements
 		public FriendListElement SetPlayerName(string playerName)
 		{
 			_trophiesLabel.SetDisplay(false);
-			_nameLabel.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(playerName?.TrimPlayerNameNumbers());
+			_nameLabel.text = playerName;
 			return this;
 		}
 

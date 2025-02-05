@@ -8,7 +8,8 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class AccountData
 	{
-		public string DeviceId;
+		public string DeviceId; 
 		public string LastLoginEmail;
+		public string PlayfabID;
 	}
 }

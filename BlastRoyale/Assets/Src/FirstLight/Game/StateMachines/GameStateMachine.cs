@@ -1,4 +1,6 @@
+using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
@@ -77,7 +79,6 @@ namespace FirstLight.Game.StateMachines
 			var core = stateFactory.Split("Core");
 
 			initial.Transition().Target(internetCheck);
-			initial.OnExit(AccountReadTrick);
 			initial.OnExit(_authenticationState.QuickAsyncLogin);
 			initial.OnExit(() =>
 			{
@@ -96,34 +97,34 @@ namespace FirstLight.Game.StateMachines
 			core.Split(_networkState.Setup, _audioState.Setup, _tutorialState.Setup, _coreLoopState.Setup).Target(final);
 		}
 
-		/// <summary>
-		/// Migrating where reads login data from old players
-		/// </summary>
-		private void AccountReadTrick()
-		{
-			var appData = _services.DataService.GetData<AppData>();
-
-#pragma warning disable CS0612 // Here for backwards compatability
-			if (!string.IsNullOrWhiteSpace(appData.DeviceId))
-			{
-				var accountData = _services.AuthenticationService.GetDeviceSavedAccountData();
-				accountData.DeviceId = appData.DeviceId;
-				accountData.LastLoginEmail = appData.LastLoginEmail;
-				appData.DeviceId = null;
-				appData.LastLoginEmail = null;
-				_services.DataService.AddData(appData, true);
-				_services.DataService.SaveData<AppData>();
-				_services.DataService.SaveData<AccountData>();
-			}
-#pragma warning restore CS0612
-		}
-
 		private void InitializeRemainingLogic()
 		{
-			_gameLogic.Init();
-			_services.GameModeService.Init();
-			_services.IAPService.Init();
-			InitUserReporting(_services, _gameLogic.RemoteConfigProvider).Forget(); // TODO: Move this to Startup when we can await for auth there
+			try
+			{
+				_gameLogic.Init();
+				_services.GameModeService.Init();
+				_services.IAPService.Init();
+				InitUserReporting(_services, _gameLogic.RemoteConfigProvider).Forget(); // TODO: Move this to Startup when we can await for auth there
+			}
+#pragma warning disable CS0168 // Variable is declared but never used
+			catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
+			{
+				FLog.Error("Failed to initialize remaining logic", ex);
+#if DEBUG || UNITY_EDITOR
+				var desc = ex.Message;
+#else
+				var desc = string.Format(ScriptLocalization.General.ErrorGeneric);
+#endif
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.ExitGame,
+					ButtonOnClick = () => { _services.QuitGame("Error initializing logic"); }
+				};
+
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
+				throw;
+			}
 		}
 
 		private void OpenNoInternetPopUp()

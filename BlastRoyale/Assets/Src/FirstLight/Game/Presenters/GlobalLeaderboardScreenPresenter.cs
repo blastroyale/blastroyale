@@ -9,6 +9,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -194,10 +195,9 @@ namespace FirstLight.Game.Presenters
 
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
-			var trimmedDisplayName = leaderboardEntry.DisplayName[..^5];
-			
 			var borderColor = _services.LeaderboardService.GetRankColor(_viewingBoard, leaderboardEntry.Position + 1);
-			leaderboardEntryView.SetData(leaderboardEntry.Position + 1, AuthenticationServiceExtensions.GetPlayerNameWithSpaces(trimmedDisplayName), -1, leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.PlayFabId, borderColor);
+			leaderboardEntryView.SetData(leaderboardEntry.Position + 1, AuthServiceNameExtensions.PrettifyPlayfabName(leaderboardEntry.DisplayName),
+				-1, leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.PlayFabId, borderColor);
 			leaderboardEntryView.SetLeaderboardEntryPFPUrl(leaderboardEntry.Profile.AvatarUrl);
 
 			leaderboardEntryView.SetIcon(GetIconClass());
@@ -316,10 +316,8 @@ namespace FirstLight.Game.Presenters
 
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
-			var trimmedDisplayName = leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5);
-			
 			view.SetData(leaderboardEntry.Position + 1,
-				AuthenticationServiceExtensions.GetPlayerNameWithSpaces(trimmedDisplayName), -1,
+				AuthServiceNameExtensions.PrettifyPlayfabName(leaderboardEntry.DisplayName), -1,
 				trophies, true, leaderboardEntry.PlayFabId, Color.white);
 			view.SetLeaderboardEntryPFPUrl(_dataProvider.CollectionDataProvider.GetEquippedAvatarUrl());
 

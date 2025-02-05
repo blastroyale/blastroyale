@@ -27,10 +27,6 @@ namespace FirstLight.Game.Services
 		{
 			_services = services;
 			_data = data;
-
-#if DEBUG
-			_services.AuthenticationService.OnLogin += _ => FLog.Verbose("Buff Virtual Entity: " + MetaEntity);
-#endif
 		}
 
 		public string GetDisplayString(BuffStat stat)

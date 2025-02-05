@@ -11,6 +11,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Serializers;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
@@ -148,7 +149,7 @@ namespace FirstLight.Game
 			var configsProvider = new ConfigsProvider();
 			var serverConfigProvider = new UnityRemoteConfigProvider();
 			var networkService = new GameNetworkService(configsProvider);
-
+			
 			var gameLogic = new GameLogic(messageBroker, serverConfigProvider, timeService, dataService, configsProvider);
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider, gameLogic, assetResolver);

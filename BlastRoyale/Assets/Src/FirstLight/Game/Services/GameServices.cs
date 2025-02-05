@@ -7,6 +7,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services.Analytics;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Services.Collection;
@@ -79,9 +80,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IPlayerProfileService"/>
 		IPlayerProfileService ProfileService { get; }
 
-		/// <inheritdoc cref="IAuthenticationService"/>
-		IAuthenticationService AuthenticationService { get; }
-
 		/// <inheritdoc cref="ITutorialService"/>
 		ITutorialService TutorialService { get; }
 
@@ -130,6 +128,8 @@ namespace FirstLight.Game.Services
 		public IBuffService BuffService { get; }
 		public IHomeScreenService HomeScreenService { get; }
 
+		public IAuthService AuthService { get; }
+
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
@@ -167,7 +167,6 @@ namespace FirstLight.Game.Services
 		public IGameBackendService GameBackendService { get; }
 		public IGameAppService GameAppService { get; }
 		public IPlayerProfileService ProfileService { get; }
-		public IAuthenticationService AuthenticationService { get; }
 		public ITutorialService TutorialService { get; }
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
@@ -199,6 +198,7 @@ namespace FirstLight.Game.Services
 		public IBuffService BuffService { get; }
 
 		public IHomeScreenService HomeScreenService { get; }
+		public IAuthService AuthService { get; }
 
 		public string QuitReason { get; set; }
 
@@ -239,21 +239,23 @@ namespace FirstLight.Game.Services
 			GuidService = new GuidService();
 			GameBackendService =
 				new GameBackendService(messageBrokerService, gameLogic, this, dataService, GameConstants.Stats.RANKED_LEADERBOARD_LADDER_NAME);
+			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
+			AuthService = new AuthService((IGameLogicInitializer) gameLogic, GameBackendService, dataService,
+				(IGameRemoteConfigProvider) gameLogic.RemoteConfigProvider, CommandService, messageBrokerService,
+				networkService);
 			ProfileService = new PlayerProfileService(GameBackendService);
-			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
-				configsProvider);
-			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, InGameNotificationService, LocalPrefsService);
+			FLLobbyService = new FLLobbyService(MessageBrokerService, gameLogic, InGameNotificationService, LocalPrefsService, AuthService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			RateAndReviewService = new RateAndReviewService(MessageBrokerService, LocalPrefsService, gameLogic.RemoteConfigProvider);
-			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			BuffService = new BuffService(this, gameLogic);
 			RewardService = new RewardService(this, gameLogic);
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);
 			ControlsSetup = new ControlSetupService();
+
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic,
-				LeaderboardService, InGameNotificationService);
+				LeaderboardService, InGameNotificationService, AuthService);
 			HomeScreenService = new HomeScreenService(gameLogic, UIService, MessageBrokerService, RoomService, CommandService, GameBackendService,
 				GenericDialogService);
 			GameModeService = new GameModeService(gameLogic, CommandService, ConfigsProvider, FLLobbyService, gameLogic.AppDataProvider,
@@ -271,7 +273,8 @@ namespace FirstLight.Game.Services
 			GameAppService = new GameAppService(this);
 			TeamService = new TeamService(RoomService);
 			ServerListService = new ServerListService(ThreadService, CoroutineService, GameBackendService, MessageBrokerService);
-			CustomerSupportService = new CustomerSupportService(AuthenticationService);
+			CustomerSupportService = new CustomerSupportService(AuthService);
+
 			GameSocialService = new GameSocialService(this, gameLogic);
 			PlayfabUnityBridgeService = new PlayfabUnityBridgeService(ProfileService, MessageBrokerService);
 			NotificationService = new NotificationService(gameLogic.RemoteConfigProvider, MessageBrokerService);

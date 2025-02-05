@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -142,6 +143,7 @@ namespace FirstLight.Game.Services.RoomService
 
 	public class RoomService : IInRoomCallbacks, IMatchmakingCallbacks, IRoomService
 	{
+		private readonly IAuthService _authService;
 		internal readonly IGameNetworkService _networkService;
 		private readonly IGameBackendService _backendService;
 		internal readonly IConfigsProvider _configsProvider;
@@ -196,7 +198,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		public RoomService(IGameNetworkService networkService, IGameBackendService backendService, IConfigsProvider configsProvider,
 						   ICoroutineService coroutineService, IGameDataProvider dataProvider, ILeaderboardService leaderboardService,
-						   InGameNotificationService inGameNotificationService)
+						   InGameNotificationService inGameNotificationService, IAuthService authService)
 		{
 			_networkService = networkService;
 			_backendService = backendService;
@@ -205,6 +207,7 @@ namespace FirstLight.Game.Services.RoomService
 			_dataProvider = dataProvider;
 			_leaderboardService = leaderboardService;
 			_inGameNotificationService = inGameNotificationService;
+			_authService = authService;
 			_parameters = new RoomServiceParameters(this);
 			_commands = new RoomServiceCommands(this);
 			RegisterListeners();
@@ -629,7 +632,7 @@ namespace FirstLight.Game.Services.RoomService
 				return;
 			}
 
-			_networkService.QuantumClient.NickName = AuthenticationService.Instance.GetPlayerNameWithSpaces();
+			_networkService.QuantumClient.NickName = _authService.GetPrettyLocalPlayerName();
 			var preloadIds = new List<GameId>();
 
 			preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);

@@ -24,7 +24,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		private void SetupTestHelperBase()
 		{
-			Services.MessageBrokerService.Subscribe<SuccessAuthentication>(authentication =>
+			Services.MessageBrokerService.Subscribe<SuccessfullyAuthenticated>(authentication =>
 			{
 				_authenticated = true;
 				_authenticatedRun?.Invoke();

@@ -15,25 +15,20 @@ namespace FirstLight.Game.Logic
 	public interface IAppDataProvider
 	{
 		/// <summary>
-		/// Requests the information if the current game session is the first time the player is playing the game or not
-		/// </summary>
-		bool IsFirstSession { get; }
-
-		/// <summary>
 		/// Requests the information if the game was or not yet reviewed
 		/// </summary>
 		bool IsGameReviewed { get; }
-		
+
 		/// <summary>
 		/// Returns the last ranked map user has selected
 		/// </summary>
 		int LastSelectedRankedMap { get; set; }
-		
+
 		/// <summary>
 		/// Gets last current custom game options used
 		/// </summary>
 		CustomGameOptions LastCustomGameOptions { get; }
-		
+
 		/// <summary>
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
@@ -54,9 +49,6 @@ namespace FirstLight.Game.Logic
 	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic
 	{
 		private readonly DateTime _defaultZeroTime = new (2020, 1, 1);
-		
-		/// <inheritdoc />
-		public bool IsFirstSession => Data.IsFirstSession;
 
 		/// <inheritdoc />
 		public bool IsGameReviewed => Data.GameReviewDate > _defaultZeroTime;
@@ -71,7 +63,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
-		
+
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider) :
 			base(gameLogic, dataProvider)
 		{

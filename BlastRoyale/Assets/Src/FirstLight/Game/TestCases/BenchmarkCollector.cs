@@ -37,7 +37,6 @@ namespace FirstLight.Game.TestCases
 			WaitForServices().Forget();
 		}
 
-
 		public async UniTaskVoid WaitForServices()
 		{
 			var services = await MainInstaller.WaitResolve<IGameServices>();
@@ -45,7 +44,7 @@ namespace FirstLight.Game.TestCases
 
 			Wrap<MatchStartedMessage>();
 			Wrap<DataReinitializedMessage>();
-			Wrap<SuccessAuthentication>();
+			Wrap<SuccessfullyAuthenticated>();
 			Wrap<MatchSimulationStartedMessage>();
 			Wrap<SimulationEndedMessage>();
 			Wrap<LocalPlayerClickedPlayMessage>();
@@ -60,17 +59,17 @@ namespace FirstLight.Game.TestCases
 			Wrap<MatchmakingJoinedMessage>();
 			Wrap<MatchmakingMatchFoundMessage>();
 			Wrap<MatchmakingLeftMessage>();
+			Wrap<SuccessfullyAuthenticated>();
 			services.MessageBrokerService.Subscribe<BenchmarkStartedLoadingMatchAssets>((msg) =>
 			{
 				matchCount++;
-				currentLocation = "Match" + matchCount+" "+msg.Map;
+				currentLocation = "Match" + matchCount + " " + msg.Map;
 			});
 			services.MessageBrokerService.Subscribe<MainMenuLoadedMessage>((_) =>
 			{
 				currentLocation = "MainMenu";
 			});
 			services.UIService.OnScreenOpened += (screen, layer) => LogMessage("OpenScreen " + screen);
-			services.AuthenticationService.OnLogin += (g) => LogMessage("OnLogin");
 		}
 
 		public void Wrap<T>() where T : IMessage
@@ -126,7 +125,6 @@ namespace FirstLight.Game.TestCases
 			currentTimeFrame = new TimeFrameCollected();
 			return value;
 		}
-
 
 		public class TimeFrameCollected
 		{

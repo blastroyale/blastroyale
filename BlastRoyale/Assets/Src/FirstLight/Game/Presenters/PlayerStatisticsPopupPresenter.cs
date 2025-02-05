@@ -10,6 +10,7 @@ using FirstLight.Game.Data.DataTypes.Helpers;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -144,7 +145,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_nameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
+			_nameLabel.text = _services.AuthService.GetPrettyLocalPlayerName();
 			SetupPopup().Forget();
 			return base.OnScreenOpen(reload);
 		}
@@ -239,11 +240,18 @@ namespace FirstLight.Game.Presenters
 			// TODO mihak: Temporary
 			if (IsLocalPlayer)
 			{
-				_nameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
+				_nameLabel.text = _services.AuthService.GetPrettyLocalPlayerName();
 			}
 			else
 			{
-				_nameLabel.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(Data.UnityID == null ? result.Name : result.Name.Remove(result.Name.Length - 5));
+				if (Data.PlayfabID == null) // Bots
+				{
+					_nameLabel.text = result.Name;
+				}
+				else
+				{
+					_nameLabel.text = AuthServiceNameExtensions.PrettifyPlayfabName(result.Name);
+				}
 			}
 
 			SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);

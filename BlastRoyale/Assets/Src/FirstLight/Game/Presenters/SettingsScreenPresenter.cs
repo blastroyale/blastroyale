@@ -62,8 +62,8 @@ namespace FirstLight.Game.Presenters
 			_buildInfoLabel = Root.Q<Label>("BuildInfoLabel");
 			_buildInfoLabel.text = VersionUtils.VersionInternal;
 
-			Root.Q("AccountNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
-			Root.Q("ConnectNotification").Required().SetDisplay(_services.AuthenticationService.IsGuest);
+			Root.Q("AccountNotification").Required().SetDisplay(_services.AuthService.SessionData.IsGuest);
+			Root.Q("ConnectNotification").Required().SetDisplay(_services.AuthService.SessionData.IsGuest);
 			_web3Notification = Root.Q("ConnectWeb3Notification").Required();
 			_web3Notification.SetDisplay(false);
 
@@ -182,7 +182,7 @@ namespace FirstLight.Game.Presenters
 
 		public void UpdateAccountStatus()
 		{
-			if (_services.AuthenticationService.IsGuest)
+			if (_services.AuthService.SessionData.IsGuest)
 			{
 				_connectIdButton.SetDisplay(true);
 				_deleteAccountButton.SetDisplay(false);

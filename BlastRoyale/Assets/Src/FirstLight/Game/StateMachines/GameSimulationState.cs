@@ -10,6 +10,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -361,7 +362,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});
 		}
 
-
 		private unsafe bool IsSimulationReady()
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return false;
@@ -382,7 +382,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				return false;
 			}
-			
+
 			// Waiting specific system initializations until we update photon 2.1.9
 			var hasCircle = game.Frames.Verified.Context.GameModeConfig.Systems.Any(s => s == typeof(ShrinkingCircleSystem).FullName);
 			if (hasCircle && !game.Frames.Verified.Unsafe.TryGetPointerSingleton<ShrinkingCircle>(out var circle))
@@ -427,7 +427,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
 				UnityId = AuthenticationService.Instance.PlayerId,
-				PlayerName = AuthenticationService.Instance.GetPlayerNameWithSpaces(),
+				PlayerName = _services.AuthService.GetPrettyLocalPlayerName(),
 				Cosmetics = equippedCosmetics,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,

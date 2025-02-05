@@ -30,8 +30,9 @@ namespace FirstLight.Game.Services
 		public NotificationService(IRemoteConfigProvider remoteConfigProvider, IMessageBrokerService msgBroker)
 		{
 			_remoteConfigProvider = remoteConfigProvider;
-			msgBroker.Subscribe<SuccessAuthentication>((_) =>
+			msgBroker.Subscribe<SuccessfullyAuthenticated>((msg) =>
 			{
+				if (msg.PreviouslyLoggedIn) return;
 				RefreshEventNotifications();
 			});
 		}
@@ -45,13 +46,14 @@ namespace FirstLight.Game.Services
 			args.AndroidChannelDescription = "Main notifications";
 			NotificationCenter.Initialize(args);
 #if UNITY_ANDROID
-			Unity.Notifications.Android.AndroidNotificationCenter.RegisterNotificationChannel(new Unity.Notifications.Android.AndroidNotificationChannel()
-			{
-				Id = "events",
-				Name = "Events",
-				Importance = Unity.Notifications.Android.Importance.Default,
-				Description = "Upcoming events",
-			});
+			Unity.Notifications.Android.AndroidNotificationCenter.RegisterNotificationChannel(
+				new Unity.Notifications.Android.AndroidNotificationChannel()
+				{
+					Id = "events",
+					Name = "Events",
+					Importance = Unity.Notifications.Android.Importance.Default,
+					Description = "Upcoming events",
+				});
 #endif
 #endif
 		}
@@ -150,8 +152,6 @@ namespace FirstLight.Game.Services
 				ShowInForeground = showInForeGround,
 			}, category, new NotificationDateTimeSchedule(dateTime));
 		}
-
-
 
 		private async UniTask InitRemotePushNotifications()
 		{

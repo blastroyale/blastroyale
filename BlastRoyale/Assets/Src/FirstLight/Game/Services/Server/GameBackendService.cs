@@ -34,13 +34,8 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Sets up the backend with the correct cloud environment, per platform
 		/// </summary>
-		void SetupBackendEnvironment();
-
-		/// <summary>
-		/// Updates the user nickname in playfab.
-		/// </summary>
-		void UpdateDisplayNamePlayfab(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError);
-
+		UniTask SetupBackendEnvironment();
+		
 		/// <summary>
 		/// Execute a function using the generic endcpoint, to see current values look at <see cref="FirstLight.Server.SDK.Modules.Commands"/>
 		/// </summary>
@@ -51,12 +46,7 @@ namespace FirstLight.Game.Services
 		/// Same as <see cref="CallGenericFunction"/>
 		/// </summary>
 		public UniTask<ExecuteFunctionResult> CallGenericFunction(string functionName, Dictionary<string, string> data = null);
-
-		/// <summary>
-		/// Reads the specific title data by the given key.
-		/// Throws an error if the key was not present.
-		/// </summary>
-		void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError);
+		
 
 		/// <summary>
 		/// Obtains the server state of the logged in player
@@ -64,18 +54,17 @@ namespace FirstLight.Game.Services
 		void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
+		/// Obtains the server state of the logged in player
+		/// </summary>
+		UniTask<ServerState> FetchServerState();
+
+		/// <summary>
 		/// Compare server with client rewards to check if they match.
 		/// Introduced as a workaround due to requiring two synchronous commands
 		/// from two different services (Logic Service & Quantum Server)
 		/// </summary>
 		UniTask<bool> CheckIfRewardsMatch();
-
-		/// <summary>
-		/// Obtains all segments the player is in.
-		/// Segments are group of players based on metrics which can be used for various things.
-		/// </summary>
-		void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError);
-
+		
 		/// <summary>
 		/// Requests to check if the game is currently in maintenance
 		/// </summary>
@@ -95,11 +84,6 @@ namespace FirstLight.Game.Services
 		/// Handles an incoming error. Sends outgoing messages, analytics and calls back
 		/// </summary>
 		void HandleError(PlayFabError error, Action<PlayFabError> callback);
-
-		/// <summary>
-		/// Handle an unrecoverable exception in the game, it will close and send analytics
-		/// </summary>
-		void HandleUnrecoverableException(Exception ex);
 
 		/// <summary>
 		/// Will handle a recoverable exception, making sure it will get to all analytics services
@@ -157,13 +141,7 @@ namespace FirstLight.Game.Services
 			_leaderboardLadderName = leaderboardLadderName;
 		}
 
-		public void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError)
-		{
-			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r => { onSuccess(r.Segments); },
-				e => { HandleError(e, onError); });
-		}
-
-		public void SetupBackendEnvironment()
+		public async UniTask SetupBackendEnvironment()
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
@@ -180,10 +158,9 @@ namespace FirstLight.Game.Services
 				// We only unlink if there was a previous environment set (check is here for migration purposes)
 				if (!string.IsNullOrEmpty(appData.LastEnvironmentName))
 				{
-					_services.AuthenticationService.SetLinkedDevice(false);
+					await _services.AuthService.Logout();
 				}
 
-				AuthenticationService.Instance.SignOut(true);
 				appData.LastEnvironmentName = FLEnvironment.Current.Name;
 
 				_dataService.AddData(appData, true);
@@ -192,18 +169,6 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void UpdateDisplayNamePlayfab(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError)
-		{
-			var request = new UpdateUserTitleDisplayNameRequest {DisplayName = newNickname};
-
-			void OnSuccessWrapper(UpdateUserTitleDisplayNameResult result)
-			{
-				onSuccess?.Invoke(result);
-			}
-
-			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccessWrapper, onError);
-		}
-
 		public async UniTask<bool> CheckIfRewardsMatch()
 		{
 			var req = new GetUserDataRequest() {Keys = new List<string>() {typeof(PlayerData).FullName}};
@@ -223,7 +188,7 @@ namespace FirstLight.Game.Services
 #endif
 			return inSync;
 		}
-		
+
 		public UniTask<ExecuteFunctionResult> CallGenericFunction(string functionName, Dictionary<string, string> data = null)
 		{
 			return CallFunctionAsync("Generic", new LogicRequest()
@@ -367,21 +332,15 @@ namespace FirstLight.Game.Services
 			}, e => { HandleError(e, onError); });
 		}
 
-		/// <summary>
-		/// Gets an specific internal title key data
-		/// </summary>
-		public void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError)
+		public async UniTask<ServerState> FetchServerState()
 		{
-			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() {Keys = new List<string>() {key}}, res =>
-			{
-				if (!res.Data.TryGetValue(key, out var data))
-				{
-					data = null;
-				}
-
-				onSuccess.Invoke(data);
-			}, e => { HandleError(e, onError); });
+			var result = await AsyncPlayfabAPI.ClientAPI.GetUserReadOnlyData(new GetUserDataRequest());
+			return new ServerState(result.Data
+				.ToDictionary(entry => entry.Key,
+					entry =>
+						entry.Value.Value));
 		}
+		
 
 		public bool IsGameInMaintenance(out string message)
 		{

@@ -61,6 +61,7 @@ namespace FirstLight.Tests.EditorMode
 		}
 
 		public bool ForcedEnvironment => false;
+
 		public bool IsGameInMaintenanceOrOutdated(bool openPopups)
 		{
 			return false;
@@ -79,6 +80,11 @@ namespace FirstLight.Tests.EditorMode
 		{
 		}
 
+		public UniTask<ServerState> FetchServerState()
+		{
+			return UniTask.FromResult(new ServerState());
+		}
+
 		public UniTask<bool> CheckIfRewardsMatch()
 		{
 			return new UniTask<bool>(true);
@@ -93,7 +99,7 @@ namespace FirstLight.Tests.EditorMode
 			throw new NotImplementedException();
 		}
 
-		public void SetupBackendEnvironment()
+		public UniTask SetupBackendEnvironment()
 		{
 			throw new NotImplementedException();
 		}
@@ -124,7 +130,8 @@ namespace FirstLight.Tests.EditorMode
 			return UniTask.FromResult(new ExecuteFunctionResult());
 		}
 
-		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError, Dictionary<string, string> data = null)
+		public void CallGenericFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError,
+										Dictionary<string, string> data = null)
 		{
 			throw new NotImplementedException();
 		}

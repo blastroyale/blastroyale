@@ -42,7 +42,7 @@ namespace FirstLight.Game.Services
 		{
 			_newsLocalData = new DataService();
 			_data = _newsLocalData.LoadData<NewsData>();
-			service.Subscribe<SuccessAuthentication>(OnAuth);
+			service.Subscribe<SuccessfullyAuthenticated>(OnAuth);
 			service.Subscribe<MainMenuLoadedMessage>(OnMenuOpen);
 		}
 
@@ -59,8 +59,9 @@ namespace FirstLight.Game.Services
 			_fetchingTask = FetchNews();
 		}
 		
-		private void OnAuth(SuccessAuthentication msg)
+		private void OnAuth(SuccessfullyAuthenticated msg)
 		{
+			if (msg.PreviouslyLoggedIn) return;
 			_fetchingTask = FetchNews();
 		}
 		

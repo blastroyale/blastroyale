@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -76,8 +77,9 @@ namespace FirstLight.Game.Presenters
 			_addFriendButton = Root.Q<LocalizedButton>("AddFriendButton").Required();
 			_requestsCount = Root.Q<Label>("RequestsCount").Required();
 
-			_addFriendButton.clicked += () => AddFriend(AuthenticationServiceExtensions.GetPlayerNameWithSpecialSpaceChar(_addFriendIDField.value)).Forget();
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
+			_addFriendButton.clicked += () =>
+				AddFriend(AuthServiceNameExtensions.ReplaceSpacesForSpecialChar(_addFriendIDField.value)).Forget();
 
 			_friendsList.bindItem = OnFriendsBindItem;
 			_requestsList.bindItem = OnRequestsBindItem;
@@ -120,7 +122,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_yourIDField.text = AuthenticationServiceExtensions.GetPlayerNameWithSpaces(_services.AuthenticationService.PlayfabNickname);
+			_yourIDField.text = _services.AuthService.GetLocalPlayerExternalID();
 			RefreshAll();
 
 			// TODO mihak: Temporary, we just always refresh all lists
@@ -266,19 +268,21 @@ namespace FirstLight.Game.Presenters
 
 			((FriendListElement) element)
 				.SetFromRelationship(relationship)
-				.SetPlayerName(relationship.Member.Profile.Name)
+				.SetPlayerName(AuthServiceNameExtensions.PrettifyUnityDisplayName(relationship.Member.Profile.Name))
 				.SetMoreActions(ve => OpenTooltip(ve, relationship))
-				.SetMainAction(ScriptLocalization.UITFriends.unblock, () => FriendsService.Instance.UnblockHandled(relationship).ContinueWith(_ => RefreshAll()).Forget(), true);
+				.SetMainAction(ScriptLocalization.UITFriends.unblock,
+					() => FriendsService.Instance.UnblockHandled(relationship).ContinueWith(_ => RefreshAll()).Forget(), true);
 		}
 
 		private void OpenTooltip(VisualElement element, Relationship relationship)
 		{
-			_services.GameSocialService.OpenPlayerOptions(element, Root, relationship.Member.Id, AuthenticationServiceExtensions.GetPlayerNameWithSpaces(relationship.Member.Profile.Name.TrimPlayerNameNumbers()), new PlayerContextSettings
-			{
-				ShowRemoveFriend = true,
-				ShowBlock = true,
-				OnRelationShipChange = RefreshAll
-			});
+			_services.GameSocialService.OpenPlayerOptions(element, Root, relationship.Member.Id,
+				AuthServiceNameExtensions.PrettifyUnityDisplayName(relationship.Member.Profile.Name), new PlayerContextSettings
+				{
+					ShowRemoveFriend = true,
+					ShowBlock = true,
+					OnRelationShipChange = RefreshAll
+				});
 		}
 
 		private async UniTaskVoid AcceptRequest(Relationship r)

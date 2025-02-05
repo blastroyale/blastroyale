@@ -54,7 +54,7 @@ namespace FirstLight.Game.Services
 
 		private void OnFeatureFlags(FeatureFlagsReceived e)
 		{
-			_appData = e.AppData;
+			_appData = e.TitleData;
 			Application.runInBackground = !FeatureFlags.GetLocalConfiguration().DisableRunInBackground;
 			if (!FeatureFlags.PAUSE_DISCONNECT_DIALOG)
 			{
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Services
 
 		private void HandleGamePaused()
 		{
-			if (!_services.AuthenticationService.State.LoggedIn) return;
+			if (!_services.AuthService.SessionData.IsAuthenticated) return;
 			if (_paused) return;
 			_paused = true;
 			_pauseTime = DateTime.UtcNow;
@@ -78,7 +78,7 @@ namespace FirstLight.Game.Services
 
 		private void HandleGameUnpaused()
 		{
-			if (!_services.AuthenticationService.State.LoggedIn || _services.NetworkService.QuantumClient == null) return;
+			if (!_services.AuthService.SessionData.IsAuthenticated || _services.NetworkService.QuantumClient == null) return;
 			if (!Application.isPlaying) return;
 #if UNITY_EDITOR
 			if (UnityEditor.EditorApplication.isPaused) return;

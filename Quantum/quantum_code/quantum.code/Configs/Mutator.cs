@@ -15,7 +15,10 @@ namespace Quantum
 		DisableRevive = 1 << 5,
 		Hardcore = 1 << 6,
 		SafeZoneInPlayableArea = 1 << 7,
-		Bloodthirst = 1 << 8
+		Bloodthirst = 1 << 8,
+		Midcore = 1 << 9,
+		InfiniteAmmo = 1 << 10,
+		FullShieldsAtStart = 1 << 11
 	}
 
 	public static class MutatorExtensions

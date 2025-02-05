@@ -123,7 +123,8 @@ namespace Quantum
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
-			CurrentShield = 0;
+			CurrentShield = f.Context.Mutators.HasFlagFast(Mutator.FullShieldsAtStart) ?
+								f.GameConfig.PlayerMaxShieldCapacity.Get(f) : 0;
 			IsImmune = false;
 
 			var modifiersList = f.ResolveList(Modifiers);

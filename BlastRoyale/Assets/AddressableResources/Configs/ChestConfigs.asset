@@ -1165,7 +1165,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 32
+          Weight: 40
         - ItemConfig:
             SimpleGameId: 4
             EquipmentMetadata:
@@ -1177,7 +1177,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 67
+          Weight: 59
         - ItemConfig:
             SimpleGameId: 127
             EquipmentMetadata:

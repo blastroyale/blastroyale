@@ -2401,12 +2401,18 @@ namespace I2.Loc
 			public static string mutator_DisableRevive_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_DisableRevive_Description"); } }
 			public static string mutator_DoNotDropSpecials 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_DoNotDropSpecials"); } }
 			public static string mutator_DoNotDropSpecials_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_DoNotDropSpecials_Description"); } }
+			public static string mutator_FullShieldsAtStart 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_FullShieldsAtStart"); } }
+			public static string mutator_FullShieldsAtStart_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_FullShieldsAtStart_Description"); } }
 			public static string mutator_HammerTime 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_HammerTime"); } }
 			public static string mutator_HammerTime_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_HammerTime_Description"); } }
 			public static string mutator_Hardcore 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_Hardcore"); } }
 			public static string mutator_Hardcore_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_Hardcore_Description"); } }
 			public static string mutator_HealthyAir 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_HealthyAir"); } }
 			public static string mutator_HealthyAir_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_HealthyAir_Description"); } }
+			public static string mutator_InfiniteAmmo 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_InfiniteAmmo"); } }
+			public static string mutator_InfiniteAmmo_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_InfiniteAmmo_Description"); } }
+			public static string mutator_Midcore 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_Midcore"); } }
+			public static string mutator_Midcore_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_Midcore_Description"); } }
 			public static string mutator_SafeZoneInPlayableArea 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_SafeZoneInPlayableArea"); } }
 			public static string mutator_SafeZoneInPlayableArea_Description 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_SafeZoneInPlayableArea_Description"); } }
 			public static string mutator_SpeedUp 		{ get{ return LocalizationManager.GetTranslation ("UITCustomGames/mutator_SpeedUp"); } }
@@ -5435,12 +5441,18 @@ namespace I2.Loc
 		    public const string mutator_DisableRevive_Description = "UITCustomGames/mutator_DisableRevive_Description";
 		    public const string mutator_DoNotDropSpecials = "UITCustomGames/mutator_DoNotDropSpecials";
 		    public const string mutator_DoNotDropSpecials_Description = "UITCustomGames/mutator_DoNotDropSpecials_Description";
+		    public const string mutator_FullShieldsAtStart = "UITCustomGames/mutator_FullShieldsAtStart";
+		    public const string mutator_FullShieldsAtStart_Description = "UITCustomGames/mutator_FullShieldsAtStart_Description";
 		    public const string mutator_HammerTime = "UITCustomGames/mutator_HammerTime";
 		    public const string mutator_HammerTime_Description = "UITCustomGames/mutator_HammerTime_Description";
 		    public const string mutator_Hardcore = "UITCustomGames/mutator_Hardcore";
 		    public const string mutator_Hardcore_Description = "UITCustomGames/mutator_Hardcore_Description";
 		    public const string mutator_HealthyAir = "UITCustomGames/mutator_HealthyAir";
 		    public const string mutator_HealthyAir_Description = "UITCustomGames/mutator_HealthyAir_Description";
+		    public const string mutator_InfiniteAmmo = "UITCustomGames/mutator_InfiniteAmmo";
+		    public const string mutator_InfiniteAmmo_Description = "UITCustomGames/mutator_InfiniteAmmo_Description";
+		    public const string mutator_Midcore = "UITCustomGames/mutator_Midcore";
+		    public const string mutator_Midcore_Description = "UITCustomGames/mutator_Midcore_Description";
 		    public const string mutator_SafeZoneInPlayableArea = "UITCustomGames/mutator_SafeZoneInPlayableArea";
 		    public const string mutator_SafeZoneInPlayableArea_Description = "UITCustomGames/mutator_SafeZoneInPlayableArea_Description";
 		    public const string mutator_SpeedUp = "UITCustomGames/mutator_SpeedUp";

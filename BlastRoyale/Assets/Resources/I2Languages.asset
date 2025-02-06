@@ -14049,7 +14049,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - A Fatal Whisper
       - A Fatal Whisper
       - 
@@ -14093,7 +14093,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Petal to the Metal
       - Petal to the Metal
       - 
@@ -14691,7 +14691,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Hunt, Target, Kill
       - Hunt, Target, Kill
       - 
@@ -16664,7 +16664,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Appears in the Shop
+      - Appears in the Starter Pack
       - 
       - 
       - 
@@ -16818,7 +16818,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Appears in the Shop
+      - Appears in the Starter Pack
       - 
       - 
       - 
@@ -17962,7 +17962,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -18204,7 +18204,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -18490,7 +18490,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Rebel like you mean it
       - Rebel like you mean it
       - 
@@ -18710,7 +18710,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Skyrocket your entrance
       - Skyrocket your entrance
       - 
@@ -19743,7 +19743,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Rebels forever
       - Rebels forever
       - 
@@ -32214,6 +32214,72 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/mutator_Midcore
+      TermType: 0
+      Description: 
+      Languages:
+      - MIDCORE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_Midcore_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Only about 50% of shields and healthpacks spawn on the map
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_InfiniteAmmo
+      TermType: 0
+      Description: 
+      Languages:
+      - INFINITE AMMO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_InfiniteAmmo_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Players never run out of ammo in their guns
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_FullShieldsAtStart
+      TermType: 0
+      Description: 
+      Languages:
+      - FULL SHIELDS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_FullShieldsAtStart_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Players start a match with full shields
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCustomGames/mutators
       TermType: 0
       Description: 
@@ -32725,7 +32791,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1737389447168
+    Google_LastUpdatedVersion: 1738847264903
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

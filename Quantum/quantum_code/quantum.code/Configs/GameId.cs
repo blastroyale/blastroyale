@@ -2984,6 +2984,62 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarGym, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarPigeon, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMrnoob, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarHoli, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarLantern, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarStar, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarMaleCorpoDark, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarFemaleCorpoDark, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -3563,7 +3619,15 @@ namespace Quantum
 						GameId.AvatarStreetrunner,
 						GameId.AvatarValkyrie,
 						GameId.AvatarYeti,
-						GameId.AvatarBase
+						GameId.AvatarBase,
+						GameId.AvatarGym,
+						GameId.AvatarPigeon,
+						GameId.AvatarMrnoob,
+						GameId.AvatarHoli,
+						GameId.AvatarLantern,
+						GameId.AvatarStar,
+						GameId.AvatarMaleCorpoDark,
+						GameId.AvatarFemaleCorpoDark
 					}.AsReadOnly()
 				},
 				{
@@ -4056,7 +4120,15 @@ namespace Quantum
 						GameId.AvatarStreetrunner,
 						GameId.AvatarValkyrie,
 						GameId.AvatarYeti,
-						GameId.AvatarBase
+						GameId.AvatarBase,
+						GameId.AvatarGym,
+						GameId.AvatarPigeon,
+						GameId.AvatarMrnoob,
+						GameId.AvatarHoli,
+						GameId.AvatarLantern,
+						GameId.AvatarStar,
+						GameId.AvatarMaleCorpoDark,
+						GameId.AvatarFemaleCorpoDark
 					}.AsReadOnly()
 				},
 				{

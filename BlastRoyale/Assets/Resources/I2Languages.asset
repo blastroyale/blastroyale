@@ -16781,6 +16781,160 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinGym
+      TermType: 0
+      Description: 
+      Languages:
+      - BULK BOGAN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGymDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPigeon
+      TermType: 0
+      Description: 
+      Languages:
+      - PEDRO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPigeonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinStar
+      TermType: 0
+      Description: 
+      Languages:
+      - AMU MANAJEM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinStarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinHoli
+      TermType: 0
+      Description: 
+      Languages:
+      - DIYA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinHoliDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinNoob
+      TermType: 0
+      Description: 
+      Languages:
+      - MR NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinNoobDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCorposFemaleDark
+      TermType: 0
+      Description: 
+      Languages:
+      - DARK KATARINA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCorposFemaleDarkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any female Corpo NFT to unlock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCorposMaleDark
+      TermType: 0
+      Description: 
+      Languages:
+      - DARK VICTOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCorposMaleDarkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any male Corpo NFT to unlock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinBigsyringe
       TermType: 0
       Description: 
@@ -32791,7 +32945,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1738847264903
+    Google_LastUpdatedVersion: 1738921930566
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -1661,6 +1661,55 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinCorposFemaleDark, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinCorposMaleDark, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinGym, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinHoli, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinNoob, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinPigeon, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinStar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
@@ -3329,6 +3378,13 @@ namespace Quantum
 						GameId.PlayerSkinStreetrunner,
 						GameId.PlayerSkinValkyrie,
 						GameId.PlayerSkinYeti,
+						GameId.PlayerSkinCorposFemaleDark,
+						GameId.PlayerSkinCorposMaleDark,
+						GameId.PlayerSkinGym,
+						GameId.PlayerSkinHoli,
+						GameId.PlayerSkinNoob,
+						GameId.PlayerSkinPigeon,
+						GameId.PlayerSkinStar,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -3506,7 +3562,8 @@ namespace Quantum
 						GameId.AvatarSnowflake,
 						GameId.AvatarStreetrunner,
 						GameId.AvatarValkyrie,
-						GameId.AvatarYeti
+						GameId.AvatarYeti,
+						GameId.AvatarBase
 					}.AsReadOnly()
 				},
 				{
@@ -3856,7 +3913,14 @@ namespace Quantum
 						GameId.PlayerSkinPostapocalypticassassin,
 						GameId.PlayerSkinStreetrunner,
 						GameId.PlayerSkinValkyrie,
-						GameId.PlayerSkinYeti
+						GameId.PlayerSkinYeti,
+						GameId.PlayerSkinCorposFemaleDark,
+						GameId.PlayerSkinCorposMaleDark,
+						GameId.PlayerSkinGym,
+						GameId.PlayerSkinHoli,
+						GameId.PlayerSkinNoob,
+						GameId.PlayerSkinPigeon,
+						GameId.PlayerSkinStar
 					}.AsReadOnly()
 				},
 				{
@@ -3991,7 +4055,8 @@ namespace Quantum
 						GameId.AvatarSnowflake,
 						GameId.AvatarStreetrunner,
 						GameId.AvatarValkyrie,
-						GameId.AvatarYeti
+						GameId.AvatarYeti,
+						GameId.AvatarBase
 					}.AsReadOnly()
 				},
 				{

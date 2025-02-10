@@ -111,7 +111,8 @@ namespace FirstLight.Game.Views.UITK
 			var item = _services.CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.MeleeSkin);
 			SetMeeleSkin(item).Forget();
 
-			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon).Forget();
+			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon,
+					  f.Context.Mutators.HasFlagFast(Mutator.InfiniteAmmo)).Forget();
 			SetSlot(pc.CurrentWeaponSlot);
 			_ammoLabel.text = "0";
 			UpdateAmmo(f, playerEntity);
@@ -135,7 +136,8 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_matchServices.IsSpectatingPlayer(callback.Entity)) return;
 
-			SetWeapon(callback.Weapon).Forget();
+			var f = callback.Game.Frames.Verified;
+			SetWeapon(callback.Weapon, f.Context.Mutators.HasFlagFast(Mutator.InfiniteAmmo)).Forget();
 		}
 
 		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
@@ -260,13 +262,13 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private async UniTaskVoid SetWeapon(Equipment weapon)
+		private async UniTaskVoid SetWeapon(Equipment weapon, bool isInfiniteAmmo)
 		{
 			_weaponRarity.RemoveSpriteClasses();
 			_weaponIcon.style.backgroundImage = null;
 			_weaponShadow.style.backgroundImage = null;
 
-			_ammoLabel.SetVisibility(weapon.IsValid());
+			_ammoLabel.SetVisibility(weapon.IsValid() && !isInfiniteAmmo);
 			_switchIcon.SetVisibility(weapon.IsValid());
 			if (!weapon.IsValid())
 			{

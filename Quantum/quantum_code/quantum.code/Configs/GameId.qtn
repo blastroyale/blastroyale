@@ -414,6 +414,14 @@ enum GameId
 	AvatarValkyrie = 549,
 	AvatarYeti = 550,
 	AvatarBase = 551,
+	AvatarGym = 552,
+	AvatarPigeon = 553,
+	AvatarMrnoob = 554,
+	AvatarHoli = 555,
+	AvatarLantern = 556,
+	AvatarStar = 557,
+	AvatarMaleCorpoDark = 558,
+	AvatarFemaleCorpoDark = 559,
 	FootprintDot = 111,
 }
 

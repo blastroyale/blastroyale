@@ -14049,7 +14049,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - A Fatal Whisper
       - A Fatal Whisper
       - 
@@ -14093,7 +14093,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Petal to the Metal
       - Petal to the Metal
       - 
@@ -14691,7 +14691,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Hunt, Target, Kill
       - Hunt, Target, Kill
       - 
@@ -16664,7 +16664,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Appears in the Shop
+      - Appears in the Starter Pack
       - 
       - 
       - 
@@ -16781,6 +16781,160 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinGym
+      TermType: 0
+      Description: 
+      Languages:
+      - BULK BOGAN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinGymDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPigeon
+      TermType: 0
+      Description: 
+      Languages:
+      - PEDRO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinPigeonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinStar
+      TermType: 0
+      Description: 
+      Languages:
+      - AMU MANAJEM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinStarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinHoli
+      TermType: 0
+      Description: 
+      Languages:
+      - DIYA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinHoliDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinNoob
+      TermType: 0
+      Description: 
+      Languages:
+      - MR NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinNoobDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCorposFemaleDark
+      TermType: 0
+      Description: 
+      Languages:
+      - DARK KATARINA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCorposFemaleDarkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any female Corpo NFT to unlock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCorposMaleDark
+      TermType: 0
+      Description: 
+      Languages:
+      - DARK VICTOR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCorposMaleDarkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any male Corpo NFT to unlock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MeleeSkinBigsyringe
       TermType: 0
       Description: 
@@ -16818,7 +16972,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Appears in the Shop
+      - Appears in the Starter Pack
       - 
       - 
       - 
@@ -17419,6 +17573,182 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarGym
+      TermType: 0
+      Description: 
+      Languages:
+      - FLEX
+      - BULK BOGAN
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarGymDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPigeon
+      TermType: 0
+      Description: 
+      Languages:
+      - COO COO
+      - PEDRO
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarPigeonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMrnoob
+      TermType: 0
+      Description: 
+      Languages:
+      - PUMPING
+      - AMU MANAJEM
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMrnoobDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarHoli
+      TermType: 0
+      Description: 
+      Languages:
+      - COLOURFUL
+      - DIYA
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarHoliDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLantern
+      TermType: 0
+      Description: 
+      Languages:
+      - BLESSED LIGHT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarLanternDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarStar
+      TermType: 0
+      Description: 
+      Languages:
+      - COUNT ME IN
+      - DARK KATARINA
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarStarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleCorpoDark
+      TermType: 0
+      Description: 
+      Languages:
+      - DARKNESS RISES
+      - DARK VICTOR
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarMaleCorpoDarkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any male Corpo NFT to unlock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemaleCorpoDark
+      TermType: 0
+      Description: 
+      Languages:
+      - DARKNESS RISES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarFemaleCorpoDarkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Own any female Corpo NFT to unlock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/PlayerSkinBoudicca
       TermType: 0
       Description: 
@@ -17962,7 +18292,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -18204,7 +18534,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - 
       - 
       - 
@@ -18490,7 +18820,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Rebel like you mean it
       - Rebel like you mean it
       - 
@@ -18710,7 +19040,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Skyrocket your entrance
       - Skyrocket your entrance
       - 
@@ -19743,7 +20073,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Purchase in the Shop
+      - Appears in the Shop
       - Rebels forever
       - Rebels forever
       - 
@@ -32214,6 +32544,72 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCustomGames/mutator_Midcore
+      TermType: 0
+      Description: 
+      Languages:
+      - MIDCORE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_Midcore_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Only about 50% of shields and healthpacks spawn on the map
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_InfiniteAmmo
+      TermType: 0
+      Description: 
+      Languages:
+      - INFINITE AMMO
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_InfiniteAmmo_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Players never run out of ammo in their guns
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_FullShieldsAtStart
+      TermType: 0
+      Description: 
+      Languages:
+      - FULL SHIELDS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCustomGames/mutator_FullShieldsAtStart_Description
+      TermType: 0
+      Description: 
+      Languages:
+      - Players start a match with full shields
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCustomGames/mutators
       TermType: 0
       Description: 
@@ -32725,7 +33121,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1737389447168
+    Google_LastUpdatedVersion: 1738932490838
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

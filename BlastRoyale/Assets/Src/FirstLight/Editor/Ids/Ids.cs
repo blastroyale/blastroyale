@@ -504,6 +504,15 @@ namespace FirstLight.Editor.Ids
 			{"AvatarYeti", 550, ProfilePicture, Collection},
 			{"AvatarBase", 551, ProfilePicture, Collection},
 
+			{"AvatarGym", 552, ProfilePicture, Collection},
+			{"AvatarPigeon", 553, ProfilePicture, Collection},
+			{"AvatarMrnoob", 554, ProfilePicture, Collection},
+			{"AvatarHoli", 555, ProfilePicture, Collection},
+			{"AvatarLantern", 556, ProfilePicture, Collection},
+			{"AvatarStar", 557, ProfilePicture, Collection},
+			{"AvatarMaleCorpoDark", 558, ProfilePicture, Collection},
+			{"AvatarFemaleCorpoDark", 559, ProfilePicture, Collection},
+			
 			#endregion
 
 			#region Footprint

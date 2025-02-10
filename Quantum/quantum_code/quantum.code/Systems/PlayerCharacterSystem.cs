@@ -219,6 +219,7 @@ namespace Quantum.Systems
 			}
 
 			var noHealthNoShields = f.Context.Mutators.HasFlagFast(Mutator.Hardcore);
+			var ammoIsInfinite = f.Context.Mutators.HasFlagFast(Mutator.InfiniteAmmo);
 
 			foreach (var drop in consumablesToDrop)
 			{
@@ -227,6 +228,12 @@ namespace Quantum.Systems
 						drop == GameId.ShieldSmall))
 				{
 					// Don't drop Health and Shields with Hardcore mutator
+				}
+				else if (ammoIsInfinite &&
+						 (drop == GameId.AmmoSmall ||
+						  drop == GameId.AmmoLarge))
+				{
+					// Don't drop Ammo with InfiniteAmmo mutator
 				}
 				else
 				{

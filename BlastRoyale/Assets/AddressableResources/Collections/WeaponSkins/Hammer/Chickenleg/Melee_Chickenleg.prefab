@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 3496152424796821822, guid: fd311ec68c51949d7a0182a3a19956ea, type: 3}
     - target: {fileID: 919132149155446097, guid: 94dc33c8d44df1b4f83ef7aff999a82b, type: 3}
       propertyPath: m_Name
-      value: Melee_Chemosword
+      value: Melee_Chickenleg
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -85,4 +85,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4acba63618c0342937419023073940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponType: 6
+  WeaponType: 1

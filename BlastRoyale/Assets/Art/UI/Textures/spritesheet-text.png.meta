@@ -1156,6 +1156,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: FestiveLANTERNIcon
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 424
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6975b2f7480b221428f5b222b872e367
+      internalID: 1972196635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1184,6 +1205,7 @@ TextureImporter:
       EventTicketIcon: 1326438006
       FLGBadge: -1477479967
       FestiveFEATHERIcon: 944128841
+      FestiveLANTERNIcon: 1972196635
       FestiveLUNARCOINIcon: 73108823
       FestiveSNOWFLAKEIcon: -707364249
       HPicon: -283004889

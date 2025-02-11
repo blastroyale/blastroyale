@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d16c7f1c8142a2d4e88e490e81fa458c
+guid: 78160d5011ef29344a78e4c98fcec7c3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Noob
-    second: {fileID: 2100000, guid: ff9594d86ab27b54dabe33537cf7b544, type: 2}
+    second: {fileID: 2100000, guid: aa48dbd138c43304a9396a1d3fa5010f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1
@@ -45,9 +45,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: meta_idle01_loop
-      takeName: meta_idle01_loop
-      internalID: -1453075382458034171
+      name: meta_idle1_loop
+      takeName: meta_idle1_loop
+      internalID: -1533404506062787293
       firstFrame: 0
       lastFrame: 360
       wrapMode: 0

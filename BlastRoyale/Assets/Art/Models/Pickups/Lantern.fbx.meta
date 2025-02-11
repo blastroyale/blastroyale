@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f102b813dec2a8e4e8380b167279d47b
+guid: 42e4d8f3e9aabd4438def2664148247b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,18 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_Char_Star
-    second: {fileID: 2100000, guid: e7064e1bdc6334e45989c6423ec68db0, type: 2}
+      name: m_props
+    second: {fileID: 2100000, guid: 1b29eb25dccf9e34d88c060106fa0564, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 1
-    materialSearch: 2
+    materialName: 0
+    materialSearch: 1
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 1
+    optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
@@ -34,87 +34,22 @@ ModelImporter:
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
-    extraExposedTransformPaths:
-    - Armature/Root/Hips/Spine/weapon_xlmelee
-    - Armature/Root/Hips/Spine/weapon_melee
-    - Armature/Root/Hips/Spine/weapon
-    - Armature/Root/Hips/Spine/Chest/Upper_Chest/Neck/Head/hat
-    - Armature/Root/Hips/Spine/Chest/Upper_Chest/glider
-    - Armature/Root/Hips/UpLeg.L/Leg.L/Foot.L
-    - Armature/Root/Hips/UpLeg.R/Leg.R/Foot.R
+    extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: meta_idle1_loop
-      takeName: meta_idle1_loop
-      internalID: -1533404506062787293
-      firstFrame: 0
-      lastFrame: 320
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: meta_flair
-      takeName: meta_flair
-      internalID: -4311744423893859263
-      firstFrame: 0
-      lastFrame: 187
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 2
+    meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -145,7 +80,7 @@ ModelImporter:
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
-    blendShapeNormalImportMode: 0
+    blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
@@ -169,7 +104,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

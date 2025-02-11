@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fe4e47c02803eb24790894a4ae9ac6ea
+guid: 2f4ba0d5d274b114f9b63af222b8fa0d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Gym
-    second: {fileID: 2100000, guid: e962d3e8b0d8d9a459a5af8ebe2446ae, type: 2}
+    second: {fileID: 2100000, guid: 6bbfd0e9a87d5964495f97be4adf624b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

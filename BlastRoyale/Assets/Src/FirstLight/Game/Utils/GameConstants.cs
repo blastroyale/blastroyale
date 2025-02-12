@@ -239,7 +239,8 @@ namespace FirstLight.Game.Utils
 				GameId.FestiveSNOWFLAKE,
 				GameId.EventTicket,
 				GameId.FestiveLUNARCOIN,
-				GameId.FestiveFEATHER
+				GameId.FestiveFEATHER,
+				GameId.FestiveLANTERN
 			};
 		}
 

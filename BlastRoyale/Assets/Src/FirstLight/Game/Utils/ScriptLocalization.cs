@@ -1341,6 +1341,9 @@ namespace I2.Loc
 			public static string FestiveFEATHER 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveFEATHER"); } }
 			public static string FestiveFEATHERDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveFEATHERDescription"); } }
 			public static string FestiveFEATHER_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveFEATHER_Plural"); } }
+			public static string FestiveLANTERN 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLANTERN"); } }
+			public static string FestiveLANTERNDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLANTERNDescription"); } }
+			public static string FestiveLANTERN_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLANTERN_Plural"); } }
 			public static string FestiveLUNARCOIN 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLUNARCOIN"); } }
 			public static string FestiveLUNARCOINDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLUNARCOINDescription"); } }
 			public static string FestiveLUNARCOIN_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLUNARCOIN_Plural"); } }
@@ -1355,18 +1358,26 @@ namespace I2.Loc
 			public static string FlagFireDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagFireDescription"); } }
 			public static string FlagGG 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagGG"); } }
 			public static string FlagGGDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagGGDescription"); } }
+			public static string FlagLamp 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagLamp"); } }
+			public static string FlagLampDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagLampDescription"); } }
 			public static string FlagLaughing 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagLaughing"); } }
 			public static string FlagLaughingDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagLaughingDescription"); } }
+			public static string FlagNight 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagNight"); } }
+			public static string FlagNightDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagNightDescription"); } }
 			public static string FlagNoob 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagNoob"); } }
 			public static string FlagNoobDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagNoobDescription"); } }
 			public static string FlagNumberOne 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagNumberOne"); } }
 			public static string FlagNumberOneDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagNumberOneDescription"); } }
+			public static string FlagPOG 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagPOG"); } }
+			public static string FlagPOGDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagPOGDescription"); } }
 			public static string FlagPooEmoji 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagPooEmoji"); } }
 			public static string FlagPooEmojiDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagPooEmojiDescription"); } }
 			public static string FlagRoyalCrown 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagRoyalCrown"); } }
 			public static string FlagRoyalCrownDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagRoyalCrownDescription"); } }
 			public static string FlagSalt 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagSalt"); } }
 			public static string FlagSaltDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagSaltDescription"); } }
+			public static string FlagStrong 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagStrong"); } }
+			public static string FlagStrongDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagStrongDescription"); } }
 			public static string FloodCity 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FloodCity"); } }
 			public static string FloodCitySimple 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FloodCitySimple"); } }
 			public static string FootballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FootballArmor"); } }
@@ -1445,10 +1456,14 @@ namespace I2.Loc
 			public static string MeleeSkinBroccoliDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinBroccoliDescription"); } }
 			public static string MeleeSkinBroom 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinBroom"); } }
 			public static string MeleeSkinBroomDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinBroomDescription"); } }
+			public static string MeleeSkinBrush 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinBrush"); } }
+			public static string MeleeSkinBrushDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinBrushDescription"); } }
 			public static string MeleeSkinCactus 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinCactus"); } }
 			public static string MeleeSkinCactusDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinCactusDescription"); } }
 			public static string MeleeSkinCarrepairHammer 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinCarrepairHammer"); } }
 			public static string MeleeSkinCarrepairHammerDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinCarrepairHammerDescription"); } }
+			public static string MeleeSkinChickenleg 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinChickenleg"); } }
+			public static string MeleeSkinChickenlegDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinChickenlegDescription"); } }
 			public static string MeleeSkinChinesefan 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinChinesefan"); } }
 			public static string MeleeSkinChinesefanDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinChinesefanDescription"); } }
 			public static string MeleeSkinCrowbar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinCrowbar"); } }
@@ -1459,6 +1474,8 @@ namespace I2.Loc
 			public static string MeleeSkinDefaultDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinDefaultDescription"); } }
 			public static string MeleeSkinDoctorStaff 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinDoctorStaff"); } }
 			public static string MeleeSkinDoctorStaffDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinDoctorStaffDescription"); } }
+			public static string MeleeSkinDumbbell 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinDumbbell"); } }
+			public static string MeleeSkinDumbbellDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinDumbbellDescription"); } }
 			public static string MeleeSkinElectricSolo 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinElectricSolo"); } }
 			public static string MeleeSkinElectricSoloDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinElectricSoloDescription"); } }
 			public static string MeleeSkinFestivefeather 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinFestivefeather"); } }
@@ -1485,6 +1502,8 @@ namespace I2.Loc
 			public static string MeleeSkinLightsaberDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinLightsaberDescription"); } }
 			public static string MeleeSkinLollipop 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinLollipop"); } }
 			public static string MeleeSkinLollipopDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinLollipopDescription"); } }
+			public static string MeleeSkinLunarStaff 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinLunarStaff"); } }
+			public static string MeleeSkinLunarStaffDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinLunarStaffDescription"); } }
 			public static string MeleeSkinMagicalShillelagh 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinMagicalShillelagh"); } }
 			public static string MeleeSkinMagicalShillelaghDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinMagicalShillelaghDescription"); } }
 			public static string MeleeSkinMicDrop 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinMicDrop"); } }
@@ -4411,6 +4430,9 @@ namespace I2.Loc
 		    public const string FestiveFEATHER = "GameIds/FestiveFEATHER";
 		    public const string FestiveFEATHERDescription = "GameIds/FestiveFEATHERDescription";
 		    public const string FestiveFEATHER_Plural = "GameIds/FestiveFEATHER_Plural";
+		    public const string FestiveLANTERN = "GameIds/FestiveLANTERN";
+		    public const string FestiveLANTERNDescription = "GameIds/FestiveLANTERNDescription";
+		    public const string FestiveLANTERN_Plural = "GameIds/FestiveLANTERN_Plural";
 		    public const string FestiveLUNARCOIN = "GameIds/FestiveLUNARCOIN";
 		    public const string FestiveLUNARCOINDescription = "GameIds/FestiveLUNARCOINDescription";
 		    public const string FestiveLUNARCOIN_Plural = "GameIds/FestiveLUNARCOIN_Plural";
@@ -4425,18 +4447,26 @@ namespace I2.Loc
 		    public const string FlagFireDescription = "GameIds/FlagFireDescription";
 		    public const string FlagGG = "GameIds/FlagGG";
 		    public const string FlagGGDescription = "GameIds/FlagGGDescription";
+		    public const string FlagLamp = "GameIds/FlagLamp";
+		    public const string FlagLampDescription = "GameIds/FlagLampDescription";
 		    public const string FlagLaughing = "GameIds/FlagLaughing";
 		    public const string FlagLaughingDescription = "GameIds/FlagLaughingDescription";
+		    public const string FlagNight = "GameIds/FlagNight";
+		    public const string FlagNightDescription = "GameIds/FlagNightDescription";
 		    public const string FlagNoob = "GameIds/FlagNoob";
 		    public const string FlagNoobDescription = "GameIds/FlagNoobDescription";
 		    public const string FlagNumberOne = "GameIds/FlagNumberOne";
 		    public const string FlagNumberOneDescription = "GameIds/FlagNumberOneDescription";
+		    public const string FlagPOG = "GameIds/FlagPOG";
+		    public const string FlagPOGDescription = "GameIds/FlagPOGDescription";
 		    public const string FlagPooEmoji = "GameIds/FlagPooEmoji";
 		    public const string FlagPooEmojiDescription = "GameIds/FlagPooEmojiDescription";
 		    public const string FlagRoyalCrown = "GameIds/FlagRoyalCrown";
 		    public const string FlagRoyalCrownDescription = "GameIds/FlagRoyalCrownDescription";
 		    public const string FlagSalt = "GameIds/FlagSalt";
 		    public const string FlagSaltDescription = "GameIds/FlagSaltDescription";
+		    public const string FlagStrong = "GameIds/FlagStrong";
+		    public const string FlagStrongDescription = "GameIds/FlagStrongDescription";
 		    public const string FloodCity = "GameIds/FloodCity";
 		    public const string FloodCitySimple = "GameIds/FloodCitySimple";
 		    public const string FootballArmor = "GameIds/FootballArmor";
@@ -4515,10 +4545,14 @@ namespace I2.Loc
 		    public const string MeleeSkinBroccoliDescription = "GameIds/MeleeSkinBroccoliDescription";
 		    public const string MeleeSkinBroom = "GameIds/MeleeSkinBroom";
 		    public const string MeleeSkinBroomDescription = "GameIds/MeleeSkinBroomDescription";
+		    public const string MeleeSkinBrush = "GameIds/MeleeSkinBrush";
+		    public const string MeleeSkinBrushDescription = "GameIds/MeleeSkinBrushDescription";
 		    public const string MeleeSkinCactus = "GameIds/MeleeSkinCactus";
 		    public const string MeleeSkinCactusDescription = "GameIds/MeleeSkinCactusDescription";
 		    public const string MeleeSkinCarrepairHammer = "GameIds/MeleeSkinCarrepairHammer";
 		    public const string MeleeSkinCarrepairHammerDescription = "GameIds/MeleeSkinCarrepairHammerDescription";
+		    public const string MeleeSkinChickenleg = "GameIds/MeleeSkinChickenleg";
+		    public const string MeleeSkinChickenlegDescription = "GameIds/MeleeSkinChickenlegDescription";
 		    public const string MeleeSkinChinesefan = "GameIds/MeleeSkinChinesefan";
 		    public const string MeleeSkinChinesefanDescription = "GameIds/MeleeSkinChinesefanDescription";
 		    public const string MeleeSkinCrowbar = "GameIds/MeleeSkinCrowbar";
@@ -4529,6 +4563,8 @@ namespace I2.Loc
 		    public const string MeleeSkinDefaultDescription = "GameIds/MeleeSkinDefaultDescription";
 		    public const string MeleeSkinDoctorStaff = "GameIds/MeleeSkinDoctorStaff";
 		    public const string MeleeSkinDoctorStaffDescription = "GameIds/MeleeSkinDoctorStaffDescription";
+		    public const string MeleeSkinDumbbell = "GameIds/MeleeSkinDumbbell";
+		    public const string MeleeSkinDumbbellDescription = "GameIds/MeleeSkinDumbbellDescription";
 		    public const string MeleeSkinElectricSolo = "GameIds/MeleeSkinElectricSolo";
 		    public const string MeleeSkinElectricSoloDescription = "GameIds/MeleeSkinElectricSoloDescription";
 		    public const string MeleeSkinFestivefeather = "GameIds/MeleeSkinFestivefeather";
@@ -4555,6 +4591,8 @@ namespace I2.Loc
 		    public const string MeleeSkinLightsaberDescription = "GameIds/MeleeSkinLightsaberDescription";
 		    public const string MeleeSkinLollipop = "GameIds/MeleeSkinLollipop";
 		    public const string MeleeSkinLollipopDescription = "GameIds/MeleeSkinLollipopDescription";
+		    public const string MeleeSkinLunarStaff = "GameIds/MeleeSkinLunarStaff";
+		    public const string MeleeSkinLunarStaffDescription = "GameIds/MeleeSkinLunarStaffDescription";
 		    public const string MeleeSkinMagicalShillelagh = "GameIds/MeleeSkinMagicalShillelagh";
 		    public const string MeleeSkinMagicalShillelaghDescription = "GameIds/MeleeSkinMagicalShillelaghDescription";
 		    public const string MeleeSkinMicDrop = "GameIds/MeleeSkinMicDrop";

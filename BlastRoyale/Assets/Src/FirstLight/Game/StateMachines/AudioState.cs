@@ -794,6 +794,7 @@ namespace FirstLight.Game.StateMachines
 					case GameId.EventTicket:
 					case GameId.FestiveLUNARCOIN:
 					case GameId.FestiveFEATHER:
+					case GameId.FestiveLANTERN:
 						audio = isLocal ? AudioId.NoobPickupLocal : AudioId.NoobPickup;
 						break;
 				}

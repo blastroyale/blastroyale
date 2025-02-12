@@ -1846,6 +1846,38 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.FlagLamp, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagStrong, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagNight, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagPOG, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.MeleeSkinDefault, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
@@ -2255,6 +2287,34 @@ namespace Quantum
 				},
 				{
 					GameId.MeleeSkinCarrepairHammer, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinBrush, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinLunarStaff, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinChickenleg, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinDumbbell, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
 						GameIdGroup.Collection
@@ -3466,6 +3526,10 @@ namespace Quantum
 						GameId.FlagPooEmoji,
 						GameId.FlagRoyalCrown,
 						GameId.FlagSalt,
+						GameId.FlagLamp,
+						GameId.FlagStrong,
+						GameId.FlagNight,
+						GameId.FlagPOG,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinSausage,
 						GameId.MeleeSkinCactus,
@@ -3524,6 +3588,10 @@ namespace Quantum
 						GameId.MeleeSkinChinesefan,
 						GameId.MeleeSkinToxicatorSword,
 						GameId.MeleeSkinCarrepairHammer,
+						GameId.MeleeSkinBrush,
+						GameId.MeleeSkinLunarStaff,
+						GameId.MeleeSkinChickenleg,
+						GameId.MeleeSkinDumbbell,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -3671,6 +3739,10 @@ namespace Quantum
 						GameId.Unicorn,
 						GameId.FlagNumberOne,
 						GameId.FlagSalt,
+						GameId.FlagLamp,
+						GameId.FlagStrong,
+						GameId.FlagNight,
+						GameId.FlagPOG,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinElectricSolo,
 						GameId.MeleeSkinMicDrop,
@@ -3919,7 +3991,11 @@ namespace Quantum
 						GameId.MeleeSkinFestivefeather,
 						GameId.MeleeSkinChinesefan,
 						GameId.MeleeSkinToxicatorSword,
-						GameId.MeleeSkinCarrepairHammer
+						GameId.MeleeSkinCarrepairHammer,
+						GameId.MeleeSkinBrush,
+						GameId.MeleeSkinLunarStaff,
+						GameId.MeleeSkinChickenleg,
+						GameId.MeleeSkinDumbbell
 					}.AsReadOnly()
 				},
 				{
@@ -4020,7 +4096,11 @@ namespace Quantum
 						GameId.FlagNumberOne,
 						GameId.FlagPooEmoji,
 						GameId.FlagRoyalCrown,
-						GameId.FlagSalt
+						GameId.FlagSalt,
+						GameId.FlagLamp,
+						GameId.FlagStrong,
+						GameId.FlagNight,
+						GameId.FlagPOG
 					}.AsReadOnly()
 				},
 				{

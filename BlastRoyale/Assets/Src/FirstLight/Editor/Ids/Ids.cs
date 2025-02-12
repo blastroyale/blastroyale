@@ -332,6 +332,11 @@ namespace FirstLight.Editor.Ids
 			{"FlagPooEmoji", 279, DeathMarker, Collection},
 			{"FlagRoyalCrown", 280, DeathMarker, Collection},
 			{"FlagSalt", 281, DeathMarker, BotItem, Collection},
+			
+			{"FlagLamp", 330, DeathMarker, BotItem, Collection},
+			{"FlagStrong", 331, DeathMarker, BotItem, Collection},
+			{"FlagNight", 332, DeathMarker, BotItem, Collection},
+			{"FlagPOG", 340, DeathMarker, BotItem, Collection},
 			#endregion
 
 			#region MeleeSkins
@@ -394,8 +399,12 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinChinesefan", 337, MeleeSkin, Collection},
 			{"MeleeSkinToxicatorSword", 338, MeleeSkin, Collection},
 			{"MeleeSkinCarrepairHammer", 339, MeleeSkin, Collection},
+			{"MeleeSkinBrush", 326, MeleeSkin, Collection},
+			{"MeleeSkinLunarStaff", 327, MeleeSkin, Collection},
+			{"MeleeSkinChickenleg", 328, MeleeSkin, Collection},
+			{"MeleeSkinDumbbell", 329, MeleeSkin, Collection},
 			// WEAPON GENERATION TOKEN KEEP THIS HERE
-			
+				
 			#endregion
 
 			#region ProfilePictures

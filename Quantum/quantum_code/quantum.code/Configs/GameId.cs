@@ -333,6 +333,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.FestiveLANTERN, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency,
+						GameIdGroup.CryptoCurrency
+					}.AsReadOnly()
+				},
+				{
 					GameId.FloodCity, new List<GameIdGroup>
 					{
 						GameIdGroup.Map,
@@ -3091,7 +3098,8 @@ namespace Quantum
 						GameId.FestiveSNOWFLAKE,
 						GameId.EventTicket,
 						GameId.FestiveLUNARCOIN,
-						GameId.FestiveFEATHER
+						GameId.FestiveFEATHER,
+						GameId.FestiveLANTERN
 					}.AsReadOnly()
 				},
 				{
@@ -3841,7 +3849,8 @@ namespace Quantum
 						GameId.FestiveSNOWFLAKE,
 						GameId.EventTicket,
 						GameId.FestiveLUNARCOIN,
-						GameId.FestiveFEATHER
+						GameId.FestiveFEATHER,
+						GameId.FestiveLANTERN
 					}.AsReadOnly()
 				},
 				{

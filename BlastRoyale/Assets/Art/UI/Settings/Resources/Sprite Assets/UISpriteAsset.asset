@@ -318,6 +318,11 @@ MonoBehaviour:
     m_GlyphIndex: 47
     m_Scale: 1
     m_Name: FestiveLUNARCOINIcon
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 48
+    m_Scale: 1
+    m_Name: FestiveLANTERNIcon
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -1087,4 +1092,20 @@ MonoBehaviour:
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 73108823, guid: a8ab3985bd248420b8f28f5bc1f408f3, type: 3}
+  - m_Index: 48
+    m_Metrics:
+      m_Width: 100
+      m_Height: 100
+      m_HorizontalBearingX: -50
+      m_HorizontalBearingY: 50
+      m_HorizontalAdvance: 100
+    m_GlyphRect:
+      m_X: 600
+      m_Y: 424
+      m_Width: 100
+      m_Height: 100
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 1972196635, guid: a8ab3985bd248420b8f28f5bc1f408f3, type: 3}
   fallbackSpriteAssets: []

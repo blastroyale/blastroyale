@@ -11314,7 +11314,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Blast Pass - Beta Season 7
+      - Own a Corpo NFT with Bunny Helmet to unlock
       - 
       - 
       - 
@@ -11578,7 +11578,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Appeared in the Shop
+      - Own any male Corpo NFT to unlock
       - 
       - 
       - 
@@ -11710,7 +11710,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Appeared in the Shop
+      - Own any female Corpo NFT to unlock
       - 
       - 
       - 
@@ -11732,7 +11732,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Appeared in the Shop
+      - Own any female Corpo NFT to unlock
       - 
       - 
       - 
@@ -11754,7 +11754,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Appeared in the Shop
+      - Own any female Corpo NFT to unlock
       - 
       - 
       - 
@@ -11776,7 +11776,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Appeared in the Shop
+      - Own any female Corpo NFT to unlock
       - 
       - 
       - 
@@ -12216,7 +12216,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any male Corpo NFT to unlock
       - 
       - 
       - 
@@ -12238,7 +12238,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any male Corpo NFT to unlock
       - 
       - 
       - 
@@ -12260,7 +12260,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - May'24 Leaderboard
+      - Own any male Corpo NFT to unlock
       - 
       - 
       - 
@@ -14846,7 +14846,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -14912,7 +14912,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15022,7 +15022,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15044,7 +15044,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15176,7 +15176,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15264,7 +15264,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15286,7 +15286,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15308,7 +15308,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15352,7 +15352,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Blast Pass - Beta Season 8
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15418,7 +15418,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15484,7 +15484,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TBD
+      - Own any Corpo NFT with this item to unlock
       - 
       - 
       - 
@@ -15903,6 +15903,94 @@ MonoBehaviour:
       Description: 
       Languages:
       - Blast Pass - Beta Season 12
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBrush
+      TermType: 0
+      Description: 
+      Languages:
+      - PAINTBRUSH
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinBrushDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinLunarStaff
+      TermType: 0
+      Description: 
+      Languages:
+      - CRESCENT STAFF
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinLunarStaffDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinChickenleg
+      TermType: 0
+      Description: 
+      Languages:
+      - CHICKEN LEG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinChickenlegDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDumbbell
+      TermType: 0
+      Description: 
+      Languages:
+      - DUMBBELL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDumbbellDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
       - 
       - 
       - 
@@ -16526,6 +16614,46 @@ MonoBehaviour:
       Description: 
       Languages:
       - FEATHERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveLANTERN
+      TermType: 0
+      Description: 
+      Languages:
+      - LANTERN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveLANTERNDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Lanterns in special events
+
+        or buy them in the shop.
+
+        Use
+        them to purchase
+
+        special event''s items in the shop.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveLANTERN_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - LANTERNS
       - 
       - 
       - 
@@ -17325,6 +17453,94 @@ MonoBehaviour:
       Description: 
       Languages:
       - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagLamp
+      TermType: 0
+      Description: 
+      Languages:
+      - BUNTING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagLampDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagStrong
+      TermType: 0
+      Description: 
+      Languages:
+      - FLEX
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagStrongDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNight
+      TermType: 0
+      Description: 
+      Languages:
+      - GOOD NIGHT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagNightDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagPOG
+      TermType: 0
+      Description: 
+      Languages:
+      - POG FACE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagPOGDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 3
       - 
       - 
       - 
@@ -33121,7 +33337,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1738932490838
+    Google_LastUpdatedVersion: 1739359416783
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

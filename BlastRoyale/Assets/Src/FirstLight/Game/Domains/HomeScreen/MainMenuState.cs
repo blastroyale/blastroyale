@@ -171,7 +171,6 @@ namespace FirstLight.Game.Domains.HomeScreen
 
 			homeMenu.OnEnter(() => OpenHomeScreen().Forget());
 			homeMenu.OnEnter(RequestStartMetaMatchTutorial);
-			homeMenu.OnEnter(UniTask.Action(AutoStartMatchmaking));
 			homeMenu.Event(PlayClickedEvent).Target(matchmakingChecks);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(homeCheck);
@@ -514,9 +513,14 @@ namespace FirstLight.Game.Domains.HomeScreen
 				};
 
 				await _services.UIService.OpenScreen<HomeScreenPresenter>(data);
+				if (await AutoStartMatchmaking()) // Do not show notification/banners when matchmaking
+				{
+					return;
+				}
 			}
 
-			if (triggerNotifications)
+			var hasForcedBehaviour = _services.HomeScreenService.ForceBehaviour != HomeScreenForceBehaviourType.None;
+			if (triggerNotifications && !hasForcedBehaviour)
 			{
 				// This fetches the rewards asynchronously and if any rewards are chosen open the home screen back
 				_services.HomeScreenService.ShowNotifications(typeof(HomeScreenPresenter), () => OpenHomeScreen(false))
@@ -561,14 +565,17 @@ namespace FirstLight.Game.Domains.HomeScreen
 			RequestDelayed().Forget();
 		}
 
-		private async UniTaskVoid AutoStartMatchmaking()
+		private async UniTask<bool> AutoStartMatchmaking()
 		{
-			await UniTask.NextFrame(); // TODO: Hack because we get into a loop and Unity freezes without it
 			if (_services.HomeScreenService.ForceBehaviour == HomeScreenForceBehaviourType.Matchmaking)
 			{
+				await UniTask.NextFrame(); // TODO: Hack because we get into a loop and Unity freezes without it
 				PlayButtonClicked();
 				_services.HomeScreenService.SetForceBehaviour(HomeScreenForceBehaviourType.None);
+				return true;
 			}
+
+			return false;
 		}
 
 		private async UniTask RequestDelayed()

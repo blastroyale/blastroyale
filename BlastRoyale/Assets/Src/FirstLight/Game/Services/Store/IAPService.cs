@@ -542,6 +542,8 @@ namespace FirstLight.Game.Services
 
 			_pending.Remove(product.definition.id);
 			PurchaseFinished?.Invoke(product.definition.id, item, true, null);
+
+			SingularSDK.InAppPurchase(product, null);
 		}
 	}
 

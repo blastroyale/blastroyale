@@ -3107,6 +3107,90 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarSupporterGold202501, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterGold202502, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterGold202503, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterGold202504, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterSilver202501, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterSilver202502, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterSilver202503, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterSilver202504, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterBronze202501, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterBronze202502, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterBronze202503, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSupporterBronze202504, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -3703,7 +3787,19 @@ namespace Quantum
 						GameId.AvatarLantern,
 						GameId.AvatarStar,
 						GameId.AvatarMaleCorpoDark,
-						GameId.AvatarFemaleCorpoDark
+						GameId.AvatarFemaleCorpoDark,
+						GameId.AvatarSupporterGold202501,
+						GameId.AvatarSupporterGold202502,
+						GameId.AvatarSupporterGold202503,
+						GameId.AvatarSupporterGold202504,
+						GameId.AvatarSupporterSilver202501,
+						GameId.AvatarSupporterSilver202502,
+						GameId.AvatarSupporterSilver202503,
+						GameId.AvatarSupporterSilver202504,
+						GameId.AvatarSupporterBronze202501,
+						GameId.AvatarSupporterBronze202502,
+						GameId.AvatarSupporterBronze202503,
+						GameId.AvatarSupporterBronze202504
 					}.AsReadOnly()
 				},
 				{
@@ -4217,7 +4313,19 @@ namespace Quantum
 						GameId.AvatarLantern,
 						GameId.AvatarStar,
 						GameId.AvatarMaleCorpoDark,
-						GameId.AvatarFemaleCorpoDark
+						GameId.AvatarFemaleCorpoDark,
+						GameId.AvatarSupporterGold202501,
+						GameId.AvatarSupporterGold202502,
+						GameId.AvatarSupporterGold202503,
+						GameId.AvatarSupporterGold202504,
+						GameId.AvatarSupporterSilver202501,
+						GameId.AvatarSupporterSilver202502,
+						GameId.AvatarSupporterSilver202503,
+						GameId.AvatarSupporterSilver202504,
+						GameId.AvatarSupporterBronze202501,
+						GameId.AvatarSupporterBronze202502,
+						GameId.AvatarSupporterBronze202503,
+						GameId.AvatarSupporterBronze202504
 					}.AsReadOnly()
 				},
 				{

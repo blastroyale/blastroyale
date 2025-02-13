@@ -431,6 +431,18 @@ enum GameId
 	AvatarStar = 557,
 	AvatarMaleCorpoDark = 558,
 	AvatarFemaleCorpoDark = 559,
+	AvatarSupporterGold202501 = 560,
+	AvatarSupporterGold202502 = 561,
+	AvatarSupporterGold202503 = 562,
+	AvatarSupporterGold202504 = 563,
+	AvatarSupporterSilver202501 = 564,
+	AvatarSupporterSilver202502 = 565,
+	AvatarSupporterSilver202503 = 566,
+	AvatarSupporterSilver202504 = 567,
+	AvatarSupporterBronze202501 = 568,
+	AvatarSupporterBronze202502 = 569,
+	AvatarSupporterBronze202503 = 570,
+	AvatarSupporterBronze202504 = 571,
 	FootprintDot = 111,
 }
 

@@ -523,6 +523,19 @@ namespace FirstLight.Editor.Ids
 			{"AvatarMaleCorpoDark", 558, ProfilePicture, Collection},
 			{"AvatarFemaleCorpoDark", 559, ProfilePicture, Collection},
 			
+			{"AvatarSupporterGold202501", 560, ProfilePicture, Collection},
+			{"AvatarSupporterGold202502", 561, ProfilePicture, Collection},
+			{"AvatarSupporterGold202503", 562, ProfilePicture, Collection},
+			{"AvatarSupporterGold202504", 563, ProfilePicture, Collection},
+			{"AvatarSupporterSilver202501", 564, ProfilePicture, Collection},
+			{"AvatarSupporterSilver202502", 565, ProfilePicture, Collection},
+			{"AvatarSupporterSilver202503", 566, ProfilePicture, Collection},
+			{"AvatarSupporterSilver202504", 567, ProfilePicture, Collection},
+			{"AvatarSupporterBronze202501", 568, ProfilePicture, Collection},
+			{"AvatarSupporterBronze202502", 569, ProfilePicture, Collection},
+			{"AvatarSupporterBronze202503", 570, ProfilePicture, Collection},
+			{"AvatarSupporterBronze202504", 571, ProfilePicture, Collection},
+			
 			#endregion
 
 			#region Footprint

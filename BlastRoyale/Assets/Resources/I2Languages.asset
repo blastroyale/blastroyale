@@ -13235,6 +13235,204 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/AvatarSupporterGold202501
+      TermType: 0
+      Description: 
+      Languages:
+      - GOLD '25 01
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterGold202501Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterGold202502
+      TermType: 0
+      Description: 
+      Languages:
+      - GOLD '25 02
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterGold202502Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterGold202503
+      TermType: 0
+      Description: 
+      Languages:
+      - GOLD '25 03
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterGold202503Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterGold202504
+      TermType: 0
+      Description: 
+      Languages:
+      - GOLD '25 04
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterGold202504Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterSilver202501
+      TermType: 0
+      Description: 
+      Languages:
+      - SILVER '25 01
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterSilver202501Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterSilver202502
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE '25 02
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterSilver202502Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterSilver202503
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE '25 03
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterSilver202503Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterSilver202504
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE '25 04
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterSilver202504Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterBronze202501
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE '25 01
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterBronze202501Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BLSTDescription
       TermType: 0
       Description: 
@@ -33337,7 +33535,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1739359416783
+    Google_LastUpdatedVersion: 1739457412056
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

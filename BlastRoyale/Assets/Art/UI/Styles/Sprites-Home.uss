@@ -168,6 +168,7 @@
     --sprite-home__icon-banner: url('/Assets/Art/UI/Sprites/Home/icon-banner.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
     --sprite-home__icon-blasthub: url('/Assets/Art/UI/Sprites/Home/icon-blasthub.png');
+    --sprite-home__icon-calendar: url('/Assets/Art/UI/Sprites/Home/icon-calendar.png');
     --sprite-home__icon-characters: url('/Assets/Art/UI/Sprites/Home/icon-characters.png');
     --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
     --sprite-home__icon-close: url('/Assets/Art/UI/Sprites/Home/icon-close.png');
@@ -1223,6 +1224,12 @@
 
 .sprite-home__icon-blasthub {
     background-image: var(--sprite-home__icon-blasthub);
+    width: 48px;
+    height: 48px;
+}
+
+.sprite-home__icon-calendar {
+    background-image: var(--sprite-home__icon-calendar);
     width: 48px;
     height: 48px;
 }

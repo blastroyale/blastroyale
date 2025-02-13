@@ -1247,6 +1247,24 @@ namespace I2.Loc
 			public static string AvatarStreetrunnerDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarStreetrunnerDescription"); } }
 			public static string AvatarSuperstarloveads 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSuperstarloveads"); } }
 			public static string AvatarSuperstarloveadsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSuperstarloveadsDescription"); } }
+			public static string AvatarSupporterBronze202501 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202501"); } }
+			public static string AvatarSupporterBronze202501Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202501Description"); } }
+			public static string AvatarSupporterGold202501 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202501"); } }
+			public static string AvatarSupporterGold202501Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202501Description"); } }
+			public static string AvatarSupporterGold202502 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202502"); } }
+			public static string AvatarSupporterGold202502Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202502Description"); } }
+			public static string AvatarSupporterGold202503 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202503"); } }
+			public static string AvatarSupporterGold202503Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202503Description"); } }
+			public static string AvatarSupporterGold202504 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202504"); } }
+			public static string AvatarSupporterGold202504Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202504Description"); } }
+			public static string AvatarSupporterSilver202501 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterSilver202501"); } }
+			public static string AvatarSupporterSilver202501Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterSilver202501Description"); } }
+			public static string AvatarSupporterSilver202502 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterSilver202502"); } }
+			public static string AvatarSupporterSilver202502Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterSilver202502Description"); } }
+			public static string AvatarSupporterSilver202503 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterSilver202503"); } }
+			public static string AvatarSupporterSilver202503Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterSilver202503Description"); } }
+			public static string AvatarSupporterSilver202504 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterSilver202504"); } }
+			public static string AvatarSupporterSilver202504Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterSilver202504Description"); } }
 			public static string AvatarSwimmer 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSwimmer"); } }
 			public static string AvatarSwimmerDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSwimmerDescription"); } }
 			public static string AvatarThief 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarThief"); } }
@@ -4336,6 +4354,24 @@ namespace I2.Loc
 		    public const string AvatarStreetrunnerDescription = "GameIds/AvatarStreetrunnerDescription";
 		    public const string AvatarSuperstarloveads = "GameIds/AvatarSuperstarloveads";
 		    public const string AvatarSuperstarloveadsDescription = "GameIds/AvatarSuperstarloveadsDescription";
+		    public const string AvatarSupporterBronze202501 = "GameIds/AvatarSupporterBronze202501";
+		    public const string AvatarSupporterBronze202501Description = "GameIds/AvatarSupporterBronze202501Description";
+		    public const string AvatarSupporterGold202501 = "GameIds/AvatarSupporterGold202501";
+		    public const string AvatarSupporterGold202501Description = "GameIds/AvatarSupporterGold202501Description";
+		    public const string AvatarSupporterGold202502 = "GameIds/AvatarSupporterGold202502";
+		    public const string AvatarSupporterGold202502Description = "GameIds/AvatarSupporterGold202502Description";
+		    public const string AvatarSupporterGold202503 = "GameIds/AvatarSupporterGold202503";
+		    public const string AvatarSupporterGold202503Description = "GameIds/AvatarSupporterGold202503Description";
+		    public const string AvatarSupporterGold202504 = "GameIds/AvatarSupporterGold202504";
+		    public const string AvatarSupporterGold202504Description = "GameIds/AvatarSupporterGold202504Description";
+		    public const string AvatarSupporterSilver202501 = "GameIds/AvatarSupporterSilver202501";
+		    public const string AvatarSupporterSilver202501Description = "GameIds/AvatarSupporterSilver202501Description";
+		    public const string AvatarSupporterSilver202502 = "GameIds/AvatarSupporterSilver202502";
+		    public const string AvatarSupporterSilver202502Description = "GameIds/AvatarSupporterSilver202502Description";
+		    public const string AvatarSupporterSilver202503 = "GameIds/AvatarSupporterSilver202503";
+		    public const string AvatarSupporterSilver202503Description = "GameIds/AvatarSupporterSilver202503Description";
+		    public const string AvatarSupporterSilver202504 = "GameIds/AvatarSupporterSilver202504";
+		    public const string AvatarSupporterSilver202504Description = "GameIds/AvatarSupporterSilver202504Description";
 		    public const string AvatarSwimmer = "GameIds/AvatarSwimmer";
 		    public const string AvatarSwimmerDescription = "GameIds/AvatarSwimmerDescription";
 		    public const string AvatarThief = "GameIds/AvatarThief";

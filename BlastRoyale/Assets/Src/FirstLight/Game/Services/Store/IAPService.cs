@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
+using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Logic;
@@ -19,6 +20,7 @@ using FirstLight.SDK.Services;
 using FirstLightServerSDK.Services;
 using I2.Loc;
 using Quantum;
+using Sirenix.Utilities;
 using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Services
@@ -103,6 +105,16 @@ namespace FirstLight.Game.Services
 		IReadOnlyCollection<GameProduct> AvailableProducts { get;  }
 
 		/// <summary>
+		/// Mark all the new store items as seen by the player
+		/// </summary>
+		void MarkAllNewStoreItemsAsSeen();
+		
+		/// <summary>
+		/// Returns true if is there any new update on the store that player didn't see it
+		/// </summary>
+		bool HasStoreItemsUpdate(string filterCategory = null, string filterProduct = null);
+		
+		/// <summary>
 		/// Initializes the purchasing module.
 		/// </summary>
 		void Init();
@@ -111,6 +123,8 @@ namespace FirstLight.Game.Services
 		/// Event fired everytime a purchase finishes processing
 		/// </summary>
 		event PurchaseFinishedDelegate PurchaseFinished;
+		
+		
 
 		delegate void PurchaseFinishedDelegate(string productId, ItemData data, bool succeeded, IUnityStoreService.PurchaseFailureData failureData);
 
@@ -119,6 +133,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <returns></returns>
 		public UniTask ShowQueuedTransactionFailedMessagesAndWait();
+
 	}
 
 	public class IAPService : IIAPService
@@ -133,6 +148,7 @@ namespace FirstLight.Game.Services
 
 		public event IIAPService.PurchaseFinishedDelegate PurchaseFinished;
 
+		private Dictionary<string, GameProductCategory> _lastStoreLoadedDifference = new ();
 		private Dictionary<string, GameProductCategory> _availableProductCategories = new ();
 		private Dictionary<string, GameProductsBundle> _availableGameProductBundles = new ();
 		private List<GameProduct> _availableProducts = new ();
@@ -296,7 +312,94 @@ namespace FirstLight.Game.Services
 
 				ResolveCategoryProducts(playfabProducts);
 				ResolveBundles(playfabBundles);
+				UpdateLocalStoreState();
 			};
+		}
+
+		private void UpdateLocalStoreState()
+		{
+			var lastStoreState = _localPrefs.LastStoreState;
+			var newStoreState = new LocalStoreStateData();
+
+			foreach (var productCategory in _availableProductCategories.Values.Where(apc => !apc.IsHidden))
+			{
+				//No previous state persisted inside PlayerPrefs, All items and Categories will be tagged as new.
+				if (lastStoreState == null)
+				{
+					newStoreState.Categories.Add(new LocalStoreCategory()
+					{
+						CategoryName = productCategory.Name,
+						Products = productCategory.Products.Select(p => new LocalStoreProduct { ProductName = p.PlayfabProductConfig.CatalogItem.ItemId}).ToList()
+					});
+					
+					continue;
+				}
+
+				//Previous State has been found, try to get LastStateCategory
+				var lastStoreStateCategory = lastStoreState.Value.Categories.FirstOrDefault(c => c.CategoryName == productCategory.Name);
+
+				if (lastStoreStateCategory == null)
+				{
+					newStoreState.Categories.Add(new LocalStoreCategory()
+					{
+						CategoryName = productCategory.Name,
+						Products = productCategory.Products.Select(p => new LocalStoreProduct { ProductName = p.PlayfabProductConfig.CatalogItem.ItemId, IsNewStoreItem = true}).ToList()
+					});
+				}
+				else
+				{
+					var addedProducts = productCategory.Products
+						.Where(productFromStore => lastStoreStateCategory.Products.All(lastStateProduct => lastStateProduct.ProductName != productFromStore.PlayfabProductConfig.CatalogItem.ItemId))
+						.Select(currentProduct => new LocalStoreProduct
+						{
+							ProductName = currentProduct.PlayfabProductConfig.CatalogItem.ItemId,
+							IsNewStoreItem = true
+						}).ToList();
+					
+					var removedProducts = lastStoreStateCategory.Products
+						.Where(oldProduct => productCategory.Products.All(currentProduct => currentProduct.PlayfabProductConfig.CatalogItem.ItemId != oldProduct.ProductName))
+						.ToList();
+
+					//Remove what need to be removed, Add what need to be added and keep everything else untouched
+					lastStoreStateCategory.Products.RemoveAll(p => removedProducts.Contains(p));
+					lastStoreStateCategory.Products.AddRange(addedProducts);
+					
+					newStoreState.Categories.Add(lastStoreStateCategory);
+				}
+			}
+			
+			_localPrefs.LastStoreState.Value = newStoreState;
+		}
+
+		public void MarkAllNewStoreItemsAsSeen()
+		{
+			var lastStoreState = _localPrefs.LastStoreState.Value;
+			lastStoreState.Categories.ForEach(c => c.MarkProductsAsSeen());
+			
+			_localPrefs.LastStoreState.Value = lastStoreState;
+			var after = _localPrefs.LastStoreState.Value;
+			FLog.Info("Stop here after persisting");
+		}
+
+		public bool HasStoreItemsUpdate(string filterCategory = null, string filterProduct = null)
+		{
+
+			if (filterProduct != null)
+			{
+				return _localPrefs.LastStoreState.Value.Categories
+					.Where(category => category?.Products != null)
+					.SelectMany(category => category.Products)
+					.Any(product => product?.ProductName == filterProduct && product.IsNewStoreItem);
+			}
+
+			if (filterCategory != null)
+			{
+				return _localPrefs.LastStoreState.Value.Categories
+					.FirstOrDefault(c => c.CategoryName == filterCategory)
+					?.HasUpdate() ?? false;
+			}
+
+			return _localPrefs.LastStoreState.Value.Categories.Any(c => c.HasUpdate());
 		}
 
 		private void ResolveBundles(Dictionary<PlayfabProductConfig, List<PlayfabProductConfig>> playfabGameProductBundles)

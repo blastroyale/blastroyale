@@ -14,7 +14,6 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.SharedModels;
-using UnityEngine;
 using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Services
@@ -74,8 +73,8 @@ namespace FirstLight.Game.Services
 		public event Action<List<PlayfabProductConfig>, Dictionary<PlayfabProductConfig, List<PlayfabProductConfig>>> OnStoreLoaded;
 
 		public const string CATALOG_NAME = "Store";
-		// public const string STORE_NAME = "Marcelo";
-		public const string STORE_NAME = "MainShop";
+		public const string STORE_NAME = "Marcelo";
+		// public const string STORE_NAME = "MainShop";
 
 		private IGameBackendService _backend;
 
@@ -134,9 +133,9 @@ namespace FirstLight.Game.Services
 		{
 			var catalogItemsTask = AsyncPlayfabAPI.GetCatalogItems(new GetCatalogItemsRequest {CatalogVersion = CATALOG_NAME});
 			var storeItemsTask = AsyncPlayfabAPI.GetStoreItems(new GetStoreItemsRequest {CatalogVersion = CATALOG_NAME, StoreId = STORE_NAME});
-
+			
 			var (catalogItemResult, storeItemsResult) = await UniTask.WhenAll(catalogItemsTask, storeItemsTask).Timeout(TimeSpan.FromSeconds(10));
-
+			
 			OnCatalogStoreItemsLoadResult(catalogItemResult, storeItemsResult);
 
 			_storeLoadCooldown.Trigger();
@@ -151,7 +150,7 @@ namespace FirstLight.Game.Services
 
 			_catalogItems = getCatalogItemsResult.Catalog.ToDictionary(i => i.ItemId, i => i);
 			_storeItems = getStoreItemsResult.Store.ToDictionary(i => i.ItemId, i => i);
-			_bundleItems = getCatalogItemsResult.Catalog.Where(c => c.Bundle != null).ToDictionary(i => i.ItemId, i => i);
+			_bundleItems = getCatalogItemsResult.Catalog.Where(c => c.Bundle != null && _storeItems.ContainsKey(c.ItemId)).ToDictionary(i => i.ItemId, i => i);
 
 			OnLoaded();
 		}

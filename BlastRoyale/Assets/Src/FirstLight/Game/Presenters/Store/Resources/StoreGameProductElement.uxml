@@ -17,6 +17,9 @@
             <ui:VisualElement name="PurchasedAmountArea" class="purchased-amount-area">
                 <ui:Label tabindex="-1" text="2/2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PurchasedAmount" class="purchased-amount" />
             </ui:VisualElement>
+            <ui:VisualElement name="NewItemNotificationArea"  class="new-item-area" style="display: none;">
+                <ui:VisualElement name="NewItemNotificationIcon" class="notification-icon notification-icon__new-item" />
+            </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="InformationClickArea" focusable="true" tabindex="1" class="info-click-area" style="display: none;">
                 <ui:VisualElement name="InformationIcon" class="info-button" style="display: flex; visibility: visible;" />
             </FirstLight.Game.UIElements.ImageButton>

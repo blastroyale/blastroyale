@@ -69,6 +69,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 		private PlayerAvatarElement _avatar;
 
 		private VisualElement _collectionNotification;
+		private VisualElement _storeNotification;
 		private VisualElement _settingsNotification;
 		private VisualElement _friendsNotification;
 		private VisualElement _newsNotification;
@@ -126,6 +127,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_avatar = Root.Q<PlayerAvatarElement>("Avatar").Required();
 
 			_collectionNotification = Root.Q<VisualElement>("CollectionNotification").Required();
+			_storeNotification = Root.Q<VisualElement>("StoreNotification").Required();
 			_settingsNotification = Root.Q<VisualElement>("SettingsNotification").Required();
 			_friendsNotification = Root.Q<VisualElement>("FriendsNotification").Required();
 			_onlineFriendsNotification = Root.Q<VisualElement>("OnlineFriendsNotification").Required();
@@ -171,6 +173,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			}
 
 			LoadStarterPackAndSetupButton().Forget();
+			CheckStoreUpdateForNotification().Forget();
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 			Root.Q<LocalizedButton>("FriendsButton").Required().LevelLock(this, Root, UnlockSystem.Friends, () => Data.FriendsClicked?.Invoke());
@@ -179,6 +182,13 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
 			Root.SetupClicks(_services);
+		}
+
+		private async UniTaskVoid CheckStoreUpdateForNotification()
+		{
+			await UniTask.WaitUntil(() => _services.IAPService.UnityStore.Initialized);
+			
+			_storeNotification.SetDisplay(_services.IAPService.HasStoreItemsUpdate());
 		}
 
 		private async UniTaskVoid LoadStarterPackAndSetupButton()

@@ -125,11 +125,24 @@ MonoBehaviour:
       BuyLevelPrice: 20
       DefaultPointsPerLevel: 300
       StartsAt: 01/02/2025
-      EndsAt: 28/02/2025
+      EndsAt: 10/02/2025
       RemovePaid: 0
       EndGraphicImageClass: sprite-home__alien-season-reward
       BannerGraphicImageClass: sprite-home__banner-alien
       EndGraphicName: XANADU
+      Highlighted: 44:F,12,30:F,50
+    - Number: 15
+      Title: NOOB SEASON 3
+      Price: 1491
+      EnableIAP: 1
+      BuyLevelPrice: 20
+      DefaultPointsPerLevel: 300
+      StartsAt: 11/02/2025
+      EndsAt: 31/03/2025
+      RemovePaid: 0
+      EndGraphicImageClass: sprite-home__pigeon-season-reward
+      BannerGraphicImageClass: sprite-home__banner-pigeon
+      EndGraphicName: PEDRO
       Highlighted: 44:F,12,30:F,50
     Levels:
     - RewardId: 2
@@ -3056,3 +3069,203 @@ MonoBehaviour:
       PremiumRewardId: 171
       PointsForNextLevel: 0
       Season: 14
+    - RewardId: 35
+      PremiumRewardId: 208
+      PointsForNextLevel: 50
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 100
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 217
+      PointsForNextLevel: 200
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 212
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 217
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 209
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 217
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 213
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 217
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 214
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 217
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 210
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 217
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 64
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 215
+      PremiumRewardId: 217
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 170
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 169
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 35
+      PremiumRewardId: 217
+      PointsForNextLevel: 0
+      Season: 15
+    - RewardId: 216
+      PremiumRewardId: 211
+      PointsForNextLevel: 0
+      Season: 15

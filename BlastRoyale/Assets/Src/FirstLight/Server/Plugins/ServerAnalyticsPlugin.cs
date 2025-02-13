@@ -91,6 +91,13 @@ namespace Src.FirstLight.Server
 			{
 				data["content_creator_code"] = ev.Message.SupportingContentCreator;
 			}
+
+			if (!string.IsNullOrEmpty(ev.Message.PriceCurrencyId))
+			{
+				data["price_purchased_id"] = ev.Message.PriceCurrencyId;
+				data["price_paid"] = ev.Message.PricePaid;
+			}
+
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "purchased_item", data);
 			return Task.CompletedTask;
 		}

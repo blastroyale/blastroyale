@@ -20,7 +20,6 @@ using FirstLight.SDK.Services;
 using FirstLightServerSDK.Services;
 using I2.Loc;
 using Quantum;
-using Sirenix.Utilities;
 using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Services

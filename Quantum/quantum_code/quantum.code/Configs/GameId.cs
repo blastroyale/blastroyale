@@ -1849,7 +1849,6 @@ namespace Quantum
 					GameId.FlagLamp, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1857,7 +1856,6 @@ namespace Quantum
 					GameId.FlagStrong, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1865,7 +1863,6 @@ namespace Quantum
 					GameId.FlagNight, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -1873,7 +1870,6 @@ namespace Quantum
 					GameId.FlagPOG, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
-						GameIdGroup.BotItem,
 						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
@@ -2027,8 +2023,7 @@ namespace Quantum
 					GameId.MeleeSkinXmas2023, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -3835,17 +3830,12 @@ namespace Quantum
 						GameId.Unicorn,
 						GameId.FlagNumberOne,
 						GameId.FlagSalt,
-						GameId.FlagLamp,
-						GameId.FlagStrong,
-						GameId.FlagNight,
-						GameId.FlagPOG,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinElectricSolo,
 						GameId.MeleeSkinMicDrop,
 						GameId.MeleeSkinOutOfThePark,
 						GameId.MeleeSkinWheelOfPain,
 						GameId.MeleeSkinYouGotMail,
-						GameId.MeleeSkinXmas2023,
 						GameId.MeleeSkinAxe,
 						GameId.MeleeSkinPickaxe,
 						GameId.FootprintDot

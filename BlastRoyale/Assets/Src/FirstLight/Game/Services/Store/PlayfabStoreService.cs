@@ -73,8 +73,8 @@ namespace FirstLight.Game.Services
 		public event Action<List<PlayfabProductConfig>, Dictionary<PlayfabProductConfig, List<PlayfabProductConfig>>> OnStoreLoaded;
 
 		public const string CATALOG_NAME = "Store";
-		public const string STORE_NAME = "Marcelo";
-		// public const string STORE_NAME = "MainShop";
+		// public const string STORE_NAME = "Marcelo";
+		public const string STORE_NAME = "MainShop";
 
 		private IGameBackendService _backend;
 

@@ -7,5 +7,6 @@ namespace BlastRoyaleNFTPlugin.Collections;
 
 public interface ICollectionSync
 {
-	void Sync(CollectionData playersCollectionData, NFTCollectionSyncConfigModel collectionSyncConfigModel, List<RemoteCollectionItem> ownedNFTs);
+	void Sync(CollectionData playersCollectionData, NFTCollectionSyncConfiguration collectionSyncConfiguration, List<RemoteCollectionItem> ownedNFTs);
+
 }

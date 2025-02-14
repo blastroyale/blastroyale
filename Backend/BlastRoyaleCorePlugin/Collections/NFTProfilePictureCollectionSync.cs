@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BlastRoyaleNFTPlugin.Data;
 using FirstLight.Game.Data;
@@ -8,12 +9,12 @@ using Quantum;
 
 namespace BlastRoyaleNFTPlugin.Collections;
 
-public class ProfilePictureCollectionSync : ICollectionSync
+public class NFTProfilePictureCollectionSync : ICollectionSync
 {
-	public void Sync(CollectionData playersCollectionData, NFTCollectionSyncConfigModel collectionSyncConfigModel, List<RemoteCollectionItem> ownedNFTs)
+	public void Sync(CollectionData playersCollectionData, NFTCollectionSyncConfiguration collectionSyncConfiguration, List<RemoteCollectionItem> ownedNFTs)
 	{
-		var currentOwnedTokens = ownedNFTs.Select(nft => nft.TokenId).ToList();
-		var pfpListToAdd = new List<string>(currentOwnedTokens);
+		var currentOwnedTokensForCollection = ownedNFTs.Where(n => n.Name != null && n.Name.StartsWith(collectionSyncConfiguration.NFTImagePrefix, StringComparison.InvariantCulture)).Select(nft => nft.TokenId).ToList();
+		var pfpListToAdd = new List<string>(currentOwnedTokensForCollection);
 		
 		var profilePictureList = playersCollectionData.OwnedCollectibles.TryGetValue(CollectionCategories.PROFILE_PICTURE, out var profilePictureLoaded)
 			? profilePictureLoaded : new List<ItemData>();
@@ -36,12 +37,12 @@ public class ProfilePictureCollectionSync : ICollectionSync
 				continue;
 			}
 
-			if (collection != collectionSyncConfigModel.CollectionName)
+			if (collection != collectionSyncConfiguration.CollectionName)
 			{
 				continue;
 			}
 
-			if (!currentOwnedTokens.Contains(lastSyncToken))
+			if (!currentOwnedTokensForCollection.Contains(lastSyncToken))
 			{
 				RemoveEquippedProfilePicture(profilePicture, playersCollectionData);
 				profilePictureList.RemoveAt(profilePictureIndex);
@@ -54,7 +55,7 @@ public class ProfilePictureCollectionSync : ICollectionSync
 		foreach (var tokenId in pfpListToAdd)
 		{
 			var item = ItemFactory.Collection(GameId.AvatarNFTCollection,
-				new CollectionTrait(CollectionTraits.NFT_COLLECTION, collectionSyncConfigModel.CollectionName),
+				new CollectionTrait(CollectionTraits.NFT_COLLECTION, collectionSyncConfiguration.CollectionName),
 						   new CollectionTrait(CollectionTraits.TOKEN_ID, tokenId));
 			
 			profilePictureList.Add(item);

@@ -14,6 +14,7 @@ using Quantum;
 
 namespace BlastRoyaleNFTPlugin
 {
+	[Obsolete]
 	public class CollectionsSync
 	{
 		public const string COLLECTION_CORPOS_POLYGON = "CorposLegacy";
@@ -51,6 +52,7 @@ namespace BlastRoyaleNFTPlugin
 		/// <summary>
 		/// Should only sync in memory and not do any playfab requests
 		/// </summary>
+		[Obsolete]
 		public async Task<bool> SyncCollections(string playfabId, ServerState serverState, bool isRetry = false)
 		{
 			var collectionData = serverState.DeserializeModel<CollectionData>();
@@ -89,7 +91,8 @@ namespace BlastRoyaleNFTPlugin
 				return false;
 			}
 		}
-
+		
+		[Obsolete]
 		private void SyncGamesGGGamers(string playfabId, List<RemoteCollectionItem>  nfts, CollectionData collectionData)
 		{
 
@@ -140,8 +143,7 @@ namespace BlastRoyaleNFTPlugin
 			collectionData.OwnedCollectibles[CollectionCategories.PLAYER_SKINS] = skins;
 		}
 		
-		//TODO: Forgive me Gabriel for I have sinned copying and paste the GamesSync method
-		//MUST REFACTOR THIS ONE ASAP!
+		[Obsolete]
 		private void SyncPlagueDoctor(string playfabId, List<RemoteCollectionItem>  nfts, CollectionData collectionData)
 		{
 
@@ -192,6 +194,7 @@ namespace BlastRoyaleNFTPlugin
 			collectionData.OwnedCollectibles[CollectionCategories.PLAYER_SKINS] = skins;
 		}
 
+		[Obsolete]
 		private void SyncCorposSkins(string playfabId, IEnumerable<RemoteCollectionItem> nfts, CollectionData collectionData)
 		{
 			var hasMaleNft = false;

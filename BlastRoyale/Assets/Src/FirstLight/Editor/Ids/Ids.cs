@@ -333,10 +333,10 @@ namespace FirstLight.Editor.Ids
 			{"FlagRoyalCrown", 280, DeathMarker, Collection},
 			{"FlagSalt", 281, DeathMarker, BotItem, Collection},
 			
-			{"FlagLamp", 330, DeathMarker, BotItem, Collection},
-			{"FlagStrong", 331, DeathMarker, BotItem, Collection},
-			{"FlagNight", 332, DeathMarker, BotItem, Collection},
-			{"FlagPOG", 340, DeathMarker, BotItem, Collection},
+			{"FlagLamp", 330, DeathMarker, Collection},
+			{"FlagStrong", 331, DeathMarker, Collection},
+			{"FlagNight", 332, DeathMarker, Collection},
+			{"FlagPOG", 340, DeathMarker, Collection},
 			#endregion
 
 			#region MeleeSkins
@@ -361,7 +361,7 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinWheelOfPain", 317, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinWrench", 318, MeleeSkin, Collection},
 			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection, BotItem},
-			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection},
 			{"MeleeSkinBaton", 129, MeleeSkin, Collection},
 			{"MeleeSkinKatana", 206, MeleeSkin, Collection},
 			{"MeleeSkinKeyboard", 207, MeleeSkin, Collection},

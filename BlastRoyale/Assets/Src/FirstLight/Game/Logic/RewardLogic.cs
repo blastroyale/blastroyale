@@ -284,6 +284,15 @@ namespace FirstLight.Game.Logic
 			usedTicket = hasTicket;
 			return hasTicket;
 		}
+		
+		public bool IsEventPaid(SimulationMatchConfig matchConfig)
+		{
+			var events = GameLogic.RemoteConfigProvider.GetConfig<EventGameModesConfig>();
+			var foundEvent = events.FirstOrDefault(ev => ev.MatchConfig.UniqueConfigId == matchConfig.UniqueConfigId);
+
+			return foundEvent != null && foundEvent.IsPaid;
+		}
+		
 
 		public MatchRewardsResult CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
@@ -366,7 +375,12 @@ namespace FirstLight.Game.Logic
 			CalculateBPPReward(result, rewardConfig, usedSimConfig);
 			CalculateXPReward(result, rewardConfig, usedSimConfig);
 			CalculateCollectedRewards(result, source, usedSimConfig);
-			CalculateBuffs(result);
+			
+			if (!IsEventPaid(usedSimConfig))
+			{
+				CalculateBuffs(result);
+			}
+			
 			return result;
 		}
 

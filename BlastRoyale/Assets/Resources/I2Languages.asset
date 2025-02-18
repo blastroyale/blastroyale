@@ -13349,7 +13349,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BRONZE '25 02
+      - SILVER '25 02
       - 
       - 
       - 
@@ -13371,7 +13371,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BRONZE '25 03
+      - SILVER '25 03
       - 
       - 
       - 
@@ -13393,7 +13393,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BRONZE '25 04
+      - SILVER '25 04
       - 
       - 
       - 
@@ -13423,6 +13423,72 @@ MonoBehaviour:
       Flags: 0000000000
       Languages_Touch: []
     - Term: GameIds/AvatarSupporterBronze202501Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterBronze202502
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE '25 02
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterBronze202502Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterBronze202503
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE '25 03
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterBronze202503Description
+      TermType: 0
+      Description: 
+      Languages:
+      - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterBronze202504
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE '25 04
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSupporterBronze202504Description
       TermType: 0
       Description: 
       Languages:
@@ -33535,7 +33601,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1739457412056
+    Google_LastUpdatedVersion: 1739872586447
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

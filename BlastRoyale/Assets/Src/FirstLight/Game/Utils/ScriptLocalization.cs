@@ -1249,6 +1249,12 @@ namespace I2.Loc
 			public static string AvatarSuperstarloveadsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSuperstarloveadsDescription"); } }
 			public static string AvatarSupporterBronze202501 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202501"); } }
 			public static string AvatarSupporterBronze202501Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202501Description"); } }
+			public static string AvatarSupporterBronze202502 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202502"); } }
+			public static string AvatarSupporterBronze202502Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202502Description"); } }
+			public static string AvatarSupporterBronze202503 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202503"); } }
+			public static string AvatarSupporterBronze202503Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202503Description"); } }
+			public static string AvatarSupporterBronze202504 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202504"); } }
+			public static string AvatarSupporterBronze202504Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterBronze202504Description"); } }
 			public static string AvatarSupporterGold202501 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202501"); } }
 			public static string AvatarSupporterGold202501Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202501Description"); } }
 			public static string AvatarSupporterGold202502 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSupporterGold202502"); } }
@@ -4356,6 +4362,12 @@ namespace I2.Loc
 		    public const string AvatarSuperstarloveadsDescription = "GameIds/AvatarSuperstarloveadsDescription";
 		    public const string AvatarSupporterBronze202501 = "GameIds/AvatarSupporterBronze202501";
 		    public const string AvatarSupporterBronze202501Description = "GameIds/AvatarSupporterBronze202501Description";
+		    public const string AvatarSupporterBronze202502 = "GameIds/AvatarSupporterBronze202502";
+		    public const string AvatarSupporterBronze202502Description = "GameIds/AvatarSupporterBronze202502Description";
+		    public const string AvatarSupporterBronze202503 = "GameIds/AvatarSupporterBronze202503";
+		    public const string AvatarSupporterBronze202503Description = "GameIds/AvatarSupporterBronze202503Description";
+		    public const string AvatarSupporterBronze202504 = "GameIds/AvatarSupporterBronze202504";
+		    public const string AvatarSupporterBronze202504Description = "GameIds/AvatarSupporterBronze202504Description";
 		    public const string AvatarSupporterGold202501 = "GameIds/AvatarSupporterGold202501";
 		    public const string AvatarSupporterGold202501Description = "GameIds/AvatarSupporterGold202501Description";
 		    public const string AvatarSupporterGold202502 = "GameIds/AvatarSupporterGold202502";

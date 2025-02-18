@@ -23,7 +23,7 @@ namespace FirstLight.Game.Services.Analytics
 		public const string TOTAL_PLAYERS = "total_players"; // int
 		public const string MAP_ID = "map_id"; // string
 		public const string TEAM_SIZE = "team_size"; // int
-		public const string QUALITY_LEVEL = "quality_level"; // int
+		public const string QUALITY_LEVEL = "quality_level_value"; // int
 		public const string ITEM_TYPE = "item_type"; // string
 		public const string KILLS = "kills"; // int
 		public const string MATCH_TIME = "match_time"; // float

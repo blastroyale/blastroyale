@@ -17,7 +17,8 @@
     -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
-    width: auto;
+    width: 100%;
+    max-width: 450px;
     min-width: 250px;
     flex-grow: 1;
 }

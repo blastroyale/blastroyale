@@ -29,6 +29,7 @@ namespace FirstLight.Game.Configs.Remote
 		public string BackgroundImageURL { get; set; }
 		public LegacyItemData PriceToJoin;
 		public PlayfabMatchmakingConfig OverwriteMatchmaking { get; set; }
+		public bool AreBuffsAllowed { get; set; }
 
 		public bool IsPaid => PriceToJoin != null;
 

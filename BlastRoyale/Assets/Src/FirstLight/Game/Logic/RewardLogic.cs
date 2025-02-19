@@ -285,12 +285,12 @@ namespace FirstLight.Game.Logic
 			return hasTicket;
 		}
 		
-		public bool IsEventPaid(SimulationMatchConfig matchConfig)
+		public bool AreBuffsAllowed(SimulationMatchConfig matchConfig)
 		{
 			var events = GameLogic.RemoteConfigProvider.GetConfig<EventGameModesConfig>();
 			var foundEvent = events.FirstOrDefault(ev => ev.MatchConfig.UniqueConfigId == matchConfig.UniqueConfigId);
 
-			return foundEvent != null && foundEvent.IsPaid;
+			return foundEvent != null && foundEvent.AreBuffsAllowed;
 		}
 		
 
@@ -375,11 +375,7 @@ namespace FirstLight.Game.Logic
 			CalculateBPPReward(result, rewardConfig, usedSimConfig);
 			CalculateXPReward(result, rewardConfig, usedSimConfig);
 			CalculateCollectedRewards(result, source, usedSimConfig);
-			
-			if (!IsEventPaid(usedSimConfig))
-			{
-				CalculateBuffs(result);
-			}
+			CalculateBuffs(result, usedSimConfig);
 			
 			return result;
 		}
@@ -391,7 +387,7 @@ namespace FirstLight.Game.Logic
 			dict[id] = amt;
 		}
 
-		private void CalculateBuffs(MatchRewardsResult result)
+		private void CalculateBuffs(MatchRewardsResult result, SimulationMatchConfig simConfig)
 		{
 			var buffs = GameLogic.BuffsLogic.CalculateMetaEntity();
 			if (buffs != null)
@@ -400,31 +396,35 @@ namespace FirstLight.Game.Logic
 				{
 					var id = reward.Id;
 					double mp = 1;
-					switch (id)
+					
+					if (AreBuffsAllowed(simConfig))
 					{
-						case GameId.COIN:
-							mp += buffs.GetStat(BuffStat.PctBonusCoins).AsDouble / 100d;
-							break;
-						case GameId.NOOB:
-							mp += buffs.GetStat(BuffStat.PctBonusNoob).AsDouble / 100d;
-							break;
-						case GameId.XP:
-							mp += buffs.GetStat(BuffStat.PctBonusXP).AsDouble / 100d;
-							break;
-						case GameId.BPP:
-							mp += buffs.GetStat(BuffStat.PctBonusBPP).AsDouble / 100d;
-							break;
-						case GameId.BlastBuck:
-							mp += buffs.GetStat(BuffStat.PctBonusBBs).AsDouble / 100d;
-							break;
-						case GameId.FestiveSNOWFLAKE:
-						case GameId.FestiveLUNARCOIN:
-						case GameId.FestiveFEATHER:
-						case GameId.FestiveLANTERN:
-							mp += buffs.GetStat(BuffStat.PctBonusFestiveCurrencies).AsDouble / 100d;
-							break;
+						switch (id)
+						{
+							case GameId.COIN:
+								mp += buffs.GetStat(BuffStat.PctBonusCoins).AsDouble / 100d;
+								break;
+							case GameId.NOOB:
+								mp += buffs.GetStat(BuffStat.PctBonusNoob).AsDouble / 100d;
+								break;
+							case GameId.XP:
+								mp += buffs.GetStat(BuffStat.PctBonusXP).AsDouble / 100d;
+								break;
+							case GameId.BPP:
+								mp += buffs.GetStat(BuffStat.PctBonusBPP).AsDouble / 100d;
+								break;
+							case GameId.BlastBuck:
+								mp += buffs.GetStat(BuffStat.PctBonusBBs).AsDouble / 100d;
+								break;
+							case GameId.FestiveSNOWFLAKE:
+							case GameId.FestiveLUNARCOIN:
+							case GameId.FestiveFEATHER:
+							case GameId.FestiveLANTERN:
+								mp += buffs.GetStat(BuffStat.PctBonusFestiveCurrencies).AsDouble / 100d;
+								break;
+						}
 					}
-
+					
 					if (result.CollectedRewards.TryGetValue(reward.Id, out var collected))
 					{
 						result.CollectedBonuses[reward.Id] = (int) Math.Round(collected * mp) - collected;

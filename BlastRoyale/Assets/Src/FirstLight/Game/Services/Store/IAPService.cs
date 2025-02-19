@@ -320,15 +320,17 @@ namespace FirstLight.Game.Services
 			var lastStoreState = _localPrefs.LastStoreState;
 			var newStoreState = new LocalStoreStateData();
 
+			var isFirstTimeLoadingStore = lastStoreState.Value.Categories.Count == 0;
+
 			foreach (var productCategory in _availableProductCategories.Values.Where(apc => !apc.IsHidden))
 			{
 				//No previous state persisted inside PlayerPrefs, All items and Categories will be tagged as new.
-				if (lastStoreState == null)
+				if (isFirstTimeLoadingStore)
 				{
 					newStoreState.Categories.Add(new LocalStoreCategory()
 					{
 						CategoryName = productCategory.Name,
-						Products = productCategory.Products.Select(p => new LocalStoreProduct { ProductName = p.PlayfabProductConfig.CatalogItem.ItemId}).ToList()
+						Products = productCategory.Products.Select(p => new LocalStoreProduct { ProductName = p.PlayfabProductConfig.CatalogItem.ItemId, IsNewStoreItem = false}).ToList()
 					});
 					
 					continue;
@@ -376,8 +378,6 @@ namespace FirstLight.Game.Services
 			lastStoreState.Categories.ForEach(c => c.MarkProductsAsSeen());
 			
 			_localPrefs.LastStoreState.Value = lastStoreState;
-			var after = _localPrefs.LastStoreState.Value;
-			FLog.Info("Stop here after persisting");
 		}
 
 		public bool HasStoreItemsUpdate(string filterCategory = null, string filterProduct = null)

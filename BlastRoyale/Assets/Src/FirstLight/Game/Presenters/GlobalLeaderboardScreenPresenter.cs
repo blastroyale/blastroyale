@@ -249,7 +249,7 @@ namespace FirstLight.Game.Presenters
 
 			if (!string.IsNullOrEmpty(seasonConfig.ManualEndTime))
 			{
-				endTime = DateTime.ParseExact(seasonConfig.ManualEndTime, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+				endTime = DateTime.ParseExact(seasonConfig.ManualEndTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
 			}
 			else if (!result.NextReset.HasValue)
 			{
@@ -266,8 +266,8 @@ namespace FirstLight.Game.Presenters
 
 			_endsInContainer.SetDisplay(true);
 			_endsInContainer.SetVisibility(true);
-			var daysTillReset = (int) Math.Ceiling((endTime - DateTime.UtcNow).TotalDays);
-			_endsIn.text = $"Ends in {daysTillReset} days";
+			var timeTillReset = (endTime - DateTime.UtcNow).ToDayAndHours(true);
+			_endsIn.text = $"Ends in {timeTillReset}";
 		}
 
 		private void OnLeaderboardTopRanksReceived(GameLeaderboard board, GetLeaderboardResult result)

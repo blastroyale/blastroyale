@@ -39,6 +39,9 @@ namespace FirstLight.Game.Configs.Remote
 		public string RewardsTitle;
 		public string Rewards;
 		public string ManualEndTime;
+		public bool ShowExtraButton;
+		public string ExtraButtonText;
+		public string ExtraButtonLink;
 	}
 
 	/// <summary>

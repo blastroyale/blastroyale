@@ -250,6 +250,11 @@
     margin-bottom: 10px;
 }
 
+.extra-button-holder {
+    align-self: center;
+    margin-bottom: 10px;
+}
+
 .rewards-text {
     font-size: 32px;
     color: rgb(122, 118, 168);

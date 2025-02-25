@@ -95,6 +95,8 @@ namespace Quantum
 					return SpecialGrenade.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.Radar:
 					return SpecialRadar.Use(f, entity, playerRef, this);
+				case SpecialType.Heal:
+					return SpecialHeal.Use(f, entity, playerRef, this);
 				case SpecialType.Landmine:
 					f.Signals.UseGenericSpecial(this, entity, aimInput, MaxRange);
 					return true;

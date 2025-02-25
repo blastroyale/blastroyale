@@ -26,6 +26,7 @@ enum SpecialType
 	Grenade,
 	Radar,
 	Landmine,
+	Heal
 }
 
 synced event OnPlayerSpecialUpdated

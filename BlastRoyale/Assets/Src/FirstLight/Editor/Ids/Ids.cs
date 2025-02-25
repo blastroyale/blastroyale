@@ -204,6 +204,7 @@ namespace FirstLight.Editor.Ids
 			{"SpecialDefaultDash", 141, Special, Collectable},
 			{"SpecialRadar", 62, Special, Collectable},
 			{"SpecialLandmine", 666, Special, Collectable},
+			{"SpecialHeal", 667, Special, Collectable},
 			{"TutorialGrenade", 70, Special},
 			{"Barrel", 109, Destructible},
 			{"Barrier", 72, Destructible},

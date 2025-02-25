@@ -119,7 +119,6 @@ namespace FirstLight.Game.StateMachines
 			await _services.UIService.CloseScreen<PrivacyDialogPresenter>(false);
 			if (transition)
 			{
-				await TransitionScreen();
 				// This is an ugly hack - if we dont wait a second here the state machine will get back to iddle state
 				// before the event of starting the match is fireds causing an infinite loop and crash.
 				// This can still happen on some devices so this hack needs to be solved.
@@ -134,28 +133,8 @@ namespace FirstLight.Game.StateMachines
 			return _services.UIService.OpenScreen<SwipeTransitionScreenPresenter>();
 		}
 
-		private async UniTask AcceptPrivacyDialog()
-		{
-			var data = new PrivacyDialogPresenter.StateData
-			{
-				OnAccept = AcceptTerms
-			};
-			await _services.UIService.OpenScreen<PrivacyDialogPresenter>(data);
-		}
-
-		private void AcceptTerms()
-		{
-			TutorialJoinTask().Forget();
-		}
-
 		private void AttemptJoinTutorialRoom()
 		{
-			if (_services.AuthService.SessionData.IsFirstSession)
-			{
-				AcceptPrivacyDialog().Forget();
-				return;
-			}
-
 			TutorialJoinTask().Forget();
 		}
 

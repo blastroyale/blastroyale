@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <Style src="project://database/Assets/Art/UI/Screens/PrivacyDialogStyle.uss?fileID=7433441132597879392&amp;guid=cb0eb3341c6774ab8867621416ff2384&amp;type=3#PrivacyDialogStyle" />
     <ui:VisualElement name="root" class="screen-root">
-        <ui:Button name="BlockerButton" class="blocker" />
+        <ui:Button name="BlockerButton" />
         <ui:VisualElement name="Popup" class="popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl popup--xlarge privacy-popup">
             <ui:VisualElement name="Window" class="popup-radius popup__window">
                 <ui:VisualElement name="Header" class="background-purple window__header">

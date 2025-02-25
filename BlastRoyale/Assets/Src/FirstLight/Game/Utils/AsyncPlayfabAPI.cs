@@ -327,6 +327,45 @@ namespace FirstLight.Game.Utils
 			{
 				return LoginWithEmailAddressFunc(r);
 			}
+
+			private static Func<LoginWithGooglePlayGamesServicesRequest, UniTask<LoginResult>> LoginWithGooglePlayGamesServicesFunc { get; }
+				= Wrap<LoginWithGooglePlayGamesServicesRequest, LoginResult>(PlayFabClientAPI.LoginWithGooglePlayGamesServices);
+
+			/// <inheritdoc cref="PlayFabClientAPI.SendAccountRecoveryEmail"/>
+			public static UniTask<LoginResult> LoginWithGooglePlayGamesServices(LoginWithGooglePlayGamesServicesRequest r)
+			{
+				return LoginWithGooglePlayGamesServicesFunc(r);
+			}
+
+			private static Func<LinkGooglePlayGamesServicesAccountRequest, UniTask<LinkGooglePlayGamesServicesAccountResult>>
+				LinkGooglePlayGamesServicesAccountFunc { get; }
+				= Wrap<LinkGooglePlayGamesServicesAccountRequest, LinkGooglePlayGamesServicesAccountResult>(PlayFabClientAPI
+					.LinkGooglePlayGamesServicesAccount);
+
+			/// <inheritdoc cref="PlayFabClientAPI.LinkGooglePlayGamesServicesAccount"/>
+			public static UniTask<LinkGooglePlayGamesServicesAccountResult> LinkGooglePlayGamesServicesAccount(
+				LinkGooglePlayGamesServicesAccountRequest r)
+			{
+				return LinkGooglePlayGamesServicesAccountFunc(r);
+			}
+
+			private static Func<LinkGameCenterAccountRequest, UniTask<LinkGameCenterAccountResult>> LinkGameCenterAccountFunc { get; }
+				= Wrap<LinkGameCenterAccountRequest, LinkGameCenterAccountResult>(PlayFabClientAPI.LinkGameCenterAccount);
+
+			/// <inheritdoc cref="PlayFabClientAPI.LinkGameCenterAccount"/>
+			public static UniTask<LinkGameCenterAccountResult> LinkGameCenterAccount(LinkGameCenterAccountRequest r)
+			{
+				return LinkGameCenterAccountFunc(r);
+			}
+
+			private static Func<LoginWithGameCenterRequest, UniTask<LoginResult>> LoginWithGameCenterFunc { get; }
+				= Wrap<LoginWithGameCenterRequest, LoginResult>(PlayFabClientAPI.LoginWithGameCenter);
+
+			/// <inheritdoc cref="PlayFabClientAPI.LoginWithGameCenter"/>
+			public static UniTask<LoginResult> LoginWithGameCenter(LoginWithGameCenterRequest r)
+			{
+				return LoginWithGameCenterFunc(r);
+			}
 		}
 
 		private static Func<TRequest, UniTask<TResponse>> Wrap<TRequest, TResponse>(

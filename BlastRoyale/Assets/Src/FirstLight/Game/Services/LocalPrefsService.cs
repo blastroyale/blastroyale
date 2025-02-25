@@ -86,6 +86,11 @@ namespace FirstLight.Game.Services
 		/// If we show the rate and review prompt
 		/// </summary>
 		public ObservableField<bool> RateAndReviewPromptShown { get; } = CreateBoolSetting(nameof(RateAndReviewPromptShown), false);
+		
+		/// <summary>
+		/// If we show the rate and review prompt
+		/// </summary>
+		public ObservableField<bool> AcceptedPrivacyTerms { get; } = CreateBoolSetting(nameof(AcceptedPrivacyTerms), false);
 
 		/// <summary>
 		/// Number of games played 

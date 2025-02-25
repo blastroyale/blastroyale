@@ -11,15 +11,6 @@ namespace FirstLight.Game.Services.Authentication
 {
 	public class PlayfabDeviceLoginProvider : ILoginProvider
 	{
-		private GetPlayerCombinedInfoRequestParams StandardLoginInfoRequestParams =>
-			new ()
-			{
-				GetPlayerProfile = true,
-				GetUserAccountInfo = true,
-				GetTitleData = true,
-				GetPlayerStatistics = true
-			};
-
 		private DataService _localAccountData;
 
 		public PlayfabDeviceLoginProvider()
@@ -83,8 +74,15 @@ namespace FirstLight.Game.Services.Authentication
 			{
 				return await LoginIntoLinkedAccount();
 			}
+			else
+			{
+				throw new Exception("Current device is not linked to an account!");
+			}
+		}
 
-			return await CreateGuestAccountAndLogin();
+		public UniTask<LoginResult> LoginWithNewGuestAccount()
+		{
+			return CreateGuestAccountAndLogin();
 		}
 
 		public async UniTask SendAccountRecoveryEmail(string email)
@@ -98,6 +96,11 @@ namespace FirstLight.Game.Services.Authentication
 			};
 
 			await AsyncPlayfabAPI.ClientAPI.SendAccountRecoveryEmail(request);
+		}
+
+		public bool CanLoginAutomatically()
+		{
+			return HasLinkedAccount();
 		}
 
 		public async UniTask AddUserNamePassword(string email, string username, string password)
@@ -166,7 +169,7 @@ namespace FirstLight.Game.Services.Authentication
 				{
 					CreateAccount = false,
 					CustomId = deviceId,
-					InfoRequestParameters = StandardLoginInfoRequestParams
+					InfoRequestParameters = AuthService.StandardLoginInfoRequestParams
 				};
 				return await AsyncPlayfabAPI.ClientAPI.LoginWithCustomID(login);
 			}
@@ -178,7 +181,7 @@ namespace FirstLight.Game.Services.Authentication
 					AndroidDevice = UnityEngine.SystemInfo.deviceModel,
 					OS = UnityEngine.SystemInfo.operatingSystem,
 					AndroidDeviceId = deviceId,
-					InfoRequestParameters = StandardLoginInfoRequestParams
+					InfoRequestParameters = AuthService.StandardLoginInfoRequestParams
 				};
 				return await AsyncPlayfabAPI.ClientAPI.LoginWithAndroidDeviceID(login);
 			}
@@ -191,7 +194,7 @@ namespace FirstLight.Game.Services.Authentication
 					DeviceModel = UnityEngine.SystemInfo.deviceModel,
 					OS = UnityEngine.SystemInfo.operatingSystem,
 					DeviceId = deviceId,
-					InfoRequestParameters = StandardLoginInfoRequestParams
+					InfoRequestParameters = AuthService.StandardLoginInfoRequestParams
 				};
 				return await AsyncPlayfabAPI.ClientAPI.LoginWithIOSDeviceID(login);
 			}
@@ -204,7 +207,7 @@ namespace FirstLight.Game.Services.Authentication
 			{
 				CreateAccount = true,
 				CustomId = Guid.NewGuid().ToString(),
-				InfoRequestParameters = StandardLoginInfoRequestParams
+				InfoRequestParameters = AuthService.StandardLoginInfoRequestParams
 			};
 
 			return await AsyncPlayfabAPI.ClientAPI.LoginWithCustomID(login);
@@ -261,7 +264,7 @@ namespace FirstLight.Game.Services.Authentication
 			{
 				Email = email,
 				Password = password,
-				InfoRequestParameters = StandardLoginInfoRequestParams
+				InfoRequestParameters = AuthService.StandardLoginInfoRequestParams
 			};
 			return await AsyncPlayfabAPI.ClientAPI.LoginWithEmailAddress(login);
 		}

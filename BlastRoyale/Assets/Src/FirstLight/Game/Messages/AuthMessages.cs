@@ -10,6 +10,10 @@ namespace FirstLight.Game.Messages
 		public ISessionData SessionData;
 	}
 
+	public struct LogicInitializedMessage : IMessage
+	{
+	}
+
 	public struct DataReinitializedMessage : IMessage
 	{
 	}

@@ -25,6 +25,32 @@ using Unity.Services.Core;
 
 namespace FirstLight.Game.Services.Authentication
 {
+	public interface INativeGamesLoginProvider
+	{
+		public UniTask<bool> CanAuthenticate();
+		public UniTask<LoginResult> Authenticate();
+
+		public UniTask TryToLinkAccount(LoginResult result);
+	}
+
+	public class NullNativeGamesLogin : INativeGamesLoginProvider
+	{
+		public UniTask<bool> CanAuthenticate()
+		{
+			return UniTask.FromResult(false);
+		}
+
+		public UniTask<LoginResult> Authenticate()
+		{
+			return UniTask.FromResult<LoginResult>(null);
+		}
+
+		public UniTask TryToLinkAccount(LoginResult result)
+		{
+			return UniTask.CompletedTask;
+		}
+	}
+
 	internal interface IAuthenticationHook
 	{
 		UniTask BeforeAuthentication(bool previouslyLoggedIn);
@@ -37,8 +63,10 @@ namespace FirstLight.Game.Services.Authentication
 		public UniTask Logout();
 		public UniTask<LoginResult> LoginWithEmailPassword(string email, string password);
 		public UniTask<LoginResult> LoginWithDevice();
+		public UniTask<LoginResult> LoginWithNewGuestAccount();
 		public UniTask AddUserNamePassword(string email, string username, string password);
 		public UniTask SendAccountRecoveryEmail(string email);
+		public bool CanLoginAutomatically();
 	}
 
 	public interface ISessionData
@@ -51,11 +79,65 @@ namespace FirstLight.Game.Services.Authentication
 
 	public interface IAuthService
 	{
-		// For a lack of a better place this will be here
+		/**
+		* The local player display name, it has not parsed or escaped spaces and etc
+		* If you want pretty display names check the <see cref="AuthServiceNameExtensions"/> class
+		*/
 		string RawLocalPlayerName { get; }
-		UnityCloudHook UnityCloudAuthentication { get; }
-		UniTask AutomaticLogin();
-		UniTask LoginWithEmail(string email, string password);
+
+		/// <summary>
+		/// It will go through the whole login process with a NEW guest account and link to the device at the end
+		/// </summary>
+		/// <returns></returns>
+		UniTask LoginWithGuestAccount();
+
+		/// <summary>
+		/// It will go through the whole login process with the stored/linked device account
+		/// </summary>
+		/// <returns></returns>
+		UniTask LoginWithDeviceID();
+
+		/// <summary>
+		/// It will go through the whole login process with the email and password provided, it may fail if the input is incorrect
+		/// </summary>
+		/// <returns></returns>
+		UniTask LoginWithEmailProcess(string email, string password);
+
+		/// <summary>
+		/// It will go through the whole login process with the Native games service, Google Play Games or Apple Game Center depending on the platform
+		/// </summary>
+		/// <returns></returns>
+		public UniTask LoginWithNativeGamesService();
+
+		/// <summary>
+		/// It will go through the whole login process with a previous processed login result,
+		/// this can be useful if you to check if a given account is valid before going through the whole authentication flow
+		/// </summary>
+		/// <param name="result"></param>
+		/// <returns></returns>
+		public UniTask LoginWithExistingResult(LoginResult result);
+
+		/// <summary>
+		/// It will try to link the current logged in game account services to the account used in game
+		/// this is used when user already has an account and wants to link a game center account to it
+		/// </summary>
+		/// <returns></returns>
+		public UniTask TryToLinkNativeAccount();
+
+		/// <summary>
+		/// Check if the native game services are enabled and available on the device
+		/// </summary>
+		/// <returns></returns>
+		public UniTask<bool> CanLoginWithNativeGamesService();
+
+		/// <summary>
+		/// Fetch the login result for the email and password, this does NOT go through the authentication flow and do not change the auth state
+		/// If you want to login with those credentials you must pass the result to <see cref="LoginWithExistingResult"/>
+		/// </summary>
+		/// <param name="email"></param>
+		/// <param name="password"></param>
+		/// <returns></returns>
+		public UniTask<LoginResult> FetchCredentialsWithEmailPassword(string email, string password);
 
 		/// <summary>
 		/// Set the player display name and return a error message if any happens
@@ -64,12 +146,41 @@ namespace FirstLight.Game.Services.Authentication
 		/// <returns></returns>
 		UniTask<string> SetDisplayName(string name);
 
+		/// <summary>
+		/// Register an email and password for the current authenticated account
+		/// </summary>
+		/// <returns></returns>
 		public UniTask AddUserNamePassword(string email, string username, string password);
 
+		/// <summary>
+		/// Data for the authenticated account and session
+		/// </summary>
 		public ISessionData SessionData { get; }
+
+		/// <summary>
+		/// Send an recovery account email to the account, this is handled by playfab
+		/// </summary>
+		/// <param name="email"></param>
+		/// <returns></returns>
 		UniTask SendAccountRecoveryEmail(string email);
+
+		/// <summary>
+		/// Logout the user and remove it from the authentication data
+		/// </summary>
+		/// <returns></returns>
 		UniTask Logout();
+
+		/// <summary>
+		/// Delete the current account and logout
+		/// </summary>
+		/// <returns></returns>
 		UniTask DeleteAccount();
+
+		/// <summary>
+		/// Check if the user has a linked account to the device, this is used for the second time an user opens the game
+		/// </summary>
+		/// <returns></returns>
+		public bool HasDeviceLinked();
 	}
 
 	public class SessionData : ISessionData
@@ -78,20 +189,23 @@ namespace FirstLight.Game.Services.Authentication
 		public bool IsFirstSession { get; set; }
 		public bool IsGuest { get; set; }
 		public string Email { get; set; }
+
+		internal LoginResult LastLoginResult;
 	}
 
 	public class AuthService : IAuthService
 	{
-		private IInternalGameNetworkService _networkService;
 		private IGameBackendService _backendService;
+
 		private ILoginProvider _loginProvider;
-		private UnityCloudHook _unityCloudHook;
+
+		private INativeGamesLoginProvider _nativeGamesLogin;
+
 		private readonly IMessageBrokerService _msgBroker;
 		private readonly IGameLogicInitializer _logicInitializer;
 		private readonly IDataService _dataService;
 
 		public string RawLocalPlayerName { get; private set; }
-		public UnityCloudHook UnityCloudAuthentication => _unityCloudHook;
 		public ISessionData SessionData => _sessionData;
 		private SessionData _sessionData;
 
@@ -111,19 +225,23 @@ namespace FirstLight.Game.Services.Authentication
 			_msgBroker = msgBroker;
 			_backendService = backendService;
 			_msgBroker = msgBroker;
-			_networkService = networkService;
 			_loginProvider = new PlayfabDeviceLoginProvider();
-			_unityCloudHook = new UnityCloudHook(backendService, dataService, gameRemoteConfigProvider, msgBroker);
-			_unityCloudHook.OnSetPlayfabName += OnUnityAuthSetPlayfabName;
+			var unityCloudHook = new UnityCloudHook(backendService, dataService, gameRemoteConfigProvider, msgBroker);
+			unityCloudHook.OnSetPlayfabName += OnUnityAuthSetPlayfabName;
 			_authenticationHooks = new IAuthenticationHook[]
 			{
 				_loginProvider,
-				_unityCloudHook,
+				unityCloudHook,
 				new MigrateTutorialDataHook(dataService, gameCommandService),
 				new ParseFeatureFlagsHook(msgBroker),
 				new AuthenticatePhotonHook(networkService),
 				new UpdateContactEmailHook()
 			};
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+			_nativeGamesLogin = new NativeAuthenticationProvider();
+#else
+			_nativeGamesLogin = new NullNativeGamesLogin();
+#endif
 		}
 
 		/// <summary>
@@ -138,7 +256,40 @@ namespace FirstLight.Game.Services.Authentication
 			});
 		}
 
-		public UniTask AutomaticLogin()
+		public UniTask LoginWithNativeGamesService()
+		{
+			_sessionData.Email = null;
+			_sessionData.IsAuthenticated = false;
+			_sessionData.IsFirstSession = true;
+			return LoginProcess(_nativeGamesLogin.Authenticate(), false);
+		}
+
+		public async UniTask TryToLinkNativeAccount()
+		{
+			try
+			{
+				await _nativeGamesLogin.TryToLinkAccount(_sessionData.LastLoginResult);
+			}
+			catch (Exception ex)
+			{
+				FLog.Warn("Failed to link native account", ex);
+			}
+		}
+
+		public UniTask<bool> CanLoginWithNativeGamesService()
+		{
+			return _nativeGamesLogin.CanAuthenticate();
+		}
+
+		public UniTask LoginWithGuestAccount()
+		{
+			_sessionData.Email = null;
+			_sessionData.IsAuthenticated = false;
+			_sessionData.IsFirstSession = true;
+			return LoginProcess(_loginProvider.LoginWithNewGuestAccount(), false);
+		}
+
+		public UniTask LoginWithDeviceID()
 		{
 			_sessionData.Email = null;
 			_sessionData.IsAuthenticated = false;
@@ -146,9 +297,19 @@ namespace FirstLight.Game.Services.Authentication
 			return LoginProcess(_loginProvider.LoginWithDevice(), false);
 		}
 
-		public async UniTask LoginWithEmail(string email, string password)
+		public async UniTask LoginWithEmailProcess(string email, string password)
 		{
 			await LoginProcess(_loginProvider.LoginWithEmailPassword(email, password), true);
+		}
+
+		public UniTask<LoginResult> FetchCredentialsWithEmailPassword(string email, string password)
+		{
+			return _loginProvider.LoginWithEmailPassword(email, password);
+		}
+
+		public UniTask LoginWithExistingResult(LoginResult result)
+		{
+			return LoginProcess(UniTask.FromResult(result));
 		}
 
 		private async UniTask LoginProcess(UniTask<LoginResult> task, bool previouslyLoggedIn = false)
@@ -156,6 +317,7 @@ namespace FirstLight.Game.Services.Authentication
 			await UniTask.WhenAll(_authenticationHooks.Select(a => a.BeforeAuthentication(previouslyLoggedIn)));
 
 			var loginResult = await task;
+			_sessionData.LastLoginResult = loginResult;
 			_sessionData.IsFirstSession = loginResult.NewlyCreated;
 			_sessionData.IsGuest = string.IsNullOrWhiteSpace(loginResult.InfoResultPayload.AccountInfo.PrivateInfo.Email);
 			_sessionData.Email = loginResult.InfoResultPayload.AccountInfo.PrivateInfo.Email;
@@ -341,5 +503,19 @@ namespace FirstLight.Game.Services.Authentication
 			await _backendService.CallGenericFunction(CommandNames.REMOVE_PLAYER_DATA);
 			await Logout();
 		}
+
+		public bool HasDeviceLinked()
+		{
+			return _loginProvider.CanLoginAutomatically();
+		}
+
+		public static GetPlayerCombinedInfoRequestParams StandardLoginInfoRequestParams =>
+			new ()
+			{
+				GetPlayerProfile = true,
+				GetUserAccountInfo = true,
+				GetTitleData = true,
+				GetPlayerStatistics = true
+			};
 	}
 }

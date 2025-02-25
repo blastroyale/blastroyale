@@ -1,0 +1,12 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.firstlightgames.blastroyale",
+      "sha256_cert_fingerprints":
+      [
+        "8E:AE:5F:53:31:E9:FE:2D:F2:92:D6:6A:14:BD:6F:D9:96:25:89:E9:4B:BF:54:84:FE:29:96:6F:A6:4A:DA:87",
+        "DA:E0:B8:F2:8C:BD:DB:7E:87:23:A5:F5:1B:ED:7B:99:DB:B6:02:60:B9:DF:75:E8:C5:54:76:40:7B:DF:04:DD"
+    ]
+    }
+  }]

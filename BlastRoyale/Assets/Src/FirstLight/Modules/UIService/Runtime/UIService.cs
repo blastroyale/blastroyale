@@ -69,20 +69,18 @@ namespace FirstLight.UIService
 		/// <summary>
 		/// Opens a new screen of type <typeparamref name="T"/>. If a screen is already opened on the same layer it will be closed.
 		/// </summary>
+		/// <param name="screenType">The Type of the presenter</param>
 		/// <param name="data">Optional data when using UIPresenterData</param>
-		/// <typeparam name="T">The type of screen to open.</typeparam>
 		/// <returns>A new UniTask that returns the presenter when it's finished.</returns>
 		/// <exception cref="InvalidOperationException">Thrown if the same screen type is already opened.</exception>
-		public async UniTask<T> OpenScreen<T>(object data = null) where T : UIPresenter
+		public async UniTask<UIPresenter> OpenScreen(Type screenType, object data = null)
 		{
-			var screenType = typeof(T);
-
 			FLog.Info($"Opening screen {screenType.Name}");
 			if (_openedScreensType.TryGetValue(screenType, out var openedScreenType))
 			{
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
 				FLog.Error($"Screen {screenType.Name} is already opened!");
-				return (T) openedScreenType;
+				return openedScreenType;
 #endif
 			}
 
@@ -91,7 +89,7 @@ namespace FirstLight.UIService
 
 			await CloseLayer(layer, false);
 
-			var handle = Addressables.InstantiateAsync(GetAddress<T>(), _root.transform);
+			var handle = Addressables.InstantiateAsync(GetAddress(screenType), _root.transform);
 			var go = handle.WaitForCompletion(); // Sync loading is intentional here
 			var screen = go.GetComponent<UIPresenter>();
 			var uiDocument = go.GetComponent<UIDocument>();
@@ -100,31 +98,30 @@ namespace FirstLight.UIService
 			screen.Data = data;
 			uiDocument.sortingOrder = (int) layer;
 
-			_openedScreensType.Add(typeof(T), screen);
+			_openedScreensType.Add(screenType, screen);
 			_openedScreensLayer[layer].Add(screen);
-
-			await screen.OnScreenOpenedInternal();
-			OnScreenOpened?.Invoke(typeof(T).Name.Replace("Presenter", ""), layer.ToString());
-			return (T) screen;
+			await screen.OnScreenOpenedInternal(uiService: this);
+			OnScreenOpened?.Invoke(screenType.Name.Replace("Presenter", ""), layer.ToString());
+			return screen;
 		}
 
 		/// <summary>
-		/// Close a screen of type <typeparamref name="T"/> if it's open.
+		/// Close a screen of type <param name="screenType"/> if it's open.
 		/// </summary>
+		/// <param name="screenType">The type of screen to close</param>
 		/// <param name="checkOpened">FOR LEGACY ONLY: If true will throw an exception when the screen is closed already.</param>
-		/// <typeparam name="T">The type of screen to close</typeparam>
 		/// <exception cref="InvalidOperationException">Thrown if the screen is not opened.</exception>
-		public UniTask CloseScreen<T>(bool checkOpened = true) where T : UIPresenter
+		public UniTask CloseScreen(Type screenType, bool checkOpened = true)
 		{
-			FLog.Info($"Closing screen {typeof(T).Name}");
+			FLog.Info($"Closing screen {screenType.Name}");
 
-			if (_openedScreensType.TryGetValue(typeof(T), out var screen))
+			if (_openedScreensType.TryGetValue(screenType, out var screen))
 			{
 				return CloseScreen(screen);
 			}
 
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
-			if (checkOpened) FLog.Error($"Screen {typeof(T).Name} is not opened!");
+			if (checkOpened) FLog.Error($"Screen {screenType.Name} is not opened!");
 #endif
 
 			return UniTask.CompletedTask;
@@ -201,9 +198,33 @@ namespace FirstLight.UIService
 				Addressables.ReleaseInstance(presenter.gameObject);
 		}
 
-		private static string GetAddress<T>() where T : UIPresenter
+		private static string GetAddress(Type type)
 		{
-			return $"UI/{typeof(T).Name.Replace("Presenter", "")}.prefab";
+			return $"UI/{type.Name.Replace("Presenter", "")}.prefab";
+		}
+
+		// Typed helpers
+		/// <summary>
+		/// Opens a new screen of type <typeparamref name="T"/>. If a screen is already opened on the same layer it will be closed.
+		/// </summary>
+		/// <param name="data">Optional data when using UIPresenterData</param>
+		/// <typeparam name="T">The type of screen to open.</typeparam>
+		/// <returns>A new UniTask that returns the presenter when it's finished.</returns>
+		/// <exception cref="InvalidOperationException">Thrown if the same screen type is already opened.</exception>
+		public async UniTask<T> OpenScreen<T>(object data = null) where T : UIPresenter
+		{
+			return (T) await OpenScreen(typeof(T), data);
+		}
+
+		/// <summary>
+		/// Close a screen of type <typeparamref name="T"/> if it's open.
+		/// </summary>
+		/// <param name="checkOpened">FOR LEGACY ONLY: If true will throw an exception when the screen is closed already.</param>
+		/// <typeparam name="T">The type of screen to close</typeparam>
+		/// <exception cref="InvalidOperationException">Thrown if the screen is not opened.</exception>
+		public UniTask CloseScreen<T>(bool checkOpened = true) where T : UIPresenter
+		{
+			return CloseScreen(typeof(T), checkOpened);
 		}
 	}
 }

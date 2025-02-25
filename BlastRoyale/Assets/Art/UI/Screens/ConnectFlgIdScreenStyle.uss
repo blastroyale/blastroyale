@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url("project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo");
+    background-image: var(--sprite-home__loading_background);
     -unity-background-scale-mode: scale-and-crop;
     -unity-background-image-tint-color: rgb(153, 135, 174);
 }

@@ -54,7 +54,7 @@ namespace FirstLight.Game.Services
 
 		public bool IsHidden => Name == "Hidden";
 	}
-	
+
 	public class GameProductsBundle
 	{
 		public string Name;
@@ -101,29 +101,22 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Find GameProduct with ItemId
 		/// </summary>
-		IReadOnlyCollection<GameProduct> AvailableProducts { get;  }
+		IReadOnlyCollection<GameProduct> AvailableProducts { get; }
 
 		/// <summary>
 		/// Mark all the new store items as seen by the player
 		/// </summary>
 		void MarkAllNewStoreItemsAsSeen();
-		
+
 		/// <summary>
 		/// Returns true if is there any new update on the store that player didn't see it
 		/// </summary>
 		bool HasStoreItemsUpdate(string filterCategory = null, string filterProduct = null);
-		
-		/// <summary>
-		/// Initializes the purchasing module.
-		/// </summary>
-		void Init();
 
 		/// <summary>
 		/// Event fired everytime a purchase finishes processing
 		/// </summary>
 		event PurchaseFinishedDelegate PurchaseFinished;
-		
-		
 
 		delegate void PurchaseFinishedDelegate(string productId, ItemData data, bool succeeded, IUnityStoreService.PurchaseFailureData failureData);
 
@@ -132,7 +125,6 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <returns></returns>
 		public UniTask ShowQueuedTransactionFailedMessagesAndWait();
-
 	}
 
 	public class IAPService : IIAPService
@@ -183,8 +175,14 @@ namespace FirstLight.Game.Services
 			_localPrefs = localPrefs;
 			_genericDialogService = genericDialogService;
 			_msgBroker.Subscribe<ShopScreenOpenedMessage>(OnShopOpened);
+			_msgBroker.Subscribe<LogicInitializedMessage>(OnLogicInitialized);
 			_unityStore.OnPurchaseFailure += OnPurchaseFailure;
 			_homeScreen.RegisterNotificationQueueProcessor(OnHomeScreenNotification);
+		}
+
+		private void OnLogicInitialized(LogicInitializedMessage obj)
+		{
+			Init();
 		}
 
 		private async UniTask<IHomeScreenService.ProcessorResult> OnHomeScreenNotification(Type arg)
@@ -201,6 +199,7 @@ namespace FirstLight.Game.Services
 			await ShowQueuedTransactionFailedMessagesAndWait();
 			return IHomeScreenService.ProcessorResult.None;
 		}
+
 		public string BuildMessage(IUnityStoreService.PurchaseFailureData data)
 		{
 			var product = AvailableProducts.FirstOrDefault(product => product.ID == data.ProductId);
@@ -298,7 +297,7 @@ namespace FirstLight.Game.Services
 
 			TryUpdateStoreCatalog();
 		}
-		
+
 		public void Init()
 		{
 			_playfab.Init();
@@ -330,9 +329,10 @@ namespace FirstLight.Game.Services
 					newStoreState.Categories.Add(new LocalStoreCategory()
 					{
 						CategoryName = productCategory.Name,
-						Products = productCategory.Products.Select(p => new LocalStoreProduct { ProductName = p.PlayfabProductConfig.CatalogItem.ItemId, IsNewStoreItem = false}).ToList()
+						Products = productCategory.Products.Select(p => new LocalStoreProduct
+							{ProductName = p.PlayfabProductConfig.CatalogItem.ItemId, IsNewStoreItem = false}).ToList()
 					});
-					
+
 					continue;
 				}
 
@@ -344,31 +344,34 @@ namespace FirstLight.Game.Services
 					newStoreState.Categories.Add(new LocalStoreCategory()
 					{
 						CategoryName = productCategory.Name,
-						Products = productCategory.Products.Select(p => new LocalStoreProduct { ProductName = p.PlayfabProductConfig.CatalogItem.ItemId, IsNewStoreItem = true}).ToList()
+						Products = productCategory.Products.Select(p => new LocalStoreProduct
+							{ProductName = p.PlayfabProductConfig.CatalogItem.ItemId, IsNewStoreItem = true}).ToList()
 					});
 				}
 				else
 				{
 					var addedProducts = productCategory.Products
-						.Where(productFromStore => lastStoreStateCategory.Products.All(lastStateProduct => lastStateProduct.ProductName != productFromStore.PlayfabProductConfig.CatalogItem.ItemId))
+						.Where(productFromStore => lastStoreStateCategory.Products.All(lastStateProduct =>
+							lastStateProduct.ProductName != productFromStore.PlayfabProductConfig.CatalogItem.ItemId))
 						.Select(currentProduct => new LocalStoreProduct
 						{
 							ProductName = currentProduct.PlayfabProductConfig.CatalogItem.ItemId,
 							IsNewStoreItem = true
 						}).ToList();
-					
+
 					var removedProducts = lastStoreStateCategory.Products
-						.Where(oldProduct => productCategory.Products.All(currentProduct => currentProduct.PlayfabProductConfig.CatalogItem.ItemId != oldProduct.ProductName))
+						.Where(oldProduct => productCategory.Products.All(currentProduct =>
+							currentProduct.PlayfabProductConfig.CatalogItem.ItemId != oldProduct.ProductName))
 						.ToList();
 
 					//Remove what need to be removed, Add what need to be added and keep everything else untouched
 					lastStoreStateCategory.Products.RemoveAll(p => removedProducts.Contains(p));
 					lastStoreStateCategory.Products.AddRange(addedProducts);
-					
+
 					newStoreState.Categories.Add(lastStoreStateCategory);
 				}
 			}
-			
+
 			_localPrefs.LastStoreState.Value = newStoreState;
 		}
 
@@ -376,13 +379,12 @@ namespace FirstLight.Game.Services
 		{
 			var lastStoreState = _localPrefs.LastStoreState.Value;
 			lastStoreState.Categories.ForEach(c => c.MarkProductsAsSeen());
-			
+
 			_localPrefs.LastStoreState.Value = lastStoreState;
 		}
 
 		public bool HasStoreItemsUpdate(string filterCategory = null, string filterProduct = null)
 		{
-
 			if (filterProduct != null)
 			{
 				return _localPrefs.LastStoreState.Value.Categories
@@ -408,7 +410,7 @@ namespace FirstLight.Game.Services
 			foreach (var playfabBundle in playfabGameProductBundles)
 			{
 				var bundleId = playfabBundle.Key.CatalogItem.ItemId;
-				
+
 				//Resolve Bundle
 				if (!_availableGameProductBundles.TryGetValue(bundleId, out var gameProductBundle))
 				{
@@ -609,12 +611,12 @@ namespace FirstLight.Game.Services
 				if (gameProductsBundle != null)
 				{
 					var bundleRewards = new List<ItemData>();
-					
+
 					foreach (var bundleProduct in gameProductsBundle.BundleProducts)
 					{
-						bundleRewards.Add(bundleProduct.GameItem);						
+						bundleRewards.Add(bundleProduct.GameItem);
 					}
-					
+
 					_commandService.ExecuteCommand(new AddIAPBundleRewardLocalCommand() {BundleRewards = bundleRewards.ToArray()});
 				}
 			}
@@ -622,10 +624,9 @@ namespace FirstLight.Game.Services
 			{
 				_commandService.ExecuteCommand(new AddIAPRewardLocalCommand {Reward = item});
 			}
-			
+
 			_unityStore.Controller.ConfirmPendingPurchase(product);
 
-			
 			var availableProduct = _availableProducts.FirstOrDefault(p => p.PlayfabProductConfig.CatalogItem.ItemId.Equals(product.definition.id));
 
 			if (availableProduct == null)
@@ -662,9 +663,9 @@ namespace FirstLight.Game.Services
 		public static bool IsRealMoney(this IIAPService iapService, GameProduct product)
 		{
 			//TODO Might not need to add
-			return product.PlayfabProductConfig.StoreItem != null ? 
-				product.PlayfabProductConfig.StoreItem.VirtualCurrencyPrices.Keys.Contains("RM") : 
-				product.PlayfabProductConfig.CatalogItem.VirtualCurrencyPrices.Keys.Contains("RM");
+			return product.PlayfabProductConfig.StoreItem != null
+				? product.PlayfabProductConfig.StoreItem.VirtualCurrencyPrices.Keys.Contains("RM")
+				: product.PlayfabProductConfig.CatalogItem.VirtualCurrencyPrices.Keys.Contains("RM");
 		}
 
 		public enum BuyProductResult
@@ -704,6 +705,7 @@ namespace FirstLight.Game.Services
 					{
 						return BuyProductResult.ForcePlayerToShop;
 					}
+
 					_handled.Remove(productId);
 					return BuyProductResult.Rejected;
 				}

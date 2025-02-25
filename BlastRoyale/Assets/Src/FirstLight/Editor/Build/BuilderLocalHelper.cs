@@ -60,6 +60,23 @@ namespace FirstLight.Editor.Build
 			});
 		}
 
+		[MenuItem("FLG/Build/Local/Development - Store", false, 54)]
+		public static void StoreBuildDevelopment()
+		{
+			BuildUtils.OverwriteEnvironment = FLEnvironment.DEVELOPMENT;
+			EditorUserBuildSettings.buildAppBundle = true;
+			PlayerSettings.Android.useAPKExpansionFiles = true;
+			AddressableAssetSettings.CleanPlayerContent();
+			Builder.Build(new Builder.BuildParameters()
+			{
+				BuildNumber = 1,
+				BuildTarget = BuildUtils.GetBuildTarget(),
+				DevelopmentBuild = false,
+				RemoteAddressables = true,
+				UploadSymbolsToUnity = true,
+			});
+		}
+
 		public static void BaseDevelopBuild(BuildOptions additionalFlags = BuildOptions.None)
 		{
 			Builder.Build(new Builder.BuildParameters()

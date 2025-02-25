@@ -160,7 +160,9 @@ namespace FirstLight.Game.Domains.HomeScreen
 			news.OnEnter(OnEnterNews);
 			news.Event(_backButtonClicked).Target(homeCheck);
 
-			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
+			homeCheck.Transition().Condition(NeedsToEnterDisplayName)
+				.OnTransition(() => GlobalAnimatedBackground.Instance.SetDefault())
+				.Target(enterNameDialog);
 			homeCheck.Transition().Condition(RequiresToSeeStore).Target(store);
 			homeCheck.Transition().Condition(RequiresToSeePaidEvent)
 				.Target(validateRewardsPaidEvent);
@@ -236,7 +238,9 @@ namespace FirstLight.Game.Domains.HomeScreen
 			chooseGameMode.Event(_customGameButtonClicked).Target(customGamesList);
 
 			enterNameDialog.OnEnter(RequestStartMetaMatchTutorial);
-			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
+			enterNameDialog.Nest(_enterNameState.Setup)
+				.OnTransition(() => GlobalAnimatedBackground.Instance.Disable())
+				.Target(homeMenu);
 
 			customGameLobby.OnEnter(OpenCustomGameLobby);
 			customGameLobby.Event(RoomJoinCreateBackClickedEvent).Target(customGamesList);
@@ -360,11 +364,10 @@ namespace FirstLight.Game.Domains.HomeScreen
 			}
 		}
 
-		private bool MetaTutorialConditionsCheck()
+		private bool NeedsToEnterDisplayName()
 		{
 			// If first enter prompt tutorial not completed, and tutorial is not completed 
-			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT) &&
-				!_services.TutorialService.HasCompletedTutorial();
+			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT);
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -495,6 +498,7 @@ namespace FirstLight.Game.Domains.HomeScreen
 		{
 			if (!_services.UIService.IsScreenOpen<HomeScreenPresenter>())
 			{
+				GlobalAnimatedBackground.Instance.Disable();
 				LoadingScreenPresenter.Destroy();
 
 				var data = new HomeScreenPresenter.StateData

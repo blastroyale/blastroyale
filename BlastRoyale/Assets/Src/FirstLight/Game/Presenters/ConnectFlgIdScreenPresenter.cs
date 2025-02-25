@@ -200,7 +200,7 @@ namespace FirstLight.Game.Presenters
 				await _services.UIService.OpenScreen<LoadingSpinnerScreenPresenter>();
 				try
 				{
-					await _services.AuthService.LoginWithEmail(email, password);
+					await _services.AuthService.LoginWithEmailProcess(email, password);
 					OnLoginSuccess();
 				}
 				catch (Exception ex)

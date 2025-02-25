@@ -117,7 +117,7 @@ namespace FirstLight.Game.Presenters
 		{
 			PopupPresenter.OpenJoinWithCode(code =>
 			{
-				PopupPresenter.Close().Forget();
+				PopupPresenter.ClosePopupScreen().Forget();
 				JoinMatch(code, false).Forget();
 			}).Forget();
 		}

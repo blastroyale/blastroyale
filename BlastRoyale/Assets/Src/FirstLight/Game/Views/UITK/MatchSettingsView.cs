@@ -259,7 +259,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				MatchSettings.MapID = mapId;
 				RefreshData(true);
-				PopupPresenter.Close().Forget();
+				PopupPresenter.ClosePopupScreen().Forget();
 			}, options, MatchSettings.MapID, false).Forget();
 		}
 
@@ -270,7 +270,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				MatchSettings.MaxPlayers = val;
 				RefreshData(true);
-				PopupPresenter.Close().Forget();
+				PopupPresenter.ClosePopupScreen().Forget();
 				
 			}, ScriptTerms.UITCustomGames.max_players, ScriptTerms.UITCustomGames.max_players_desc, 2, 48, MatchSettings.MaxPlayers).Forget();
 		}
@@ -281,7 +281,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				MatchSettings.SquadSize = (uint) val;
 				RefreshData(true);
-				PopupPresenter.Close().Forget();
+				PopupPresenter.ClosePopupScreen().Forget();
 			}, MatchSettings.SquadSize).Forget();
 		}
 
@@ -291,7 +291,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				MatchSettings.Mutators = mutators;
 				RefreshData(true);
-				PopupPresenter.Close().Forget();
+				PopupPresenter.ClosePopupScreen().Forget();
 			}, MatchSettings.Mutators).Forget();
 		}
 
@@ -301,7 +301,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				MatchSettings.WeaponFilter = weapons;
 				RefreshData(true);
-				PopupPresenter.Close().Forget();
+				PopupPresenter.ClosePopupScreen().Forget();
 			}, MatchSettings.WeaponFilter).Forget();
 		}
 

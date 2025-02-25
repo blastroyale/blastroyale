@@ -15,13 +15,13 @@ namespace FirstLight.Game.Presenters
 	{
 		[SerializeField] private UIDocument _document;
 
-		private static GameObject Instance;
+		private static LoadingScreenPresenter Instance;
 		private VisualElement _labelsContainer;
 		private IVisualElementScheduledItem _environmentRedirectTask;
 
 		private void Start()
 		{
-			Instance = gameObject;
+			Instance = this;
 			var root = _document.rootVisualElement;
 
 			_labelsContainer = root.Q("LabelsContainer").Required();
@@ -61,11 +61,27 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		public static void Hide()
+		{
+			if (Instance != null)
+			{
+				Instance._document.rootVisualElement.SetDisplay(false);
+			}
+		}
+
+		public static void Show()
+		{
+			if (Instance != null)
+			{
+				Instance._document.rootVisualElement.SetDisplay(true);
+			}
+		}
+
 		public static void Destroy()
 		{
 			if (Instance != null)
 			{
-				Destroy(Instance);
+				Destroy(Instance.gameObject);
 				Instance = null;
 			}
 		}

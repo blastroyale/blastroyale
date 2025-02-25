@@ -424,13 +424,13 @@ namespace FirstLight.Game.Presenters.Store
 			}
 
 			_gameServices.CommandService.ExecuteCommand(new SupportCreatorCommand() {CreatorCode = creatorCodeValue});
-			PopupPresenter.Close();
+			PopupPresenter.ClosePopupScreen();
 		}
 
 		private void OnStopSupportingCreatorSubmitted()
 		{
 			_gameServices.CommandService.ExecuteCommand(new SupportCreatorCommand() {CreatorCode = string.Empty});
-			PopupPresenter.Close();
+			PopupPresenter.ClosePopupScreen();
 		}
 	}
 }

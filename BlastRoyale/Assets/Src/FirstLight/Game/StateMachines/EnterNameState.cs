@@ -95,8 +95,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = newName => OnNameSet(newName).Forget()
 			};
 
-			var emptyInputText = !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT) &&
-				!_services.TutorialService.HasCompletedTutorial();
+			var emptyInputText = !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.ENTER_NAME_PROMPT);
 
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name,
 				ScriptLocalization.UITHomeScreen.new_name_desc,
@@ -111,6 +110,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (error == null)
 			{
+				_services.TutorialService.CompleteTutorialSection(TutorialSection.ENTER_NAME_PROMPT);
 				_statechartTrigger(NameSetEvent);
 				return;
 			}

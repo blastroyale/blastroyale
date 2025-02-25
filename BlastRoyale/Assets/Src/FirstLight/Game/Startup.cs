@@ -77,6 +77,7 @@ namespace FirstLight.Game
 
 			InitSettings();
 			InitAppEventsListener();
+			// TODO: MOVE THIS AWAY FORM HERE
 			await services.NotificationService.RegisterForNotifications();
 
 			StartGameStateMachine();

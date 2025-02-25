@@ -70,17 +70,11 @@ namespace FirstLight.Game.Views.UITK.Popups
 		{
 		}
 
-		public void Close()
-		{
-			// We need a way for the screen to close itself
-			MainInstaller.ResolveServices().UIService.CloseScreen<MatchInfoPopupPresenter>().Forget();
-		}
-
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_popup.CloseClicked += Close;
+			_popup.CloseClicked += () => Close().Forget();
 
-			_blocker.clicked += Close;
+			_blocker.clicked += () => Close().Forget();
 
 			_popup.EnablePadding(false)
 				.SetGlowEffect(Data.MatchSettings.MatchType == MatchType.Matchmaking);

@@ -9,7 +9,6 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using UnityEngine;
 
-
 namespace FirstLight.Game.Services
 {
 	/// <summary>
@@ -57,6 +56,11 @@ namespace FirstLight.Game.Services
 		/// Attempts to find a tutorial game object.
 		/// </summary>
 		GameObject[] FindTutorialObjects(string reference);
+
+		/// <summary>
+		/// Skips the tutorial for the current player, it runs a command to change player data
+		/// </summary>
+		void SkipTutorial();
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
@@ -78,7 +82,8 @@ namespace FirstLight.Game.Services
 
 		IObservableField<TutorialSection> ITutorialService.CurrentRunningTutorial => CurrentRunningTutorial;
 
-		public TutorialService(IRoomService roomService, IGameCommandService commandService, IConfigsProvider configsProvider, IGameDataProvider dataProvider)
+		public TutorialService(IRoomService roomService, IGameCommandService commandService, IConfigsProvider configsProvider,
+							   IGameDataProvider dataProvider)
 		{
 			_roomService = roomService;
 			_commandService = commandService;
@@ -89,9 +94,10 @@ namespace FirstLight.Game.Services
 
 		public void CompleteTutorialSection(TutorialSection section)
 		{
+			if (HasCompletedTutorialSection(section)) return;
 			_commandService.ExecuteCommand(new CompleteTutorialSectionCommand()
 			{
-				Section = section
+				Sections = new[] {section}
 			});
 		}
 
@@ -119,7 +125,7 @@ namespace FirstLight.Game.Services
 		{
 			// Normal play button behaviour will handle it
 			if (!FeatureFlags.TUTORIAL_BATTLE) return;
-			
+
 			var config = _configsProvider.GetConfig<TutorialConfig>().SecondMatch.CloneSerializing();
 			config.MatchType = MatchType.Forced;
 			var setup = new MatchRoomSetup()
@@ -152,6 +158,18 @@ namespace FirstLight.Game.Services
 		{
 			return HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) &&
 				HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
+		}
+
+		public void SkipTutorial()
+		{
+			_commandService.ExecuteCommand(new CompleteTutorialSectionCommand()
+			{
+				Sections = new[]
+				{
+					TutorialSection.FIRST_GUIDE_MATCH,
+					TutorialSection.META_GUIDE_AND_MATCH,
+				}
+			});
 		}
 	}
 }

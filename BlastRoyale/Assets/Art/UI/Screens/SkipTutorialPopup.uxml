@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/SkipTutorialPopupStyle.uss?fileID=7433441132597879392&amp;guid=1b91012960478b84abcbd195076a2efb&amp;type=3#SkipTutorialPopupStyle" />
+    <ui:VisualElement name="root" class="purchase-confirmation-root" style="align-self: center;">
+        <FirstLight.Game.UIElements.ImageButton name="BlockerButton" />
+        <FirstLight.Game.UIElements.GenericPopupElement name="Popup" title-localization-key="CHOOSE YOUR PATH" glow-effect="false" disable-close-button="true" class="generic-popup--animated" style="flex-grow: 0;">
+            <ui:VisualElement style="flex-grow: 0; justify-content: flex-start; align-self: center;">
+                <ui:VisualElement name="ButtonHolder" style="flex-grow: 0; flex-direction: row; height: 520px; align-items: center; width: 1357px; justify-content: center; align-self: center;">
+                    <FirstLight.Game.UIElements.ImageButton name="TutorialButton" class="option">
+                        <ui:VisualElement name="Image" class="option__image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/AddressableResources/Collections/WeaponSkins/Hammer/NoobHammer/Icon_Melee_Noobhammer.png?fileID=21300000&amp;guid=a18d1ea2b683a6f40939a6b7217d1063&amp;type=3#Icon_Melee_Noobhammer&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                        <FirstLight.Game.UIElements.LabelOutlined name="LabelOutlined" text="I&apos;m new to Blast Royale and I haven&apos;t played top-down shooters before" class="game-label game-label--small option__label" style="white-space: normal;" />
+                    </FirstLight.Game.UIElements.ImageButton>
+                    <FirstLight.Game.UIElements.ImageButton name="SkipButton" class="option option--selected" style="margin-left: 52px;">
+                        <ui:VisualElement name="Image" class="option__image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/AddressableResources/Sprites/Equipment/Weapon/ModSniper.png?fileID=21300000&amp;guid=50733a46a4d17204492f321afdb06cee&amp;type=3#ModSniper&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                        <FirstLight.Game.UIElements.LabelOutlined name="LabelOutlined" text="I&apos;m an expert in shooters. Skip the tutorial lets get going" class="game-label game-label--small option__label" style="white-space: normal;" />
+                    </FirstLight.Game.UIElements.ImageButton>
+                    <FirstLight.Game.UIElements.ImageButton name="LoginButton" class="option" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 52px;">
+                        <ui:VisualElement name="Image" class="option__image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/AddressableResources/Collections/WeaponSkins/Hammer/Keyboard/Icon_Melee_Keyboard.png?fileID=21300000&amp;guid=601ce2e2ffb89496eb130938e1ec4434&amp;type=3#Icon_Melee_Keyboard&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                        <FirstLight.Game.UIElements.LabelOutlined name="LabelOutlined" text="I have a Blast Royale account and I want to login into it" class="game-label game-label--small option__label" style="white-space: normal;" />
+                    </FirstLight.Game.UIElements.ImageButton>
+                </ui:VisualElement>
+                <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-color="Primary" btn-text="CONFIRM" name="ConfirmButton" style="align-self: center; margin-top: 36px;" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.GenericPopupElement>
+    </ui:VisualElement>
+</ui:UXML>

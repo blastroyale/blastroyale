@@ -151,7 +151,7 @@ namespace FirstLight.Game.Presenters
 				var mapGid = Enum.Parse<GameId>(mapId);
 				_services.GameModeService.SelectedMap = mapGid;
 				_mapButton.SetValue(mapGid.GetLocalization());
-				PopupPresenter.Close().Forget();
+				PopupPresenter.ClosePopupScreen().Forget();
 			}, validMaps, _services.GameModeService.SelectedMap.ToString(), true).Forget();
 		}
 

@@ -57,9 +57,9 @@ namespace FirstLight.Game.Presenters.Social.Team
 			_createTeamButton.clicked += () => CreateParty().Forget();
 			_joinTeamButton.clicked += () =>
 			{
-				PopupPresenter.Close()
+				PopupPresenter.ClosePopupScreen()
 					.ContinueWith(() => PopupPresenter.OpenJoinWithCode(code =>
-						JoinParty(code).ContinueWith(PopupPresenter.Close).ContinueWith(PopupPresenter.OpenParty).Forget()))
+						JoinParty(code).ContinueWith(PopupPresenter.ClosePopupScreen).ContinueWith(PopupPresenter.OpenParty).Forget()))
 					.Forget();
 			};
 			_leaveTeamButton.clicked += UniTask.Action(LeaveParty);

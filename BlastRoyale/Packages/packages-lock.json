@@ -32,11 +32,10 @@
       "dependencies": {}
     },
     "com.google.android.appbundle": {
-      "version": "1.9.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
+      "version": "file:com.google.android.appbundle",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.google.external-dependency-manager": {
       "version": "file:com.google.external-dependency-manager-1.2.179.tgz",
@@ -59,35 +58,6 @@
       "dependencies": {
         "com.google.external-dependency-manager": "1.2.177"
       }
-    },
-    "com.google.play.common": {
-      "version": "https://github.com/pancake-llc/google-play-common.git#1.9.1",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.google.android.appbundle": "1.9.0"
-      },
-      "hash": "8f1d52237ff0a5577416f15983ac509aa36c4e18"
-    },
-    "com.google.play.core": {
-      "version": "https://github.com/pancake-llc/google-play-core.git#1.8.4",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.google.android.appbundle": "1.9.0",
-        "com.google.external-dependency-manager": "1.2.172"
-      },
-      "hash": "9d676fdea835d32484e18fdbc94d1598045f7407"
-    },
-    "com.google.play.review": {
-      "version": "https://github.com/pancake-llc/in-app-review.git#1.8.2",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.google.play.common": "1.9.1",
-        "com.google.play.core": "1.8.4"
-      },
-      "hash": "699315e1e8053b8c948685759c4fd38851c563b2"
     },
     "com.kybernetik.animancer": {
       "version": "file:com.kybernetik.animancer",

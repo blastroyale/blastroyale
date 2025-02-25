@@ -1,8 +1,10 @@
 using System;
+using Cysharp.Threading.Tasks;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.UIElements
 {
@@ -21,12 +23,14 @@ namespace FirstLight.Game.UIElements
 		private const string USS_CLOSE_BUTTON = USS_BLOCK + "__close-button";
 		private const string USS_CLOSE_BUTTON_CONTAINER = USS_CLOSE_BUTTON + "-container";
 		private string TitleLocalizationKey { get; set; }
+		private bool GlowEffect { get; set; }
+		private bool DisableCloseButton { get; set; }
 
 		private readonly VisualElement _header;
 		private readonly Label _title;
-		private readonly ImageButton _closeButton;
+		private ImageButton _closeButton;
 		private readonly VisualElement _content;
-		private readonly VisualElement _glowHolder;
+		private VisualElement _glowHolder;
 
 		public event Action CloseClicked;
 
@@ -44,31 +48,81 @@ namespace FirstLight.Game.UIElements
 			{
 				_header.Add(_title = new LabelOutlined("Title") {name = "title"});
 				_title.AddToClassList(USS_TITLE);
-				_header.Add(_closeButton = new ImageButton {name = "close-button-container"});
+			}
+			Add(_content = new VisualElement {name = "content"});
+			_content.AddToClassList(USS_CONTENT);
+			contentContainer = _content;
+			SetCloseButton(!DisableCloseButton);
+			SetGlowEffect(GlowEffect);
+		}
+
+		public async UniTask AnimateOpen()
+		{
+			var complete = new UniTaskCompletionSource();
+			var tmp = experimental.animation.Start(0, 1, 166, (el, v) =>
+			{
+				el.style.scale = new StyleScale(new Vector2(v, v));
+			}).Ease(Easing.OutBack);
+			tmp.OnCompleted(() =>
+			{
+				complete.TrySetResult();
+			});
+			await complete.Task;
+		}
+
+		public async UniTask AnimateClose()
+		{
+			var complete = new UniTaskCompletionSource();
+			var tmp = experimental.animation.Start(1, 0, 166, (el, v) =>
+			{
+				el.style.scale = new StyleScale(new Vector2(v, v));
+			}).Ease(Easing.InCubic);
+			tmp.OnCompleted(() =>
+			{
+				complete.TrySetResult();
+			});
+			await complete.Task;
+		}
+
+		public void SetCloseButton(bool on)
+		{
+			if (!on && _closeButton == null) return;
+			if (on && _closeButton != null) return;
+			if (on)
+			{
+				_closeButton = new ImageButton {name = "close-button-container"};
 				_closeButton.AddToClassList(USS_CLOSE_BUTTON_CONTAINER);
 				var icon = new VisualElement() {name = "close-button"};
 				icon.AddToClassList(USS_CLOSE_BUTTON);
 				_closeButton.Add(icon);
 				_closeButton.clicked += () => CloseClicked?.Invoke();
+				_header.Add(_closeButton);
 			}
-
-			Add(_content = new VisualElement {name = "content"});
-			_content.AddToClassList(USS_CONTENT);
-			_glowHolder = new VisualElement {name = "glow-holder"};
-			_glowHolder.AddToClassList(USS_GLOW_HOLDER);
-			_glowHolder.SetDisplay(false);
-			var glow = new VisualElement() {name = "glow"};
-			glow.AddToClassList(USS_GLOW);
-			_glowHolder.Add(glow);
-			_content.Add(_glowHolder);
-
-			contentContainer = _content;
+			else
+			{
+				_header.Remove(_closeButton);
+				_closeButton = null;
+			}
 		}
 
-		public GenericPopupElement SetGlowEffect(bool on)
+		public void SetGlowEffect(bool on)
 		{
-			_glowHolder.SetDisplay(on);
-			return this;
+			if (!on && _glowHolder == null) return;
+			if (on && _glowHolder != null) return;
+			if (on)
+			{
+				_glowHolder = new VisualElement {name = "glow-holder"};
+				_glowHolder.AddToClassList(USS_GLOW_HOLDER);
+				var glow = new VisualElement() {name = "glow"};
+				glow.AddToClassList(USS_GLOW);
+				_glowHolder.Add(glow);
+				_content.Insert(0, _glowHolder);
+			}
+			else
+			{
+				_content.Remove(_glowHolder);
+				_glowHolder = null;
+			}
 		}
 
 		public GenericPopupElement EnablePadding(bool padding)
@@ -103,10 +157,30 @@ namespace FirstLight.Game.UIElements
 				use = UxmlAttributeDescription.Use.Required
 			};
 
+			private readonly UxmlBoolAttributeDescription _glowEffect = new ()
+			{
+				name = "glow-effect",
+				defaultValue = false,
+				use = UxmlAttributeDescription.Use.Required
+			};
+
+			private readonly UxmlBoolAttributeDescription _disableCloseButton = new ()
+			{
+				name = "disable-close-button",
+				defaultValue = false,
+				use = UxmlAttributeDescription.Use.Required
+			};
+
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
-				((GenericPopupElement) ve).LocalizeTitle(_titleLocalizationKeyAttribute.GetValueFromBag(bag, cc));
+
+				var el = ((GenericPopupElement) ve);
+				el.GlowEffect = _glowEffect.GetValueFromBag(bag, cc);
+				el.DisableCloseButton = _disableCloseButton.GetValueFromBag(bag, cc);
+				el.LocalizeTitle(_titleLocalizationKeyAttribute.GetValueFromBag(bag, cc));
+				el.SetGlowEffect(_glowEffect.GetValueFromBag(bag, cc));
+				el.SetCloseButton(!_disableCloseButton.GetValueFromBag(bag, cc));
 			}
 		}
 	}

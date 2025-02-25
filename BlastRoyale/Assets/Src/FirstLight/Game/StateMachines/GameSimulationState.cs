@@ -416,7 +416,7 @@ namespace FirstLight.Game.StateMachines
 
 #if UNITY_EDITOR || (DEVELOPMENT_BUILD && !DISABLE_SRDEBUGGER)
 
-			if (SROptions.Current.DontSendPlayerData)
+			if (SROptions.Current != null && SROptions.Current.DontSendPlayerData)
 			{
 				FLog.Warn("Not sending runtime player data. This is a hack for the local player, not an exception!");
 				return;

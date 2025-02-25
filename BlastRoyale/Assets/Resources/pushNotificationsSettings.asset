@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f1f23061eb94677b4c099331c06f0b, type: 3}
   m_Name: pushNotificationsSettings
   m_EditorClassIdentifier: 
-  firebaseWebApiKey: ***REMOVED***
+  firebaseWebApiKey: ***REMOVED***4
   firebaseProjectNumber: ***REMOVED***
   firebaseAppID: ***REMOVED***
-  firebaseProjectID: blast-royale-staging
+  firebaseProjectID: blast-royale-dev

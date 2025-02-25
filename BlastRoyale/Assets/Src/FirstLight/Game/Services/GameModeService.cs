@@ -58,11 +58,6 @@ namespace FirstLight.Game.Services
 	public interface IGameModeService
 	{
 		/// <summary>
-		/// Sets up the initial game mode rotation values - must be called after configs are loaded.
-		/// </summary>
-		void Init();
-
-		/// <summary>
 		/// The currently selected GameMode.
 		/// </summary>
 		IObservableField<GameModeInfo> SelectedGameMode { get; }
@@ -191,6 +186,7 @@ namespace FirstLight.Game.Services
 			msgBroker.Subscribe<GameCompletedRewardsMessage>(OnGameRewards);
 			msgBroker.Subscribe<QuantumServerSimulationDisconnectedMessage>(OnQuantumServerDisconnected);
 			msgBroker.Subscribe<TicketsRefundedMessage>(OnTicketRefunded);
+			msgBroker.Subscribe<LogicInitializedMessage>(OnLogicInitialized);
 			homeScreenService.CustomPlayButtonValidations += ValidatePlayButton;
 			roomService.OnNotEnoughPlayers += FailedToStartMatch;
 		}
@@ -337,7 +333,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public void Init()
+		private void OnLogicInitialized(LogicInitializedMessage obj)
 		{
 			// Pre load event images
 			foreach (var uniqueUrls in Slots.Where(slot => slot.Entry is EventGameModeEntry)

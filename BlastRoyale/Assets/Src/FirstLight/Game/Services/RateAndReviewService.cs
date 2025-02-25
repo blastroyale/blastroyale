@@ -5,6 +5,7 @@ using FirstLight.NativeUi;
 using FirstLight.SDK.Services;
 using FirstLightServerSDK.Services;
 using UnityEngine;
+using VoxelBusters.EssentialKit;
 using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.Services
@@ -15,7 +16,6 @@ namespace FirstLight.Game.Services
 	public class RateAndReviewService
 	{
 		private readonly IMessageBrokerService _messageBrokerService;
-		private RateAndReview _rateAndReviewComponent;
 		private LocalPrefsService _localPrefsService;
 		private readonly IRemoteConfigProvider _remoteConfigProvider;
 		private bool _canShowPrompt;
@@ -46,10 +46,6 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
-
-			_rateAndReviewComponent = new GameObject("Rate And Review").AddComponent<RateAndReview>();
-			Object.DontDestroyOnLoad(_rateAndReviewComponent.gameObject);
-
 			_messageBrokerService.Subscribe<MainMenuOpenedMessage>(OnPlayScreenOpenedMessage);
 			_messageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_messageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);
@@ -78,7 +74,7 @@ namespace FirstLight.Game.Services
 
 		private void OpenRateAndReviewPrompt()
 		{
-			_rateAndReviewComponent.RateReview();
+			RateMyApp.AskForReviewNow(skipConfirmation: true);
 			_localPrefsService.RateAndReviewPromptShown.Value = true;
 			_messageBrokerService.Unsubscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_messageBrokerService.Unsubscribe<CollectionItemEquippedMessage>(OnCollectionItemEquippedMessage);

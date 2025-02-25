@@ -26,6 +26,7 @@ namespace FirstLight.Game.Services
 	public class NotificationService : INotificationService
 	{
 		private IRemoteConfigProvider _remoteConfigProvider;
+		private bool _initialized = false;
 
 		public NotificationService(IRemoteConfigProvider remoteConfigProvider, IMessageBrokerService msgBroker)
 		{
@@ -40,6 +41,7 @@ namespace FirstLight.Game.Services
 		public void Init()
 		{
 #if UNITY_IOS || UNITY_ANDROID
+			_initialized = true;
 			var args = NotificationCenterArgs.Default;
 			args.AndroidChannelId = "default";
 			args.AndroidChannelName = "Notifications";
@@ -60,6 +62,7 @@ namespace FirstLight.Game.Services
 
 		public void RefreshEventNotifications()
 		{
+			if (!_initialized) return;
 #if UNITY_IOS || UNITY_ANDROID
 			if (Application.isEditor) return;
 			NotificationCenter.CancelAllScheduledNotifications();

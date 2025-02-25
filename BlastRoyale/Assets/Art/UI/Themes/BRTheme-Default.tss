@@ -7,6 +7,7 @@
 @import url("/Assets/Art/UI/Styles/Sprites-Currencies.uss");
 @import url("/Assets/Art/UI/Styles/Sprites-Kit.uss");
 @import url("/Assets/Art/UI/Styles/CommonStyle.uss");
+@import url("/Assets/Art/UI/Styles/GenericPopupStyle.uss");
 @import url("/Assets/Art/UI/Styles/Transitions.uss");
 @import url("/Assets/Art/UI/Styles/ProfilePictures.uss");
 @import url("/Assets/Art/UI/Styles/CurrencyDisplayStyle.uss");

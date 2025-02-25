@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 				editNameButton.SetVisibility(false);
 			}
 
-			Root.Q<ImageButton>("CloseButton").clicked += Close;
+			Root.Q<ImageButton>("CloseButton").clicked += () => Close().Forget();
 			Root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, PlayerStatisticsPopupPresenter>((_, p) => p.Close(), this);
 
 			_pfpImage = Root.Q<PlayerAvatarElement>("Avatar").Required();
@@ -148,11 +148,6 @@ namespace FirstLight.Game.Presenters
 			_nameLabel.text = _services.AuthService.GetPrettyLocalPlayerName();
 			SetupPopup().Forget();
 			return base.OnScreenOpen(reload);
-		}
-
-		private void Close()
-		{
-			_services.UIService.CloseScreen<PlayerStatisticsPopupPresenter>().Forget();
 		}
 
 		protected override UniTask OnScreenClose()

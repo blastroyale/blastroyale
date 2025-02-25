@@ -44,7 +44,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_gameLogic = gameLogic; // TODO: Should not be here
 			_services = services;
-			_authenticationState = new AuthenticationState(services, services.DataService, Trigger);
+			_authenticationState = new AuthenticationState(_gameLogic, services, services.DataService, Trigger);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_reconnection = new ReconnectionState(services, gameLogic, networkService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
@@ -79,7 +79,6 @@ namespace FirstLight.Game.StateMachines
 			var core = stateFactory.Split("Core");
 
 			initial.Transition().Target(internetCheck);
-			initial.OnExit(_authenticationState.QuickAsyncLogin);
 			initial.OnExit(() =>
 			{
 				if (BotCharacterSystem.Debug)
@@ -92,39 +91,8 @@ namespace FirstLight.Game.StateMachines
 			internetCheck.Transition().Target(authentication);
 
 			authentication.Nest(_authenticationState.Setup).Target(core);
-			authentication.OnExit(InitializeRemainingLogic);
 
 			core.Split(_networkState.Setup, _audioState.Setup, _tutorialState.Setup, _coreLoopState.Setup).Target(final);
-		}
-
-		private void InitializeRemainingLogic()
-		{
-			try
-			{
-				_gameLogic.Init();
-				_services.GameModeService.Init();
-				_services.IAPService.Init();
-				InitUserReporting(_services, _gameLogic.RemoteConfigProvider).Forget(); // TODO: Move this to Startup when we can await for auth there
-			}
-#pragma warning disable CS0168 // Variable is declared but never used
-			catch (Exception ex)
-#pragma warning restore CS0168 // Variable is declared but never used
-			{
-				FLog.Error("Failed to initialize remaining logic", ex);
-#if DEBUG || UNITY_EDITOR
-				var desc = ex.Message;
-#else
-				var desc = string.Format(ScriptLocalization.General.ErrorGeneric);
-#endif
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.ExitGame,
-					ButtonOnClick = () => { _services.QuitGame("Error initializing logic"); }
-				};
-
-				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
-				throw;
-			}
 		}
 
 		private void OpenNoInternetPopUp()
@@ -149,16 +117,6 @@ namespace FirstLight.Game.StateMachines
 			FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet,
 				ScriptLocalization.General.NoInternetDescription, button);
 #endif
-		}
-
-		private static async UniTaskVoid InitUserReporting(IGameServices services, IRemoteConfigProvider remoteConfig)
-		{
-			if (!remoteConfig.GetConfig<GeneralConfig>().ShowBugReportButton) return;
-
-			var customConfig = new UserReportingClientConfiguration(100, 300, 60, 1);
-			UserReportingService.Instance.Configure(customConfig);
-
-			await services.UIService.OpenScreen<UserReportScreenPresenter>();
 		}
 	}
 }

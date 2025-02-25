@@ -20,6 +20,11 @@ namespace FirstLight.UIService
 		internal UILayer Layer { set; get; }
 		internal object Data { set; get; }
 
+		/// <summary>
+		/// Set by the UIService when opening the screen
+		/// </summary>
+		protected UIService Service;
+
 		private readonly List<UIView> _views = new ();
 		private bool _enableTriggered;
 		private CancellationTokenSource _cancellationTokenSource;
@@ -56,8 +61,9 @@ namespace FirstLight.UIService
 			view.AttachedInternal(element, this);
 		}
 
-		internal async UniTask OnScreenOpenedInternal(bool reload = false)
+		internal virtual async UniTask OnScreenOpenedInternal(bool reload = false, UIService uiService = null)
 		{
+			Service = uiService;
 			_cancellationTokenSource = new CancellationTokenSource();
 			_closed = false;
 			// Assert.AreEqual(typeof(T), Data.GetType(), $"Screen opened with incorrect data type {Data.GetType()} instead of {typeof(T)}");
@@ -137,6 +143,11 @@ namespace FirstLight.UIService
 		protected virtual UniTask OnScreenClose()
 		{
 			return UniTask.CompletedTask;
+		}
+
+		public UniTask Close()
+		{
+			return Service.CloseScreen(GetType());
 		}
 	}
 }

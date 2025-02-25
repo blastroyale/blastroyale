@@ -17,14 +17,14 @@ namespace FirstLight.Tests.EditorMode.Integration
 		public void TestTutorialSectionRewardList()
 		{
 			var tutorialRewards = TestConfigs.GetConfig<TutorialConfig>().Rewards.First();
-			var rewardConfigs = TestConfigs.GetConfigsList<EquipmentRewardConfig>().Where(c => tutorialRewards.RewardIds.Contains((uint)c.Id));
+			var rewardConfigs = TestConfigs.GetConfigsList<EquipmentRewardConfig>().Where(c => tutorialRewards.RewardIds.Contains((uint) c.Id));
 
 			var itemsToBeRewarded = TestLogic.RewardLogic.GetRewardsFromTutorial(tutorialRewards.Section);
-			
+
 			Assert.AreEqual(itemsToBeRewarded.Count(), rewardConfigs.Count());
 			Assert.IsTrue(itemsToBeRewarded.Select(i => i.Id).SequenceEqual(rewardConfigs.Select(c => c.GameId)));
 		}
-		
+
 		[Test]
 		public void TestGenericEquipmentReward()
 		{
@@ -35,7 +35,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 			var equipsAfter = TestData.GetData<EquipmentData>().Inventory.Count;
 			Assert.AreEqual(equipsAfter, equipsBefore + 1);
 		}
-		
+
 		[Test]
 		public void TestGenericUnclaimedReward()
 		{
@@ -45,7 +45,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 			var rewardsAfter = TestData.GetData<PlayerData>().UncollectedRewards;
 			Assert.IsTrue(rewardsAfter.Any(r => r.GetMetadata<CurrencyMetadata>().Amount == 500 && r.Id == GameId.COIN));
 		}
-		
+
 		[Test]
 		public void TestGenericToInventory()
 		{
@@ -55,17 +55,17 @@ namespace FirstLight.Tests.EditorMode.Integration
 			var rewardsAfter = TestData.GetData<PlayerData>().Currencies[GameId.COIN];
 			Assert.IsTrue(rewardsAfter == 500);
 		}
-		
+
 		[Test]
 		public void TestCollectionReward()
 		{
 			var item = ItemFactory.Collection(GameId.Avatar5);
 
 			Assert.IsFalse(TestLogic.CollectionLogic.IsItemOwned(item));
-			TestLogic.RewardLogic.Reward(new [] {item});
+			TestLogic.RewardLogic.Reward(new[] {item});
 			Assert.True(TestLogic.CollectionLogic.IsItemOwned(item));
 		}
-		
+
 		// [Test]
 		// public void TestCoreReward()
 		// {
@@ -78,45 +78,45 @@ namespace FirstLight.Tests.EditorMode.Integration
 		// 	var equipsAfter = TestLogic.EquipmentLogic.Inventory.Count;
 		// 	Assert.True(equipsAfter > equipsBefore);
 		// }
-		
+
 		[Test]
 		public void TestXPReward()
 		{
 			var item = ItemFactory.Currency(GameId.XP, 1);
 
 			var xpBefore = TestLogic.PlayerLogic.XP.Value;
-			
-			TestLogic.RewardLogic.Reward(new [] {item});
+
+			TestLogic.RewardLogic.Reward(new[] {item});
 
 			var xpAfter = TestLogic.PlayerLogic.XP.Value;
 			Assert.True(xpAfter > xpBefore);
 		}
-		
+
 		[Test]
 		public void TesTrophyReward()
 		{
 			var item = ItemFactory.Currency(GameId.Trophies, 1);
 
 			var before = TestLogic.PlayerLogic.Trophies.Value;
-			
-			TestLogic.RewardLogic.Reward(new [] {item});
+
+			TestLogic.RewardLogic.Reward(new[] {item});
 
 			var after = TestLogic.PlayerLogic.Trophies.Value;
 			Assert.True(after > before);
 		}
-		
+
 		[Test]
 		public void TestTutorialCompletingCommandRewards()
 		{
 			var tutorialRewards = TestConfigs.GetConfig<TutorialConfig>().Rewards.First();
 
 			Assert.False(TestLogic.PlayerLogic.HasTutorialSection(tutorialRewards.Section));
-			
+
 			TestServices.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
 			{
-				Section = tutorialRewards.Section
+				Sections = new[] {tutorialRewards.Section},
 			});
-			
+
 			Assert.IsTrue(TestLogic.PlayerLogic.HasTutorialSection(tutorialRewards.Section));
 		}
 	}

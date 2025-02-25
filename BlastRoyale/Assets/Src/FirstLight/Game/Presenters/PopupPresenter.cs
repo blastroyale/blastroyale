@@ -46,9 +46,9 @@ namespace FirstLight.Game.Presenters
 		{
 			_popup = Root.Q<GenericPopupElement>("Popup").Required();
 			_popup.LocalizeTitle(Data.TitleKey);
-			_popup.CloseClicked += () => Close().Forget();
+			_popup.CloseClicked += () => ClosePopupScreen().Forget();
 
-			Root.Q<ImageButton>("Blocker").Required().clicked += () => Close().Forget();
+			Root.Q<ImageButton>("Blocker").Required().clicked += () => ClosePopupScreen().Forget();
 
 			switch (Data.View)
 			{
@@ -138,15 +138,15 @@ namespace FirstLight.Game.Presenters
 
 		public static UniTaskVoid OpenGenericInfo(string titleKey, string infoText)
 		{
-			return OpenPopup(new GenericInfoPopupView(infoText, () => Close().Forget()), titleKey, true);
+			return OpenPopup(new GenericInfoPopupView(infoText, () => ClosePopupScreen().Forget()), titleKey, true);
 		}
 
 		public static UniTaskVoid OpenGenericConfirm(string titleKey, string confirmText, Action confirmAction)
 		{
-			return OpenPopup(new GenericConfirmPopupView(confirmText, confirmAction, () => Close().Forget()), titleKey, true);
+			return OpenPopup(new GenericConfirmPopupView(confirmText, confirmAction, () => ClosePopupScreen().Forget()), titleKey, true);
 		}
 
-		public static UniTask Close()
+		public static UniTask ClosePopupScreen()
 		{
 			var services = MainInstaller.ResolveServices();
 			return services.UIService.CloseScreen<PopupPresenter>(false);
@@ -155,7 +155,7 @@ namespace FirstLight.Game.Presenters
 		private static async UniTaskVoid OpenPopup(UIView view, string titleKey, bool closeOpenedPopups = false)
 		{
 			if (closeOpenedPopups)
-				Close().Forget();
+				ClosePopupScreen().Forget();
 
 			var services = MainInstaller.ResolveServices();
 			await services.UIService.OpenScreen<PopupPresenter>(new StateData

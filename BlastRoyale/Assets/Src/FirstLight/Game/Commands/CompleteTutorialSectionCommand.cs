@@ -12,8 +12,8 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct CompleteTutorialSectionCommand : IGameCommand
 	{
-		public TutorialSection Section;
-		
+		public TutorialSection[] Sections;
+
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
@@ -21,15 +21,16 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public UniTask Execute(CommandExecutionContext ctx)
 		{
-			if (!ctx.Logic.PlayerLogic().HasTutorialSection(Section))
+			foreach (var tutorialSection in Sections)
 			{
-				ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(Section);
+				if (!ctx.Logic.PlayerLogic().HasTutorialSection(tutorialSection))
+				{
+					ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(tutorialSection);
 
-				var rewardItems = ctx.Logic.RewardLogic().GetRewardsFromTutorial(Section);
-				ctx.Logic.RewardLogic().Reward(rewardItems);
-				ctx.Services.MessageBrokerService().Publish(new CompletedTutorialSectionMessage() {Section = Section});
-
-				return UniTask.CompletedTask;
+					var rewardItems = ctx.Logic.RewardLogic().GetRewardsFromTutorial(tutorialSection);
+					ctx.Logic.RewardLogic().Reward(rewardItems);
+					ctx.Services.MessageBrokerService().Publish(new CompletedTutorialSectionMessage() {Section = tutorialSection});
+				}
 			}
 
 			return UniTask.CompletedTask;

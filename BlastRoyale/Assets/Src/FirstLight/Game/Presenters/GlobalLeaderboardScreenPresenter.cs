@@ -252,21 +252,19 @@ namespace FirstLight.Game.Presenters
 			{
 				_headerIcon.SetVisibility(true);
 			}
-
-			if (seasonConfig.ShowExtraButton)
-			{
-				_discordButtonHolder.SetVisibility(false);
-				_extraButtonHolder.SetVisibility(true);
-				
-				_extraButton.clicked += () => Application.OpenURL(seasonConfig.ExtraButtonLink);
-				_extraButton.text = seasonConfig.ExtraButtonText;
-			}
-			else
+			
+			if (string.IsNullOrEmpty(seasonConfig.ExtraButtonLink))
 			{
 				_discordButtonHolder.SetVisibility(true);
 				_extraButtonHolder.SetVisibility(false);
-				
 				_extraButton.clickable = null;
+			}
+			else
+			{
+				_discordButtonHolder.SetVisibility(false);
+				_extraButtonHolder.SetVisibility(true);
+				_extraButton.clicked += () => Application.OpenURL(seasonConfig.ExtraButtonLink);
+				_extraButton.text = seasonConfig.ExtraButtonText;
 			}
 
 			if (!string.IsNullOrEmpty(seasonConfig.ManualEndTime))

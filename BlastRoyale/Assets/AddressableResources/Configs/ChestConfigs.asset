@@ -110,6 +110,18 @@ MonoBehaviour:
               Material: 0
               Rarity: 0
           Weight: 2
+        - ItemConfig:
+            SimpleGameId: 667
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Grade: 0
+              Level: 0
+              Material: 0
+              Rarity: 0
+          Weight: 1
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:
@@ -133,7 +145,19 @@ MonoBehaviour:
               Level: 0
               Material: 1
               Rarity: 0
-          Weight: 5
+          Weight: 4
+        - ItemConfig:
+            SimpleGameId: 667
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Grade: 0
+              Level: 0
+              Material: 1
+              Rarity: 0
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 89
             EquipmentMetadata:
@@ -169,7 +193,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 4
+          Weight: 5
         - ItemConfig:
             SimpleGameId: 119
             EquipmentMetadata:
@@ -205,7 +229,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 5
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 4
             EquipmentMetadata:
@@ -591,6 +615,18 @@ MonoBehaviour:
               Rarity: 0
           Weight: 1
         - ItemConfig:
+            SimpleGameId: 667
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Grade: 0
+              Level: 0
+              Material: 0
+              Rarity: 0
+          Weight: 4
+        - ItemConfig:
             SimpleGameId: 89
             EquipmentMetadata:
               Adjective: 0
@@ -601,7 +637,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 1
+          Weight: 3
         - ItemConfig:
             SimpleGameId: 110
             EquipmentMetadata:
@@ -613,7 +649,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 3
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 102
             EquipmentMetadata:
@@ -625,7 +661,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 3
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 119
             EquipmentMetadata:
@@ -637,7 +673,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 3
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 85
             EquipmentMetadata:
@@ -649,7 +685,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 1
+          Weight: 3
         - ItemConfig:
             SimpleGameId: 666
             EquipmentMetadata:
@@ -673,7 +709,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 1
+          Weight: 2
         - ItemConfig:
             SimpleGameId: 20
             EquipmentMetadata:
@@ -685,7 +721,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 1
+          Weight: 2
         - ItemConfig:
             SimpleGameId: 127
             EquipmentMetadata:
@@ -697,7 +733,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 1
+          Weight: 2
       - Chance:
           RawValue: 65536
         Amount: 1

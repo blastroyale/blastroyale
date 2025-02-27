@@ -14,12 +14,9 @@ using FirstLight.Game.Views.UITK;
 using FirstLight.UIService;
 using I2.Loc;
 using Quantum;
-using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Purchasing;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
-using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters.Store
 {
@@ -37,6 +34,7 @@ namespace FirstLight.Game.Presenters.Store
 		public const string USS_CATEGORY = "product-category";
 		public const string USS_CATEGORY_LABEL = "category-label";
 		public const string USS_CATEGORY_BUTTON = "category-button";
+		public const string USS_NOTIFICATION_ICON = "notification-icon";
 
 		[SerializeField] private VisualTreeAsset _StoreProductView;
 
@@ -102,6 +100,7 @@ namespace FirstLight.Game.Presenters.Store
 					}
 					else
 					{
+
 						if (IsBuyAllowed(product))
 						{
 							productElement.OnClicked = BuyItem;
@@ -114,7 +113,8 @@ namespace FirstLight.Game.Presenters.Store
 						}
 					}
 
-					productElement.SetData(product, flags, trackedPurchasedItem, BuyItem, Root);
+					var isNewItem = IsNewOnStore(product);
+					productElement.SetData(product, flags, trackedPurchasedItem, isNewItem, BuyItem, Root);
 				}
 
 				_productList.Add(categoryElement);
@@ -129,6 +129,7 @@ namespace FirstLight.Game.Presenters.Store
 
 			SetupCreatorsCodeSupport();
 		}
+
 
 		private ProductFlags SetupBuyNotAllowedFlags(GameProduct product, ProductFlags flags)
 		{
@@ -175,8 +176,44 @@ namespace FirstLight.Game.Presenters.Store
 			{
 				name = "CategoryButton",
 			};
+			
 			categoryButton.AddToClassList(USS_CATEGORY_BUTTON);
+
+			if (_gameServices.IAPService.HasStoreItemsUpdate(categoryName))
+			{
+				var updateNotification = new VisualElement()
+				{
+					name = "CategoryNotification"
+				};
+				
+				updateNotification.AddToClassList(USS_NOTIFICATION_ICON);
+				categoryButton.RegisterCallback<GeometryChangedEvent>(ResolveCategoryNewNotificationPosition);
+				categoryButton.Add(updateNotification);
+				
+			}
+
 			return categoryButton;
+		}
+
+		private void ResolveCategoryNewNotificationPosition(GeometryChangedEvent evt)
+		{
+			var categoryButton = (ButtonOutlined)evt.currentTarget;
+			var categoryNotification = categoryButton.Children().FirstOrDefault(e => e.name == "CategoryNotification");
+
+			if (categoryNotification != null)
+			{
+				var textSize = categoryButton.MeasureTextSize(categoryButton.text, 0, VisualElement.MeasureMode.Undefined, 0, VisualElement.MeasureMode.Undefined);
+				
+				categoryNotification.style.position = Position.Absolute;
+				categoryNotification.style.left = (categoryButton.resolvedStyle.width + textSize.x) / 2 - 10; // Using a 10px offset to slightly shift the notification icon over the text for better visual alignment.
+				categoryNotification.style.bottom = (categoryButton.resolvedStyle.height + textSize.y) / 5;
+			}
+		}
+
+		
+		private bool IsNewOnStore(GameProduct product)
+		{
+			return _gameServices.IAPService.HasStoreItemsUpdate(null, product.PlayfabProductConfig.CatalogItem.ItemId);
 		}
 
 		protected override UniTask OnScreenOpen(bool reload)
@@ -191,6 +228,7 @@ namespace FirstLight.Game.Presenters.Store
 		{
 			_gameServices.MessageBrokerService.UnsubscribeAll(this);
 			_gameServices.IAPService.PurchaseFinished -= OnPurchaseFinished;
+			_gameServices.IAPService.MarkAllNewStoreItemsAsSeen();
 			return base.OnScreenClose();
 		}
 

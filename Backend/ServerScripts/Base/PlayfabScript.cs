@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
+using CsvHelper.Configuration;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
@@ -14,6 +15,7 @@ using PlayFab.AuthenticationModels;
 using PlayFab.Internal;
 using PlayFab.ServerModels;
 using Scripts.Base;
+using ShellProgressBar;
 using Unity.Services.CloudCode.Apis;
 using Unity.Services.CloudCode.Apis.Admin;
 using AddPlayerTagRequest = PlayFab.AdminModels.AddPlayerTagRequest;
@@ -64,6 +66,7 @@ public class EnvironmentSecrets
 public abstract class PlayfabScript : IScript
 {
 	private static string EnvsFile = "environments.json";
+	public Environment CurrentEnvironment { private set; get; }
 
 	public IAdminApiClient GetUnityAdmin()
 	{
@@ -136,10 +139,16 @@ public abstract class PlayfabScript : IScript
 		SetEnvironment(GetEnvironment());
 	}
 
+	public EnvironmentConfiguration GetPlayfabConfiguration()
+	{
+		return ReadEnvironmentConfiguration(CurrentEnvironment.ToString());
+	}
+
 	protected void SetEnvironment(Environment environment)
 	{
 		var playfabSetup = ReadEnvironmentConfiguration(environment.ToString());
 		if (playfabSetup == null) return;
+		CurrentEnvironment = environment;
 		var secrets = playfabSetup.Secrets;
 		PlayFabSettings.staticSettings.TitleId = playfabSetup.TitleId;
 
@@ -187,10 +196,6 @@ public abstract class PlayfabScript : IScript
 
 	public abstract Environment GetEnvironment();
 
-	protected EnvironmentConfiguration GetPlayfabConfiguration()
-	{
-		return ReadEnvironmentConfiguration(GetEnvironment().ToString());
-	}
 
 	protected async Task<List<PlayerProfile>> GetAllPlayers()
 	{
@@ -217,6 +222,63 @@ public abstract class PlayfabScript : IScript
 		return segmentResult.Result.PlayerProfiles;
 	}
 
+
+	public async Task<int> GetPlayerAmountInSegment(
+		string segmentId)
+	{
+		var segmentResult = await PlayFabServerAPI.GetPlayersInSegmentAsync(new GetPlayersInSegmentRequest()
+		{
+			SegmentId = segmentId,
+			MaxBatchSize = 0,
+		}).HandleError();
+		return segmentResult.ProfilesInSegment;
+	}
+
+	public async IAsyncEnumerable<List<PlayerProfile>> GetPlayersEnumerable(
+		string segmentId, uint? maxBatchSize = 2000, int maxRetries = 8, int retryDelay = 7)
+	{
+		string continuationToken = null;
+
+		int batch = 0;
+		Console.WriteLine($"Fetching all players in batches of " + maxBatchSize + " players");
+		int totalPlayers = 0;
+		int retries = 0;
+		do
+		{
+			var segmentResult = await PlayFabServerAPI.GetPlayersInSegmentAsync(new GetPlayersInSegmentRequest()
+			{
+				SegmentId = segmentId,
+				MaxBatchSize = maxBatchSize,
+				ContinuationToken = continuationToken,
+				SecondsToLive = 5300,
+			});
+			if (segmentResult.Error != null && retries < maxRetries)
+			{
+				var waitForRetry = retryDelay * Math.Pow(2, retries);
+				Console.WriteLine(segmentResult.Error.GenerateErrorReport());
+				Console.WriteLine("Failed fetching users attempt " + retries + ", attempting again in " + waitForRetry +
+					" seconds!");
+				await Task.Delay(TimeSpan.FromSeconds(waitForRetry));
+				retries++;
+				continue;
+			}
+
+			retries = 0;
+			HandleError(segmentResult.Error);
+
+			bool sentLog = false;
+			if (segmentResult.Result.PlayerProfiles != null)
+			{
+				yield return segmentResult.Result.PlayerProfiles;
+			}
+
+			batch++;
+			continuationToken = segmentResult.Result.ContinuationToken;
+		} while (!string.IsNullOrEmpty(continuationToken));
+
+		Console.WriteLine(
+			$"Completed retrieving players for segment!");
+	}
 
 	protected async Task<List<PlayerProfile>> GetPlayerSegmentByName(string segmentName)
 	{
@@ -357,7 +419,7 @@ public abstract class PlayfabScript : IScript
 		});
 		if (userDataResult.Error != null)
 		{
-			Console.WriteLine($"Error finding user {playfabId}");
+			Console.WriteLine($"Error finding user {playfabId} " + userDataResult.Error.GenerateErrorReport());
 			return null;
 		}
 

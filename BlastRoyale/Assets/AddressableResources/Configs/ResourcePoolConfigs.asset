@@ -31,7 +31,7 @@ MonoBehaviour:
     TakeDecreaseExponent:
       RawValue: 117965
   - Id: 26
-    PoolCapacity: 2000
+    PoolCapacity: 1500
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 1440
     BaseMaxTake: 0

@@ -97,6 +97,12 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public ObservableField<CustomMatchSettings> LastCustomMatchSettings { get; } =
 			CreateObjectSetting(nameof(LastCustomMatchSettings), new CustomMatchSettings());
+		
+		/// <summary>
+		/// Last Store Category/Products loaded to player
+		/// </summary>
+		public ObservableField<LocalStoreStateData> LastStoreState { get; } = CreateObjectSetting(nameof(LastStoreState), new LocalStoreStateData());
+
 
 		/// <summary>
 		/// If we show the rate and review prompt

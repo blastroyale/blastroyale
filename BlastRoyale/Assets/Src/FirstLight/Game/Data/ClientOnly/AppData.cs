@@ -26,11 +26,6 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class AppData
 	{
-		public DateTime FirstLoginTime;
-		public DateTime LastLoginTime;
-		public DateTime LoginTime;
-		public bool IsFirstSession;
-
 		public string LastEnvironmentName;
 
 		// Moved to AccountData, this is here for backwards compatibility

@@ -33,7 +33,6 @@ namespace FirstLight.Game.Services
 		/// When reassigning it every update it is actually getting the same ref from the cache, assignment is there just for safety
 		/// </summary>
 		private RuntimeConfig _runtimeConfig;
-
 		private Dictionary<Type, object> _cachedConfigs = new ();
 		private DateTime _lastUpdatedTime;
 
@@ -77,6 +76,8 @@ namespace FirstLight.Game.Services
 
 			// Fetch regular configs
 			await UpdateConfig();
+			
+			RemoteConfigValidator.ValidateConfigs(this);
 		}
 
 		public async UniTask UpdateRemoteVersion()

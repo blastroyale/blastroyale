@@ -10,6 +10,7 @@ namespace FirstLight.Game.Services.Analytics
 		public static readonly string InstagramLink = "instagram_link";
 		public static readonly string TiktokLink = "tiktok_link";
 		public static readonly string TwitterLink = "twitter_link";
+		public static readonly string CalendarLink = "calendar_link";
 	}
 
 	/// <summary>

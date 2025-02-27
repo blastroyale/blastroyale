@@ -69,7 +69,7 @@ namespace FirstLight.Game.Utils.UCSExtensions
 		/// </summary>
 		public static string GetPlayerName(this Player player)
 		{
-			return AuthenticationServiceExtensions.GetPlayerNameWithSpaces(player.Data[FLLobbyService.KEY_PLAYER_NAME].Value.TrimPlayerNameNumbers());
+			return player.Data[FLLobbyService.KEY_PLAYER_NAME].Value;
 		}
 
 		/// <summary>

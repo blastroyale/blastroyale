@@ -150,7 +150,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void AttemptJoinTutorialRoom()
 		{
-			if (_dataProvider.AppDataProvider.IsFirstSession)
+			if (_services.AuthService.SessionData.IsFirstSession)
 			{
 				AcceptPrivacyDialog().Forget();
 				return;

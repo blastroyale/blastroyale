@@ -91,6 +91,13 @@ namespace Src.FirstLight.Server
 			{
 				data["content_creator_code"] = ev.Message.SupportingContentCreator;
 			}
+
+			if (!string.IsNullOrEmpty(ev.Message.PriceCurrencyId))
+			{
+				data["price_purchased_id"] = ev.Message.PriceCurrencyId;
+				data["price_paid_value"] = ev.Message.PricePaid;
+			}
+
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "purchased_item", data);
 			return Task.CompletedTask;
 		}
@@ -99,8 +106,8 @@ namespace Src.FirstLight.Server
 		{
 			var data = new AnalyticsData
 			{
-				{"trophies_change", ev.Message.TrophiesChange.ToString(CultureInfo.InvariantCulture)},
-				{"trophies_before_change", ev.Message.TrophiesBeforeChange.ToString(CultureInfo.InvariantCulture)},
+				{"trophies_change_value", ev.Message.TrophiesChange.ToString(CultureInfo.InvariantCulture)},
+				{"trophies_before_change_value", ev.Message.TrophiesBeforeChange.ToString(CultureInfo.InvariantCulture)},
 			};
 			if (ev.Message.Rewards.FinalRewards != null)
 			{
@@ -115,7 +122,7 @@ namespace Src.FirstLight.Server
 		{
 			var data = new AnalyticsData
 			{
-				{"new_level", ev.Message.NewLevel.ToString(CultureInfo.InvariantCulture)},
+				{"new_pass_level", ev.Message.NewLevel.ToString(CultureInfo.InvariantCulture)},
 			};
 			if (ev.Message.Rewards != null)
 			{

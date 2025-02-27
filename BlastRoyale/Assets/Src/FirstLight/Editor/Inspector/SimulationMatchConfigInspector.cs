@@ -21,7 +21,7 @@ namespace FirstLight.Editor.Inspector
 			GameId.PartnerIMMUTABLE, GameId.PartnerMOCAVERSE, GameId.PartnerNYANHEROES, GameId.PartnerPIRATENATION,
 			GameId.PartnerPIXELMON, GameId.PartnerPLANETMOJO, GameId.PartnerSEEDIFY, GameId.PartnerWILDERWORLD,
 			GameId.PartnerXBORG, GameId.PartnerBREED, GameId.PartnerMEME, GameId.PartnerYGG, GameId.FestiveSNOWFLAKE,
-			GameId.EventTicket, GameId.FestiveLUNARCOIN, GameId.FestiveFEATHER
+			GameId.EventTicket, GameId.FestiveLUNARCOIN, GameId.FestiveFEATHER, GameId.FestiveLANTERN
 		};
 
 		public override void ProcessChildMemberAttributes(InspectorProperty parentProperty, MemberInfo member, List<Attribute> attributes)

@@ -104,6 +104,15 @@ namespace Quantum
 		/// </summary>
 		private EntityRef SpawnChest(Frame f, GameId id, FPVector2 position, EntityRef e)
 		{
+			// Don't spawn 50% of vitality chests if Midcore mutator is active
+			if (id == GameId.ChestVitality
+				&& f.Context.Mutators.HasFlagFast(Mutator.Midcore)
+				&& f.RNG->Next() < FP._0_50)
+			{
+				Disabled = true;
+				return EntityRef.None;
+			}
+			
 			var chestEntity = ChestSystem.SpawnChest(f, id, position);
 			if (f.Unsafe.TryGetPointer<ChestContents>(e, out var overrideComponent))
 			{

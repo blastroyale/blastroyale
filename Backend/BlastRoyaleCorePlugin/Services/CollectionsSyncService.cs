@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using BlastRoyaleNFTPlugin.Collections;
 using BlastRoyaleNFTPlugin.Data;
 using FirstLight.Game.Data;
@@ -49,48 +50,40 @@ namespace BlastRoyaleNFTPlugin.Services
 		/// Thrown when an error occurs during the collection fetching process. The exception details 
 		/// are logged, and the method returns an empty list.
 		/// </exception>
-		private async Task<List<(NFTCollectionSyncConfigModel CollectionConfig, CollectionFetchResponse CollectionItems)>> RequestNFTCollectionsForPlayer(string playerId)
+		private async Task<CollectionFetchResponse> RequestNFTCollectionsForPlayer(string playerId)
 		{
-			var collectionSyncTasks = new List<(NFTCollectionSyncConfigModel CollectionConfig, Task<CollectionFetchResponse> CollectionFetchTask)>();
+
+			var collectionsToSync = NFTCollectionSyncConfigData.NFTCollections
+				.Where(c => c.CanSync || BlockchainApi.CanSyncCollection(c.CollectionName))
+				.Select(c => c.CollectionName).ToArray();
 			
-			foreach (var nftCollection in NFTCollectionSyncConfigData.NFTCollections)
+			if (collectionsToSync.Any()) 
 			{
-				// Skip syncing if CanSync is false and environment variables do not allow syncing
-				if (!nftCollection.CanSync && !BlockchainApi.CanSyncCollection(nftCollection.CollectionName))
-				{
-					BlockchainApi._ctx.Log.LogInformation(
-						$"Collection '{nftCollection.CollectionName}' cannot be synced. " +
-						$"If you believe it should be synced, ensure the environment variable '{nftCollection.CollectionName.ToUpperInvariant()}_SYNC_ENABLED' is set to 'true'.");
-					continue;
-				}
-
-				var syncTask = RequestCollection(playerId, nftCollection.CollectionName);
-				collectionSyncTasks.Add((nftCollection, syncTask));
+				BlockchainApi._ctx.Log.LogInformation(
+					$"The following collections will be synced: {string.Join(", ", collectionsToSync)}. \n" +
+					$"If you believe one of the collections should not be synced, ensure the environment variable 'COLLECTIONAME_SYNC_ENABLED' is or " +
+					$"the Collection CanSync property is set to 'false'.");
+			} 
+			else 
+			{
+				BlockchainApi._ctx.Log.LogInformation("No collections are eligible for syncing. \n" +
+					$"If you believe it should be synced, ensure the environment variable 'COLLECTIONAME_SYNC_ENABLED' is set to 'true'.");;
 			}
 			
-			if (collectionSyncTasks.Any())
+			try
 			{
-				try
-				{
-					var requestResults = await Task.WhenAll(collectionSyncTasks.Select(t => t.CollectionFetchTask));
-					var results = collectionSyncTasks
-						.Select((task, index) => (task.Item1, requestResults[index]))
-						.ToList();
+				var result = await RequestCollection(playerId, collectionsToSync);
 
-					return results;
-				}
-				catch (Exception ex)
-				{
-					BlockchainApi._ctx.Log.LogError($"An error occurred while syncing NFT collections: {ex.Message}");
-				}
+				return result;
 			}
-			else
+			catch (Exception ex)
 			{
-				BlockchainApi._ctx.Log.LogInformation($"No collections were available for syncing for player {playerId}.");
+				BlockchainApi._ctx.Log.LogError($"An error occurred while syncing NFT collections: {ex.Message}");
 			}
-
+			
+			
 			// Return an empty list in case no tasks were run
-			return new List<(NFTCollectionSyncConfigModel , CollectionFetchResponse)>();
+			return new CollectionFetchResponse();
 		}
 		
 		
@@ -108,20 +101,22 @@ namespace BlastRoyaleNFTPlugin.Services
 			var playerCollectionData = serverState.DeserializeModel<CollectionData>();
 			var playerCollectionInitialHash = playerCollectionData.GetHashCode();
 			var collectionsOwned = await RequestNFTCollectionsForPlayer(playfabId);
+			var collectionSyncConfig = NFTCollectionSyncConfigData.NFTCollections;
 			
-			//Loop through CollectionConfigs and 
-			foreach (var collectionConfigItemsTuple in collectionsOwned)
+			foreach (var syncConfig in collectionSyncConfig)
 			{
-				if (collectionConfigItemsTuple.CollectionConfig.CollectionSyncCategories.Any(cc =>
-						cc == CollectionCategories.PLAYER_SKINS))
+				if (syncConfig.ItemSyncConfiguration == null ||
+					syncConfig.ItemSyncConfiguration.Count == 0)
 				{
-					new SkinCollectionSync().Sync(playerCollectionData, collectionConfigItemsTuple.CollectionConfig, collectionConfigItemsTuple.CollectionItems.NFTsOwned.ToList());
+					BlockchainApi._ctx.Log.LogError($"Skipping {syncConfig.CollectionName} sync because no ItemSyncConfiguration has been found/properly configured");
+					continue;
 				}
-				
-				if (collectionConfigItemsTuple.CollectionConfig.CollectionSyncCategories.Any(cc =>
-						cc == CollectionCategories.PROFILE_PICTURE))
+			
+				new InGameItemsCollectionSync().Sync(playerCollectionData, syncConfig, collectionsOwned.NFTsOwned.ToList());
+
+				if (syncConfig.CanSyncNFTImage)
 				{
-					new ProfilePictureCollectionSync().Sync(playerCollectionData, collectionConfigItemsTuple.CollectionConfig, collectionConfigItemsTuple.CollectionItems.NFTsOwned.ToList());
+					new NFTProfilePictureCollectionSync().Sync(playerCollectionData, syncConfig, collectionsOwned.NFTsOwned.ToList());
 				}
 			}
 			
@@ -136,37 +131,57 @@ namespace BlastRoyaleNFTPlugin.Services
 		
 		/// <summary>
 		/// Requests all indexed NFTs for a given player's wallet from the blockchain API.
-		/// This method fetches the NFTs owned by the player for a specific collection from the blockchain indexer and returns the results.
+		/// This method fetches the NFTs owned by the player for a list of collections from the blockchain indexer and returns the results.
 		/// </summary>
 		/// <param name="playerId">The PlayFab ID of the player whose NFT collection is being fetched.</param>
-		/// <param name="collectionName">The name of the NFT collection to retrieve for the player.</param>
+		/// <param name="collectionNames">A list of NFT collection names to retrieve for the player.</param>
 		/// <returns>
 		/// A <see cref="Task{CollectionFetchResponse}"/> representing the asynchronous operation. 
 		/// The result contains the fetched NFTs for the specified player and collection. If an error occurs, an empty collection is returned.
 		/// </returns>
-		public async Task<CollectionFetchResponse> RequestCollection(string playerId, string collectionName)
+		public async Task<CollectionFetchResponse> RequestCollection(string playerId, string[] collectionNames)
 		{
-			BlockchainApi._ctx.Log.LogInformation($"Requesting NFTCollection {collectionName} for PlayerID {playerId}");
-			
-			var url = $"{BlockchainApi._externalUrl}/nft/owned?key={BlockchainApi._apiKey}&playfabId={playerId}&collectionName={collectionName}";
-		
-			var response = await BlockchainApi._client.GetAsync(url);
-			var responseString = await response.Content.ReadAsStringAsync();
-			
-			BlockchainApi._ctx.Log.LogInformation($"Request completed for NFTCollection {collectionName} for PlayerID {playerId}");
-
-			if (response.StatusCode != HttpStatusCode.OK)
+			if (string.IsNullOrWhiteSpace(playerId))
 			{
-				BlockchainApi._ctx.Log.LogError($"Error obtaining NFT Collection Response {response.StatusCode.ToString()} - {responseString}");
+				BlockchainApi._ctx.Log.LogError("RequestCollection called with an empty playerId.");
 				return _EMPTY_COLLECTION;
 			}
 
-			var list = ModelSerializer.Deserialize<List<RemoteCollectionItem>>(responseString);
-			return new CollectionFetchResponse()
+			var query = HttpUtility.ParseQueryString(string.Empty);
+			query["key"] = BlockchainApi._apiKey;
+			query["playfabId"] = playerId;
+
+			if (collectionNames?.Any() == true)
 			{
-				NFTsOwned = list
-			};
+				foreach (var collection in collectionNames)
+				{
+					query.Add("collectionNames", collection); // Adds multiple instances of collectionName
+				}
+			}
+
+			string url = $"{BlockchainApi._externalUrl}/nft/owned/all?{query}";
+			
+			try
+			{
+				var response = await BlockchainApi._client.GetAsync(url);
+				var responseString = await response.Content.ReadAsStringAsync();
+
+				if (response.StatusCode != HttpStatusCode.OK)
+				{
+					BlockchainApi._ctx.Log.LogError($"Error obtaining NFT Collection Response [{response.StatusCode}] - {responseString}");
+					return _EMPTY_COLLECTION;
+				}
+
+				var list = ModelSerializer.Deserialize<List<RemoteCollectionItem>>(responseString) ?? new List<RemoteCollectionItem>();
+				BlockchainApi._ctx.Log.LogInformation($"Successfully retrieved {list.Count} NFT collections for PlayerID {playerId}");
+
+				return new CollectionFetchResponse { NFTsOwned = list };
+			}
+			catch (Exception ex)
+			{
+				BlockchainApi._ctx.Log.LogError($"RequestCollection failed: {ex.Message}");
+				return _EMPTY_COLLECTION;
+			}
 		}
-		
 	}
 }

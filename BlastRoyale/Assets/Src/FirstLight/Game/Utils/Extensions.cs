@@ -47,16 +47,6 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Strips the X amount of playfab generated numbers that are appended to the player name
-		/// </summary>
-		public static string TrimPlayerNameNumbers(this string playerName)
-		{
-			int index = playerName.LastIndexOf("#", StringComparison.Ordinal);
-			if (index == -1) return playerName;
-			return playerName.Substring(0, index);
-		}
-
-		/// <summary>
 		/// Get Photon region translation for the given <paramref name="regionKey"/> 
 		/// </summary>
 		public static string GetPhotonRegionTranslation(this string regionKey)

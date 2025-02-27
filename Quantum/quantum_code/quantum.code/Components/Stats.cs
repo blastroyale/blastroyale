@@ -123,7 +123,8 @@ namespace Quantum
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
-			CurrentShield = 0;
+			CurrentShield = f.Context.Mutators.HasFlagFast(Mutator.FullShieldsAtStart) ?
+								f.GameConfig.PlayerMaxShieldCapacity.Get(f) : 0;
 			IsImmune = false;
 
 			var modifiersList = f.ResolveList(Modifiers);
@@ -196,11 +197,13 @@ namespace Quantum
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weapon = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
 
-			// Do not do reduce if your weapon does not consume ammo
-			if (weapon.MaxAmmo != -1)
+			// Do not do reduce if your weapon does not consume ammo OR the mutator for infinite ammo is active
+			if (weapon.MaxAmmo == -1 || f.Context.Mutators.HasFlagFast(Mutator.InfiniteAmmo))
 			{
-				SetCurrentAmmo(f, player, e, (GetCurrentAmmo() - numShots) / GetStatData(StatType.AmmoCapacity).StatValue);
+				return;
 			}
+			
+			SetCurrentAmmo(f, player, e, (GetCurrentAmmo() - numShots) / GetStatData(StatType.AmmoCapacity).StatValue);
 		}
 
 		/// <summary>

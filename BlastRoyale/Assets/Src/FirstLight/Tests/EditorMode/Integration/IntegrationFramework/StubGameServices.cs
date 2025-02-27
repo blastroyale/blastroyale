@@ -5,6 +5,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Analytics;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
@@ -38,7 +39,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
 		public virtual IGameBackendService GameBackendService { get; }
 		public virtual IPlayerProfileService ProfileService { get; }
-		public virtual IAuthenticationService AuthenticationService { get; set; }
 		public virtual ITutorialService TutorialService { get; }
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
@@ -70,6 +70,7 @@ namespace FirstLight.Tests.EditorMode
 		public INotificationService NotificationService { get; }
 		public IBuffService BuffService { get; set; }
 		public IHomeScreenService HomeScreenService { get; }
+		public IAuthService AuthService { get; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -103,8 +104,8 @@ namespace FirstLight.Tests.EditorMode
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
 			ProfileService = new PlayerProfileService(GameBackendService);
-			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this,
-				dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
+			AuthService = Substitute.For<IAuthService>();
+
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			TickService = new StubTickService();

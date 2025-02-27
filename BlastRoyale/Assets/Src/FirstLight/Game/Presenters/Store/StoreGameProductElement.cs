@@ -89,6 +89,8 @@ namespace FirstLight.Game.Presenters.Store
 		
 		private VisualElement _purchasedAmountArea;
 		private Label _purchasedAmountLabel;
+		
+		private VisualElement _newItemNotificationArea;
 
 		public StoreGameProductElement()
 		{
@@ -119,6 +121,8 @@ namespace FirstLight.Game.Presenters.Store
 			_purchasedAmountArea = this.Q<VisualElement>("PurchasedAmountArea").Required();
 			_purchasedAmountLabel = this.Q<Label>("PurchasedAmount").Required();
 			_purchasedAmountArea.SetDisplay(false);
+
+			_newItemNotificationArea = this.Q<VisualElement>("NewItemNotificationArea").Required();
 			
 			// Apply the pop-up effect to the product widget
 			_ = new PopUpEffectAnimation(_background);
@@ -130,7 +134,8 @@ namespace FirstLight.Game.Presenters.Store
 			_infoButton.OpenTooltip(_root, desc);
 		}
 
-		public void SetData(GameProduct product, ProductFlags flags, StorePurchaseData trackedPurchasedItem, Action<GameProduct> CooldownExpiredAction, VisualElement rootDocument)
+		public void SetData(GameProduct product, ProductFlags flags, StorePurchaseData trackedPurchasedItem, bool isNewItem,
+							Action<GameProduct> CooldownExpiredAction, VisualElement rootDocument)
 		{
 			_root = rootDocument;
 			_product = product;
@@ -169,6 +174,10 @@ namespace FirstLight.Game.Presenters.Store
 				_icon.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
 				_name.AddToClassList(USS_PRODUCT_NAME + USS_OWNED_MODIFIER);
 				_infoIcon.AddToClassList(USS_INFO + USS_OWNED_MODIFIER);
+			}
+			else
+			{
+				_newItemNotificationArea.SetDisplay(isNewItem);
 			}
 
 			var price = product.GetPrice();
@@ -350,7 +359,7 @@ namespace FirstLight.Game.Presenters.Store
 							}
 						}
 					},
-				}, 0, null, null, ve);
+				}, 0, null, false, null, ve);
 			}
 		}
 	}

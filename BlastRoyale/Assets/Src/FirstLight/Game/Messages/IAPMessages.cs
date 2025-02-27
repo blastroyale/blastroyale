@@ -7,6 +7,8 @@ namespace FirstLight.Game.Messages
 	{
 		public ItemData ItemPurchased;
 		public string SupportingContentCreator;
+		public string PricePaid;
+		public string PriceCurrencyId;
 	}
 	
 	public struct BattlePassPurchasedMessage : IMessage

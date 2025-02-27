@@ -9,6 +9,7 @@ namespace Quantum
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
 			var noHealthNoShields = f.Context.Mutators.HasFlagFast(Mutator.Hardcore);
+			var ammoIsInfinite = f.Context.Mutators.HasFlagFast(Mutator.InfiniteAmmo);
 			var chestPosition = f.Unsafe.GetPointer<Transform2D>(e)->Position;
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			List<SimulationItem> contents = null;
@@ -33,6 +34,12 @@ namespace Quantum
 						 drop.SimpleItem->Id == GameId.ShieldSmall))
 					{
 						// Don't drop Health and Shields with Hardcore mutator
+					}
+					else if (ammoIsInfinite &&
+							 (drop.SimpleItem->Id == GameId.AmmoSmall ||
+							  drop.SimpleItem->Id == GameId.AmmoLarge))
+					{
+						// Don't drop Ammo with InfiniteAmmo mutator
 					}
 					else
 					{

@@ -10,6 +10,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -448,7 +449,6 @@ namespace FirstLight.Game.Services
 				return false;
 			}
 
-
 			if (!string.IsNullOrEmpty(_services.LocalPrefsService.ServerRegion.Value))
 			{
 				FLog.Info("Connecting directly to master using region " + _services.LocalPrefsService.ServerRegion.Value);
@@ -462,7 +462,7 @@ namespace FirstLight.Game.Services
 
 			ResetQuantumProperties();
 
-			return QuantumClient.ConnectUsingSettings(settings, AuthenticationService.Instance.GetPlayerNameWithSpaces());
+			return QuantumClient.ConnectUsingSettings(settings, _services.AuthService.GetPrettyLocalPlayerName());
 		}
 
 		public bool ConnectPhotonToRegionMaster(string region)
@@ -487,7 +487,6 @@ namespace FirstLight.Game.Services
 			return QuantumClient.OpRaiseEvent((int) QuantumCustomEvents.Token, Encoding.UTF8.GetBytes(token), opt,
 				SendOptions.SendReliable);
 		}
-
 
 		public void ReconnectPhoton(out bool requiresManualReconnection)
 		{
@@ -518,7 +517,6 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-
 		public void SetCurrentRoomOpen(bool isOpen)
 		{
 			FLog.Verbose("Setting room open: " + isOpen);
@@ -532,14 +530,12 @@ namespace FirstLight.Game.Services
 			QuantumClient.LocalPlayer.SetCustomProperties(propertiesToUpdate);
 		}
 
-
 		private void SetUserId(string id)
 		{
 			QuantumClient.UserId = id;
 			QuantumClient.AuthValues.AuthGetParameters = "";
 			QuantumClient.AuthValues.AddAuthParameter("username", id);
 		}
-
 
 		private void ResetQuantumProperties()
 		{

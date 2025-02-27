@@ -19,8 +19,9 @@ namespace Quantum.Systems
 		{
 			var hammerTime = f.Context.Mutators.HasFlagFast(Mutator.HammerTime);
 			var noHealthNoShields = f.Context.Mutators.HasFlagFast(Mutator.Hardcore);
+			var ammoIsInfinite = f.Context.Mutators.HasFlagFast(Mutator.InfiniteAmmo);
 
-			if (!hammerTime && !noHealthNoShields) return;
+			if (!hammerTime && !noHealthNoShields && !ammoIsInfinite) return;
 
 			foreach (var pair in f.Unsafe.GetComponentBlockIterator<CollectablePlatformSpawner>())
 			{
@@ -31,6 +32,11 @@ namespace Quantum.Systems
 				}
 				else if (noHealthNoShields && (pair.Component->GameId == GameId.Health ||
 							 pair.Component->GameId == GameId.ShieldSmall))
+				{
+					f.Destroy(pair.Entity);
+				}
+				else if (ammoIsInfinite && (pair.Component->GameId == GameId.AmmoSmall ||
+											pair.Component->GameId == GameId.AmmoLarge))
 				{
 					f.Destroy(pair.Entity);
 				}

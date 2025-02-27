@@ -205,13 +205,19 @@ MonoBehaviour:
           _valueData: []
     - Key: 294
       Value:
-        DefaultSprite: sprite-currencies__festivefeather-default
+        DefaultSprite: sprite-currencies__festivelfeather-default
         SpriteByMinAmount:
           _keyData: 
           _valueData: []
     - Key: 272
       Value:
         DefaultSprite: sprite-currencies__eventticket-default
+        SpriteByMinAmount:
+          _keyData: 
+          _valueData: []
+    - Key: 600
+      Value:
+        DefaultSprite: sprite-currencies__festivelantern-default
         SpriteByMinAmount:
           _keyData: 
           _valueData: []

@@ -104,6 +104,7 @@ namespace FirstLight.Editor.Ids
 			{"EventTicket", 272, Currency, CryptoCurrency},
 			{"FestiveLUNARCOIN", 293, Currency, CryptoCurrency},
 			{"FestiveFEATHER", 294, Currency, CryptoCurrency},
+			{"FestiveLANTERN", 600, Currency, CryptoCurrency},
 			{"FloodCity", 137, Map, Deprecated},
 			{"MainDeck", 143, Map},
 			{"FtueDeck", 5, Map},
@@ -296,6 +297,13 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinValkyrie", 289, PlayerSkin, Collection},
 			{"PlayerSkinYeti", 290, PlayerSkin, Collection},
 			
+			{"PlayerSkinCorposFemaleDark", 295, PlayerSkin, Collection},
+			{"PlayerSkinCorposMaleDark", 297, PlayerSkin, Collection},
+			{"PlayerSkinGym", 298, PlayerSkin, Collection},
+			{"PlayerSkinHoli", 299, PlayerSkin, Collection},
+			{"PlayerSkinNoob", 323, PlayerSkin, Collection},
+			{"PlayerSkinPigeon", 324, PlayerSkin, Collection},
+			{"PlayerSkinStar", 325, PlayerSkin, Collection},
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins
@@ -324,6 +332,11 @@ namespace FirstLight.Editor.Ids
 			{"FlagPooEmoji", 279, DeathMarker, Collection},
 			{"FlagRoyalCrown", 280, DeathMarker, Collection},
 			{"FlagSalt", 281, DeathMarker, BotItem, Collection},
+			
+			{"FlagLamp", 330, DeathMarker, Collection},
+			{"FlagStrong", 331, DeathMarker, Collection},
+			{"FlagNight", 332, DeathMarker, Collection},
+			{"FlagPOG", 340, DeathMarker, Collection},
 			#endregion
 
 			#region MeleeSkins
@@ -348,7 +361,7 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinWheelOfPain", 317, MeleeSkin, Collection, BotItem},
 			{"MeleeSkinWrench", 318, MeleeSkin, Collection},
 			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection, BotItem},
-			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinXmas2023", 320, MeleeSkin, Collection},
 			{"MeleeSkinBaton", 129, MeleeSkin, Collection},
 			{"MeleeSkinKatana", 206, MeleeSkin, Collection},
 			{"MeleeSkinKeyboard", 207, MeleeSkin, Collection},
@@ -386,8 +399,12 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinChinesefan", 337, MeleeSkin, Collection},
 			{"MeleeSkinToxicatorSword", 338, MeleeSkin, Collection},
 			{"MeleeSkinCarrepairHammer", 339, MeleeSkin, Collection},
+			{"MeleeSkinBrush", 326, MeleeSkin, Collection},
+			{"MeleeSkinLunarStaff", 327, MeleeSkin, Collection},
+			{"MeleeSkinChickenleg", 328, MeleeSkin, Collection},
+			{"MeleeSkinDumbbell", 329, MeleeSkin, Collection},
 			// WEAPON GENERATION TOKEN KEEP THIS HERE
-			
+				
 			#endregion
 
 			#region ProfilePictures
@@ -497,6 +514,28 @@ namespace FirstLight.Editor.Ids
 			{"AvatarYeti", 550, ProfilePicture, Collection},
 			{"AvatarBase", 551, ProfilePicture, Collection},
 
+			{"AvatarGym", 552, ProfilePicture, Collection},
+			{"AvatarPigeon", 553, ProfilePicture, Collection},
+			{"AvatarMrnoob", 554, ProfilePicture, Collection},
+			{"AvatarHoli", 555, ProfilePicture, Collection},
+			{"AvatarLantern", 556, ProfilePicture, Collection},
+			{"AvatarStar", 557, ProfilePicture, Collection},
+			{"AvatarMaleCorpoDark", 558, ProfilePicture, Collection},
+			{"AvatarFemaleCorpoDark", 559, ProfilePicture, Collection},
+			
+			{"AvatarSupporterGold202501", 560, ProfilePicture, Collection},
+			{"AvatarSupporterGold202502", 561, ProfilePicture, Collection},
+			{"AvatarSupporterGold202503", 562, ProfilePicture, Collection},
+			{"AvatarSupporterGold202504", 563, ProfilePicture, Collection},
+			{"AvatarSupporterSilver202501", 564, ProfilePicture, Collection},
+			{"AvatarSupporterSilver202502", 565, ProfilePicture, Collection},
+			{"AvatarSupporterSilver202503", 566, ProfilePicture, Collection},
+			{"AvatarSupporterSilver202504", 567, ProfilePicture, Collection},
+			{"AvatarSupporterBronze202501", 568, ProfilePicture, Collection},
+			{"AvatarSupporterBronze202502", 569, ProfilePicture, Collection},
+			{"AvatarSupporterBronze202503", 570, ProfilePicture, Collection},
+			{"AvatarSupporterBronze202504", 571, ProfilePicture, Collection},
+			
 			#endregion
 
 			#region Footprint

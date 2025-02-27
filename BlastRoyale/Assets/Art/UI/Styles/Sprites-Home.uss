@@ -52,6 +52,7 @@
     --sprite-home__banner-character-valkyrie: url('/Assets/Art/UI/Sprites/Home/banner-character-valkyrie.png');
     --sprite-home__banner-iceking: url('/Assets/Art/UI/Sprites/Home/banner-iceking.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
+    --sprite-home__banner-pigeon: url('/Assets/Art/UI/Sprites/Home/banner-pigeon.png');
     --sprite-home__banner-ribbon-copper: url('/Assets/Art/UI/Sprites/Home/banner-ribbon-copper.png');
     --sprite-home__banner-speed-lines-bottom: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-bottom.png');
     --sprite-home__banner-speed-lines-top: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-top.png');
@@ -167,6 +168,7 @@
     --sprite-home__icon-banner: url('/Assets/Art/UI/Sprites/Home/icon-banner.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
     --sprite-home__icon-blasthub: url('/Assets/Art/UI/Sprites/Home/icon-blasthub.png');
+    --sprite-home__icon-calendar: url('/Assets/Art/UI/Sprites/Home/icon-calendar.png');
     --sprite-home__icon-characters: url('/Assets/Art/UI/Sprites/Home/icon-characters.png');
     --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
     --sprite-home__icon-close: url('/Assets/Art/UI/Sprites/Home/icon-close.png');
@@ -240,6 +242,7 @@
     --sprite-home__pattern-rewardglow-rare: url('/Assets/Art/UI/Sprites/Home/pattern-rewardglow-rare.png');
     --sprite-home__pattern-rewardglow-uncommon: url('/Assets/Art/UI/Sprites/Home/pattern-rewardglow-uncommon.png');
     --sprite-home__pattybun-season-reward: url('/Assets/Art/UI/Sprites/Home/pattybun-season-reward.png');
+    --sprite-home__pigeon-season-reward: url('/Assets/Art/UI/Sprites/Home/pigeon-season-reward.png');
     --sprite-home__progress-battlepass: url('/Assets/Art/UI/Sprites/Home/progress-battlepass.png');
     --sprite-home__progress-battlepass-bg: url('/Assets/Art/UI/Sprites/Home/progress-battlepass-bg.png');
     --sprite-home__progress-battlepassbtn-bg: url('/Assets/Art/UI/Sprites/Home/progress-battlepassbtn-bg.png');
@@ -575,6 +578,12 @@
     background-image: var(--sprite-home__banner-mapselection);
     width: 932px;
     height: 275px;
+}
+
+.sprite-home__banner-pigeon {
+    background-image: var(--sprite-home__banner-pigeon);
+    width: 526px;
+    height: 698px;
 }
 
 .sprite-home__banner-ribbon-copper {
@@ -1219,6 +1228,12 @@
     height: 48px;
 }
 
+.sprite-home__icon-calendar {
+    background-image: var(--sprite-home__icon-calendar);
+    width: 48px;
+    height: 48px;
+}
+
 .sprite-home__icon-characters {
     background-image: var(--sprite-home__icon-characters);
     width: 42px;
@@ -1655,6 +1670,12 @@
     background-image: var(--sprite-home__pattybun-season-reward);
     width: 510px;
     height: 713px;
+}
+
+.sprite-home__pigeon-season-reward {
+    background-image: var(--sprite-home__pigeon-season-reward);
+    width: 1175px;
+    height: 943px;
 }
 
 .sprite-home__progress-battlepass {

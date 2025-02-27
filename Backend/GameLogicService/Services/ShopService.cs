@@ -43,10 +43,11 @@ namespace GameLogicService.Services
 		private IBaseServiceConfiguration _cfg;
 		private IEventManager _events;
 		private IItemCatalog<ItemData> _catalog;
+		private IStoreService _storeService;
 
 		public ShopService(ILogger log, IItemCatalog<ItemData> catalog, IErrorService<PlayFabError> errorHandler,
 						   IBaseServiceConfiguration cfg, IEventManager events, IUserMutex userMutex,
-						   IServerStateService serverState, IInventorySyncService<ItemData> inventorySync)
+						   IServerStateService serverState, IInventorySyncService<ItemData> inventorySync, IStoreService storeService)
 		{
 			_log = log;
 			_errorHandler = errorHandler;
@@ -56,6 +57,7 @@ namespace GameLogicService.Services
 			_serverState = serverState;
 			_inventorySync = inventorySync;
 			_catalog = catalog;
+			_storeService = storeService;
 		}
 
 		/// <summary>
@@ -82,14 +84,14 @@ namespace GameLogicService.Services
 			}
 
 			await _events.CallEvent(new IAPPurchasedEvent(playerId));
-			await SyncPurchaseItems(playerId, item);
+			await SyncPurchaseItems(playerId, item, catalogItemId);
 
 			var result = Playfab.Result(playerId);
 			ModelSerializer.SerializeToData(result.Result.Data, item);
 			return result;
 		}
 
-		public async Task SyncPurchaseItems(string playerId, ItemData purchasedItem)
+		public async Task SyncPurchaseItems(string playerId, ItemData purchasedItem, string catalogItemId)
 		{
 			await using (await _userMutex.LockUser(playerId))
 			{
@@ -101,10 +103,17 @@ namespace GameLogicService.Services
 					if (givenItems.Contains(purchasedItem))
 					{
 						var contentCreatorData = state.DeserializeModel<ContentCreatorData>();
+						
+						var purchasedItemPrice = await _storeService.GetItemPrice(catalogItemId);
+						var (currencyId, itemValue) = purchasedItemPrice.Price.FirstOrDefault(); 
+						
 						var msg = new PurchaseClaimedMessage
 						{
 							ItemPurchased = purchasedItem,
-							SupportingContentCreator = contentCreatorData.SupportingCreatorCode
+							SupportingContentCreator = contentCreatorData.SupportingCreatorCode,
+							PriceCurrencyId = currencyId,
+							PricePaid = itemValue.ToString()
+							
 						};
 						await _events.CallEvent(new GameLogicMessageEvent<PurchaseClaimedMessage>(playerId, msg));
 					}

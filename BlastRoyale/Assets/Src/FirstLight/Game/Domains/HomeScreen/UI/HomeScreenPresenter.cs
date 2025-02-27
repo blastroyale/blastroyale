@@ -14,6 +14,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Utils.UCSExtensions;
@@ -68,6 +69,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 		private PlayerAvatarElement _avatar;
 
 		private VisualElement _collectionNotification;
+		private VisualElement _storeNotification;
 		private VisualElement _settingsNotification;
 		private VisualElement _friendsNotification;
 		private VisualElement _newsNotification;
@@ -125,6 +127,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_avatar = Root.Q<PlayerAvatarElement>("Avatar").Required();
 
 			_collectionNotification = Root.Q<VisualElement>("CollectionNotification").Required();
+			_storeNotification = Root.Q<VisualElement>("StoreNotification").Required();
 			_settingsNotification = Root.Q<VisualElement>("SettingsNotification").Required();
 			_friendsNotification = Root.Q<VisualElement>("FriendsNotification").Required();
 			_onlineFriendsNotification = Root.Q<VisualElement>("OnlineFriendsNotification").Required();
@@ -170,6 +173,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			}
 
 			LoadStarterPackAndSetupButton().Forget();
+			CheckStoreUpdateForNotification().Forget();
 
 			Root.Q<VisualElement>("SocialsButtons").Required().AttachView(this, out SocialsView _);
 			Root.Q<LocalizedButton>("FriendsButton").Required().LevelLock(this, Root, UnlockSystem.Friends, () => Data.FriendsClicked?.Invoke());
@@ -178,6 +182,13 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 
 			Root.SetupClicks(_services);
+		}
+
+		private async UniTaskVoid CheckStoreUpdateForNotification()
+		{
+			await UniTask.WaitUntil(() => _services.IAPService.UnityStore.Initialized);
+			
+			_storeNotification.SetDisplay(_services.IAPService.HasStoreItemsUpdate());
 		}
 
 		private async UniTaskVoid LoadStarterPackAndSetupButton()
@@ -246,7 +257,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
-			_settingsNotification.SetDisplay(_services.AuthenticationService.IsGuest);
+			_settingsNotification.SetDisplay(_services.AuthService.SessionData.IsGuest);
 			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
 			_friendsNotification.SetDisplay(FriendsService.Instance.IncomingFriendRequests.ToList().Count > 0);
 
@@ -276,7 +287,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 
 			UpdatePlayButton();
 
-			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
+			_playerNameLabel.text = _services.AuthService.GetPrettyLocalPlayerName();
 
 			return base.OnScreenOpen(reload);
 		}
@@ -350,7 +361,7 @@ namespace FirstLight.Game.Domains.HomeScreen.UI
 
 		private void OnDisplayNameChanged(DisplayNameChangedMessage _)
 		{
-			_playerNameLabel.text = AuthenticationService.Instance.GetPlayerNameWithSpaces();
+			_playerNameLabel.text = _services.AuthService.GetPrettyLocalPlayerName();
 		}
 
 		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)

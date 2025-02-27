@@ -29,7 +29,7 @@ namespace FirstLight.Game.Presenters.Social.Team
 		public PendingInviteElement SetPlayerInvite(PartyInvite invite)
 		{
 			Invite = invite;
-			_playerName.text = invite.PlayerName.TrimPlayerNameNumbers();
+			_playerName.text = invite.PlayerName;
 			return this;
 		}
 

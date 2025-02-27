@@ -80,11 +80,12 @@ namespace FirstLight.Game.Services
 		{
 			_services = services;
 			_services.MessageBrokerService.Subscribe<MainMenuLoadedMessage>(OnMenuOpened);
-			_services.MessageBrokerService.Subscribe<SuccessAuthentication>(OnAuthenticated);
+			_services.MessageBrokerService.Subscribe<SuccessfullyAuthenticated>(OnAuthenticated);
 		}
 
-		private void OnAuthenticated(SuccessAuthentication obj)
+		private void OnAuthenticated(SuccessfullyAuthenticated obj)
 		{
+			if (obj.PreviouslyLoggedIn) return;
 			FetchLeaderboardConfigs();
 		}
 

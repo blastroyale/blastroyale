@@ -1,5 +1,5 @@
+using System.Linq;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -42,10 +42,14 @@ namespace FirstLight.Game.Commands
 			ctx.Logic.RewardLogic().Reward(new[] {catalogItem});
 			ctx.Logic.PlayerStoreLogic().UpdateLastPlayerPurchase(CatalogItemId, StoreItemData);
 
+			
+			var mainPrice = storeSetup.Price.FirstOrDefault();
 			var msg = new PurchaseClaimedMessage
 			{
 				ItemPurchased = catalogItem,
-				SupportingContentCreator = ctx.Logic.ContentCreatorLogic().SupportingCreatorCode.Value
+				SupportingContentCreator = ctx.Logic.ContentCreatorLogic().SupportingCreatorCode.Value,
+				PriceCurrencyId = mainPrice.Key,
+				PricePaid = mainPrice.Value.ToString(),
 			};
 			ctx.Services.MessageBrokerService().Publish(msg);
 		}

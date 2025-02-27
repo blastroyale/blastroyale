@@ -42,12 +42,6 @@ namespace FirstLight.Game.Utils
 		private static Func<GetTitleNewsRequest, UniTask<GetTitleNewsResult>> GetNewsFunc { get; }
 			= Wrap<GetTitleNewsRequest, GetTitleNewsResult>(PlayFabClientAPI.GetTitleNews);
 
-		private static Func<LoginWithCustomIDRequest, UniTask<LoginResult>> LoginCustomIdFunc { get; }
-			= Wrap<LoginWithCustomIDRequest, LoginResult>(PlayFabClientAPI.LoginWithCustomID);
-
-		private static Func<LoginWithEmailAddressRequest, UniTask<LoginResult>> LoginWithEmailFunc { get; }
-			= Wrap<LoginWithEmailAddressRequest, LoginResult>(PlayFabClientAPI.LoginWithEmailAddress);
-
 		private static Func<GetCatalogItemsRequest, UniTask<GetCatalogItemsResult>> GetCatalogItemsFunc { get; }
 			= Wrap<GetCatalogItemsRequest, GetCatalogItemsResult>(PlayFabClientAPI.GetCatalogItems);
 
@@ -92,18 +86,6 @@ namespace FirstLight.Game.Utils
 		public static UniTask<GetTitleNewsResult> GetNews(GetTitleNewsRequest req)
 		{
 			return GetNewsFunc(req);
-		}
-
-		/// <inheritdoc cref="PlayFabClientAPI.LoginWithCustomID"/>
-		public static UniTask<LoginResult> LoginWithCustomId(LoginWithCustomIDRequest r)
-		{
-			return LoginCustomIdFunc(r);
-		}
-
-		/// <inheritdoc cref="PlayFabClientAPI.LoginWithEmailAddress"/>
-		public static UniTask<LoginResult> LoginWithEmail(LoginWithEmailAddressRequest r)
-		{
-			return LoginWithEmailFunc(r);
 		}
 
 		/// <inheritdoc cref="PlayFabMultiplayerAPI.LeaveLobby"/>
@@ -208,6 +190,18 @@ namespace FirstLight.Game.Utils
 
 		public static class ClientAPI
 		{
+			private static Func<GetPhotonAuthenticationTokenRequest, UniTask<GetPhotonAuthenticationTokenResult>> GetPhotonAuthenticationTokenFunc
+			{
+				get;
+			}
+				= Wrap<GetPhotonAuthenticationTokenRequest, GetPhotonAuthenticationTokenResult>(PlayFabClientAPI.GetPhotonAuthenticationToken);
+
+			public static UniTask<GetPhotonAuthenticationTokenResult> GetPhotonAuthenticationToken(
+				GetPhotonAuthenticationTokenRequest req)
+			{
+				return GetPhotonAuthenticationTokenFunc(req);
+			}
+
 			private static Func<GetUserDataRequest, UniTask<GetUserDataResult>> GetUserReadOnlyDataFunc { get; }
 				= Wrap<GetUserDataRequest, GetUserDataResult>(PlayFabClientAPI.GetUserReadOnlyData);
 
@@ -215,6 +209,123 @@ namespace FirstLight.Game.Utils
 				GetUserDataRequest req)
 			{
 				return GetUserReadOnlyDataFunc(req);
+			}
+
+			private static Func<LoginWithCustomIDRequest, UniTask<LoginResult>> LoginCustomIdFunc { get; }
+				= Wrap<LoginWithCustomIDRequest, LoginResult>(PlayFabClientAPI.LoginWithCustomID);
+
+			/// <inheritdoc cref="PlayFabClientAPI.LoginWithCustomID"/>
+			public static UniTask<LoginResult> LoginWithCustomID(LoginWithCustomIDRequest r)
+			{
+				return LoginCustomIdFunc(r);
+			}
+
+			private static Func<LoginWithAndroidDeviceIDRequest, UniTask<LoginResult>> LoginWithAndroidDeviceIDFunc { get; }
+				= Wrap<LoginWithAndroidDeviceIDRequest, LoginResult>(PlayFabClientAPI.LoginWithAndroidDeviceID);
+
+			/// <inheritdoc cref="PlayFabClientAPI.LoginWithCustomID"/>
+			public static UniTask<LoginResult> LoginWithAndroidDeviceID(LoginWithAndroidDeviceIDRequest r)
+			{
+				return LoginWithAndroidDeviceIDFunc(r);
+			}
+
+			private static Func<LoginWithIOSDeviceIDRequest, UniTask<LoginResult>> LoginWithIOSDeviceIDFunc { get; }
+				= Wrap<LoginWithIOSDeviceIDRequest, LoginResult>(PlayFabClientAPI.LoginWithIOSDeviceID);
+
+			/// <inheritdoc cref="PlayFabClientAPI.LoginWithCustomID"/>
+			public static UniTask<LoginResult> LoginWithIOSDeviceID(LoginWithIOSDeviceIDRequest r)
+			{
+				return LoginWithIOSDeviceIDFunc(r);
+			}
+
+			private static Func<LinkCustomIDRequest, UniTask<LinkCustomIDResult>> LinkCustomIDFunc { get; }
+				= Wrap<LinkCustomIDRequest, LinkCustomIDResult>(PlayFabClientAPI.LinkCustomID);
+
+			/// <inheritdoc cref="PlayFabClientAPI.LinkCustomID"/>
+			public static UniTask<LinkCustomIDResult> LinkCustomID(LinkCustomIDRequest r)
+			{
+				return LinkCustomIDFunc(r);
+			}
+
+			private static Func<LinkAndroidDeviceIDRequest, UniTask<LinkAndroidDeviceIDResult>> LinkAndroidDeviceIDFunc { get; }
+				= Wrap<LinkAndroidDeviceIDRequest, LinkAndroidDeviceIDResult>(PlayFabClientAPI.LinkAndroidDeviceID);
+
+			/// <inheritdoc cref="PlayFabClientAPI.LinkAndroidDeviceID"/>
+			public static UniTask<LinkAndroidDeviceIDResult> LinkAndroidDeviceID(LinkAndroidDeviceIDRequest r)
+			{
+				return LinkAndroidDeviceIDFunc(r);
+			}
+
+			private static Func<LinkIOSDeviceIDRequest, UniTask<LinkIOSDeviceIDResult>> LinkIOSDeviceIDFunc { get; }
+				= Wrap<LinkIOSDeviceIDRequest, LinkIOSDeviceIDResult>(PlayFabClientAPI.LinkIOSDeviceID);
+
+			/// <inheritdoc cref="PlayFabClientAPI.LinkIOSDeviceID"/>
+			public static UniTask<LinkIOSDeviceIDResult> LinkIOSDeviceID(LinkIOSDeviceIDRequest r)
+			{
+				return LinkIOSDeviceIDFunc(r);
+			}
+
+			private static Func<UnlinkCustomIDRequest, UniTask<UnlinkCustomIDResult>> UnlinkCustomIDFunc { get; }
+				= Wrap<UnlinkCustomIDRequest, UnlinkCustomIDResult>(PlayFabClientAPI.UnlinkCustomID);
+
+			/// <inheritdoc cref="PlayFabClientAPI.UnlinkCustomID"/>
+			public static UniTask<UnlinkCustomIDResult> UnlinkCustomID(UnlinkCustomIDRequest r)
+			{
+				return UnlinkCustomIDFunc(r);
+			}
+
+			private static Func<UnlinkAndroidDeviceIDRequest, UniTask<UnlinkAndroidDeviceIDResult>> UnlinkAndroidDeviceIDFunc { get; }
+				= Wrap<UnlinkAndroidDeviceIDRequest, UnlinkAndroidDeviceIDResult>(PlayFabClientAPI.UnlinkAndroidDeviceID);
+
+			/// <inheritdoc cref="PlayFabClientAPI.UnlinkAndroidDeviceID"/>
+			public static UniTask<UnlinkAndroidDeviceIDResult> UnlinkAndroidDeviceID(UnlinkAndroidDeviceIDRequest r)
+			{
+				return UnlinkAndroidDeviceIDFunc(r);
+			}
+
+			private static Func<UnlinkIOSDeviceIDRequest, UniTask<UnlinkIOSDeviceIDResult>> UnlinkIOSDeviceIDFunc { get; }
+				= Wrap<UnlinkIOSDeviceIDRequest, UnlinkIOSDeviceIDResult>(PlayFabClientAPI.UnlinkIOSDeviceID);
+
+			/// <inheritdoc cref="PlayFabClientAPI.UnlinkIOSDeviceID"/>
+			public static UniTask<UnlinkIOSDeviceIDResult> UnlinkIOSDeviceID(UnlinkIOSDeviceIDRequest r)
+			{
+				return UnlinkIOSDeviceIDFunc(r);
+			}
+
+			private static Func<AddOrUpdateContactEmailRequest, UniTask<AddOrUpdateContactEmailResult>> AddOrUpdateContactEmailFunc { get; }
+				= Wrap<AddOrUpdateContactEmailRequest, AddOrUpdateContactEmailResult>(PlayFabClientAPI.AddOrUpdateContactEmail);
+
+			/// <inheritdoc cref="PlayFabClientAPI.AddOrUpdateContactEmail"/>
+			public static UniTask<AddOrUpdateContactEmailResult> AddOrUpdateContactEmail(AddOrUpdateContactEmailRequest r)
+			{
+				return AddOrUpdateContactEmailFunc(r);
+			}
+
+			private static Func<AddUsernamePasswordRequest, UniTask<AddUsernamePasswordResult>> AddUsernamePasswordFunc { get; }
+				= Wrap<AddUsernamePasswordRequest, AddUsernamePasswordResult>(PlayFabClientAPI.AddUsernamePassword);
+
+			/// <inheritdoc cref="PlayFabClientAPI.AddOrUpdateContactEmail"/>
+			public static UniTask<AddUsernamePasswordResult> AddUsernamePassword(AddUsernamePasswordRequest r)
+			{
+				return AddUsernamePasswordFunc(r);
+			}
+
+			private static Func<SendAccountRecoveryEmailRequest, UniTask<SendAccountRecoveryEmailResult>> SendAccountRecoveryEmailFunc { get; }
+				= Wrap<SendAccountRecoveryEmailRequest, SendAccountRecoveryEmailResult>(PlayFabClientAPI.SendAccountRecoveryEmail);
+
+			/// <inheritdoc cref="PlayFabClientAPI.SendAccountRecoveryEmail"/>
+			public static UniTask<SendAccountRecoveryEmailResult> SendAccountRecoveryEmail(SendAccountRecoveryEmailRequest r)
+			{
+				return SendAccountRecoveryEmailFunc(r);
+			}
+
+			private static Func<LoginWithEmailAddressRequest, UniTask<LoginResult>> LoginWithEmailAddressFunc { get; }
+				= Wrap<LoginWithEmailAddressRequest, LoginResult>(PlayFabClientAPI.LoginWithEmailAddress);
+
+			/// <inheritdoc cref="PlayFabClientAPI.SendAccountRecoveryEmail"/>
+			public static UniTask<LoginResult> LoginWithEmailAddress(LoginWithEmailAddressRequest r)
+			{
+				return LoginWithEmailAddressFunc(r);
 			}
 		}
 

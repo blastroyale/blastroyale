@@ -172,7 +172,7 @@ MonoBehaviour:
       Radius:
         RawValue: 0
       SpecialPower:
-        RawValue: 1310720
+        RawValue: 2621440
       Speed:
         RawValue: 0
       MinRange:

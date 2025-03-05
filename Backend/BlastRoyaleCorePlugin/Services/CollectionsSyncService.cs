@@ -15,7 +15,7 @@ namespace BlastRoyaleNFTPlugin.Services
 	public class CollectionsSyncService
 	{
 		
-		private static readonly CollectionFetchResponse _EMPTY_COLLECTION = new() {NFTsOwned = new List<RemoteCollectionItem>()};
+		private static readonly CollectionFetchResponse _EMPTY_COLLECTION = new() {CollectionNFTsOwnedDict = new Dictionary<string, List<RemoteCollectionItem>>()};
 
 		private NFTCollectionSyncConfigData NFTCollectionSyncConfigData;
 		private readonly BlockchainApi BlockchainApi;
@@ -100,23 +100,25 @@ namespace BlastRoyaleNFTPlugin.Services
 		{
 			var playerCollectionData = serverState.DeserializeModel<CollectionData>();
 			var playerCollectionInitialHash = playerCollectionData.GetHashCode();
-			var collectionsOwned = await RequestNFTCollectionsForPlayer(playfabId);
-			var collectionSyncConfig = NFTCollectionSyncConfigData.NFTCollections;
+			var remoteOwnedCollectionsNFTsResult = await RequestNFTCollectionsForPlayer(playfabId);
+			var collectionSyncConfigList = NFTCollectionSyncConfigData.NFTCollections;
+
 			
-			foreach (var syncConfig in collectionSyncConfig)
+			foreach (var collectionSyncConfig in collectionSyncConfigList)
 			{
-				if (syncConfig.ItemSyncConfiguration == null ||
-					syncConfig.ItemSyncConfiguration.Count == 0)
+				if (collectionSyncConfig.CategorySyncConfiguration == null ||
+					collectionSyncConfig.CategorySyncConfiguration.Count == 0)
 				{
-					BlockchainApi._ctx.Log.LogError($"Skipping {syncConfig.CollectionName} sync because no ItemSyncConfiguration has been found/properly configured");
+					BlockchainApi._ctx.Log.LogError($"Skipping {collectionSyncConfig.CollectionName} sync because no ItemSyncConfiguration has been found/properly configured");
 					continue;
 				}
-			
-				new InGameItemsCollectionSync().Sync(playerCollectionData, syncConfig, collectionsOwned.NFTsOwned.ToList());
 
-				if (syncConfig.CanSyncNFTImage)
+				
+				new InGameItemsCollectionSync().Sync(playerCollectionData, collectionSyncConfig, remoteOwnedCollectionsNFTsResult);
+				
+				if (collectionSyncConfig.CanSyncNFTImage)
 				{
-					new NFTProfilePictureCollectionSync().Sync(playerCollectionData, syncConfig, collectionsOwned.NFTsOwned.ToList());
+					new NFTProfilePictureCollectionSync().Sync(playerCollectionData, collectionSyncConfig, remoteOwnedCollectionsNFTsResult);
 				}
 			}
 			
@@ -127,8 +129,9 @@ namespace BlastRoyaleNFTPlugin.Services
 			
 			return true;
 		}
-		
-		
+
+	
+
 		/// <summary>
 		/// Requests all indexed NFTs for a given player's wallet from the blockchain API.
 		/// This method fetches the NFTs owned by the player for a list of collections from the blockchain indexer and returns the results.
@@ -172,10 +175,10 @@ namespace BlastRoyaleNFTPlugin.Services
 					return _EMPTY_COLLECTION;
 				}
 
-				var list = ModelSerializer.Deserialize<List<RemoteCollectionItem>>(responseString) ?? new List<RemoteCollectionItem>();
-				BlockchainApi._ctx.Log.LogInformation($"Successfully retrieved {list.Count} NFT collections for PlayerID {playerId}");
+				var collectionNFTsOwnedDict = ModelSerializer.Deserialize<Dictionary<string, List<RemoteCollectionItem>>>(responseString) ?? new Dictionary<string, List<RemoteCollectionItem>>();
+				BlockchainApi._ctx.Log.LogInformation($"Successfully retrieved {collectionNFTsOwnedDict.Count} NFT collections for PlayerID {playerId}");
 
-				return new CollectionFetchResponse { NFTsOwned = list };
+				return new CollectionFetchResponse { CollectionNFTsOwnedDict = collectionNFTsOwnedDict };
 			}
 			catch (Exception ex)
 			{

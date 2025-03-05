@@ -42,7 +42,7 @@ public class NFTCollectionSyncConfigData
         {
             CollectionName = COLLECTION_CORPOS_POLYGON,
 			CanSync = true,
-			ItemSyncConfiguration = ResolveCorposSyncConfig()
+			CategorySyncConfiguration = ResolveCorposSyncConfig()
         };
     
         // Add Corpos collection (Ethereum)
@@ -52,7 +52,7 @@ public class NFTCollectionSyncConfigData
             CanSync = true,
 			CanSyncNFTImage = true,
 			NFTImagePrefix = "Corpo",
-			ItemSyncConfiguration = ResolveCorposSyncConfig()
+			CategorySyncConfiguration = ResolveCorposSyncConfig()
         };
 		
 		  
@@ -62,7 +62,7 @@ public class NFTCollectionSyncConfigData
 			CollectionName = COLLECTION_PLAGUE_DOCTOR_IMX,
 			CanSync = true,
 			CanSyncNFTImage = false,
-			ItemSyncConfiguration = ResolvePlagueDoctorSyncConfig()
+			CategorySyncConfiguration = ResolvePlagueDoctorSyncConfig()
 		};
   
      
@@ -72,14 +72,20 @@ public class NFTCollectionSyncConfigData
             CollectionName = COLLECTION_GAMESGG_GAMERS_ETH,
             CanSync = false,
 			CanSyncNFTImage = false,
-			ItemSyncConfiguration = new List<InItemSyncConfiguration>
+			CategorySyncConfiguration = new List<CategorySyncConfiguration>
 			{
 				new()
 				{
 					ItemCollectionCategory = CollectionCategories.PLAYER_SKINS,
-					TraitRequired = false,
-					InGameRewards = new List<GameId> { GameId.PlayerSkinGamer }
-				},
+					ItemTraitRewardsConfigurations = new List<ItemTraitRewardSyncConfiguration>()
+					{
+						new	()
+						{
+							TraitRequired = false,
+							InGameRewards = new List<GameId> { GameId.PlayerSkinGamer }
+						}
+					}
+				}
 			}
         };
 		
@@ -89,14 +95,20 @@ public class NFTCollectionSyncConfigData
 			CollectionName = COLLECTION_PIRATE_NATION_ETH,
 			CanSync = false,
 			CanSyncNFTImage = false,
-			ItemSyncConfiguration =new List<InItemSyncConfiguration>
+			CategorySyncConfiguration =new List<CategorySyncConfiguration>
 			{
 				new()
 				{
 					ItemCollectionCategory = CollectionCategories.PLAYER_SKINS,
-					TraitRequired = false,
-					InGameRewards = new List<GameId> { GameId.PlayerSkinPirateCaptain }
-				},
+					ItemTraitRewardsConfigurations = new List<ItemTraitRewardSyncConfiguration>()
+					{
+						new	()
+						{
+							TraitRequired = false,
+							InGameRewards = new List<GameId> { GameId.PlayerSkinPirateCaptain }
+						}
+					}
+				}
 			}
 		};
 
@@ -108,28 +120,40 @@ public class NFTCollectionSyncConfigData
 	// So we can implement some sort of cache mechanism that would update the JSON config periodically after caching expires, or restarting the server to
 	// load a new one instead of waiting for the cache to expire
 	//
-	private List<InItemSyncConfiguration> ResolvePlagueDoctorSyncConfig()
+	private List<CategorySyncConfiguration> ResolvePlagueDoctorSyncConfig()
 	{
 		
-		var characterCategoryItemConfigs = new List<InItemSyncConfiguration>
+		var characterCategoryItemConfigs = new List<CategorySyncConfiguration>
 		{
 			new()
 			{
 				ItemCollectionCategory = CollectionCategories.PLAYER_SKINS,
-				TraitRequired = false,
-				InGameRewards = new List<GameId> { GameId.PlayerSkinPlagueDoctor }
-			},
+				ItemTraitRewardsConfigurations = new List<ItemTraitRewardSyncConfiguration>()
+				{
+					new()
+					{
+						TraitRequired = false,
+						InGameRewards = new List<GameId> { GameId.PlayerSkinPlagueDoctor }		
+					}
+				}
+			}
 		};
 
-		var meleeCategoryItemConfigs = new List<InItemSyncConfiguration>
+		var meleeCategoryItemConfigs = new List<CategorySyncConfiguration>
 		{
 			new()
 			{
 				ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-				TraitRequired = true,
-				TraitName = "item",
-				TraitValue = "Plaguebearer Staff",
-				InGameRewards = new List<GameId> {GameId.MeleeSkinDoctorStaff}
+				ItemTraitRewardsConfigurations = new List<ItemTraitRewardSyncConfiguration>()
+				{
+					new()
+					{
+						TraitRequired = true,
+						TraitName = "item",
+						TraitValue = "Plaguebearer Staff",
+						InGameRewards = new List<GameId> {GameId.MeleeSkinDoctorStaff}		
+					}
+				}
 			}
 		};
 		
@@ -137,180 +161,189 @@ public class NFTCollectionSyncConfigData
 	}
 
 	
-	private List<InItemSyncConfiguration> ResolveCorposSyncConfig()
+	private List<CategorySyncConfiguration> ResolveCorposSyncConfig()
 	{
 		//Setup Corpos Character Sync for Traits
-		var characterCategoryItemConfigs = new List<InItemSyncConfiguration>
+		var characterCategoryItemConfigs = new List<CategorySyncConfiguration>
 		{
 			new()
 			{
 				ItemCollectionCategory = CollectionCategories.PLAYER_SKINS,
-				TraitRequired = true,
-				TraitName = "body",
-				TraitValue = "masculine",
-				InGameRewards = new List<GameId> { GameId.MaleCorpos, GameId.PlayerSkinCorposMaleDark }
-			},
-			new()
-			{
-				ItemCollectionCategory = CollectionCategories.PLAYER_SKINS,
-				TraitRequired = true,
-				TraitName = "body",
-				TraitValue = "feminine",
-				InGameRewards = new List<GameId> { GameId.FemaleCorpos, GameId.PlayerSkinCorposFemaleDark }
+				ItemTraitRewardsConfigurations = new List<ItemTraitRewardSyncConfiguration>()
+				{
+					new ()
+					{
+						TraitRequired = true,
+						TraitName = "body",
+						TraitValue = "masculine",
+						InGameRewards = new List<GameId> { GameId.MaleCorpos, GameId.PlayerSkinCorposMaleDark }		
+					},
+					new()
+					{
+						TraitRequired = true,
+						TraitName = "body",
+						TraitValue = "feminine",
+						InGameRewards = new List<GameId> { GameId.FemaleCorpos, GameId.PlayerSkinCorposFemaleDark }
+					}
+				}
 			}
+			
 		};
 
 		//Setup Corpos Melee Sync for Traits
-		var meleeCategoryItemConfig = new List<InItemSyncConfiguration>
+		var meleeCategoryItemConfig = new List<CategorySyncConfiguration>
 		{
-		    new()
+			new ()
 			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Wrench",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinWrench }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Mighty Sledge",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinMightySledge }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Gigahammer",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinGigaMelee }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Superdog",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinSausage }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Tv Takedown",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinTvTakedown }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Putter",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinPutter }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Thunder Axe",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinThunderAxe }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Atom Slicer",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinAtomSlicer }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Fatebringer",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinAtomSlicer }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Hatchet",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinHatchet }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Shredders",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinHatchet }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Sir Quacks-a-lot",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinSirQuacks }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Creator Kit",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinWrench, GameId.MeleeSkinAtomSlicer }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Sigma Rifle",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinGigaMelee }
-		    },
-		    new()
-			{
-		        ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
-		        TraitRequired = true,
-		        TraitName = "item",
-		        TraitValue = "Marble Rifle",
-		        InGameRewards = new List<GameId> { GameId.MeleeSkinGigaMelee }
-		    }
+				ItemCollectionCategory = CollectionCategories.MELEE_SKINS,
+				ItemTraitRewardsConfigurations = new List<ItemTraitRewardSyncConfiguration>
+				{
+					new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Wrench",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinWrench }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Mighty Sledge",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinMightySledge }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Gigahammer",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinGigaMelee }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Superdog",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinSausage }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Tv Takedown",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinTvTakedown }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Putter",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinPutter }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Thunder Axe",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinThunderAxe }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Atom Slicer",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinAtomSlicer }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Fatebringer",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinAtomSlicer }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Hatchet",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinHatchet }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Shredders",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinHatchet }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Sir Quacks-a-lot",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinSirQuacks }
+				    },
+					new()
+					{
+						TraitRequired = true,
+						TraitName = "item",
+						TraitValue = "Picky Boy",
+						InGameRewards = new List<GameId> { GameId.MeleeSkinCactus }
+					},
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Creator Kit",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinWrench, GameId.MeleeSkinAtomSlicer }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Sigma Rifle",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinGigaMelee }
+				    },
+				    new()
+					{
+				        TraitRequired = true,
+				        TraitName = "item",
+				        TraitValue = "Marble Rifle",
+				        InGameRewards = new List<GameId> { GameId.MeleeSkinGigaMelee }
+				    }
+				}
+			}
 		};
 		
 		//Setup Corpos Avatar Sync for Traits
-		var profilePicturesCategoryItemConfigs = new List<InItemSyncConfiguration>
+		var profilePicturesCategoryItemConfigs = new List<CategorySyncConfiguration>
 		{
 			new()
 			{
 				ItemCollectionCategory = CollectionCategories.PROFILE_PICTURE,
-				TraitRequired = true,
-				TraitName = "body",
-				TraitValue = "masculine",
-				InGameRewards = new List<GameId> { GameId.AvatarCorpomask, GameId.AvatarMalecorpoangryads, GameId.AvatarMalecorpoconcept, GameId.AvatarMalecorposcaredsticker, GameId.AvatarMaleCorpoDark }
-			},
-			new()
-			{
-				ItemCollectionCategory = CollectionCategories.PROFILE_PICTURE,
-				TraitRequired = true,
-				TraitName = "body",
-				TraitValue = "feminine",
-				InGameRewards = new List<GameId> { GameId.AvatarFemalecorpo, GameId.AvatarFemalecorpoconcept, GameId.AvatarFemalecorpophonesticker, GameId.AvatarFemalecorposticker, GameId.AvatarFemaleCorpoDark }
-			},
-			new()
-			{
-				ItemCollectionCategory = CollectionCategories.PROFILE_PICTURE,
-				TraitRequired = true,
-				TraitName = "eyewear",
-				TraitValue = "Bunny Helmet",
-				InGameRewards = new List<GameId> { GameId.Avatar4 }
+				ItemTraitRewardsConfigurations = new List<ItemTraitRewardSyncConfiguration>
+				{
+					new ()
+					{
+						TraitRequired = true,
+						TraitName = "body",
+						TraitValue = "masculine",
+						InGameRewards = new List<GameId> { GameId.AvatarCorpomask, GameId.AvatarMalecorpoangryads, GameId.AvatarMalecorpoconcept, GameId.AvatarMalecorposcaredsticker, GameId.AvatarMaleCorpoDark }	
+					},
+					new()
+					{
+						TraitRequired = true,
+						TraitName = "body",
+						TraitValue = "feminine",
+						InGameRewards = new List<GameId> { GameId.AvatarFemalecorpo, GameId.AvatarFemalecorpoconcept, GameId.AvatarFemalecorpophonesticker, GameId.AvatarFemalecorposticker, GameId.AvatarFemaleCorpoDark }
+					},
+					new()
+					{
+						TraitRequired = true,
+						TraitName = "eyewear",
+						TraitValue = "Bunny Helmet",
+						InGameRewards = new List<GameId> { GameId.Avatar4 }
+					}	
+				}
 			}
 		};
 		
@@ -369,14 +402,20 @@ public class NFTCollectionSyncConfiguration
 	///   specified criteria can own a particular skin.
 	/// - This configuration is used during synchronization to enforce ownership rules.
 	/// </remarks>
-	public List<InItemSyncConfiguration> ItemSyncConfiguration { get; set; } = new();
+	public List<CategorySyncConfiguration> CategorySyncConfiguration { get; set; } = new();
 }
 
 [Serializable]
-public class InItemSyncConfiguration
+public class CategorySyncConfiguration
 {
 	public CollectionCategory ItemCollectionCategory { get; set; }
+	
+	public List<ItemTraitRewardSyncConfiguration> ItemTraitRewardsConfigurations { get; set; } = new();
+}
 
+
+public class ItemTraitRewardSyncConfiguration
+{
 	public bool TraitRequired { get; set; }
 
 	public string TraitName { get; set; }
@@ -385,6 +424,9 @@ public class InItemSyncConfiguration
 	
 	public List<GameId> InGameRewards { get; set; } = new();
 }
+
+
+
 
 
 [Serializable]

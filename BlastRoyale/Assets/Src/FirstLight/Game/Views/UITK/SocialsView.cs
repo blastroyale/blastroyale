@@ -45,11 +45,13 @@ namespace FirstLight.Game.Views.UITK
 				Application.OpenURL(GameConstants.Links.TWITTER_LINK);
 			};
 			
-			Element.Q<Button>("CalendarButton").Required().clicked += () =>
-			{
-				services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.CalendarLink);
-				Application.OpenURL(GameConstants.Links.CALENDAR_LINK);
-			};
+			var calendarButton = Element.Q<Button>("CalendarButton");
+			if (calendarButton != null)
+				calendarButton.clicked += () =>
+				{
+					services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.CalendarLink);
+					Application.OpenURL(GameConstants.Links.CALENDAR_LINK);
+				};
 		}
 	}
 }

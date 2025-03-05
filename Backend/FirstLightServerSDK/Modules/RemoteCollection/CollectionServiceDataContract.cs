@@ -15,6 +15,6 @@ namespace FirstLight.Server.SDK.Models
 	[Serializable]
 	public class CollectionFetchResponse
 	{
-		public IEnumerable<RemoteCollectionItem> NFTsOwned;
+		public Dictionary<string, List<RemoteCollectionItem>> CollectionNFTsOwnedDict;
 	}
 }

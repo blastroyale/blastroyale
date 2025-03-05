@@ -14,54 +14,48 @@ namespace BlastRoyaleNFTPlugin.Collections;
 //
 public class InGameItemsCollectionSync :  ICollectionSync
 {
-	public void Sync(CollectionData playersCollectionData, NFTCollectionSyncConfiguration collectionSyncConfiguration, List<RemoteCollectionItem> OwnedNFTsFetchedRemotely)
+	public void Sync(CollectionData playersCollectionData, NFTCollectionSyncConfiguration collectionSyncConfiguration,
+					 CollectionFetchResponse remoteOwnedCollectionsNFTsResult)
 	{
-		foreach (var itemSyncConfig in collectionSyncConfiguration.ItemSyncConfiguration)
+		foreach (var categorySyncConfig in collectionSyncConfiguration.CategorySyncConfiguration)
 		{
+		
+			var inGameCollectionItem = playersCollectionData.OwnedCollectibles.TryGetValue(categorySyncConfig.ItemCollectionCategory, out var inGameItems) ? inGameItems : new List<ItemData>();
 			
-			var hasInGameItemSynced = false;
-			var hasNFTToSync = HasNFTToSyncForItemSyncConfig(itemSyncConfig, OwnedNFTsFetchedRemotely);
-		
-			var inGameCollectionItem = playersCollectionData.OwnedCollectibles.TryGetValue(itemSyncConfig.ItemCollectionCategory, out var inGameItems)
-		 		? inGameItems : new List<ItemData>();
-		
-			//Loop through current skins to remove NFT skin if player doesn't owns the NFT anymore.
-			for (var itemIndex = 0; itemIndex < inGameCollectionItem.Count; itemIndex++)
+			CleanUpCollectionInGameItemsForCollectionCategory(collectionSyncConfiguration.CollectionName, inGameCollectionItem);
+
+			if (!remoteOwnedCollectionsNFTsResult.CollectionNFTsOwnedDict.TryGetValue(collectionSyncConfiguration.CollectionName, out var collectionOwnedNFTs))
 			{
-		 		var item = inGameCollectionItem[itemIndex];
-			
-		 		var isNFTCollectionMetadata = item.TryGetMetadata<CollectionMetadata>(out var meta)
-		 			&& meta.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collection)
-		 			&& collection == collectionSyncConfiguration.CollectionName;
-		
-				if (itemSyncConfig.InGameRewards.Contains(item.Id))
+				TryUnequipRemovedItemForCategory(categorySyncConfig.ItemCollectionCategory, playersCollectionData, inGameCollectionItem);
+				continue;
+			}
+
+			foreach (var itemTraitRewardsConfig in categorySyncConfig.ItemTraitRewardsConfigurations)
+			{
+				if (HasRemoteNFTForItemSyncConfig(itemTraitRewardsConfig, collectionOwnedNFTs))
 				{
-		
-					hasInGameItemSynced = true;
-		
-					if (!hasNFTToSync && isNFTCollectionMetadata)
-					{
-						RemoveEquippedSkin(item, playersCollectionData);
-						inGameCollectionItem.RemoveAt(itemIndex);
-					}
-		
-				}
+					var rewardsToSync = itemTraitRewardsConfig.InGameRewards.Except(inGameCollectionItem.Select(i => i.Id)).ToList();
+				
+					inGameCollectionItem.AddRange(rewardsToSync.Select(rewardId => ItemFactory.Collection(rewardId, new CollectionTrait(CollectionTraits.NFT_COLLECTION, collectionSyncConfiguration.CollectionName))));
+				}	
 			}
-
-			// Add the skin to players inventory
-			if (!hasInGameItemSynced && hasNFTToSync)
-			{
-			 inGameCollectionItem.AddRange(itemSyncConfig.InGameRewards.Select(rewardId => ItemFactory.Collection(rewardId, new CollectionTrait(CollectionTraits.NFT_COLLECTION, collectionSyncConfiguration.CollectionName))));
-			}
-
-			playersCollectionData.OwnedCollectibles[itemSyncConfig.ItemCollectionCategory] = inGameCollectionItem; 
+			
+			TryUnequipRemovedItemForCategory(categorySyncConfig.ItemCollectionCategory, playersCollectionData, inGameCollectionItem);
+			
+			playersCollectionData.OwnedCollectibles[categorySyncConfig.ItemCollectionCategory] = inGameCollectionItem;
 		}
 	}
 
-	
-	private bool HasNFTToSyncForItemSyncConfig(InItemSyncConfiguration syncConfiguration, List<RemoteCollectionItem> ownedNFTsFetchedRemotely)
+	private void CleanUpCollectionInGameItemsForCollectionCategory(string collectionName, List<ItemData> currentPlayersItem)
 	{
-		if (!syncConfiguration.TraitRequired)
+		currentPlayersItem.RemoveAll(i => i.TryGetMetadata<CollectionMetadata>(out var meta)
+			&& meta.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collection) && collection == collectionName);
+	}
+
+
+	private bool HasRemoteNFTForItemSyncConfig(ItemTraitRewardSyncConfiguration itemTraitRewardConfig, List<RemoteCollectionItem> ownedNFTsFetchedRemotely)
+	{
+		if (!itemTraitRewardConfig.TraitRequired)
 		{
 			return ownedNFTsFetchedRemotely.Count > 0;
 		}
@@ -70,22 +64,23 @@ public class InGameItemsCollectionSync :  ICollectionSync
 		{
 			var parsedTraits = new FlgTraitTypeAttributeParser(ownedNFT);
 
-			return parsedTraits.Traits.TryGetValue(syncConfiguration.TraitName, out var traitValue) && 
-				   string.Equals(traitValue, syncConfiguration.TraitValue, StringComparison.OrdinalIgnoreCase);
+			return parsedTraits.Traits.TryGetValue(itemTraitRewardConfig.TraitName, out var traitValue) && 
+				   string.Equals(traitValue, itemTraitRewardConfig.TraitValue, StringComparison.OrdinalIgnoreCase);
 		});
 	}
 	
 	
 	
-	private void RemoveEquippedSkin(ItemData item, CollectionData data)
+	private void TryUnequipRemovedItemForCategory(CollectionCategory collectionCategory, CollectionData collectionData,
+												  List<ItemData> inGameCollectionItem)
 	{
-		foreach (var collectionType in data.Equipped.Keys)
-		{
-			var equipped = data.Equipped[collectionType];
-			if (equipped.Equals(item))
+		if(collectionData.Equipped.TryGetValue(collectionCategory, out var categoryEquippedItem)) {
+			
+			if (!inGameCollectionItem.Contains(categoryEquippedItem))
 			{
-				data.Equipped[collectionType] = data.OwnedCollectibles[collectionType].FirstOrDefault();
+				collectionData.Equipped[collectionCategory] = collectionData.OwnedCollectibles[collectionCategory].FirstOrDefault();
 			}
 		}
+		
 	}
 }

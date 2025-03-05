@@ -320,6 +320,7 @@ namespace FirstLight.Game.Presenters.Store
 			if (!success) return;
 			if (IAPHelpers.IsUIBeingHandled(itemId))
 			{
+				FLog.Verbose("UI being handled by IAP handler");
 				return;
 			}
 

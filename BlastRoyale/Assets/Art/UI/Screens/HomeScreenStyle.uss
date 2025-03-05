@@ -1137,6 +1137,18 @@
     top: 37px;
 }
 
+.Shine {
+    flex-grow: 1;
+    position: absolute;
+    width: 261px;
+    height: 248px;
+    top: -66px;
+    left: -79px;
+    rotate: 431deg;
+    transition-duration: 0s;
+    transition-timing-function: ease;
+}
+
 .bundle-shine-effect__shine {
     flex-grow: 1;
     background-image: var(--sprite-home__vfx-purple-ray-glow);

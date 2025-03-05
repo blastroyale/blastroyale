@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -109,6 +110,7 @@ namespace FirstLight.Game.Services
 		/// <returns>If the screen was open at all</returns>
 		public async UniTask<bool> OpenRewardScreen(ItemData item)
 		{
+			FLog.Verbose("Opening rewards screen ");
 			var waiter = new AsyncCallbackWrapper();
 			await _services.UIService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData()
 			{
@@ -132,10 +134,12 @@ namespace FirstLight.Game.Services
 			{
 				if (!_data.RewardDataProvider.UnclaimedRewards.Contains(itemFilter) && itemFilter.Id != GameId.Bundle)
 				{
+					FLog.Verbose($"Should not claim rewards, unclaimed rewards don't contain {itemFilter}");
 					return false;
 				}
 			}
 
+			FLog.Verbose("Opening rewards from RewardsService");
 			var given = _services.CommandService.ExecuteCommandWithResult(new CollectUnclaimedRewardsCommand() {UncollectedReward = itemFilter});
 			if (given is not {Count: > 0}) return false;
 			await _services.UIService.OpenScreen<RewardsScreenPresenter>(new RewardsScreenPresenter.StateData()

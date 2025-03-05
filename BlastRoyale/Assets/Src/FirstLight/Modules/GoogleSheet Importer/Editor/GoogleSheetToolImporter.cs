@@ -24,25 +24,19 @@ namespace FirstLightEditor.GoogleSheetImporter
 		{
 			_importers = GetAllImporters();
 		}
-		
+
 		[MenuItem("FLG/Configs/GoogleSheet Importer/Import Google Sheet Data")]
 		private static void ImportAllGoogleSheetData()
 		{
 			_importers = GetAllImporters();
-			
+
 			foreach (var importer in _importers)
 			{
 				ImportSheetAsync(importer, "");
 			}
-			
+
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();
-		}
-		
-		[DidReloadScripts]
-		public static void OnCompileScripts()
-		{
-			_importers = GetAllImporters();
 		}
 
 		/// <inheritdoc />
@@ -108,6 +102,7 @@ namespace FirstLightEditor.GoogleSheetImporter
 
 		public static List<ImportData> GetAllImporters()
 		{
+			if (_importers != null) return _importers;
 			var importerInterface = typeof(IGoogleSheetConfigsImporter);
 			var importerAttribute = typeof(GoogleSheetImportOrderAttribute);
 			var importers = new List<ImportData>();

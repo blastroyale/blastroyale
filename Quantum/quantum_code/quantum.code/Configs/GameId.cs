@@ -1151,6 +1151,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.GasTicket, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
 					GameId.Male01Avatar, new List<GameIdGroup>
 					{
 						GameIdGroup.Deprecated
@@ -3238,6 +3244,7 @@ namespace Quantum
 						GameId.EventTicket,
 						GameId.FestiveLUNARCOIN,
 						GameId.FestiveFEATHER,
+						GameId.GasTicket,
 						GameId.FestiveLANTERN
 					}.AsReadOnly()
 				},

@@ -39,7 +39,8 @@ namespace Src.FirstLight.Server
             {
                 new ServerAnalyticsPlugin(),
                 new ServerStatisticsPlugin(),
-				new PlayfabAvatarPlugin()
+				new PlayfabAvatarPlugin(),
+                new Web3Plugin()
             };
         }
         

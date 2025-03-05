@@ -51,7 +51,7 @@ namespace FirstLight.Game.Services.Authentication
 		}
 	}
 
-	internal interface IAuthenticationHook
+	public interface IAuthenticationHook
 	{
 		UniTask BeforeAuthentication(bool previouslyLoggedIn);
 		UniTask AfterAuthentication(LoginResult result, bool previouslyLoggedIn);
@@ -181,6 +181,11 @@ namespace FirstLight.Game.Services.Authentication
 		/// </summary>
 		/// <returns></returns>
 		public bool HasDeviceLinked();
+		
+		/// <summary>
+		/// Registers an authentication hook
+		/// </summary>
+		public void RegisterHook(IAuthenticationHook hook);
 	}
 
 	public class SessionData : ISessionData
@@ -209,7 +214,7 @@ namespace FirstLight.Game.Services.Authentication
 		public ISessionData SessionData => _sessionData;
 		private SessionData _sessionData;
 
-		private IAuthenticationHook[] _authenticationHooks;
+		private List<IAuthenticationHook> _authenticationHooks;
 
 		public AuthService(
 			IGameLogicInitializer logicInitializer,
@@ -236,7 +241,7 @@ namespace FirstLight.Game.Services.Authentication
 				new ParseFeatureFlagsHook(msgBroker),
 				new AuthenticatePhotonHook(networkService),
 				new UpdateContactEmailHook()
-			};
+			}.ToList();
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
 			_nativeGamesLogin = new NativeAuthenticationProvider();
 #else
@@ -507,6 +512,11 @@ namespace FirstLight.Game.Services.Authentication
 		public bool HasDeviceLinked()
 		{
 			return _loginProvider.CanLoginAutomatically();
+		}
+
+		public void RegisterHook(IAuthenticationHook hook)
+		{
+			_authenticationHooks.Add(hook);
 		}
 
 		public static GetPlayerCombinedInfoRequestParams StandardLoginInfoRequestParams =>

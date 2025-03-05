@@ -1,9 +1,16 @@
+using System;
+using System.Linq;
 using System.Net.Http;
+using System.Numerics;
 using System.Threading.Tasks;
 using BlastRoyaleNFTPlugin.Services;
+using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
+using FirstLight.Game.Logic;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
+using PlayFab;
 
 namespace BlastRoyaleNFTPlugin
 {
@@ -12,6 +19,7 @@ namespace BlastRoyaleNFTPlugin
 	/// </summary>
 	public class BlockchainApi
 	{
+		public Web3Config Config { get; private set; }
 		internal PluginContext _ctx;
 		internal BlastRoyalePlugin _blastRoyalePlugin;
 		internal HttpClient _client;
@@ -27,6 +35,38 @@ namespace BlastRoyaleNFTPlugin
 			_blastRoyalePlugin = blastRoyalePlugin;
 			_apiKey = apiKey;
 			CollectionsSyncService = new CollectionsSyncService(this);
+			_ = Init();
+		}
+
+		private async Task Init()
+		{
+			var r = await PlayFabServerAPI.GetTitleDataAsync(new()
+			{
+				Keys = new [] {"ChainConfig"}.ToList(),
+			});
+			if (r.Error != null) throw new Exception(r.Error.GenerateErrorReport());
+			if (!r.Result.Data.ContainsKey("ChainConfig"))
+			{
+				_ctx.Log.LogInformation("Web3 not enabled, web3 config not found in playfab");
+				return;
+			}
+			Config = ModelSerializer.Deserialize<Web3Config>(r.Result.Data["ChainConfig"]);
+			_ctx.Log.LogDebug("Web3 Config Loaded "+r.Result.Data["ChainConfig"]);
+		}
+
+		public async Task<BigInteger> GetSpentOnShop(string wallet, string contract)
+		{
+			var url = $"{_externalUrl}/shop/spent?wallet={wallet}&shopContract={contract}&key={_apiKey}";
+			Console.WriteLine(url);
+			var response = await _client.GetAsync(url);
+			var responseString = await response.Content.ReadAsStringAsync();
+			if (!response.IsSuccessStatusCode)
+			{
+				_ctx.Log!.LogError($"GetSpentOnShop Error: {response.ReasonPhrase} - {responseString}");
+				return 0;
+			}
+			Console.WriteLine(responseString);
+			return BigInteger.Parse(responseString);
 		}
 
 		/// <summary>

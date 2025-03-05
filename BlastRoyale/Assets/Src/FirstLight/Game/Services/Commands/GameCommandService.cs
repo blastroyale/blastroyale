@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
@@ -13,6 +14,15 @@ using PlayFab;
 
 namespace FirstLight.Game.Services
 {
+	
+	/// <summary>
+	/// Some player data might have intentional desyncs due to lack of realtime communication
+	/// This is to allow cheats not to screw em up
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
+	public class IgnoredInForceUpdate : Attribute { }
+
+	
 	/// <inheritdoc cref="ICommandService{TGameLogic}"/>
 	public interface IGameCommandService
 	{
@@ -148,7 +158,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void ForceServerDataUpdate()
 		{
-			var data = _dataService.GetKeys().ToDictionary(type => type, type => _dataService.GetData(type));
+			var data = _dataService.GetKeys().Where(k => k.CustomAttributes.All(c => c.AttributeType != typeof(IgnoredInForceUpdate))).ToDictionary(type => type, type => _dataService.GetData(type));
 			_serverCommandQueue.EnqueueCommand(new ForceUpdateCommand(data: data));
 		}
 	}

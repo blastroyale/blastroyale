@@ -39,9 +39,11 @@ namespace FirstLight.Game.Services.Authentication
 				Salt = Convert.ToBase64String(token.ServerCredentials.IosProperties.Salt),
 				Signature = Convert.ToBase64String(token.ServerCredentials.IosProperties.Signature),
 				PublicKeyUrl = token.ServerCredentials.IosProperties.PublicKeyUrl,
-				Timestamp = token.ServerCredentials.IosProperties.Timestamp.ToString(),
+				Timestamp = token.ServerCredentials.IoresProperties.Timestamp.ToString(),
 				GameCenterId = VoxelBusters.EssentialKit.GameServices.LocalPlayer.DeveloperScopeId
 			});
+#else
+			await UniTask.Yield();
 #endif
 		}
 
@@ -93,7 +95,6 @@ namespace FirstLight.Game.Services.Authentication
 			{
 				FLog.Warn("Failed to natively authenticate ", ex);
 			}
-
 			return false;
 		}
 
@@ -103,7 +104,7 @@ namespace FirstLight.Game.Services.Authentication
 			FLog.Verbose("Games Authenticate token " + ModelSerializer.PrettySerialize(token));
 			FLog.Verbose("Games Authenticate User " + VoxelBusters.EssentialKit.GameServices.LocalPlayer.Id);
 			FLog.Verbose("Games Authenticate User Json " +
-				ModelSerializer.PrettySerialize(VoxelBusters.EssentialKit.GameServices.LocalPlayer));
+			ModelSerializer.PrettySerialize(VoxelBusters.EssentialKit.GameServices.LocalPlayer));
 
 #if UNITY_ANDROID
 			return await AsyncPlayfabAPI.ClientAPI.LoginWithGooglePlayGamesServices(new LoginWithGooglePlayGamesServicesRequest()
@@ -124,6 +125,9 @@ namespace FirstLight.Game.Services.Authentication
 				CreateAccount = true,
 				PlayerId = VoxelBusters.EssentialKit.GameServices.LocalPlayer.DeveloperScopeId
 			});
+#else
+			await UniTask.Yield();
+			return null;
 #endif
 		}
 	}

@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
 using FirstLight.AssetImporter;
 using UnityEditor;
-using UnityEditor.Callbacks;
 using UnityEngine;
-using UnityEngine.Networking;
-using Object = System.Object;
 
 // ReSharper disable once CheckNamespace
 
@@ -20,17 +15,6 @@ namespace FirstLightEditor.AssetImporter
 	public class AssetsToolImporter : Editor
 	{
 		private static List<ImportData> _importers;
-		
-		private void Awake()
-		{
-			_importers = GetAllImporters();
-		}
-		
-		[DidReloadScripts]
-		public static void OnCompileScripts()
-		{
-			_importers = GetAllImporters();
-		}
 		
 		[MenuItem("Tools/Assets Importer/Import Assets Data")]
 		private static void ImportAllGoogleSheetData()
@@ -54,7 +38,7 @@ namespace FirstLightEditor.AssetImporter
 				// Not yet initialized. Will initialized as soon has all scripts finish compiling
 				return;
 			}
-
+			
 			var typeCheck = typeof(IScriptableObjectImporter);
 			var tool = (AssetsImporter) target;
 			
@@ -106,6 +90,7 @@ namespace FirstLightEditor.AssetImporter
 		
 		public static List<ImportData> GetAllImporters()
 		{
+			if (_importers != null) return _importers;
 			var importerInterface = typeof(IAssetConfigsImporter);
 			var importers = new List<ImportData>();
 			

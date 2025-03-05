@@ -216,6 +216,7 @@ namespace FirstLight.Editor.Ids
 			{"CoreRare", 47, Core, IAP, Chest, Deprecated},
 			{"CoreEpic", 48, Core, IAP, Chest, Deprecated},
 			{"CoreLegendary", 59, Core, IAP, Chest, Deprecated},
+			{"GasTicket", 999, Currency},
 
 			#region Collections
 

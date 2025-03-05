@@ -85,6 +85,7 @@ namespace FirstLight.Tests.EditorMode
 			var integrationAppData = TestData.GetData<AccountData>();
 			integrationAppData.DeviceId = "integration_test";
 			//TestData.SaveData<AppData>();
+
 			PlayFabSettings.staticSettings.TitleId = "***REMOVED***";
 
 			MainInstaller.Bind<IGameDataProvider>(TestLogic);

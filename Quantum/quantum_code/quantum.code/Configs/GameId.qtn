@@ -154,6 +154,7 @@ enum GameId
 	CoreRare = 47,
 	CoreEpic = 48,
 	CoreLegendary = 59,
+	GasTicket = 999,
 	Male01Avatar = 55,
 	Male02Avatar = 56,
 	Female01Avatar = 57,

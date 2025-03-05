@@ -64,11 +64,9 @@ public class UnityRemoteConfigService : IRemoteConfigService
 		_serviceConfiguration = serviceConfiguration;
 		_logger = logger;
 	}
-
-
+	
 	private async Task<UnityRemoteConfigResponse> GetConfigs()
 	{
-
 		var url = Format(GET_CONFIG_URL, UnityAuthService.PROJECT_ID, _serviceConfiguration.UnityCloudEnvironmentID);
 		var response = await _unityAuthService.GetServerAuthenticatedClient().GetAsync(url);
 		if (!response.IsSuccessStatusCode)

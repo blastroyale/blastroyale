@@ -2,6 +2,7 @@ using System;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Modules;
 using FirstLightServerSDK.Services;
 
 

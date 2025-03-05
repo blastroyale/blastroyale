@@ -7,6 +7,8 @@ dependencies {
     implementation('androidx.browser:browser:1.5.0')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+// Below region is auto-generated
 // Android Resolver Dependencies Start
     implementation 'androidx.appcompat:appcompat:1.5.0+' // Assets/Plugins/VoxelBusters/EssentialKit/Essentials/Editor/CrossPlatformEssentialKitDependencies.xml:15
     implementation 'androidx.appcompat:appcompat-resources:1.5.0+' // Assets/Plugins/VoxelBusters/EssentialKit/Essentials/Editor/CrossPlatformEssentialKitDependencies.xml:17
@@ -26,6 +28,7 @@ dependencies {
     implementation 'com.parse.bolts:bolts-android:1.4.0' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:5
 // Android Resolver Dependencies End
     
+    implementation 'androidx.security:security-crypto:1.1.0-alpha03'
     
     implementation ('com.facebook.android:facebook-core:[17.0.0,18)')  {
         exclude group: 'com.android.installreferrer', module: 'installreferrer'

@@ -8,6 +8,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
 using Quantum;
 
@@ -111,7 +112,19 @@ namespace Src.FirstLight.Server
 			};
 			if (ev.Message.Rewards.FinalRewards != null)
 			{
-				data["rewards"] = JsonConvert.SerializeObject(ev.Message.Rewards.FinalRewards);
+				data["rewards"] = ModelSerializer.Serialize(ev.Message.Rewards.FinalRewards).Value;
+			}
+			if (ev.Message.Rewards.CollectedRewards != null)
+			{
+				data["collected"] = ModelSerializer.Serialize(ev.Message.Rewards.CollectedRewards).Value;
+			}
+			if (ev.Message.Rewards.CollectedBonuses != null)
+			{
+				data["collectedbuffs"] = ModelSerializer.Serialize(ev.Message.Rewards.CollectedBonuses).Value;
+			}
+			if (ev.Message.Rewards.BonusFromWinning != null)
+			{
+				data["winbonus"] = ModelSerializer.Serialize(ev.Message.Rewards.BonusFromWinning).Value;
 			}
 
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "game_completed_rewards", data);

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Backend;
+using FirstLight.Game.Data;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;

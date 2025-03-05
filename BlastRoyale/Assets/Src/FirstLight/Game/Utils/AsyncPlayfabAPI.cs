@@ -53,8 +53,21 @@ namespace FirstLight.Game.Utils
 
 		private static Func<ExecuteFunctionRequest, UniTask<ExecuteFunctionResult>> ExecuteFunctionFunc { get; }
 			= Wrap<ExecuteFunctionRequest, ExecuteFunctionResult>(PlayFabCloudScriptAPI.ExecuteFunction);
-
-		/// <inheritdoc cref="PlayFabClientAPI.UpdateUserTitleDisplayName"/>
+		
+		private static Func<GetUserDataRequest, UniTask<GetUserDataResult>> GetUserDataFunc { get; }
+			= Wrap<GetUserDataRequest, GetUserDataResult>(PlayFabClientAPI.GetUserData);
+			
+		private static Func<UpdateUserDataRequest, UniTask<UpdateUserDataResult>> UpdateUserDataFunc { get; }
+			= Wrap<UpdateUserDataRequest, UpdateUserDataResult>(PlayFabClientAPI.UpdateUserData);
+		
+		private static Func<WriteClientPlayerEventRequest, UniTask<WriteEventResponse>> WritePlaystreamAnalyticsEventFunc { get; }
+			= Wrap<WriteClientPlayerEventRequest, WriteEventResponse>(PlayFabClientAPI.WritePlayerEvent);
+		
+		public static UniTask<WriteEventResponse> WritePlaystreamAnalyticsEvent(WriteClientPlayerEventRequest req)
+		{
+			return WritePlaystreamAnalyticsEventFunc(req);
+		}
+		
 		public static UniTask<UpdateUserTitleDisplayNameResult> UpdateUserTitleDisplayName(UpdateUserTitleDisplayNameRequest req)
 		{
 			return UpdateUserTitleDisplayNameFunc(req);
@@ -209,6 +222,18 @@ namespace FirstLight.Game.Utils
 				GetUserDataRequest req)
 			{
 				return GetUserReadOnlyDataFunc(req);
+			}
+			
+			public static UniTask<GetUserDataResult> GetUserData(
+				GetUserDataRequest req)
+			{
+				return GetUserDataFunc(req);
+			}
+			
+			public static UniTask<UpdateUserDataResult> UpdateUserData(
+				UpdateUserDataRequest req)
+			{
+				return UpdateUserDataFunc(req);
 			}
 
 			private static Func<LoginWithCustomIDRequest, UniTask<LoginResult>> LoginCustomIdFunc { get; }

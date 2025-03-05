@@ -32,14 +32,6 @@
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/switch_joysticks" name="SwitchJoysticks" />
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/hud_customization" name="CustomizeHud" class="button-long sfx-click-forwards" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="Web3" class="settings-container settings-container--account" style="width: initial;">
-                            <ui:Label text="Web3 Connected!&#10;&#10;Id: Penus48212" name="Web3StatusLabel" class="account-status-label" />
-                            <ui:VisualElement name="Buttons" class="account-buttons">
-                                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect_web3" name="Web3Button" text="Web3" class="button-long button-long--yellow account-button">
-                                    <ui:VisualElement name="ConnectWeb3Notification" class="notification-icon button-with-icon__notification" />
-                                </FirstLight.Game.UIElements.LocalizedButton>
-                            </ui:VisualElement>
-                        </ui:VisualElement>
                         <ui:VisualElement name="Account" class="settings-container settings-container--account" style="width: initial;">
                             <FirstLight.Game.UIElements.LocalizedLabel name="AccountStatusLabel" localization-key="UITSettings/flg_id_connected" picking-mode="Ignore" text="You are connected to your First Light ID!" class="account-status-label" />
                             <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITSettings/player_id" picking-mode="Ignore" name="PlayerID" value="JwaSqAKILS3YAeAfitjKQRDBtVAd" readonly="true" hide-mobile-input="true" show-copy-button="true" />
@@ -49,6 +41,7 @@
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect" name="ConnectButton" text="Connect" class="button-long button-long--yellow account-button">
                                     <ui:VisualElement name="ConnectNotification" class="notification-icon button-with-icon__notification" />
                                 </FirstLight.Game.UIElements.LocalizedButton>
+                                <FirstLight.Game.UIElements.LocalizedButton name="Web3Button" text="Web3" class="button-long button-long--yellow account-button"/>
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </FirstLight.Game.UIElements.TabbedView>

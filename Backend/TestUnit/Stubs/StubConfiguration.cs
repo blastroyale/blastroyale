@@ -22,5 +22,6 @@ namespace Tests.Stubs
 		public string UnityCloudEnvironmentName { get; }
 		public string UnityCloudEnvironmentID { get; }
 		public string RedisLockConnectionString { get; set; }
+		public string VoucherSigner { get; set; }
 	}
 }

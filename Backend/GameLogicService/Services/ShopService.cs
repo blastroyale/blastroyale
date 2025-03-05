@@ -103,8 +103,8 @@ namespace GameLogicService.Services
 					if (givenItems.Contains(purchasedItem))
 					{
 						var contentCreatorData = state.DeserializeModel<ContentCreatorData>();
-						
-						var purchasedItemPrice = await _storeService.GetItemPrice(catalogItemId);
+
+						var purchasedItemPrice = await GetItemPrice(state, catalogItemId);
 						var (currencyId, itemValue) = purchasedItemPrice.Price.FirstOrDefault(); 
 						
 						var msg = new PurchaseClaimedMessage
@@ -119,6 +119,20 @@ namespace GameLogicService.Services
 					}
 				}
 			}
+		}
+
+		private async Task<FlgStoreItem> GetItemPrice(ServerState state, string catalogItemId)
+		{
+			var dailyDealsConfiguration = state.DeserializeModel<PlayerStoreData>().PlayerDailyDealsConfiguration;
+
+			//Check if purchased Item is part of Player's Daily Deal Items
+			if (dailyDealsConfiguration != null)
+			{
+				var specialStore = dailyDealsConfiguration.SpecialStoreList.FirstOrDefault(s => s.SpecialStoreItemIDs.Contains(catalogItemId));
+				
+				return await _storeService.GetItemPrice(catalogItemId, specialStore.SpecialStoreName);
+			}
+			return await _storeService.GetItemPrice(catalogItemId);
 		}
 	}
 }

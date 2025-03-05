@@ -59,7 +59,6 @@ namespace Backend.Game
 		/// </summary>
 		public async Task<BackendLogicResult> RunLogic(string playerId, LogicRequest logicRequest)
 		{
-			var id = Guid.NewGuid();
 			var requestData = logicRequest.Data;
 			var savedDataAmount = 0;
 			try
@@ -93,6 +92,13 @@ namespace Backend.Game
 					_log.LogInformation($"{playerId} running {cmdType}");
 					ValidateCommand(currentPlayerState, commandInstance, requestData);
 
+					await _eventManager.CallEvent(new BeforeCommandRunsEvent(playerId)
+					{
+						State = currentPlayerState,
+						CommandInstance = commandInstance,
+						PlayerId = playerId,
+					});
+					
 					var newState = await RunCommands(playerId, new[] { commandInstance }, currentPlayerState,
 						serverConfig);
 
@@ -137,7 +143,7 @@ namespace Backend.Game
 				$"{playerId} running initialization commands: {string.Join(", ", cmds.Select(a => a.GetType().Name))}");
 			return RunCommands(playerId, cmds, state, remoteConfigProvider);
 		}
-
+		
 		private async Task<ServerState> RunCommands(string playerId, IGameCommand[] commandInstances,
 													ServerState currentPlayerState,
 													IRemoteConfigProvider remoteConfigProvider)

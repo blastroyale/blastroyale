@@ -22,7 +22,7 @@ namespace Backend.Game
 
 		// Types that are stored in the data provider but does not need to be updated server-side.
 		// Same as above, shall be removed as a depdendency soon.
-		private static readonly HashSet<Type> NotSaved = new(new[] { typeof(AppData) });
+		private static readonly HashSet<Type> NotSaved = new(new[] { typeof(AppData), typeof(Web3PrivateData) });
 
 		/// <summary>
 		/// Returns the list of types that were consumed

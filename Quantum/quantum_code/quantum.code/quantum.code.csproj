@@ -108,6 +108,7 @@
     <Compile Include="Components\CosteticsHolder.cs" />
     <Compile Include="Components\InputBake.cs" />
     <Compile Include="Components\PlayerInventory.cs" />
+    <Compile Include="Components\SpecialHeal.cs" />
     <Compile Include="Configs\Helpers\QuantumGameModePair.cs" />
     <Compile Include="Configs\Helpers\QuantumPerGameModeConfig.cs" />
     <Compile Include="Configs\Helpers\QuantumPair.cs" />

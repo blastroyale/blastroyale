@@ -1068,6 +1068,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.SpecialHeal, new List<GameIdGroup>
+					{
+						GameIdGroup.Special,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
 					GameId.TutorialGrenade, new List<GameIdGroup>
 					{
 						GameIdGroup.Special
@@ -3893,7 +3900,8 @@ namespace Quantum
 						GameId.SpecialAimingGrenade,
 						GameId.SpecialDefaultDash,
 						GameId.SpecialRadar,
-						GameId.SpecialLandmine
+						GameId.SpecialLandmine,
+						GameId.SpecialHeal
 					}.AsReadOnly()
 				},
 				{
@@ -3929,6 +3937,7 @@ namespace Quantum
 						GameId.SpecialDefaultDash,
 						GameId.SpecialRadar,
 						GameId.SpecialLandmine,
+						GameId.SpecialHeal,
 						GameId.TutorialGrenade
 					}.AsReadOnly()
 				},

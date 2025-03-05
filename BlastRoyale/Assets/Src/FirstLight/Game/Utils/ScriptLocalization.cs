@@ -1839,8 +1839,10 @@ namespace I2.Loc
 			public static string SpecialAirstrikeSimple 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialAirstrikeSimple"); } }
 			public static string SpecialAirstrikeSimpleDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialAirstrikeSimpleDescription"); } }
 			public static string SpecialDefaultDash 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialDefaultDash"); } }
+			public static string SpecialHeal 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHeal"); } }
 			public static string SpecialHealAround 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealAround"); } }
 			public static string SpecialHealAroundDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealAroundDescription"); } }
+			public static string SpecialHealDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealDescription"); } }
 			public static string SpecialHealingField 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealingField"); } }
 			public static string SpecialHealingFieldDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealingFieldDescription"); } }
 			public static string SpecialHealingMode 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SpecialHealingMode"); } }
@@ -4952,8 +4954,10 @@ namespace I2.Loc
 		    public const string SpecialAirstrikeSimple = "GameIds/SpecialAirstrikeSimple";
 		    public const string SpecialAirstrikeSimpleDescription = "GameIds/SpecialAirstrikeSimpleDescription";
 		    public const string SpecialDefaultDash = "GameIds/SpecialDefaultDash";
+		    public const string SpecialHeal = "GameIds/SpecialHeal";
 		    public const string SpecialHealAround = "GameIds/SpecialHealAround";
 		    public const string SpecialHealAroundDescription = "GameIds/SpecialHealAroundDescription";
+		    public const string SpecialHealDescription = "GameIds/SpecialHealDescription";
 		    public const string SpecialHealingField = "GameIds/SpecialHealingField";
 		    public const string SpecialHealingFieldDescription = "GameIds/SpecialHealingFieldDescription";
 		    public const string SpecialHealingMode = "GameIds/SpecialHealingMode";

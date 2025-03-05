@@ -25,6 +25,7 @@
     --sprite-match__DarkAirstrike: url('/Assets/Art/UI/Sprites/Match/DarkAirstrike.png');
     --sprite-match__DarkGrenade: url('/Assets/Art/UI/Sprites/Match/DarkGrenade.png');
     --sprite-match__DarkHazardAimSpawn: url('/Assets/Art/UI/Sprites/Match/DarkHazardAimSpawn.png');
+    --sprite-match__DarkHeal: url('/Assets/Art/UI/Sprites/Match/DarkHeal.png');
     --sprite-match__DarkLandmineIcon: url('/Assets/Art/UI/Sprites/Match/DarkLandmineIcon.png');
     --sprite-match__DarkRadar: url('/Assets/Art/UI/Sprites/Match/DarkRadar.png');
     --sprite-match__DarkShieldedCharge: url('/Assets/Art/UI/Sprites/Match/DarkShieldedCharge.png');
@@ -258,6 +259,12 @@
 
 .sprite-match__DarkHazardAimSpawn {
     background-image: var(--sprite-match__DarkHazardAimSpawn);
+    width: 248px;
+    height: 248px;
+}
+
+.sprite-match__DarkHeal {
+    background-image: var(--sprite-match__DarkHeal);
     width: 248px;
     height: 248px;
 }

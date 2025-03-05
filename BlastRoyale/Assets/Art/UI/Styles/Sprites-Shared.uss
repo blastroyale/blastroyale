@@ -40,6 +40,7 @@
     --sprite-shared__icon-special-aiminggrenade: url('/Assets/Art/UI/Sprites/Shared/icon-special-aiminggrenade.png');
     --sprite-shared__icon-special-aimingstungrenade: url('/Assets/Art/UI/Sprites/Shared/icon-special-aimingstungrenade.png');
     --sprite-shared__icon-special-defaultdash: url('/Assets/Art/UI/Sprites/Shared/icon-special-defaultdash.png');
+    --sprite-shared__icon-special-heal: url('/Assets/Art/UI/Sprites/Shared/icon-special-heal.png');
     --sprite-shared__icon-special-landmine: url('/Assets/Art/UI/Sprites/Shared/icon-special-landmine.png');
     --sprite-shared__icon-special-radar: url('/Assets/Art/UI/Sprites/Shared/icon-special-radar.png');
     --sprite-shared__icon-special-shieldedcharge: url('/Assets/Art/UI/Sprites/Shared/icon-special-shieldedcharge.png');
@@ -291,6 +292,12 @@
 
 .sprite-shared__icon-special-defaultdash {
     background-image: var(--sprite-shared__icon-special-defaultdash);
+    width: 84px;
+    height: 84px;
+}
+
+.sprite-shared__icon-special-heal {
+    background-image: var(--sprite-shared__icon-special-heal);
     width: 84px;
     height: 84px;
 }

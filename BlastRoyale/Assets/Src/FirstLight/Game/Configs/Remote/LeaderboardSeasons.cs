@@ -34,11 +34,13 @@ namespace FirstLight.Game.Configs.Remote
 	{
 		public string Name;
 		public string Icon = "games-icon";
-		public bool Visible = true;
+		public bool Visible;
 		public string Desc;
 		public string RewardsTitle;
 		public string Rewards;
 		public string ManualEndTime;
+		public string ExtraButtonText;
+		public string ExtraButtonLink;
 	}
 
 	/// <summary>

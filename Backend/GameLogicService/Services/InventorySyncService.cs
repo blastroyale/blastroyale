@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Services.Analytics;
 using FirstLight.Models;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
 using FirstLightServerSDK.Services;
 using Microsoft.Extensions.Logging;
 using PlayFab;
@@ -24,14 +26,15 @@ namespace GameLogicService.Services
 	/// </summary>
 	public class PlayfabInventorySyncService : IInventorySyncService<ItemData>
 	{
-		private PluginContext _ctx;
+		private IServerAnalytics _analytics;
 		private ILogger _log;
 		private IItemCatalog<ItemData> _catalog;
 
-		public PlayfabInventorySyncService(ILogger log, IItemCatalog<ItemData> catalog)
+		public PlayfabInventorySyncService(IServerAnalytics analytics, ILogger log, IItemCatalog<ItemData> catalog)
 		{
 			_log = log;
 			_catalog = catalog;
+			_analytics = analytics;
 		}
 
 		private async Task<int> SyncCurrency(string player, GetUserInventoryResult inventory, PlayerData playerData,
@@ -123,7 +126,7 @@ namespace GameLogicService.Services
 						var itemsString = string.Join(",", itemIds);
 						_log.LogError(
 							$"CRITICAL ON ITEM ROLLBACK: Items {itemsString} to player {player}: {res.Error.GenerateErrorReport()}");
-						_ctx.Analytics.EmitEvent("Item Vanished", new AnalyticsData()
+						_analytics.EmitEvent("Item Vanished", new AnalyticsData()
 						{
 							{ "items", itemsString }, { "affectedPlayer", player }
 						});
@@ -143,7 +146,7 @@ namespace GameLogicService.Services
 					{
 						_log.LogError(
 							$"CRITICAL ON CURRENCY ROLLBACK: Currency {amt} x {currency} to player {player}: {res2.Error.GenerateErrorReport()}");
-						_ctx.Analytics.EmitEvent("Item Vanished", new AnalyticsData()
+						_analytics.EmitEvent("Item Vanished", new AnalyticsData()
 						{
 							{ "currency", currency.ToString() }, { "amount", amt.ToString() },
 							{ "affectedPlayer", player }
@@ -153,7 +156,11 @@ namespace GameLogicService.Services
 
 				throw;
 			}
-			
+			_analytics.EmitUserEvent(player, "playfab_reward_event", new AnalyticsData()
+			{
+				{ "items_given", ModelSerializer.Serialize(givenGameItems).Value },
+				{ "playfab_items", ModelSerializer.Serialize(consumedItems).Value },
+			});
 			return givenGameItems;
 		}
 	}

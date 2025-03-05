@@ -1,10 +1,13 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Models;
 using FirstLight.Server.SDK.Modules.Commands;
+using Quantum;
 
 namespace FirstLight.Game.Commands
 {
@@ -36,12 +39,21 @@ namespace FirstLight.Game.Commands
 			{
 				var id = PlayfabCurrencies.GetCurrency(p.Key);
 				var amt = p.Value;
-				ctx.Logic.CurrencyLogic().DeductCurrency(id, amt);
+				// This purchase is validated in BlastRoyale server plugin
+				if (id == GameId.NOOB && ctx.Logic.Web3().CanUseWeb3())
+				{
+					var web3Data = ctx.Data.GetData<Web3PlayerData>();
+					web3Data.NoobPurchases += amt;
+					web3Data.Version++;
+				}
+				else
+				{
+					ctx.Logic.CurrencyLogic().DeductCurrency(id, amt);
+				}
 			}
 
 			ctx.Logic.RewardLogic().Reward(new[] {catalogItem});
 			ctx.Logic.PlayerStoreLogic().UpdateLastPlayerPurchase(CatalogItemId, StoreItemData);
-
 			
 			var mainPrice = storeSetup.Price.FirstOrDefault();
 			var msg = new PurchaseClaimedMessage

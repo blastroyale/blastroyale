@@ -216,6 +216,7 @@ namespace FirstLight.Game.Presenters
 
 		private Action _confirmCallback;
 		private bool _forcePlayerToShop;
+		private bool _bought;
 
 		private void Awake()
 		{
@@ -224,7 +225,11 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenClose()
 		{
-			Data.PurchaseData.OnExit?.Invoke(_forcePlayerToShop);
+			if (!_bought)
+			{
+				Data.PurchaseData.OnExit?.Invoke(_forcePlayerToShop);
+			}
+
 			return base.OnScreenClose();
 		}
 
@@ -249,7 +254,9 @@ namespace FirstLight.Game.Presenters
 
 		protected override UniTask OnScreenOpen(bool reload)
 		{
+			FLog.Verbose("Opening Generic Purchase Dialog");
 			_forcePlayerToShop = false;
+			_bought = false;
 			var purchaseData = Data.PurchaseData;
 			var hasCurrency = Data.OwnedCurrency >= (ulong) purchaseData.Price.GetMetadata<CurrencyMetadata>().Amount;
 			var canBeBought = CanBeBoughtOnShop(Data.PurchaseData.Price.Id);
@@ -308,6 +315,7 @@ namespace FirstLight.Game.Presenters
 		{
 			FLog.Verbose("Generic Purchase Dialog", "Buy Clicked");
 			_confirmCallback.Invoke();
+			_bought = true;
 			CloseRequested();
 		}
 

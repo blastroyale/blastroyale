@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/InvitePopupStyle.uss?fileID=7433441132597879392&amp;guid=5ab9db9ac3d944b54aa98ca2da1afd47&amp;type=3#InvitePopupStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/FriendListElementStyle.uss?fileID=7433441132597879392&amp;guid=225ed0ca899d471084bae92a2bb08119&amp;type=3#FriendListElementStyle" />
+    <ui:VisualElement name="root" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <FirstLight.Game.UIElements.GenericPopupElement title-localization-key="FLG ID" name="Popup" class="team-invite" style="width: 95%; height: 90%;">
+            <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-text="Link External Wallet" btn-style="Solid" btn-color="Primary" name="ConnectWalletButton" style="position: absolute; top: 592px; left: 48px;" />
+            <ui:VisualElement style="flex-grow: 1; position: absolute; width: 63px; height: 66px; background-image: url(&quot;project://database/Assets/Art/Textures/Ui/Splashscreens%20&amp;%20Logos/FL_Logo.png?fileID=2800000&amp;guid=a37ecdfbc158f4fba98c635e6a001a09&amp;type=3#FL_Logo&quot;); top: 158px; left: 23px;" />
+            <FirstLight.Game.UIElements.LabelOutlined text="0x1234" enable-rich-text="true" name="FlgWalletAddress" class="game-label" style="position: absolute; top: 165px; left: 95px; width: 1051px; -unity-text-align: middle-left; height: 61px; background-color: rgb(22, 20, 34);" />
+            <FirstLight.Game.UIElements.LabelOutlined text="Linked Wallets" enable-rich-text="true" name="Wallets" class="game-label" style="position: absolute; top: 23px; left: 46px; width: 1051px; -unity-text-align: middle-left; font-size: 62px;" />
+            <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-style="Solid" btn-color="Primary" name="CopyFlgWalletButton" style="position: absolute; top: 162px; left: 1158px; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Home/button-copy.png?fileID=21300000&amp;guid=c4a674d345c984df28e2c0a7e9ae2175&amp;type=3#button-copy&quot;); width: 62px; height: 64px;" />
+            <FirstLight.Game.UIElements.LabelOutlined text="FLG Wallet" enable-rich-text="true" name="Wallets" class="game-label" style="position: absolute; top: 129px; left: 92px; width: 1051px; -unity-text-align: middle-left; font-size: 37px; color: rgb(238, 173, 13);" />
+            <ui:VisualElement style="flex-grow: 1; position: absolute; width: 53px; height: 49px; background-image: url(&quot;project://database/Assets/Art/UI/Sprites/Match/icon-crown-winner.png?fileID=2800000&amp;guid=ef9fbedbd6a4244d3ad1b56498e4c5b0&amp;type=3#icon-crown-winner&quot;); top: 171px; left: 1233px;" />
+        </FirstLight.Game.UIElements.GenericPopupElement>
+    </ui:VisualElement>
+</ui:UXML>

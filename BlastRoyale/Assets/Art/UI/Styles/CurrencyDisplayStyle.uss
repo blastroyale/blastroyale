@@ -14,6 +14,20 @@
     border-radius: 10px;
 }
 
+.currency-shine {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/Art/Textures/Particles/Chest_Opening_Vfx_256_Star.png?fileID=2800000&guid=9b3a580ab61ae6d4899b963367de2c83&type=3#Chest_Opening_Vfx_256_Star");
+    -unity-background-image-tint-color: rgb(0, 240, 253);
+    position: absolute;
+    width: 221px;
+    height: 218px;
+    top: -66px;
+    left: -79px;
+    rotate: 431deg;
+    transition-duration: 0s;
+    transition-timing-function: ease;
+}
+
 .currency-display__icon-outline {
     width: 75px;
     height: 75px;

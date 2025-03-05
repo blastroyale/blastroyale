@@ -42,11 +42,9 @@ namespace FirstLight.Game.Presenters
 		private LocalizedButton _connectIdButton;
 		private LocalizedButton _web3Button;
 		private LocalizedButton _supportButton;
-		private Label _web3StatusLabel;
-		private VisualElement _web3Notification;
 		private LocalizedLabel _accountStatusLabel;
 		private TextField _playerIDField;
-		
+
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -64,8 +62,6 @@ namespace FirstLight.Game.Presenters
 
 			Root.Q("AccountNotification").Required().SetDisplay(_services.AuthService.SessionData.IsGuest);
 			Root.Q("ConnectNotification").Required().SetDisplay(_services.AuthService.SessionData.IsGuest);
-			_web3Notification = Root.Q("ConnectWeb3Notification").Required();
-			_web3Notification.SetDisplay(false);
 
 			// Sound
 			SetupToggle(Root.Q<LocalizedToggle>("SoundEffects").Required(), _services.LocalPrefsService.IsSFXEnabled);
@@ -78,10 +74,10 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(Root.Q<LocalizedToggle>("ScreenShake").Required(), _services.LocalPrefsService.IsScreenShakeEnabled);
 			SetupToggle(Root.Q<Toggle>("SwitchJoysticks").Required(), _services.LocalPrefsService.SwapJoysticks);
 
-			SetupRadioButtonGroup(Root.Q<RadioButtonGroup>("PerformanceMode").Required(), 
-				() => _services.GameAppService.PerformanceManager.Mode, 
+			SetupRadioButtonGroup(Root.Q<RadioButtonGroup>("PerformanceMode").Required(),
+				() => _services.GameAppService.PerformanceManager.Mode,
 				m => _services.GameAppService.PerformanceManager.UpdatePerformanceMode(m));
-			
+
 			_customizeHudButton = Root.Q<LocalizedButton>("CustomizeHud").Required();
 			_customizeHudButton.clicked += OpenCustomizeHud;
 
@@ -100,40 +96,24 @@ namespace FirstLight.Game.Presenters
 			_connectIdButton.clicked += Data.OnConnectIdClicked;
 			_accountStatusLabel = Root.Q<LocalizedLabel>("AccountStatusLabel").Required();
 			_playerIDField = Root.Q<TextField>("PlayerID").Required();
-			_web3StatusLabel = Root.Q<Label>("Web3StatusLabel");
 			UpdateAccountStatus();
-			UpdateWeb3State(MainInstaller.ResolveWeb3().State);
-
 			// Footer buttons
 			_supportButton = Root.Q<LocalizedButton>("SupportButton").Required();
 			_supportButton.clicked += OpenSupportService;
 			_serverButton = Root.Q<LocalizedButton>("ServerButton").Required();
 			_serverButton.clicked += OpenServerSelect;
-
-			var web3 = MainInstaller.ResolveWeb3();
-			_web3Button.clicked += () => web3.RequestLogin().Forget();
-			_web3Button.SetEnabled(web3.State != Web3State.Unavailable);
+			
+			if (MainInstaller.ResolveWeb3().IsEnabled())
+			{
+				_web3Button.clicked += () => _services.UIService.OpenScreen<Web3PopupPresenter>().Forget();
+			}
+			else
+			{
+				_web3Button.SetDisplay(false);
+			}
 			Root.SetupClicks(_services);
 		}
-
-		protected override UniTask OnScreenOpen(bool reload)
-		{
-			MainInstaller.ResolveWeb3().OnStateChanged += UpdateWeb3State;
-			return base.OnScreenOpen(reload);
-		}
-
-		protected override UniTask OnScreenClose()
-		{
-			MainInstaller.ResolveWeb3().OnStateChanged -= UpdateWeb3State;
-			return base.OnScreenClose();
-		}
-
-		private void UpdateWeb3State(Web3State state)
-		{
-			var web3 = MainInstaller.ResolveWeb3();
-			_web3StatusLabel.text = $"{state} {web3.Web3Account ?? ""}";
-		}
-
+		
 		private void SetupToggle(Toggle toggle, ObservableField<bool> observable)
 		{
 			toggle.value = observable.Value;
@@ -196,8 +176,8 @@ namespace FirstLight.Game.Presenters
 				_logoutButton.SetDisplay(true);
 				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_connected);
 			}
-			
-			_playerIDField.value = AuthenticationService.Instance.PlayerId+"-"+PlayFabSettings.staticPlayer.PlayFabId;
+
+			_playerIDField.value = AuthenticationService.Instance.PlayerId + "-" + PlayFabSettings.staticPlayer.PlayFabId;
 		}
 
 		private void OpenCustomizeHud()
@@ -224,7 +204,6 @@ namespace FirstLight.Game.Presenters
 		private void OpenServerSelect()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-
 
 			_services.UIService.OpenScreen<ServerSelectScreenPresenter>().Forget();
 		}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -12,6 +13,7 @@ using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.UIElements
 {
@@ -133,6 +135,11 @@ namespace FirstLight.Game.UIElements
 
 		private void OnCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType type)
 		{
+			OnCurrencyChanged(previous, current);
+		}
+		
+		private void OnCurrencyChanged(ulong previous, ulong current)
+		{
 			this.SetDisplay(current > 0 || !_hideIfPlayerDoesntHaveIt);
 			if (!_animationHandler.Playing && current > previous)
 			{
@@ -158,10 +165,10 @@ namespace FirstLight.Game.UIElements
 			public IAudioFxService<AudioId> AudioFxService => MainInstaller.ResolveServices().AudioFxService;
 
 			public async UniTaskVoid AnimateCurrency(ulong previous,
-													 ulong current)
+													 ulong current, bool updateText = true)
 			{
 				Playing = true;
-				if (Target is Label lbl)
+				if (updateText && Target is Label lbl)
 				{
 					lbl.text = previous.ToString();
 				}
@@ -183,11 +190,10 @@ namespace FirstLight.Game.UIElements
 						labelPosition,
 						() =>
 						{
-							if (Target is Label lbl)
+							if (updateText && Target is Label lbl)
 							{
 								DOVirtual.Float(previous, current, 0.3f, val => { lbl.text = val.ToString("F0"); });
 							}
-
 							AudioFxService.PlayClip2D(AudioId.CounterTick1);
 						});
 				}

@@ -6,7 +6,7 @@ using Medallion.Threading;
 
 namespace GameLogicService.Services;
 
-/// <summary>
+/// <summary>``
 /// This is a wrapper for the mutex so we don't have to pass all distributed mutex dependencies to the game
 /// </summary>
 public class UserMutexWrapper : IUserMutex

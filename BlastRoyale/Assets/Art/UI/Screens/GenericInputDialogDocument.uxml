@@ -6,12 +6,12 @@
             <ui:VisualElement name="Window" class="popup-radius popup__window">
                 <ui:VisualElement name="Header" class="background-purple window__header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />
-                    <FirstLight.Game.UIElements.LabelOutlined  name="Title" text="TITLE GOES HERE" class="game-label" />
+                    <FirstLight.Game.UIElements.LabelOutlined name="Title" text="TITLE GOES HERE" class="game-label" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content">
                     <ui:Label name="Desc" text="DESC GOES HERE" class="font-style-popup content__desc" />
                     <ui:VisualElement name="Spacer" class="spacer content-spacer--small" />
-                    <ui:TextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="input-field input-field--center generic-form-field" />
+                    <ui:TextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="60" class="input-field input-field--center generic-form-field" />
                     <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xl" />
                     <ui:VisualElement name="Controls" class="content__controls">
                         <ui:VisualElement class="button-flat-outline">

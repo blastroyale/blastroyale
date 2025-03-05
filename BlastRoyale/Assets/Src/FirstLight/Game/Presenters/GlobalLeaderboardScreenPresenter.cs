@@ -56,7 +56,10 @@ namespace FirstLight.Game.Presenters
 		private Label _leaderboardDescription;
 		private Label _leaderboardTitle;
 		private Button _discordButton;
+		private VisualElement _discordButtonHolder;
 		private Button _infoButton;
+		private VisualElement _extraButtonHolder;
+		private LocalizedButton _extraButton;
 		private Label _rewardsText;
 		private Label _endsIn;
 		private VisualElement _endsInContainer;
@@ -101,6 +104,9 @@ namespace FirstLight.Game.Presenters
 			_endsIn = Root.Q<Label>("EndsInText").Required();
 			_endsInContainer = Root.Q<VisualElement>("EndsInContainer").Required();
 			_discordButton = Root.Q<Button>("DiscordButton").Required();
+			_extraButton = Root.Q<LocalizedButton>("ExtraButton").Required();
+			_discordButtonHolder = Root.Q<VisualElement>("DiscordButtonHolder").Required();
+			_extraButtonHolder = Root.Q<VisualElement>("ExtraButtonHolder").Required();
 			_rewardsText = Root.Q<Label>("RewardsText").Required();
 			_rewardsWidget = Root.Q("RewardsWidget").Required();
 			_rewardsTitle = Root.Q<Label>("LeaderboardTitleDesc").Required();
@@ -246,10 +252,24 @@ namespace FirstLight.Game.Presenters
 			{
 				_headerIcon.SetVisibility(true);
 			}
+			
+			if (string.IsNullOrEmpty(seasonConfig.ExtraButtonLink))
+			{
+				_discordButtonHolder.SetVisibility(true);
+				_extraButtonHolder.SetVisibility(false);
+				_extraButton.clickable = null;
+			}
+			else
+			{
+				_discordButtonHolder.SetVisibility(false);
+				_extraButtonHolder.SetVisibility(true);
+				_extraButton.clicked += () => Application.OpenURL(seasonConfig.ExtraButtonLink);
+				_extraButton.text = seasonConfig.ExtraButtonText;
+			}
 
 			if (!string.IsNullOrEmpty(seasonConfig.ManualEndTime))
 			{
-				endTime = DateTime.ParseExact(seasonConfig.ManualEndTime, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+				endTime = DateTime.ParseExact(seasonConfig.ManualEndTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
 			}
 			else if (!result.NextReset.HasValue)
 			{
@@ -257,6 +277,7 @@ namespace FirstLight.Game.Presenters
 				_endsIn.text = $"Not Scheduled";
 				_endsInContainer.SetDisplay(false);
 				_endsInContainer.SetVisibility(false);
+				
 				return;
 			}
 			else
@@ -266,8 +287,8 @@ namespace FirstLight.Game.Presenters
 
 			_endsInContainer.SetDisplay(true);
 			_endsInContainer.SetVisibility(true);
-			var daysTillReset = (int) Math.Ceiling((endTime - DateTime.UtcNow).TotalDays);
-			_endsIn.text = $"Ends in {daysTillReset} days";
+			var timeTillReset = (endTime - DateTime.UtcNow).ToDayAndHours(true);
+			_endsIn.text = $"Ends in {timeTillReset}";
 		}
 
 		private void OnLeaderboardTopRanksReceived(GameLeaderboard board, GetLeaderboardResult result)

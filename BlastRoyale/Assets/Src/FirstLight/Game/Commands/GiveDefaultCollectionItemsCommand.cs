@@ -17,8 +17,6 @@ namespace FirstLight.Game.Commands
 	public struct GiveDefaultCollectionItemsCommand : IGameCommand
 	{
 		private static readonly GameId[] DiscordModItems = {
-			GameId.Avatar1,
-			GameId.MeleeSkinCactus,
 			GameId.MeleeSkinPowerPan,
 		};
 

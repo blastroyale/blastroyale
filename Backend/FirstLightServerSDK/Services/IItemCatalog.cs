@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FirstLightServerSDK.Services
@@ -27,5 +28,10 @@ namespace FirstLightServerSDK.Services
 		/// Gets game item model by catalog item id
 		/// </summary>
 		Task<T> GetCatalogItem(string itemId);
+
+		/// <summary>
+		/// Gets all catalog items
+		/// </summary>
+		Task<List<FlgCatalogItem>> GetAllCatalogItems();
 	}
 }

@@ -127,8 +127,10 @@ namespace Backend.Plugins
 		private List<ServerPlugin> LoadServerPlugins(IServiceProvider serviceProvider)
 		{
 			var loadedPlugins = new List<ServerPlugin>();
-			loadedPlugins.Add(new BlastRoyalePlugin(serviceProvider.GetService<IUserMutex>(),
-				serviceProvider.GetService<IInventorySyncService<ItemData>>()));
+			var br = new BlastRoyalePlugin(serviceProvider.GetService<IStoreService>(), 
+				serviceProvider.GetService<IUserMutex>(),
+				serviceProvider.GetService<IInventorySyncService<ItemData>>());
+			loadedPlugins.Add(br);
 			return loadedPlugins;
 		}
 

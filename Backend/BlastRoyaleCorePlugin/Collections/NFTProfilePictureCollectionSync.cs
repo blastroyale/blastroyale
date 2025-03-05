@@ -11,58 +11,67 @@ namespace BlastRoyaleNFTPlugin.Collections;
 
 public class NFTProfilePictureCollectionSync : ICollectionSync
 {
-	public void Sync(CollectionData playersCollectionData, NFTCollectionSyncConfiguration collectionSyncConfiguration, List<RemoteCollectionItem> ownedNFTs)
+	public void Sync(CollectionData playersCollectionData, NFTCollectionSyncConfiguration collectionSyncConfiguration,
+					 CollectionFetchResponse remoteOwnedCollectionsNFTsResult)
 	{
-		var currentOwnedTokensForCollection = ownedNFTs.Where(n => n.Name != null && n.Name.StartsWith(collectionSyncConfiguration.NFTImagePrefix, StringComparison.InvariantCulture)).Select(nft => nft.TokenId).ToList();
-		var pfpListToAdd = new List<string>(currentOwnedTokensForCollection);
 		
-		var profilePictureList = playersCollectionData.OwnedCollectibles.TryGetValue(CollectionCategories.PROFILE_PICTURE, out var profilePictureLoaded)
-			? profilePictureLoaded : new List<ItemData>();
-	
-		//Loop through current profilePicture List to remove NFT profilePicture if player doesn't owns the NFT anymore.
-		for (var profilePictureIndex = profilePictureList.Count - 1; profilePictureIndex >= 0; profilePictureIndex--)
+		if (!collectionSyncConfiguration.CanSyncNFTImage)
+			return;
+
+		if (remoteOwnedCollectionsNFTsResult.CollectionNFTsOwnedDict.TryGetValue(collectionSyncConfiguration.CollectionName, out var remoteCollectionItems))
 		{
-			var profilePicture = profilePictureList[profilePictureIndex];
-
-			if (profilePicture.Id != GameId.AvatarNFTCollection || !profilePicture.HasMetadata<CollectionMetadata>())
+			var currentOwnedTokensForCollection = remoteCollectionItems.Where(n => n.Name != null && n.Name.StartsWith(collectionSyncConfiguration.NFTImagePrefix, StringComparison.InvariantCulture)).Select(nft => nft.TokenId).ToList();
+			var pfpListToAdd = new List<string>(currentOwnedTokensForCollection);
+			
+			var profilePictureList = playersCollectionData.OwnedCollectibles.TryGetValue(CollectionCategories.PROFILE_PICTURE, out var profilePictureLoaded)
+				? profilePictureLoaded : new List<ItemData>();
+			
+			//Loop through current profilePicture List to remove NFT profilePicture if player doesn't owns the NFT anymore.
+			for (var profilePictureIndex = profilePictureList.Count - 1; profilePictureIndex >= 0; profilePictureIndex--)
 			{
-				continue;
+				var profilePicture = profilePictureList[profilePictureIndex];
+			
+				if (profilePicture.Id != GameId.AvatarNFTCollection || !profilePicture.HasMetadata<CollectionMetadata>())
+				{
+					continue;
+				}
+				
+				var metadata = profilePicture.GetMetadata<CollectionMetadata>();
+			
+				if (!metadata.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collection) ||
+					!metadata.TryGetTrait(CollectionTraits.TOKEN_ID, out var lastSyncToken))
+				{
+					continue;
+				}
+			
+				if (collection != collectionSyncConfiguration.CollectionName)
+				{
+					continue;
+				}
+			
+				if (!currentOwnedTokensForCollection.Contains(lastSyncToken))
+				{
+					RemoveEquippedProfilePicture(profilePicture, playersCollectionData);
+					profilePictureList.RemoveAt(profilePictureIndex);
+					continue;
+				}
+				
+				pfpListToAdd.Remove(lastSyncToken);
 			}
 			
-			var metadata = profilePicture.GetMetadata<CollectionMetadata>();
-
-			if (!metadata.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collection) ||
-				!metadata.TryGetTrait(CollectionTraits.TOKEN_ID, out var lastSyncToken))
+			foreach (var tokenId in pfpListToAdd)
 			{
-				continue;
-			}
-
-			if (collection != collectionSyncConfiguration.CollectionName)
-			{
-				continue;
-			}
-
-			if (!currentOwnedTokensForCollection.Contains(lastSyncToken))
-			{
-				RemoveEquippedProfilePicture(profilePicture, playersCollectionData);
-				profilePictureList.RemoveAt(profilePictureIndex);
-				continue;
+				var item = ItemFactory.Collection(GameId.AvatarNFTCollection,
+					new CollectionTrait(CollectionTraits.NFT_COLLECTION, collectionSyncConfiguration.CollectionName),
+							   new CollectionTrait(CollectionTraits.TOKEN_ID, tokenId));
+				
+				profilePictureList.Add(item);
+			
 			}
 			
-			pfpListToAdd.Remove(lastSyncToken);
+			playersCollectionData.OwnedCollectibles[CollectionCategories.PROFILE_PICTURE] = profilePictureList;
 		}
-	
-		foreach (var tokenId in pfpListToAdd)
-		{
-			var item = ItemFactory.Collection(GameId.AvatarNFTCollection,
-				new CollectionTrait(CollectionTraits.NFT_COLLECTION, collectionSyncConfiguration.CollectionName),
-						   new CollectionTrait(CollectionTraits.TOKEN_ID, tokenId));
-			
-			profilePictureList.Add(item);
 
-		}
-		
-		playersCollectionData.OwnedCollectibles[CollectionCategories.PROFILE_PICTURE] = profilePictureList;
 	}
 	
 	private void RemoveEquippedProfilePicture(ItemData item, CollectionData data)

@@ -92,5 +92,7 @@ namespace FirstLight.Server.SDK.Services
 		public string UnityCloudEnvironmentID { get; }
 
 		string RedisLockConnectionString { get; }
+		
+		string VoucherSigner { get; }
 	}
 }

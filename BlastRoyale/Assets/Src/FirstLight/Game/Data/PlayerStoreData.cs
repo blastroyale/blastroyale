@@ -10,6 +10,7 @@ namespace FirstLight.Game.Data
 		
 		public readonly List<StorePurchaseData> TrackedStorePurchases = new ();
 		public readonly List<ProductBundlePurchaseData> ProductsBundlePurchases = new ();
+		public PlayerDailyDealsConfiguration PlayerDailyDealsConfiguration;
 
 		public override int GetHashCode()
 		{

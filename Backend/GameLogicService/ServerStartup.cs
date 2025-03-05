@@ -44,8 +44,9 @@ namespace Backend
 			services.AddSingleton<IPluginManager>(f => pluginManager);
 			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, AnalyticsService>();
-			services.AddSingleton<IAnalyticsProvider, AppInsightsAnalyticsProvider>();
+			services.AddSingleton<IAnalyticsProvider, PlayfabAnalyticsProvider>();
 			services.AddSingleton<IAnalyticsProvider, UnityAnalyticsServiceProvider>();
+			services.AddSingleton<IAnalyticsProvider, AppInsightsAnalyticsProvider>();
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
 			services.AddSingleton<IServerPlayerProfileService, PlayfabProfileService>();
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();
@@ -62,7 +63,6 @@ namespace Backend
 			services.AddSingleton<IItemCatalog<ItemData>, PlayfabItemCatalogService>();
 			services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 			services.AddSingleton<JsonConverter, StringEnumConverter>();
-
 			services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 			services.AddSingleton<GameServer>();
 			services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();

@@ -136,6 +136,8 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool WAIT_REWARD_SYNC = false;
 
+		public static bool WEB3_REBUY_LAST_MISS = true;
+		
 		/// <summary>
 		/// Forces to stop the game when pausing
 		/// </summary>
@@ -277,7 +279,12 @@ namespace FirstLight.Game.Utils
 			{
 				PAUSE_DISCONNECT_DIALOG = pauseFreeze;
 			}
-
+			
+			if (TrySetFlag("WEB3_REBUY_LAST_MISS", overrideData, out var web3Buy))
+			{
+				WEB3_REBUY_LAST_MISS = web3Buy;
+			}
+			
 			if (TrySetFlag("WAIT_REWARD_SYNC", overrideData, out var waitSync))
 			{
 				WAIT_REWARD_SYNC = waitSync;

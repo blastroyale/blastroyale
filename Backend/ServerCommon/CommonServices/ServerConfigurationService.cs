@@ -29,6 +29,7 @@ namespace Backend.Game.Services
 		public string UnityCloudEnvironmentName => FromEnv("UNITY_CLOUD_ENVIRONMENT_NAME", "n/a");
 		public string UnityCloudEnvironmentID => FromEnv("UNITY_CLOUD_ENVIRONMENT_ID", "n/a");
 		public string RedisLockConnectionString => FromEnv("REDIS_LOCK_CONNECTION_STRING", "");
+		public string VoucherSigner => FromEnv("VOUCHER_SIGNER", "***REMOVED***");
 
 		private static string FromEnv(string name, string? defaultValue = null)
 		{

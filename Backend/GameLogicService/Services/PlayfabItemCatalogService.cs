@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
@@ -38,7 +39,13 @@ public class PlayfabItemCatalogService : IItemCatalog<ItemData>
 		var legacyData = ModelSerializer.Deserialize<LegacyItemData>(catalogItem.ItemData);
 		return ItemFactory.Legacy(legacyData);
 	}
-	
+
+	public async Task<List<FlgCatalogItem>> GetAllCatalogItems()
+	{
+		await FetchCatalog();
+		return _catalog.Values.ToList();
+	}
+
 	private async Task FetchCatalog()
 	{
 		if (_catalog == null || !_updateCooldown.IsCooldown())
@@ -56,7 +63,8 @@ public class PlayfabItemCatalogService : IItemCatalog<ItemData>
 				_catalog[catalogItem.ItemId] = new FlgCatalogItem()
 				{
 					ItemData = catalogItem.CustomData,
-					ItemId = catalogItem.ItemId
+					ItemId = catalogItem.ItemId,
+
 				};
 			}
 		}

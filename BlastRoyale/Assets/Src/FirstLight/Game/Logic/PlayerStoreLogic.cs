@@ -31,6 +31,16 @@ namespace FirstLight.Game.Logic
 		/// We use this function to get it, otherwise, player has never seen the Bundle banner before.
 		/// </summary>
 		DateTime? GetFirstTimeBundleHasShowToPlayer(string bundleId);
+
+		/// <summary>
+		/// Get Player's Daily Deals Store current configuration
+		/// </summary>
+		PlayerDailyDealsConfiguration GetPlayerDailyStoreConfiguration();
+		
+		/// <summary>
+		/// Check if it already passed a day since the player has updated the DailyStore
+		/// </summary>
+		bool IsDailyDealExpired();
 	}
 
 	
@@ -48,6 +58,8 @@ namespace FirstLight.Game.Logic
 		void MarkProductsBundleAsPurchased(string bundleId);
 		
 		DateTime MarkProductsBundleFirstAppeared(string bundleId);
+
+		void UpdatePlayerDailyDeals(PlayerDailyDealsConfiguration playerDailyDealsConfiguration);
 	}
 
 	
@@ -95,7 +107,7 @@ namespace FirstLight.Game.Logic
 			var bundle = Data.ProductsBundlePurchases.SingleOrDefault(pbp => pbp.ProductsBundleId == bundleId);
 			return bundle?.ProductsBundleFirstAppearance;
 		}
-
+		
 		public DateTime MarkProductsBundleFirstAppeared(string bundleId)
 		{
 			var bundlePurchaseData = Data.ProductsBundlePurchases.SingleOrDefault(pbp => pbp.ProductsBundleId == bundleId);
@@ -114,7 +126,12 @@ namespace FirstLight.Game.Logic
 
 			return bundlePurchaseData.ProductsBundleFirstAppearance;
 		}
-		
+
+		public void UpdatePlayerDailyDeals(PlayerDailyDealsConfiguration playerDailyDealsConfiguration)
+		{
+			Data.PlayerDailyDealsConfiguration = playerDailyDealsConfiguration;
+		}
+
 		public void MarkProductsBundleAsSeen(string bundleId)
 		{
 			var bundle = Data.ProductsBundlePurchases.SingleOrDefault(pbp => pbp.ProductsBundleId == bundleId);
@@ -204,8 +221,7 @@ namespace FirstLight.Game.Logic
 
 			return true;
 		}
-
-
+		
 		// Determine if the product has restrictions that require tracking after purchase.
 		// Examples of such restrictions include:
 		// - A maximum quantity that can be purchased within a specific timeframe (e.g., daily or lifetime limits).
@@ -214,6 +230,18 @@ namespace FirstLight.Game.Logic
 		private bool ShouldTrackProductAfterPurchase(StoreItemData storeItemData)
 		{
 			return storeItemData.MaxAmount > 0 || storeItemData.PurchaseCooldown > 0;
+		}
+		
+		
+		//Daily Deal Store methods
+		public PlayerDailyDealsConfiguration GetPlayerDailyStoreConfiguration()
+		{
+			return Data.PlayerDailyDealsConfiguration;
+		}
+
+		public bool IsDailyDealExpired()
+		{
+			return Data.PlayerDailyDealsConfiguration != null && DateTime.UtcNow > Data.PlayerDailyDealsConfiguration.ResetDealsAt;
 		}
 		
 	}

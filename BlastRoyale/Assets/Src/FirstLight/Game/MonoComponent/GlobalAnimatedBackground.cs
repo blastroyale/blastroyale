@@ -17,13 +17,13 @@ public class GlobalAnimatedBackground : MonoSingleton<GlobalAnimatedBackground>
 
 	public void Enable()
 	{
-		FLog.Info("Turning on global animated background");
+		Debug.Log("Turning on global animated background");
 		_animatedBackground.gameObject.SetActive(true);
 	}
 
 	public void Disable()
 	{
-		FLog.Info("Turning off global animated background");
+		Debug.Log("Turning off global animated background");
 		_animatedBackground.gameObject.SetActive(false);
 	}
 

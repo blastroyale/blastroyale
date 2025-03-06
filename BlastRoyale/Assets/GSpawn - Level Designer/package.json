@@ -1,9 +1,0 @@
-{
-    "name": "com.gspawn",
-    "displayName": "Gspawn",
-    "version": "6.6.6",
-    "unity": "2018.4",
-    "description": "Gspawn",
-    "license": "MIT",
-    "dependencies": {}
-}

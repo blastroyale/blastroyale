@@ -39,7 +39,7 @@ namespace FirstLight.Game.Services.Authentication
 				Salt = Convert.ToBase64String(token.ServerCredentials.IosProperties.Salt),
 				Signature = Convert.ToBase64String(token.ServerCredentials.IosProperties.Signature),
 				PublicKeyUrl = token.ServerCredentials.IosProperties.PublicKeyUrl,
-				Timestamp = token.ServerCredentials.IoresProperties.Timestamp.ToString(),
+				Timestamp = token.ServerCredentials.IosProperties.Timestamp.ToString(),
 				GameCenterId = VoxelBusters.EssentialKit.GameServices.LocalPlayer.DeveloperScopeId
 			});
 #else

@@ -573,6 +573,7 @@
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
     -unity-text-outline-color: rgb(16, 9, 51);
+    white-space: nowrap;
 }
 
 .weapon-display--melee .weapon-display__ammo {

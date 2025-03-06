@@ -1,0 +1,9 @@
+*.png
+Assets/Art/AssetPacks/
+Assets/FacebookSDK/
+Assets/ExternalDependencyManager/
+Assets/ProBuilder Data/
+Assets/Scenes/
+Assets/StreamingAssets/
+Assets/Unity Cloud/
+*.dll

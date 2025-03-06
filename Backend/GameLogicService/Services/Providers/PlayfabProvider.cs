@@ -1,9 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using FirstLight.Server.SDK.Models;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.ServerModels;
@@ -16,21 +12,21 @@ namespace GameLogicService.Services.Providers
 	public class PlayfabAnalyticsProvider : IAnalyticsProvider
 	{
 		private ILogger _log;
-		
+
 		public PlayfabAnalyticsProvider(ILogger log)
 		{
 			_log = log;
 		}
-		
+
 		public void EmitEvent(string eventName, AnalyticsData data)
 		{
 			PlayFabServerAPI.WriteTitleEventAsync(new WriteTitleEventRequest()
 			{
 				EventName = eventName,
 				Body = data.ToDictionary(d => d.Key, d => (object) d.Value),
-			}).AsUniTask().ContinueWith(t =>
+			}).ContinueWith(t =>
 			{
-				if(t.Error != null) _log.LogError(t.Error.GenerateErrorReport());
+				if (t.Result.Error != null) _log.LogError(t.Result.Error.GenerateErrorReport());
 			});
 		}
 
@@ -42,9 +38,9 @@ namespace GameLogicService.Services.Providers
 				PlayFabId = id,
 				EventName = eventName,
 				Body = data.ToDictionary(d => d.Key, d => (object) d.Value),
-			}).AsUniTask().ContinueWith(t =>
+			}).ContinueWith(t =>
 			{
-				if(t.Error != null) _log.LogError(t.Error.GenerateErrorReport());
+				if (t.Result.Error != null) _log.LogError(t.Result.Error.GenerateErrorReport());
 			});
 		}
 	}

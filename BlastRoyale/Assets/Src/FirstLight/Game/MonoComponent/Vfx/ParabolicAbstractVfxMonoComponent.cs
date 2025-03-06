@@ -29,7 +29,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 			
 			if (flyTime > 0)
 			{
-				force = -_rigidbody.velocity;
+				force = -_rigidbody.linearVelocity;
 				
 				var forceDirection = targetPosition - transform.position;
 				var yForce = Mathf.Abs(Physics.gravity.y) * Mathf.Pow(flyTime, 2) / 2;

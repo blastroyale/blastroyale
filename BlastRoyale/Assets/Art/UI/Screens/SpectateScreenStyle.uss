@@ -126,6 +126,7 @@
     color: rgb(255, 255, 255);
     margin-top: 9px;
     margin-bottom: 9px;
+    white-space: nowrap;
 }
 
 .player-holder__defeated-you {
@@ -170,8 +171,9 @@
     justify-content: center;
     align-items: center;
 }
-.add-friend-button.unity-disabled{
-   opacity: 1;
+
+.add-friend-button.unity-disabled {
+    opacity: 1;
 }
 
 .add-friend-button__icon {

@@ -32,7 +32,7 @@ namespace FirstLight.Game.MonoComponent
 
 				if (!state)
 				{
-					body.velocity = Vector3.zero;
+					body.linearVelocity = Vector3.zero;
 					body.angularVelocity = Vector3.zero;
 					body.transform.localPosition = Vector3.zero;
 				}

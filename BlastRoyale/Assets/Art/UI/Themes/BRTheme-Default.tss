@@ -6,6 +6,7 @@
 @import url("/Assets/Art/UI/Styles/Sprites-FTUE.uss");
 @import url("/Assets/Art/UI/Styles/Sprites-Currencies.uss");
 @import url("/Assets/Art/UI/Styles/Sprites-Kit.uss");
+@import url("/Assets/Art/UI/Styles/Sprites-Elements.uss");
 @import url("/Assets/Art/UI/Styles/CommonStyle.uss");
 @import url("/Assets/Art/UI/Styles/GenericPopupStyle.uss");
 @import url("/Assets/Art/UI/Styles/Transitions.uss");
@@ -19,10 +20,7 @@
 @import url("/Assets/Art/UI/Styles/Scroller.uss");
 @import url("/Assets/Art/UI/Styles/InGamePlayerAvatar.uss");
 @import url("/Assets/Art/UI/Styles/Kit/Kit.uss");
-
-
-
-
+@import url("/Assets/Art/UI/Styles/Elements/Elements.uss");
 
 
 

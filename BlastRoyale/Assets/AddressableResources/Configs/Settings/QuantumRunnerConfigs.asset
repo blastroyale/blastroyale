@@ -13,13 +13,28 @@ MonoBehaviour:
   m_Name: QuantumRunnerConfigs
   m_EditorClassIdentifier: 
   _runtimeConfig:
-    Seed: 467865617
+    Seed: 1202585415
     Map:
       Id:
         Value: 534712889589439825
     SimulationConfig:
       Id:
         Value: 1565542650131154954
+    MatchConfigs:
+      UniqueConfigId: CHANGEMETOSOMETHINGUNIQUE
+      GameModeID: BattleRoyale
+      MapId: MazeMayhem
+      TeamSize: 1
+      Mutators: 0
+      WeaponsSelectionOverwrite: []
+      MetaItemDropOverwrites: []
+      WinRewardBonus: []
+      RewardModifiers: []
+      DisableBots: 0
+      MinPlayersToStartMatch: 0
+      BotOverwriteDifficulty: 5
+      MaxPlayersOverwrite: 48
+      MatchType: 0
     GameConfigs:
       Id:
         Value: 2168878361177007176
@@ -68,9 +83,6 @@ MonoBehaviour:
     EquipmentMaterialStatConfigs:
       Id:
         Value: 2931657409906099456
-    MutatorConfigs:
-      Id:
-        Value: 490727885306324360
     ReviveConfigs:
       Id:
         Value: 3922240779153377466

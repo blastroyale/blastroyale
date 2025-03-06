@@ -1,0 +1,67 @@
+/* AUTO GENERATED */
+:root {
+    --sprite-elements__button-disabled-bg: url('/Assets/Art/UI/Sprites/Elements/FButton/button-disabled-bg.png');
+    --sprite-elements__button-error-bg: url('/Assets/Art/UI/Sprites/Elements/FButton/button-error-bg.png');
+    --sprite-elements__button-primary-bg: url('/Assets/Art/UI/Sprites/Elements/FButton/button-primary-bg.png');
+    --sprite-elements__button-secondary-bg: url('/Assets/Art/UI/Sprites/Elements/FButton/button-secondary-bg.png');
+    --sprite-elements__button-success-bg: url('/Assets/Art/UI/Sprites/Elements/FButton/button-success-bg.png');
+    --sprite-elements__button-tertiary-bg: url('/Assets/Art/UI/Sprites/Elements/FButton/button-tertiary-bg.png');
+    --sprite-elements__green: url('/Assets/Art/UI/Sprites/Elements/FButton/green.png');
+    --sprite-elements__spherical-dots: url('/Assets/Art/UI/Sprites/Elements/FButton/spherical-dots.png');
+    --sprite-elements__upgrade-arrow: url('/Assets/Art/UI/Sprites/Elements/Icons/upgrade-arrow.png');
+}
+
+.sprite-elements__button-disabled-bg {
+    background-image: var(--sprite-elements__button-disabled-bg);
+    width: 382px;
+    height: 130px;
+}
+
+.sprite-elements__button-error-bg {
+    background-image: var(--sprite-elements__button-error-bg);
+    width: 388px;
+    height: 136px;
+}
+
+.sprite-elements__button-primary-bg {
+    background-image: var(--sprite-elements__button-primary-bg);
+    width: 386px;
+    height: 134px;
+}
+
+.sprite-elements__button-secondary-bg {
+    background-image: var(--sprite-elements__button-secondary-bg);
+    width: 388px;
+    height: 136px;
+}
+
+.sprite-elements__button-success-bg {
+    background-image: var(--sprite-elements__button-success-bg);
+    width: 386px;
+    height: 134px;
+}
+
+.sprite-elements__button-tertiary-bg {
+    background-image: var(--sprite-elements__button-tertiary-bg);
+    width: 388px;
+    height: 136px;
+}
+
+.sprite-elements__green {
+    background-image: var(--sprite-elements__green);
+    width: 382px;
+    height: 130px;
+}
+
+.sprite-elements__spherical-dots {
+    background-image: var(--sprite-elements__spherical-dots);
+    width: 169px;
+    height: 348px;
+}
+
+.sprite-elements__upgrade-arrow {
+    background-image: var(--sprite-elements__upgrade-arrow);
+    width: 59px;
+    height: 68px;
+}
+

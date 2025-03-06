@@ -42,6 +42,7 @@
     -unity-text-align: middle-left;
     padding-bottom: 25px;
     letter-spacing: -1px;
+    white-space: nowrap;
 }
 
 .screen-header__subtitle {

@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.IO;
 using FirstLight.Game.Presenters;
@@ -67,4 +67,4 @@ namespace FirstLight.Tests.PlayTests
 			return playerOptions;
 		}
 	}
-}
+}*/

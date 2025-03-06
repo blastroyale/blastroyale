@@ -117,6 +117,7 @@
     -unity-font-style: normal;
     margin-top: -20px;
     letter-spacing: 0;
+    white-space: nowrap;
 }
 
 .load-status-holder__player-label {
@@ -179,6 +180,7 @@
     letter-spacing: 0;
     rotate: -8deg;
     bottom: 4px;
+    white-space: nowrap;
 }
 
 .map__title-bg {

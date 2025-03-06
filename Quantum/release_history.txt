@@ -1,12 +1,58 @@
-# 2.1.8.1
+# 2.1.9
 
 ## Stable
 
-### Build 1434 (Apr 16, 2024)
+### Build 1529 (Jul 17, 2024)
+
+**What's New**
+
+- Support to physics `QueryOptions` and `CallbackFlags` types in the DSL
+- `QuantumEditorSettings.UseAsyncAssetDBGeneration` - if enabled, AssetDB will be generated asynchronously if an asset is created/removed. This can be slower but allows for a more responsive editor. If disabled, AssetDB generation will be synchronous (default)
+- `Quantum/Generate Asset Resources (Async)` menu item
+- `PrototypeMaterializationContext.userData` - a way to pass additional context to manual prototype materialization
+- 2D and 3D `JointPrototype.Materialize` overloads that receive anchor references instead of a `PrototypeMaterializationContext`
+- `QuantumGameFlags.InitSystemsBeforeCallbackGameStarted` - passing it start parameter's `GameFlags` in  will invoke `CallbackGameStarted` callback after systems are initialized
+- `RuntimeConfig.GetUserByteArrayCapacity` - partial method that allows to override the default byte array capacity used in `ToByteArray`
+- `AssetBase.AssetRefT` - a property that always returns the underlying AssetObject as the most derived type instance. Helps to avoid casting the result of `AssetBase.AssetObject` if asset type hierarchies are used
+- Added a `save` button to the non-Editor frame differ screen which will dump the state into `Application.persistentDataPath`
+
+**Changes**
+
+- Upgrading to Photon Realtime `4.1.8.7`
+- When removing a component T or destroying an entity that has T, the ComponentCount<T> is now reduced after component-remove signals are invoked instead of before
+- Frame Heap now throws an `OutOfMemoryException` when it fails to allocate
+- The `QuantumLoadBalancingPeer` set `LoadBalancingPeer.ReuseEventInstance` by default to reduce allocations with incoming network messages
+- The Terrain Collider now detects degenerate triangles, logs a warning and does not bake them into the asset
+- `PrototypeMaterializationContext` constructor is now public
+- `QuantumRunnerLocalDebug.RecordingFlags` is set to `None` by default
+- A warning message is logged if decompressing checksum error frame data fails
+- Disabled prefab variant workaround for Unity 2021+
+- `AssetDB.LoadedAsset` is now obsolete
+- `FPQuaternion.LookRotation(FPVector3, bool)` overload is now deprecated (optional bool parameter was never used) and `FPQuaternion.LookRotation(FPVector3)` was added in replacement
 
 **Bug Fixes**
 
+- Fixed: Compile warnings for Unity 2023+
+- Fixed: `LayerMatrixGUI` error for Unity 2023.1+
 - Fixed: GetDrawerTypeForType() errors for Unity 2022.3.23+
+- Fixed: Alse-positive desync when late-joining and receiving a snapshot where a Compound Shape had its internal buffer expanded
+- Fixed: An issue that caused memory allocations in `QList.Contains()`
+- Fixed: Non-deterministic order of fields in `QuantumEditorUtilityContainer`
+- Fixed: Heap AllocationTracker.Dispose not correctly the buffer's capacity
+- Fixed: An exception during map entity binding when the map entity reference game object is null
+- Fixed: Replaced an assertion with an error log when entity views are destroyed by user code
+- Fixed: Added protection against infinite loops during Unity navmesh importing during `FixTrianglesOnEdges`
+- Fixed: An issue that caused inverted navmesh border normals during navmesh baking
+- Fixed: Improved the Unity navmesh importing by adding an explicit `FixTrianglesOnEdgesHeightEpsilon` for the vertical offset that can be set to 50x of the horizontal offset to catch more edge cases overall
+- Fixed: AssetDBGeneration: long import times for projects with a large number of addressables
+- Fixed: Debug assert that could fail when resetting or reinitializing a map on the 2D or 3D physics engines
+- Fixed: Enabling or disabling static mesh colliders can now be correctly predicted by the physics engine
+- Fixed: Incorrect normal between box collisions when a shape is totally inside the other
+- Fixed: 3D Physics scene mesh always updating to the `Frame.Map`, even when a specific map is provided when forcing `Init` on the physics engine
+- Fixed: 3D Physics issue when disabling `UseAngularVelocity`, which could cause some collision constraints to be ignored on every solver iteration
+- Fixed: 3D Scene Mesh structure not resetting the current tracked Map when calling `ResetMap` in the engine API
+- Fixed: Not being able to reinitialized the 3D Scene Mesh from outside the Frame simulation loop, even if in a Verified frame
+- Fixed: An issue on the plugin that caused large snapshot downloading to fail and cause disconnects or exceptions during late-joining
 
 # 2.1.8
 

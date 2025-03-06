@@ -1834,6 +1834,7 @@ namespace Quantum {
 
     partial void DumpUserData(ref String dump);
     partial void SerializeUserData(BitStream stream);
+    static partial void GetUserByteArrayCapacity(ref int capacity);
 
     /// <summary>
     /// Serialize the class into a byte array.
@@ -1841,7 +1842,7 @@ namespace Quantum {
     /// <param name="config">Config to serialized</param>
     /// <param name="arrayCapacity">Change the capacity of the Bitstream used to serialize the RuntimeConfig.</param>
     /// <returns>Byte array</returns>
-    public static Byte[] ToByteArray(RuntimeConfig config, int arrayCapacity = 8192) {
+    public static Byte[] ToByteArray(RuntimeConfig config, int arrayCapacity) {
       BitStream stream;
       
       stream = new BitStream(new Byte[arrayCapacity]);
@@ -1850,6 +1851,18 @@ namespace Quantum {
       config.Serialize(stream);
 
       return stream.ToArray();
+    }
+
+    /// <summary>
+    /// Serialize the class into a byte array. By default uses a capacity of 8192.
+    /// Implement <see cref="GetUserByteArrayCapacity(ref int)"/> to change the capacity.
+    /// </summary>
+    /// <param name="config">Config to be serialized</param>
+    /// <returns></returns>
+    public static Byte[] ToByteArray(RuntimeConfig config) {
+      int capacity = 8192;
+      GetUserByteArrayCapacity(ref capacity);
+      return ToByteArray(config, capacity);
     }
 
     /// <summary>
@@ -2523,6 +2536,11 @@ namespace Quantum {
     /// </summary>
     public const int DisableInterpolatableStates = 1 << 2;
     /// <summary>
+    /// By default, CallbackGameStarted is invoked before the systems are initialized. Use
+    /// this flag to get it invoked after the systems are initialized.
+    /// </summary>
+    public const int InitSystemsBeforeCallbackGameStarted = 1 << 3;
+    /// <summary>
     /// Custom user flags start from this value. Flags are accessible with <see cref="QuantumGame.GameFlags"/>.
     /// </summary>
     public const int CustomFlagsStart = 1 << 16;
@@ -2889,10 +2907,16 @@ namespace Quantum {
       // hook context heap alloc tracker to verified frame
       Frames.Verified.Context.HookHeapAllocTrackerToFrame(Frames.Verified);
 
-      InvokeOnGameStart();
+      if ((_flags & QuantumGameFlags.InitSystemsBeforeCallbackGameStarted) == 0) {
+        InvokeOnGameStart();
+      }
 
       // init systems on latest frame
       InitSystems(f);
+      
+      if ((_flags & QuantumGameFlags.InitSystemsBeforeCallbackGameStarted) != 0) {
+        InvokeOnGameStart();
+      }
 
       Log.Debug("Local Players: " + string.Join(" ", Session.LocalPlayerIndices));
     }
@@ -3790,10 +3814,13 @@ namespace Quantum {
             unsafe {
               byte[] actualData = FrameData;
               bool wasCompressed = false;
+
               try {
                 actualData = ByteUtils.GZipDecompressBytes(FrameData);
                 wasCompressed = true;
-              } catch { }
+              } catch (Exception ex) {
+                Log.Warn($"Failed to decompress frame data. Treating as uncompressed.\n{ex}");
+              }
 
               fixed (byte* p = actualData) {
                 var printer = new FramePrinter();

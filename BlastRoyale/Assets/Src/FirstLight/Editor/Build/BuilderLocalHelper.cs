@@ -48,7 +48,7 @@ namespace FirstLight.Editor.Build
 		{
 			BuildUtils.OverwriteEnvironment = FLEnvironment.STAGING;
 			EditorUserBuildSettings.buildAppBundle = true;
-			PlayerSettings.Android.useAPKExpansionFiles = true;
+			PlayerSettings.Android.splitApplicationBinary = true;
 			AddressableAssetSettings.CleanPlayerContent();
 			Builder.Build(new Builder.BuildParameters()
 			{
@@ -65,7 +65,7 @@ namespace FirstLight.Editor.Build
 		{
 			BuildUtils.OverwriteEnvironment = FLEnvironment.DEVELOPMENT;
 			EditorUserBuildSettings.buildAppBundle = true;
-			PlayerSettings.Android.useAPKExpansionFiles = true;
+			PlayerSettings.Android.splitApplicationBinary = true;
 			AddressableAssetSettings.CleanPlayerContent();
 			Builder.Build(new Builder.BuildParameters()
 			{

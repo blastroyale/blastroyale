@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EssentialKitSettings
   m_EditorClassIdentifier: 
   m_applicationSettings:
-    m_logLevel: 1
+    m_logLevel: 0
     m_appStoreIds:
       m_ios: 1621071488
       m_tvos: 
@@ -87,7 +87,7 @@ MonoBehaviour:
       m_playServicesApplicationId: ***REMOVED***
       m_serverClientId: ***REMOVED***-b0ju43ssu82ucu1no6trlavlkb7thddm.apps.googleusercontent.com
       m_forceRefreshToken: 1
-      m_showErrorDialogs: 1
+      m_showErrorDialogs: 0
   m_billingServicesSettings:
     m_isEnabled: 0
     m_products: []

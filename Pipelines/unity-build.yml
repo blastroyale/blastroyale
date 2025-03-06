@@ -111,7 +111,7 @@ steps:
     displayName: 'Quantum Build'
 
   - script: |
-      /Applications/Unity/Hub/Editor/2022.3.52f1/Unity.app/Contents/MacOS/Unity \
+      /Applications/Unity/Hub/Editor/6000.0.39f1/Unity.app/Contents/MacOS/Unity \
       -batchmode -buildTarget ${{ parameters.platform }} \
       -projectPath $(System.DefaultWorkingDirectory)/BlastRoyale \
       -logfile - \

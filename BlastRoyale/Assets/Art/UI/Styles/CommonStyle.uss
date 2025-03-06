@@ -891,6 +891,7 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-align: middle-center;
+    white-space: nowrap;
 }
 
 .game-label--small {

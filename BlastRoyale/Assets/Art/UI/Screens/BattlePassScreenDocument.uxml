@@ -9,10 +9,6 @@
                 <ui:ScrollView focusable="true" mode="Horizontal" touch-scroll-type="Clamped" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="RewardsScroll" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
                     <ui:VisualElement name="ColumnHolder" class="column-holder">
                         <ui:VisualElement name="LastReward" class="last-reward-picture__background" style="display: flex;">
-                            <ui:VisualElement name="BackgroundYellow" class="last-reward-picture__background-yellow" />
-                            <ui:VisualElement name="BackgroundPink" class="last-reward-picture__background-pink">
-                                <ui:VisualElement name="Dots" class="last-reward-picture__dots" />
-                            </ui:VisualElement>
                             <ui:VisualElement name="RewardPicture" class="last-reward-picture__reward-picture sprite-home__malepunk-season-reward">
                                 <ui:VisualElement name="RewardNameCloud" class="last-reward-picture__cloud-background" style="bottom: -44px;">
                                     <ui:Label tabindex="-1" text="EXCLUSIVE REWARD" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExclusiveReward" class="last-reward-picture__cloud-label" />

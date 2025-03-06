@@ -76,6 +76,7 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+    white-space: nowrap;
 }
 
 .player-health-shield--local .player-health-shield__health-label {
@@ -107,6 +108,7 @@
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 4px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    white-space: nowrap;
 }
 
 .player-health-shield--local .player-health-shield__shield-label {

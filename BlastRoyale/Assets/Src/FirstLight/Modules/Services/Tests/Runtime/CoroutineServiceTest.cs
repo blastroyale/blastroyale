@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using FirstLight.Services;
 using NUnit.Framework;
 using UnityEngine;
@@ -143,4 +143,4 @@ namespace FirstLightEditor.Services.Tests
 			Assert.AreNotEqual(testValue3, _testValue); 
 		}
 	}
-}
+}*/

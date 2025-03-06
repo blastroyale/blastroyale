@@ -434,6 +434,7 @@ namespace FirstLight.Game.Presenters
 				var completed = freeSegmentData.LevelAfterClaiming > i;
 				var currentLevel = freeSegmentData.LevelAfterClaiming == i;
 				var column = update ? _levelElements[i] : new BattlepassLevelColumnElement();
+				column.name = "Column Level " + (i + 1);
 				ConfigureSegment(column.FreeReward, freeSegmentData, update);
 				ConfigureSegment(column.PaidReward, paidSegmentData, update);
 				if (IsDisablePremium())
@@ -441,26 +442,26 @@ namespace FirstLight.Game.Presenters
 					column.DisablePaid();
 				}
 
-				if (string.IsNullOrEmpty(battlePassConfig.Season.EndGraphicImageClass))
-				{
-					_endGraphicContainer.SetDisplay(false);
-				}
-				else
-				{
-					_endGraphicContainer.SetDisplay(true);
-					_endGraphicPicture.RemoveSpriteClasses();
-					_endGraphicPicture.AddToClassList(battlePassConfig.Season.EndGraphicImageClass);
-					_endGraphicLabel.text = battlePassConfig.Season.EndGraphicName;
-				}
-
 				column.SetBarData((uint) i + 1, completed, currentLevel, battlePassConfig.Season.BuyLevelPrice);
 				if (!update)
 				{
 					column.OnBuyLevelClicked += BuyLevelClicked;
-					_columnHolder.Insert(0, column);
+					_columnHolder.Insert(1, column);
 				}
 
 				_levelElements[i] = column;
+			}
+
+			if (string.IsNullOrEmpty(battlePassConfig.Season.EndGraphicImageClass))
+			{
+				_endGraphicContainer.SetDisplay(false);
+			}
+			else
+			{
+				_endGraphicContainer.SetDisplay(true);
+				_endGraphicPicture.RemoveSpriteClasses();
+				_endGraphicPicture.AddToClassList(battlePassConfig.Season.EndGraphicImageClass);
+				_endGraphicLabel.text = battlePassConfig.Season.EndGraphicName;
 			}
 
 			SpawnScrollFiller();

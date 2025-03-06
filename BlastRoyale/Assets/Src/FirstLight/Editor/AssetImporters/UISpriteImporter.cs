@@ -34,6 +34,7 @@ namespace FirstLight.Editor.AssetImporters
 			if (!assetImporter.assetPath.Contains(SPRITES_PATH)) return;
 			var textureImporter = (TextureImporter) assetImporter;
 			textureImporter.textureType = TextureImporterType.Sprite;
+			textureImporter.spriteImportMode = SpriteImportMode.Single;
 		}
 
 		private void OnPostprocessSprites(Texture2D texture, Sprite[] sprites)

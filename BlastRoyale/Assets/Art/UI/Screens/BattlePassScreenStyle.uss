@@ -681,12 +681,12 @@
     min-height: auto;
     max-width: none;
     max-height: 100%;
-    position: relative;
+    position: absolute;
     align-self: flex-start;
     flex-wrap: nowrap;
     flex-direction: row-reverse;
     flex-grow: 0;
-    left: -90px;
+    left: -750px;
     min-width: 100%;
     justify-content: flex-end;
     padding-bottom: 21px;
@@ -864,25 +864,11 @@
 
 .last-reward-picture__background {
     width: 800px;
-    position: absolute;
-    right: -500px;
+    margin-left: 230px;
+    position: relative;
     top: -76px;
     bottom: -90px;
     justify-content: center;
-}
-
-.last-reward-picture__background-yellow {
-    right: -38px;
-    position: absolute;
-    height: 100%;
-    width: 800px;
-}
-
-.last-reward-picture__background-pink {
-    position: absolute;
-    height: 100%;
-    width: 800px;
-    right: -54px;
 }
 
 .last-reward-picture__reward-picture {

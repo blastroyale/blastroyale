@@ -126,7 +126,7 @@ namespace FirstLight.Tests.EditorMode
 		{
 #pragma warning disable CS0612
 			var quantumAddress = AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address;
-			var quantumAsset = Addressables.LoadAsset<QuantumRunnerConfigs>(quantumAddress).WaitForCompletion();
+			var quantumAsset = Addressables.LoadAssetAsync<QuantumRunnerConfigs>(quantumAddress).WaitForCompletion();
 			TestConfigs.AddSingletonConfig(quantumAsset);
 #pragma warning restore CS0612
 		}

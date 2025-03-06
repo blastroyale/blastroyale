@@ -68,7 +68,6 @@
     opacity: 0;
 }
 
-
 .player-status-bar__damage-holder {
     position: absolute;
     left: 0;
@@ -77,7 +76,6 @@
     align-content: center;
     top: 0;
 }
-
 
 .player-status-bar__damage-number {
     position: absolute;
@@ -97,6 +95,7 @@
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     bottom: -51px;
     right: 49px;
+    white-space: nowrap;
 }
 
 .health-status-bar {

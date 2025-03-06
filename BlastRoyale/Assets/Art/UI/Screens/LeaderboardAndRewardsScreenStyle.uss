@@ -47,7 +47,7 @@
     right: 0;
     top: 70px;
     left: 0;
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .leaderboard-header {
@@ -178,6 +178,7 @@
     -unity-text-outline-width: 0.7px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    white-space: nowrap;
 }
 
 .bpp {

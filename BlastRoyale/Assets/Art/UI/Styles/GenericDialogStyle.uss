@@ -265,6 +265,7 @@
     text-shadow: 4px 5px 0 rgb(156, 36, 12);
     -unity-text-outline-color: rgb(156, 36, 12);
     -unity-text-outline-width: 6px;
+    white-space: nowrap;
 }
 
 .purchase-confirmation__button-icon {

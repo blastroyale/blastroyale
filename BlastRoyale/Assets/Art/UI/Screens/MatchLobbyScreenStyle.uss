@@ -18,7 +18,7 @@
     height: 82px;
     min-height: 82px;
     max-height: 82px;
-    padding-top: 20px;
+    padding-top: 0px;
     -unity-text-align: middle-center;
     background-color: rgb(10, 37, 83);
     border-radius: 10px;
@@ -166,6 +166,7 @@
     -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    white-space: nowrap;
 }
 
 .spectator-spacer {

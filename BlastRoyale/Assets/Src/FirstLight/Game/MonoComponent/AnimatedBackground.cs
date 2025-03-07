@@ -89,9 +89,9 @@ public class AnimatedBackground : MonoBehaviour
 		SetColor(_colorMap[rarity]);
 	}
 
-	public void SetColor(AnimatedBackgroundColor color)
+	public void SetColor(AnimatedBackgroundColor color, bool animate = false)
 	{
-		if (_lastColor != null)
+		if (_lastColor != null && animate)
 		{
 			_quadRenderer.material.SetColor(_colorTopPID, _lastColor.Top);
 			_quadRenderer.material.SetColor(_colorMiddlePID, _lastColor.Middle);

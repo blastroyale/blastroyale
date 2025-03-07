@@ -552,7 +552,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 4653
       AttackHitSpeed:
-        RawValue: 2293760
+        RawValue: 2490368
       MinAttackAngle: 18
       NumberOfShots: 1
       NumberOfBursts: 1

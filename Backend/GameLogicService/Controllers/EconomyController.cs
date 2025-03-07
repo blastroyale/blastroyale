@@ -58,7 +58,7 @@ namespace ServerCommon.Cloudscript
 
 				playerData.Currencies[currencyGameId] = Convert.ToUInt64(castedAmount);
 				state.UpdateModel(playerData);
-				await _serverState.UpdatePlayerState(request.PlayerId, state);
+				await _serverState.UpdatePlayerState(request.PlayerId, state.GetOnlyUpdatedState());
 				return Ok(castedAmount);
 			}
 		}

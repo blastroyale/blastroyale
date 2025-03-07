@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
@@ -31,6 +32,11 @@ namespace Backend.Game.Services
 		/// <inheritdoc />
 		public async Task UpdatePlayerState(string playerId, ServerState state)
 		{
+			if (state.Keys.Count > 10) // TODO: Implement batching when needed
+			{
+				throw new Exception(
+					"Trying to update more than 10 data keys, requires batching implemented in GameLogic");
+			}
 			var request = new UpdateUserDataRequest()
 			{
 				PlayFabId = playerId
@@ -64,7 +70,7 @@ namespace Backend.Game.Services
 			// Set flag in case playfab delays the deletion
 			playerData.Flags |= PlayerFlags.Deleted;
 			currentState.UpdateModel(playerData);
-			await UpdatePlayerState(playerId, currentState);
+			await UpdatePlayerState(playerId, currentState.GetOnlyUpdatedState());
 			var result = await PlayFabAdminAPI.DeleteMasterPlayerAccountAsync(new()
 			{
 				PlayFabId = playerId

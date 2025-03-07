@@ -95,6 +95,7 @@ enum GameId
 	GunSniperHeavy = 269,
 	GunARBurst = 270,
 	GunShotgunAuto = 292,
+	GunARRebel = 341,
 	MouseAmulet = 38,
 	RiotAmulet = 39,
 	SoldierAmulet = 40,

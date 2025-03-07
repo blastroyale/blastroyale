@@ -321,7 +321,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 4
+          Weight: 30
         - ItemConfig:
             SimpleGameId: 91
             EquipmentMetadata:
@@ -333,7 +333,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 4
+          Weight: 30
         - ItemConfig:
             SimpleGameId: 87
             EquipmentMetadata:
@@ -357,7 +357,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 2
+          Weight: 10
         - ItemConfig:
             SimpleGameId: 270
             EquipmentMetadata:
@@ -369,7 +369,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 2
+          Weight: 10
         - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
@@ -381,7 +381,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 2
+          Weight: 15
         - ItemConfig:
             SimpleGameId: 292
             EquipmentMetadata:
@@ -393,7 +393,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 2
+          Weight: 15
         - ItemConfig:
             SimpleGameId: 93
             EquipmentMetadata:
@@ -405,7 +405,7 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 2
+          Weight: 15
         - ItemConfig:
             SimpleGameId: 269
             EquipmentMetadata:
@@ -417,7 +417,19 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 2
+          Weight: 15
+        - ItemConfig:
+            SimpleGameId: 341
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Grade: 0
+              Level: 0
+              Material: 0
+              Rarity: 0
+          Weight: 10
         - ItemConfig:
             SimpleGameId: 94
             EquipmentMetadata:
@@ -477,19 +489,19 @@ MonoBehaviour:
               Level: 0
               Material: 4
               Rarity: 0
-          Weight: 50
+          Weight: 34
         - ItemConfig:
             SimpleGameId: 270
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 92
+              GameId: 270
               Grade: 0
               Level: 0
               Material: 4
               Rarity: 0
-          Weight: 50
+          Weight: 34
         - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
@@ -508,7 +520,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 90
+              GameId: 292
               Grade: 0
               Level: 0
               Material: 4
@@ -532,12 +544,24 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 93
+              GameId: 269
               Grade: 0
               Level: 0
               Material: 4
               Rarity: 0
           Weight: 50
+        - ItemConfig:
+            SimpleGameId: 341
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 341
+              Grade: 0
+              Level: 0
+              Material: 4
+              Rarity: 0
+          Weight: 34
         - ItemConfig:
             SimpleGameId: 94
             EquipmentMetadata:
@@ -787,6 +811,18 @@ MonoBehaviour:
               Rarity: 0
           Weight: 0
         - ItemConfig:
+            SimpleGameId: 270
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Grade: 0
+              Level: 0
+              Material: 0
+              Rarity: 0
+          Weight: 0
+        - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
               Adjective: 0
@@ -823,18 +859,6 @@ MonoBehaviour:
               Rarity: 0
           Weight: 0
         - ItemConfig:
-            SimpleGameId: 94
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 0
-              Grade: 0
-              Level: 0
-              Material: 0
-              Rarity: 0
-          Weight: 120
-        - ItemConfig:
             SimpleGameId: 269
             EquipmentMetadata:
               Adjective: 0
@@ -847,7 +871,7 @@ MonoBehaviour:
               Rarity: 0
           Weight: 0
         - ItemConfig:
-            SimpleGameId: 270
+            SimpleGameId: 341
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -858,6 +882,18 @@ MonoBehaviour:
               Material: 0
               Rarity: 0
           Weight: 0
+        - ItemConfig:
+            SimpleGameId: 94
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Grade: 0
+              Level: 0
+              Material: 0
+              Rarity: 0
+          Weight: 115
         - ItemConfig:
             SimpleGameId: 88
             EquipmentMetadata:
@@ -905,7 +941,19 @@ MonoBehaviour:
               Level: 0
               Material: 4
               Rarity: 0
-          Weight: 5
+          Weight: 4
+        - ItemConfig:
+            SimpleGameId: 270
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 270
+              Grade: 0
+              Level: 0
+              Material: 4
+              Rarity: 0
+          Weight: 4
         - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
@@ -924,7 +972,7 @@ MonoBehaviour:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 90
+              GameId: 292
               Grade: 0
               Level: 0
               Material: 4
@@ -943,6 +991,30 @@ MonoBehaviour:
               Rarity: 0
           Weight: 5
         - ItemConfig:
+            SimpleGameId: 269
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 269
+              Grade: 0
+              Level: 0
+              Material: 4
+              Rarity: 0
+          Weight: 5
+        - ItemConfig:
+            SimpleGameId: 341
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 341
+              Grade: 0
+              Level: 0
+              Material: 4
+              Rarity: 0
+          Weight: 4
+        - ItemConfig:
             SimpleGameId: 94
             EquipmentMetadata:
               Adjective: 0
@@ -953,31 +1025,7 @@ MonoBehaviour:
               Level: 0
               Material: 4
               Rarity: 0
-          Weight: 15
-        - ItemConfig:
-            SimpleGameId: 269
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 94
-              Grade: 0
-              Level: 0
-              Material: 4
-              Rarity: 0
-          Weight: 5
-        - ItemConfig:
-            SimpleGameId: 270
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 94
-              Grade: 0
-              Level: 0
-              Material: 4
-              Rarity: 0
-          Weight: 5
+          Weight: 20
       CollectableChestPickupRadius:
         RawValue: 131072
       CollectTime:
@@ -1093,7 +1141,19 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 75
+          Weight: 50
+        - ItemConfig:
+            SimpleGameId: 270
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Grade: 0
+              Level: 0
+              Material: 0
+              Rarity: 0
+          Weight: 50
         - ItemConfig:
             SimpleGameId: 90
             EquipmentMetadata:
@@ -1131,18 +1191,6 @@ MonoBehaviour:
               Rarity: 0
           Weight: 85
         - ItemConfig:
-            SimpleGameId: 94
-            EquipmentMetadata:
-              Adjective: 0
-              Edition: 0
-              Faction: 0
-              GameId: 0
-              Grade: 0
-              Level: 0
-              Material: 0
-              Rarity: 0
-          Weight: 1
-        - ItemConfig:
             SimpleGameId: 269
             EquipmentMetadata:
               Adjective: 0
@@ -1155,7 +1203,7 @@ MonoBehaviour:
               Rarity: 0
           Weight: 65
         - ItemConfig:
-            SimpleGameId: 270
+            SimpleGameId: 341
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1165,7 +1213,19 @@ MonoBehaviour:
               Level: 0
               Material: 0
               Rarity: 0
-          Weight: 75
+          Weight: 50
+        - ItemConfig:
+            SimpleGameId: 94
+            EquipmentMetadata:
+              Adjective: 0
+              Edition: 0
+              Faction: 0
+              GameId: 0
+              Grade: 0
+              Level: 0
+              Material: 0
+              Rarity: 0
+          Weight: 1
         - ItemConfig:
             SimpleGameId: 127
             EquipmentMetadata:

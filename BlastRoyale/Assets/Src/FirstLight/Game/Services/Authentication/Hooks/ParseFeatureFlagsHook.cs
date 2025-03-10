@@ -25,6 +25,11 @@ namespace FirstLight.Game.Services.Authentication.Hooks
 			LoadPlayfabFeatureFlags(result);
 			return UniTask.CompletedTask;
 		}
+		
+		public UniTask BeforeLogout()
+		{
+			return UniTask.CompletedTask;
+		}
 
 		public UniTask AfterFetchedState(LoginResult result)
 		{

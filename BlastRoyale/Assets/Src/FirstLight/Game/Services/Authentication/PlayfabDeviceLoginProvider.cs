@@ -43,6 +43,11 @@ namespace FirstLight.Game.Services.Authentication
 			if (!string.IsNullOrEmpty(deviceId)) return deviceId;
 			return null;
 		}
+		
+		public UniTask BeforeLogout()
+		{
+			return UniTask.CompletedTask;
+		}
 
 		/// <summary>
 		/// Migrating where reads login data from old players

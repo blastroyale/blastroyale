@@ -109,6 +109,7 @@ namespace FirstLightEditor.GoogleSheetImporter
 			
 			foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
 			{
+				if (assembly.FullName.Contains("Nethereum")) continue;
 				foreach (var type in assembly.GetTypes())
 				{
 					if (!type.IsAbstract && !type.IsInterface && importerInterface.IsAssignableFrom(type))

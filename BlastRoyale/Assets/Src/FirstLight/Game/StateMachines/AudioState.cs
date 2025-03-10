@@ -7,6 +7,8 @@ using FirstLight.Game.Domains.HomeScreen;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.EntityPrototypes;
+using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
@@ -820,8 +822,22 @@ namespace FirstLight.Game.StateMachines
 
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 			var weaponIdForAudio = callback.Weapon.GameId;
+			
+			AudioWeaponConfig weaponAudioConfig;
+			
+			// If it's a melee then we try to get special sound of that melee based on skin's Game Id
+			if (weaponIdForAudio.IsInGroup(GameIdGroup.Melee) 
+				&& _matchServices.SpectateService.SpectatedPlayer.Value.Transform.gameObject.TryGetComponent<PlayerCharacterMonoComponent>(out var playerCharacter)
+				&& playerCharacter.PlayerView.TryGetComponent<MatchCharacterViewMonoComponent>(out var matchCharacterView)
+				&& matchCharacterView.SpecialSoundMeleeId != GameId.Random)
+			{
+				weaponAudioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) matchCharacterView.SpecialSoundMeleeId);
+			}
+			else // otherwise we use a sound based on weapon's Game Id
+			{
+				weaponAudioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) weaponIdForAudio);
+			}
 
-			var weaponAudioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) weaponIdForAudio);
 			var audioClipId = spectatedEntity == callback.PlayerEntity ? weaponAudioConfig.WeaponShotLocalId : weaponAudioConfig.WeaponShotId;
 
 			if (spectatedEntity == callback.PlayerEntity)

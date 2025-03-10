@@ -9,13 +9,13 @@ namespace Tests.Stubs
 {
 	public class StubbedCollectionSyncService : CollectionsSyncService
 	{
-		private readonly BlockchainApi _blockchainApi;
+		public readonly BlastRoyalePlugin Plugin;
 		public readonly List<RemoteCollectionItem> Owned = new List<RemoteCollectionItem>();
 		
 		
-		public StubbedCollectionSyncService(BlockchainApi blockchainApi) : base(blockchainApi)
+		public StubbedCollectionSyncService(BlastRoyalePlugin plugin) : base(plugin)
 		{
-			_blockchainApi = blockchainApi;
+			Plugin = plugin;
 		}
 
 		public async Task<IEnumerable<RemoteCollectionItem>> FetchAllCollections(string id)

@@ -14,27 +14,27 @@ namespace FirstLight.Server.SDK
 	/// </summary>
 	public class PluginContext
 	{
-		public readonly IEventManager? PluginEventManager;
-		public readonly IPluginLogger? Log;
-		public readonly IServerStateService? ServerState;
-		public readonly IMetricsService? Metrics;
-		public readonly IServerAnalytics? Analytics;
-		public readonly IBaseServiceConfiguration? ServerConfig;
-		public readonly IConfigsProvider? GameConfig;
-		public readonly IStatisticsService? Statistics;
+		public readonly IEventManager PluginEventManager;
+		public readonly IPluginLogger Log;
+		public readonly IServerStateService ServerState;
+		public readonly IMetricsService Metrics;
+		public readonly IServerAnalytics Analytics;
+		public readonly IBaseServiceConfiguration ServerConfig;
+		public readonly IConfigsProvider GameConfig;
+		public readonly IStatisticsService Statistics;
 		public readonly IServerPlayerProfileService? PlayerProfile;
 		
 		public PluginContext(IEventManager evManager, IServiceProvider services)
 		{
 			PluginEventManager = evManager;
-			Log = services.GetService(typeof(IPluginLogger)) as IPluginLogger;
-			ServerState = services.GetService(typeof(IServerStateService)) as IServerStateService;
-			Metrics = services.GetService(typeof(IMetricsService)) as IMetricsService;
-			Analytics = services.GetService(typeof(IServerAnalytics)) as IServerAnalytics;
-			ServerConfig = services.GetService(typeof(IBaseServiceConfiguration)) as IBaseServiceConfiguration;
-			GameConfig = services.GetService(typeof(IConfigsProvider)) as IConfigsProvider;
-			Statistics = services.GetService(typeof(IStatisticsService)) as IStatisticsService;
-			PlayerProfile = services.GetService(typeof(IServerPlayerProfileService)) as IServerPlayerProfileService;
+			Log = (IPluginLogger)services.GetService(typeof(IPluginLogger));
+			ServerState = (IServerStateService)services.GetService(typeof(IServerStateService));
+			Metrics = (IMetricsService)services.GetService(typeof(IMetricsService));
+			Analytics = (IServerAnalytics)services.GetService(typeof(IServerAnalytics));
+			ServerConfig = (IBaseServiceConfiguration)services.GetService(typeof(IBaseServiceConfiguration));
+			GameConfig = (IConfigsProvider)services.GetService(typeof(IConfigsProvider));
+			Statistics = (IStatisticsService)services.GetService(typeof(IStatisticsService));
+			PlayerProfile = (IServerPlayerProfileService)services.GetService(typeof(IServerPlayerProfileService));
 		}
 	}
 }

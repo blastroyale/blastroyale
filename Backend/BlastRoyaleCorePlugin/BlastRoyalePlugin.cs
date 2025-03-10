@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using BlastRoyaleNFTPlugin.Services;
 using BlastRoyaleNFTPlugin.Shop;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Configs.Remote;
+using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
 using FirstLightServerSDK.Services;
+using PlayFab;
 
 
 namespace BlastRoyaleNFTPlugin
@@ -15,17 +21,20 @@ namespace BlastRoyaleNFTPlugin
 	/// Server plugin to sync inventories../// </summary>
 	public class BlastRoyalePlugin : ServerPlugin
 	{
-		private readonly IUserMutex _userMutex;
-		private PluginContext _ctx;
-		private BlockchainApi _blockchainApi;
+		public BlockchainApi BlockchainApi { get; private set; }
+		public PluginContext Ctx { get; private set; }
+		public Web3Config Web3Config { get; private set; }
+		
+		
 		private IInventorySyncService<ItemData> _inventorySyncService;
 		private Web3Shop _shop;
-		private IStoreService _store;
 		
-		public BlastRoyalePlugin(IStoreService store, IUserMutex userMutex, IInventorySyncService<ItemData> inventorySyncService)
+		private IStoreService _store;
+		private CollectionsSyncService _collectionsSyncService;
+		
+		public BlastRoyalePlugin(IStoreService store, IInventorySyncService<ItemData> inventorySyncService)
 		{
 			_inventorySyncService = inventorySyncService;
-			_userMutex = userMutex;
 			_store = store;
 		}
 
@@ -34,35 +43,46 @@ namespace BlastRoyaleNFTPlugin
 		/// </summary>
 		public override void OnEnable(PluginContext context)
 		{
-			_ctx = context;
-
+			Ctx = context;
 			context.PluginEventManager.RegisterEventListener<BeforeCommandRunsEvent>(OnBeforeCommand,
 				EventPriority.FIRST);
 			context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnDataLoad, EventPriority.LAST);
 			SetupBlockchainAPI();
-			_shop = new Web3Shop(_blockchainApi, _store, _ctx);
+			_shop = new Web3Shop(this, _store);
+			_ = Init();
 		}
 
 		private void SetupBlockchainAPI()
 		{
-			if (!_ctx.ServerConfig.NftSync)
+			if (!Ctx.ServerConfig.NftSync)
 			{
-				_ctx.Log?.LogInformation(
+				Ctx.Log?.LogInformation(
 					"NFT Sync EnvVar Flag is currently disabled, skipping BlockchainAPI configuration");
 				return;
 			}
 
 			var baseUrl = ReadPluginConfig("API_URL");
-			var apiSecret = ReadPluginConfig("API_KEY");
+			Ctx.Log?.LogInformation($"Using blockchain URL at {baseUrl}");
 
-			_ctx.Log?.LogInformation($"Using blockchain URL at {baseUrl}");
-
-			if (_ctx.ServerConfig.NftSync)
+			if (Ctx.ServerConfig.NftSync)
 			{
-				_blockchainApi = new BlockchainApi(baseUrl, apiSecret, _ctx, this);
+				BlockchainApi = new BlockchainApi();
+				_collectionsSyncService = new CollectionsSyncService(this);	
 			}
 		}
-
+		
+		private async Task Init()
+		{
+			var r = await PlayFabServerAPI.GetTitleDataAsync(new()
+			{
+				Keys = new [] {"ChainConfig"}.ToList(),
+			});
+			if (r.Error != null) throw new Exception(r.Error.GenerateErrorReport());
+			Web3Config = ModelSerializer.Deserialize<Web3Config>(r.Result.Data["ChainConfig"]);
+			Ctx.Log.LogDebug("Web3 Config Loaded "+r.Result.Data["ChainConfig"]);
+			_shop.Web3Config = Web3Config;
+		}
+		
 		private async Task OnBeforeCommand(BeforeCommandRunsEvent ev)
 		{
 			if (!(ev.CommandInstance is BuyFromStoreCommand buyCommand)) return;
@@ -77,11 +97,22 @@ namespace BlastRoyaleNFTPlugin
 
 		private async Task OnDataLoad(PlayerDataLoadEvent onLoad)
 		{
-			if (_blockchainApi != null)
-				await _blockchainApi.SyncData(onLoad.PlayerState, onLoad.PlayerId);
-
+			await SyncCollections(onLoad.PlayerState, onLoad.PlayerId);
 			// It needs to be the last one, because it may fail and need to rollback items back to playfab
 			await _inventorySyncService!.SyncData(onLoad.PlayerState, onLoad.PlayerId);
+		}
+
+		public async Task<bool> SyncCollections(ServerState state, string playerId)
+		{
+			var good = true;
+			if (BlockchainApi != null)
+			{
+				if (state.Has<PlayerData>())
+				{
+					good = await _collectionsSyncService.SyncCollections(playerId, state);
+				}
+			}
+			return good;
 		}
 
 		public bool CanSyncCollection(string collectionName)

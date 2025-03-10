@@ -203,7 +203,7 @@ namespace FirstLight.Game.Presenters
 
 			var borderColor = _services.LeaderboardService.GetRankColor(_viewingBoard, leaderboardEntry.Position + 1);
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1, AuthServiceNameExtensions.PrettifyPlayfabName(leaderboardEntry.DisplayName),
-				-1, leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.PlayFabId, borderColor);
+										 -1, -1, leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.PlayFabId, borderColor);
 			leaderboardEntryView.SetLeaderboardEntryPFPUrl(leaderboardEntry.Profile.AvatarUrl);
 
 			leaderboardEntryView.SetIcon(GetIconClass());
@@ -338,7 +338,7 @@ namespace FirstLight.Game.Presenters
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
 			view.SetData(leaderboardEntry.Position + 1,
-				AuthServiceNameExtensions.PrettifyPlayfabName(leaderboardEntry.DisplayName), -1,
+				AuthServiceNameExtensions.PrettifyPlayfabName(leaderboardEntry.DisplayName), -1, -1,
 				trophies, true, leaderboardEntry.PlayFabId, Color.white);
 			view.SetLeaderboardEntryPFPUrl(_dataProvider.CollectionDataProvider.GetEquippedAvatarUrl());
 

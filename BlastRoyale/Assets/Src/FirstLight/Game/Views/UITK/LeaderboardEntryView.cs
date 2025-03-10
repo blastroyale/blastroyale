@@ -30,7 +30,8 @@ namespace FirstLight.Game.Views
 		[Q("MainContainer")] private VisualElement _leaderboardEntry;
 		[Q("RankNumber")] private Label _rankNumber;
 		[Q("PlayerName")] private Label _playerName;
-		[Q("Kills")] private Label _insideMetric;
+		[Q("Damage")] private Label _insideMetricOne;
+		[Q("Kills")] private Label _insideMetricTwo;
 		[Q("TrophiesAmount")] private Label _mainMetric;
 		[Q("PFP")] private VisualElement _pfp;
 		[Q("PFPImage")] private VisualElement _pfpImage;
@@ -78,7 +79,7 @@ namespace FirstLight.Game.Views
 		/// <summary>
 		/// Sets the data needed to fill leaderboard entry's data.
 		/// </summary>
-		public void SetData(int rank, string playerName, int playerKilledCount, int playerTrophies, bool isLocalPlayer, string playerId, Color? borderColor)
+		public void SetData(int rank, string playerName, int playerDamageAmount, int playerKilledCount, int playerTrophies, bool isLocalPlayer, string playerId, Color? borderColor)
 		{
 			_leaderboardEntry.RemoveModifiers();
 
@@ -108,7 +109,8 @@ namespace FirstLight.Game.Views
 			}
 
 			_playerName.text = playerName;
-			_insideMetric.text = playerKilledCount.ToString();
+			_insideMetricOne.text = playerDamageAmount.ToString();
+			_insideMetricTwo.text = playerKilledCount.ToString();
 			_mainMetric.text = playerTrophies.ToString();
 
 			var delayTime = 0.3f + rank * 0.1f;

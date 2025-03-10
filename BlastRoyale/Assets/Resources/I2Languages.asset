@@ -29708,13 +29708,24 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITLeaderboards/damage
+      TermType: 0
+      Description: 
+      Languages:
+      - DAMAGE
+      - DAMAGE
+      - DAMAGE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLeaderboards/kills
       TermType: 0
       Description: 
       Languages:
-      - Kills
-      - Kills
-      - Kills
+      - KILLS
+      - KILLS
+      - KILLS
       - 
       - 
       Flags: 0000000000

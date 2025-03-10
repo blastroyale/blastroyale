@@ -9,6 +9,7 @@
                 <ui:VisualElement name="LeaderboardHeader" class="leaderboard-header">
                     <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label leaderboard-header__rank-number" />
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Player" localization-key="UITLeaderboards/player" class="header-label leaderboard-header__player" />
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Damage" localization-key="UITLeaderboards/damage" class="header-label leaderboard-header__damage" />
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Kills" localization-key="UITLeaderboards/kills" class="header-label leaderboard-header__kills" />
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label leaderboard-header__trophies" />
                 </ui:VisualElement>

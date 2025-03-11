@@ -1730,6 +1730,27 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinRaincoat, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSakura, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinZombie, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
@@ -3251,8 +3272,8 @@ namespace Quantum
 						GameId.EventTicket,
 						GameId.FestiveLUNARCOIN,
 						GameId.FestiveFEATHER,
-						GameId.GasTicket,
-						GameId.FestiveLANTERN
+						GameId.FestiveLANTERN,
+						GameId.GasTicket
 					}.AsReadOnly()
 				},
 				{
@@ -3602,6 +3623,9 @@ namespace Quantum
 						GameId.PlayerSkinNoob,
 						GameId.PlayerSkinPigeon,
 						GameId.PlayerSkinStar,
+						GameId.PlayerSkinRaincoat,
+						GameId.PlayerSkinSakura,
+						GameId.PlayerSkinZombie,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -4171,7 +4195,10 @@ namespace Quantum
 						GameId.PlayerSkinHoli,
 						GameId.PlayerSkinNoob,
 						GameId.PlayerSkinPigeon,
-						GameId.PlayerSkinStar
+						GameId.PlayerSkinStar,
+						GameId.PlayerSkinRaincoat,
+						GameId.PlayerSkinSakura,
+						GameId.PlayerSkinZombie
 					}.AsReadOnly()
 				},
 				{

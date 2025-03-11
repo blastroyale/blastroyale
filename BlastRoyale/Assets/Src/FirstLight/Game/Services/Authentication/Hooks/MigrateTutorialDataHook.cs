@@ -25,6 +25,11 @@ namespace FirstLight.Game.Services.Authentication.Hooks
 			_completed = tutorialData.TutorialSections;
 			return UniTask.CompletedTask;
 		}
+		
+		public UniTask BeforeLogout()
+		{
+			return UniTask.CompletedTask;
+		}
 
 		public UniTask AfterAuthentication(LoginResult result, bool previouslyLoggedIn = false)
 		{

@@ -50,6 +50,16 @@ namespace FirstLight.Game.Services.Authentication.Hooks
 			_gameRemoteConfigProvider = gameRemoteConfigProvider;
 			_msgBroker = msgBroker;
 		}
+		
+		public UniTask BeforeLogout()
+		{
+			if (AuthenticationService.Instance.IsSignedIn) // If is already signed sign out, this is used in retries or logging in
+			{
+				AuthenticationService.Instance.SignOut(true);
+			}
+
+			return UniTask.CompletedTask;
+		}
 
 		public UniTask BeforeAuthentication(bool previouslyLoggedIn = false)
 		{

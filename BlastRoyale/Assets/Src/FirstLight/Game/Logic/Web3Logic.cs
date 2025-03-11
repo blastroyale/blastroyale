@@ -21,10 +21,11 @@ using BigInteger = System.Numerics.BigInteger;
 namespace FirstLight.Game.Logic
 {
 	
+	[Serializable]
 	public class PackedItem
 	{
 		public byte[] GameId = new byte[2];
-		public byte[] Metadata = new Byte[32];
+		public byte[] Metadata = new byte[32];
 	}
 	
 	public interface IWeb3DataProvider
@@ -38,8 +39,6 @@ namespace FirstLight.Game.Logic
 		public IReadOnlyList<Web3Voucher> PlayerDataVouchers { get; }
 		public IWeb3Service OnChainData => MainInstaller.ResolveWeb3();
 		public BigInteger LastBlockSynced { get; }
-		public ItemData UnpackItem(PackedItem packed);
-		public PackedItem PackItem(ItemData item);
 		public bool CanUseWeb3();
 		public int NoobSpentInLogic();
 	}
@@ -149,7 +148,7 @@ namespace FirstLight.Game.Logic
 			return encodedSignature.ToHex();
 		}
 		
-		public PackedItem PackItem(ItemData item)
+		public static PackedItem PackItem(ItemData item)
 		{
 			var packed = new PackedItem();
 			packed.GameId = BitConverter.GetBytes((ushort) item.Id);
@@ -176,7 +175,7 @@ namespace FirstLight.Game.Logic
 			return (int)Data.NoobPurchases;
 		}
 
-		public ItemData UnpackItem(PackedItem item)
+		public static ItemData UnpackItem(PackedItem item)
 		{
 			var gameIdBytes = item.GameId;
 			var metadataBytes = item.Metadata;

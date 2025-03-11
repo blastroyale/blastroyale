@@ -18,12 +18,12 @@ namespace BlastRoyaleNFTPlugin.Services
 		private static readonly CollectionFetchResponse _EMPTY_COLLECTION = new() {CollectionNFTsOwnedDict = new Dictionary<string, List<RemoteCollectionItem>>()};
 
 		private NFTCollectionSyncConfigData NFTCollectionSyncConfigData;
-		private readonly BlockchainApi BlockchainApi;
+		private readonly BlastRoyalePlugin _plugin;
 
 		
-		public CollectionsSyncService(BlockchainApi blockchainApi)
+		public CollectionsSyncService(BlastRoyalePlugin plugin)
 		{
-			BlockchainApi = blockchainApi;
+			_plugin = plugin;
 			NFTCollectionSyncConfigData = new NFTCollectionSyncConfigData();
 		}
 		
@@ -54,31 +54,31 @@ namespace BlastRoyaleNFTPlugin.Services
 		{
 
 			var collectionsToSync = NFTCollectionSyncConfigData.NFTCollections
-				.Where(c => c.CanSync || BlockchainApi.CanSyncCollection(c.CollectionName))
+				.Where(c => c.CanSync || _plugin.CanSyncCollection(c.CollectionName))
 				.Select(c => c.CollectionName).ToArray();
 			
 			if (collectionsToSync.Any()) 
 			{
-				BlockchainApi._ctx.Log.LogInformation(
+				_plugin.Ctx.Log!.LogInformation(
 					$"The following collections will be synced: {string.Join(", ", collectionsToSync)}. \n" +
 					$"If you believe one of the collections should not be synced, ensure the environment variable 'COLLECTIONAME_SYNC_ENABLED' is or " +
 					$"the Collection CanSync property is set to 'false'.");
 			} 
 			else 
 			{
-				BlockchainApi._ctx.Log.LogInformation("No collections are eligible for syncing. \n" +
+				_plugin.Ctx.Log.LogInformation("No collections are eligible for syncing. \n" +
 					$"If you believe it should be synced, ensure the environment variable 'COLLECTIONAME_SYNC_ENABLED' is set to 'true'.");;
 			}
 			
 			try
 			{
-				var result = await RequestCollection(playerId, collectionsToSync);
+				var result = await _plugin.BlockchainApi.RequestCollection(playerId, collectionsToSync);
 
 				return result;
 			}
 			catch (Exception ex)
 			{
-				BlockchainApi._ctx.Log.LogError($"An error occurred while syncing NFT collections: {ex.Message}");
+				_plugin.Ctx.Log.LogError($"An error occurred while syncing NFT collections: {ex.Message}");
 			}
 			
 			

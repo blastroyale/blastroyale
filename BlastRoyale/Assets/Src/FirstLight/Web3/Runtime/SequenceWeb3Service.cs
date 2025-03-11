@@ -248,5 +248,11 @@ namespace FirstLight.Web3.Runtime
 		{
 			return Init(result);
 		}
+		
+		public async UniTask BeforeLogout()
+		{
+			if (!IsEnabled() || Wallet == null) return;
+			await Wallet.DropThisSession();
+		}
 	}
 }

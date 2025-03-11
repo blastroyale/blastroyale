@@ -35,11 +35,9 @@ namespace IntegrationTests
 			var pluginLogger = _server.Services.GetService<IPluginLogger>();
 			var eventManager = new PluginEventManager(pluginLogger);
 			var pluginSetup = new PluginContext(eventManager, _server.Services);
-			blastRoyalePlugin = new BlastRoyalePlugin(_server.Services.GetService<IStoreService >(), _server.Services.GetService<IUserMutex>(), _server.Services.GetService<IInventorySyncService<ItemData>>());
+			blastRoyalePlugin = new BlastRoyalePlugin(_server.Services.GetService<IStoreService >(), _server.Services.GetService<IInventorySyncService<ItemData>>());
 			blastRoyalePlugin.OnEnable(pluginSetup);
-
-			NftSync = new BlockchainApi("***REMOVED***", "devkey", pluginSetup,
-				blastRoyalePlugin);
+			NftSync = new BlockchainApi("***REMOVED***", "devkey");
 		}
 
 
@@ -47,7 +45,7 @@ namespace IntegrationTests
 		public async Task TestSyncCollections_Success()
 		{
 			var state = await _server.Services.GetRequiredService<IServerStateService>().GetPlayerState(PlayerId);
-			var success = await NftSync.SyncData(state, PlayerId);
+			var success = await blastRoyalePlugin.SyncCollections(state, PlayerId);
 
 			Assert.IsTrue(success);
 		}

@@ -16,8 +16,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			var item = ItemFactory.Currency(GameId.XP, 100);
 
-			var packed = logic.PackItem(item);
-			var unpacked = logic.UnpackItem(packed);
+			var packed = Web3Logic.PackItem(item);
+			var unpacked = Web3Logic.UnpackItem(packed);
 			
 			Assert.AreEqual(unpacked.GetMetadata<CurrencyMetadata>().Amount, item.GetMetadata<CurrencyMetadata>().Amount);
 		}

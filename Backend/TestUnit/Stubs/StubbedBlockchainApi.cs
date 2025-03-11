@@ -10,12 +10,10 @@ using Tests.Stubs;
 /// </summary>
 public class StubbedBlockchainApi : BlockchainApi
 {
-	public List<RemoteCollectionItem> Owned => ((StubbedCollectionSyncService)CollectionsSyncService).Owned;
-
 	public ulong LastUpdate => 1;
 
-	public StubbedBlockchainApi(PluginContext ctx, BlastRoyalePlugin blastRoyalePlugin) : base(null, null, ctx, blastRoyalePlugin)
+	public StubbedBlockchainApi() : base(null, null)
 	{
-		CollectionsSyncService = new StubbedCollectionSyncService(this);
+
 	}
 }

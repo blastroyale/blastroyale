@@ -95,7 +95,7 @@ namespace FirstLight.Web3.Runtime.SequenceContracts
 
 		private ItemData ExtractItemData(EventLog<PurchaseIntentCreatedEvent> ev)
 		{
-			return MainInstaller.ResolveData().Web3Data.UnpackItem(new PackedItem()
+			return Web3Logic.UnpackItem(new PackedItem()
 			{
 				GameId = BitConverter.GetBytes((ushort)ev.Event.GameId),
 				Metadata = ev.Event.Metadata

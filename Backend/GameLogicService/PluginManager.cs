@@ -102,6 +102,7 @@ namespace Backend.Plugins
 						$"Error initializing plugin {plugin.GetType().Name} {e.Message} {e.StackTrace}");
 				}
 			}
+			_loadedPlugins = allPlugins;
 		}
 
 		/// <summary>
@@ -128,7 +129,6 @@ namespace Backend.Plugins
 		{
 			var loadedPlugins = new List<ServerPlugin>();
 			var br = new BlastRoyalePlugin(serviceProvider.GetService<IStoreService>(), 
-				serviceProvider.GetService<IUserMutex>(),
 				serviceProvider.GetService<IInventorySyncService<ItemData>>());
 			loadedPlugins.Add(br);
 			return loadedPlugins;

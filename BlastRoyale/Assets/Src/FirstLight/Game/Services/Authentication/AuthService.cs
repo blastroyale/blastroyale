@@ -56,6 +56,7 @@ namespace FirstLight.Game.Services.Authentication
 		UniTask BeforeAuthentication(bool previouslyLoggedIn);
 		UniTask AfterAuthentication(LoginResult result, bool previouslyLoggedIn);
 		UniTask AfterFetchedState(LoginResult result);
+		UniTask BeforeLogout();
 	}
 
 	internal interface ILoginProvider : IAuthenticationHook
@@ -497,6 +498,7 @@ namespace FirstLight.Game.Services.Authentication
 
 		public async UniTask Logout()
 		{
+			await UniTask.WhenAll(_authenticationHooks.Select(a => a.BeforeLogout()));
 			await _loginProvider.Logout();
 			AuthenticationService.Instance.SignOut(true);
 			_sessionData.IsAuthenticated = false;

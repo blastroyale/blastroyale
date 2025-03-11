@@ -39,7 +39,7 @@ namespace FirstLight.Web3.Runtime.SequenceContracts
 			FLog.Verbose("Sending purchase intent for "+gameItem);
 			howMuch = Web3Logic.ConvertToWei((decimal) howMuch);
 			_service.GetCurrency(_currency).CurrencyContract.PrepareApprovalTransaction(tx, _contract, howMuch);
-			var packedItem = _service.GameData.Web3Data.PackItem(gameItem);
+			var packedItem = Web3Logic.PackItem(gameItem);
 			var itemId = (int) BitConverter.ToUInt16(packedItem.GameId);
 			var metadata = new FixedByte(32, packedItem.Metadata.PadTo32Bytes());
 			tx.EnqueueCall(_contractInstance.CallFunction("IntentPurchase", 

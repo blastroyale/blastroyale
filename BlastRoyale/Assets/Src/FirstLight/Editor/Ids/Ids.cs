@@ -306,9 +306,10 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinNoob", 323, PlayerSkin, Collection},
 			{"PlayerSkinPigeon", 324, PlayerSkin, Collection},
 			{"PlayerSkinStar", 325, PlayerSkin, Collection},
-			{"PlayerSkinRaincoat", 341, PlayerSkin, Collection},
-			{"PlayerSkinSakura", 342, PlayerSkin, Collection},
-			{"PlayerSkinZombie", 343, PlayerSkin, Collection},
+			{"PlayerSkinRaincoat", 343, PlayerSkin, Collection},
+			{"PlayerSkinSakura", 344, PlayerSkin, Collection},
+			{"PlayerSkinZombie", 345, PlayerSkin, Collection},
+			{"PlayerSkinCyberBunny", 346, PlayerSkin, Collection},
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins

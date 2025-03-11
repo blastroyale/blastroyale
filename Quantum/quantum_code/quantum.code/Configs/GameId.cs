@@ -1751,6 +1751,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinCyberBunny, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
@@ -3626,6 +3633,7 @@ namespace Quantum
 						GameId.PlayerSkinRaincoat,
 						GameId.PlayerSkinSakura,
 						GameId.PlayerSkinZombie,
+						GameId.PlayerSkinCyberBunny,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -4198,7 +4206,8 @@ namespace Quantum
 						GameId.PlayerSkinStar,
 						GameId.PlayerSkinRaincoat,
 						GameId.PlayerSkinSakura,
-						GameId.PlayerSkinZombie
+						GameId.PlayerSkinZombie,
+						GameId.PlayerSkinCyberBunny
 					}.AsReadOnly()
 				},
 				{

@@ -419,7 +419,7 @@ MonoBehaviour:
               Rarity: 0
           Weight: 15
         - ItemConfig:
-            SimpleGameId: 341
+            SimpleGameId: 342
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -551,12 +551,12 @@ MonoBehaviour:
               Rarity: 0
           Weight: 50
         - ItemConfig:
-            SimpleGameId: 341
+            SimpleGameId: 342
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 341
+              GameId: 342
               Grade: 0
               Level: 0
               Material: 4
@@ -871,7 +871,7 @@ MonoBehaviour:
               Rarity: 0
           Weight: 0
         - ItemConfig:
-            SimpleGameId: 341
+            SimpleGameId: 342
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
@@ -1003,12 +1003,12 @@ MonoBehaviour:
               Rarity: 0
           Weight: 5
         - ItemConfig:
-            SimpleGameId: 341
+            SimpleGameId: 342
             EquipmentMetadata:
               Adjective: 0
               Edition: 0
               Faction: 0
-              GameId: 341
+              GameId: 342
               Grade: 0
               Level: 0
               Material: 4
@@ -1203,7 +1203,7 @@ MonoBehaviour:
               Rarity: 0
           Weight: 65
         - ItemConfig:
-            SimpleGameId: 341
+            SimpleGameId: 342
             EquipmentMetadata:
               Adjective: 0
               Edition: 0

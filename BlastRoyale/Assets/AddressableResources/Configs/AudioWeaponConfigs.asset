@@ -76,7 +76,7 @@ MonoBehaviour:
     ProjectileImpactId: 0
     ProjectileEndOfLife: 0
     ChangeMagazineId: 0
-  - GameId: 341
+  - GameId: 342
     WeaponShotId: 184
     WeaponShotLocalId: 185
     WeaponShotWindUpId: 0

@@ -157,7 +157,7 @@ namespace FirstLight.Editor.Ids
 			{"GunSniperHeavy", 269, Weapon, Equipment},
 			{"GunARBurst", 270, Weapon, Equipment},
 			{"GunShotgunAuto", 292, Weapon, Equipment},
-			{"GunARRebel", 341, Weapon, Equipment},
+			{"GunARRebel", 342, Weapon, Equipment},
 			{"MouseAmulet", 38, Amulet, Equipment, Gear, Simple, Deprecated},
 			{"RiotAmulet", 39, Amulet, Equipment, Gear, Deprecated},
 			{"SoldierAmulet", 40, Amulet, Equipment, Gear, Deprecated},

@@ -918,7 +918,7 @@ MonoBehaviour:
         RawValue: 0
       ShieldCapacityRatioToBase:
         RawValue: 0
-    - Id: 341
+    - Id: 342
       Manufacturer: 0
       HpRatioToBase:
         RawValue: 0

@@ -54,6 +54,7 @@
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__banner-pigeon: url('/Assets/Art/UI/Sprites/Home/banner-pigeon.png');
     --sprite-home__banner-ribbon-copper: url('/Assets/Art/UI/Sprites/Home/banner-ribbon-copper.png');
+    --sprite-home__banner-sakura: url('/Assets/Art/UI/Sprites/Home/banner-sakura.png');
     --sprite-home__banner-speed-lines-bottom: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-bottom.png');
     --sprite-home__banner-speed-lines-top: url('/Assets/Art/UI/Sprites/Home/banner-speed-lines-top.png');
     --sprite-home__banner-spotlight-green: url('/Assets/Art/UI/Sprites/Home/banner-spotlight-green.png');
@@ -254,6 +255,7 @@
     --sprite-home__rewards-gradient-purple: url('/Assets/Art/UI/Sprites/Home/rewards-gradient-purple.png');
     --sprite-home__rewards-impact-circle: url('/Assets/Art/UI/Sprites/Home/rewards-impact-circle.png');
     --sprite-home__reward-slot: url('/Assets/Art/UI/Sprites/Home/reward-slot.png');
+    --sprite-home__sakura-season-reward: url('/Assets/Art/UI/Sprites/Home/sakura-season-reward.png');
     --sprite-home__tag-body: url('/Assets/Art/UI/Sprites/Home/tag-body.png');
     --sprite-home__text-blast: url('/Assets/Art/UI/Sprites/Home/text-blast.png');
     --sprite-home__text-royale: url('/Assets/Art/UI/Sprites/Home/text-royale.png');
@@ -590,6 +592,12 @@
     background-image: var(--sprite-home__banner-ribbon-copper);
     width: 162px;
     height: 216px;
+}
+
+.sprite-home__banner-sakura {
+    background-image: var(--sprite-home__banner-sakura);
+    width: 526px;
+    height: 698px;
 }
 
 .sprite-home__banner-speed-lines-bottom {
@@ -1742,6 +1750,12 @@
     background-image: var(--sprite-home__reward-slot);
     width: 270px;
     height: 270px;
+}
+
+.sprite-home__sakura-season-reward {
+    background-image: var(--sprite-home__sakura-season-reward);
+    width: 1175px;
+    height: 943px;
 }
 
 .sprite-home__tag-body {

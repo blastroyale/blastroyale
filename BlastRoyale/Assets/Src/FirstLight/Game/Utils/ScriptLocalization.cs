@@ -1289,6 +1289,16 @@ namespace I2.Loc
 			public static string AvatarWitchhatDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarWitchhatDescription"); } }
 			public static string AvatarYeti 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarYeti"); } }
 			public static string AvatarYetiDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarYetiDescription"); } }
+			public static string AvatarCyberBunny { get{ return LocalizationManager.GetTranslation ("GameIds/AvatarCyberBunny"); } }
+			public static string AvatarCyberBunnyDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarCyberBunnyDescription"); } }
+			public static string AvatarEaster 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarEaster"); } }
+			public static string AvatarEasterDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarEasterDescription"); } }
+			public static string AvatarRaincoat 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarRaincoat"); } }
+			public static string AvatarRaincoatDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarRaincoatDescription"); } }
+			public static string AvatarSakura 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSakura"); } }
+			public static string AvatarSakuraDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarSakuraDescription"); } }
+			public static string AvatarZombie 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarZombie"); } }
+			public static string AvatarZombieDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AvatarZombieDescription"); } }
 			public static string BLSTDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BLSTDescription"); } }
 			public static string BPP 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BPP"); } }
 			public static string BPP_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BPP_Plural"); } }
@@ -1402,6 +1412,14 @@ namespace I2.Loc
 			public static string FlagSaltDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagSaltDescription"); } }
 			public static string FlagStrong 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagStrong"); } }
 			public static string FlagStrongDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagStrongDescription"); } }
+			public static string FlagCryEmoji 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagCryEmoji"); } }
+			public static string FlagCryEmojiDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagCryEmojiDescription"); } }
+			public static string FlagGoat 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagGoat"); } }
+			public static string FlagGoatDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagGoatDescription"); } }
+			public static string FlagCyberBunny 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagCyberBunny"); } }
+			public static string FlagCyberBunnyDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagCyberBunnyDescription"); } }
+			public static string FlagSakura 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagSakura"); } }
+			public static string FlagSakuraDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FlagSakuraDescription"); } }
 			public static string FloodCity 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FloodCity"); } }
 			public static string FloodCitySimple 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FloodCitySimple"); } }
 			public static string FootballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FootballArmor"); } }
@@ -1587,6 +1605,14 @@ namespace I2.Loc
 			public static string MeleeSkinXmas2023Description 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinXmas2023Description"); } }
 			public static string MeleeSkinYouGotMail 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinYouGotMail"); } }
 			public static string MeleeSkinYouGotMailDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinYouGotMailDescription"); } }
+			public static string MeleeSkinSakuraKatana 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinSakuraKatana"); } }
+			public static string MeleeSkinSakuraKatanaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinSakuraKatanaDescription"); } }
+			public static string MeleeSkinUmbrella 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinUmbrella"); } }
+			public static string MeleeSkinUmbrellaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinUmbrellaDescription"); } }
+			public static string MeleeSkinZombieArm 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinZombieArm"); } }
+			public static string MeleeSkinZombieArmDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinZombieArmDescription"); } }
+			public static string MeleeSkinZombieBat 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinZombieBat"); } }
+			public static string MeleeSkinZombieBatDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MeleeSkinZombieBatDescription"); } }
 			public static string ModHeavyMachineGun 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ModHeavyMachineGun"); } }
 			public static string ModLauncher 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ModLauncher"); } }
 			public static string ModMachineGun 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ModMachineGun"); } }
@@ -1770,6 +1796,14 @@ namespace I2.Loc
 			public static string PlayerSkinXmasSuperstarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinXmasSuperstarDescription"); } }
 			public static string PlayerSkinYeti 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinYeti"); } }
 			public static string PlayerSkinYetiDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinYetiDescription"); } }
+			public static string PlayerSkinSakura 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinSakura"); } }
+			public static string PlayerSkinSakuraDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinSakuraDescription"); } }
+			public static string PlayerSkinZombie 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinZombie"); } }
+			public static string PlayerSkinZombieDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinZombieDescription"); } }
+			public static string PlayerSkinCyberBunny 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinCyberBunny"); } }
+			public static string PlayerSkinCyberBunnyDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinCyberBunnyDescription"); } }
+			public static string PlayerSkinRaincoat 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinRaincoat"); } }
+			public static string PlayerSkinRaincoatDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PlayerSkinRaincoatDescription"); } }
 			public static string Punk 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Punk"); } }
 			public static string PunkDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PunkDescription"); } }
 			public static string Rage 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Rage"); } }

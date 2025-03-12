@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5e6eeb46e0b4146dd84843fca6764738
+guid: d6e4976560b5348f08a8f8b278ed1ce2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Sakura
-    second: {fileID: 2100000, guid: ae68251f004e1428184f9d820a995f66, type: 2}
+    second: {fileID: 2100000, guid: 840083aa287c44112b0f075cdeb2d051, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

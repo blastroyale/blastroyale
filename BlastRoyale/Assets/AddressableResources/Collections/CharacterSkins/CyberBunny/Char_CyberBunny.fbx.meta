@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d4b1a824343604cec8bc53dd5ef1b352
+guid: 73e5dae53be62454891615bd8111057d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_CyberBunny
-    second: {fileID: 2100000, guid: 31bce2945f2464184962a9f22ffd6a9b, type: 2}
+    second: {fileID: 2100000, guid: e6bf1f7fb76ef4005baaab5b703c42ef, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1

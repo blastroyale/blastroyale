@@ -457,6 +457,11 @@ enum GameId
 	AvatarSupporterBronze202502 = 569,
 	AvatarSupporterBronze202503 = 570,
 	AvatarSupporterBronze202504 = 571,
+	AvatarCyberBunny = 572,
+	AvatarEaster = 573,
+	AvatarRaincoat = 574,
+	AvatarSakura = 575,
+	AvatarZombie = 576,
 	FootprintDot = 111,
 }
 

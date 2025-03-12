@@ -551,6 +551,11 @@ namespace FirstLight.Editor.Ids
 			{"AvatarSupporterBronze202503", 570, ProfilePicture, Collection},
 			{"AvatarSupporterBronze202504", 571, ProfilePicture, Collection},
 			
+			{"AvatarCyberBunny", 572, ProfilePicture, Collection},
+			{"AvatarEaster", 573, ProfilePicture, Collection},
+			{"AvatarRaincoat", 574, ProfilePicture, Collection},
+			{"AvatarSakura", 575, ProfilePicture, Collection},
+			{"AvatarZombie", 576, ProfilePicture, Collection},
 			#endregion
 
 			#region Footprint

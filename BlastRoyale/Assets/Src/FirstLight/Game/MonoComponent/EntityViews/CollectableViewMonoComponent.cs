@@ -146,6 +146,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
 							_itemGameObject.transform.position += new Vector3(0f, -0.75f, -0.23f);
 							break;
+						case GameId.GunARRebel:
+							_itemGameObject.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
+							_itemGameObject.transform.position += new Vector3(0f, -0.75f, -0.05f);
+							break;
 					}
 				}
 

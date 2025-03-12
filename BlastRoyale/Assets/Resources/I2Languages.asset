@@ -11211,6 +11211,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/GunARRebel
+      TermType: 0
+      Description: 
+      Languages:
+      - REBEL AR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/GunShotgunAuto
       TermType: 0
       Description: 

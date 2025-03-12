@@ -1419,6 +1419,7 @@ namespace I2.Loc
 			public static string GoldenBoots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBoots"); } }
 			public static string GoldenBootsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBootsDescription"); } }
 			public static string GunARBurst 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GunARBurst"); } }
+			public static string GunARRebel 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GunARRebel"); } }
 			public static string GunShotgunAuto 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GunShotgunAuto"); } }
 			public static string GunSniperHeavy 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GunSniperHeavy"); } }
 			public static string HC 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HC"); } }
@@ -4534,7 +4535,8 @@ namespace I2.Loc
 		    public const string GoldenBoots = "GameIds/GoldenBoots";
 		    public const string GoldenBootsDescription = "GameIds/GoldenBootsDescription";
 		    public const string GunARBurst = "GameIds/GunARBurst";
-		    public const string GunShotgunAuto = "GameIds/GunShotgunAuto";
+			public const string GunARRebel = "GameIds/GunARRebel";
+			public const string GunShotgunAuto = "GameIds/GunShotgunAuto";
 		    public const string GunSniperHeavy = "GameIds/GunSniperHeavy";
 		    public const string HC = "GameIds/HC";
 		    public const string Hammer = "GameIds/Hammer";

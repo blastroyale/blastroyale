@@ -139,3 +139,48 @@ MonoBehaviour:
     ProjectileImpactId: 0
     ProjectileEndOfLife: 0
     ChangeMagazineId: 0
+  - GameId: 303
+    WeaponShotId: 199
+    WeaponShotLocalId: 200
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+    ProjectileEndOfLife: 0
+    ChangeMagazineId: 0
+  - GameId: 338
+    WeaponShotId: 199
+    WeaponShotLocalId: 200
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+    ProjectileEndOfLife: 0
+    ChangeMagazineId: 0
+  - GameId: 322
+    WeaponShotId: 199
+    WeaponShotLocalId: 200
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+    ProjectileEndOfLife: 0
+    ChangeMagazineId: 0
+  - GameId: 225
+    WeaponShotId: 213
+    WeaponShotLocalId: 214
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+    ProjectileEndOfLife: 0
+    ChangeMagazineId: 0
+  - GameId: 304
+    WeaponShotId: 213
+    WeaponShotLocalId: 214
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+    ProjectileEndOfLife: 0
+    ChangeMagazineId: 0

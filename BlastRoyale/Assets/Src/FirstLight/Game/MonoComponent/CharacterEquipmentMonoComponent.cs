@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Collections;
@@ -23,6 +24,7 @@ namespace FirstLight.Game.MonoComponent
 
 		private GameObject _weaponGun;
 		private GameObject _weaponMelee;
+		private GameId _specialSoundMeleeId;
 		protected IGameServices _services;
 
 		private GameId[] _cosmetics = { };
@@ -34,6 +36,11 @@ namespace FirstLight.Game.MonoComponent
 		{
 			get => _cosmetics;
 			set => _cosmetics = value;
+		}
+
+		public GameId SpecialSoundMeleeId
+		{
+			get => _specialSoundMeleeId;
 		}
 
 		protected virtual void Awake()
@@ -95,6 +102,12 @@ namespace FirstLight.Game.MonoComponent
 			else
 			{
 				FLog.Error($"Unable to find RenderersContainerMonoComponent for {skinId.Id}");
+			}
+
+			_specialSoundMeleeId = GameId.Random;
+			if (_services.ConfigsProvider.TryGetConfig<AudioWeaponConfig>((int) skinId.Id, out _))
+			{
+				_specialSoundMeleeId = skinId.Id;
 			}
 
 			return weapon;

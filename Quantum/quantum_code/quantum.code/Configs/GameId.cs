@@ -1915,6 +1915,34 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.FlagCryEmoji, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagGoat, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagCyberBunny, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagSakura, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.MeleeSkinDefault, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
@@ -2351,6 +2379,34 @@ namespace Quantum
 				},
 				{
 					GameId.MeleeSkinDumbbell, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinSakuraKatana, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinUmbrella, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinZombieArm, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinZombieBat, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
 						GameIdGroup.Collection
@@ -3655,6 +3711,10 @@ namespace Quantum
 						GameId.FlagStrong,
 						GameId.FlagNight,
 						GameId.FlagPOG,
+						GameId.FlagCryEmoji,
+						GameId.FlagGoat,
+						GameId.FlagCyberBunny,
+						GameId.FlagSakura,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinSausage,
 						GameId.MeleeSkinCactus,
@@ -3717,6 +3777,10 @@ namespace Quantum
 						GameId.MeleeSkinLunarStaff,
 						GameId.MeleeSkinChickenleg,
 						GameId.MeleeSkinDumbbell,
+						GameId.MeleeSkinSakuraKatana,
+						GameId.MeleeSkinUmbrella,
+						GameId.MeleeSkinZombieArm,
+						GameId.MeleeSkinZombieBat,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -4129,7 +4193,11 @@ namespace Quantum
 						GameId.MeleeSkinBrush,
 						GameId.MeleeSkinLunarStaff,
 						GameId.MeleeSkinChickenleg,
-						GameId.MeleeSkinDumbbell
+						GameId.MeleeSkinDumbbell,
+						GameId.MeleeSkinSakuraKatana,
+						GameId.MeleeSkinUmbrella,
+						GameId.MeleeSkinZombieArm,
+						GameId.MeleeSkinZombieBat
 					}.AsReadOnly()
 				},
 				{
@@ -4238,7 +4306,11 @@ namespace Quantum
 						GameId.FlagLamp,
 						GameId.FlagStrong,
 						GameId.FlagNight,
-						GameId.FlagPOG
+						GameId.FlagPOG,
+						GameId.FlagCryEmoji,
+						GameId.FlagGoat,
+						GameId.FlagCyberBunny,
+						GameId.FlagSakura
 					}.AsReadOnly()
 				},
 				{

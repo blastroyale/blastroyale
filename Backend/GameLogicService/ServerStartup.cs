@@ -41,7 +41,7 @@ namespace Backend
 			DbSetup.Setup(services, envConfig);
 			var pluginManager = new PluginManager();
 
-			services.AddSingleton<IPluginManager>(f => pluginManager);
+			services.AddSingleton<IPluginManager, PluginManager>(p => pluginManager);
 			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, AnalyticsService>();
 			services.AddSingleton<IAnalyticsProvider, PlayfabAnalyticsProvider>();
@@ -72,18 +72,21 @@ namespace Backend
 			services.AddHttpClient();
 			ConfigureRedisLock(services);
 			services.AddSingleton<IUserMutex, UserMutexWrapper>();
-			services.AddSingleton<IEventManager, PluginEventManager>(p =>
-			{
-				var pluginLogger = p.GetService<IPluginLogger>();
-				var eventManager = new PluginEventManager(pluginLogger);
-				var pluginSetup = new PluginContext(eventManager, p);
-				pluginManager.LoadPlugins(pluginSetup, p);
-				return eventManager;
-			});
+			services.AddSingleton<IEventManager, PluginEventManager>();
 			services.AddSingleton<IConfigsProvider>(SetupConfigsProvider);
 			builder.SetupSharedServices(appPath);
 			pluginManager.LoadServerSetup(services);
 			return envConfig;
+		}
+
+		public static void PostLoad(IServiceProvider s)
+		{
+			var pluginManager = s.GetRequiredService<IPluginManager>() as PluginManager;
+			var pluginLogger = s.GetRequiredService<IPluginLogger>();
+			var eventManager = new PluginEventManager(pluginLogger);
+			var pluginSetup = new PluginContext();
+			pluginSetup.SetupContext(eventManager, s);
+			pluginManager.LoadPlugins(pluginSetup, s);
 		}
 
 		private static void ConfigureRedisLock(IServiceCollection services)

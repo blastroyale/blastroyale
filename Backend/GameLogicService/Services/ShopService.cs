@@ -129,8 +129,10 @@ namespace GameLogicService.Services
 			if (dailyDealsConfiguration != null)
 			{
 				var specialStore = dailyDealsConfiguration.SpecialStoreList.FirstOrDefault(s => s.SpecialStoreItemIDs.Contains(catalogItemId));
-				
-				return await _storeService.GetItemPrice(catalogItemId, specialStore.SpecialStoreName);
+				if (specialStore != null)
+				{
+					return await _storeService.GetItemPrice(catalogItemId, specialStore.SpecialStoreName);
+				}
 			}
 			return await _storeService.GetItemPrice(catalogItemId);
 		}

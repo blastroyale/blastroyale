@@ -359,8 +359,8 @@ namespace FirstLight.Game.Presenters
 				var leaderboardEntry = _leaderboardEntryAsset.Instantiate();
 				leaderboardEntry.AttachView(this, out LeaderboardEntryView leaderboardEntryView);
 				var isLocal = _matchServices.MatchEndDataService.LocalPlayer == playerEntry.Data.Player;
-				leaderboardEntryView.SetData((int) playerEntry.PlayerRank, playerEntry.GetPlayerName(), (int) playerEntry.Data.PlayersKilledCount,
-					(int) playerEntry.Data.PlayerTrophies, isLocal, null, borderColor);
+				leaderboardEntryView.SetData((int) playerEntry.PlayerRank, playerEntry.GetPlayerName(), (int) playerEntry.Data.DamageDone,
+											 (int) playerEntry.Data.PlayersKilledCount, (int) playerEntry.Data.PlayerTrophies, isLocal, null, borderColor);
 				if (!isLocal)
 				{
 					leaderboardEntryView.SetOptions((el) =>

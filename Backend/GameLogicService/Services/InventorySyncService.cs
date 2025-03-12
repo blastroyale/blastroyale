@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Game.Services;
+using Backend.Plugins;
+using BlastRoyaleNFTPlugin;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services.Analytics;
@@ -29,7 +32,7 @@ namespace GameLogicService.Services
 		private IServerAnalytics _analytics;
 		private ILogger _log;
 		private IItemCatalog<ItemData> _catalog;
-
+		
 		public PlayfabInventorySyncService(IServerAnalytics analytics, ILogger log, IItemCatalog<ItemData> catalog)
 		{
 			_log = log;
@@ -38,7 +41,7 @@ namespace GameLogicService.Services
 		}
 
 		private async Task<int> SyncCurrency(string player, GetUserInventoryResult inventory, PlayerData playerData,
-											 GameId gameId)
+											 ServerState state, GameId gameId)
 		{
 			var playfabName = PlayfabCurrencies.GetPlayfabCurrencyName(gameId);
 			inventory.VirtualCurrency.TryGetValue(playfabName, out var playfabAmount);
@@ -78,7 +81,7 @@ namespace GameLogicService.Services
 				var currencies = new[] { GameId.COIN, GameId.CS, GameId.BlastBuck, GameId.NOOB };
 				foreach (var gameId in currencies)
 				{
-					consumedCurrencies[gameId] = await SyncCurrency(player, inventory, playerData, gameId);
+					consumedCurrencies[gameId] = await SyncCurrency(player, inventory, playerData, state, gameId);
 					givenGameItems.Add(ItemFactory.Currency(gameId, consumedCurrencies[gameId]));
 				}
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -47,13 +48,25 @@ namespace FirstLight.Game.Commands
 				{
 					given.Add(ctx.Logic.RewardLogic().ClaimUnclaimedReward(UncollectedReward));	
 				}
-				
+
+				if (given.Any(e => e.Id.IsInGroup(GameIdGroup.CryptoCurrency)))
+				{
+					ctx.Logic.RewardLogic().Reward(new [] { ItemFactory.Currency(GameId.GasTicket, 1) });
+				}
 				GivenRewards = given.ToArray();
+				ctx.Services.MessageBrokerService().Publish(new ShopClaimedRewardsMessage()
+				{
+					Rewards = given
+				});
 				return UniTask.CompletedTask;
 			}
 
 			var trophiesBefore = ctx.Logic.PlayerLogic().Trophies.Value;
 			var rewards = ctx.Logic.RewardLogic().ClaimUnclaimedRewards();
+			if (rewards.Any(e => e.Id.IsInGroup(GameIdGroup.CryptoCurrency)))
+			{
+				ctx.Logic.RewardLogic().Reward(new [] { ItemFactory.Currency(GameId.GasTicket, 1) });
+			}
 			ctx.Services.MessageBrokerService().Publish(new ClaimedRewardsMessage()
 			{
 				Rewards = rewards

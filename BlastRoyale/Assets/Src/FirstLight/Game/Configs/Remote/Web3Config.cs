@@ -9,7 +9,7 @@ namespace FirstLight.Game.Configs.Remote
 	public class Web3Config
 	{
 		public string RPC;
-		
+		public int ChainId;
 		public CurrencyConfig[] Currencies;
 		
 		[CanBeNull] public CurrencyConfig FindCurrency(GameId id) => Currencies.FirstOrDefault(c => c.GameId == id);

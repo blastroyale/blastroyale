@@ -14,17 +14,17 @@ namespace FirstLight.Server.SDK
 	/// </summary>
 	public class PluginContext
 	{
-		public readonly IEventManager PluginEventManager;
-		public readonly IPluginLogger Log;
-		public readonly IServerStateService ServerState;
-		public readonly IMetricsService Metrics;
-		public readonly IServerAnalytics Analytics;
-		public readonly IBaseServiceConfiguration ServerConfig;
-		public readonly IConfigsProvider GameConfig;
-		public readonly IStatisticsService Statistics;
-		public readonly IServerPlayerProfileService? PlayerProfile;
+		public IEventManager PluginEventManager;
+		public IPluginLogger Log;
+		public IServerStateService ServerState;
+		public IMetricsService Metrics;
+		public IServerAnalytics Analytics;
+		public IBaseServiceConfiguration ServerConfig;
+		public IConfigsProvider GameConfig;
+		public IStatisticsService Statistics;
+		public IServerPlayerProfileService? PlayerProfile;
 		
-		public PluginContext(IEventManager evManager, IServiceProvider services)
+		public void SetupContext(IEventManager evManager, IServiceProvider services)
 		{
 			PluginEventManager = evManager;
 			Log = (IPluginLogger)services.GetService(typeof(IPluginLogger));

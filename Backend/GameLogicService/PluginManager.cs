@@ -26,6 +26,12 @@ namespace Backend.Plugins
 		public List<ServerPlugin> GetPlugins();
 
 		/// <summary>
+		/// Gets a specific instance of a plugin
+		/// Throws exception if plugn not present
+		/// </summary>
+		public T GetPlugin<T>() where T : ServerPlugin;
+
+		/// <summary>
 		/// 
 		/// </summary>
 		public Type GetRegisteredCommand(string typeFullName);
@@ -54,6 +60,11 @@ namespace Backend.Plugins
 
 		public List<ServerPlugin> GetPlugins() => _loadedPlugins;
 
+		public T GetPlugin<T>() where T : ServerPlugin
+		{
+			return _loadedPlugins.OfType<T>().First();
+		}
+
 		/// <summary>
 		/// Loads the server setup configuration given by the client, if provided in assembly.
 		/// </summary>
@@ -80,7 +91,7 @@ namespace Backend.Plugins
 		/// <summary>
 		/// Loads server plugins and perform hooks to PluginSetup
 		/// </summary>
-		public void LoadPlugins(PluginContext context, IServiceProvider services)
+		public List<ServerPlugin> LoadPlugins(PluginContext context, IServiceProvider services)
 		{
 			var allPlugins = LoadServerPlugins(services);
 			var clientPlugins = GetClientPlugins();
@@ -103,6 +114,7 @@ namespace Backend.Plugins
 				}
 			}
 			_loadedPlugins = allPlugins;
+			return _loadedPlugins;
 		}
 
 		/// <summary>

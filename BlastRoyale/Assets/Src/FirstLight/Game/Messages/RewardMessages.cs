@@ -29,6 +29,11 @@ namespace FirstLight.Game.Messages
 		public List<ItemData> Rewards;
 	}
 	
+	public class ShopClaimedRewardsMessage : IMessage
+	{
+		public List<ItemData> Rewards;
+	}
+	
 	public class NewBattlePassSeasonMessage : IMessage
 	{
 	}

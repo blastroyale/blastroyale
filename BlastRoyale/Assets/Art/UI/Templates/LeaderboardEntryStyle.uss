@@ -11,7 +11,7 @@
     -unity-slice-top: 0;
     -unity-slice-right: 20;
     -unity-slice-bottom: 0;
-    width: 720px;
+    width: 870px;
     height: 64px;
     justify-content: center;
     right: 0;
@@ -101,7 +101,7 @@
     color: rgb(105, 98, 166);
     position: absolute;
     -unity-text-align: upper-right;
-    right: 15px;
+    right: -45px;
     white-space: nowrap;
     left: auto;
 }
@@ -111,6 +111,25 @@
 }
 
 .leaderboard-entry--local .leaderboard-entry__kills {
+    color: rgb(233, 226, 225);
+}
+
+.leaderboard-entry__damage {
+    font-size: 36px;
+    -unity-font-style: normal;
+    color: rgb(105, 98, 166);
+    position: absolute;
+    -unity-text-align: upper-right;
+    right: 25px;
+    white-space: nowrap;
+    left: auto;
+}
+
+.leaderboard-entry--global .leaderboard-entry__damage {
+    display: none;
+}
+
+.leaderboard-entry--local .leaderboard-entry__damage {
     color: rgb(233, 226, 225);
 }
 

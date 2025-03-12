@@ -78,20 +78,25 @@
 }
 
 .leaderboard-header__rank-number {
-    left: 200px;
+    left: 120px;
 }
 
 .leaderboard-header__player {
-    left: 280px;
+    left: 180px;
+}
+
+.leaderboard-header__damage {
+    right: 315px;
+    -unity-text-align: upper-right;
 }
 
 .leaderboard-header__kills {
-    right: 235px;
+    right: 215px;
     -unity-text-align: upper-right;
 }
 
 .leaderboard-header__trophies {
-    right: 10px;
+    right: 45px;
     -unity-text-align: upper-right;
 }
 

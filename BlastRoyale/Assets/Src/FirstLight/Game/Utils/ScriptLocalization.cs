@@ -2775,6 +2775,7 @@ namespace I2.Loc
 			public static string deaths 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/deaths"); } }
 			public static string games 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/games"); } }
 			public static string global_leaderboard 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/global_leaderboard"); } }
+			public static string damage 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/damage"); } }
 			public static string kills 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/kills"); } }
 			public static string player 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/player"); } }
 			public static string ranked 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/ranked"); } }
@@ -5891,6 +5892,7 @@ namespace I2.Loc
 		    public const string deaths = "UITLeaderboards/deaths";
 		    public const string games = "UITLeaderboards/games";
 		    public const string global_leaderboard = "UITLeaderboards/global_leaderboard";
+			public const string damage = "UITLeaderboards/damage";
 		    public const string kills = "UITLeaderboards/kills";
 		    public const string player = "UITLeaderboards/player";
 		    public const string ranked = "UITLeaderboards/ranked";

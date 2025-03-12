@@ -23,7 +23,7 @@ namespace BlastRoyaleNFTPlugin
 	public class BlockchainApi
 	{
 		private static readonly CollectionFetchResponse _EMPTY_COLLECTION = new()
-			{NFTsOwned = new List<RemoteCollectionItem>()};
+			{CollectionNFTsOwnedDict = new Dictionary<string, List<RemoteCollectionItem>>()};
 		
 		internal HttpClient _client;
 		internal string _externalUrl;
@@ -121,8 +121,8 @@ namespace BlastRoyaleNFTPlugin
 					Console.Error.WriteLine($"Error obtaining NFT Collection Response [{response.StatusCode}] - {responseString}");
 					return _EMPTY_COLLECTION;
 				}
-				var list = ModelSerializer.Deserialize<List<RemoteCollectionItem>>(responseString) ?? new List<RemoteCollectionItem>();
-				return new CollectionFetchResponse { NFTsOwned = list };
+				var collectionNFTsOwnedDict = ModelSerializer.Deserialize<Dictionary<string, List<RemoteCollectionItem>>>(responseString) ?? new Dictionary<string, List<RemoteCollectionItem>>();
+				return new CollectionFetchResponse { CollectionNFTsOwnedDict = collectionNFTsOwnedDict };
 			}
 			catch (Exception ex)
 			{

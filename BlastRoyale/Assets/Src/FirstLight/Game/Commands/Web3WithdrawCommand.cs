@@ -16,6 +16,7 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct Web3WithdrawCommand : IGameCommand
 	{
+		public ulong Amount;
 		public GameId Currency;
 		public string Contract;
 		public int Chain;
@@ -38,6 +39,11 @@ namespace FirstLight.Game.Commands
 			if (amt == 0)
 			{
 				return UniTask.CompletedTask;
+			}
+
+			if (Amount != 0)
+			{
+				amt = Amount;
 			}
 			
 			//ctx.Logic.CurrencyLogic().DeductCurrency(GameId.GasTicket, 1);

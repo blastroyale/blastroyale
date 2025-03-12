@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -7,7 +8,9 @@ using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.Remote;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Authentication;
@@ -66,6 +69,7 @@ namespace FirstLight.Web3.Runtime
 			MainInstaller.Bind<IWeb3Service>(this);
 			GameServices.AuthService.RegisterHook(this);
 			((IAPService)GameServices.IAPService).PrePurchaseHooks.Add(OnPreparePurchase);
+			GameServices.MessageBrokerService.Subscribe<ShopClaimedRewardsMessage>(OnClaimRewards);
 			State = Web3State.Available;
 		}
 
@@ -89,9 +93,35 @@ namespace FirstLight.Web3.Runtime
 			GameServices.CommandService.ExecuteCommand(new Web3WithdrawCommand()
 			{
 				Contract = config.VoucherContract.Contract.GetAddress(),
-				Chain = (int)Indexer.GetChain(),
+				Chain = Web3Config.ChainId,
 				Currency = GameId.NOOB
 			});
+		}
+		
+		private void OnClaimRewards(ShopClaimedRewardsMessage m)
+		{
+			var cryptos = m.Rewards.Where(r => r.Id.IsInGroup(GameIdGroup.CryptoCurrency)).ToList();
+			FLog.Verbose("Claimed cryptos "+cryptos.Count());
+			if (GameData.Web3Data.CanUseWeb3() && cryptos.Any())
+			{
+				foreach (var cur in cryptos)
+				{
+					if (!cur.TryGetMetadata<CurrencyMetadata>(out var metadata))
+					{
+						FLog.Error("Currency have no currency metadata :L");
+						continue;
+					}
+					var current = GameData.CurrencyDataProvider.Currencies[cur.Id];
+					GameServices.CommandService.ExecuteCommand(new Web3WithdrawCommand()
+					{
+						Amount = (ulong)metadata.Amount,
+						Chain = Web3Config.ChainId,
+						Currency = cur.Id,
+						Contract = GetCurrency(cur.Id).VoucherContract.Contract.GetAddress()
+					});
+				}
+				
+			}
 		}
 		
 		private async UniTask OnPreparePurchase(GameProduct product)
@@ -171,6 +201,8 @@ namespace FirstLight.Web3.Runtime
 				FLog.Verbose("Web3 currency registered " + currency.GameId);
 			}
 			
+			var chainId = (Chain)Web3Config.ChainId;
+			FLog.Info($"Connecting to blockchain {Web3Config.ChainId} - {chainId}"); 
 			if (FLEnvironment.Current == FLEnvironment.PRODUCTION)
 			{
 				FLog.Info("Using production web3 sequence");
@@ -178,12 +210,8 @@ namespace FirstLight.Web3.Runtime
 				var prodConfig = Resources.Load<SequenceConfig>("SequenceConfigProduction");
 				devConfig.WaaSConfigKey = prodConfig.WaaSConfigKey;
 				devConfig.BuilderAPIKey = prodConfig.BuilderAPIKey;
-				Indexer = new ChainIndexer(Chain.Base);
 			}
-			else
-			{
-				Indexer = new ChainIndexer(Chain.TestnetBaseSepolia);
-			}
+			Indexer = new ChainIndexer(chainId);
 			Indexer.Ping().AsUniTask().ContinueWith(r =>
 			{
 				if (!r) throw new Exception("Could not connect to Sequence web3 indexer");

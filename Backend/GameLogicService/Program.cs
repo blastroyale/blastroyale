@@ -48,6 +48,8 @@ if (env.Standalone)
 
 var app = builder.Build();
 
+ServerStartup.PostLoad(app.Services);
+
 var envConfig = app.Services.GetService<IBaseServiceConfiguration>();
 if (envConfig.Standalone)
 {

@@ -26,6 +26,7 @@ namespace Quantum
 		public QuantumPair<FP, FP> AirdropStartTimeRange;
 		public FP AirdropDropDuration;
 		public GameId AirdropChest;
+		public bool IsStormAnchored;
 	}
 
 	/// <summary>

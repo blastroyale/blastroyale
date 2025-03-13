@@ -34,7 +34,8 @@ public class TestNftSync
 		_playerID = _app.GetTestPlayerID();
 		var log = _app.GetService<IPluginLogger>();
 		_events = new PluginEventManager(log);
-		var pluginCtx = new PluginContext(_events, _app.Services);
+		var pluginCtx = new PluginContext();
+		pluginCtx.SetupContext(_events, _app.Services);
 		_plugin = new BlastRoyalePlugin(_app.GetService<IStoreService>(),
 			_app.GetService<IInventorySyncService<ItemData>>());
 		_plugin.OnEnable(pluginCtx);

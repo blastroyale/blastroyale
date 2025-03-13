@@ -100,7 +100,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 25c5a3ace213fb64bbad87a2ad93aac1
+        m_AssetGUID: c58b165839368484fbabaf0fe46393ad
         m_SubObjectName: 
         m_SubObjectGUID: 
         m_SubObjectType: 
@@ -152,7 +152,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: e5e8afa41640b8140b00bf229ccdcddc
+        m_AssetGUID: c58b165839368484fbabaf0fe46393ad
         m_SubObjectName: 
         m_SubObjectGUID: 
         m_SubObjectType: 
@@ -178,7 +178,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: bbca61c80bedeea4ab5f12444133b9aa
+        m_AssetGUID: c58b165839368484fbabaf0fe46393ad
         m_SubObjectName: 
         m_SubObjectGUID: 
         m_SubObjectType: 
@@ -198,7 +198,7 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
     - GameId: 346
       Prefab:
-        m_AssetGUID: 4ccb6bc4b4624453dade231970e53347
+        m_AssetGUID: 71dd14958f407435bafce49790c115b8
         m_SubObjectName: 
         m_SubObjectGUID: 
         m_SubObjectType: 
@@ -529,7 +529,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: eb12963534e5d5b44915a8d2ab916120
+        m_AssetGUID: c58b165839368484fbabaf0fe46393ad
         m_SubObjectName: 
         m_SubObjectGUID: 
         m_SubObjectType: 
@@ -633,7 +633,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Sprite:
-        m_AssetGUID: 3d43fe5e884f4354f8ee3879b53b5d37
+        m_AssetGUID: c58b165839368484fbabaf0fe46393ad
         m_SubObjectName: 
         m_SubObjectGUID: 
         m_SubObjectType: 

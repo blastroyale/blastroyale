@@ -1737,6 +1737,34 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.PlayerSkinRaincoat, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinSakura, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinZombie, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinCyberBunny, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider,
@@ -1888,6 +1916,34 @@ namespace Quantum
 				},
 				{
 					GameId.FlagPOG, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagCryEmoji, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagGoat, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagCyberBunny, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.FlagSakura, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker,
 						GameIdGroup.Collection
@@ -2330,6 +2386,34 @@ namespace Quantum
 				},
 				{
 					GameId.MeleeSkinDumbbell, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinSakuraKatana, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinUmbrella, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinZombieArm, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinZombieBat, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
 						GameIdGroup.Collection
@@ -3206,6 +3290,41 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.AvatarCyberBunny, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarEaster, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRaincoat, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarSakura, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarZombie, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
 					GameId.FootprintDot, new List<GameIdGroup>
 					{
 						GameIdGroup.Footprint,
@@ -3611,6 +3730,10 @@ namespace Quantum
 						GameId.PlayerSkinNoob,
 						GameId.PlayerSkinPigeon,
 						GameId.PlayerSkinStar,
+						GameId.PlayerSkinRaincoat,
+						GameId.PlayerSkinSakura,
+						GameId.PlayerSkinZombie,
+						GameId.PlayerSkinCyberBunny,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -3632,6 +3755,10 @@ namespace Quantum
 						GameId.FlagStrong,
 						GameId.FlagNight,
 						GameId.FlagPOG,
+						GameId.FlagCryEmoji,
+						GameId.FlagGoat,
+						GameId.FlagCyberBunny,
+						GameId.FlagSakura,
 						GameId.MeleeSkinDefault,
 						GameId.MeleeSkinSausage,
 						GameId.MeleeSkinCactus,
@@ -3694,6 +3821,10 @@ namespace Quantum
 						GameId.MeleeSkinLunarStaff,
 						GameId.MeleeSkinChickenleg,
 						GameId.MeleeSkinDumbbell,
+						GameId.MeleeSkinSakuraKatana,
+						GameId.MeleeSkinUmbrella,
+						GameId.MeleeSkinZombieArm,
+						GameId.MeleeSkinZombieBat,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -3817,7 +3948,12 @@ namespace Quantum
 						GameId.AvatarSupporterBronze202501,
 						GameId.AvatarSupporterBronze202502,
 						GameId.AvatarSupporterBronze202503,
-						GameId.AvatarSupporterBronze202504
+						GameId.AvatarSupporterBronze202504,
+						GameId.AvatarCyberBunny,
+						GameId.AvatarEaster,
+						GameId.AvatarRaincoat,
+						GameId.AvatarSakura,
+						GameId.AvatarZombie
 					}.AsReadOnly()
 				},
 				{
@@ -4106,7 +4242,11 @@ namespace Quantum
 						GameId.MeleeSkinBrush,
 						GameId.MeleeSkinLunarStaff,
 						GameId.MeleeSkinChickenleg,
-						GameId.MeleeSkinDumbbell
+						GameId.MeleeSkinDumbbell,
+						GameId.MeleeSkinSakuraKatana,
+						GameId.MeleeSkinUmbrella,
+						GameId.MeleeSkinZombieArm,
+						GameId.MeleeSkinZombieBat
 					}.AsReadOnly()
 				},
 				{
@@ -4180,7 +4320,11 @@ namespace Quantum
 						GameId.PlayerSkinHoli,
 						GameId.PlayerSkinNoob,
 						GameId.PlayerSkinPigeon,
-						GameId.PlayerSkinStar
+						GameId.PlayerSkinStar,
+						GameId.PlayerSkinRaincoat,
+						GameId.PlayerSkinSakura,
+						GameId.PlayerSkinZombie,
+						GameId.PlayerSkinCyberBunny
 					}.AsReadOnly()
 				},
 				{
@@ -4211,7 +4355,11 @@ namespace Quantum
 						GameId.FlagLamp,
 						GameId.FlagStrong,
 						GameId.FlagNight,
-						GameId.FlagPOG
+						GameId.FlagPOG,
+						GameId.FlagCryEmoji,
+						GameId.FlagGoat,
+						GameId.FlagCyberBunny,
+						GameId.FlagSakura
 					}.AsReadOnly()
 				},
 				{
@@ -4340,7 +4488,12 @@ namespace Quantum
 						GameId.AvatarSupporterBronze202501,
 						GameId.AvatarSupporterBronze202502,
 						GameId.AvatarSupporterBronze202503,
-						GameId.AvatarSupporterBronze202504
+						GameId.AvatarSupporterBronze202504,
+						GameId.AvatarCyberBunny,
+						GameId.AvatarEaster,
+						GameId.AvatarRaincoat,
+						GameId.AvatarSakura,
+						GameId.AvatarZombie
 					}.AsReadOnly()
 				},
 				{

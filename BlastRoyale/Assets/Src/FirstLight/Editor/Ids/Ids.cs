@@ -307,6 +307,10 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinNoob", 323, PlayerSkin, Collection},
 			{"PlayerSkinPigeon", 324, PlayerSkin, Collection},
 			{"PlayerSkinStar", 325, PlayerSkin, Collection},
+			{"PlayerSkinRaincoat", 343, PlayerSkin, Collection},
+			{"PlayerSkinSakura", 344, PlayerSkin, Collection},
+			{"PlayerSkinZombie", 345, PlayerSkin, Collection},
+			{"PlayerSkinCyberBunny", 346, PlayerSkin, Collection},
 			// SKINS GENERATION TOKEN KEEP THIS HERE
 
 			#endregion Player skins
@@ -340,6 +344,11 @@ namespace FirstLight.Editor.Ids
 			{"FlagStrong", 331, DeathMarker, Collection},
 			{"FlagNight", 332, DeathMarker, Collection},
 			{"FlagPOG", 340, DeathMarker, Collection},
+			
+			{"FlagCryEmoji", 351, DeathMarker, Collection},
+			{"FlagGoat", 352, DeathMarker, Collection},
+			{"FlagCyberBunny", 353, DeathMarker, Collection},
+			{"FlagSakura", 354, DeathMarker, Collection},
 			#endregion
 
 			#region MeleeSkins
@@ -406,6 +415,10 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinLunarStaff", 327, MeleeSkin, Collection},
 			{"MeleeSkinChickenleg", 328, MeleeSkin, Collection},
 			{"MeleeSkinDumbbell", 329, MeleeSkin, Collection},
+			{"MeleeSkinSakuraKatana", 347, MeleeSkin, Collection},
+			{"MeleeSkinUmbrella", 348, MeleeSkin, Collection},
+			{"MeleeSkinZombieArm", 349, MeleeSkin, Collection},
+			{"MeleeSkinZombieBat", 350, MeleeSkin, Collection},
 			// WEAPON GENERATION TOKEN KEEP THIS HERE
 				
 			#endregion
@@ -539,6 +552,11 @@ namespace FirstLight.Editor.Ids
 			{"AvatarSupporterBronze202503", 570, ProfilePicture, Collection},
 			{"AvatarSupporterBronze202504", 571, ProfilePicture, Collection},
 			
+			{"AvatarCyberBunny", 572, ProfilePicture, Collection},
+			{"AvatarEaster", 573, ProfilePicture, Collection},
+			{"AvatarRaincoat", 574, ProfilePicture, Collection},
+			{"AvatarSakura", 575, ProfilePicture, Collection},
+			{"AvatarZombie", 576, ProfilePicture, Collection},
 			#endregion
 
 			#region Footprint

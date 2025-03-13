@@ -241,7 +241,8 @@ namespace FirstLight.Game.Utils
 				GameId.EventTicket,
 				GameId.FestiveLUNARCOIN,
 				GameId.FestiveFEATHER,
-				GameId.FestiveLANTERN
+				GameId.FestiveLANTERN,
+				GameId.FestiveEGG
 			};
 		}
 

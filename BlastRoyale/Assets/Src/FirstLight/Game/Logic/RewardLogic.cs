@@ -420,6 +420,7 @@ namespace FirstLight.Game.Logic
 							case GameId.FestiveLUNARCOIN:
 							case GameId.FestiveFEATHER:
 							case GameId.FestiveLANTERN:
+							case GameId.FestiveEGG:
 								mp += buffs.GetStat(BuffStat.PctBonusFestiveCurrencies).AsDouble / 100d;
 								break;
 						}

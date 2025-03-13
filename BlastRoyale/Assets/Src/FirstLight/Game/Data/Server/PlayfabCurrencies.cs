@@ -40,7 +40,8 @@ namespace FirstLight.Models
 			{ GameId.EventTicket, "ET"},
 			{ GameId.FestiveLUNARCOIN, "LC"},
 			{ GameId.FestiveFEATHER, "FT"},
-			{ GameId.FestiveLANTERN, "LT"}
+			{ GameId.FestiveLANTERN, "LT"},
+			{ GameId.FestiveEGG, "EG"}
 		};
 
 		/// <summary>

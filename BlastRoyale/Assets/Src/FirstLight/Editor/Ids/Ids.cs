@@ -105,6 +105,7 @@ namespace FirstLight.Editor.Ids
 			{"FestiveLUNARCOIN", 293, Currency, CryptoCurrency},
 			{"FestiveFEATHER", 294, Currency, CryptoCurrency},
 			{"FestiveLANTERN", 600, Currency, CryptoCurrency},
+			{"FestiveEGG", 601, Currency, CryptoCurrency},
 			{"FloodCity", 137, Map, Deprecated},
 			{"MainDeck", 143, Map},
 			{"FtueDeck", 5, Map},

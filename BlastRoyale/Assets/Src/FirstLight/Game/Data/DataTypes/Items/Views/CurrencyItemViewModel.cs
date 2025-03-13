@@ -47,7 +47,8 @@ namespace FirstLight.Game.Data.DataTypes
 			{GameId.EventTicket, "EventTicketIcon"},
 			{GameId.FestiveLUNARCOIN, "FestiveLUNARCOINIcon"},
 			{GameId.FestiveFEATHER, "FestiveFEATHERIcon"},
-			{GameId.FestiveLANTERN, "FestiveLANTERNIcon"}
+			{GameId.FestiveLANTERN, "FestiveLANTERNIcon"},
+			{GameId.FestiveEGG, "FestiveEGGIcon"}
 		};
 
 		public ItemData Item { get; }

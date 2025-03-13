@@ -43,6 +43,7 @@ enum GameId
 	FestiveLUNARCOIN = 293,
 	FestiveFEATHER = 294,
 	FestiveLANTERN = 600,
+	FestiveEGG = 601,
 	FloodCity = 137,
 	MainDeck = 143,
 	FtueDeck = 5,

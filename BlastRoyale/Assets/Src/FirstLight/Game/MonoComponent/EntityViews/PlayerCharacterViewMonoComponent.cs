@@ -448,6 +448,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				case GameId.FestiveLUNARCOIN:
 				case GameId.FestiveFEATHER:
 				case GameId.FestiveLANTERN:
+				case GameId.FestiveEGG:
 					PlayCollectionVfx(VfxId.ShieldPickupFx, callback);
 					return;
 				case GameId.COIN:

@@ -1378,6 +1378,9 @@ namespace I2.Loc
 			public static string FestiveLANTERN 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLANTERN"); } }
 			public static string FestiveLANTERNDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLANTERNDescription"); } }
 			public static string FestiveLANTERN_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLANTERN_Plural"); } }
+			public static string FestiveEGG 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveEGG"); } }
+			public static string FestiveEGGDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveEGGDescription"); } }
+			public static string FestiveEGG_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveEGG_Plural"); } }
 			public static string FestiveLUNARCOIN 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLUNARCOIN"); } }
 			public static string FestiveLUNARCOINDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLUNARCOINDescription"); } }
 			public static string FestiveLUNARCOIN_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FestiveLUNARCOIN_Plural"); } }
@@ -4519,6 +4522,9 @@ namespace I2.Loc
 		    public const string FestiveLANTERN = "GameIds/FestiveLANTERN";
 		    public const string FestiveLANTERNDescription = "GameIds/FestiveLANTERNDescription";
 		    public const string FestiveLANTERN_Plural = "GameIds/FestiveLANTERN_Plural";
+		    public const string FestiveEGG = "GameIds/FestiveEGG";
+		    public const string FestiveEGGDescription = "GameIds/FestiveEGGDescription";
+		    public const string FestiveEGG_Plural = "GameIds/FestiveEGG_Plural";
 		    public const string FestiveLUNARCOIN = "GameIds/FestiveLUNARCOIN";
 		    public const string FestiveLUNARCOINDescription = "GameIds/FestiveLUNARCOINDescription";
 		    public const string FestiveLUNARCOIN_Plural = "GameIds/FestiveLUNARCOIN_Plural";

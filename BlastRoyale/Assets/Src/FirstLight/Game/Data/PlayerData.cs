@@ -70,7 +70,8 @@ namespace FirstLight.Game.Data
 			{GameId.EventTicket, 0},
 			{GameId.FestiveLUNARCOIN, 0},
 			{GameId.FestiveFEATHER, 0},
-			{GameId.FestiveLANTERN, 0}
+			{GameId.FestiveLANTERN, 0},
+			{GameId.FestiveEGG, 0}
 		};
 
 		public readonly Dictionary<GameId, uint> CurrenciesSeasons = new (new GameIdComparer())

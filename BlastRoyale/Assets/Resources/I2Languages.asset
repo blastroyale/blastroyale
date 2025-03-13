@@ -17133,6 +17133,46 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/FestiveEGG
+      TermType: 0
+      Description: 
+      Languages:
+      - EASTER EGG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveEGGDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Easter Eggs in special events
+
+        or buy them in the shop.
+
+        Use
+        them to purchase
+
+        special event''s items in the shop.'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FestiveEGG_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - EASTER EGGS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/EventTicket
       TermType: 0
       Description: 

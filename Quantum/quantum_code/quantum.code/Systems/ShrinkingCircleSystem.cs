@@ -122,9 +122,8 @@ namespace Quantum.Systems
 					{
 						centeredOnAnchor = true;
 						circle->TargetCircleCenter = position;
+						break;
 					}
-					
-					break;
 				}
 			}
 

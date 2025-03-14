@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -96,7 +97,11 @@ namespace FirstLight.Game.Views.UITK
 
 		public void UpdateFromLatestVerifiedFrame()
 		{
-			if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
+			if (!QuantumRunner.Default.IsDefinedAndRunning(false))
+			{
+				FLog.Warn("Failed to update WeaponDisplayView because simulation was not running");
+				return;
+			}
 			
 			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
@@ -104,6 +109,7 @@ namespace FirstLight.Game.Views.UITK
 			Element.SetDisplay(!ReviveSystem.IsKnockedOut(f, playerEntity));
 			if (!f.TryGet<PlayerCharacter>(playerEntity, out var pc))
 			{
+				FLog.Warn("Failed to update WeaponDisplayView because entity had no player character component");
 				return;
 			}
 

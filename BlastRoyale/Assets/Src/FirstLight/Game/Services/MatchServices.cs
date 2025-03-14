@@ -136,7 +136,7 @@ namespace FirstLight.Game.Services
 			{
 				service.OnMatchStarted(message.Game, message.IsResync);
 			}
-
+			
 			_runOnMatchStart?.Invoke(_isReconnect);
 			_runOnMatchStart = null;
 		}

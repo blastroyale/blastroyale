@@ -137,7 +137,7 @@ namespace FirstLight.Game.Services.RoomService
 				gameMode = DeterministicGameMode.Local;
 				quitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.None;
 			}
-
+			
 			var recordInput = FeatureFlags.GetLocalConfiguration().RecordQuantumInput;
 			return new QuantumRunner.StartParameters
 			{
@@ -148,6 +148,7 @@ namespace FirstLight.Game.Services.RoomService
 				RunnerId = "DEFAULT",
 				QuitBehaviour = quitBehaviour,
 				LocalPlayerCount = 1,
+				StartGameTimeoutInSeconds = 15,
 				RecordingFlags = recordInput ? RecordingFlags.Input : RecordingFlags.None,
 				ResourceManagerOverride = null,
 				InstantReplayConfig = default,

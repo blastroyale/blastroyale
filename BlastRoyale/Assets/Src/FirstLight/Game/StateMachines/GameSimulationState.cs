@@ -172,7 +172,7 @@ namespace FirstLight.Game.StateMachines
 			return true;
 		}
 
-		private async UniTaskVoid WaitForCamera()
+		private async UniTask WaitForCamera()
 		{
 			await WaitForCameraOnPlayer();
 		}
@@ -191,7 +191,7 @@ namespace FirstLight.Game.StateMachines
 				FLog.Verbose("Waiting for snapshot");
 				return;
 			}
-
+			
 			GameStartAsync(callback.Game).Forget();
 			FLog.Verbose("Waiting for all players to join");
 		}
@@ -252,10 +252,13 @@ namespace FirstLight.Game.StateMachines
 			await UniTask.WaitUntil(() => QuantumRunner.Default.IsDefinedAndRunning());
 			_statechartTrigger(SimulationStartedEvent);
 
+			WaitForCamera().Forget();
+
+			
 			await PublishMatchStartedMessage(QuantumRunner.Default.Game, true);
 			await UniTask.WaitUntil(_services.UIService.IsScreenOpen<HUDScreenPresenter>);
-
-			WaitForCamera().Forget();
+	
+			
 		}
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
@@ -378,7 +381,13 @@ namespace FirstLight.Game.StateMachines
 				return false;
 			}
 
-			if (!container->PlayersData[game.GetLocalPlayerRef()].IsValid)
+			var localPlayerData = container->PlayersData[game.GetLocalPlayerRef()];
+			if (!localPlayerData.IsValid)
+			{
+				return false;
+			}
+
+			if (!game.Frames.Verified.Exists(localPlayerData.Entity))
 			{
 				return false;
 			}
@@ -389,7 +398,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				return false;
 			}
-
+			
 			return true;
 		}
 

@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Input;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -237,6 +238,7 @@ namespace FirstLight.Game.Services
 
 		private void InitializeLocalPlayer(QuantumGame game)
 		{
+			FLog.Verbose("Attempting to initialize indicators");
 			if (!QuantumRunner.Default.IsDefinedAndRunning(false)) return;
 			var localPlayer = game.GetLocalPlayerData(true, out var f);
 			if (!localPlayer.IsValid || !localPlayer.Entity.IsValid || !localPlayer.Entity.IsAlive(f))
@@ -249,6 +251,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
+			FLog.Verbose("Initializing indicators");
 			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
 			var inventory = f.Get<PlayerInventory>(localPlayer.Entity);
 			_indicatorContainerView.Init(playerView);

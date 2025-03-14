@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -99,7 +100,11 @@ namespace FirstLight.Game.Views.UITK
 		public void UpdateFromLatestVerifiedFrame(EntityRef entityRef)
 		{
 			var f = QuantumRunner.Default.Game.Frames.Verified;
-			if (!f.Exists(entityRef)) return;
+			if (!f.Exists(entityRef))
+			{
+				FLog.Error($"Failed to update SpecialButtonView: Entity do not exist yet {entityRef}");
+				return;
+			}
 			var inventory = f.Get<PlayerInventory>(entityRef);
 			UpdateSpecials(f, inventory, ReviveSystem.IsKnockedOut(f, entityRef));
 		}

@@ -195,7 +195,15 @@ namespace FirstLight.Game.Presenters
 			_menuButton.SetVisibility(IsMenuVisible());
 			MainInstaller.ResolveMatchServices().RunOnMatchStart((isReconnect) =>
 			{
-				if (!isReconnect || QuantumRunner.Default.IsDefinedAndRunning(false)) return;
+				if (!QuantumRunner.Default.IsDefinedAndRunning(false))
+				{
+					FLog.Error("HUDScreenPresenter.OnScreenOpen(): Called while simulation not ready yet");
+					return;
+				}
+				if (!isReconnect)
+				{
+					return;
+				}
 				var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 				// player died
 				var f = QuantumRunner.Default.Game.Frames.Verified;

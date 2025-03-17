@@ -35,18 +35,15 @@ namespace FirstLight.Game.Presenters
 
 			_confirm = Root.Q<LocalizedButton>("ConfirmButton").Required();
 			_confirm.clicked += Data.OnAccept;
-			var data = _services.GameAppService.AppData;
 
 			_terms.clicked += () =>
 			{
-				data.TryGetValue("TERMS_OF_SERVICE_URL", out var termsUrl);
-				DownloadAndShow("Terms of Service", termsUrl, HardCodedTexts.TERMS_OF_SERVICE).Forget();
+				DownloadAndShow("Terms of Service", "https://www.blastroyale.com/TermsOfService.txt", HardCodedTexts.TERMS_OF_SERVICE).Forget();
 			};
 
 			_privacy.clicked += () =>
 			{
-				data.TryGetValue("PRIVACY_POLICY_URL", out var termsUrl);
-				DownloadAndShow("Privacy Policy", termsUrl, HardCodedTexts.PRIVACY_POLICY).Forget();
+				DownloadAndShow("Privacy Policy", null, HardCodedTexts.PRIVACY_POLICY).Forget();
 			};
 		}
 

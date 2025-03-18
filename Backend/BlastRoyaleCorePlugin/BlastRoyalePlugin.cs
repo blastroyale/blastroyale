@@ -85,6 +85,19 @@ namespace BlastRoyaleNFTPlugin
 		
 		private async Task OnBeforeCommand(BeforeCommandRunsEvent ev)
 		{
+			if (ev.CommandInstance is UpdateWeb3DataCommand web3Cmd)
+			{
+				if (!await BlockchainApi.UpdatePlayerGameWallet(ev.PlayerId, web3Cmd.PlayerWallet))
+				{
+					Ctx.Log?.LogError($"Failed to update player game wallet for player {ev.PlayerId} wallet {web3Cmd.PlayerWallet}");
+					Ctx.Analytics.EmitEvent("game_wallet_link_error", new AnalyticsData()
+					{
+						{"player",ev.PlayerId },
+						{"wallet", web3Cmd.PlayerWallet}
+					});
+				}
+				return;
+			}
 			if (!(ev.CommandInstance is BuyFromStoreCommand buyCommand)) return;
 			
 			var validPurchase = await _shop.ValidateWeb3Purchase(ev.State, buyCommand.CatalogItemId);

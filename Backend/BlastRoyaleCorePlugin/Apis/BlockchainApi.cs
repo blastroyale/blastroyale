@@ -50,11 +50,22 @@ namespace BlastRoyaleNFTPlugin
 				Environment.GetEnvironmentVariable("API_KEY", EnvironmentVariableTarget.Process));
 		}
 		
-
+		public async Task<bool> UpdatePlayerGameWallet(string player, string wallet)
+		{
+			var url = $"{_externalUrl}/wallet/set?wallet={wallet}&playerid={player}&key={_apiKey}";
+			var response = await _client.GetAsync(url);
+			var responseString = await response.Content.ReadAsStringAsync();
+			if (!response.IsSuccessStatusCode)
+			{
+				Console.Error.WriteLine($"UpdatePlayerGameWallet Error: {response.ReasonPhrase} - {responseString}");
+					
+			}
+			return response.IsSuccessStatusCode;
+		}
+		
 		public async Task<BigInteger> GetSpentOnShop(string wallet, string contract)
 		{
 			var url = $"{_externalUrl}/shop/spent?wallet={wallet}&shopContract={contract}&key={_apiKey}";
-			Console.WriteLine(url);
 			var response = await _client.GetAsync(url);
 			var responseString = await response.Content.ReadAsStringAsync();
 			if (!response.IsSuccessStatusCode)

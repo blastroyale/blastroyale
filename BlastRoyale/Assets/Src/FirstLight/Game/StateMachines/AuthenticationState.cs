@@ -112,11 +112,12 @@ namespace FirstLight.Game.StateMachines
 			if (_services.AuthService.HasDeviceLinked())
 			{
 				await AuthenticateAndInitializeLogic(_services.AuthService.LoginWithDeviceID);
+				FLog.Info("Logged in using linked device id");
 				if (await _services.AuthService.CanLoginWithNativeGamesService())
 				{
+					FLog.Info("Linking account with native service");
 					_services.AuthService.TryToLinkNativeAccount().Forget();
 				}
-
 				loggedIn = true;
 			}
 			// Try to login with native game service
@@ -124,7 +125,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				FLog.Info("Can login with native game service");
 				await AuthenticateAndInitializeLogic(_services.AuthService.LoginWithNativeGamesService);
-				FLog.Info("logged in with native game service");
 				loggedIn = true;
 			}
 
@@ -139,8 +139,10 @@ namespace FirstLight.Game.StateMachines
 			{
 				if (loggedIn) // user already finished the tutorial
 				{
+					FLog.Info("User already logged in");
 					if (_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH))
 					{
+						FLog.Info("User already completed tutorial");
 						if (_services.UIService.IsScreenOpen<SkipTutorialPopupPresenter>())
 						{
 							await _services.UIService.CloseScreen<SkipTutorialPopupPresenter>();
@@ -161,21 +163,27 @@ namespace FirstLight.Game.StateMachines
 				}
 
 				var result = await skipTutorialScreen.WaitForResult();
-				if (result == SkipTutorialPopupPresenter.AllowedOptions.Login)
+				if (result == SkipTutorialPopupPresenter.AllowedOptions.Login) 
 				{
+					if (loggedIn)
+					{
+						await _services.AuthService.Logout();
+						loggedIn = false;
+					}
+
 					var loginResult = await LoginScreenFlow();
 					if (loginResult == null) // User did not login and closed the screen
 					{
+						FLog.Info("User did not login and closed screen");
 						continue;
 					}
 
 					LoadingScreenPresenter.Show();
 					await AuthenticateAndInitializeLogic(() => _services.AuthService.LoginWithExistingResult(loginResult));
-					if (await _services.AuthService.CanLoginWithNativeGamesService())
+					_services.AuthService.CanLoginWithNativeGamesService().ContinueWith(can =>
 					{
-						_services.AuthService.TryToLinkNativeAccount().Forget();
-					}
-
+						if(can) _services.AuthService.TryToLinkNativeAccount().Forget();
+					});
 					loggedInWithUserPassword = true;
 					loggedIn = true;
 				}

@@ -158,7 +158,14 @@ namespace FirstLight.Game.Services
 				// We only unlink if there was a previous environment set (check is here for migration purposes)
 				if (!string.IsNullOrEmpty(appData.LastEnvironmentName))
 				{
-					await _services.AuthService.Logout();
+					try
+					{
+						await _services.AuthService.Logout();
+					}
+					catch (Exception e)
+					{
+						_services.GenericDialogService.OpenSimpleMessage("Error", "Environment changed, could not logout");
+					}
 				}
 
 				appData.LastEnvironmentName = FLEnvironment.Current.Name;

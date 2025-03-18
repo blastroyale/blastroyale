@@ -106,35 +106,58 @@ namespace Quantum.Systems
 			circle->ShrinkingDurationTime = config.ShrinkingTime.AsInt; // TODO: Storing configs in components isn't ideal
 			circle->Damage = config.MaxHealthDamage; // TODO: Storing configs in components isn't ideal
 			circle->ShrinkingWarningTime = config.WarningTime.AsInt; // TODO: Storing configs in components isn't ideal
-
-			var fitRadius = circle->CurrentRadius - circle->TargetRadius;
-
-			var newSafeSpaceAreaSizeK = f.Context.Mutators.HasFlagFast(Mutator.SafeZoneInPlayableArea)
-											? FPMath.Clamp(config.NewSafeSpaceAreaSizeK, FP._0, FP._1)
-											: config.NewSafeSpaceAreaSizeK;
 			
-			var radiusToPickNewCenter = FPMath.Max(0, fitRadius + (circle->TargetRadius * (newSafeSpaceAreaSizeK - FP._1)));
-			var halfWorldSize = f.Map.WorldSize / FP._2;
-			
-			// We use mathematical randomization to find a potential new center
-			var targetPos = new FPVector2(circle->CurrentCircleCenter.X + f.RNG->Next(-radiusToPickNewCenter, radiusToPickNewCenter),
-										  circle->CurrentCircleCenter.Y - f.RNG->Next(-radiusToPickNewCenter, radiusToPickNewCenter));
-			
-			// Then we ensure that this center is not outside of map boundaries
-			targetPos.X = FPMath.Clamp(targetPos.X, -halfWorldSize, halfWorldSize);
-			targetPos.Y = FPMath.Clamp(targetPos.Y, -halfWorldSize, halfWorldSize);
-			
-			// Then we correct this potential new center so it's on the NavMesh
-			// we skip early steps whose circles are big enough to not require correction
-			if (config.Step > 1)
+			// Looking for an anchor to put center of the next storm there
+			bool centeredOnAnchor = false;
+			if (config.IsStormAnchored)
 			{
-				QuantumHelpers.TryFindPosOnNavMesh(f, targetPos,
-												   FPMath.Min(circle->TargetRadius, Constants.SHRINKINGCIRCLE_NAVMESH_CORRECTION_RADIUS),
-												   out targetPos);
+				var searchRadiusSqrd = circle->CurrentRadius * circle->CurrentRadius;
+				
+				foreach (var stormAnchor in f.Unsafe.GetComponentBlockIterator<StormAnchor>())
+				{
+					var transform = f.Unsafe.GetPointer<Transform2D>(stormAnchor.Entity);
+					var position = transform->Position;
+					
+					if ((position - circle->CurrentCircleCenter).SqrMagnitude < searchRadiusSqrd)
+					{
+						centeredOnAnchor = true;
+						circle->TargetCircleCenter = position;
+						break;
+					}
+				}
+			}
+
+			if (!centeredOnAnchor)
+			{
+				var fitRadius = circle->CurrentRadius - circle->TargetRadius;
+
+				var newSafeSpaceAreaSizeK = f.Context.Mutators.HasFlagFast(Mutator.SafeZoneInPlayableArea)
+												? FPMath.Clamp(config.NewSafeSpaceAreaSizeK, FP._0, FP._1)
+												: config.NewSafeSpaceAreaSizeK;
+			
+				var radiusToPickNewCenter = FPMath.Max(0, fitRadius + (circle->TargetRadius * (newSafeSpaceAreaSizeK - FP._1)));
+				var halfWorldSize = f.Map.WorldSize / FP._2;
+			
+				// We use mathematical randomization to find a potential new center
+				var targetPos = new FPVector2(circle->CurrentCircleCenter.X + f.RNG->Next(-radiusToPickNewCenter, radiusToPickNewCenter),
+											  circle->CurrentCircleCenter.Y - f.RNG->Next(-radiusToPickNewCenter, radiusToPickNewCenter));
+			
+				// Then we ensure that this center is not outside of map boundaries
+				targetPos.X = FPMath.Clamp(targetPos.X, -halfWorldSize, halfWorldSize);
+				targetPos.Y = FPMath.Clamp(targetPos.Y, -halfWorldSize, halfWorldSize);
+			
+				// Then we correct this potential new center so it's on the NavMesh
+				// we skip early steps whose circles are big enough to not require correction
+				if (config.Step > 1)
+				{
+					QuantumHelpers.TryFindPosOnNavMesh(f, targetPos,
+													   FPMath.Min(circle->TargetRadius, Constants.SHRINKINGCIRCLE_NAVMESH_CORRECTION_RADIUS),
+													   out targetPos);
+				}
+				
+				circle->TargetCircleCenter = targetPos;
 			}
 			
-			circle->TargetCircleCenter = targetPos;
-
 			// When we change a step of a circle, we need to remove current spell from all players
 			// So in update the up-to-date spell will be added
 			foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())

@@ -11211,22 +11211,22 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/GunARRebel
+    - Term: GameIds/GunShotgunAuto
       TermType: 0
       Description: 
       Languages:
-      - REBEL AR
+      - BLASTER SHOTGUN
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/GunShotgunAuto
+    - Term: GameIds/GunARRebel
       TermType: 0
       Description: 
       Languages:
-      - BLASTER SHOTGUN
+      - REBEL AR
       - 
       - 
       - 
@@ -13224,116 +13224,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/AvatarCyberBunny
-      TermType: 0
-      Description: 
-      Languages:
-      - EGGHUNT MODE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarCyberBunnyDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarEaster
-      TermType: 0
-      Description: 
-      Languages:
-      - EASTER EGG
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarEasterDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarRaincoat
-      TermType: 0
-      Description: 
-      Languages:
-      - BULLET RAIN
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarRaincoatDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 4
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarSakura
-      TermType: 0
-      Description: 
-      Languages:
-      - ON A MISSION
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarSakuraDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 4
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarZombie
-      TermType: 0
-      Description: 
-      Languages:
-      - ZOMB-O-DANCE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/AvatarZombieDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/AvatarVikingfemale
       TermType: 0
       Description: 
@@ -13614,6 +13504,116 @@ MonoBehaviour:
       Description: 
       Languages:
       - I supported the development
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCyberBunny
+      TermType: 0
+      Description: 
+      Languages:
+      - EGGHUNT MODE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarCyberBunnyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarEaster
+      TermType: 0
+      Description: 
+      Languages:
+      - EASTER EGG
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarEasterDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRaincoat
+      TermType: 0
+      Description: 
+      Languages:
+      - BULLET RAIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarRaincoatDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 4
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSakura
+      TermType: 0
+      Description: 
+      Languages:
+      - ON A MISSION
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarSakuraDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 4
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarZombie
+      TermType: 0
+      Description: 
+      Languages:
+      - ZOMB-O-DANCE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/AvatarZombieDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
       - 
       - 
       - 
@@ -16690,6 +16690,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/NOOBVoucher
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB VOUCHER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/NOOBDescription
       TermType: 0
       Description: 
@@ -17334,94 +17345,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinRaincoat
-      TermType: 0
-      Description: 
-      Languages:
-      - GALE
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinRaincoatDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 4
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSakura
-      TermType: 0
-      Description: 
-      Languages:
-      - SAKURA
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinSakuraDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass - Noob Season 4
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinZombie
-      TermType: 0
-      Description: 
-      Languages:
-      - MC GRAVES
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinZombieDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinCyberBunny
-      TermType: 0
-      Description: 
-      Languages:
-      - TURBO BUNNY
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinCyberBunnyDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Appears in the Shop
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/PlayerSkinPostapocalypticassassin
       TermType: 0
       Description: 
@@ -17658,6 +17581,94 @@ MonoBehaviour:
       Description: 
       Languages:
       - Own any male Corpo NFT to unlock
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinRaincoat
+      TermType: 0
+      Description: 
+      Languages:
+      - GALE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinRaincoatDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 4
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSakura
+      TermType: 0
+      Description: 
+      Languages:
+      - SAKURA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinSakuraDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass - Noob Season 4
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinZombie
+      TermType: 0
+      Description: 
+      Languages:
+      - MC GRAVES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinZombieDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCyberBunny
+      TermType: 0
+      Description: 
+      Languages:
+      - TURBO BUNNY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinCyberBunnyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
       - 
       - 
       - 
@@ -27569,6 +27580,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITGeneric/check
+      TermType: 0
+      Description: 
+      Languages:
+      - CHECK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITMatch/airdrop_landing
       TermType: 0
       Description: 
@@ -30061,6 +30083,111 @@ MonoBehaviour:
       - YOUR TEAM
       - "\u0422\u0412\u041E\u042F \u041A\u041E\u041C\u0410\u041D\u0414\u0410"
       - SEU TIME
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_title
+      TermType: 0
+      Description: 
+      Languages:
+      - NOOB VOUCHERS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_tutorial_title
+      TermType: 0
+      Description: 
+      Languages:
+      - You got Noob Vouchers!
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_tutorial_description
+      TermType: 0
+      Description: 
+      Languages:
+      - '$NOOB coins collected in the game are stored as NOOB Vouchers.
+
+        Keep
+        collecting NOOB Vouchers, transfer it into $NOOB on wallet and buy items
+        with $NOOB!'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_main_description
+      TermType: 0
+      Description: 
+      Languages:
+      - "Collected NOOB Vouchers are stored here! \nSpend the Blockchain Ticket to
+        exchange NOOB Vouchers for $NOOB\nYou will be able to use $NOOB to purchase
+        items in the Shop and for other things!"
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_exchange_rate
+      TermType: 0
+      Description: 
+      Languages:
+      - 10 NOOB Vouchers = 1 $NOOB
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_exchange
+      TermType: 0
+      Description: 
+      Languages:
+      - Exchange {0} NOOB Vouchers for 50 $NOOB on balance
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_exchange_button
+      TermType: 0
+      Description: 
+      Languages:
+      - EXCHANGE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_transaction_warning
+      TermType: 0
+      Description: 
+      Languages:
+      - TRANSACTION WARNING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_not_enought_currency
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU DON'T HAVE ENOUGHT CURRENCY
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -34059,7 +34186,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1740585568054
+    Google_LastUpdatedVersion: 1742379739160
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1
@@ -34070,3 +34197,4 @@ MonoBehaviour:
     Spreadsheet_LocalCSVSeparator: ','
     Spreadsheet_LocalCSVEncoding: utf-8
     Spreadsheet_SpecializationAsRows: 1
+    Spreadsheet_SortRows: 1

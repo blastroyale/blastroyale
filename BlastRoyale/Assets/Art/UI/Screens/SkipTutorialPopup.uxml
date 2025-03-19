@@ -1,26 +1,115 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/SkipTutorialPopupStyle.uss?fileID=7433441132597879392&amp;guid=1b91012960478b84abcbd195076a2efb&amp;type=3#SkipTutorialPopupStyle" />
-    <ui:VisualElement name="root" class="purchase-confirmation-root" style="align-self: center;">
-        <FirstLight.Game.UIElements.ImageButton name="BlockerButton" />
-        <FirstLight.Game.UIElements.GenericPopupElement name="Popup" title-localization-key="CHOOSE YOUR PATH" glow-effect="false" disable-close-button="true" class="generic-popup--animated" style="flex-grow: 0;">
-            <ui:VisualElement style="flex-grow: 0; justify-content: flex-start; align-self: center;">
-                <ui:VisualElement name="ButtonHolder" style="flex-grow: 0; flex-direction: row; height: 520px; align-items: center; width: 1357px; justify-content: center; align-self: center;">
-                    <FirstLight.Game.UIElements.ImageButton name="TutorialButton" class="option">
-                        <ui:VisualElement name="Image" class="option__image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/AddressableResources/Collections/WeaponSkins/Hammer/NoobHammer/Icon_Melee_Noobhammer.png?fileID=21300000&amp;guid=a18d1ea2b683a6f40939a6b7217d1063&amp;type=3#Icon_Melee_Noobhammer&quot;); -unity-background-scale-mode: scale-to-fit;" />
-                        <FirstLight.Game.UIElements.LabelOutlined name="LabelOutlined" text="I&apos;m new to Blast Royale and I haven&apos;t played top-down shooters before" class="game-label game-label--small option__label" style="white-space: normal;" />
-                    </FirstLight.Game.UIElements.ImageButton>
-                    <FirstLight.Game.UIElements.ImageButton name="SkipButton" class="option option--selected" style="margin-left: 52px;">
-                        <ui:VisualElement name="Image" class="option__image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/AddressableResources/Sprites/Equipment/Weapon/ModSniper.png?fileID=21300000&amp;guid=50733a46a4d17204492f321afdb06cee&amp;type=3#ModSniper&quot;); -unity-background-scale-mode: scale-to-fit;" />
-                        <FirstLight.Game.UIElements.LabelOutlined name="LabelOutlined" text="I&apos;m an expert in shooters. Skip the tutorial lets get going" class="game-label game-label--small option__label" style="white-space: normal;" />
-                    </FirstLight.Game.UIElements.ImageButton>
-                    <FirstLight.Game.UIElements.ImageButton name="LoginButton" class="option" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 52px;">
-                        <ui:VisualElement name="Image" class="option__image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/AddressableResources/Collections/WeaponSkins/Hammer/Keyboard/Icon_Melee_Keyboard.png?fileID=21300000&amp;guid=601ce2e2ffb89496eb130938e1ec4434&amp;type=3#Icon_Melee_Keyboard&quot;); -unity-background-scale-mode: scale-to-fit;" />
-                        <FirstLight.Game.UIElements.LabelOutlined name="LabelOutlined" text="I have a Blast Royale account and I want to login into it" class="game-label game-label--small option__label" style="white-space: normal;" />
-                    </FirstLight.Game.UIElements.ImageButton>
-                </ui:VisualElement>
-                <FirstLight.Game.UIElements.Kit.KitButton btn-shape="Long" btn-color="Primary" btn-text="CONFIRM" name="ConfirmButton" style="align-self: center; margin-top: 36px;" />
+    <ui:VisualElement name="root" class="purchase-confirmation-root" style="align-self: center; justify-content: space-evenly;">
+        <FirstLight.Game.UIElements.LocalizedLabel text="CHOOSE YOUR PATH" name="ChooseYourPath" class="game-label" style="position: relative; top: auto; font-size: 48px; -unity-font-style: normal;" />
+        <ui:VisualElement name="Buttons" style="flex-grow: 0; align-items: center; align-self: center; justify-content: center; flex-direction: row;">
+            <ui:VisualElement name="Beginner" template="GameModeSelectionButton" class="game-mode-card--beginner">
+                <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
+                <FirstLight.Game.UIElements.AngledContainerElement name="CardRoot" enabled="true" focusable="true" class="game-mode-card game-mode-card-size gamemode-card--beginner" style="display: flex;">
+                    <ui:VisualElement picking-mode="Ignore" class="fill-parent game-mode-card__animation anim-translate anim-translate--up-xxl game-mode-card-size" style="top: 10px;">
+                        <ui:VisualElement name="SelectedEffects" picking-mode="Ignore" class="fill-parent game-mode-card-selected-effects">
+                            <ui:VisualElement name="BorderGlow" picking-mode="Ignore" class="game-mode-card__glow" />
+                            <ui:VisualElement name="Outline" picking-mode="Ignore" class="game-mode-card__outline" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Shadow" picking-mode="Ignore" class="game-mode-card__shadow" />
+                        <ui:VisualElement name="Background" picking-mode="Ignore" class="game-mode-card__background">
+                            <ui:VisualElement name="TextContainer" picking-mode="Ignore" class="game-mode-card__text-container">
+                                <ui:Label text="BEGINNER" display-tooltip-when-elided="true" name="Title" picking-mode="Ignore" class="game-mode-card__text-container__label" style="height: 68px;" />
+                                <FirstLight.Game.UIElements.AutoSizeLabel text="THIS IS A VERY LONG EVENT" display-tooltip-when-elided="true" name="EventTitle" picking-mode="Ignore" max-font-size="48" min-font-size="32" outline-hack="false" class="game-mode-card__text-container__event-label" />
+                                <ui:Label text="I haven’t played shooters before" name="Description" picking-mode="Ignore" class="game-mode-card__text-container__description font-bold" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="EventContainer" picking-mode="Ignore" class="game-mode-card__event-container">
+                                <FirstLight.Game.UIElements.ImageButton name="InfoButton" class="game-mode-card__info-button" />
+                                <ui:VisualElement name="RewardsContainer" picking-mode="Ignore" class="game-mode-card__rewards-container">
+                                    <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__noob-default" />
+                                    <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__blastbuck-default" />
+                                    <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__coin-default" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Disabled" picking-mode="Ignore" class="game-mode-card__disabled-container">
+                                <ui:VisualElement name="BG" picking-mode="Ignore" class="fill-parent game-mode-card__disabled-container__bg" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Char" picking-mode="Ignore" class="game-mode-card__character" />
+                            <ui:VisualElement name="StatusContainer" picking-mode="Ignore" class="game-mode-card__status-container">
+                                <ui:Label tabindex="-1" text="ENDS  IN 23h 54m 34s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusLabel" picking-mode="Ignore" class="game-mode-card__status-label" />
+                            </ui:VisualElement>
+                            <ui:Label text="COMING SOON!" display-tooltip-when-elided="true" name="ComingSoon" picking-mode="Ignore" class="game-mode-card__coming-soon-label" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </FirstLight.Game.UIElements.AngledContainerElement>
             </ui:VisualElement>
-        </FirstLight.Game.UIElements.GenericPopupElement>
+            <ui:VisualElement name="Expert" template="GameModeSelectionButton" class="game-mode-card--expert">
+                <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
+                <FirstLight.Game.UIElements.AngledContainerElement name="CardRoot" enabled="true" focusable="true" class="game-mode-card game-mode-card-size gamemode-card--beginner" style="display: flex;">
+                    <ui:VisualElement picking-mode="Ignore" class="fill-parent game-mode-card__animation anim-translate anim-translate--up-xxl game-mode-card-size" style="top: 10px;">
+                        <ui:VisualElement name="SelectedEffects" picking-mode="Ignore" class="fill-parent game-mode-card-selected-effects">
+                            <ui:VisualElement name="BorderGlow" picking-mode="Ignore" class="game-mode-card__glow" />
+                            <ui:VisualElement name="Outline" picking-mode="Ignore" class="game-mode-card__outline" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Shadow" picking-mode="Ignore" class="game-mode-card__shadow" />
+                        <ui:VisualElement name="Background" picking-mode="Ignore" class="game-mode-card__background">
+                            <ui:VisualElement name="TextContainer" picking-mode="Ignore" class="game-mode-card__text-container">
+                                <ui:Label text="EXPERT" display-tooltip-when-elided="true" name="Title" picking-mode="Ignore" class="game-mode-card__text-container__label" style="height: 68px;" />
+                                <FirstLight.Game.UIElements.AutoSizeLabel text="THIS IS A VERY LONG EVENT" display-tooltip-when-elided="true" name="EventTitle" picking-mode="Ignore" max-font-size="48" min-font-size="32" outline-hack="false" class="game-mode-card__text-container__event-label" />
+                                <ui:Label text="Skip the tutorial" name="Description" picking-mode="Ignore" class="game-mode-card__text-container__description font-bold" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="EventContainer" picking-mode="Ignore" class="game-mode-card__event-container">
+                                <FirstLight.Game.UIElements.ImageButton name="InfoButton" class="game-mode-card__info-button" />
+                                <ui:VisualElement name="RewardsContainer" picking-mode="Ignore" class="game-mode-card__rewards-container">
+                                    <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__noob-default" />
+                                    <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__blastbuck-default" />
+                                    <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__coin-default" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Disabled" picking-mode="Ignore" class="game-mode-card__disabled-container">
+                                <ui:VisualElement name="BG" picking-mode="Ignore" class="fill-parent game-mode-card__disabled-container__bg" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Char" picking-mode="Ignore" class="game-mode-card__character" />
+                            <ui:VisualElement name="StatusContainer" picking-mode="Ignore" class="game-mode-card__status-container">
+                                <ui:Label tabindex="-1" text="ENDS  IN 23h 54m 34s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusLabel" picking-mode="Ignore" class="game-mode-card__status-label" />
+                            </ui:VisualElement>
+                            <ui:Label text="COMING SOON!" display-tooltip-when-elided="true" name="ComingSoon" picking-mode="Ignore" class="game-mode-card__coming-soon-label" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </FirstLight.Game.UIElements.AngledContainerElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Citizen" template="GameModeSelectionButton" class="game-mode-card--citizen">
+                <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
+                <FirstLight.Game.UIElements.AngledContainerElement name="CardRoot" enabled="true" focusable="true" class="game-mode-card game-mode-card-size gamemode-card--beginner" style="display: flex;">
+                    <ui:VisualElement picking-mode="Ignore" class="fill-parent game-mode-card__animation anim-translate anim-translate--up-xxl game-mode-card-size" style="top: 10px;">
+                        <ui:VisualElement name="SelectedEffects" picking-mode="Ignore" class="fill-parent game-mode-card-selected-effects">
+                            <ui:VisualElement name="BorderGlow" picking-mode="Ignore" class="game-mode-card__glow" />
+                            <ui:VisualElement name="Outline" picking-mode="Ignore" class="game-mode-card__outline" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Shadow" picking-mode="Ignore" class="game-mode-card__shadow" />
+                        <ui:VisualElement name="Background" picking-mode="Ignore" class="game-mode-card__background">
+                            <ui:VisualElement name="TextContainer" picking-mode="Ignore" class="game-mode-card__text-container">
+                                <ui:Label text="CITIZEN" display-tooltip-when-elided="true" name="Title" picking-mode="Ignore" class="game-mode-card__text-container__label" style="height: 68px;" />
+                                <FirstLight.Game.UIElements.AutoSizeLabel text="THIS IS A VERY LONG EVENT" display-tooltip-when-elided="true" name="EventTitle" picking-mode="Ignore" max-font-size="48" min-font-size="32" outline-hack="false" class="game-mode-card__text-container__event-label" />
+                                <ui:Label text="I have Blast Royale account" name="Description" picking-mode="Ignore" class="game-mode-card__text-container__description font-bold" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="EventContainer" picking-mode="Ignore" class="game-mode-card__event-container">
+                                <FirstLight.Game.UIElements.ImageButton name="InfoButton" class="game-mode-card__info-button" />
+                                <ui:VisualElement name="RewardsContainer" picking-mode="Ignore" class="game-mode-card__rewards-container">
+                                    <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__noob-default" />
+                                    <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__blastbuck-default" />
+                                    <ui:VisualElement name="BBIcon" class="game-mode-card__reward-icon sprite-currencies__coin-default" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Disabled" picking-mode="Ignore" class="game-mode-card__disabled-container">
+                                <ui:VisualElement name="BG" picking-mode="Ignore" class="fill-parent game-mode-card__disabled-container__bg" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Char" picking-mode="Ignore" class="game-mode-card__character" />
+                            <ui:VisualElement name="StatusContainer" picking-mode="Ignore" class="game-mode-card__status-container">
+                                <ui:Label tabindex="-1" text="ENDS  IN 23h 54m 34s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusLabel" picking-mode="Ignore" class="game-mode-card__status-label" />
+                            </ui:VisualElement>
+                            <ui:Label text="COMING SOON!" display-tooltip-when-elided="true" name="ComingSoon" picking-mode="Ignore" class="game-mode-card__coming-soon-label" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </FirstLight.Game.UIElements.AngledContainerElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <FirstLight.Game.UIElements.LocalizedLabel name="TapToChoose" text="Tap to choose" style="font-size: 36px; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&amp;guid=b745807711bab4fc0891193a62f7419f&amp;type=2#Stawix-Bold-Static&quot;); bottom: auto; color: rgb(255, 255, 255);" />
     </ui:VisualElement>
 </ui:UXML>

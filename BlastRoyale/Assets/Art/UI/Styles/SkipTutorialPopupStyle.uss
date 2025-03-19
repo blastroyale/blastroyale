@@ -1,48 +1,27 @@
-.option {
-    flex-grow: 0;
-    width: 350px;
-    height: 400px;
-    background-color: rgb(48, 44, 88);
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-top-left-radius: 27px;
-    border-top-right-radius: 27px;
-    border-bottom-right-radius: 27px;
-    border-bottom-left-radius: 27px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    padding-top: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    transition-property: height, width;
-    transition-duration: 0.33s;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+.game-mode-card--expert .game-mode-card__background {
+    background-image: var(--sprite-home__gamemode-card-purple);
 
 }
 
-
-.option--selected {
-    width: 385px;
-    height: 440px;
-    background-color: rgb(132, 117, 166);
+.game-mode-card--citizen .game-mode-card__background {
+    background-image: var(--sprite-home__gamemode-card-yellow);
 }
 
-.option__image {
-    width: 100%;
+.game-mode-card--beginner .game-mode-card__character {
+    background-image: var(--sprite-home__skip-tutorial-char-beginner);
+    top: 2px;
+    left: 20px;
+    height: 454px;
 }
-.option--selected .option__label{
-    scale: 1.1 1.1;
+.game-mode-card--citizen .game-mode-card__character {
+    background-image: var(--sprite-home__skip-tutorial-char-citizen);
+    top: 2px;
+    left: 20px;
+    height: 454px;
 }
-.option__label {
-    transition-property: scale;
-    transition-duration: 0.33s;
-    white-space: normal;
-    width: 303px;
+.game-mode-card--expert .game-mode-card__character {
+    background-image: var(--sprite-home__skip-tutorial-char-expert);
+    top: 2px;
+    left: 20px;
+    height: 454px;
 }

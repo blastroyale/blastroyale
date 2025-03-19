@@ -101,7 +101,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_services.LocalPrefsService.AcceptedPrivacyTerms)
 			{
 				LoadingScreenPresenter.Hide();
-				GlobalAnimatedBackground.Instance.SetDimmedColor();
+				GlobalAnimatedBackground.Instance.SetDefault();
 				// Wait for accepting terms
 				await OpenPrivacyDialogAndWaitForAccept();
 				_services.LocalPrefsService.AcceptedPrivacyTerms.Value = true;
@@ -152,7 +152,7 @@ namespace FirstLight.Game.StateMachines
 					}
 				}
 
-				GlobalAnimatedBackground.Instance.SetDimmedColor();
+				GlobalAnimatedBackground.Instance.SetDefault();
 				LoadingScreenPresenter.Hide();
 
 				// First time user opening the game lets see if he wants to do the tutorial. I surely don't want to do it again

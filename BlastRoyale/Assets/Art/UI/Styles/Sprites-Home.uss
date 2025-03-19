@@ -256,6 +256,9 @@
     --sprite-home__rewards-impact-circle: url('/Assets/Art/UI/Sprites/Home/rewards-impact-circle.png');
     --sprite-home__reward-slot: url('/Assets/Art/UI/Sprites/Home/reward-slot.png');
     --sprite-home__sakura-season-reward: url('/Assets/Art/UI/Sprites/Home/sakura-season-reward.png');
+    --sprite-home__skip-tutorial-char-beginner: url('/Assets/Art/UI/Sprites/Home/skip-tutorial-char-beginner.png');
+    --sprite-home__skip-tutorial-char-citizen: url('/Assets/Art/UI/Sprites/Home/skip-tutorial-char-citizen.png');
+    --sprite-home__skip-tutorial-char-expert: url('/Assets/Art/UI/Sprites/Home/skip-tutorial-char-expert.png');
     --sprite-home__tag-body: url('/Assets/Art/UI/Sprites/Home/tag-body.png');
     --sprite-home__text-blast: url('/Assets/Art/UI/Sprites/Home/text-blast.png');
     --sprite-home__text-royale: url('/Assets/Art/UI/Sprites/Home/text-royale.png');
@@ -1756,6 +1759,24 @@
     background-image: var(--sprite-home__sakura-season-reward);
     width: 1175px;
     height: 943px;
+}
+
+.sprite-home__skip-tutorial-char-beginner {
+    background-image: var(--sprite-home__skip-tutorial-char-beginner);
+    width: 430px;
+    height: 459px;
+}
+
+.sprite-home__skip-tutorial-char-citizen {
+    background-image: var(--sprite-home__skip-tutorial-char-citizen);
+    width: 428px;
+    height: 458px;
+}
+
+.sprite-home__skip-tutorial-char-expert {
+    background-image: var(--sprite-home__skip-tutorial-char-expert);
+    width: 464px;
+    height: 498px;
 }
 
 .sprite-home__tag-body {

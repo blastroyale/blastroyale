@@ -24,8 +24,6 @@ namespace FirstLight.Game.Presenters
 	[UILayer(UILayer.Popup)]
 	public class SkipTutorialPopupPresenter : UIPresenterResult<SkipTutorialPopupPresenter.AllowedOptions>
 	{
-		public const string USS_SELECTED = "option--selected";
-
 		public enum AllowedOptions
 		{
 			Tutorial,
@@ -33,60 +31,23 @@ namespace FirstLight.Game.Presenters
 			Login
 		}
 
-		[Q("Popup")] public GenericPopupElement _popup;
-		[Q("TutorialButton")] public ImageButton _tutorialButton;
-		[Q("SkipButton")] public ImageButton _skipButton;
-		[Q("LoginButton")] public ImageButton _loginButton;
-		[Q("ConfirmButton")] public KitButton _confirmButton;
-
-		private Dictionary<AllowedOptions, ImageButton> _buttons;
-		private AllowedOptions Selected = AllowedOptions.Tutorial;
-
-		protected override async UniTask OnScreenOpen(bool reload)
-		{
-			await _popup.AnimateOpen();
-		}
-
-		protected override async UniTask OnScreenClose()
-		{
-			await _popup.AnimateClose();
-		}
+		public AngledContainerElement _tutorialButton;
+		public AngledContainerElement _skipButton;
+		public AngledContainerElement _loginButton;
 
 		protected override void QueryElements()
 		{
-			_buttons = new ();
-			Register(_tutorialButton, AllowedOptions.Tutorial);
-			Register(_skipButton, AllowedOptions.SkipTutorial);
-			Register(_loginButton, AllowedOptions.Login);
-			SetActive(AllowedOptions.Tutorial);
-			_confirmButton.clicked += () =>
-			{
-				SetResult(Selected);
-			};
-		}
-
-		public void Register(ImageButton button, AllowedOptions option)
-		{
-			_buttons.Add(option, button);
-			button.clicked += () =>
-			{
-				SetActive(option);
-			};
+			_tutorialButton = Root.Q("Beginner").Q<AngledContainerElement>();
+			_skipButton = Root.Q("Expert").Q<AngledContainerElement>();
+			_loginButton = Root.Q("Citizen").Q<AngledContainerElement>();
+			_tutorialButton.clicked += () => SetResult(AllowedOptions.Tutorial);
+			_skipButton.clicked += () => SetResult(AllowedOptions.SkipTutorial);
+			_loginButton.clicked += () => SetResult(AllowedOptions.Login);
 		}
 
 		public void DisableLoginOption()
 		{
-			_buttons.Remove(AllowedOptions.Login);
 			_loginButton.SetDisplay(false);
-		}
-
-		public void SetActive(AllowedOptions option)
-		{
-			Selected = option;
-			foreach (var (otherOption, otherButton) in _buttons)
-			{
-				otherButton.EnableInClassList(USS_SELECTED, otherOption == option);
-			}
 		}
 	}
 }

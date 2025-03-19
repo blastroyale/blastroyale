@@ -187,6 +187,21 @@ namespace FirstLight.Game.Services.Authentication
 		/// Registers an authentication hook
 		/// </summary>
 		public void RegisterHook(IAuthenticationHook hook);
+		
+		/// <summary>
+		/// Currently linked login types to this account
+		/// </summary>
+		public IReadOnlyCollection<LoginType> LoginTypes { get; }
+
+		/// <summary>
+		/// Returns if user is able to link current account to a native account
+		/// </summary>
+		public UniTask<bool> CanLinkToNativeAccount();
+	}
+
+	public enum LoginType
+	{
+		Native, LegacyDevice, EmailPass
 	}
 
 	public class SessionData : ISessionData
@@ -210,6 +225,12 @@ namespace FirstLight.Game.Services.Authentication
 		private readonly IMessageBrokerService _msgBroker;
 		private readonly IGameLogicInitializer _logicInitializer;
 		private readonly IDataService _dataService;
+
+		public IReadOnlyCollection<LoginType> LoginTypes { get; private set; } 
+		public async UniTask<bool> CanLinkToNativeAccount()
+		{
+			return LoginTypes.Contains(LoginType.EmailPass) && !LoginTypes.Contains(LoginType.Native) && await CanLoginWithNativeGamesService();
+		}
 
 		public string RawLocalPlayerName { get; private set; }
 		public ISessionData SessionData => _sessionData;
@@ -325,7 +346,24 @@ namespace FirstLight.Game.Services.Authentication
 			var loginResult = await task;
 			_sessionData.LastLoginResult = loginResult;
 			_sessionData.IsFirstSession = loginResult.NewlyCreated;
-			_sessionData.IsGuest = string.IsNullOrWhiteSpace(loginResult.InfoResultPayload.AccountInfo.PrivateInfo.Email);
+			var hasEmail = string.IsNullOrWhiteSpace(loginResult.InfoResultPayload.AccountInfo.PrivateInfo.Email);
+			
+			_sessionData.IsGuest = !hasEmail;
+			var logins = new HashSet<LoginType>();
+			if (loginResult.InfoResultPayload.AccountInfo.GameCenterInfo != null || loginResult.InfoResultPayload.AccountInfo.GooglePlayGamesInfo != null)
+			{
+				logins.Add(LoginType.Native);
+			}
+			if (hasEmail)
+			{
+				logins.Add(LoginType.EmailPass);
+			}
+
+			if (!string.IsNullOrEmpty(loginResult.InfoResultPayload.AccountInfo.CustomIdInfo?.CustomId))
+			{
+				logins.Add(LoginType.LegacyDevice);
+			}
+			LoginTypes = logins;
 			_sessionData.Email = loginResult.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			RawLocalPlayerName = loginResult.InfoResultPayload.PlayerProfile?.DisplayName;
 			var initializePlayerAndFetchState = InitializeServerLogicAndFetchState().Preserve();

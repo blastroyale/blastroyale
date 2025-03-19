@@ -9,6 +9,7 @@ using I2.Loc;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 using Cysharp.Threading.Tasks;
+using FirstLight.Game.Services.Authentication;
 using FirstLight.UIService;
 using PlayFab;
 using Unity.Services.Authentication;
@@ -43,6 +44,7 @@ namespace FirstLight.Game.Presenters
 		private LocalizedButton _web3Button;
 		private LocalizedButton _supportButton;
 		private LocalizedLabel _accountStatusLabel;
+		
 		private TextField _playerIDField;
 
 		private void Awake()
@@ -60,7 +62,8 @@ namespace FirstLight.Game.Presenters
 			_buildInfoLabel = Root.Q<Label>("BuildInfoLabel");
 			_buildInfoLabel.text = VersionUtils.VersionInternal;
 
-			Root.Q("AccountNotification").Required().SetDisplay(_services.AuthService.SessionData.IsGuest);
+			var accountNotification = 	Root.Q("AccountNotification").Required();
+			accountNotification.SetDisplay(_services.AuthService.SessionData.IsGuest);
 			Root.Q("ConnectNotification").Required().SetDisplay(_services.AuthService.SessionData.IsGuest);
 
 			// Sound
@@ -102,6 +105,9 @@ namespace FirstLight.Game.Presenters
 			_supportButton.clicked += OpenSupportService;
 			_serverButton = Root.Q<LocalizedButton>("ServerButton").Required();
 			_serverButton.clicked += OpenServerSelect;
+
+			var link = Root.Q<LocalizedButton>("LinkButton").Required();
+			link.SetDisplay(false);
 			
 			if (MainInstaller.ResolveWeb3().IsEnabled())
 			{
@@ -112,7 +118,25 @@ namespace FirstLight.Game.Presenters
 				_web3Button.SetDisplay(false);
 			}
 			Root.SetupClicks(_services);
+
+			_services.AuthService.CanLinkToNativeAccount().ContinueWith(canUseNative =>
+			{
+				if (!canUseNative) return;
+				accountNotification.SetDisplay(true);
+				link.SetDisplay(true);
+#if !UNITY_IOS
+				link.LocalizationKey = link.text = "LINK TO GOOGLE PLAY";
+#else
+				link.LocalizationKey = link.text = "LINK TO APPLE ACCOUNT";
+#endif
+				link.clicked += () =>
+				{
+					_services.AuthService.TryToLinkNativeAccount().ContinueWith(() => { link.SetDisplay(false); }).Forget();
+				};
+			}).Forget();
 		}
+		
+		
 		
 		private void SetupToggle(Toggle toggle, ObservableField<bool> observable)
 		{

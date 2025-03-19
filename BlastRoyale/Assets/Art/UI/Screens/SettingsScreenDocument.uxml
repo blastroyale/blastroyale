@@ -6,7 +6,7 @@
             <ui:VisualElement name="SettingsPopup" class="settings-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/settings_title" name="ScreenTitle" class="settings-title" />
                 <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="settings-popup__close" />
-                <ui:VisualElement name="Content" class="settings-popup__content">
+                <ui:VisualElement name="Content" class="settings-popup__content" style="top: 85px;">
                     <FirstLight.Game.UIElements.TabbedView name="SettingsTabbedView" class="settings-tabbed-view">
                         <FirstLight.Game.UIElements.TabButton target="Sound" localization-key="UITSettings/sound_title" class="settings-tab-button" />
                         <FirstLight.Game.UIElements.TabButton target="Graphics" localization-key="UITSettings/graphics_title" class="settings-tab-button" />
@@ -24,11 +24,11 @@
                             <FirstLight.Game.UIElements.LocalizedToggle value="0" localization-key="UITSettings/fps" name="FPSLimit" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/use_overhead_ui" name="UseOverheadUI" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/show_latency" name="ShowLatency" />
-                            <FirstLight.Game.UIElements.LocalizedRadioButtonGroup localization-key="UITSettings/graphics_quality" name="PerformanceMode" class="settings-radio-button-group"/>
+                            <FirstLight.Game.UIElements.LocalizedRadioButtonGroup localization-key="UITSettings/graphics_quality" name="PerformanceMode" class="settings-radio-button-group" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Controls" class="settings-container">
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/InvertSpecialCancel" name="InvertSpecialCancelling"/>
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/InvertSpecialCancel" name="InvertSpecialCancelling" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/switch_joysticks" name="SwitchJoysticks" />
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/hud_customization" name="CustomizeHud" class="button-long sfx-click-forwards" />
                         </ui:VisualElement>
@@ -41,7 +41,10 @@
                                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect" name="ConnectButton" text="Connect" class="button-long button-long--yellow account-button">
                                     <ui:VisualElement name="ConnectNotification" class="notification-icon button-with-icon__notification" />
                                 </FirstLight.Game.UIElements.LocalizedButton>
-                                <FirstLight.Game.UIElements.LocalizedButton name="Web3Button" text="Web3" class="button-long button-long--yellow account-button"/>
+                                <FirstLight.Game.UIElements.LocalizedButton name="Web3Button" text="Web3" class="button-long button-long--yellow account-button" />
+                                <FirstLight.Game.UIElements.LocalizedButton localization-key="LINK DEVICE" name="LinkButton" text="LINK DEVICE" class="button-long button-long--yellow account-button">
+                                    <ui:VisualElement name="ConnectNotification" class="notification-icon button-with-icon__notification" style="top: -9px; right: 13px;" />
+                                </FirstLight.Game.UIElements.LocalizedButton>
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </FirstLight.Game.UIElements.TabbedView>

@@ -3291,10 +3291,10 @@ MonoBehaviour:
       PointsForNextLevel: 100
       Season: 16
     - RewardId: 35
-      PremiumRewardId: 227
+      PremiumRewardId: 217
       PointsForNextLevel: 200
       Season: 16
-    - RewardId: 226
+    - RewardId: 216
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 16
@@ -3303,7 +3303,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 35
-      PremiumRewardId: 227
+      PremiumRewardId: 217
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 64
@@ -3314,7 +3314,7 @@ MonoBehaviour:
       PremiumRewardId: 169
       PointsForNextLevel: 0
       Season: 16
-    - RewardId: 226
+    - RewardId: 216
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 16
@@ -3334,12 +3334,12 @@ MonoBehaviour:
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 16
-    - RewardId: 226
+    - RewardId: 216
       PremiumRewardId: 169
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 35
-      PremiumRewardId: 227
+      PremiumRewardId: 217
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 64
@@ -3362,7 +3362,7 @@ MonoBehaviour:
       PremiumRewardId: 169
       PointsForNextLevel: 0
       Season: 16
-    - RewardId: 226
+    - RewardId: 216
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 16
@@ -3378,8 +3378,8 @@ MonoBehaviour:
       PremiumRewardId: 169
       PointsForNextLevel: 0
       Season: 16
-    - RewardId: 226
-      PremiumRewardId: 227
+    - RewardId: 216
+      PremiumRewardId: 217
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 35
@@ -3407,7 +3407,7 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 35
-      PremiumRewardId: 227
+      PremiumRewardId: 217
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 64
@@ -3418,7 +3418,7 @@ MonoBehaviour:
       PremiumRewardId: 220
       PointsForNextLevel: 0
       Season: 16
-    - RewardId: 226
+    - RewardId: 216
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 16
@@ -3431,14 +3431,14 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 35
-      PremiumRewardId: 227
+      PremiumRewardId: 217
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 64
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 16
-    - RewardId: 226
+    - RewardId: 216
       PremiumRewardId: 169
       PointsForNextLevel: 0
       Season: 16
@@ -3455,14 +3455,14 @@ MonoBehaviour:
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 225
-      PremiumRewardId: 227
+      PremiumRewardId: 217
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 35
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 16
-    - RewardId: 226
+    - RewardId: 216
       PremiumRewardId: 169
       PointsForNextLevel: 0
       Season: 16
@@ -3470,15 +3470,15 @@ MonoBehaviour:
       PremiumRewardId: 170
       PointsForNextLevel: 0
       Season: 16
-    - RewardId: 226
+    - RewardId: 216
       PremiumRewardId: 169
       PointsForNextLevel: 0
       Season: 16
     - RewardId: 35
-      PremiumRewardId: 227
+      PremiumRewardId: 217
       PointsForNextLevel: 0
       Season: 16
-    - RewardId: 226
+    - RewardId: 216
       PremiumRewardId: 221
       PointsForNextLevel: 0
       Season: 16

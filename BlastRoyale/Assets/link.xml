@@ -2,4 +2,6 @@
     <assembly fullname="Newtonsoft.Json" preserve="all"/>
     <assembly fullname="UnityEngine.AnimationModule" preserve="all"/>
     <assembly fullname="FirstLightServerSDK" preserve="all"/>
+    <assembly fullname="PlayFab" preserve="all"/>
+    <assembly fullname="FirstLight.Game" preserve="all"/>
 </linker>

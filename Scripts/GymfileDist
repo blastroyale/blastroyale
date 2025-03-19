@@ -1,5 +1,5 @@
 export_options(
     provisioningProfiles: {
-        "com.firstlightgames.blastroyale.notificationservice" => "3517beef-1f54-4c05-99ac-87355e421ef3"
+        "com.firstlightgames.blastroyale.notificationservice" => "da707375-07ae-4ac9-871c-5a529b183437"
     }
 )

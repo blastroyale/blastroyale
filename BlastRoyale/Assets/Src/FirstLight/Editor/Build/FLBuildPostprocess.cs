@@ -109,6 +109,12 @@ namespace FirstLight.Editor.Build
 			pbxProject.SetBuildProperty(frameworkTargetGuid, "ENABLE_BITCODE", "NO");
 
 			pbxProject.WriteToFile(projectPath);
+
+			// Workaround huge assembly https://discussions.unity.com/t/xcode-can-not-build-unitywebrequest-o/837666/38
+			var filePath = pathToXcode + "./Il2CppOutputProject/IL2CPP/libil2cpp/os/c-api/il2cpp-config-platforms.h";
+			var text = File.ReadAllText(filePath);
+			text = text.Replace("IL2CPP_LARGE_EXECUTABLE_ARM_WORKAROUND 0", "IL2CPP_LARGE_EXECUTABLE_ARM_WORKAROUND 1");
+			File.WriteAllText(filePath, text);
 		}
 	}
 }

@@ -346,7 +346,7 @@ namespace FirstLight.Game.Services.Authentication
 			var loginResult = await task;
 			_sessionData.LastLoginResult = loginResult;
 			_sessionData.IsFirstSession = loginResult.NewlyCreated;
-			var hasEmail = string.IsNullOrWhiteSpace(loginResult.InfoResultPayload.AccountInfo.PrivateInfo.Email);
+			var hasEmail = !string.IsNullOrWhiteSpace(loginResult.InfoResultPayload.AccountInfo.PrivateInfo.Email);
 			
 			_sessionData.IsGuest = !hasEmail;
 			var logins = new HashSet<LoginType>();

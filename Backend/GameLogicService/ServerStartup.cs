@@ -83,7 +83,7 @@ namespace Backend
 		{
 			var pluginManager = s.GetRequiredService<IPluginManager>() as PluginManager;
 			var pluginLogger = s.GetRequiredService<IPluginLogger>();
-			var eventManager = new PluginEventManager(pluginLogger);
+			var eventManager = s.GetRequiredService<IEventManager>();
 			var pluginSetup = new PluginContext();
 			pluginSetup.SetupContext(eventManager, s);
 			pluginManager.LoadPlugins(pluginSetup, s);

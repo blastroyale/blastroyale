@@ -1,6 +1,5 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -28,7 +27,11 @@ namespace FirstLight.Game.Commands
 		public async UniTask Execute(CommandExecutionContext ctx)
 		{
 			var catalogItem = await ctx.Services.CatalogService().GetCatalogItem(CatalogItemId);
-			var storeSetup = await ctx.Services.StoreService().GetItemPrice(CatalogItemId);
+
+			var playerDailyDealsConfiguration = ctx.Data.GetData<PlayerStoreData>().PlayerDailyDealsConfiguration;
+			var dealStore = playerDailyDealsConfiguration?.SpecialStoreList.FirstOrDefault(s => s.IsActive && s.SpecialStoreItemIDs.Contains(CatalogItemId));
+			
+			var storeSetup = await ctx.Services.StoreService().GetItemPrice(CatalogItemId, dealStore?.SpecialStoreName);
 
 			if (!ctx.Logic.PlayerStoreLogic().IsPurchasedAllowed(CatalogItemId, StoreItemData))
 			{

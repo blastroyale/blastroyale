@@ -59,7 +59,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 
 			var currencies = MainInstaller.ResolveWeb3().GetWeb3Currencies();
-			var c= currencies[coin];
+			var c = currencies[coin];
 			c.TotalPredicted.Observe(ReloadCryptoCurrencies);
 			_gameDataProvider.CurrencyDataProvider.Currencies.Observe(coin, (_,old,newv,_) =>
 			{
@@ -94,10 +94,13 @@ namespace FirstLight.Game.Views.UITK
 					GameIdGroup.CryptoCurrency.GetIds().Contains(c.Key) && ((c.Value > 0 && ShowOnly == null) || (ShowOnly?.Contains(c.Key) ?? false)))
 				.ToDictionary(c => c.Key, c => c.Value);
 
-			if (!MainInstaller.ResolveWeb3().IsEnabled())
-			{
-				inBank.Clear();
-			}
+			//TODO We need to discuss how we are going to show Festive coins inside the GAME
+			// Currently, Festive Coins are placed within the CryptoCurrency GameIDGroups so they appear in the CryptoMultipleCurrency element.
+			// This made sense before the component was updated to fetch cryptocurrency amounts directly from the chain, instead of using player data.
+			// if (!MainInstaller.ResolveWeb3().IsEnabled())
+			// {
+			// 	inBank.Clear();
+			// }
 			
 			CryptoCurrenciesElement.SetData((int)totalOnChain, inBank);
 		}

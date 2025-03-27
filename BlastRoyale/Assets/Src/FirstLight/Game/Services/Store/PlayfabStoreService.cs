@@ -460,7 +460,9 @@ namespace FirstLight.Game.Services
 
 		public Task<FlgStoreItem> GetItemPrice(string itemId, string dailyDealStore = null)
 		{
-			var i = _mainStoreItems[itemId];
+
+			var i = dailyDealStore != null ? _dailyDealsStoreItems[itemId] : _mainStoreItems[itemId];
+			
 			return Task.FromResult(new FlgStoreItem()
 			{
 				ItemId = i.ItemId,

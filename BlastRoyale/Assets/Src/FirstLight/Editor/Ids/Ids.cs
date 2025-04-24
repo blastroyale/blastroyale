@@ -248,7 +248,6 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinBoudicca", 139}, // placeholder ID for the future skin
 			{"PlayerSkinCupid", 142, PlayerSkin, Collection},
 			{"PlayerSkinPanda", 400, PlayerSkin, Collection},
-			{"PlayerSkinDragon", 402}, // placeholder ID for the future skin
 			{"PlayerSkinSnowboarder", 403, PlayerSkin, Collection},
 			{"PlayerSkinDunePaul", 404, PlayerSkin, Collection},
 			{"PlayerSkinViking", 405, PlayerSkin, Collection},
@@ -312,7 +311,16 @@ namespace FirstLight.Editor.Ids
 			{"PlayerSkinSakura", 344, PlayerSkin, Collection},
 			{"PlayerSkinZombie", 345, PlayerSkin, Collection},
 			{"PlayerSkinCyberBunny", 346, PlayerSkin, Collection},
-			// SKINS GENERATION TOKEN KEEP THIS HERE
+			
+			{"PlayerSkinAnubis", 459, PlayerSkin, Collection},
+			{"PlayerSkinDesert", 458, PlayerSkin, Collection},
+			{"PlayerSkinDragon", 460, PlayerSkin, Collection},
+			{"PlayerSkinJoker", 456, PlayerSkin, Collection},
+			{"PlayerSkinFisherman", 465, PlayerSkin, Collection},
+			{"PlayerSkinIShowSpeed", 461, PlayerSkin, Collection},
+			{"PlayerSkinJungleExplorer", 462, PlayerSkin, Collection},
+			{"PlayerSkinOfficeGuy", 463, PlayerSkin, Collection},
+			{"PlayerSkinMoose", 464, PlayerSkin, Collection},
 
 			#endregion Player skins
 
@@ -420,6 +428,14 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinUmbrella", 348, MeleeSkin, Collection},
 			{"MeleeSkinZombieArm", 349, MeleeSkin, Collection},
 			{"MeleeSkinZombieBat", 350, MeleeSkin, Collection},
+			
+			
+			{"MeleeSkinAnubisStaff", 466, MeleeSkin, Collection},
+			{"MeleeSkinDesertKnife", 467, MeleeSkin, Collection},
+			{"MeleeSkinFishingHook", 468, MeleeSkin, Collection},
+			{"MeleeSkinFoamFinger", 469, MeleeSkin, Collection},
+			{"MeleeSkinInflatableCrocodile", 470, MeleeSkin, Collection},
+			{"MeleeSkinSuitCase", 471, MeleeSkin, Collection},
 			// WEAPON GENERATION TOKEN KEEP THIS HERE
 				
 			#endregion

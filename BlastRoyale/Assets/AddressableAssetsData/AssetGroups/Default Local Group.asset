@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Default Local Group
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
-  m_Data:
-    m_SerializedData: []
   m_GUID: 0e52a60771cc149338b91a85f39606ae
   m_SerializeEntries:
   - m_GUID: 08479ab7af738d34ebb93daac48a8dc5
@@ -121,6 +119,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e03e6e2a82c494767b45513bc3068782
     m_Address: CustomAssets
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5e11fad68074894b9c22df9090f7f61
+    m_Address: Assets/Art/AssetPacks/PolygonNature/FX/FX_Prefabs/SM_Waterfall_Foam.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

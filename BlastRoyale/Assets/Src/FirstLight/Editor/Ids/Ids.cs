@@ -428,14 +428,13 @@ namespace FirstLight.Editor.Ids
 			{"MeleeSkinUmbrella", 348, MeleeSkin, Collection},
 			{"MeleeSkinZombieArm", 349, MeleeSkin, Collection},
 			{"MeleeSkinZombieBat", 350, MeleeSkin, Collection},
-			
-			
 			{"MeleeSkinAnubisStaff", 466, MeleeSkin, Collection},
 			{"MeleeSkinDesertKnife", 467, MeleeSkin, Collection},
 			{"MeleeSkinFishingHook", 468, MeleeSkin, Collection},
 			{"MeleeSkinFoamFinger", 469, MeleeSkin, Collection},
 			{"MeleeSkinInflatableCrocodile", 470, MeleeSkin, Collection},
 			{"MeleeSkinSuitCase", 471, MeleeSkin, Collection},
+
 			// WEAPON GENERATION TOKEN KEEP THIS HERE
 				
 			#endregion

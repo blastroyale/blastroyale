@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 5439899426697715752, guid: eb7c277324b334b66b4390b657bd17a3, type: 3}
     - target: {fileID: 919132149155446097, guid: 50b292170b0ce405b8f803f724e55f6f, type: 3}
       propertyPath: m_Name
-      value: Melee_AnubisStaff
+      value: Melee_DesertKnife
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -81,4 +81,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4acba63618c0342937419023073940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponType: 1
+  WeaponType: 7

@@ -136,6 +136,12 @@ namespace FirstLight.Game.Presenters
 			Root.Q("RewardShineYellow").Required().AddRotatingEffect(25, 10);
 			_services.MessageBrokerService.Subscribe<BattlePassLevelPurchasedMessage>(OnBoughtBpLevel);
 			_services.IAPService.PurchaseFinished += OnPurchaseFinished;
+
+			
+			// We hide all cosmetics rewards as "infinite" seasons will have none
+			_endGraphicContainer.SetVisibility(false);
+			_endGraphicContainer.Q<VisualElement>("RewardNameCloud").Required().SetVisibility(false);
+			_endGraphicContainer.Q<Label>("ExclusiveReward").Required().SetVisibility(false);
 		}
 
 		protected override UniTask OnScreenClose()

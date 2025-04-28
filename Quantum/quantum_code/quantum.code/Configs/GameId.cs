@@ -1329,11 +1329,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.PlayerSkinDragon, new List<GameIdGroup>
-					{
-					}.AsReadOnly()
-				},
-				{
 					GameId.PlayerSkinSnowboarder, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
@@ -1766,6 +1761,69 @@ namespace Quantum
 				},
 				{
 					GameId.PlayerSkinCyberBunny, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinAnubis, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinDesert, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinDragon, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinJoker, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinFisherman, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinIShowSpeed, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinJungleExplorer, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinOfficeGuy, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.PlayerSkinMoose, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
 						GameIdGroup.Collection
@@ -2421,6 +2479,48 @@ namespace Quantum
 				},
 				{
 					GameId.MeleeSkinZombieBat, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinAnubisStaff, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinDesertKnife, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinFishingHook, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinFoamFinger, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinInflatableCrocodile, new List<GameIdGroup>
+					{
+						GameIdGroup.MeleeSkin,
+						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.MeleeSkinSuitCase, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
 						GameIdGroup.Collection
@@ -3742,6 +3842,15 @@ namespace Quantum
 						GameId.PlayerSkinSakura,
 						GameId.PlayerSkinZombie,
 						GameId.PlayerSkinCyberBunny,
+						GameId.PlayerSkinAnubis,
+						GameId.PlayerSkinDesert,
+						GameId.PlayerSkinDragon,
+						GameId.PlayerSkinJoker,
+						GameId.PlayerSkinFisherman,
+						GameId.PlayerSkinIShowSpeed,
+						GameId.PlayerSkinJungleExplorer,
+						GameId.PlayerSkinOfficeGuy,
+						GameId.PlayerSkinMoose,
 						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
@@ -3833,6 +3942,12 @@ namespace Quantum
 						GameId.MeleeSkinUmbrella,
 						GameId.MeleeSkinZombieArm,
 						GameId.MeleeSkinZombieBat,
+						GameId.MeleeSkinAnubisStaff,
+						GameId.MeleeSkinDesertKnife,
+						GameId.MeleeSkinFishingHook,
+						GameId.MeleeSkinFoamFinger,
+						GameId.MeleeSkinInflatableCrocodile,
+						GameId.MeleeSkinSuitCase,
 						GameId.Avatar1,
 						GameId.Avatar2,
 						GameId.Avatar3,
@@ -4255,7 +4370,13 @@ namespace Quantum
 						GameId.MeleeSkinSakuraKatana,
 						GameId.MeleeSkinUmbrella,
 						GameId.MeleeSkinZombieArm,
-						GameId.MeleeSkinZombieBat
+						GameId.MeleeSkinZombieBat,
+						GameId.MeleeSkinAnubisStaff,
+						GameId.MeleeSkinDesertKnife,
+						GameId.MeleeSkinFishingHook,
+						GameId.MeleeSkinFoamFinger,
+						GameId.MeleeSkinInflatableCrocodile,
+						GameId.MeleeSkinSuitCase
 					}.AsReadOnly()
 				},
 				{
@@ -4333,7 +4454,16 @@ namespace Quantum
 						GameId.PlayerSkinRaincoat,
 						GameId.PlayerSkinSakura,
 						GameId.PlayerSkinZombie,
-						GameId.PlayerSkinCyberBunny
+						GameId.PlayerSkinCyberBunny,
+						GameId.PlayerSkinAnubis,
+						GameId.PlayerSkinDesert,
+						GameId.PlayerSkinDragon,
+						GameId.PlayerSkinJoker,
+						GameId.PlayerSkinFisherman,
+						GameId.PlayerSkinIShowSpeed,
+						GameId.PlayerSkinJungleExplorer,
+						GameId.PlayerSkinOfficeGuy,
+						GameId.PlayerSkinMoose
 					}.AsReadOnly()
 				},
 				{

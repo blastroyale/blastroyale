@@ -25,9 +25,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_CURRENCY_LABEL = USS_BLOCK + "__label";
 		private const string USS_BLOCK_PLUSSIGN = USS_BLOCK + USS_PLUSSIGN_MODIFIER;
 		private const string USS_MULTIPLE_CURRENCY_LABEL = USS_CURRENCY_LABEL + USS_PLUSSIGN_MODIFIER;
-		private const string USS_SHINE = "currency-shine";
+		
 		//Crypto Currency
-
 		private const string USS_CRYPTO_PARENT = "crypto-currencies-parent";
 		private const string USS_CRYPTO_PARENT_PLUS = "crypto-currencies-parent" + USS_PLUSSIGN_MODIFIER;
 		private const string USS_CRYPTO_CURRENCY_BLOCK = "crypto-currencies-display";
@@ -48,7 +47,6 @@ namespace FirstLight.Game.UIElements
 		private readonly Label _mainCryptoCurrencyAmount;
 		private readonly VisualElement _bankContainer;
 		private readonly VisualElement _partnerCryptoCurrenciesArrow;
-		private readonly VisualElement _shine;
 		
 		private Dictionary<GameId, ulong> _cryptoCurrenciesDict;
 		private Action OnClickedAction;
@@ -67,13 +65,7 @@ namespace FirstLight.Game.UIElements
 				_buttonView.AddToClassList(USS_BLOCK);
 				_buttonView.AddToClassList(USS_BLOCK_CRYPTO_MODIFIER);
 				_buttonView.RegisterCallback<ClickEvent>(OnClicked);
-
-				_shine = new VisualElement() {name = "CurrencyShine"};
-				_shine.AddToClassList(USS_SHINE);
-				_shine.AddRotatingEffect(50, 10);
-				_shine.AnimatePingOpacity(fromAmount: 0.3f, duration: 1500, repeat: true);
-				_shine.SetDisplay(false);
-				Add(_shine); 
+				
 				
 				// Icon outline
 				_mainCryptoCurrencyIconOutline = new VisualElement() {name = "MainCurrencyIconContainer"};
@@ -171,7 +163,6 @@ namespace FirstLight.Game.UIElements
 		private void SetupCurrenciesDisplay(int onChainValue, Dictionary<GameId, ulong> cryptoCurrenciesDict)
 		{
 			_mainCryptoCurrencyAmount.text = onChainValue.ToString();
-			_shine.SetDisplay(cryptoCurrenciesDict.Count > 0);
 			
 			if (cryptoCurrenciesDict.Count == 0)
 			{
@@ -180,12 +171,12 @@ namespace FirstLight.Game.UIElements
 			}
 			
 			//Start Setting Up Tooltip with Multiples Crypto Tokens
-			/*
+
 			AddToClassList(USS_CRYPTO_PARENT_PLUS);
 			_buttonView.AddToClassList(USS_BLOCK_PLUSSIGN);
 			_mainCryptoCurrencyAmount.AddToClassList(USS_MULTIPLE_CURRENCY_LABEL);
 			_mainCryptoCurrencyAmount.text = "+";
-*/
+
 			_bankContainer.Clear();
 			_bankContainer.Add(_partnerCryptoCurrenciesArrow);
 			

@@ -128,7 +128,7 @@ namespace GameLogicService.Services
 			//Check if purchased Item is part of Player's Daily Deal Items
 			if (dailyDealsConfiguration != null)
 			{
-				var specialStore = dailyDealsConfiguration.SpecialStoreList.FirstOrDefault(s => s.SpecialStoreItemIDs.Contains(catalogItemId));
+				var specialStore = dailyDealsConfiguration.SpecialStoreList.FirstOrDefault(s => s.IsActive && s.SpecialStoreItemIDs.Contains(catalogItemId));
 				if (specialStore != null)
 				{
 					return await _storeService.GetItemPrice(catalogItemId, specialStore.SpecialStoreName);

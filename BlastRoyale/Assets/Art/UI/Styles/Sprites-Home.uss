@@ -51,6 +51,7 @@
     --sprite-home__banner-back-purpleorange: url('/Assets/Art/UI/Sprites/Home/banner-back-purpleorange.png');
     --sprite-home__banner-character-valkyrie: url('/Assets/Art/UI/Sprites/Home/banner-character-valkyrie.png');
     --sprite-home__banner-iceking: url('/Assets/Art/UI/Sprites/Home/banner-iceking.png');
+    --sprite-home__banner-infinite: url('/Assets/Art/UI/Sprites/Home/banner-infinite.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__banner-pigeon: url('/Assets/Art/UI/Sprites/Home/banner-pigeon.png');
     --sprite-home__banner-ribbon-copper: url('/Assets/Art/UI/Sprites/Home/banner-ribbon-copper.png');
@@ -223,6 +224,7 @@
     --sprite-home__icon-tiktok: url('/Assets/Art/UI/Sprites/Home/icon-tiktok.png');
     --sprite-home__icon-twitter: url('/Assets/Art/UI/Sprites/Home/icon-twitter.png');
     --sprite-home__icon-youtube: url('/Assets/Art/UI/Sprites/Home/icon-youtube.png');
+    --sprite-home__infinite-season-reward: url('/Assets/Art/UI/Sprites/Home/infinite-season-reward.png');
     --sprite-home__loading_background: url('/Assets/Art/UI/Sprites/Home/loading_background.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__malepunk-season-reward: url('/Assets/Art/UI/Sprites/Home/malepunk-season-reward.png');
@@ -575,6 +577,12 @@
 
 .sprite-home__banner-iceking {
     background-image: var(--sprite-home__banner-iceking);
+    width: 526px;
+    height: 698px;
+}
+
+.sprite-home__banner-infinite {
+    background-image: var(--sprite-home__banner-infinite);
     width: 526px;
     height: 698px;
 }
@@ -1561,6 +1569,12 @@
     background-image: var(--sprite-home__icon-youtube);
     width: 48px;
     height: 48px;
+}
+
+.sprite-home__infinite-season-reward {
+    background-image: var(--sprite-home__infinite-season-reward);
+    width: 1175px;
+    height: 943px;
 }
 
 .sprite-home__loading_background {

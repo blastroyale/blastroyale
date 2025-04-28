@@ -231,19 +231,26 @@ namespace FirstLight.Game.Presenters
 					currentSeason.Season.Number);
 			}
 			
-			FillGoodies(PassType.Paid);
-			FillGoodies(PassType.Free);
-
-			if (string.IsNullOrEmpty(currentSeason.Season.BannerGraphicImageClass))
-			{
-				_characterImage.SetDisplay(false);
-			}
-			else
-			{
-				_characterImage.RemoveSpriteClasses();
-				_characterImage.AddToClassList(currentSeason.Season.BannerGraphicImageClass);
-				_characterImage.SetDisplay(true);
-			}
+			// We hide all cosmetics rewards as "infinite" seasons will have none
+			_characterImage.SetVisibility(false);
+			Root.Q<VisualElement>("RewardsContainerFree").SetVisibility(false);
+			Root.Q<LabelOutlined>("FreeLabel").SetVisibility(false);
+			Root.Q<VisualElement>("RewardsPremium").SetVisibility(false);
+			
+			// FillGoodies(PassType.Paid);
+			// FillGoodies(PassType.Free);
+			
+			// if (string.IsNullOrEmpty(currentSeason.Season.BannerGraphicImageClass))
+			// {
+			// 	_characterImage.SetDisplay(false);
+			// }
+			// else
+			// {
+			// 	_characterImage.RemoveSpriteClasses();
+			// 	_characterImage.AddToClassList(currentSeason.Season.BannerGraphicImageClass);
+			// 	_characterImage.SetDisplay(true);
+			// }
+			
 			return base.OnScreenOpen(reload);
 		}
 

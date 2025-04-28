@@ -15061,6 +15061,204 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/PlayerSkinAnubis
+      TermType: 0
+      Description: 
+      Languages:
+      - ANUBIS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinAnubisDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDesert
+      TermType: 0
+      Description: 
+      Languages:
+      - BARNEY MARSHALL
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDesertDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDragon
+      TermType: 0
+      Description: 
+      Languages:
+      - DRAGON KNIGHT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinDragonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinJoker
+      TermType: 0
+      Description: 
+      Languages:
+      - HARLEQUIN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinJokerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFisherman
+      TermType: 0
+      Description: 
+      Languages:
+      - MAKO FINN
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinFishermanDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinIShowSpeed
+      TermType: 0
+      Description: 
+      Languages:
+      - ISHOWSLOW
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinIShowSpeedDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinJungleExplorer
+      TermType: 0
+      Description: 
+      Languages:
+      - JUNO WILDER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinJungleExplorerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinOfficeGuy
+      TermType: 0
+      Description: 
+      Languages:
+      - AGENT 404
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinOfficeGuyDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMoose
+      TermType: 0
+      Description: 
+      Languages:
+      - SKARNYR
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PlayerSkinMooseDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/MaleAssassin
       TermType: 0
       Description: 
@@ -16460,6 +16658,138 @@ MonoBehaviour:
       Flags: 0000000000
       Languages_Touch: []
     - Term: GameIds/MeleeSkinZombieBatDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinAnubisStaff
+      TermType: 0
+      Description: 
+      Languages:
+      - ANUBIS STAFF
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinAnubisStaffDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDesertKnife
+      TermType: 0
+      Description: 
+      Languages:
+      - DESERT KNIFE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDesertKnifeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFishingHook
+      TermType: 0
+      Description: 
+      Languages:
+      - HOOK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFishingHookDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFoamFinger
+      TermType: 0
+      Description: 
+      Languages:
+      - FOAM FINGER
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinFoamFingerDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinInflatableCrocodile
+      TermType: 0
+      Description: 
+      Languages:
+      - CROCODILE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinInflatableCrocodileDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Appears in the Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSuitCase
+      TermType: 0
+      Description: 
+      Languages:
+      - SUITCASE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSuitCaseDescription
       TermType: 0
       Description: 
       Languages:
@@ -18775,17 +19105,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/PlayerSkinDragon
-      TermType: 0
-      Description: 
-      Languages:
-      - DRAGON
-      - DRAGON
-      - DRAGON
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/PlayerSkinDragonBoxer
       TermType: 0
       Description: 
@@ -18804,17 +19123,6 @@ MonoBehaviour:
       - The Eye Of The Dragon
       - Punk Rock Thrasher
       - Punk Rock Thrasher
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PlayerSkinDragonDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Dragon description
-      - Dragon description
-      - Dragon description
       - 
       - 
       Flags: 0000000000
@@ -21319,7 +21627,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Melee Skin
+      - Melee
       - Melee Skin
       - Skin de Arma Branca
       - 
@@ -21330,7 +21638,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Skin
+      - Character
       - Skin
       - Skin
       - 
@@ -27591,6 +27899,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITGeneric/purchase_not_enough_currency
+      TermType: 0
+      Description: 
+      Languages:
+      - "You don\u2019t have enough currency"
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITMatch/airdrop_landing
       TermType: 0
       Description: 
@@ -27685,7 +28004,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FLAG
+      - FLAGS
       - "\u0411\u0430\u043D\u043D\u0435\u0440\u044B"
       - Banners
       - 
@@ -27696,7 +28015,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GLIDER
+      - GLIDERS
       - "\u041F\u043B\u0430\u043D\u0435\u0440\u044B"
       - Planadores
       - 
@@ -27707,7 +28026,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MELEE
+      - MELEES
       - "\u0420\u0443\u043A\u043E\u043F\u0430\u0448\u043D\u044B\u043C \u0431\u043E\u0435\u043C"
       - MARTELOS
       - 
@@ -27718,7 +28037,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CHARACTER
+      - CHARACTERS
       - "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416\u0418"
       - PERSONAGENS
       - 
@@ -27729,7 +28048,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - AVATAR
+      - AVATARS
       - "\u0410\u0412\u0410\u0422\u0410\u0420\u042B"
       - AVATARES
       - 
@@ -30181,11 +30500,77 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITNoobVoucher/noob_voucher_not_enought_currency
+    - Term: UITNoobVoucher/noob_voucher_not_enough_currency
       TermType: 0
       Description: 
       Languages:
-      - YOU DON'T HAVE ENOUGHT CURRENCY
+      - YOU DON'T HAVE ENOUGH CURRENCY
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITNoobVoucher/noob_voucher_exchange_gas_ticket
+      TermType: 0
+      Description: 
+      Languages:
+      - 1 BLOCKCHAIN TICKET
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTransferNoob/transfer_noob_choose_friend
+      TermType: 0
+      Description: 
+      Languages:
+      - CHOOSE A FRIEND
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTransferNoob/transfer_noob_paste_wallet
+      TermType: 0
+      Description: 
+      Languages:
+      - Paste Wallet address
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTransferNoob/transfer_noob_choose_amount
+      TermType: 0
+      Description: 
+      Languages:
+      - Choose an amount
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTransferNoob/transfer_noob_confirm_action
+      TermType: 0
+      Description: 
+      Languages:
+      - Confirm action
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTransferNoob/transfer_noob_transfer
+      TermType: 0
+      Description: 
+      Languages:
+      - 1 <sprite name="GASTicket"> \n TRANSFER
       - 
       - 
       - 
@@ -32258,6 +32643,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITShared/step_1
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Step 1: '
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITShared/step_2
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Step 2: '
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITShared/step_3
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Step 3: '
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITStandings/collected_in_map
       TermType: 0
       Description: 
@@ -34186,7 +34604,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1742379739160
+    Google_LastUpdatedVersion: 1745859752973
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

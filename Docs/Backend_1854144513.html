@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Backend</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Backend
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span>, last modified on May 09, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h2 id="Backend-Components:"><br/>Components:</h2><p /><p><a href="Game-Logic-Server_1914437633.html" data-linked-resource-id="1914437633" data-linked-resource-version="6" data-linked-resource-type="page">Game Logic Server:</a> Items, Rewards, Weapons, Deterministic Lobby Logic (e.g equip item)<br/><a href="2027323425.html" data-linked-resource-id="2027323425" data-linked-resource-version="8" data-linked-resource-type="page">Quantum Server:</a> Realtime deterministic match server, input validation, rewards.<br/>Blockchain Server: Server authoritative Game Blockchain operations, claim CS, replicate etc.<br/>Account Server: Authentication &amp; Profile management, Playfab Session wrapped in a JWT<br/>Matchmaking Server: Matchmaking<br/>Moralis: Blockchain data indexing, stores blockchain indexed data on MongoDB</p><p /><p /><p /><h1 id="Backend-OverallServerTopology">Overall Server Topology</h1><div class="ap-container" id="ap-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram6534660937504276219">
+
+  <div class="ap-content " id="embedded-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram6534660937504276219"></div>
+  <script nonce="6839bba78c7331b84f9d4a6f03d4f8f1" class="ap-iframe-body-script">
+  (function(){
+    var data = {
+    "addon_key":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro",
+    "uniqueKey":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram6534660937504276219",
+    "key":"macro-diagram",
+     "moduleType":"dynamicContentMacros",      "moduleLocation":"content",         "cp":"/wiki",
+            "general":"",
+    "w":"",
+    "h":"",
+    "url":"https://mmcc.atlasauthority.com/markup-renderer?syntax=Structurizr&sourceType=MacroBody&darkmode=&outputType=html_export&pageTitle=Backend&pageId=1854144513&pageVersion=29&macroId=98b4080e-e908-4f0a-ab9a-a08c1137ab88&url=&attachmentPageId=&attachmentId=&spaceId=1766260739&spaceKey=BB&xdm_e=https%3A%2F%2Ffirstlightgames.atlassian.net&xdm_c=channel-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram6534660937504276219&cp=%2Fwiki&xdm_deprecated_addon_key_do_not_use=com.atlassian.plugins.confluence.markdown.confluence-markdown-macro&lic=active&cv=1000.0.0-ca942e66d3a3&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiJiMmU0OGZkYzRhZDgzZjYxYzJiYjg2NWE5YjEyMjE2MjI1OGJhZGExODA4N2FiM2M2MTRmODQ2ZGJjYjhhMTRhIiwiaXNzIjoiNjdhOGI1ZTMtMjhmMi0zYmM1LTkyOWItNmQxZmQxOTMxM2U0IiwiY29udGV4dCI6e30sImV4cCI6MTc0ODYxNDI5NywiaWF0IjoxNzQ4NjE0MTE3fQ.l1HI-oC3x7aZ4ZRd1NBLFM-IhyohILY-61og0X3RWsE",
+     "contextJwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiJjb250ZXh0LXFzaCIsImlzcyI6IjY3YThiNWUzLTI4ZjItM2JjNS05MjliLTZkMWZkMTkzMTNlNCIsImNvbnRleHQiOnsibGljZW5zZSI6eyJhY3RpdmUiOnRydWV9LCJjb25mbHVlbmNlIjp7ImVkaXRvciI6eyJ2ZXJzaW9uIjoidjIifSwibWFjcm8iOnsib3V0cHV0VHlwZSI6Imh0bWxfZXhwb3J0IiwiaGFzaCI6Ijk4YjQwODBlLWU5MDgtNGYwYS1hYjlhLWEwOGMxMTM3YWI4OCIsImlkIjoiOThiNDA4MGUtZTkwOC00ZjBhLWFiOWEtYTA4YzExMzdhYjg4In0sImNvbnRlbnQiOnsidHlwZSI6InBhZ2UiLCJ2ZXJzaW9uIjoiMjkiLCJpZCI6IjE4NTQxNDQ1MTMifSwic3BhY2UiOnsia2V5IjoiQkIiLCJpZCI6IjE3NjYyNjA3MzkifX0sInVybCI6eyJkaXNwbGF5VXJsIjoiaHR0cHM6XC9cL2ZpcnN0bGlnaHRnYW1lcy5hdGxhc3NpYW4ubmV0XC93aWtpIn19LCJleHAiOjE3NDg2MTUwMTcsImlhdCI6MTc0ODYxNDExN30.JHL6wqgr1H4bjg3PyermaODVX4AlWGjuvKb1qLCAkro",    "structuredContext": "{\"license\":{\"active\":true},\"confluence\":{\"editor\":{\"version\":\"v2\"},\"macro\":{\"outputType\":\"html_export\",\"hash\":\"98b4080e-e908-4f0a-ab9a-a08c1137ab88\",\"id\":\"98b4080e-e908-4f0a-ab9a-a08c1137ab88\"},\"content\":{\"type\":\"page\",\"version\":\"29\",\"id\":\"1854144513\"},\"space\":{\"key\":\"BB\",\"id\":\"1766260739\"}},\"url\":{\"displayUrl\":\"https://firstlightgames.atlassian.net/wiki\"}}",
+    "contentClassifier":"content",
+    "productCtx":"{\"page.id\":\"1854144513\",\"macro.hash\":\"98b4080e-e908-4f0a-ab9a-a08c1137ab88\",\"page.type\":\"page\",\"macro.localId\":\"4becd6ff-c58b-4f29-a00d-19b5b2cccfc6\",\": = | RAW | = :\":\"attachmentSpaceKey=|sourceType=MacroBody|attachmentPageId=|syntax=Structurizr|attachmentId=|url=\",\"space.id\":\"1766260739\",\"attachmentPageId\":\"\",\"attachmentId\":\"\",\"user.isExternalCollaborator\":\"false\",\"space.key\":\"BB\",\"content.version\":\"29\",\"page.title\":\"Backend\",\"macro.body\":\"workspace {\\n    !impliedRelationships true\\n\\n    model {\\n        user = person \\\"Player\\\" \\\"A Player of Blast Royale\\\"\\n        storag\",\"macro.truncated\":\"true\",\"content.type\":\"page\",\"output.type\":\"html_export\",\"url\":\"\",\"page.version\":\"29\",\"attachmentSpaceKey\":\"\",\"macro.fragmentLocalId\":\"\",\"content.id\":\"1854144513\",\"sourceType\":\"MacroBody\",\"macro.id\":\"98b4080e-e908-4f0a-ab9a-a08c1137ab88\",\"syntax\":\"Structurizr\",\"editor.version\":\"v2\"}",
+    "timeZone":"UTC",
+    "origin":"https://mmcc.atlasauthority.com",
+    "hostOrigin":"https://firstlightgames.atlassian.net",
+    "sandbox":"allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-same-origin allow-top-navigation-by-user-activation allow-storage-access-by-user-activation",    "pearApp":"true",        "apiMigrations": {
+        "gdpr": true
+    }
+}
+;
+    if(window.AP && window.AP.subCreate) {
+      window._AP.appendConnectAddon(data);
+    } else {
+      require(['ac/create'], function(create){
+        create.appendConnectAddon(data);
+      });
+    }
+
+    // For Confluence App Analytics. This code works in conjunction with CFE's ConnectSupport.js.
+    // Here, we add a listener to the initial HTML page that stores events if the ConnectSupport component
+    // has not mounted yet. In CFE, we process the missed event data and disable this initial listener.
+    const __MAX_EVENT_ARRAY_SIZE__ = 20;
+    const connectAppAnalytics = "ecosystem.confluence.connect.analytics";
+    window.connectHost && window.connectHost.onIframeEstablished((eventData) => {
+      if (!window.__CONFLUENCE_CONNECT_SUPPORT_LOADED__) {
+        let events = JSON.parse(window.localStorage.getItem(connectAppAnalytics)) || [];
+        if (events.length >= __MAX_EVENT_ARRAY_SIZE__) {
+          events.shift();
+        }
+        events.push(eventData);
+        window.localStorage.setItem(connectAppAnalytics, JSON.stringify(events));
+      }
+    });
+
+  }());
+</script>
+
+</div>
+<p /><div class="ap-container" id="ap-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram3915919018781970832">
+
+  <div class="ap-content " id="embedded-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram3915919018781970832"></div>
+  <script nonce="6839bba78c7331b84f9d4a6f03d4f8f1" class="ap-iframe-body-script">
+  (function(){
+    var data = {
+    "addon_key":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro",
+    "uniqueKey":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram3915919018781970832",
+    "key":"macro-diagram",
+     "moduleType":"dynamicContentMacros",      "moduleLocation":"content",         "cp":"/wiki",
+            "general":"",
+    "w":"",
+    "h":"",
+    "url":"https://mmcc.atlasauthority.com/markup-renderer?syntax=PlantUML&sourceType=MacroBody&darkmode=auto&outputType=html_export&pageTitle=Backend&pageId=1854144513&pageVersion=29&macroId=fbc040c1-b989-4534-a77b-7cb8281da3ee&url=&attachmentPageId=&attachmentId=&spaceId=1766260739&spaceKey=BB&xdm_e=https%3A%2F%2Ffirstlightgames.atlassian.net&xdm_c=channel-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram3915919018781970832&cp=%2Fwiki&xdm_deprecated_addon_key_do_not_use=com.atlassian.plugins.confluence.markdown.confluence-markdown-macro&lic=active&cv=1000.0.0-ca942e66d3a3&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiIwNzQ5OWU4OWMwN2FhNmU5YTE5OThlMjcwYmUwZDA4ZmQ0NTg1MTc0ZWY0NjQ2NzU2ZjM3MjlmODM5YmIxOGY3IiwiaXNzIjoiNjdhOGI1ZTMtMjhmMi0zYmM1LTkyOWItNmQxZmQxOTMxM2U0IiwiY29udGV4dCI6e30sImV4cCI6MTc0ODYxNDI5NywiaWF0IjoxNzQ4NjE0MTE3fQ.Ygg9RKhlQYBSt9pBZHUO5_wxv-BIPop13QEGZ64-gMI",
+     "contextJwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiJjb250ZXh0LXFzaCIsImlzcyI6IjY3YThiNWUzLTI4ZjItM2JjNS05MjliLTZkMWZkMTkzMTNlNCIsImNvbnRleHQiOnsibGljZW5zZSI6eyJhY3RpdmUiOnRydWV9LCJjb25mbHVlbmNlIjp7ImVkaXRvciI6eyJ2ZXJzaW9uIjoidjIifSwibWFjcm8iOnsib3V0cHV0VHlwZSI6Imh0bWxfZXhwb3J0IiwiaGFzaCI6ImZiYzA0MGMxLWI5ODktNDUzNC1hNzdiLTdjYjgyODFkYTNlZSIsImlkIjoiZmJjMDQwYzEtYjk4OS00NTM0LWE3N2ItN2NiODI4MWRhM2VlIn0sImNvbnRlbnQiOnsidHlwZSI6InBhZ2UiLCJ2ZXJzaW9uIjoiMjkiLCJpZCI6IjE4NTQxNDQ1MTMifSwic3BhY2UiOnsia2V5IjoiQkIiLCJpZCI6IjE3NjYyNjA3MzkifX0sInVybCI6eyJkaXNwbGF5VXJsIjoiaHR0cHM6XC9cL2ZpcnN0bGlnaHRnYW1lcy5hdGxhc3NpYW4ubmV0XC93aWtpIn19LCJleHAiOjE3NDg2MTUwMTcsImlhdCI6MTc0ODYxNDExN30.P_NY_bX8heg_QU2JctAeMg9n4IwwWW5VM56cwGcyxNs",    "structuredContext": "{\"license\":{\"active\":true},\"confluence\":{\"editor\":{\"version\":\"v2\"},\"macro\":{\"outputType\":\"html_export\",\"hash\":\"fbc040c1-b989-4534-a77b-7cb8281da3ee\",\"id\":\"fbc040c1-b989-4534-a77b-7cb8281da3ee\"},\"content\":{\"type\":\"page\",\"version\":\"29\",\"id\":\"1854144513\"},\"space\":{\"key\":\"BB\",\"id\":\"1766260739\"}},\"url\":{\"displayUrl\":\"https://firstlightgames.atlassian.net/wiki\"}}",
+    "contentClassifier":"content",
+    "productCtx":"{\"page.id\":\"1854144513\",\"macro.hash\":\"fbc040c1-b989-4534-a77b-7cb8281da3ee\",\"page.type\":\"page\",\"darkmode\":\"auto\",\"macro.localId\":\"c9e4d20e-7759-4a47-8d74-4684dd9f14f1\",\": = | RAW | = :\":\"sourceType=MacroBody|darkmode=auto|attachmentPageId=|syntax=PlantUML|attachmentId=|url=\",\"space.id\":\"1766260739\",\"attachmentPageId\":\"\",\"attachmentId\":\"\",\"user.isExternalCollaborator\":\"false\",\"space.key\":\"BB\",\"content.version\":\"29\",\"page.title\":\"Backend\",\"macro.body\":\"@startuml\\n!define TITLE_SIZE 18\\n!define TITLE_COLOR black\\n!define DESC_SIZE 14\\n!define DESC_COLOR black\\n!define TECH_SIZE 16\\n!de\",\"macro.truncated\":\"true\",\"content.type\":\"page\",\"output.type\":\"html_export\",\"url\":\"\",\"page.version\":\"29\",\"macro.fragmentLocalId\":\"\",\"content.id\":\"1854144513\",\"sourceType\":\"MacroBody\",\"macro.id\":\"fbc040c1-b989-4534-a77b-7cb8281da3ee\",\"syntax\":\"PlantUML\",\"editor.version\":\"v2\"}",
+    "timeZone":"UTC",
+    "origin":"https://mmcc.atlasauthority.com",
+    "hostOrigin":"https://firstlightgames.atlassian.net",
+    "sandbox":"allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-same-origin allow-top-navigation-by-user-activation allow-storage-access-by-user-activation",    "pearApp":"true",        "apiMigrations": {
+        "gdpr": true
+    }
+}
+;
+    if(window.AP && window.AP.subCreate) {
+      window._AP.appendConnectAddon(data);
+    } else {
+      require(['ac/create'], function(create){
+        create.appendConnectAddon(data);
+      });
+    }
+
+    // For Confluence App Analytics. This code works in conjunction with CFE's ConnectSupport.js.
+    // Here, we add a listener to the initial HTML page that stores events if the ConnectSupport component
+    // has not mounted yet. In CFE, we process the missed event data and disable this initial listener.
+    const __MAX_EVENT_ARRAY_SIZE__ = 20;
+    const connectAppAnalytics = "ecosystem.confluence.connect.analytics";
+    window.connectHost && window.connectHost.onIframeEstablished((eventData) => {
+      if (!window.__CONFLUENCE_CONNECT_SUPPORT_LOADED__) {
+        let events = JSON.parse(window.localStorage.getItem(connectAppAnalytics)) || [];
+        if (events.length >= __MAX_EVENT_ARRAY_SIZE__) {
+          events.shift();
+        }
+        events.push(eventData);
+        window.localStorage.setItem(connectAppAnalytics, JSON.stringify(events));
+      }
+    });
+
+  }());
+</script>
+
+</div>
+<p /><h1 id="Backend-BlockchainTopology">Blockchain Topology<br/></h1><div class="ap-container" id="ap-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram2433243729818744373">
+
+  <div class="ap-content " id="embedded-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram2433243729818744373"></div>
+  <script nonce="6839bba78c7331b84f9d4a6f03d4f8f1" class="ap-iframe-body-script">
+  (function(){
+    var data = {
+    "addon_key":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro",
+    "uniqueKey":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram2433243729818744373",
+    "key":"macro-diagram",
+     "moduleType":"dynamicContentMacros",      "moduleLocation":"content",         "cp":"/wiki",
+            "general":"",
+    "w":"",
+    "h":"",
+    "url":"https://mmcc.atlasauthority.com/markup-renderer?syntax=PlantUML&sourceType=MacroBody&darkmode=&outputType=html_export&pageTitle=Backend&pageId=1854144513&pageVersion=29&macroId=24782cee-6a3b-49e2-9d85-e63ba777e0fa&url=&attachmentPageId=&attachmentId=&spaceId=1766260739&spaceKey=BB&xdm_e=https%3A%2F%2Ffirstlightgames.atlassian.net&xdm_c=channel-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram2433243729818744373&cp=%2Fwiki&xdm_deprecated_addon_key_do_not_use=com.atlassian.plugins.confluence.markdown.confluence-markdown-macro&lic=active&cv=1000.0.0-ca942e66d3a3&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiIwNWEyYWE4NmQxNjc0Y2RkZjZlMDhlOWFhOWVlMDZhOTIxZGUxOGE2MWRkYWMwZDc1ODdkNWYzYmQyODMyNjlmIiwiaXNzIjoiNjdhOGI1ZTMtMjhmMi0zYmM1LTkyOWItNmQxZmQxOTMxM2U0IiwiY29udGV4dCI6e30sImV4cCI6MTc0ODYxNDI5NywiaWF0IjoxNzQ4NjE0MTE3fQ.gk2iFEGlagJJ6cj-0NE4WYgk6Fkq9WOpT1UsOlXAI9s",
+     "contextJwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiJjb250ZXh0LXFzaCIsImlzcyI6IjY3YThiNWUzLTI4ZjItM2JjNS05MjliLTZkMWZkMTkzMTNlNCIsImNvbnRleHQiOnsibGljZW5zZSI6eyJhY3RpdmUiOnRydWV9LCJjb25mbHVlbmNlIjp7ImVkaXRvciI6eyJ2ZXJzaW9uIjoidjIifSwibWFjcm8iOnsib3V0cHV0VHlwZSI6Imh0bWxfZXhwb3J0IiwiaGFzaCI6IjI0NzgyY2VlLTZhM2ItNDllMi05ZDg1LWU2M2JhNzc3ZTBmYSIsImlkIjoiMjQ3ODJjZWUtNmEzYi00OWUyLTlkODUtZTYzYmE3NzdlMGZhIn0sImNvbnRlbnQiOnsidHlwZSI6InBhZ2UiLCJ2ZXJzaW9uIjoiMjkiLCJpZCI6IjE4NTQxNDQ1MTMifSwic3BhY2UiOnsia2V5IjoiQkIiLCJpZCI6IjE3NjYyNjA3MzkifX0sInVybCI6eyJkaXNwbGF5VXJsIjoiaHR0cHM6XC9cL2ZpcnN0bGlnaHRnYW1lcy5hdGxhc3NpYW4ubmV0XC93aWtpIn19LCJleHAiOjE3NDg2MTUwMTcsImlhdCI6MTc0ODYxNDExN30.K83EVV8S_3nFrKYwRkeNdrjvbVT8MsWeY_0mKe1idCs",    "structuredContext": "{\"license\":{\"active\":true},\"confluence\":{\"editor\":{\"version\":\"v2\"},\"macro\":{\"outputType\":\"html_export\",\"hash\":\"24782cee-6a3b-49e2-9d85-e63ba777e0fa\",\"id\":\"24782cee-6a3b-49e2-9d85-e63ba777e0fa\"},\"content\":{\"type\":\"page\",\"version\":\"29\",\"id\":\"1854144513\"},\"space\":{\"key\":\"BB\",\"id\":\"1766260739\"}},\"url\":{\"displayUrl\":\"https://firstlightgames.atlassian.net/wiki\"}}",
+    "contentClassifier":"content",
+    "productCtx":"{\"page.id\":\"1854144513\",\"macro.hash\":\"24782cee-6a3b-49e2-9d85-e63ba777e0fa\",\"page.type\":\"page\",\"macro.localId\":\"bcd67d92-5417-4bb7-b75a-b9b31a8abf0d\",\": = | RAW | = :\":\"attachmentSpaceKey=|sourceType=MacroBody|attachmentPageId=|syntax=PlantUML|attachmentId=|url=\",\"space.id\":\"1766260739\",\"attachmentPageId\":\"\",\"attachmentId\":\"\",\"user.isExternalCollaborator\":\"false\",\"space.key\":\"BB\",\"content.version\":\"29\",\"page.title\":\"Backend\",\"macro.body\":\"@startuml\\n!define TITLE_SIZE 18\\n!define TITLE_COLOR black\\n!define DESC_SIZE 14\\n!define DESC_COLOR black\\n!define TECH_SIZE 16\\n!de\",\"macro.truncated\":\"true\",\"content.type\":\"page\",\"output.type\":\"html_export\",\"url\":\"\",\"page.version\":\"29\",\"attachmentSpaceKey\":\"\",\"macro.fragmentLocalId\":\"\",\"content.id\":\"1854144513\",\"sourceType\":\"MacroBody\",\"macro.id\":\"24782cee-6a3b-49e2-9d85-e63ba777e0fa\",\"syntax\":\"PlantUML\",\"editor.version\":\"v2\"}",
+    "timeZone":"UTC",
+    "origin":"https://mmcc.atlasauthority.com",
+    "hostOrigin":"https://firstlightgames.atlassian.net",
+    "sandbox":"allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-same-origin allow-top-navigation-by-user-activation allow-storage-access-by-user-activation",    "pearApp":"true",        "apiMigrations": {
+        "gdpr": true
+    }
+}
+;
+    if(window.AP && window.AP.subCreate) {
+      window._AP.appendConnectAddon(data);
+    } else {
+      require(['ac/create'], function(create){
+        create.appendConnectAddon(data);
+      });
+    }
+
+    // For Confluence App Analytics. This code works in conjunction with CFE's ConnectSupport.js.
+    // Here, we add a listener to the initial HTML page that stores events if the ConnectSupport component
+    // has not mounted yet. In CFE, we process the missed event data and disable this initial listener.
+    const __MAX_EVENT_ARRAY_SIZE__ = 20;
+    const connectAppAnalytics = "ecosystem.confluence.connect.analytics";
+    window.connectHost && window.connectHost.onIframeEstablished((eventData) => {
+      if (!window.__CONFLUENCE_CONNECT_SUPPORT_LOADED__) {
+        let events = JSON.parse(window.localStorage.getItem(connectAppAnalytics)) || [];
+        if (events.length >= __MAX_EVENT_ARRAY_SIZE__) {
+          events.shift();
+        }
+        events.push(eventData);
+        window.localStorage.setItem(connectAppAnalytics, JSON.stringify(events));
+      }
+    });
+
+  }());
+</script>
+
+</div>
+<p /><h1 id="Backend-GameBundleorGame“Cartdrige”">Game Bundle or Game “Cartdrige”<br/></h1><p>Some of our services most notably the Game Logic service, requires the game cartridge to run. The idea is that for serving multiple games we can re-use the server-tech, we just need to change the cartridge.<br/><br/>At this point copying this and bundling in the server is a manual process. <br/></p><h1 id="Backend-TechStackOverview">Tech Stack Overview</h1><p><br/><strong>Stack for Marketplace Service:</strong><br/>Frontend: Vue.js<br/>Backend: .net core 6<br/>Database: Postgres<br/>Protocols: HTTP/HTTP2</p><p><strong>Docker</strong><br/>The marketplace frontend and backend is built inside a <a class="external-link" href="https://bitbucket.org/gabrielslomka/flgmarketplace/src/master/Dockerfile" rel="nofollow">Docker</a> container, so its easy to distribute and deploy the service in any infrastructure of our choice.</p><p><strong>Azure Container Registry</strong><br/>After building the application docker container, we register this container in Azure so we can scale applications using this container. Its basically a place to put “ready to use containers”.</p><p><strong>Azure App Service</strong><br/>This is Azure’s service to deploy distributed and scalable applications in a more managed way, integrating with other Azure services such as Insights, Alerts &amp; Api Gateways. It reads the container images configured in the Container Registry and deploy them to online applications. This handles some of the networking problems for us such as load balancing.<br/> </p><h2 id="Backend-MicroservicesNetworkStructure">Microservices Network Structure</h2><p><br/>All input traffic from internet will be handled by a API Gateway - currently implement using Azure API Management Gateway.</p><p>The gateway then decides for which micro service he should route this request to. All micro services should be inside a VNET/NAT network so no external internet access to them.</p><h1 id="Backend-IncidentManagement:">Incident Management:<br/></h1><p>We are currently using manually setup Azure Alerts configured on some of our services:<br/><br/>Logic Server Alerts:<br/><a class="external-link" href="https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/UpdateVNextAlertRuleBlade/ruleInputs/%7B%22alertId%22%3A%22%2Fsubscriptions%2Ff6e20b3b-a049-483c-9109-49dca3a33c41%2FresourceGroups%2FBlast_Royale%2Fproviders%2Fmicrosoft.insights%2Fmetricalerts%2FHTTP%20Errors%22%7D" rel="nofollow">https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/UpdateVNextAlertRuleBlade/ruleInputs/%7B%22alertId%22%3A%22%2Fsubscriptions%2Ff6e20b3b-a049-483c-9109-49dca3a33c41%2FresourceGroups%2FBlast_Royale%2Fproviders%2Fmicrosoft.insights%2Fmetricalerts%2FHTTP%20Errors%22%7D</a> <br/><br/>Marketplace Alerts<br/><a class="external-link" href="https://portal.azure.com/#@firstlight.games/resource/subscriptions/f6e20b3b-a049-483c-9109-49dca3a33c41/resourceGroups/Blast_Royale_Marketplace/alerts" rel="nofollow">https://portal.azure.com/#@firstlight.games/resource/subscriptions/f6e20b3b-a049-483c-9109-49dca3a33c41/resourceGroups/Blast_Royale_Marketplace/alerts</a> <br/><br/>Those alerts are configured to warn “Backend” group to:<br/>- Slack hook to #ops_gamelogicservice channel<br/>- Email people in Monitor Reader roles<br/>- Email people in Monitor Contributor roles<br/>- SMS Gabriel<br/>- Email Matt &amp; Felipe (manually setup)<br/><a class="external-link" href="https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/EditNotificationGroupBlade/actionGroupId/%2Fsubscriptions%2Ff6e20b3b-a049-483c-9109-49dca3a33c41%2FresourceGroups%2Fblast_royale%2Fproviders%2Fmicrosoft.insights%2FactionGroups%2Fbackend" rel="nofollow">https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/EditNotificationGroupBlade/actionGroupId/%2Fsubscriptions%2Ff6e20b3b-a049-483c-9109-49dca3a33c41%2FresourceGroups%2Fblast_royale%2Fproviders%2Fmicrosoft.insights%2FactionGroups%2Fbackend</a> </p><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1854144513/1854210049.png">Screenshot 2022-02-17 at 09.39.17-20220217-093923.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1854144513/1853882375.png">Screenshot 2022-02-17 at 09.41.20-20220217-094137.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1854144513/1854701581.png">image-20220217-141951.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1854144513/1854701587.png">image-20220217-141927.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1854144513/1859321857.png">Screenshot 2022-02-23 at 10.55.39-20220223-105600.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1854144513/1939701764.png">Screenshot 2022-05-18 at 13.33.41-20220518-123405.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1854144513/1940357121.png">Screenshot 2022-05-18 at 13.59.25-20220518-125946.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1854144513/1948680193.png">cloud-structure.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1854144513/1987739653.png">flg-architecture.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

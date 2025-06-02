@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : UI Toolkit</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Developer-Guides_2500591617.html">Developer Guides</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : UI Toolkit
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> fausto</span>, last modified by <span class='editor'> Carlos</span> on Feb 21, 2023
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="UIToolkit-Learningmaterials">Learning materials</h1><p><a class="external-link" href="https://www.youtube.com/watch?v=VxpydMOgkGU" rel="nofollow">Unity Webinar - Introduction to the UI Toolkit</a></p><p><a class="external-link" data-card-appearance="inline" href="https://docs.unity3d.com/Manual/UIE-USS-Selectors.html" rel="nofollow">https://docs.unity3d.com/Manual/UIE-USS-Selectors.html</a>  </p><h1 id="UIToolkit-Guidelines">Guidelines</h1><ul><li><p>Everything UIT related has to be in the Art/UI folder. That means all documents, styles, but also every referenced sprite. Don’t use any sprites on your UI’s that aren’t in that folder. If we already have a sprite copy it to that folder. We have a chance to sort out our atlases</p></li><li><p>To replace a screen with a UIT version, just open the existing prefab, remove all the children / components, add UI Document to the root, and make the presenter extend UiToolkitPresenterData</p></li><li><p>For any screen, always have a topmost VisualElement, with absolute position and all the values set to 0 (so it fills the whole screen) and name it root. It’s name should be root. Then that root element needs to have a hidden class on it</p></li><li><p>When creating new styles, just make sure what you want is not already in CommonStyle.uss. You can also add to it if you think it’s going to be used somewhere else in the game.</p></li><li><p>Custom VisualElement vs Standalone View : Generally if you want a fully self contained VisualElement, you’d extend it and make it implement IUIView, so the VisualElement is it’s own view, if that makes sense.</p><p>This needs a bit of figuring out, but my thinking is, if you can construct the entire thing as a VisualElement, make a new VisualElement, but if it’s too complex for that, make a separate view, and have a uxml template that you attach it to.</p><p>I decided to give us two options on how to do it so there’s more flexibility. Creating a new VisualElement does require some boilerplate code, and for some stuff you may not need it. OR you may have a uxml template, but several different views for it, and you attach the one that you need in your specific case.</p><p>All of this will probably take some figuring out, and for us to see what works best.</p></li></ul><p /><h1 id="UIToolkit-Findings">Findings</h1><h2 id="UIToolkit-MasksandVectors">Masks and Vectors</h2><p>After installing the Vector Graphics package into Unity, we now can use SVG files to, not only use vector graphics as we use sprites, but also to be able to use them as masks in the UI Toolkit.</p><p>To use a SVG as an image in UI Toolkit, select the SVG file you want to use and in the inspector find the “<strong>Generated Asset Type</strong>” option and change it to “<strong>UI Toolkit Vector Image</strong>”.</p><p>Then, in the element where you’re going to use the image, it the image style property (in the <strong>Background</strong> for instance), select the type of image “<strong>Vector</strong>” and then you can reference the SVG file from before.</p><p>To use it as a mask, just apply the SVG file to a VisualElement background (like we did before) and then, under the <strong>Inline Style &gt; Display </strong>there’s an “<strong>Overflow</strong>” option that you need to turn on. And that’s it. Any child element of this element will be masked around the parent’s borders.</p><h2 id="UIToolkit-uGUI&amp;UITKinteractions">uGUI &amp; UITK interactions</h2><p>Sort order is critical when mixing uGUI &amp; UITK on the same screens.</p><p><strong>ALL of UITK lives on uGUI sort order 0. </strong>This means that if you have a uGUI fullscreen blocker on sort order 0 or above, UITK will never receive raycasts, however UITK will render on top if both UI’s are on sort order 0. If you have uGUI on sort order 1+, it will always be on top of UITK screens, no matter what.</p><p>For full compatibility, uGUI should be on sort order -1, -2, -3 etc. And then UITK screen should have normal sort order 0, 1, 2, 3. Etc.</p><p>To visualize better, sort order visualized below. uGUI sort order in square brackets, UITK in bold parentheses:</p><p>[3, 2, 1, <strong>(5, 4, 3, 2, 1, 0..)</strong> 0, -1, -2 ,-3]</p><h1 id="UIToolkit-Troubleshooting">Troubleshooting</h1><ul><li><p>If you don’t see the visuals of a document you opened, see if it has the .hidden class on the root and remove it. Don’t forget to put it back once you’re done.</p></li><li><p>If you have 2 classes on the same element that have transitions, they will merge with each other (since its only 1 property being overridden. I found it best to avoid having more than 1 class with transitions on the same element.</p></li><li><p>If some selectors are not working as you would expect, pay attention to criteria of precedence (in <a class="external-link" href="https://docs.unity3d.com/Manual/UIE-USS-Selectors.html" rel="nofollow">Unity documentation</a>)</p></li><li><p>If you make some animations and they are not working, even though they clearly should, restart Unity. Sometimes they seem to get stuck in the editor.</p></li><li><p>Paragraph spacing does not work when a label is wrapped to a new line. Use the <code>line-height</code> rich text tag in your text to achieve the same effect, e.g.: <code>&lt;line-height=70%&gt;REALLY LONG TEXT THAT WRAPS</code></p></li><li><p>If you see your screen flash for one frame, and then open properly (when it’s first loaded), it means you don’t have <code>[LoadSynchronously]</code> on your presenter.</p></li><li><p>If you changed the ScrollView’s “Touch Scroll Type” to anything and come back to the UI Builder and see it unset and “Clamped” as default, just make sure you look at your uxml and see what the real option is there. This is a known bug, and the default value is actually “Unrestricted”. <a class="external-link" href="https://issuetracker.unity3d.com/issues/ui-toolkit-scrollview-touch-scroll-type-option-reverts-to-clamped-when-changing-it-to-other-values" rel="nofollow">Unity Issue</a></p></li><li><p>If you see something like this: </p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/2082832385/2166128647.png" data-image-src="attachments/2082832385/2166128647.png" data-height="1036" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="2166128647" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20230221-165025.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2082832385" data-linked-resource-container-version="16" data-media-id="6fe40b62-b348-4254-8ac5-ba56f27f9b59" data-media-type="file"></span></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="attachments/2082832385/2166390785.png?width=680" data-image-src="attachments/2082832385/2166390785.png" data-height="371" data-width="1922" data-unresolved-comment-count="0" data-linked-resource-id="2166390785" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20230221-165307.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2082832385" data-linked-resource-container-version="16" data-media-id="b13bb585-1512-4200-9dde-083925334163" data-media-type="file"></span><ol start="1"><li><p>Select the BR-Theme-Default</p></li><li><p>Click on the .xuml element</p></li><li><p>Input the correct screen size <code>2340</code>x<code>1080</code> </p></li></ol><p /><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2082832385/2166128647.png">image-20230221-165025.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2082832385/2166390785.png">image-20230221-165307.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

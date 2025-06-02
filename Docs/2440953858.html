@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Game Mode Rotation &amp; Events</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Liveops_2391638017.html">Liveops</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Game-Live-Configuration_2499772418.html">Game Live Configuration</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Game Mode Rotation &amp; Events
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span>, last modified by <span class='editor'> Carlos</span> on Nov 25, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748614087109 {padding: 0px;}
+div.rbtoc1748614087109 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748614087109 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748614087109'>
+<ul class='toc-indentation'>
+<li><a href='#GameModeRotation&amp;Events-PaidEvent'>Paid Event</a></li>
+<li><a href='#GameModeRotation&amp;Events-Eventwithoutbots'>Event without bots</a></li>
+<li><a href='#GameModeRotation&amp;Events-CustomImages'>Custom Images</a></li>
+</ul>
+</div><p>We can configure game mode rotation and events in <a class="external-link" href="https://cloud.unity.com/home/organizations/5772581095989/projects/9502afda-de54-4416-a44c-7462af57f087/environments/76319304-0867-4ffa-95f0-197a43e57330/remote-config/configs" rel="nofollow">Unity Cloud Remote Configs</a>.</p><p>An example configuration with fields explained:<br/></p><div id="expander-602526671" class="expand-container"><div id="expander-control-602526671" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"></span><span class="expand-control-text">Example</span></div><div id="expander-content-602526671" class="expand-content"><p>Be aware // don’t work in json files! They are here just for explanation!</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+// When the event starts and end UTC dates
+
+    &quot;Schedule&quot;: [&quot;04/11/2024-17:00 to 05/11/2024-10:00&quot;],  
+    &quot;MatchConfig&quot;: {
+        &quot;UniqueConfigId&quot;: &quot;evn10a19&quot;, // this NEEDS to be unique
+        &quot;TeamSize&quot;: 1,
+        &quot;MapId&quot;: &quot;IslandOne&quot;,
+
+// which weapons will be available on the game ?
+
+        &quot;WeaponsSelectionOverwrite&quot;: [&quot;ModShotgun&quot;, &quot;ModSniper&quot;],
+        
+// Here for instance, top1 gets 5 noob, rank 2,3,4,5 gets 1 noob token.
+
+        &quot;WinRewardBonus&quot;: [{
+            &quot;Id&quot;: &quot;NOOB&quot;,
+            &quot;Amount&quot;: 5,
+            &quot;MinPosition&quot;: 1
+        },
+        {
+            &quot;Id&quot;: &quot;NOOB&quot;,
+            &quot;Amount&quot;: 1,
+            &quot;MinPosition&quot;: 5
+        }],
+
+// Drop rule changes
+
+        &quot;MetaItemDropOverwrites&quot;: [{
+            &quot;Id&quot;: &quot;NOOB&quot;,
+            &quot;Place&quot;: &quot;Player&quot;,
+            &quot;DropRate&quot;: &quot;0.10&quot;
+        }, {
+            &quot;Id&quot;: &quot;NOOB&quot;,
+            &quot;Place&quot;: &quot;Chest&quot;,
+            &quot;DropRate&quot;: &quot;0.10&quot;
+        }, {
+            &quot;Id&quot;: &quot;NOOB&quot;,
+            &quot;Place&quot;: &quot;Airdrop&quot;,
+            &quot;DropRate&quot;: &quot;1.0&quot;,
+            &quot;MinDropAmount&quot;: &quot;1&quot;,
+            &quot;MaxDropAmount&quot;: &quot;3&quot;
+
+// Global reward modifiers (e.g get more coins or bpps from normal loots)
+
+        &quot;RewardModifiers&quot;: [{
+            &quot;Id&quot;: &quot;NOOB&quot;,
+            &quot;Multiplier&quot;: &quot;1&quot;,
+            &quot;CollectedInsideGame&quot;: true
+        }, {
+            &quot;Id&quot;: &quot;NOOBRainbow&quot;,
+            &quot;Multiplier&quot;: &quot;10&quot;,
+            &quot;CollectedInsideGame&quot;: true
+        }, {
+            &quot;Id&quot;: &quot;NOOBGolden&quot;,
+            &quot;Multiplier&quot;: &quot;50&quot;,
+            &quot;CollectedInsideGame&quot;: true
+        }]
+    },
+    &quot;Title&quot;: &quot;EXCLUSIVE TOURNAMENT&quot;,
+    &quot;Description&quot;: &quot;100 $NOOB to enter&quot;,
+    &quot;LongDescription&quot;: &quot;Spend NOOB to get access to the best tournament.&quot;
+}]</pre>
+</div></div><p /></div></div><p /><h2 id="GameModeRotation&amp;Events-PaidEvent">Paid Event</h2><ul><li><p>Set <code>PriceToJoin</code> to <br/></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{ 
+   &quot;RewardId&quot;: &quot;NOOB&quot;, // Currency used, ignore &quot;RewardId&quot; name, its a legacy thing
+   &quot;Value&quot;: 100 // Guess what, how much we will deduct from player inventory
+},</pre>
+</div></div></li></ul><h2 id="GameModeRotation&amp;Events-Eventwithoutbots">Event without bots</h2><ul><li><p>Set the event field <code>MatchConfig.DisableBots</code> to <code>true</code></p></li><li><p>Set <code>MatchConfig.MinPlayersToStartMatch</code> to a value that makes sense, this should be a number smaller then the matchmaking configs, because some players may not connect to the room. If you set it to 0 it will not check for min players after matching them together, however this allows exploiting, by creating fake clients and joining matchmaking, so it’s recommended to have a value here.</p></li><li><p>Set <code>OverwriteMatchmaking</code> to: <br/>If you need check  <a href="Playfab-Matchmaking_2528411659.html" data-linked-resource-id="2528411659" data-linked-resource-version="3" data-linked-resource-type="page">Playfab Matchmaking</a> </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+   &quot;QueueName&quot;: &quot;battleroyale_1_no_bots&quot;, // Playfab matchmaking queue
+   &quot;FailsOnTimeout&quot;: true, // If we don&#39;t find players we don&#39;t want to create a solo match for that player
+   &quot;QueueTimeoutTimeInSeconds&quot;: 175 // How long the client waits before giving up and show players not found
+ },</pre>
+</div></div></li></ul><h2 id="GameModeRotation&amp;Events-CustomImages">Custom Images</h2><p>Events allow us to set remote images for the card. You do it by adding these values to the config.</p><ul><li><p><code>ImageURL</code> → A remote hosted image, like <code>https://cdn.blastroyale.com/images/events/paid-noob.png</code>, if you don’t know how to upload images to this site refer to <a href="Environment-Redirects_2503901185.html" data-linked-resource-id="2503901185" data-linked-resource-version="5" data-linked-resource-type="page">Environment Redirects</a> , they are stored in the same place.</p></li><li><p><code>BackgroundImageURL</code> → Same thing, it’s the background of the event, example <code>https://cdn.blastroyale.com/images/events/paid-card.png</code></p></li></ul>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

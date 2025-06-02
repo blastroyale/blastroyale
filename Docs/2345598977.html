@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Admin tool to manipulate player data (change wallet etc.)</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Liveops_2391638017.html">Liveops</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Player-Management_2500526084.html">Player Management</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Admin tool to manipulate player data (change wallet etc.)
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nik Denissov</span> on Apr 17, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p /><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748614095113 {padding: 0px;}
+div.rbtoc1748614095113 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748614095113 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748614095113'>
+<ul class='toc-indentation'>
+<li><a href='#Admintooltomanipulateplayerdata(changewalletetc.)-ProductionURLforthetool:'>Production URL for the tool:</a></li>
+<li><a href='#Admintooltomanipulateplayerdata(changewalletetc.)-Startusingadmintool'>Start using admin tool</a></li>
+<li><a href='#Admintooltomanipulateplayerdata(changewalletetc.)-Setanewwalletforaplayer'>Set a new wallet for a player</a></li>
+</ul>
+</div><h2 id="Admintooltomanipulateplayerdata(changewalletetc.)-ProductionURLforthetool:">Production URL for the tool:</h2><p><a class="external-link" data-card-appearance="inline" href="https://mainnet-prod-hub-account-service.blastroyale.com/swagger/index.html" rel="nofollow">https://mainnet-prod-hub-account-service.blastroyale.com/swagger/index.html</a> </p><p /><h2 id="Admintooltomanipulateplayerdata(changewalletetc.)-Startusingadmintool">Start using admin tool</h2><p>To perform any actions with the admin tool you need to be authorized first.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240417-150304.png" width="760" loading="lazy" src="attachments/2345598977/2345500674.png?width=760" data-image-src="attachments/2345598977/2345500674.png" data-height="285" data-width="1469" data-unresolved-comment-count="0" data-linked-resource-id="2345500674" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240417-150304.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2345598977" data-linked-resource-container-version="1" data-media-id="771b98f5-7f2f-49ad-91f4-28edf0ce8c99" data-media-type="file"></span><p>Press Authorize button and authorize with your secret key. Ask Gabriel or Nik how to get your secret personal key.</p><h2 id="Admintooltomanipulateplayerdata(changewalletetc.)-Setanewwalletforaplayer">Set a new wallet for a player</h2><p>Ask a player for:</p><ul><li><p>Game ID (in game) and/or email</p></li><li><p>Old wallet (if possible)</p></li><li><p>New wallet</p></li></ul><p>Then find this player in Playfab to find player’s “Master player account ID”, it will look something like: 515D2AE7D2121CF5</p><p /><p /><p>Then we need to first find account of that player and ideally compare their old wallet in a database to the one they provided as a proof.</p><p>To do this you need to go to “AuthAdmin -&gt; Get admin/wallet” and press “Try it out”</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240417-150349.png" width="760" loading="lazy" src="attachments/2345598977/2345631750.png?width=760" data-image-src="attachments/2345598977/2345631750.png" data-height="298" data-width="1453" data-unresolved-comment-count="0" data-linked-resource-id="2345631750" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240417-150349.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2345598977" data-linked-resource-container-version="1" data-media-id="dac894b9-1f36-4057-94b3-328e6a0f415c" data-media-type="file"></span><p>Then paste “Master player account ID” to playfabId field and press Execute</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240417-150510.png" width="760" loading="lazy" src="attachments/2345598977/2345795585.png?width=760" data-image-src="attachments/2345598977/2345795585.png" data-height="426" data-width="1474" data-unresolved-comment-count="0" data-linked-resource-id="2345795585" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240417-150510.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2345598977" data-linked-resource-container-version="1" data-media-id="6c6dc0b6-6d49-4bb1-bdd4-ec27a6e32b1f" data-media-type="file"></span><p>Then scroll down and in the response body you will see the wallet that is currently associated with this playfab account</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240417-150632.png" width="402" loading="lazy" src="attachments/2345598977/2345926657.png?width=402" data-image-src="attachments/2345598977/2345926657.png" data-height="109" data-width="402" data-unresolved-comment-count="0" data-linked-resource-id="2345926657" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240417-150632.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2345598977" data-linked-resource-container-version="1" data-media-id="9a9fa40b-b7df-4152-be15-f928bfa83835" data-media-type="file"></span><p>Then to link a different wallet to that account you should use the function AuthWallet -&gt; Post where you specify playfab ID and a new wallet, then do Execute and it sets a new wallet to account</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240417-150924.png" width="748" loading="lazy" src="attachments/2345598977/2345828356.png?width=748" data-image-src="attachments/2345598977/2345828356.png" data-height="509" data-width="748" data-unresolved-comment-count="0" data-linked-resource-id="2345828356" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240417-150924.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2345598977" data-linked-resource-container-version="1" data-media-id="49355647-288b-4c20-98bb-1f50a4b486ef" data-media-type="file"></span><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2345598977/2345500674.png">image-20240417-150304.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2345598977/2345631750.png">image-20240417-150349.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2345598977/2345795585.png">image-20240417-150510.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2345598977/2345926657.png">image-20240417-150632.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2345598977/2345828356.png">image-20240417-150924.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

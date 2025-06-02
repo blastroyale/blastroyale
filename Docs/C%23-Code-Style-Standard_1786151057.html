@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : C# Code Style Standard</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Tech-Vision_1786150927.html">Tech Vision</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : C# Code Style Standard
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Miguel Tomas</span>, last modified on Jul 08, 2022
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="C#CodeStyleStandard-Introduction"><br/><strong>Introduction</strong></h1><p>The Microsoft's <strong>.Net Standard</strong> c# coding conventions apply as a basis to the Gram Games C# code style guidelines → <a class="external-link" href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions" rel="nofollow">https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions</a></p><p>There is no code ownership of the code, so no author tags should be in the files.</p><p>The following rules serve as additions based on best practices.</p><h1 id="C#CodeStyleStandard-ConfigFiles"><strong>Config Files</strong></h1><p>Visual Studio Config file:</p><p class="media-group"><span class="confluence-embedded-file-wrapper"><a class="confluence-embedded-file" href="attachments/1709028037/1709028061.vssettings" data-nice-type="null" data-file-src="/wiki/download/attachments/1709028037/Exported-env.vssettings?version=1&amp;modificationDate=1630492946631&amp;cacheVersion=1&amp;api=v2" data-linked-resource-id="1709028061" data-linked-resource-type="attachment" data-linked-resource-container-id="1709028037" data-linked-resource-default-alias="Exported-env.vssettings" data-mime-type="binary/octet-stream" data-has-thumbnail="true" data-linked-resource-version="1" data-media-id="a03b499a-7bc5-4958-9924-40462ea06601" data-media-type="file"><img src="attachments/thumbnails/1709028037/1709028061" height="250"/></a></span></p><p class="media-group"><span class="confluence-embedded-file-wrapper"><a class="confluence-embedded-file" href="attachments/1709028037/1709028055.vsix" data-nice-type="null" data-file-src="/wiki/download/attachments/1709028037/FastFind.vsix?version=1&amp;modificationDate=1630492946203&amp;cacheVersion=1&amp;api=v2" data-linked-resource-id="1709028055" data-linked-resource-type="attachment" data-linked-resource-container-id="1709028037" data-linked-resource-default-alias="FastFind.vsix" data-mime-type="application/octet-stream" data-has-thumbnail="true" data-linked-resource-version="1" data-media-id="f36dd49d-1406-4f9d-bbdc-0170dd9c414b" data-media-type="file"><img src="attachments/thumbnails/1709028037/1709028055" height="250"/></a></span></p><hr/><h3 id="C#CodeStyleStandard-Rider">Rider </h3><p><a class="external-link" data-card-appearance="inline" href="https://www.jetbrains.com/help/rider/Using_EditorConfig.html#in_solution" rel="nofollow">https://www.jetbrains.com/help/rider/Using_EditorConfig.html#in_solution</a> </p><p>In Rider, make sure that under <strong>Editor | Code Style</strong>, the <strong>Enable EditorConfig support</strong> option is checked.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="attachments/1786151057/1908047894.png?width=680" data-image-src="attachments/1786151057/1908047894.png" data-height="800" data-width="1600" data-unresolved-comment-count="0" data-linked-resource-id="1908047894" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20220411-172206.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1786151057" data-linked-resource-container-version="15" data-media-id="77865be0-e540-4797-a9c9-5e6951fcdf23" data-media-type="file"></span><p class="media-group"><span class="confluence-embedded-file-wrapper"><a class="confluence-embedded-file" href="attachments/1786151057/1869086727.editorconfig" data-nice-type="null" data-file-src="/wiki/download/attachments/1786151057/.editorconfig?version=3&amp;modificationDate=1657239466887&amp;cacheVersion=1&amp;api=v2" data-linked-resource-id="1869086727" data-linked-resource-type="attachment" data-linked-resource-container-id="1786151057" data-linked-resource-default-alias=".editorconfig" data-mime-type="application/octet-stream" data-has-thumbnail="true" data-linked-resource-version="3" data-media-id="b750bf61-a3e9-4622-9919-275e4a0538ec" data-media-type="file"><img src="attachments/thumbnails/1786151057/1869086727" height="250"/></a></span></p><h1 id="C#CodeStyleStandard-Naming"><strong>Naming</strong></h1><h2 id="C#CodeStyleStandard-Files"><strong>Files</strong></h2><p>Name the files according to their class names. For partial classes, prefix the file name with the class name and suffix it with the partial class purpose.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// Located in Task.PlayerTest.cs
+public partial class Task
+{
+}
+
+// Located in Task.EnemyTest.cs
+public partial class Task
+{
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-Namespaces"><strong>Namespaces</strong></h2><p>Namespaces need to be defined for every class, enum, interface or struct. They should match the project source folder structure.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+namespace Game.Components.World
+{
+	public class MyClass
+	{
+	}
+}
+
+// WRONG
+public class MyClass
+{
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-AccessModifiers"><strong>Access Modifiers</strong></h2><p>Fields, classes, properties and methods access modifiers have to be declared and should always precede over modifiers</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+public class MyClass
+{
+	public int field;
+	public static int field;
+
+	public int Property { get; set; }
+	
+	private void Method()
+	{
+	}
+}
+
+// WRONG
+class MyClass
+{
+	int field;
+	static public field;
+
+	int Property { get; set; }
+		
+	void Method()
+	{
+	}
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-DeclarationOrder"><strong>Declaration Order</strong></h2><p>Sort every declaration within the class over the following scheme:</p><div class="table-wrap"><table data-layout="default" data-local-id="98a77759-c953-454f-9a27-c223b9e03d82" class="confluenceTable"><colgroup><col style="width: 226.67px;"/><col style="width: 226.67px;"/><col style="width: 226.67px;"/></colgroup><tbody><tr><th class="confluenceTh"><p>Access Modifier</p></th><th class="confluenceTh"><p>Keyword</p></th><th class="confluenceTh"><p>Type</p></th></tr><tr><td class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p><br/></p></td><td class="confluenceTd"><p>enum</p></td></tr><tr><td class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p><br/></p></td><td class="confluenceTd"><p>struct/class</p></td></tr><tr><td class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p><br/></p></td><td class="confluenceTd"><p>delegate</p></td></tr><tr><td class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p>static</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>protected</p></td><td class="confluenceTd"><p>static</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p>static</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p>const</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>protected</p></td><td class="confluenceTd"><p>const</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p>const</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p>readonly</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>protected</p></td><td class="confluenceTd"><p>[SerializeField]</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>protected</p></td><td class="confluenceTd"><p>readonly</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>protected</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p>[SerializeField]</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p>readonly</p></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>field</p></td></tr><tr><td class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>property</p></td></tr><tr><td class="confluenceTd"><p>protected</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>property</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>constructor</p></td></tr><tr><td class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>constructor</p></td></tr><tr><td class="confluenceTd"><p>protected</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>constructor</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>Inject (DI tool)</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p><br/></p></td><td class="confluenceTd"><p>Unity MonoBehaviour API methods, following the object order update cycle(ex: Awake, Start, Update)</p></td></tr><tr><td rowspan="2" class="confluenceTd"><p>public</p></td><td class="confluenceTd"><p>static</p></td><td class="confluenceTd"><p>method</p></td></tr><tr><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>method</p></td></tr><tr><td rowspan="2" class="confluenceTd"><p>protected</p></td><td class="confluenceTd"><p>static</p></td><td class="confluenceTd"><p>method</p></td></tr><tr><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>method</p></td></tr><tr><td rowspan="2" class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p>static</p></td><td class="confluenceTd"><p>method</p></td></tr><tr><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>method</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>enum</p></td></tr><tr><td class="confluenceTd"><p>private</p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p>struct/class</p></td></tr></tbody></table></div><h2 id="C#CodeStyleStandard-Conventions"><strong>Conventions</strong></h2><p>Declare every code type within your project following the coding standard scheme: </p><div class="table-wrap"><table data-layout="default" data-local-id="2166e483-a33b-4c66-b3ee-0027dea059d3" class="confluenceTable"><colgroup><col style="width: 97.14px;"/><col style="width: 97.14px;"/><col style="width: 97.14px;"/><col style="width: 97.14px;"/><col style="width: 97.14px;"/><col style="width: 97.14px;"/><col style="width: 97.14px;"/></colgroup><tbody><tr><th class="confluenceTh"><p>Declaration type</p></th><th class="confluenceTh"><p>Notation</p></th><th class="confluenceTh"><p>Plural</p></th><th class="confluenceTh"><p>Prefix</p></th><th class="confluenceTh"><p>Suffix</p></th><th class="confluenceTh"><p>Char Mask</p></th><th class="confluenceTh"><p>Underscore</p></th></tr><tr><td class="confluenceTd"><p>Class Name</p></td><td class="confluenceTd"><p>PascalCase</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>[ A-z ]</p></td><td class="confluenceTd"><p>No</p></td></tr><tr><td class="confluenceTd"><p>Interface Name</p></td><td class="confluenceTd"><p>PascalCase</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>Yes, with a 'I'</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>[ A-z ]</p></td><td class="confluenceTd"><p>No</p></td></tr><tr><td class="confluenceTd"><p>Field (readonly &amp; static) Name</p></td><td class="confluenceTd"><p>cameCase</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>Yes (Only underscore for private/protected  fields)</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>[ A-z ]</p><p>[ 0-9 ]</p></td><td class="confluenceTd"><p>No</p></td></tr><tr><td class="confluenceTd"><p>Property Name</p></td><td class="confluenceTd"><p>PascalCase</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>[ A-z ]</p><p>[ 0-9 ]</p></td><td class="confluenceTd"><p>No</p></td></tr><tr><td class="confluenceTd"><p>Method Name</p></td><td class="confluenceTd"><p>PascalCase</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>[ A-z ]</p></td><td class="confluenceTd"><p>Yes (Only for Unit/Integration Tests)</p></td></tr><tr><td class="confluenceTd"><p>Enum type Name</p></td><td class="confluenceTd"><p>PascalCase</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>[ A-z ]</p></td><td class="confluenceTd"><p>No</p></td></tr><tr><td class="confluenceTd"><p>Delegate Name</p></td><td class="confluenceTd"><p>PascalCase</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>[ A-z ]</p></td><td class="confluenceTd"><p>No</p></td></tr><tr><td class="confluenceTd"><p>Constants Name</p></td><td class="confluenceTd"><p>CAPS</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>[ A-Z ]</p><p>[ 0-9 ]</p></td><td class="confluenceTd"><p>YES</p></td></tr><tr><td class="confluenceTd"><p>Local Variables</p></td><td class="confluenceTd"><p>cameCase</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>[ A-z ]</p><p>[ 0-9 ]</p></td><td class="confluenceTd"><p>No</p></td></tr><tr><td class="confluenceTd"><p>Method Argument</p></td><td class="confluenceTd"><p>cameCase</p></td><td class="confluenceTd"><p>Yes</p></td><td class="confluenceTd"><p>No</p></td><td class="confluenceTd"><p>Ye</p></td><td class="confluenceTd"><p>[ A-z ]</p></td><td class="confluenceTd"><p>No</p></td></tr></tbody></table></div><p>Example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">public interface IBaseClass {}
+
+public class MyClass : MonoBehaviour, IBaseClass
+{
+	public enum TypeEnum {}
+
+	public struct MyStruct {}
+
+	public delegate int PerformCalculation(int x, int y);
+
+	public const string MY_STRING = &quot;Hello!&quot;;
+
+	public static string myString;
+
+	public int myNumber;
+
+	protected bool _isTrue;
+
+	private readonly string _myOtherString;
+
+	private string _anotherString;
+	private int _myOtherNumber;
+
+	public string Bar { get; set; }
+
+	public string Bar2
+	{
+		get
+		{
+			return _anotherString;
+		}
+		set
+		{
+			_anotherString = value;
+		}
+	}
+
+	// The constructor is here just an example (MonoBehaviours can&#39;t have constructors)
+	public MyClass()
+	{
+	}
+
+	private Awake()
+	{
+	}
+
+	private Update()
+	{
+	}
+
+	private FixedUpdate()
+	{
+	}
+
+	public static void DoSomethingElseStatic()
+	{
+	}
+
+	public void DoSomethingElse(string text)
+	{
+		var newText = text;
+	}
+	
+	protected void ProtectedMethod()
+	{
+	}
+
+	private void Foo()
+	{
+	}
+
+	private enum MyPrivateEnum {}
+
+	private struct MyPrivateStruct {}
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-Built-InTypes"><strong>Built-In Types</strong></h2><p>Please prefer the built-in types over their according .NET Framework counter-part</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+string text = &quot;Hello World&quot;;
+int index = 0;
+
+// WRONG
+String text = &quot;Hello World&quot;;
+Int32 index = 0;</pre>
+</div></div><h2 id="C#CodeStyleStandard-Grouping"><strong>Grouping</strong></h2><p>Group variable by their accessibility with a blank line. Use comments to separate variables with the same accessibility but part of the same context</p><p><strong>Do not use #region.</strong> Classes should never be so large that you have the urge to introduce them, you should rather think of splitting classes into smaller pieces</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+public int myVariable1 = 0;
+public int myVariable2 = 0;
+public int myVariable3 = 0;
+
+protected int _myVariable = 0;
+
+private int _myVariableHuman1 = 0;
+private int _myVariableHuman2 = 0;
+private int _myVariableHuman3 = 0;
+// animals
+private int _myVariableAnimal1 = 0;
+private int _myVariableAnimal2 = 0;
+private int _myVariableAnimal3 = 0;
+
+// WRONG
+#region
+public int myVariable1 = 0;
+public int myVariable2 = 0;
+public int myVariable3 = 0;
+protected int _myVariable = 0;
+private int _myVariableHuman1 = 0;
+private int _myVariableHuman2 = 0;
+private int _myVariableHuman3 = 0;
+
+private int _myVariableAnimal1 = 0;
+private int _myVariableAnimal2 = 0;
+private int _myVariableAnimal3 = 0;
+#endregion</pre>
+</div></div><h2 id="C#CodeStyleStandard-Variables"><strong>Variables</strong></h2><p>Variable names should speak for themselves and avoid abbreviations. (the only exception is the convention 'i' index abbreviation in loops). They should be declared in a lower camel-case convention and not prefixed.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+public void Method(string stateName)
+{
+	GameStateMachine gameStateMachine = new GameStateMachine(stateName);
+}
+
+// WRONG
+public void Method(string s, string _s)
+{
+	GameStateMachine gsm = new GameStateMachine(s);
+	GameStateMachine _gsm = new GameStateMachine(_s);
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-ImplicitTyping"><strong><span class="inline-comment-marker" data-ref="4b551d03-3cfb-4395-bbff-db01bae1a37b">Implicit Typing</span></strong></h2><p><span class="inline-comment-marker" data-ref="4b551d03-3cfb-4395-bbff-db01bae1a37b">Use implicit typing for local variables declarations.</span></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+var text = &quot;Hello World&quot;;
+var number = 0;
+var floating = .5f
+var converted = number.ToString();
+var lineConversion = Convert.ToInt32(Console.ReadLine());
+var valueNumber = Object.Result();
+var stringText = Object.Name();</pre>
+</div></div><h2 id="C#CodeStyleStandard-MagicNumbers"><strong>Magic Numbers</strong></h2><p>Never use simple numbers in production code. When encountering hardcoded constants (Magic-Numbers) in code, create a constant with an explanatory name.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+const int MaxCountOfEntitites = 42;
+for (int i = 0; i &lt; MaxCountOfEntitites; i++)
+{
+}
+
+// WRONG
+for (int i = 0; i &lt; 42; i++)
+{
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-Unityinspectorvariables"><strong>Unity inspector variables</strong></h2><p>When declaring a variable that is only needed to be ejected externally with objects via Unity editor, please make it private with a SerializeField attribute. This keeps the variables in the scope they intent to. Also use HideInInspector if we don't need the public variable to be accessed in the inspector. This will avoid unnecessary garbage in the Unity Editor and in the object external code access.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">public class MyClass
+{
+	[HideInInspector] public int health;
+
+	[SerializeField] private GameObject _externalObject;
+}</pre>
+</div></div><h1 id="C#CodeStyleStandard-Indentation"><strong>Indentation</strong></h1><h2 id="C#CodeStyleStandard-Codeindentation"><strong>Code indentation</strong></h2><p>Indent <strong>ONLY</strong> with <u>tabs</u> and <strong>not</strong> with spaces. Your IDE should be configured to automatically write new lines with tabs with one level of indentation using 4 spaces.</p><h2 id="C#CodeStyleStandard-Brackets"><strong>Brackets</strong></h2><p>Always write an opening and a closing curly bracket. General practice should be having an opening and closing curly bracket in a separate line.<br/>Exception is for one liner if cases</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT 
+private void MyFunction()
+{
+    if(false) return;
+    
+	if(false)
+	{
+		return;
+	}
+
+	if (true)
+	{
+ 		DoSomething();
+	}
+	else
+	{
+ 		DoSomethingElse();
+	}
+	
+}
+
+// WRONG
+private void MyFunction() {
+	if(false)
+		return;
+
+	if (true){
+ 		DoSomething();
+	}
+	else{
+ 		DoSomethingElse();
+	}
+
+	if (true)
+ 		DoSomething();
+	else
+ 		DoSomethingElse();
+}</pre>
+</div></div><p>The only exception is when declaring properties with automatic or simple get/set configuration</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT 
+public string Bar { get; set; }
+public string Bar2
+{
+	get { return _anotherString; }
+	set	{ _anotherString = value; }
+}
+public string Bar3
+{
+	get
+	{
+		return _anotherString;
+	}
+	set
+	{
+		_anotherString = value;
+	}
+}
+
+// WRONG
+public string Bar {	get	{ return _anotherString; } set { _anotherString = value; } }
+public string Bar2
+{
+	get { DoSomething(); return _anotherString; }
+	set	{ DoSomething(); _anotherString = value; }
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-Declarations"><strong>Declarations</strong></h2><p>When declaring multiple variables, please do not align variable names with each other. Also do not group declare multiple variables of the same type</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+int myNumber;
+int myOtherNumber;
+int myAnotherNumber;
+string myString;
+bool myBoolean;
+GameStateManager gameStateManager;
+
+// WRONG
+int myNumber, myOtherNumber, myAnotherNumber; 
+string				myString;
+bool				myBoolean;
+GameStateManager	gameStateManager;</pre>
+</div></div><h2 id="C#CodeStyleStandard-Switch-case"><strong>Switch-case</strong></h2><p>Please always indent the case statements of your switch-cases. Also, the usage of brackets within cases is enforced to enable scoping for the different cases, the only exception is when 2 cases have the same logic</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+switch (myStatusVariable)
+{
+	case MyEnum.ValueOne:
+	{
+		DoSomething();
+		break;
+	}
+	case MyEnum.ValueTwo:
+	default:
+	{
+		DoSomethingElse();
+		break;
+	}
+}
+
+// WRONG
+switch (myStatusVariable)
+{
+	case MyEnum.ValueOne:
+		DoSomething();
+	break;
+	case MyEnum.ValueTwo:
+	default:
+ 	DoSomethingElse();
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-Methods"><strong>Methods</strong></h2><p>In case of using methods with a very big number of parameters, it should be an indicator of poorly built code that will most likely violate any of the OOP or SOLID principles. But in the exception case of the method being to verbose and with a reasonable amount of parameters use the parameter name declaration scheme followed by the parameter reference:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">QuantumEvent.Subscribe&lt;EventOnProjectileFired&gt;(
+				listener: this,
+				handler: HandleOnProjectileFired,
+				once: false,
+				onlyIfActiveAndEnabled: true);</pre>
+</div></div><p /><p>A good rule of thumb practice is when a method declaration has more than 4 parameters, to convert it to a local private struct help organize better the data.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// WRONG
+public void MethodDeclaration(string firstParamter, string secondParameter, string thirdParameter, 
+                              string fourthParameter, string fifthParameter, string sixParameter)
+{
+}
+
+// CORRECT
+private struct DataParameter
+{
+    public string firstParamter;
+    public string secondParameter;
+    public string thirdParameter;
+    public string fourthParameter;
+    public string fifthParameter;
+    public string sixParameter;
+}
+
+public void MethodDeclaration(DataParameter parameter)
+{
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-LineWrapping"><strong>Line Wrapping</strong></h2><p>Use UNIX-style line-wraps (LF). Please also set your IDE to display margin at <strong>128</strong> characters which should not be exceeded. This allows us to have multiple editor tabs open at the same time without having to scroll horizontally.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT (variable and assignment separated by a new line to avoid an overlong line)
+float myExtremeLongDescriptiveVariableName =
+MyEnterpriseClassLevelFunctionFactoryDescriptor.
+GetTotallyExtensiveFunctionResult(
+reallyLongParamaterDescriptionContentObject);
+
+// WRONG (class and method name separated by new line)
+float myExtremeLongDescriptiveVariableName =
+MyEnterpriseClassLevelFunctionFactoryDescriptor.
+GetTotallyExtensiveFunctionResult
+(reallyLongParamaterDescriptionContentObject);
+
+// CORRECT (as many parameters on a single line as possible, overlong declarations wrapped to new line with indention)
+public void GetTotallyExtensiveFunctionResult(string firstParamter, string secondParameter, 
+                                              string thirdParameter, string fourthParameter)
+{
+}
+
+// WRONG (every parameter on a single line)
+public void GetTotallyExtensiveFunctionResult(string firstParamter,
+                                              string secondParameter,
+                                              string thirdParameter,
+                                              string fourthParameter)
+{
+}
+
+// CORRECT (as many conditions on a single line as possible, operatoron same line)
+if (paramA == 1 &amp;&amp; paramB == 2 &amp;&amp; paramC == 3 &amp;&amp;
+	paramD == 4 &amp;&amp; paramE == 5)
+{
+}
+
+// WRONG (conditions scattered over multiple lines, operator on next line, multiple indentions)
+if (paramA == 1 &amp;&amp; paramB == 2 &amp;&amp; paramC == 3
+	&amp;&amp; paramD == 4
+	&amp;&amp; paramE == 5)
+{
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-Spaces"><strong>Spaces</strong></h2><p>After the keywords if, switch, for or while a space character is mandatory as it increases the readability. Also use spaces in expressions (x = 10) and also add a space character after each comma (except at the end of the line)</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+if (y == 0)
+{
+	x = 100;
+}
+
+// WRONG
+if(y==0)
+{
+	x=100;
+}
+
+// CORRECT
+private void DoSomethingWithParams(int firstParam, int secondParam)
+{
+}
+
+// WRONG
+private void AnUglyFunction (int uglyOne, int uglyTwo)
+{
+}
+private void AnUglyFunction(int uglyOne,int uglyTwo)
+{
+}</pre>
+</div></div><h2 id="C#CodeStyleStandard-BlankLines"><strong>Blank Lines</strong></h2><p>Use blank lines to separate blocks of code, methods and variables. Avoid unnecessary blank lines in the code when doesn't meet any criteria.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">// CORRECT
+private void DoSomething()
+{
+	Update();
+
+	if (true)
+	{
+		DoSomethingElse();
+	}
+}
+
+// WRONG
+private void DoSomething()
+{
+
+	Update();
+
+
+
+	if (true)
+	{
+
+		DoSomethingElse();
+	}
+
+
+	if (true)
+	{
+		DoSomethingElse();
+
+
+	}
+
+
+}</pre>
+</div></div><h1 id="C#CodeStyleStandard-Comments"><strong>Comments</strong></h1><h2 id="C#CodeStyleStandard-Important"><strong>Important</strong></h2><p>Comments should be avoided in the middle the code. Generally the code should be self explanatory and if following correctly the coding guidelines, the should will be easily readable. For the special cases check the follow guidelines.</p><h2 id="C#CodeStyleStandard-Indentation.1"><strong>Indentation</strong></h2><p>Comments always have their separate lines and comment tokens are always followed by a white space</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">// CORRENT
+//WRONG
+
+// CORRENT
+DoSomething
+
+DoSomething; //WRONG</pre>
+</div></div><h2 id="C#CodeStyleStandard-TODOStatements"><strong>TODO Statements</strong></h2><p>When leaving a comment for something that is unclear, or that you have changed or simply a TODO, please also add your name. A task that is considered as done should never have any TODO statements remaining!</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">// TODO: migueltomas - I had to change this because it crashes.</pre>
+</div></div><h2 id="C#CodeStyleStandard-XMLDocumentation"><strong>XML Documentation</strong></h2><p>Public <strong>classes, interfaces, methods</strong> and <strong>properties</strong> should always be described using a XML Documentation (See <a class="external-link" href="https://msdn.microsoft.com/en-us/library/b2s063f7.aspx" rel="nofollow">https://msdn.microsoft.com/en-us/library/b2s063f7.aspx</a>):</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c#; gutter: false; theme: Confluence" data-theme="Confluence">/// &lt;summary&gt;
+/// This class performs an important function.
+/// &lt;/summary&gt;
+public class MyClass
+{
+	/// &lt;summary&gt;
+	/// Description
+	/// &lt;/summary&gt;
+	/// &lt;param name=&quot;intParam&quot;&gt;What is that param for?&lt;/param&gt;
+	/// &lt;returns&gt;The method return meaning&lt;/returns&gt;
+	public int Foo(int intParam)
+	{
+		return intParam;
+	}
+}</pre>
+</div></div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1786151067.vssettings">Exported-env.vssettings</a> (binary/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1786151070.editorconfig">Rider.editorconfig</a> (binary/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1786151073.vsix">FastFind.vsix</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1908473891.zip">settings.zip</a> (application/zip)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1980039174.editorconfig">.editorconfig</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1896382465.png">image-20220329-161516.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1908047894.png">image-20220411-172206.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1786151076.zip">settings.zip</a> (application/zip)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1979908114.editorconfig">.editorconfig</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786151057/1869086727.editorconfig">.editorconfig</a> (application/octet-stream)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Game Release Checklist</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Release-Process_2499837954.html">Release Process</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Game Release Checklist
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Miguel Tomas</span>, last modified by <span class='editor'> Carlos</span> on Jan 29, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h2 id="GameReleaseChecklist-ClientChecklist">Client Checklist</h2><ul class="inline-task-list" data-inline-tasks-content-id="1986428929"><li data-inline-task-id="606"><span class="placeholder-inline-tasks">PR merged <strong>release/*</strong> branch to <strong>master</strong></span></li><li data-inline-task-id="607"><span class="placeholder-inline-tasks">PR merged <strong>release/*</strong> branch to <strong>develop</strong></span></li><li data-inline-task-id="608"><span class="placeholder-inline-tasks">Android new version build to Google Play with <strong>STORE_BUILD</strong> &amp; <strong>LIVE_SERVER</strong> symbols</span></li><li data-inline-task-id="609"><span class="placeholder-inline-tasks">iOS new version build to Apple TestFlight with <strong>STORE_BUILD</strong> &amp; <strong>LIVE_SERVER</strong> symbols</span></li><li data-inline-task-id="610"><span class="placeholder-inline-tasks"><u>iOS</u> Setup Pass</span></li><li data-inline-task-id="611"><span class="placeholder-inline-tasks"><u>Android</u> Setup Pass</span></li><li data-inline-task-id="612"><span class="placeholder-inline-tasks"><u>iOS</u> Golden Pass</span></li><li data-inline-task-id="613"><span class="placeholder-inline-tasks"><u>Android</u> Golden Pass</span></li><li data-inline-task-id="614"><span class="placeholder-inline-tasks"><u>iOS</u> Negative Pass</span></li><li data-inline-task-id="615"><span class="placeholder-inline-tasks"><u>Android</u> Negative Pass</span></li></ul><h2 id="GameReleaseChecklist-BackendChecklist">Backend Checklist</h2><p /><ul class="inline-task-list" data-inline-tasks-content-id="1986428929"><li class="checked" data-inline-task-id="654"><span class="placeholder-inline-tasks">Ensure game builds, quantum builds and quantum server builds have no debug dlls</span></li><li class="checked" data-inline-task-id="616"><span class="placeholder-inline-tasks">Announce to the community that the game will go into maintenance mode for a game update </span></li><li class="checked" data-inline-task-id="617"><span class="placeholder-inline-tasks">Put the game in maintenance mode <a data-card-appearance="inline" href="https://firstlightgames.atlassian.net/wiki/x/EgAMlQ" rel="nofollow">https://firstlightgames.atlassian.net/wiki/x/EgAMlQ</a> </span></li><li class="checked" data-inline-task-id="618"><span class="placeholder-inline-tasks">No players for 5min in any Quantum rooms in the current quantum cloud server and QA check if the live version is in maintenance</span></li><li data-inline-task-id="619"><span class="placeholder-inline-tasks">Backend deployed to <strong>LIVE_SERVER</strong> in Azure environment </span></li><li class="checked" data-inline-task-id="657"><span class="placeholder-inline-tasks">Remove the staging redirect <a href="Environment-Redirects_2503901185.html" data-linked-resource-id="2503901185" data-linked-resource-version="5" data-linked-resource-type="page">Environment Redirects</a> </span></li></ul><ul><li><p>Go to <a class="external-link" href="https://portal.azure.com/#@firstlight.games/resource/subscriptions/c431534a-6a7d-46dc-8529-b5d562318544/resourceGroups/mainnet-prod-core/providers/Microsoft.Cdn/profiles/blastroyalecdn/overview" rel="nofollow"><u>front door resource</u></a> click purge cache</p></li></ul><ul class="inline-task-list" data-inline-tasks-content-id="1986428929"><li data-inline-task-id="620"><span class="placeholder-inline-tasks">Run any migration scripts on the Backend </span></li><li data-inline-task-id="652"><span class="placeholder-inline-tasks">Check for Unity Cloud builds for quantum dlls</span></li><li data-inline-task-id="621"><span class="placeholder-inline-tasks">Download client version from Apple &amp; Google Play internal testing link<br/><a class="external-link" data-card-appearance="inline" href="https://testflight.apple.com/join/Lx4QhskZ" rel="nofollow">https://testflight.apple.com/join/Lx4QhskZ</a> <br/><a class="external-link" href="https://play.google.com/apps/internaltest/4701681286424824904" rel="nofollow">https://play.google.com/apps/internaltest/4701681286424824904</a></span></li><li data-inline-task-id="622"><span class="placeholder-inline-tasks">Test with newly created account &amp; change cosmetics in main menu</span></li><li data-inline-task-id="623"><span class="placeholder-inline-tasks">Test with existing account with Player Title Data from previous live version &amp; change cosmetics in main menu</span></li><li data-inline-task-id="624"><span class="placeholder-inline-tasks">Check backend logs for when changing or equipping NFT-locked cosmetics</span></li><li data-inline-task-id="625"><span class="placeholder-inline-tasks">Play a ranked match between an iOS account against Android account</span></li><li data-inline-task-id="627"><span class="placeholder-inline-tasks">Check backend logs for the end of the match command</span></li><li data-inline-task-id="650"><span class="placeholder-inline-tasks">E-mail photon asking for metrics already <img class="emoticon emoticon-blue-star" data-emoji-id="1f604" data-emoji-shortname=":smile:" data-emoji-fallback="😄" src="images/icons/emoticons/72/1f604.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> </span></li><li data-inline-task-id="658"><span class="placeholder-inline-tasks">Bump game version in <a data-card-appearance="inline" href="https://firstlightgames.atlassian.net/wiki/x/EgAMlQ" rel="nofollow">https://firstlightgames.atlassian.net/wiki/x/EgAMlQ</a> </span></li></ul><h2 id="GameReleaseChecklist-ProductChecklist">Product Checklist</h2><ul class="inline-task-list" data-inline-tasks-content-id="1986428929"><li data-inline-task-id="628"><span class="placeholder-inline-tasks">QA client pass</span></li><li data-inline-task-id="629"><span class="placeholder-inline-tasks">Backend pass</span></li><li data-inline-task-id="631"><span class="placeholder-inline-tasks">Final Game Sign off</span></li><li data-inline-task-id="632"><span class="placeholder-inline-tasks">Release the iOS app to the public</span></li><li data-inline-task-id="633"><span class="placeholder-inline-tasks">Release the Android app to the public</span></li><li data-inline-task-id="644"><span class="placeholder-inline-tasks">Disable Redirection</span></li><li data-inline-task-id="649"><span class="placeholder-inline-tasks">Deploy addressables or something</span></li><li data-inline-task-id="645"><span class="placeholder-inline-tasks">Force players to update to the latest version if necessary</span></li><li data-inline-task-id="635"><span class="placeholder-inline-tasks">Deactivate any in-app purchases in Google and Apple consoles that are no longer present in the game version</span></li><li data-inline-task-id="634"><span class="placeholder-inline-tasks">Change <u>Title Data:</u><em>KeyPair </em>→ “version” : “new version number”</span></li><li data-inline-task-id="636"><span class="placeholder-inline-tasks">Setup any hidden game ids on Playfab LIVE</span></li><li data-inline-task-id="637"><span class="placeholder-inline-tasks">Setup in-app Shop’s items on Playfab LIVE</span></li><li data-inline-task-id="638"><span class="placeholder-inline-tasks">Upload Game Configs to Playfab LIVE</span></li><li data-inline-task-id="639"><span class="placeholder-inline-tasks">Upload links to the new APK to the Whitepaper</span></li><ul class="inline-task-list" data-inline-tasks-content-id="1986428929"><li data-inline-task-id="646"><span class="placeholder-inline-tasks">Upload APK to Azure -&gt; prodflgimagestorage -&gt; builds; then change the link to look like “https://static.blastroyale.com/builds/&lt;build&gt;”</span></li><li data-inline-task-id="647"><span class="placeholder-inline-tasks">Upload APK to two PClouds</span></li><li data-inline-task-id="648"><span class="placeholder-inline-tasks">So we have three Download Links in total (the first to Azure, and two to PCloud)</span></li></ul><li data-inline-task-id="640"><span class="placeholder-inline-tasks">Update News in Playfab LIVE to relevant ones</span></li><li data-inline-task-id="641"><span class="placeholder-inline-tasks">Upload patch notes to in-game News and to the Whitepaper (if haven’t done already)</span></li><li data-inline-task-id="642"><span class="placeholder-inline-tasks">Promote Google Play version into full production</span></li></ul>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

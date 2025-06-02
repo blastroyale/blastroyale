@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Quest System</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Backend_1854144513.html">Backend</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Quest System
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Marcelo Agostinho</span> on May 31, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <hr/><h2 id="QuestSystem-Whatisit?"><img class="emoticon emoticon-blue-star" data-emoji-id="2753" data-emoji-shortname=":question:" data-emoji-fallback="❓" src="images/icons/emoticons/72/2753.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/>  What is it?</h2><p>Quest System is a web-API system that allows us to create and manage quests and events that can be used to integrate with third-party platforms (Zealy.io, <a class="external-link" href="http://Gam3s.gg" rel="nofollow">Gam3s.gg</a>).</p><hr/><h2 id="QuestSystem-WherecanIfindit?"><img class="emoticon emoticon-blue-star" data-emoji-id="1f4bb" data-emoji-shortname=":computer:" data-emoji-fallback="💻" src="images/icons/emoticons/72/1f4bb.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/>  Where can I find it?</h2><p>We have decided to open-source the project, so you can find it on <a class="external-link" href="https://github.com/First-Light-Games/flg-quest-system" rel="nofollow">FLG GitHub.</a><br/>Any help/contribution would be appreciated! <img class="emoticon emoticon-blue-star" data-emoji-id="1f970" data-emoji-shortname=":smiling_face_with_3_hearts:" data-emoji-fallback="🥰" src="images/icons/emoticons/72/1f970.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> </p><hr/><h2 id="QuestSystem-Howdoyouaccessit?"><img class="emoticon emoticon-blue-star" data-emoji-id="1f9ed" data-emoji-shortname=":compass:" data-emoji-fallback="🧭" src="images/icons/emoticons/72/1f9ed.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> How do you access it?</h2><p>Right now, there’s no fancy, easy-to-use Admin Page, but we have a nice SwaggerUI that will help us in this quest, which you can access here: <a class="external-link" href="https://dev-quest-service.blastroyale.com/api/index.html?url=/api/specification.json#/PlatformQuestController" rel="nofollow">Quest System</a>.</p><hr/><h2 id="QuestSystem-Howdoyouuseit?"><img class="emoticon emoticon-blue-star" data-emoji-id="1f3d7" data-emoji-shortname=":construction_site:" data-emoji-fallback="🏗️" src="images/icons/emoticons/72/1f3d7.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/>  How do you use it?</h2><p> Let’s go through the endpoints that will be the core of this first interaction in the system.</p><p /><ul><li><p><strong>Creating a quest: (</strong><a class="external-link" href="https://dev-quest-service.blastroyale.com/api/index.html?url=/api/specification.json#/PlatformQuestController/ConfigurePlatformQuest" rel="nofollow"><strong>ConfigurePlatformQuest</strong></a><strong>)</strong></p></li></ul><p>This is the endpoint used to create a quest that will be used to integrate with third-party platforms:</p><p><strong>Expected payload:</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;quest&quot;: {
+    &quot;title&quot;: &quot;Quest Title&quot;,
+    &quot;description&quot;: &quot;Quest Description&quot;,
+    &quot;questType&quot;: 0, #For future usage, right now, all quests are from type 0, which means they are quests that use aaninteger value to check for quest completion
+    &quot;objective&quot;: {
+      &quot;title&quot;: &quot;Objective Title&quot;,
+      &quot;description&quot;: &quot;Objective Description&quot;,
+      &quot;metric&quot;: &quot;BP Level&quot;, #Or any other metrics that can be used described at the end of this document
+      &quot;goal&quot;: 30 #
+    }
+  },
+  &quot;platformQuestStartDate&quot;: &quot;2024-05-30T19:40:19.660Z&quot;,
+  &quot;platformQuestEndDate&quot;: &quot;2024-05-30T19:40:19.660Z&quot;
+}</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><strong>Payload considerations:</strong></p><ul><li><p>questType: WIP - Right now, all quests are from type 0, which means they are quests that use an integer value to check for quest completion.</p></li><li><p>metric: You can find which metric can be used at the end of this document. It’s really important that the metric has the same name as it has on Playfab (i.e. BP Level)</p></li></ul></div></div><p><strong>Response:</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;platformQuestEventKey&quot;: &quot;FGdQ9qptHCtnhiUCO+64dkzNOB/6rsQK20mvpV6gKZRTjYXN3sJib8vhkAuzNyrBVEhzF5Z/Dz2G1FJFMBpb6qdSvUJRt8CinbjI9M90639w/GRhYnSDK+6/ncbWnJkvFaFOJmnOL6HGlZlUly2kHlrhmeJ0Le+PoTJ0nAjhJuBhKMf0TUHxZWTkXy3GzfriOKMKZMg7Dh6j1b1RLifCtYTbe2L2NyJr8zHbBh8eGBOKPASVarzuf59zWRdEjb/6fohGbynmoFtONA9ozr7X3aupeFjKbo+XGKPQA9NaqNzs2ZrtbwLewiFxWAdEWs+DLOQ3Nhz1szQjMRyxybtTLK3xvXYnkJX9UTqE1kiE7hI=&quot;
+}</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><strong>Response considerations:</strong></p><ul><li><p>platformQuestEventKey is the encrypted version of the question configuration of the payload above, it represents the API KEY that will be used on the third-party platform to call our check completion endpoints (CheckPlatformQuestCompletion, CheckZealyPlatformQuestCompletion).</p></li><li><p>Whenever an error happens (everything besides HTTP 200), a different payload will be provided containing the error details.</p></li></ul></div></div><hr/><p /><ul><li><p><strong>Check Platform Quest completion: (</strong><a class="external-link" href="https://dev-quest-service.blastroyale.com/api/index.html?url=/api/specification.json#/PlatformQuestController/CheckPlatformQuestCompletion" rel="nofollow"><strong>CheckPlatformQuestCompletion</strong></a><strong>)</strong></p></li></ul><p>This is the endpoint used to check quest completion for most of the platforms  we have been working together (<a class="external-link" href="http://Gam3s.gg" rel="nofollow">Gam3s.gg</a>, Ancient8)</p><p><strong>Expected payload:</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;playerIdentifier&quot;: &quot;string&quot;,
+  &quot;platformQuestEventKey&quot;: &quot;string&quot;
+}</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><strong>Payload considerations:</strong></p><ul><li><p>Not all platform can send custom headers, so we validate the Api-Key that we receive through the request body.</p></li><li><p>playerIdentifier is the way the platform uses to identify their players (i.e. email, wallet)</p></li></ul></div></div><p><strong>Response:</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;completed&quot;: true/false
+}</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><strong>Response considerations:</strong></p><ul><li><p>Whenever an error happens (everything besides HTTP 200), a different payload will be provided containing the error details. Meet your team</p></li></ul></div></div><hr/><ul><li><p><strong>Check Zealy.io Quest completion: (</strong><a href="https://firstlightgames.atlassian.net/api/PlatformQuestController/check-zealy-quest-completion" rel="nofollow"><strong>CheckZealyQuestCompletion</strong></a><strong>)</strong></p></li></ul><p>Zealy.io works a bit different, we need to do a few setups inside their platform (i.e. <a class="external-link" href="https://zealy.io/docs/start-guide/community-setup" rel="nofollow">Setup Community</a>) before setting up the quests and its tasks.</p><ul><li><p>You can follow this <a class="external-link" href="https://zealy.io/docs/tasks/api" rel="nofollow">Setup API Tasks link </a>to configure a quest that contains API Tasks on it. </p></li></ul><p><strong>Payload considerations:</strong></p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><ul><li><p><a class="external-link" href="http://Zealy.io" rel="nofollow">Zealy.io</a> will send <a class="external-link" href="https://zealy.io/docs/tasks/api#:~:text=200%20or%20400.-,Creating%20a%20custom%20endpoint,-Request" rel="nofollow">this payload </a>containing all piece of information regarding the quest setup on their platform and the player identifications as well.</p></li><li><p>We parse the payload manually to find the user’s email (the way that we are using to identify)</p></li></ul></div></div><p><strong>Response:</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;completed&quot;: true/false
+}</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><strong>Response considerations:</strong></p><ul><li><p>Whenever an error happens (everything besides HTTP 200), a different payload will be provided containing the error details. Meet your team</p></li></ul></div></div><hr/><h2 id="QuestSystem-Whatarethemetricsthatcanbeusedforconfiguringquests?"><img class="emoticon emoticon-blue-star" data-emoji-id="1f4ca" data-emoji-shortname=":bar_chart:" data-emoji-fallback="📊" src="images/icons/emoticons/72/1f4ca.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> What are the metrics that can be used for configuring quests?</h2><p><a class="confluence-userlink user-mention" data-account-id="5e945ae37bc0680c2ca6a9e8" href="https://firstlightgames.atlassian.net/wiki/people/5e945ae37bc0680c2ca6a9e8?ref=confluence" target="_blank" data-linked-resource-id="69206067" data-linked-resource-version="1" data-linked-resource-type="userinfo" data-base-url="https://firstlightgames.atlassian.net/wiki">Nik Denissov</a> has written the <a href="https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/2382102529/Statistics+metrics+we+can+run+quests+leaderboards+for+and+possibly+display+in+a+player+profile" rel="nofollow">following article</a> containing not only the metrics that can be used to create quests, but also metrics that we are going to implement in the meantime. <br/></p><hr/><h2 id="QuestSystem-Roadmap!"><img class="emoticon emoticon-blue-star" data-emoji-id="1f5fa" data-emoji-shortname=":map:" data-emoji-fallback="🗺️" src="images/icons/emoticons/72/1f5fa.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> Roadmap!</h2><p>Q2 - End of June</p><ul><li><p>Improve the test coverage</p></li><li><p>Implement more integration endpoints.</p></li><li><p>Implement Scheduled 3rd party API Calls (Cases like <a class="external-link" href="http://Forge.GG" rel="nofollow">Forge.GG</a> where we need to call their APIs)</p></li><li><p>Expose code documentation.</p></li><li><p>Organize branch-access/PR rules on GitHub.</p></li></ul><p>Q3 - End of September</p><ul><li><p>Base infrastructure and implementation for In-Game/Realtime quests.</p></li><li><p>Improve pipeline calls (Right now, the GitHub triggers our CI Pipeline, but the CI doesn’t trigger the CD automatically)<br/></p></li></ul>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

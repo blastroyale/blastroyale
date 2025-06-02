@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : News System - Posting &amp; Maintaining</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Liveops_2391638017.html">Liveops</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Game-Live-Configuration_2499772418.html">Game Live Configuration</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : News System - Posting &amp; Maintaining
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span>, last modified by <span class='editor'> Carlos</span> on Nov 25, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>We integrate with playfab news to have a news system where we can post news on the game in real time - which means players will get the news the next time they go to main menu without requiring a re-login.<br/><br/>Players view news on main menu on the top right part of their screen<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240206-104459.png" width="415" loading="lazy" src="attachments/2295365633/2295595009.png?width=415" data-image-src="attachments/2295365633/2295595009.png" data-height="182" data-width="415" data-unresolved-comment-count="0" data-linked-resource-id="2295595009" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240206-104459.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="bfae7300-e94f-42d6-a935-f67a5b1d4a43" data-media-type="file"></span><p>And when opening they can see the latest 30 news, divided by categories.<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240206-104526.png" width="760" loading="lazy" src="attachments/2295365633/2295431173.png?width=760" data-image-src="attachments/2295365633/2295431173.png" data-height="478" data-width="1190" data-unresolved-comment-count="0" data-linked-resource-id="2295431173" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240206-104526.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="06c1d10c-da47-4c0f-828b-768ccfce32dd" data-media-type="file"></span><h1 id="NewsSystem-Posting&amp;Maintaining-PostingNews"><br/>Posting News</h1><p /><p>To post news, you need to <a class="external-link" href="http://developer.playfab.com" rel="nofollow">developer.playfab.com</a> first, go to the title you want to post the news on, then go Content → News</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240206-104856.png" width="760" loading="lazy" src="attachments/2295365633/2295660545.png?width=760" data-image-src="attachments/2295365633/2295660545.png" data-height="739" data-width="1711" data-unresolved-comment-count="0" data-linked-resource-id="2295660545" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240206-104856.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="f72af1a2-2acb-4c82-b85b-bf413225c879" data-media-type="file"></span><p /><p>When creating a new item, you will require to setup the title and contents of the message.<br/>The contents follow a <a class="external-link" href="https://bitbucket.org/first-light/blast-royale/src/94a056361463629223bde962120832b32dba348a/Assets/Src/FirstLight/Game/Presenters/News/NewsItemElement.cs#lines-14" rel="nofollow">JSON format that reflects our NewsItemData</a> model.</p><p>At this stage, we can setup a message, a category (that will be dynamically created if not already), buttons with actions (currently we only support Link action) and images.<br/><br/>An example json:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;text&quot;: &quot;This is my first news post&quot;,
+  &quot;category&quot;: &quot;Dev News&quot;,
+  &quot;image&quot;: &quot;https://m.media-amazon.com/images/I/61Y18wJ9pFL._AC_UF894,1000_QL80_.jpg&quot;
+  &quot;buttons&quot;: [
+    {
+      &quot;ButtonType&quot;: &quot;Hyperlink&quot;,
+      &quot;ButtonText&quot;: &quot;Go to Blast Royale Site&quot;,
+      &quot;Param&quot;: &quot;http://www.blastroyale.com&quot;,
+      &quot;Color&quot;: &quot;green&quot;
+    },
+    {
+      &quot;ButtonType&quot;: &quot;Hyperlink&quot;,
+      &quot;ButtonText&quot;: &quot;Go to Google&quot;,
+      &quot;Param&quot;: &quot;http://www.google.com&quot;,
+      &quot;Color&quot;: &quot;yellow&quot;
+    }
+  ]
+}</pre>
+</div></div><p><br/>Having the json with the post contents in hand, you can click the Pencil icon on the playfab page to open the json editor and just put your json there.<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240206-105549.png" width="760" loading="lazy" src="attachments/2295365633/2295791618.png?width=760" data-image-src="attachments/2295365633/2295791618.png" data-height="769" data-width="1135" data-unresolved-comment-count="0" data-linked-resource-id="2295791618" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240206-105549.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="28c0d441-c47f-4720-a339-962f52426ba5" data-media-type="file"></span><p /><p>Remember to select your new status to Published instead of Unpublished to appear in the game.<br/><br/>And as soon as you post this in playfab, your news will appear in game.<br/><br/>Bear in mind that Rich test is supported, so we can add icons, formatting etc.</p><h2 id="NewsSystem-Posting&amp;Maintaining-Uploadingpicturestobeusedinnews">Uploading pictures to be used in news</h2><p>Go to <a class="external-link" href="https://portal.azure.com/" rel="nofollow">https://portal.azure.com/</a> and login with your FLG email. If don’t have access - ask developers.</p><p>Then go to Storage Accounts</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240227-102509.png" width="760" loading="lazy" src="attachments/2295365633/2311028738.png?width=760" data-image-src="attachments/2295365633/2311028738.png" data-height="691" data-width="1441" data-unresolved-comment-count="0" data-linked-resource-id="2311028738" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240227-102509.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="edc44964-5612-4343-a222-d2d6099b3bd6" data-media-type="file"></span><p>  </p><p>Then tap on the filter and choose All and Apply so you see all subscriptions.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240227-102607.png" width="760" loading="lazy" src="attachments/2295365633/2311454721.png?width=760" data-image-src="attachments/2295365633/2311454721.png" data-height="604" data-width="1104" data-unresolved-comment-count="0" data-linked-resource-id="2311454721" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240227-102607.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="de26967e-515e-48c3-aad0-d137fff9df55" data-media-type="file"></span><p>Then scroll down and find <strong>prodflgimagestorage</strong>.Tap on it to go inside</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240227-102652.png" width="760" loading="lazy" src="attachments/2295365633/2311127042.png?width=760" data-image-src="attachments/2295365633/2311127042.png" data-height="584" data-width="1012" data-unresolved-comment-count="0" data-linked-resource-id="2311127042" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240227-102652.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="5b5f6f96-c67e-4de7-9735-8f80247f0822" data-media-type="file"></span><p>Then tap Storage Browser</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240227-102729.png" width="760" loading="lazy" src="attachments/2295365633/2311487489.png?width=760" data-image-src="attachments/2295365633/2311487489.png" data-height="768" data-width="1526" data-unresolved-comment-count="0" data-linked-resource-id="2311487489" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240227-102729.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="9ec8b94f-1611-48d3-9b5b-f6d0e7aa49a3" data-media-type="file"></span><p>Then tap Blob Containers</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240227-102751.png" width="760" loading="lazy" src="attachments/2295365633/2311520257.png?width=760" data-image-src="attachments/2295365633/2311520257.png" data-height="769" data-width="1524" data-unresolved-comment-count="0" data-linked-resource-id="2311520257" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240227-102751.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="7998fda9-e462-44c7-b379-48d65580264b" data-media-type="file"></span><p>You will see there <strong>newsbanners </strong>container. Tap on it</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240227-102842.png" width="760" loading="lazy" src="attachments/2295365633/2311585794.png?width=760" data-image-src="attachments/2295365633/2311585794.png" data-height="726" data-width="1524" data-unresolved-comment-count="0" data-linked-resource-id="2311585794" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240227-102842.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="5e0e2ccf-2e77-41fe-8d00-41a2532ab78a" data-media-type="file"></span><p>This is a place for news banners. To upload more pictures use <strong>Upload </strong>button</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240227-102931.png" width="760" loading="lazy" src="attachments/2295365633/2311061519.png?width=760" data-image-src="attachments/2295365633/2311061519.png" data-height="773" data-width="1532" data-unresolved-comment-count="0" data-linked-resource-id="2311061519" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240227-102931.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="e6822564-e7cc-4293-b05c-0c0be89d971f" data-media-type="file"></span><p>To get a link to use an image, press the image name</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240227-103108.png" width="760" loading="lazy" src="attachments/2295365633/2311356425.png?width=760" data-image-src="attachments/2295365633/2311356425.png" data-height="766" data-width="1524" data-unresolved-comment-count="0" data-linked-resource-id="2311356425" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240227-103108.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="dd7d470d-f4b8-488b-aba9-c9b0f52beed1" data-media-type="file"></span><p>And in the opened Overview use a button to copy URL</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240227-103200.png" width="760" loading="lazy" src="attachments/2295365633/2311684097.png?width=760" data-image-src="attachments/2295365633/2311684097.png" data-height="763" data-width="1524" data-unresolved-comment-count="0" data-linked-resource-id="2311684097" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240227-103200.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2295365633" data-linked-resource-container-version="5" data-media-id="439bc52b-a377-45ab-9990-57d5cb19c049" data-media-type="file"></span><p /><h2 id="NewsSystem-Posting&amp;Maintaining-Guidelines">Guidelines</h2><p>We can only have up to 10 positions in News for now, so don’t forget to delete old stuff.</p><p>We use three categories:</p><ul><li><p>NEWS - we can post general stuff news here, also put surveys etc.</p></li><li><p>EVENTS - specific category where we can put time-sensitive information about activities: streams, tournaments, rewarded campaigns etc., something we want players to be ready at a certain time</p></li><li><p>PATCH NOTES - this one will have only one record about latest (or latest two) patch notes, so players can always look at them inside the game. Maybe post can have two buttons to direct people to the whitepaper for more detailed notes, and the second button will send them into discord</p></li></ul>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2295595009.png">image-20240206-104459.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2295431173.png">image-20240206-104526.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2295660545.png">image-20240206-104856.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2295791618.png">image-20240206-105549.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311356417.png">image-20240227-102443.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311258114.png">image-20240227-102456.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311028738.png">image-20240227-102509.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311454721.png">image-20240227-102607.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311127042.png">image-20240227-102652.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311487489.png">image-20240227-102729.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311520257.png">image-20240227-102751.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311585794.png">image-20240227-102842.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311061519.png">image-20240227-102931.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311225347.png">image-20240227-103106.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311356425.png">image-20240227-103108.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2295365633/2311684097.png">image-20240227-103200.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

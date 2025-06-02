@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Shop In-apps setup</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Liveops_2391638017.html">Liveops</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Game-Live-Configuration_2499772418.html">Game Live Configuration</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Shop_2535587841.html">Shop</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Shop In-apps setup
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nik Denissov</span> on Nov 25, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>We have to setup in three places:</p><ol start="1"><li><p>Google console</p></li><li><p>Apple console</p></li><li><p>Playfab</p></li></ol><p>Purchases should be in the format: <strong>com.firstlight.blastroyale.&lt;what the purchase is about&gt;</strong></p><p>For example: com.firstlight.blastroyale.premiumpass</p><p>In both Apple and Google we use default pricing without modifying any regional changes.</p><h3 id="ShopIn-appssetup-Apple">Apple</h3><p>Go to in-app purchases</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241125-181920.png" width="760" loading="lazy" src="attachments/2535325698/2535784471.png?width=760" data-image-src="attachments/2535325698/2535784471.png" data-height="629" data-width="1193" data-unresolved-comment-count="0" data-linked-resource-id="2535784471" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241125-181920.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2535325698" data-linked-resource-container-version="1" data-media-id="552ce0c7-156d-4ca8-824f-ff86c0705b16" data-media-type="file"></span><p>You can add new ones here</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241125-181942.png" width="760" loading="lazy" src="attachments/2535325698/2535358487.png?width=760" data-image-src="attachments/2535325698/2535358487.png" data-height="709" data-width="1468" data-unresolved-comment-count="0" data-linked-resource-id="2535358487" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241125-181942.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2535325698" data-linked-resource-container-version="1" data-media-id="d3ae562a-6893-49a2-a9b9-50f8dbedea88" data-media-type="file"></span><p>Apple requires screenshot from device (or at least with the resolution of one of their devices) before you can submit for review. Review means the purchase should be in a testfligh build.</p><h3 id="ShopIn-appssetup-Google">Google</h3><p>With Google it’s all simpler, no review. Just go to products and add it</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241125-183017.png" width="760" loading="lazy" src="attachments/2535325698/2535522312.png?width=760" data-image-src="attachments/2535325698/2535522312.png" data-height="719" data-width="1532" data-unresolved-comment-count="0" data-linked-resource-id="2535522312" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241125-183017.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2535325698" data-linked-resource-container-version="1" data-media-id="6d8173c8-49ed-43ca-b583-7de5962a11e9" data-media-type="file"></span><p>Products need to be activated to work</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241125-183047.png" width="760" loading="lazy" src="attachments/2535325698/2535325719.png?width=760" data-image-src="attachments/2535325698/2535325719.png" data-height="726" data-width="1527" data-unresolved-comment-count="0" data-linked-resource-id="2535325719" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241125-183047.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2535325698" data-linked-resource-container-version="1" data-media-id="6131a5c6-2ec9-48ee-b849-33ab01131c8b" data-media-type="file"></span><h3 id="ShopIn-appssetup-Playfab">Playfab</h3><p>Go to Economy - Catalogs legacy - Store</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241125-183157.png" width="760" loading="lazy" src="attachments/2535325698/2535948330.png?width=760" data-image-src="attachments/2535325698/2535948330.png" data-height="655" data-width="1154" data-unresolved-comment-count="0" data-linked-resource-id="2535948330" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241125-183157.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2535325698" data-linked-resource-container-version="1" data-media-id="408546f6-8428-426d-bfbd-4805dc3b6b43" data-media-type="file"></span><p>Then you add an item or duplicate one of the existing “com.” items. Make sure that “com.” id is the same as real purchase in Google and Apple.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241125-183247.png" width="760" loading="lazy" src="attachments/2535325698/2534670358.png?width=760" data-image-src="attachments/2535325698/2534670358.png" data-height="415" data-width="1450" data-unresolved-comment-count="0" data-linked-resource-id="2534670358" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241125-183247.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2535325698" data-linked-resource-container-version="1" data-media-id="1fb2308f-0d56-4e54-b677-61d801d08c5d" data-media-type="file"></span><p>Inside an item you set RM as price, and reference price in cents. $19.99 is 1999 for instance. In custom data you set reward ID and the amount of this reward - if applicable. For example, RewardId 105 is Blast Bucks</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241125-183433.png" width="760" loading="lazy" src="attachments/2535325698/2534670365.png?width=760" data-image-src="attachments/2535325698/2534670365.png" data-height="671" data-width="1369" data-unresolved-comment-count="0" data-linked-resource-id="2534670365" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241125-183433.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2535325698" data-linked-resource-container-version="1" data-media-id="32c1ede2-b7ac-4ed9-ac08-255f40bf122b" data-media-type="file"></span><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2535325698/2535784471.png">image-20241125-181920.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2535325698/2535358487.png">image-20241125-181942.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2535325698/2535522312.png">image-20241125-183017.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2535325698/2535325719.png">image-20241125-183047.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2535325698/2535948330.png">image-20241125-183157.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2535325698/2534670358.png">image-20241125-183247.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2535325698/2534670365.png">image-20241125-183433.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

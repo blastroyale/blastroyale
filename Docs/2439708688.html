@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Content Pipeline / Import Skins</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Game-Content-Creation_2499674114.html">Game Content Creation</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Content Pipeline / Import Skins
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span>, last modified by <span class='editor'> Carlos</span> on Oct 14, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>We want to produce high quality content as fast as possible, reason why we created an content pipeline.<br/>This is currently how our pipeline flow works.<br/><br/>We need one operator for this flow, which is a person able to open unity and click few buttons, it does not require to be an expert but more knowledge is better when issues arise.<br/><br/></p><div class="ap-container" id="ap-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram3747589094660302693">
+
+  <div class="ap-content " id="embedded-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram3747589094660302693"></div>
+  <script nonce="6839bba78c7331b84f9d4a6f03d4f8f1" class="ap-iframe-body-script">
+  (function(){
+    var data = {
+    "addon_key":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro",
+    "uniqueKey":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram3747589094660302693",
+    "key":"macro-diagram",
+     "moduleType":"dynamicContentMacros",      "moduleLocation":"content",         "cp":"/wiki",
+            "general":"",
+    "w":"",
+    "h":"",
+    "url":"https://mmcc.atlasauthority.com/markup-renderer?syntax=PlantUML&sourceType=MacroBody&darkmode=&outputType=html_export&pageTitle=Content+Pipeline+%2F+Import+Skins&pageId=2439708688&pageVersion=2&macroId=dd6b294b-5470-4cf3-a096-1a377a5a6400&url=&attachmentPageId=&attachmentId=&spaceId=1766260739&spaceKey=BB&xdm_e=https%3A%2F%2Ffirstlightgames.atlassian.net&xdm_c=channel-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram3747589094660302693&cp=%2Fwiki&xdm_deprecated_addon_key_do_not_use=com.atlassian.plugins.confluence.markdown.confluence-markdown-macro&lic=active&cv=1000.0.0-ca942e66d3a3&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiI3ZmU3NzJhMWI4YmVkZGQ5NTg3YmNlM2ZkOTM4ODZiMTZhZjI1Zjc4ZjNjMTBlYWE2OGU2MDBiZTU5Zjg0ZWEyIiwiaXNzIjoiNjdhOGI1ZTMtMjhmMi0zYmM1LTkyOWItNmQxZmQxOTMxM2U0IiwiY29udGV4dCI6e30sImV4cCI6MTc0ODYxNDI2MiwiaWF0IjoxNzQ4NjE0MDgyfQ.oMzldAq6n2ZE8COPuydFBAjFQDaf08zPdgEBJtEAmI0",
+     "contextJwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiJjb250ZXh0LXFzaCIsImlzcyI6IjY3YThiNWUzLTI4ZjItM2JjNS05MjliLTZkMWZkMTkzMTNlNCIsImNvbnRleHQiOnsibGljZW5zZSI6eyJhY3RpdmUiOnRydWV9LCJjb25mbHVlbmNlIjp7ImVkaXRvciI6eyJ2ZXJzaW9uIjoidjIifSwibWFjcm8iOnsib3V0cHV0VHlwZSI6Imh0bWxfZXhwb3J0IiwiaGFzaCI6ImRkNmIyOTRiLTU0NzAtNGNmMy1hMDk2LTFhMzc3YTVhNjQwMCIsImlkIjoiZGQ2YjI5NGItNTQ3MC00Y2YzLWEwOTYtMWEzNzdhNWE2NDAwIn0sImNvbnRlbnQiOnsidHlwZSI6InBhZ2UiLCJ2ZXJzaW9uIjoiMiIsImlkIjoiMjQzOTcwODY4OCJ9LCJzcGFjZSI6eyJrZXkiOiJCQiIsImlkIjoiMTc2NjI2MDczOSJ9fSwidXJsIjp7ImRpc3BsYXlVcmwiOiJodHRwczpcL1wvZmlyc3RsaWdodGdhbWVzLmF0bGFzc2lhbi5uZXRcL3dpa2kifX0sImV4cCI6MTc0ODYxNDk4MiwiaWF0IjoxNzQ4NjE0MDgyfQ.oF5SbV7OS9LIo7W_MCmJgH94_DE5lbSBaS5x8pbWLaM",    "structuredContext": "{\"license\":{\"active\":true},\"confluence\":{\"editor\":{\"version\":\"v2\"},\"macro\":{\"outputType\":\"html_export\",\"hash\":\"dd6b294b-5470-4cf3-a096-1a377a5a6400\",\"id\":\"dd6b294b-5470-4cf3-a096-1a377a5a6400\"},\"content\":{\"type\":\"page\",\"version\":\"2\",\"id\":\"2439708688\"},\"space\":{\"key\":\"BB\",\"id\":\"1766260739\"}},\"url\":{\"displayUrl\":\"https://firstlightgames.atlassian.net/wiki\"}}",
+    "contentClassifier":"content",
+    "productCtx":"{\"page.id\":\"2439708688\",\"macro.hash\":\"dd6b294b-5470-4cf3-a096-1a377a5a6400\",\"space.key\":\"BB\",\"page.type\":\"page\",\"content.version\":\"2\",\"page.title\":\"Content Pipeline / Import Skins\",\"macro.localId\":\"982327e4-3a3f-4855-9cea-26c098c3eb13\",\"macro.body\":\"@startuml\\nArt-\u003eUnity: Adds assets in specific naming convention\\nOperator-\u003eUnity: View non-imported assets\\nOperator-\u003eUnity: Impor\",\": = | RAW | = :\":\"sourceType=MacroBody|attachmentPageId=|syntax=PlantUML|attachmentId=|url=\",\"space.id\":\"1766260739\",\"macro.truncated\":\"true\",\"content.type\":\"page\",\"output.type\":\"html_export\",\"url\":\"\",\"page.version\":\"2\",\"macro.fragmentLocalId\":\"\",\"content.id\":\"2439708688\",\"sourceType\":\"MacroBody\",\"attachmentPageId\":\"\",\"macro.id\":\"dd6b294b-5470-4cf3-a096-1a377a5a6400\",\"syntax\":\"PlantUML\",\"attachmentId\":\"\",\"user.isExternalCollaborator\":\"false\",\"editor.version\":\"v2\"}",
+    "timeZone":"UTC",
+    "origin":"https://mmcc.atlasauthority.com",
+    "hostOrigin":"https://firstlightgames.atlassian.net",
+    "sandbox":"allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-same-origin allow-top-navigation-by-user-activation allow-storage-access-by-user-activation",    "pearApp":"true",        "apiMigrations": {
+        "gdpr": true
+    }
+}
+;
+    if(window.AP && window.AP.subCreate) {
+      window._AP.appendConnectAddon(data);
+    } else {
+      require(['ac/create'], function(create){
+        create.appendConnectAddon(data);
+      });
+    }
+
+    // For Confluence App Analytics. This code works in conjunction with CFE's ConnectSupport.js.
+    // Here, we add a listener to the initial HTML page that stores events if the ConnectSupport component
+    // has not mounted yet. In CFE, we process the missed event data and disable this initial listener.
+    const __MAX_EVENT_ARRAY_SIZE__ = 20;
+    const connectAppAnalytics = "ecosystem.confluence.connect.analytics";
+    window.connectHost && window.connectHost.onIframeEstablished((eventData) => {
+      if (!window.__CONFLUENCE_CONNECT_SUPPORT_LOADED__) {
+        let events = JSON.parse(window.localStorage.getItem(connectAppAnalytics)) || [];
+        if (events.length >= __MAX_EVENT_ARRAY_SIZE__) {
+          events.shift();
+        }
+        events.push(eventData);
+        window.localStorage.setItem(connectAppAnalytics, JSON.stringify(events));
+      }
+    });
+
+  }());
+</script>
+
+</div>
+<p /><p>We separate content into types, for instance skins, flags, avatars etc and we keep them separate in <a class="external-link" href="https://unity.com/products/asset-manager" rel="nofollow">Unity Asset Manager.</a></p><p>The process being with Artists putting the assets into the Asset Manager.<br/><br/>Before we start, let’s ensure our local asset manager is configured to properly create folders ensuring the checkbox is marked:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240731-163418.png" width="742" loading="lazy" src="attachments/2439708688/2440003601.png?width=742" data-image-src="attachments/2439708688/2440003601.png" data-height="466" data-width="1213" data-unresolved-comment-count="0" data-linked-resource-id="2440003601" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240731-163418.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2439708688" data-linked-resource-container-version="2" data-media-id="bac6805a-b5a8-466c-b865-0907874e5308" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-left-wrap-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-wrap-left" alt="image-20240731-162619.png" width="200" loading="lazy" src="attachments/2439708688/2440036369.png?width=200" data-image-src="attachments/2439708688/2440036369.png" data-height="786" data-width="357" data-unresolved-comment-count="0" data-linked-resource-id="2440036369" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240731-162619.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2439708688" data-linked-resource-container-version="2" data-media-id="591be27c-f3ea-4ad0-94c6-2bc1f392a7d3" data-media-type="file"></span><p> </p><p>Then, to open the asset manager in Unity you need to click here:<br/></p><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><span class="confluence-embedded-file-wrapper image-left-wrap-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-wrap-left" alt="image-20240731-162719.png" width="400" loading="lazy" src="attachments/2439708688/2440003593.png?width=400" data-image-src="attachments/2439708688/2440003593.png" data-height="606" data-width="888" data-unresolved-comment-count="0" data-linked-resource-id="2440003593" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240731-162719.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2439708688" data-linked-resource-container-version="2" data-media-id="75cfa40c-834a-4300-8221-b3e1eb9bd0f2" data-media-type="file"></span><p /><p>This will open the asset manager. You can see on the left side the collections we have, already divided as the artists already place things in the correct place.</p><p /><p /><p /><p /><span class="confluence-embedded-file-wrapper image-left-wrap-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-wrap-left" alt="image-20240731-162820.png" width="353" loading="lazy" src="attachments/2439708688/2439938054.png?width=353" data-image-src="attachments/2439708688/2439938054.png" data-height="379" data-width="353" data-unresolved-comment-count="0" data-linked-resource-id="2439938054" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240731-162820.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2439708688" data-linked-resource-container-version="2" data-media-id="1e0bea83-aab7-4e84-8fc6-31b49bf3480f" data-media-type="file"></span><p> </p><p>Assets that are not imported will not have a green checkmark on them. </p><p /><p /><p /><p /><p /><p /><p /><p /><p /><span class="confluence-embedded-file-wrapper image-left-wrap-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-wrap-left" alt="image-20240731-162901.png" width="500" loading="lazy" src="attachments/2439708688/2439675909.png?width=500" data-image-src="attachments/2439708688/2439675909.png" data-height="604" data-width="884" data-unresolved-comment-count="0" data-linked-resource-id="2439675909" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240731-162901.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2439708688" data-linked-resource-container-version="2" data-media-id="4f90370a-0069-4215-9fd0-297095661af7" data-media-type="file"></span><p>When selecting the asset you can visualize some of its details and click import to begin the importing process.</p><p /><p /><p /><p /><p /><p /><p /><span class="confluence-embedded-file-wrapper image-left-wrap-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-wrap-left" alt="image-20240731-163304.png" width="600" loading="lazy" src="attachments/2439708688/2440396802.png?width=600" data-image-src="attachments/2439708688/2440396802.png" data-height="380" data-width="699" data-unresolved-comment-count="0" data-linked-resource-id="2440396802" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240731-163304.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2439708688" data-linked-resource-container-version="2" data-media-id="74382c68-37da-48a6-bea3-f55f068a6c62" data-media-type="file"></span><p>Now the skin is imported, and ready to be tested in-game.<br/><br/>Simple as that !!!</p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="bd156370-9660-45d1-86f6-97d5ae33020b" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Nerd Note</strong></p></th></tr><tr><td class="confluenceTd"><p>The import flow is done via Asset Importers, for example this is our <a class="external-link" href="https://bitbucket.org/first-light/blast-royale/src/develop/BlastRoyale/Assets/Src/FirstLight/Editor/AssetImporters/CharacterImporter.cs" rel="nofollow">character importer</a>. <br/>The importer will pick the assets from AssetManager and:</p><ul><li><p>Move them to the correct collections folder</p></li><li><p>Create a GameId for them</p></li><li><p>Add them to the relevant configs, for instance our Skins configs in this case</p></li></ul></td></tr></tbody></table></div><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="0cf1ebc6-849c-4f2b-949e-e5168fe1e6c6" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Edge Case: Game Ids did not work</strong></p></th></tr><tr><td class="confluenceTd"><p>Sometimes quantum might not re-build automatically or game-ids might not update automatically.<br/><br/>You might need to re-generate game-ids</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240731-163545.png" width="491" loading="lazy" src="attachments/2439708688/2440495125.png?width=491" data-image-src="attachments/2439708688/2440495125.png" data-height="145" data-width="491" data-unresolved-comment-count="0" data-linked-resource-id="2440495125" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240731-163545.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2439708688" data-linked-resource-container-version="2" data-media-id="f6019890-1a51-46b3-8cc3-e9071f37cd64" data-media-type="file"></span><p>Then re-build quantum (you will need to know or ask tech to do it for you)<br/><br/>And finally fix the config that likely added the new entry with “Random” id as the game id was not properly generated</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240731-163652.png" width="742" loading="lazy" src="attachments/2439708688/2439872516.png?width=742" data-image-src="attachments/2439708688/2439872516.png" data-height="617" data-width="1729" data-unresolved-comment-count="0" data-linked-resource-id="2439872516" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240731-163652.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2439708688" data-linked-resource-container-version="2" data-media-id="68a33cce-4c31-4bdd-ba2e-fcaba7cc927d" data-media-type="file"></span><p /></td></tr></tbody></table></div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2439708688/2440036369.png">image-20240731-162619.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2439708688/2440003593.png">image-20240731-162719.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2439708688/2439938054.png">image-20240731-162820.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2439708688/2439675909.png">image-20240731-162901.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2439708688/2440396802.png">image-20240731-163304.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2439708688/2440003601.png">image-20240731-163418.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2439708688/2440495125.png">image-20240731-163545.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2439708688/2439872516.png">image-20240731-163652.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

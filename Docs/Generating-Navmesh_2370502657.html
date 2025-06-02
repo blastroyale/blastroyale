@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Generating Navmesh</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Game-Content-Creation_2499674114.html">Game Content Creation</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Map_2234023937.html">Map</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Generating Navmesh
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Carlos</span>, last modified on Sep 06, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>This process uses QuantumStaticColliders as the source of the NavMesh, and requires the map to have objects/colliders organized by Floor and Obstacles, you can have multiple objects per group.</p><h3 id="GeneratingNavmesh-Howtoaddthismethodtoamap?">How to add this method to a map?</h3><ol start="1"><li><p>Delete everything NavMesh related from the current scene, it is better to do it from scratch.</p></li><li><p>Add the prefab <code>Assets/Design/Mapworks/Navmesh Baking.prefab</code> as a child of <code>QuantumMap</code></p></li><li><p>Configure the <code>Obstacle</code> inside the source list of colliders, like the screenshot below:</p></li></ol><p><strong>Ignore and remove the floor group in the screenshots, this is not used anymore, the floor collider is generated based on the quantum map size.</strong><br/></p><ol start="1"><li><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240516-104927.png" width="736" loading="lazy" src="attachments/2370502657/2371059714.png?width=736" data-image-src="attachments/2370502657/2371059714.png" data-height="776" data-width="929" data-unresolved-comment-count="0" data-linked-resource-id="2371059714" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240516-104927.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2370502657" data-linked-resource-container-version="2" data-media-id="e732e1b2-40d6-41b2-84e7-041d584a835e" data-media-type="file"></span><p>  </p></li><li><p>Bake the navmesh clicking on “Bake Navmesh” Pink button, then you will see some disconnected islands in the map like the image below. It is ok we are going to fix in the next step.<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240516-105032.png" width="736" loading="lazy" src="attachments/2370502657/2371387393.png?width=736" data-image-src="attachments/2370502657/2371387393.png" data-height="778" data-width="1339" data-unresolved-comment-count="0" data-linked-resource-id="2371387393" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240516-105032.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2370502657" data-linked-resource-container-version="2" data-media-id="ac051e68-88e1-49b9-9b82-6a809008ca04" data-media-type="file"></span><p /></li><li><p>Open the <code>Cleaner</code> children in the NavMesh Baking prefab, and then Ctrl + Click a point where players can walk in the navmesh, this point will be used to clip all the disconnected islands. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ezgif-4-c64aedea18.gif" width="736" loading="lazy" src="attachments/2370502657/2371354626.gif?width=736" data-image-src="attachments/2370502657/2371354626.gif" data-height="1044" data-width="1288" data-unresolved-comment-count="0" data-linked-resource-id="2371354626" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ezgif-4-c64aedea18.gif" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="2370502657" data-linked-resource-container-version="2" data-media-id="88ed59f8-5630-4159-ba6c-e66f0846c0fc" data-media-type="file"></span><p /></li><li><p>Then go back to the prefab root, and click bake again, and the unity part is done.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="2024-05-1607-57-09-ezgif.com-video-to-gif-converter.gif" width="600" loading="lazy" src="attachments/2370502657/2370764804.gif?width=600" data-image-src="attachments/2370502657/2370764804.gif" data-height="486" data-width="600" data-unresolved-comment-count="0" data-linked-resource-id="2370764804" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="2024-05-1607-57-09-ezgif.com-video-to-gif-converter.gif" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="2370502657" data-linked-resource-container-version="2" data-media-id="fb3ab331-dee1-45bd-8f2d-62e6d5e4af36" data-media-type="file"></span><p /></li><li><p>Now lets import into quantum, just go to Quantum Map, configure the Bake all mode the same way it is in in the screen shot, then click Bake All. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240516-110127.png" width="480" loading="lazy" src="attachments/2370502657/2371092482.png?width=480" data-image-src="attachments/2370502657/2371092482.png" data-height="821" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="2371092482" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240516-110127.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2370502657" data-linked-resource-container-version="2" data-media-id="839d5331-8ae5-46f6-8695-0dcbdcb8d117" data-media-type="file"></span><p> 9. Save the scene and we are done <img class="emoticon emoticon-blue-star" data-emoji-id="1f604" data-emoji-shortname=":smile:" data-emoji-fallback="😄" src="images/icons/emoticons/72/1f604.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> </p></li></ol><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2370502657/2371125249.png">image-20240516-104107.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2370502657/2371059714.png">image-20240516-104927.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2370502657/2371387393.png">image-20240516-105032.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2370502657/2371354626.gif">ezgif-4-c64aedea18.gif</a> (image/gif)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2370502657/2370764804.gif">2024-05-1607-57-09-ezgif.com-video-to-gif-converter.gif</a> (image/gif)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2370502657/2371092482.png">image-20240516-110127.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:07</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

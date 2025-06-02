@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Cleaning up your git history</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Tech-Vision_1786150927.html">Tech Vision</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Cleaning up your git history
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Miha Krajnc</span>, last modified on May 25, 2022
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>In a big project git history is quite important, so we should take some care into ensuring that our commits are properly structured. While we can all strive to do it as we go, there’s bound to be some mistakes and being comfortable with modifying your git history is a very useful skill to have.</p><p>This can sometimes be tricky, as it’s done via the terminal, and requires some setup for you to be able to do it efficiently. It’s done by doing what’s called an “interactive rebase”. This allows you to rewrite the history of a branch - move commits around, merge two commits together, rename them, etc…</p><h1 id="Cleaningupyourgithistory-Initialsetup">Initial setup</h1><p>You technically don’t need anything specific to do an interactive rebase, however git uses vim as the editor by default, which, most (normal) developers probably aren’t that familiar with. So we’ll replace it's default editor with something more appropriate. <strong>You’ll be doing all of this in a terminal, so open it up.</strong></p><p><em>Note: This assumes you have </em><a class="external-link" href="https://brew.sh/" rel="nofollow"><em>Homebrew</em></a><em> installed. If you don’t just run:</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</pre>
+</div></div><h2 id="Cleaningupyourgithistory-Interactiverebasetool">Interactive rebase tool</h2><p><a class="external-link" data-card-appearance="inline" href="https://github.com/MitMaro/git-interactive-rebase-tool" rel="nofollow">https://github.com/MitMaro/git-interactive-rebase-tool</a> </p><p>This is a tool that you can hook into git to help you setup your interactive rebase. If this is not installed / setup, git will default to vim (which is perfectly fine to use, if you know how to).</p><h5 id="Cleaningupyourgithistory-Install:">Install:</h5><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">brew install git-interactive-rebase-tool</pre>
+</div></div><h5 id="Cleaningupyourgithistory-Setup:">Setup:</h5><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git config --global sequence.editor interactive-rebase-tool</pre>
+</div></div><h2 id="Cleaningupyourgithistory-Gittexteditor">Git text editor</h2><p>On top of a “rebase tool” we also need to set up a text editor (e.g. for when you want to rename your commits), otherwise git will default to vim again.</p><p>This depends on your own preference, and which text editor you use. The simplest solution is to use Nano, a simple terminal based editor (very much not like vim), which comes preinstalled on mac:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git config --global core.editor &quot;nano&quot;</pre>
+</div></div><p /><p>A better solution is to set it up with a regular GUI based text editor, like:</p><h5 id="Cleaningupyourgithistory-SublimeText"> Sublime Text</h5><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git config --global core.editor &quot;subl -n -w&quot;</pre>
+</div></div><h5 id="Cleaningupyourgithistory-VisualStudioCode">Visual Studio Code</h5><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git config --global core.editor &quot;code --wait&quot;</pre>
+</div></div><h5 id="Cleaningupyourgithistory-Atom">Atom</h5><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git config --global core.editor &quot;atom --wait&quot;</pre>
+</div></div><p><em>You can get more info </em><a class="external-link" href="https://docs.github.com/en/get-started/getting-started-with-git/associating-text-editors-with-git" rel="nofollow"><em>here</em></a><em>.</em></p><h1 id="Cleaningupyourgithistory-Doinganinteractiverebase">Doing an interactive rebase</h1><p>Great, now you have everything setup and are ready to do your first interactive rebase. Take a Xanax or two, grab a pint, and let’s get to it, the first one is gonna be stressful.</p><p><strong>Keep in mind</strong> that an interactive rebase rewrites your history, and requires you to force push your branch to BitBucket. Make sure there aren’t any changes on the remote branch, or they could get lost (although git will produce an error if there are when you try to force push).</p><h5 id="Cleaningupyourgithistory-Beforewestart">Before we start</h5><p>If you just want to change the message of your <strong>last</strong> commit, you can do:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git commit --amend</pre>
+</div></div><h3 id="Cleaningupyourgithistory-Doingthedeed">Doing the deed</h3><ol><li><p>Make sure you are up to date with your remote branch.</p></li><li><p>Open your terminal and go to the folder of the project.</p></li><li><p>Check how many commits in your branch you want to change. I.E. How many commits from the latest one you want to go back.</p></li><li><p>Start the interactive rebase:<br/><strong>Option 1:</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git rebase -i HEAD~5</pre>
+</div></div><p>In this case, HEAD~5 means you want to go 5 commits back from your latest commit. Make sure you don’t go back more than what’s on your branch (i.e. if your branch only has 3 commits, only go back 3 commits).<br/><br/><strong>Option 2:</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git rebase -i d5193fb20f4d23f6dff9ece7d19fee9c27e5c400</pre>
+</div></div><p>Works the same way as Option 1, but instead of telling git you want to go back X number of commits, you tell it to go back to a specific commit.<br/></p></li><li><p>The interactive rebase tool will now kick in:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="544" loading="lazy" src="attachments/1947172871/1947172886.png?width=544" data-image-src="attachments/1947172871/1947172886.png" data-height="478" data-width="871" data-unresolved-comment-count="0" data-linked-resource-id="1947172886" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20220525-153350.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1947172871" data-linked-resource-container-version="2" data-media-id="8a1168d7-1f2d-4542-967c-cbe7e97e0dbb" data-media-type="file"></span><p>This window allows you to reorder your commits, delete them, merge them with the previous one etc… You can press ? on your keyboard to see all the possible commands. Upper case letters are done with shift as you would normally. The most important ones are:</p><ol><li><p>Up and Down arrows to move your selection.</p></li><li><p>“r” to change the commit message (reword).</p></li><li><p>“W” to confirm your changes and exit / continue.</p></li><li><p>“Q” to exit without doing anything.</p></li><li><p><em>You can also move commits up and down, remove them, merge them, change their content etc… Check the help section to learn more, or read up on the rebase command </em><a class="external-link" href="https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#:~:text=The%20interactive%20rebase%20gives%20you,first%20one%20it%20will%20replay." rel="nofollow"><em>here</em></a><em>.</em></p></li></ol></li><li><p>To change the commit message, go to that commit(s) and click “r”. After you marked all the commits you want to change, click W (Shift + w) to save and exit.</p></li><li><p>If you chose commits to be reworded, git will now open your text editor (that you set up above) and give you the option to do that:</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1947172871/1947828234.png" data-image-src="attachments/1947172871/1947828234.png" data-height="546" data-width="883" data-unresolved-comment-count="0" data-linked-resource-id="1947828234" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20220525-154920.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1947172871" data-linked-resource-container-version="2" data-media-id="c98dabea-2d25-4fe7-9e68-af169a2e18d5" data-media-type="file"></span><p>Now just change the message at the top (ignore the lines starting with “#”), and close the window.</p></li><li><p>When you close the window / exit out of your text editor, git will detect that and, if you have more commits to reword, will open your text editor for the next one, until there aren’t any left.</p></li></ol><p /><p>That’s it, you’ve done your first interactive rebase! It’s a very powerful tool, but if you only use it for rewording commits you’ll be fine.</p><p><strong>The last thing to do</strong> is push your changes to the remote branch. Since we changed the git history, the local and remote branches have diverged (commits will get different hashes when changing their text, so git thinks they’re different commits). <strong>You will need to do a force push</strong>, which will <strong>overwrite the remote branch with your local branch</strong>:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git push --force-with-lease</pre>
+</div></div><p><em>Note: The --force-with-lease option does some additional checks to make sure you’re not rewriting something you shouldn’t be, like commits from other people that weren’t on your local branch. If you use --force instead, that will skip those checks and immediately rewrite the remote branch.</em></p><h3 id="Cleaningupyourgithistory-TL;DR;">TL;DR;</h3><ol><li><p>In the terminal go to your project.</p></li><li><p>Run <code>git rebase -i HEAD~5</code> (replace 5 with the number of commits you want to go back from your latest one)</p></li><li><p>Select the commits to reword with Up and Down arrows, and press “r” on them.</p></li><li><p>Press Shift+W to save and exit.</p></li><li><p>Do your changes in the text editor and close it.</p></li><li><p>Run <code>git push --force-with-lease</code></p></li></ol><p><em><strong>NOTE</strong>: If you just want to change the message of your last commit you can run</em> <code>git commit --amend</code> <em>and change the message in the text editor, as you would with an interactive rebase. </em></p><h3 id="Cleaningupyourgithistory-Ifanythinggoeswrong">If anything goes wrong</h3><p>Don’t panic! Ping <a class="confluence-userlink user-mention" data-account-id="621f7eeb49c90000701f3ce3" href="https://firstlightgames.atlassian.net/wiki/people/621f7eeb49c90000701f3ce3?ref=confluence" target="_blank" data-base-url="https://firstlightgames.atlassian.net/wiki">Miha Krajnc (Unlicensed)</a> </p><p>Worst case, all of your commits are still stored in the local reflog (i.e. a backup) of git for 1 month, and if you delete something you didn’t want to it can be restored from there, so you won’t lose anything.</p><p>If your branch was up to date with the remote you can also just reset your local branch to the remote branch with <code>git reset --hard origin/mybranch</code></p><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1947172871/1947172886.png">image-20220525-153350.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1947172871/1947598865.png">image-20220525-154902.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1947172871/1947828234.png">image-20220525-154920.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

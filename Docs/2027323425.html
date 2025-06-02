@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Realtime (Quantum) Server</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Backend_1854144513.html">Backend</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Realtime (Quantum) Server
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span>, last modified on Aug 15, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="Realtime(Quantum)Server-Purpose:">Purpose:</h1><p><br/><a class="external-link" href="https://www.photonengine.com/quantum" rel="nofollow">Quantum</a> is our realtime simulation engine. Players run the game, frame by frame, in a deterministic way on the client. Those Frames can be predicted on the client simulation hashes are shared among other players to detect desynchs.<br/><br/>To ensure this simulation happens in the most safe way possible, we use a cloud service that allow us to run the same simulation on the server, to validate player inputs and give match rewards.<br/><br/>Quantum Server is a layer on top of <a class="external-link" href="https://doc.photonengine.com/en-us/server/current/getting-started/photon-server-intro" rel="nofollow">Photon Server</a> , intended to be ran used a customized <a class="external-link" href="https://doc.photonengine.com/en-us/server/current/plugins/manual" rel="nofollow">Quantum Plugins</a>. <br/><br/>Similar to the Logic Server, the Quantum Server also includes the game logic dlls.</p><h2 id="Realtime(Quantum)Server-QuantumServerResponsibilities:"><strong>Quantum Server Responsibilities: </strong></h2><p><br/>- Relay user input to other users so simulation only run on client deterministically across all connected clients.<br/>- Validate user load out message to ensure all sent items are owned.<br/>- Sends commands from the server simulation state for the participants.<br/></p><h2 id="Realtime(Quantum)Server-QuantumCommands&amp;“FromFrame”method:"><strong>Quantum Commands &amp; “FromFrame” method:</strong></h2><p>In our <a href="Game-Logic-Server_1914437633.html" data-linked-resource-id="1914437633" data-linked-resource-version="6" data-linked-resource-type="page">Game Logic Server</a> , the client can fire commands to be ran on the server.<br/>Some commands, like giving rewards, should be ran from a valid simulation without requiring to trust clients. This is where Quantum Commands come handy.<br/><br/>As opposed to normal commands, quantum commands have to be built from a game Frame. The client will send the intent to build a command to Quantum Server, which will build those commands. Currently its only supported to build commands on the last frame of the match.<br/><br/>Those commands then are sent to the logic server in the players behalf, using a secret key that allows only external services, like Quantum Server, to run quantum commands.<br/><br/>Those Quantum Commands have the “FromFrame” method - this method will be called on both Client &amp; Server to enrich the command data. The one client enriches is just for prediction while the one enriched on server will send the enriched command to our <a href="Game-Logic-Server_1914437633.html" data-linked-resource-id="1914437633" data-linked-resource-version="6" data-linked-resource-type="page">Game Logic Server</a> to proccess it. This is a way to ensure server authority over those commands.</p><h1 id="Realtime(Quantum)Server-TestingQuantumCommands:">Testing Quantum Commands:</h1><p>It can be very painful to require to recompile the whole server everytime you want to test your command.<br/>Lucky our dev servers have a flag, DEV_MODE enabled which allows the client to send quantum commands directly to the logic service, bypassing the server simulation.<br/><br/>To test this on client, you have to enable a feature flag to disable quantum custom server.<br/></p><h2 id="Realtime(Quantum)Server-TechRequirements:"><strong>Tech Requirements:</strong></h2><p>Photon Server + Quantum only runs on Windows 10+<br/>To deploy you will also require Powershell 5.1 or greater.</p><h2 id="Realtime(Quantum)Server-Building:"><br/><strong>Building:</strong></h2><p>The project is located in <code>blast-royale/Quantum/quantum-server/</code> <br/>To build the project simply open in visual studio and build the solution. The output of the build will be copied to <code>blast-royale/Quantum/quantum-server/Photon-Server/Deploy/Plugins</code></p><h2 id="Realtime(Quantum)Server-Testing:"><br/><strong>Testing:</strong></h2><p>The test server is setup with my (Gabriel) Photon Certificate which should last for a long time for testing purposes.</p><p>To test locally, first you need to run Photon Server, and you can do that by simply running the solution.<br/><br/>To connect to a local server, on Unity click on the top left <code>File</code> menu → <code>Build Settings</code> → <code>Player Settings</code> → <code>Photon Server Settings</code> on the bottom left → <code>Use Local Master Server</code><br/><br/>Whenever you run the game now it will connect to this local server and debugging will work.</p><p><br/>Unit tests can be ran directly from IDE.</p><h2 id="Realtime(Quantum)Server-Deploying:"><br/><strong>Deploying:</strong></h2><p>Photon server runs on Photon Enterprise cloud.<br/>To deploy you will require this Powershell Script.<br/>This only works on Powershell 5.1+ and Azure Module installed on your powershell console.<br/><br/>You can install azure module with the command <code>Install-Module Az</code> directly in powershell.<br/><br/>You also need to recompile all dlls (Client Dlls by copying them to Server Folder) in a WINDOWS machine to compile using native .net48 instead of .net standard 2.1.<br/>Means checking out latest develop and deploying will likely NOT work.<br/></p><p class="media-group"><span class="confluence-embedded-file-wrapper"><a class="confluence-embedded-file" href="attachments/2027323425/2027749387.zip" data-nice-type="Zip Archive" data-file-src="/wiki/download/attachments/2027323425/Photon.PrivateCloud.Plugin.Client.SAS.zip?version=1&amp;modificationDate=1661270434824&amp;cacheVersion=1&amp;api=v2" data-linked-resource-id="2027749387" data-linked-resource-type="attachment" data-linked-resource-container-id="2027323425" data-linked-resource-default-alias="Photon.PrivateCloud.Plugin.Client.SAS.zip" data-mime-type="application/zip" data-has-thumbnail="true" data-linked-resource-version="1" data-media-id="df93cac3-a3fb-41a6-aa8e-80144802837c" data-media-type="file"><img src="attachments/thumbnails/2027323425/2027749387" height="250"/></a></span></p><p><br/>You will require to zip the plugin folder from <code>blast-royale/Quantum/quantum-server/Photon-Server/Deploy/Plugins/bin</code><br/><br/>Whenever the upload has finished, a new version will be created but won’t be active yet.<br/><br/>To activate the version, you will require to have our Enterprise Cloud account on Photon Panel.<br/>With that, on the <code>Manage</code> session of a given server on the server properties you will see the version field. Just by changing that and saving, Photon server will reload with the given version of the plugin.</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/2027323425/2027913243.png" data-image-src="attachments/2027323425/2027913243.png" data-height="1117" data-width="1728" data-unresolved-comment-count="0" data-linked-resource-id="2027913243" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2022-08-23 at 17.09.39-20220823-160955.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2027323425" data-linked-resource-container-version="8" data-media-id="4e0c25d4-4d15-4a24-afc8-d109bef0edeb" data-media-type="file"></span><p>You also can refer to <a class="external-link" href="https://doc.photonengine.com/en-us/onpremise/current/plugins/plugins-upload-guide" rel="nofollow">this guide</a> or Photon Circle discord channel for any questions.</p><h2 id="Realtime(Quantum)Server-Debugging&amp;LogsontheCloud"><br/>Debugging &amp; Logs on the Cloud</h2><p><br/>Currently all logs from the enterprise cloud are being appeded from log4net to Papertrail until we manage to set that up with App Insights which is the current metrics workspace we are using.<br/><br/>You will need to create an account on <a class="external-link" href="https://www.papertrail.com" rel="nofollow">Papertrail</a>  and request for permissions to be in FLG organisation.<br/><br/>When you have permissions you will be able to see all logs from the following URL:<br/><br/><a class="external-link" href="https://my.papertrailapp.com/systems/azeu050000000/events" rel="nofollow">Dev Log Link</a></p><p><br/><a class="external-link" href="https://my.papertrailapp.com/systems/slams221/events" rel="nofollow">Live Logs Link</a></p>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2027323425/2027749387.zip">Photon.PrivateCloud.Plugin.Client.SAS.zip</a> (application/zip)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2027323425/2027913243.png">Screenshot 2022-08-23 at 17.09.39-20220823-160955.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

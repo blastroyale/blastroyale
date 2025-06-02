@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Game Logic Server Plugins</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Backend_1854144513.html">Backend</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Game Logic Server Plugins
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span> on Jan 04, 2023
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>Our game logic server is game agnostic. That means it does not contains game specific code on it but the bare structure to run game defined logic, deterministically, between client &amp; server.<br/><br/>The way the game tells the server how to behave is by 2 main angles:<br/><br/>- Game Configuration, Game Logic &amp; Commands Dlls<br/><br/>The server loads the game logic dlls and command dlls. The client also shares the same game configuration with the server. At any point then, the client can implement commands to run logic and modify the user state - those commands then can be ran on client (updating in-memory) and on server (updating on database) in a deterministic fashion.<br/><br/>- Server Plugins</p><p>Sometimes the game might want the server to behave in specific ways or collect specific metrics. For this, to guarantee inversion of control &amp; single responsibility principles, we have a plugin system.</p><h2 id="GameLogicServerPlugins-PluginSystem"><br/><br/><strong>Plugin System</strong></h2><p><br/>The game client has to export to server an object that states how the server should behave. <a class="external-link" href="https://bitbucket.org/first-light/blast-royale/src/develop/Assets/Src/FirstLight/Server/FlgServerConfig.cs" rel="nofollow">(example)</a><br/><br/>Plugins allow code in the client to run on server to modify server behaviour by hooking into events (both server events &amp; game logic events) or by adding dependency injection changes </p><p /><h3 id="GameLogicServerPlugins-DependencyInjectionSwaps-(example)">Dependency Injection Swaps - <a class="external-link" href="https://bitbucket.org/first-light/blast-royale/src/develop/Assets/Src/FirstLight/Server/ServerServices/ServerPlayerSetupService.cs" rel="nofollow">(example)</a></h3><p><br/>On the client code, the client can replace any services ran on server by replacing its dependencies. When the server loads dependencies, it uses dependency injection and will take in account any replacements offered by plugins. A current use case is how we setup initial player data, where Blast Royale overrides the setup service to initialise Blast Royale specific data.<br/></p><h3 id="GameLogicServerPlugins-HookingintoEvents-(example)">Hooking into Events - <a class="external-link" href="https://bitbucket.org/first-light/blast-royale/src/develop/Assets/Src/FirstLight/Server/Plugins/ServerAnalyticsPlugin.cs" rel="nofollow">(example)</a></h3><p /><p>Plugins can also hook event listeners to be ran on server (and exclusively on server, plugins never run on client)<br/>Those event listeners can listen to specific server events or game logic messages such as in the analytics example.<br/>Any exceptions in plugin listeners will throw errors but won’t stop code execution.<br/>The current main use cases for Blast Royale for listening to events are the NFT Sync, Analytics, Leaderboards &amp; Metrics.<br/><br/></p>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

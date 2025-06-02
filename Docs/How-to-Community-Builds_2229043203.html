@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : How to Community Builds</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Release-Process_2499837954.html">Release Process</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : How to Community Builds
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Carlos</span>, last modified on Aug 24, 2023
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h2 id="HowtoCommunityBuilds-Build">Build</h2><ul><li><p>Check if you bumped the version of the project since the last community build!</p></li><li><p>Trigger pipeline with the following parameters<br/>- Select the branch you want the source code from<br/>- Build Type: <code>STORE_BUILD</code><br/>- Target Server Environment: <code>LIVE_TESTNET_SERVER</code><br/>- Check [CD] Deploy Game Logic</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="258" loading="lazy" src="attachments/2229043203/2228912134.png?width=258" data-image-src="attachments/2229043203/2228912134.png" data-height="937" data-width="479" data-unresolved-comment-count="0" data-linked-resource-id="2228912134" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20230824-160555.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2229043203" data-linked-resource-container-version="2" data-media-id="d5e3545a-c446-4a39-b8bf-057aaf4bc337" data-media-type="file"></span></li><li><p> Wait for pipeline to finish</p></li></ul><hr/><h1 id="HowtoCommunityBuilds-Pre-Release">Pre-Release</h1><ul><li><p>Go to a MacOS machine (can be the remote mac mini), </p></li><li><p>Download the .ipa file from the #builds channel on slack.</p></li><li><p>Open Transporter app and log into your apple developer account.</p></li><li><p>Click on the + icon and select the downloaded .ipa file</p></li><li><p>Wait for it to process and click “Delivery”</p></li><li><p>Go to <a class="external-link" href="https://appstoreconnect.apple.com/apps/1621071488/testflight/ios" rel="nofollow">https://appstoreconnect.apple.com/apps/1621071488/testflight/ios</a> and wait for apple to process the version. </p></li><li><p>Add the “Temp Group” to the build, so we can trigger the review process without automatic notifying the community when it is done.</p></li><li><p>Wait for review to proceed to release</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="659" loading="lazy" src="attachments/2229043203/2228977668.png?width=659" data-image-src="attachments/2229043203/2228977668.png" data-height="668" data-width="864" data-unresolved-comment-count="0" data-linked-resource-id="2228977668" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20230824-161137.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2229043203" data-linked-resource-container-version="2" data-media-id="5fad57cb-4115-4c3b-aecf-0812dd40d83b" data-media-type="file"></span></li></ul><hr/><h1 id="HowtoCommunityBuilds-Release">Release</h1><ul><li><p><a class="external-link" href="https://developer.playfab.com/en-us/r/t/4740E/content/title-data" rel="nofollow">Go to the Live Test Net playfab, go to Content → Title Data → Edit</a></p></li><li><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/2229043203/2228649991.png" data-image-src="attachments/2229043203/2228649991.png" data-height="1202" data-width="1112" data-unresolved-comment-count="0" data-linked-resource-id="2228649991" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20230824-161739.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2229043203" data-linked-resource-container-version="2" data-media-id="aeb6593d-6e48-4d3f-a0fa-c6e3342b8d48" data-media-type="file"></span><p>Update the version to be the same as the build. This will block old versions of playing the game.</p></li><li><p>Go to azure devops and approve the deployment of the game logic service, it will be a pending deployment with the same build number of the game.</p></li><li><p>Add the user groups to TestFlight and Firebase build</p></li><li><p>Remove access to the old community build</p></li><li><p>Notify Renny that the deployment is ready</p></li><li><p>We are done <img class="emoticon emoticon-blue-star" data-emoji-id="1f483" data-emoji-shortname=":dancer:" data-emoji-fallback="💃" src="images/icons/emoticons/72/1f483.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> </p></li></ul>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2229043203/2228912134.png">image-20230824-160555.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2229043203/2228977668.png">image-20230824-161137.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2229043203/2228649991.png">image-20230824-161739.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

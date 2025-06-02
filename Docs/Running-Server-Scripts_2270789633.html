@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Running Server Scripts</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Developer-Guides_2500591617.html">Developer Guides</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Running Server Scripts
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span> on Dec 15, 2023
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>Our backend can run scripts locally to perform changes in case we need to do manual operations.<br/><br/>Those scripts are located in the Backend solution in the Scripts project<br/><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="507" loading="lazy" src="attachments/2270789633/2270855170.png?width=507" data-image-src="attachments/2270789633/2270855170.png" data-height="515" data-width="507" data-unresolved-comment-count="0" data-linked-resource-id="2270855170" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231215-124024.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2270789633" data-linked-resource-container-version="1" data-media-id="1ae7ac6d-e0fe-4b98-82bb-d4e5ea76aa4d" data-media-type="file"></span><p><br/>To run a script you basically need to run the “Scripts” project and it will ask which script you need to run. Works out of the box for staging and dev.<br/><br/>For production, you need to create a <code>playfab_key.txt</code> file in the root of ServerScripts project and add the playfab secret key there.<br/><br/>To get the key you need admin on prod playfab and enter the title settings<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="376" loading="lazy" src="attachments/2270789633/2270855177.png?width=376" data-image-src="attachments/2270789633/2270855177.png" data-height="264" data-width="376" data-unresolved-comment-count="0" data-linked-resource-id="2270855177" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231215-124237.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2270789633" data-linked-resource-container-version="1" data-media-id="41e424c3-ac14-4343-a821-3e37270f9468" data-media-type="file"></span><p /><p>And then go to the secret keys tab.<br/><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="760" loading="lazy" src="attachments/2270789633/2270691330.png?width=760" data-image-src="attachments/2270789633/2270691330.png" data-height="469" data-width="1012" data-unresolved-comment-count="0" data-linked-resource-id="2270691330" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231215-124326.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2270789633" data-linked-resource-container-version="1" data-media-id="06d42c8a-5b19-4424-a8a9-cdc0ba24681c" data-media-type="file"></span><p>Use the “LocalScriptsKey” to handle local script operations.<br/><br/>After you create the production key you are ready to run server scripts in production.<br/><br/>Remember to never run a script in production without considering chatting extensively for at least 128 hours in a inquisitor room with tech team to ensure nothing bad is gonna happen.</p>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2270789633/2270855170.png">image-20231215-124024.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2270789633/2270855177.png">image-20231215-124237.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2270789633/2270691330.png">image-20231215-124326.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Event Notifications Config</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Liveops_2391638017.html">Liveops</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Game-Live-Configuration_2499772418.html">Game Live Configuration</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="2440953858.html">Game Mode Rotation &amp; Events</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Event Notifications Config
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Carlos</span>, last modified on Nov 25, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p><a href="Game-Live-Configuration_2499772418.html" data-linked-resource-id="2499772418" data-linked-resource-version="5" data-linked-resource-type="page">Click here if you don't know how to change values </a> </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;ScheduleHoursBefore&quot;: 48,
+    &quot;ShowWhenAppIsOpen&quot;: false,
+    &quot;Notifications&quot;: [{
+        &quot;TimeBefore&quot;: 0,
+        &quot;Messages&quot;: [{
+            &quot;Title&quot;: &quot;Event %event_title% has just started. Let&#39;s GO!&quot;,
+            &quot;Description&quot;: &quot;%event_long_description%&quot;
+        }, {
+            &quot;Title&quot;: &quot;Event at %starts_at% has started. Let&#39;s GO!&quot;,
+            &quot;Description&quot;: &quot;%event_long_description%&quot;
+        }]
+    }, {
+        &quot;TimeBefore&quot;: 5,
+        &quot;Messages&quot;: [{
+            &quot;Title&quot;: &quot;Event %event_title% starts in 5 minutes!&quot;,
+            &quot;Description&quot;: &quot;%event_description%&quot;
+        }, {
+            &quot;Title&quot;: &quot;Don&#39;t miss the event at %starts_at%&quot;,
+            &quot;Description&quot;: &quot;%event_long_description%&quot;
+        }]
+    }]
+}</pre>
+</div></div><p /><p>Description of the fields:</p><ul><li><p>ScheduleHoursBefore: This is used to schedule notifications, everytime the player opens the game it searches for events in the next X hours to schedule notifications, a higher value means players can receive outdated info about events.</p></li><li><p><code>ShowWhenAppIsOpen</code> : Doesn’t show the notifications if the player is playing the game </p></li><li><p>TimeBefore: Minutes before the event to send the notification</p></li><li><p>Messages: It can have multiple entries with Title and Description, it picks a random one when sending to the player, you can use the following placeholders:</p><ul><li><p><code>%event_title%</code> - Event title from Event configs</p></li><li><p><code>%event_description%</code> - Event description from Event configs</p></li><li><p><code>%event_long_description%</code> - Event long description from Event configs</p></li><li><p><code>%starts_at%</code> - Time when the event starts in the given format <code>5:45 PM</code></p></li></ul></li></ul>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

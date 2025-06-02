@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Sprites</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Developer-Guides_2500591617.html">Developer Guides</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="UI-Toolkit_2082832385.html">UI Toolkit</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Sprites
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Miha Krajnc</span>, last modified on Jan 05, 2023
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="Sprites-Organization">Organization</h1><p>The sprites are divided into 3 atlases / folders:</p><ul><li><p>Shared (<code>Assets/Art/UI/Sprites/Shared</code>)</p></li><li><p>Home (<code>Assets/Art/UI/Sprites/Home</code>)</p></li><li><p>Match (<code>Assets/Art/UI/Sprites/Match</code>)</p></li></ul><p>The filenames follow a pattern, they start with their “category” and get more descriptive as you go. For example:</p><ul><li><p>button-play</p></li><li><p>button-play-pressed</p></li><li><p>card-rarity-epic</p></li><li><p>card-background</p></li><li><p>text-youchosedeath</p><ul><li><p><em>Use minuses to separate “categories”, but don’t use them instead of spaces.</em></p></li></ul></li></ul><p>Button sprites that have a “pressed” version must have the same name suffixed with <code>-pressed</code> for the pressed version of the sprite.</p><p>Within each atlas, sprites can be organised into sub folders, but their names must remain unique within the atlas, as their variables / classes get generated only based on the filename, not the folder.</p><h1 id="Sprites-USS">USS</h1><p>We have a new menu button, <strong>FLG → Generate Sprite USS</strong>, which generates a USS file with variables and classes for all the sprites / atlases. Variables are generated with the pattern <code>--sprite-*ATLAS*__*FILENAME*</code>:</p><ul><li><p><code>--sprite-home__card-background</code></p></li><li><p><code>--sprite-home__card-badge-nft</code></p></li><li><p><code>--sprite-match__button-exit</code></p></li></ul><p>Classes have the same name, but without the -- at the start:</p><ul><li><p><code>sprite-home__card-background</code></p></li><li><p><code>sprite-home__card-badge-nft</code></p></li><li><p><code>sprite-match__button-exit</code></p></li></ul><p>Buttons with a pressed version will get a <code>:active</code> selector generated for the pressed version, instead of a normal class one:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: css; gutter: false; theme: Confluence" data-theme="Confluence">.sprite-home__button-battlepass {
+    background-image: var(--sprite-home__button-battlepass);
+}
+
+.sprite-home__button-battlepass:active {
+    background-image: var(--sprite-home__button-battlepass-pressed);
+}</pre>
+</div></div><p /><p>Classes should only be used when setting sprites from code. When making new UIs always create a new style and use the sprite variable.</p><h1 id="Sprites-Usingdynamicsprites">Using dynamic sprites</h1><p>When using dynamic sprites, like the rarity background on equipment cards, you should string format the class name of the sprite. For example, the equipment card rarities are:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sprite-home__card-rarity-common
+sprite-home__card-rarity-uncommon
+sprite-home__card-rarity-rare
+...</pre>
+</div></div><p>So you would set the correct one like this, for example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">_rarity.RemoveSpriteClasses();
+_rarity.AddToClassList(string.Format(&quot;sprite-home__card-rarity-{0}&quot;, equipment.Rarity.ToString().Replace(&quot;Plus&quot;, &quot;&quot;).ToLowerInvariant()));</pre>
+</div></div><p /><p><strong>Warning:</strong> <strong>Make sure to not define a sprite for the selector of the element in your own style sheet.</strong> For example, you’ll probably want have a class for that element defined in your own style, e.g. <code>equipment-card__rarity</code> , where you’ll probably set one of the dynamic sprites as an “example” for editing.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">.equipment-card__rarity {
+    background-image: var(--sprite-home__card-rarity-common); // &lt;- THIS
+    width: 291px;
+    height: 237px;
+    position: absolute;
+    left: 9px;
+    top: 2px;
+}</pre>
+</div></div><p>Well if you do that, your dynamic sprites won’t work, since <code>equipment-card__rarity</code>  is in a style sheet defined in the UXML (the default one for that screen). And since the sprite USS sheets are defined in the theme, they have lower priority, and will never get evaluated, since a higher priority style is setting that value.The solution is to not define the sprite in your style, but add it to the UXML with the sprite’s class: <code>sprite-home__card-rarity-common</code>. Then when you set it dynamically from code, and call <code>_element.Re.RemoveSpriteClasses()</code>, that will remove it and give you a clean slate.</p>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

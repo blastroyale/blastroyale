@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Shop Purchase Restrictions</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Liveops_2391638017.html">Liveops</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Game-Live-Configuration_2499772418.html">Game Live Configuration</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Shop_2535587841.html">Shop</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Shop Purchase Restrictions
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Marcelo Agostinho</span>, last modified on Nov 25, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>This page explains how the <strong>Shop Purchase Restrictions</strong> feature works in PlayFab. It helps control how players buy items from the shop by adding limits and rules for purchases.</p><hr/><h4 id="ShopPurchaseRestrictions-What’sNew?">What’s New?</h4><p>Each product in the shop has three new settings:</p><ol start="1"><li><p><strong>MaxAmount</strong></p><ul><li><p><strong>What it does</strong>: Limits how many times a player can buy the product.</p></li><li><p><strong>Example</strong>: If this is set to 5, the player can buy the product up to 5 times total.</p></li></ul></li><li><p><strong>PurchaseCooldown</strong></p><ul><li><p><strong>What it does</strong>: Adds a delay between purchases of the same product.</p></li><li><p><strong>Example</strong>: If this is set to 3600 seconds (1 hour), the player needs to wait an hour before buying it again.</p></li></ul></li><li><p><strong>ShouldDailyReset</strong></p><ul><li><p><strong>What it does</strong>: Resets the amount the player has bought when a new day starts.</p></li><li><p><strong>Example</strong>: If this is <code>true</code>, the player’s purchase count will go back to 0 at the start of the next day.</p></li></ul></li></ol><hr/><h4 id="ShopPurchaseRestrictions-HowtoSetUpProperties">How to Set Up Properties</h4><p>To configure these new settings, follow these steps:</p><ol start="1"><li><p><strong>Go to PlayFab Economy</strong></p><ul><li><p>Log in to your PlayFab account and navigate to the <strong>Economy</strong> section.</p></li></ul></li><li><p><strong>Navigate to the Catalog (Legacy) Tab</strong></p><ul><li><p>In the Economy menu, click on <strong>Catalog (Legacy)</strong>.</p></li></ul></li><li><p><strong>Select a Store</strong></p><ul><li><p>Choose the store where you want to add or edit an item.</p></li></ul></li><li><p><strong>Edit Item Custom Data</strong></p><ul><li><p>Click on the item you want to update and scroll down to the <strong>Custom Data</strong> field.</p></li><li><p>Add or update the custom data to include the purchase restriction properties.</p></li></ul></li></ol><h5 id="ShopPurchaseRestrictions-ExampleCustomData:">Example Custom Data:</h5><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{ 
+  &quot;size&quot;: &quot;half&quot;, 
+  &quot;category&quot;: &quot;COINS &amp; BLAST BUCKS&quot;, 
+  &quot;UssModifier&quot;: &quot;purple&quot;, 
+  &quot;purchaseCooldown&quot;: 60, //Delay between purchases in seconds.
+  &quot;maxAmount&quot;: 30, //Maximum number of times the product can be purchased.
+  &quot;ShouldDailyReset&quot;: true //Resets the purchase count daily when set to true.
+  }</pre>
+</div></div><p /><ol start="5"><li><p><strong>Save the Item</strong></p><ul><li><p>After editing the custom data, save the changes to update the item configuration.</p></li></ul></li></ol><hr/><h4 id="ShopPurchaseRestrictions-HowItWorks">How It Works</h4><ol start="1"><li><p><strong>Before a Player Buys</strong></p><ul><li><p>The system checks:</p><ul><li><p>If the player has reached the <code>MaxAmount</code>.</p></li><li><p>If enough time has passed since the last purchase (based on the <code>PurchaseCooldown</code>).</p></li></ul></li></ul></li><li><p><strong>Daily Reset</strong></p><ul><li><p>If <code>ShouldDailyReset</code> is turned on, the purchase count is reset every day (based on the server time).</p></li></ul></li><li><p><strong>Tracking Purchases</strong></p><ul><li><p>The system keeps a record of each player's purchases and timestamps to make sure the rules are followed.</p></li></ul></li></ol><hr/><h4 id="ShopPurchaseRestrictions-Examples">Examples</h4><ul><li><p><strong>Example 1: Limited Purchases with a Cooldown</strong></p><ul><li><p>Settings: <code>maxAmount = 3</code>, <code>purchaseCooldown = 3600</code>, <code>ShouldDailyReset = false</code></p></li><li><p>What happens: A player can buy the product 3 times, but they must wait 1 hour between purchases. The limit does not reset daily.</p></li></ul></li><li><p><strong>Example 2: Daily Purchase Limit</strong></p><ul><li><p>Settings: <code>maxAmount = 2</code>, <code>purchaseCooldown = 0</code>, <code>ShouldDailyReset = true</code></p></li><li><p>What happens: A player can buy the product twice every day, and there’s no waiting time between purchases.</p></li></ul></li></ul><hr/><h3 id="ShopPurchaseRestrictions-HowtoTestDailyResetforShopPurchaseRestrictions">How to Test Daily Reset for Shop Purchase Restrictions</h3><p>If you need to test whether the <strong>ShouldDailyReset</strong> property is working as expected, you can modify the player's data in PlayFab to simulate a daily reset. Here's how:</p><hr/><h4 id="ShopPurchaseRestrictions-StepstoTestDailyReset">Steps to Test Daily Reset</h4><ol start="1"><li><p><strong>Go to PlayFab Player Data</strong></p><ul><li><p>Log in to your PlayFab account.</p></li><li><p>Navigate to the <strong>Players</strong> section and find the player you want to test with.</p></li></ul></li><li><p><strong>Access Player Data (Title)</strong></p><ul><li><p>In the player's options, click on <strong>Player Data (Title)</strong>.</p></li></ul></li><li><p><strong>Find the </strong><code>PlayerStoreData</code><strong> Structure</strong></p><ul><li><p>Look for the <code>PlayerStoreData</code> key in the player’s data.</p></li><li><p>Open it to view the details of the player’s store purchases.</p></li></ul></li><li><p><strong>Modify the </strong><code>LastPurchaseTime</code></p><ul><li><p>Locate the item that has <code>ShouldDailyReset</code> set to <code>true</code>.</p></li><li><p>Update the <code>LastPurchaseTime</code> field to a previous timestamp without changing its format.</p></li></ul></li></ol><h5 id="ShopPurchaseRestrictions-ExampleStructure:">Example Structure:</h5><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;TrackedStorePurchases&quot;: [
+        {
+            &quot;CatalogItemId&quot;: &quot;com.firstlight.blastroyale.coinpack.large&quot;,
+            &quot;ShouldDailyReset&quot;: true,
+            &quot;AmountPurchased&quot;: 1,
+            &quot;LastPurchaseTime&quot;: &quot;2024-11-25T11:53:54.1878993Z&quot;,
+            // &quot;LastPurchaseTime&quot;: &quot;2024-11-24T11:53:54.1878993Z&quot; Day before example
+        }
+    ]
+}</pre>
+</div></div><ol start="5"><li><p><strong>Save Changes</strong></p><ul><li><p>Save the changes to the player’s data.</p></li></ul></li><li><p><strong>Verify the Reset</strong></p><ul><li><p>Trigger the daily reset logic (e.g., by testing in your app or running a script that validates the purchase limits).</p></li><li><p>Check if the <code>AmountPurchased</code> resets correctly to <code>0</code> or updates according to your rules.</p></li></ul></li></ol><hr/><h4 id="ShopPurchaseRestrictions-Notes">Notes</h4><ul><li><p>Use valid timestamps in the <strong>ISO 8601 format</strong> (e.g., <code>&quot;2024-11-25T11:53:54.1878993Z&quot;</code>).</p></li><li><p>Be careful not to overwrite unrelated data in the player profile.</p></li></ul>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

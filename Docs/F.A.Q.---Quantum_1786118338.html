@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : F.A.Q. - Quantum</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Developer-Guides_2500591617.html">Developer Guides</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Project-Setup_1786118209.html">Project Setup</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : F.A.Q. - Quantum
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Miguel Tomas</span>, last modified by <span class='editor'> Carlos</span> on Nov 08, 2022
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>The Project Phoenix unity project relies upon some assemblies and generated code that are built by the separate Quantum Solution found at <code>quantum_code/</code> in the repository. These generated files are not checked into source control to minimise the conflicts they might cause when merging. Instead, <strong>you will need to generate these files on your local machine when you work with the Unity project</strong>.</p><h3 id="F.A.Q.-Quantum-WhendoestheQuantumProjectneedtobebuilt?">When does the Quantum Project need to be built?</h3><ol start="1"><li><p>If the game repository has been freshly checked out you will need to build these files for the first time.</p></li><li><p>If you are working directly on the Quantum code files you will need to rebuild every time you want to use your changes in the Unity editor.</p></li><li><p>Every time you perform a git operation that results in changes to the Quantum project files. For example switching branches, or merging in changes from another branch.</p></li></ol><h3 id="F.A.Q.-Quantum-WhatdoIneedinordertobuildtheQuantumProjectinanIDE?">What do I need in order to build the Quantum Project in an IDE?</h3><p>To build the Quantum project you will need to have one of the following on your local machine:</p><ul><li><p>Visual Studio Community (win) - <a class="external-link" href="https://visualstudio.microsoft.com/vs/" rel="nofollow">https://visualstudio.microsoft.com/vs/</a></p></li><li><p>Visual Studio for Mac (mac, obviously) - <a class="external-link" href="https://visualstudio.microsoft.com/vs/mac/" rel="nofollow">https://visualstudio.microsoft.com/vs/mac/</a></p></li><li><p>Rider - <a class="external-link" href="https://www.jetbrains.com/rider/" rel="nofollow">https://www.jetbrains.com/rider/</a></p></li><li><p>For VSCode, use the command line build step below</p></li></ul><p>If you are a Windows user using Visual Studio you will also need to install the dotnet 4.6.2 Targeting Pack and 4.6.2 SDK afterwards. You may have already done this as part of <a href="Project-Setup_1786118209.html" data-linked-resource-id="1786118209" data-linked-resource-version="33" data-linked-resource-type="page">Project Setup</a> </p><ol start="1"><li><p>Download &amp; install <a class="external-link" href="https://www.microsoft.com/en-us/download/details.aspx?id=53321" rel="nofollow">https://www.microsoft.com/en-us/download/details.aspx?id=53321</a></p></li><li><p>Open VS <em><strong>installer </strong></em>(search installer in windows start)</p></li><li><p>Click <em><strong>Modify </strong></em>of your installed VS</p></li><li><p>Switch to '<em><strong>Individual components</strong></em>'</p></li><li><p>Under node '.NET', select &quot;<em><strong>.NET Framework 4.6.2 SDK</strong></em>&quot; and &quot;<em><strong>.NET Framework 4.6.2 targeting pack</strong></em>&quot;</p></li><li><p>Click '<em><strong>Modify</strong></em>'</p></li></ol><h3 id="F.A.Q.-Quantum-WhatdoIneedinordertobuildtheQuantumProjectonthecommandline?">What do I need in order to build the Quantum Project on the command line?</h3><p><a class="external-link" href="https://download.mono-project.com/archive/6.12.0/macos-10-universal/MonoFramework-MDK-6.12.0.90.macos10.xamarin.universal.pkg" rel="nofollow">Mono framework</a></p><h3 id="F.A.Q.-Quantum-HowdoIbuildtheQuantumProject?">How do I build the Quantum Project?</h3><p>To build the project in the IDE:</p><ol start="1"><li><p>Open the Quantum Solution file <code>Quantum/quantum_code/quantum.code.sln</code> in Visual Studio or Rider.</p></li><li><p>Build the solution from the menus</p><ol start="1"><li><p>In Visual Studio <code>Build =&gt; Build All</code></p></li><li><p>In Rider <code>Build =&gt; Build Solution</code></p></li></ol></li></ol><p>That’s it. For reference building the Quantum Solution should take &lt; 5 seconds.</p><h3 id="F.A.Q.-Quantum-Tobuildtheprojectonthecommandline:">To build the project on the command line:<br/></h3><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Mac:
+
+msbuild \
+./Quantum/quantum_code/quantum_code.sln \
+-restore \
+-p:Configuration=Release \
+-p:RestorePackagesConfig=true
+
+Windows:
+
+msbuild ^
+./Quantum/quantum_code/quantum_code.sln ^
+-restore ^
+-p:Configuration=Release ^
+-p:RestorePackagesConfig=true</pre>
+</div></div><p />
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

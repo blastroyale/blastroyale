@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Backend domain configuration</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Backend_1854144513.html">Backend</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Backend domain configuration
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Miiro Juuso</span> on Jun 17, 2022
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p><em>DRAFT</em></p><p>Decision log: <a class="external-link" href="https://bitbucket.org/first-light/infrastructure/src/master/decision-log/backend-domains.md" rel="nofollow">https://bitbucket.org/first-light/infrastructure/src/master/decision-log/backend-domains.md</a> </p><h2 id="Backenddomainconfiguration-Overview">Overview</h2><p>The domain <code>blastroyale.com</code> is configured in Cloudflare, which provides DDoS protection, DNS management and edge certificates. For access to Cloudflare, please reach out to <a class="confluence-userlink user-mention" data-account-id="62877dd8c6092d0069111ccf" href="https://firstlightgames.atlassian.net/wiki/people/62877dd8c6092d0069111ccf?ref=confluence" target="_blank" data-base-url="https://firstlightgames.atlassian.net/wiki">Miiro Juuso (Unlicensed)</a> , <a class="confluence-userlink user-mention" data-account-id="62877dd704eb160068383453" href="https://firstlightgames.atlassian.net/wiki/people/62877dd704eb160068383453?ref=confluence" target="_blank" data-base-url="https://firstlightgames.atlassian.net/wiki">Iikka Hamalainen (Unlicensed)</a> or <a class="confluence-userlink user-mention" data-account-id="5c35db2d50d36e31618014d2" href="https://firstlightgames.atlassian.net/wiki/people/5c35db2d50d36e31618014d2?ref=confluence" target="_blank" data-base-url="https://firstlightgames.atlassian.net/wiki">Matt Ryan (Unlicensed)</a> .</p><h2 id="Backenddomainconfiguration-Intermediatedomain">Intermediate domain</h2><p>In order to provide static environment endpoints for Cloudflare as well as the development team, the domain <code>firstlg.net</code> has been set up in Azure App Services Domains.</p><p>This domain is used to generate hostnames automatically with Terraform according to the following schema:</p><p><code>&lt;component&gt;.&lt;environment&gt;.&lt;product&gt;.firstlg.net</code></p><p>for example;</p><p>Component: <strong>marketplace-api</strong></p><p>Environment: <strong>prod </strong>(production)</p><p>Product: <strong>br</strong> (Blast Royale)</p><p><code>marketplace-api.prod.br.firstlg.net</code></p><h2 id="Backenddomainconfiguration-Diagram">Diagram</h2><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1964539905/1964802049.png" data-image-src="attachments/1964539905/1964802049.png" data-height="521" data-width="2507" data-unresolved-comment-count="0" data-linked-resource-id="1964802049" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="flg-domains.drawio (1).png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1964539905" data-linked-resource-container-version="1" data-media-id="3b425ced-7811-4094-83b0-1cb7bffb2431" data-media-type="file"></span><h2 id="Backenddomainconfiguration-Environmentsetup">Environment setup</h2><p>The following environments have been set up in Cloudflare for Blast Royale:</p><div class="table-wrap"><table data-layout="default" data-local-id="901dacd7-2438-4ca8-a106-5311261783ea" class="confluenceTable"><colgroup><col style="width: 226.67px;"/><col style="width: 226.67px;"/><col style="width: 226.67px;"/></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Public hostname</strong></p></th><th class="confluenceTh"><p><strong>Intermediate hostname</strong></p></th><th class="confluenceTh"><p><strong>Notes</strong></p></th></tr><tr><td class="confluenceTd"><p>marketplace.blastroyale.com</p></td><td class="confluenceTd"><p>marketplace-fe.prod.br.firstlg.net</p></td><td class="confluenceTd"><p>Only reachable via Cloudflare using the public hostname</p></td></tr><tr><td class="confluenceTd"><p>marketplace-api.blastroyale.com</p></td><td class="confluenceTd"><p>marketplace-api.prod.br.firstlg.net</p></td><td class="confluenceTd"><p>Only reachable via Cloudflare using the public hostname</p></td></tr></tbody></table></div><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1964539905/1964802049.png">flg-domains.drawio (1).png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

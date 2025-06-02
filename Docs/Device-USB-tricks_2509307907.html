@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Device USB tricks</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Developer-Guides_2500591617.html">Developer Guides</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Device USB tricks
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Carlos</span>, last modified on Feb 18, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="DeviceUSBtricks-Logging">Logging</h1><h2 id="DeviceUSBtricks-Android">Android </h2><p>For android you need to use <code>adb logcat</code>, you can download from here <a class="external-link" data-card-appearance="inline" href="https://developer.android.com/tools/releases/platform-tools" rel="nofollow">https://developer.android.com/tools/releases/platform-tools</a> <br/>You can also see inside unity in <code>Window -&gt; Analysis -&gt; Android Logcat</code></p><p /><h2 id="DeviceUSBtricks-IOS">IOS</h2><p>You can use this <a class="external-link" data-card-appearance="inline" href="https://docs.libimobiledevice.org/libimobiledevice/latest/" rel="nofollow">https://docs.libimobiledevice.org/libimobiledevice/latest/</a>  amazing project to view the logs</p><p>Windows builds are available here: <a class="external-link" data-card-appearance="inline" href="https://github.com/L1ghtmann/libimobiledevice" rel="nofollow">https://github.com/L1ghtmann/libimobiledevice</a> </p><p><code>idevicesyslog -m &quot;BlastRoyale&quot;</code></p><h1 id="DeviceUSBtricks-Massinstall">Mass install</h1><ul><li><p>Install Adb (Android debug tools)</p><ul><li><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">brew install android-platform-tools</pre>
+</div></div></li></ul></li><li><p>Install Libmobiledevice</p><ul><li><p>On mac should be <code>brew install libimobiledevice</code></p></li></ul></li><li><p>Download the script provided here as an attachment.</p><ul><li><p><span class="confluence-embedded-file-wrapper"><a class="confluence-embedded-file" href="attachments/2509307907/2509373446.sh" data-nice-type="null" data-file-src="/wiki/download/attachments/2509307907/install.sh?version=2&amp;modificationDate=1730154130789&amp;cacheVersion=1&amp;api=v2" data-linked-resource-id="2509373446" data-linked-resource-type="attachment" data-linked-resource-container-id="2509307907" data-linked-resource-default-alias="install.sh" data-mime-type="text/x-sh" data-has-thumbnail="true" data-linked-resource-version="2" data-media-id="4934054b-2828-4076-b5b0-bca2a5b17934" data-media-type="file"><img src="attachments/thumbnails/2509307907/2509373446" height="250"/></a></span> </p></li></ul></li><li><p>Move script to a new folder</p></li><li><p>Open a terminal window on that folder</p></li><li><p>Type <code>./install.sh BUILD_NUMBER</code> and press enter</p><ul><li><p>You can install only android or ios with the flags <code>-a</code> and <code>-i</code> (<code>./install.sh -a 4465</code>)</p></li></ul></li><li><p>Wait for installing on all devices</p></li></ul><h2 id="DeviceUSBtricks-Caveats">Caveats</h2><p>All android devices should have </p><ul><li><p>developer mode turned on (Turning this on varies by device, on my samsung I go to software information and click 5 times in kernel version)</p></li><li><p>  turn on usb debugging in Developer Options</p></li><li><p>Click trust computer when asked<br/></p></li></ul><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2509307907/2509471746">install</a> (binary/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2509307907/2511863809.sh">install.sh</a> (text/x-sh)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2509307907/2509373446.sh">install.sh</a> (text/x-sh)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

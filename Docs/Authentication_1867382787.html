@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Authentication</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Authentication
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span>, last modified on Nov 10, 2022
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="Authentication-Topology.">Topology.</h1><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1867382787/1867382794.png" data-image-src="attachments/1867382787/1867382794.png" data-height="1117" data-width="1728" data-unresolved-comment-count="0" data-linked-resource-id="1867382794" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2022-03-03 at 11.51.20.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1867382787" data-linked-resource-container-version="2" data-media-id="99c8dbee-c6d6-489f-afb9-6af450cf0c32" data-media-type="file"></span><p>All requests goes brought a scalable small gateway, implemented using <a class="external-link" href="https://github.com/ThreeMammals/Ocelot" rel="nofollow">Ocelot</a>.</p><p>All accounts are stored in PlayFab - its the source of truth of our player accounts and profiles. We will also have metadata on those accounts, this metadata will be mapped on our internal database (such as Wallets for instance).<br/><br/>Whenever a player wants to login, without knowing he will be logging in into playfab, our account service is responsible for translating any account requests to playfab requests.</p><h1 id="Authentication-JWT&amp;PlayfabSessionTickets">JWT &amp; Playfab SessionTickets</h1><p /><p>PlayFab use session tickets to ensure a given player is logged in and has permissions to perform an operation. For security reasons this ticket cannot be unpacked by third parties. This is why the user facing token is a JWT that wraps the user playfab ID and session ticket, so we can verify the integrity of the user in our services before sending to playfab.<br/><br/>The JWT is signed with a secret key provided by an environment configuration that will likely in the end be provided and configured and protected directly in our <a class="createlink" href="/wiki/pages/createpage.action?spaceKey=BB&amp;title=Cloud%20Jenkins&amp;linkCreation=true&amp;fromPageId=1867382787">build machine</a>. Players might never discover this, else we are all doomed.<br/><br/>Our login sequence looks something like the following:<br/></p><div class="ap-container" id="ap-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram6261301788751565046">
+
+  <div class="ap-content " id="embedded-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram6261301788751565046"></div>
+  <script nonce="6839bba78c7331b84f9d4a6f03d4f8f1" class="ap-iframe-body-script">
+  (function(){
+    var data = {
+    "addon_key":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro",
+    "uniqueKey":"com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram6261301788751565046",
+    "key":"macro-diagram",
+     "moduleType":"dynamicContentMacros",      "moduleLocation":"content",         "cp":"/wiki",
+            "general":"",
+    "w":"",
+    "h":"",
+    "url":"https://mmcc.atlasauthority.com/markup-renderer?syntax=PlantUML&sourceType=MacroBody&darkmode=&outputType=html_export&pageTitle=Authentication&pageId=1867382787&pageVersion=2&macroId=463199ec-e939-44cf-83c8-f2557e6f6b17&url=&attachmentPageId=&attachmentId=&spaceId=1766260739&spaceKey=BB&xdm_e=https%3A%2F%2Ffirstlightgames.atlassian.net&xdm_c=channel-com.atlassian.plugins.confluence.markdown.confluence-markdown-macro__macro-diagram6261301788751565046&cp=%2Fwiki&xdm_deprecated_addon_key_do_not_use=com.atlassian.plugins.confluence.markdown.confluence-markdown-macro&lic=active&cv=1000.0.0-ca942e66d3a3&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiIyZWFhNzliZDdjZWYyYjE1MTI5ZGJjYmVlMGM3ODAwMjBlMzEyMWQ5ZWRhNmUyOTg4NGYwMzg5YTM3Nzc0MTJkIiwiaXNzIjoiNjdhOGI1ZTMtMjhmMi0zYmM1LTkyOWItNmQxZmQxOTMxM2U0IiwiY29udGV4dCI6e30sImV4cCI6MTc0ODYxNDMwNCwiaWF0IjoxNzQ4NjE0MTI0fQ.MyWYZB7-pK6mJn_dR16t5yIGRRD0ZGa0NXpUdVJM67Q",
+     "contextJwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MzNlODQ5ZmZlZGM2MTY5YWVkOWVjMWEiLCJxc2giOiJjb250ZXh0LXFzaCIsImlzcyI6IjY3YThiNWUzLTI4ZjItM2JjNS05MjliLTZkMWZkMTkzMTNlNCIsImNvbnRleHQiOnsibGljZW5zZSI6eyJhY3RpdmUiOnRydWV9LCJjb25mbHVlbmNlIjp7ImVkaXRvciI6eyJ2ZXJzaW9uIjoidjIifSwibWFjcm8iOnsib3V0cHV0VHlwZSI6Imh0bWxfZXhwb3J0IiwiaGFzaCI6IjQ2MzE5OWVjLWU5MzktNDRjZi04M2M4LWYyNTU3ZTZmNmIxNyIsImlkIjoiNDYzMTk5ZWMtZTkzOS00NGNmLTgzYzgtZjI1NTdlNmY2YjE3In0sImNvbnRlbnQiOnsidHlwZSI6InBhZ2UiLCJ2ZXJzaW9uIjoiMiIsImlkIjoiMTg2NzM4Mjc4NyJ9LCJzcGFjZSI6eyJrZXkiOiJCQiIsImlkIjoiMTc2NjI2MDczOSJ9fSwidXJsIjp7ImRpc3BsYXlVcmwiOiJodHRwczpcL1wvZmlyc3RsaWdodGdhbWVzLmF0bGFzc2lhbi5uZXRcL3dpa2kifX0sImV4cCI6MTc0ODYxNTAyNCwiaWF0IjoxNzQ4NjE0MTI0fQ.SZikQvBXHnu_TToQ9jWfcV7JGAgtrirFZJYAhr1LFqw",    "structuredContext": "{\"license\":{\"active\":true},\"confluence\":{\"editor\":{\"version\":\"v2\"},\"macro\":{\"outputType\":\"html_export\",\"hash\":\"463199ec-e939-44cf-83c8-f2557e6f6b17\",\"id\":\"463199ec-e939-44cf-83c8-f2557e6f6b17\"},\"content\":{\"type\":\"page\",\"version\":\"2\",\"id\":\"1867382787\"},\"space\":{\"key\":\"BB\",\"id\":\"1766260739\"}},\"url\":{\"displayUrl\":\"https://firstlightgames.atlassian.net/wiki\"}}",
+    "contentClassifier":"content",
+    "productCtx":"{\"page.id\":\"1867382787\",\"macro.hash\":\"463199ec-e939-44cf-83c8-f2557e6f6b17\",\"page.type\":\"page\",\"macro.localId\":\"e5d2f555-1343-40db-967b-eb09b651bd82\",\": = | RAW | = :\":\"attachmentSpaceKey=|sourceType=MacroBody|attachmentPageId=|syntax=PlantUML|attachmentId=|url=\",\"space.id\":\"1766260739\",\"attachmentPageId\":\"\",\"attachmentId\":\"\",\"user.isExternalCollaborator\":\"false\",\"space.key\":\"BB\",\"content.version\":\"2\",\"page.title\":\"Authentication\",\"macro.body\":\"@startuml\\n\\nFrontend -\u003e AccountService: Login request!\\n\\nAccountService -\u003e Playfab: Validate Credentials!\\n\\nPlayfab -\u003e AccountServi\",\"macro.truncated\":\"true\",\"content.type\":\"page\",\"output.type\":\"html_export\",\"url\":\"\",\"page.version\":\"2\",\"attachmentSpaceKey\":\"\",\"macro.fragmentLocalId\":\"\",\"content.id\":\"1867382787\",\"sourceType\":\"MacroBody\",\"macro.id\":\"463199ec-e939-44cf-83c8-f2557e6f6b17\",\"syntax\":\"PlantUML\",\"editor.version\":\"v2\"}",
+    "timeZone":"UTC",
+    "origin":"https://mmcc.atlasauthority.com",
+    "hostOrigin":"https://firstlightgames.atlassian.net",
+    "sandbox":"allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-same-origin allow-top-navigation-by-user-activation allow-storage-access-by-user-activation",    "pearApp":"true",        "apiMigrations": {
+        "gdpr": true
+    }
+}
+;
+    if(window.AP && window.AP.subCreate) {
+      window._AP.appendConnectAddon(data);
+    } else {
+      require(['ac/create'], function(create){
+        create.appendConnectAddon(data);
+      });
+    }
+
+    // For Confluence App Analytics. This code works in conjunction with CFE's ConnectSupport.js.
+    // Here, we add a listener to the initial HTML page that stores events if the ConnectSupport component
+    // has not mounted yet. In CFE, we process the missed event data and disable this initial listener.
+    const __MAX_EVENT_ARRAY_SIZE__ = 20;
+    const connectAppAnalytics = "ecosystem.confluence.connect.analytics";
+    window.connectHost && window.connectHost.onIframeEstablished((eventData) => {
+      if (!window.__CONFLUENCE_CONNECT_SUPPORT_LOADED__) {
+        let events = JSON.parse(window.localStorage.getItem(connectAppAnalytics)) || [];
+        if (events.length >= __MAX_EVENT_ARRAY_SIZE__) {
+          events.shift();
+        }
+        events.push(eventData);
+        window.localStorage.setItem(connectAppAnalytics, JSON.stringify(events));
+      }
+    });
+
+  }());
+</script>
+
+</div>
+<p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1867382787/1867382794.png">Screenshot 2022-03-03 at 11.51.20.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1867382787/1866956819.png">Screenshot 2022-03-03 at 18.09.38.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

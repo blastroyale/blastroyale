@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Crypto Wallet Linking Authentication</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Authentication_1867382787.html">Authentication</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Crypto Wallet Linking Authentication
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span>, last modified on Mar 21, 2022
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>Users will require to connect a Crypto Wallet (IE their public key) to their PlayFab account. That’s fairly simple simply by sending that public key to the backend.<br/><br/>However we need to ensure that this public key the server is receiving is really from the owner of the wallet and not a person with bad intentions. To solve this problem, we will be using a cryptographic proof provided by EIP721, an ethereum typed structured data hashing and signing.<br/><br/>An high level overview on how this works:<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1884684293/1883734027.png" data-image-src="attachments/1884684293/1883734027.png" data-height="1117" data-width="1728" data-unresolved-comment-count="0" data-linked-resource-id="1883734027" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2022-03-18 at 16.54.21.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1884684293" data-linked-resource-container-version="5" data-media-id="6b13e5b5-3723-46f2-84fd-f0bfd08da6f0" data-media-type="file"></span><p /><p>Whenever we want to validate the public key the client is sending is owned by the person sending it , that user has to ask for a nounce to the backend.<br/><br/>The backend generates it, which is nothing more than a 16byte guid, and returns to the client. The client then uses EIP712 to sign a message including that nounce inside the message.<br/><br/>When the backend receives the signed message, it can read the expected nounce from the database from that user and use the same EIP712 typed data structure the client uses to recover the account who signed the message - which should result in the exact wallet id that is requesting to be linked - proving that the user sending the request to link the wallet is actually, the owner of that private key.<br/><br/>A more detailed sequence diagram on how this works:<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1884684293/1885634565.png" data-image-src="attachments/1884684293/1885634565.png" data-height="1117" data-width="1728" data-unresolved-comment-count="0" data-linked-resource-id="1885634565" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2022-03-21 at 11.51.03.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1884684293" data-linked-resource-container-version="5" data-media-id="ee1b357b-1c9d-4b14-855b-c7f4fa98e9ce" data-media-type="file"></span><p><br/>More about EIP712 message signing algorithm:<br/><a class="external-link" data-card-appearance="inline" href="https://eips.ethereum.org/EIPS/eip-712" rel="nofollow">https://eips.ethereum.org/EIPS/eip-712</a> </p><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1884684293/1883734027.png">Screenshot 2022-03-18 at 16.54.21.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1884684293/1885634565.png">Screenshot 2022-03-21 at 11.51.03.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

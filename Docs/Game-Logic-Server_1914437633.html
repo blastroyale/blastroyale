@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Game Logic Server</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Backend_1854144513.html">Backend</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Game Logic Server
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span>, last modified on Oct 12, 2022
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="GameLogicServer-Purpose:"><br/>Purpose:</h1><p><br/>The game logic service act as a “game lobby server”., managing player items, currency, rewards and activities that are performance outside of the “realtime game match”. </p><h1 id="GameLogicServer-Architecture:"><br/>Architecture:</h1><p><br/>While the game runs the logic on client, the logic service, using the same set of game logic dlls &amp; game configurations, can run the exact same logic, in a deterministic way, on server.<br/>This way we can develop the game logic once and yet have server authority.<br/><br/><br/>The logic is black box that receives a game-state and manipulates it.<br/>It does this thought commands, so all code that modifies game-state that is shared between client and server is handled inside the command classes.<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1914437633/1913880587.png" data-image-src="attachments/1914437633/1913880587.png" data-height="1117" data-width="1728" data-unresolved-comment-count="0" data-linked-resource-id="1913880587" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2022-04-19 at 13.05.16.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1914437633" data-linked-resource-container-version="6" data-media-id="24e18aba-e9ce-4f8c-b530-264400b575db" data-media-type="file"></span><p><br/>A pseudo-code example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">class GiveExpCommand {
+
+  // command payload, what&#39;s gonna be sent via network
+  int howMuchExp = 5
+
+  // execution logic that will manipulate the player state via logic objects
+  execute(GameLogic logic, Data data) {
+    data.playerData.exp += howMuchExp;
+  }
+}   </pre>
+</div></div><p>Whenever the client runs those commands to update its internal state, it also sends the command to the server that will instantiate the same command class and run it in a way the logic is ran in symmetry in both server and client. This requires a fully deterministic code.</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1914437633/1914404867.png" data-image-src="attachments/1914437633/1914404867.png" data-height="1117" data-width="1728" data-unresolved-comment-count="0" data-linked-resource-id="1914404867" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2022-04-19 at 11.22.18.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1914437633" data-linked-resource-container-version="6" data-media-id="4f0bca9e-518a-4bea-9363-dbf634790cc0" data-media-type="file"></span><h1 id="GameLogicServer-SynchronisedModels&amp;Determinism">Synchronised Models &amp; Determinism</h1><p>We currently sync 3 different models. PlayerData, IdData and RngData. We need to ensure that all randomisations are ran the exact same in both client and server, and for this reason we share the <code>RngData</code> object.</p><p>This object is created when the player sets up his account, and a random seed is generated from that player. From that moment onwards, all random calls will result in the exact same result if they are in the exact same random counter. Whenever we randomize a number for a player, we advance that random counter.</p><h1 id="GameLogicServer-Infrastructure">Infrastructure</h1><p>Currently our server is deployed as docker container, which serves to HTTP requests. </p><p>Currently the game-client has only knowledge of Playfab and it’s where all requests are made to (Via CloudScript) and where all player data is being read from.<br/><br/>Our App Function communicates with Playfab in case it requires to perform any state updates. It will also be responsible from reading data from the blockchain to update player states that are synchronised with blockchain.</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1914437633/1914044419.png" data-image-src="attachments/1914437633/1914044419.png" data-height="1117" data-width="1728" data-unresolved-comment-count="0" data-linked-resource-id="1914044419" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2022-04-19 at 13.09.47.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1914437633" data-linked-resource-container-version="6" data-media-id="19e26254-3341-45f8-937e-73f87e9a7540" data-media-type="file"></span><p /><h1 id="GameLogicServer-Deployment:">Deployment:</h1><p><br/>Anything merged to our <code>develop</code> branch gets automatically deployed to <code>dev</code> <a href="Environments_2001960981.html" data-linked-resource-id="2001960981" data-linked-resource-version="6" data-linked-resource-type="page">environment</a>.</p><h1 id="GameLogicServer-MovingPieces:">Moving Pieces:</h1><p /><p><strong>Game Logic Server: </strong><br/>The backend itself. Currently lives in the blast-royale/Backend folder.<br/><br/><strong>Game Dlls:</strong></p><p>Group of dlls that contains the game code including logic &amp; commands.<br/><a class="external-link" data-card-appearance="inline" href="https://bitbucket.org/first-light/blast-royale/src/master/Assets/Src/FirstLight/Game/" rel="nofollow">https://bitbucket.org/first-light/blast-royale/src/master/Assets/Src/FirstLight/Game/</a> <br/>Also contains Quantum dlls as its a dependency to run logic. All dlls referenced in <br/><a class="external-link" data-card-appearance="inline" href="https://bitbucket.org/first-light/blast-royale/src/master/Backend/Backend/Scripts/update_dlls.py" rel="nofollow">https://bitbucket.org/first-light/blast-royale/src/master/Backend/Backend/Scripts/update_dlls.py</a> <br/><br/><strong>Game Configuration: </strong><a class="createlink" href="/wiki/pages/createpage.action?spaceKey=BB&amp;title=Game%20Configuration&amp;linkCreation=true&amp;fromPageId=1914437633"><strong>(Confluence Page)</strong></a><br/><br/>The game configuration are the scriptable objects on the client repo. They get transformed to JSON to be shared, and they can be shared in two ways:<br/>- Baked on Server: Those objects are baked when building the server images, and cannot be changed.<br/>- Remote from Playfab: Our logic service supports remote configuration.</p><h1 id="GameLogicServer-Building:">Building:</h1><ul><li><p>To build we need first to build quantum dlls and the game dlls. Open src/Quantum/quantum_code and build that solution.</p></li><li><p>Then we need to build the game that contains the logic. To build that we need to build the game in Unity.</p></li><li><p>Then we copy dlls to Backend folder using <a class="external-link" data-card-appearance="inline" href="https://bitbucket.org/first-light/blast-royale/src/master/Backend/Backend/Scripts/update_dlls.py" rel="nofollow">https://bitbucket.org/first-light/blast-royale/src/master/Backend/Backend/Scripts/update_dlls.py</a> </p></li><li><p>Then we can build the backend with the most up-to-date bundle.</p></li></ul><h1 id="GameLogicServer-Plugins:">Plugins:</h1><p>The logic service exposes events so plugins can hook custom functionality.</p><p>Currently we only have one plugin, that syncs NFT’s from our blockchain index service to Playfab.</p><h1 id="GameLogicServer-Authentication:">Authentication:<br/></h1><p>The game client authenticates with Playfab obtaining a session ticket. The user requires this session ticket to be able to call Playfab cloud scripts, which are a simple proxy to our Azure Function App that contains our game logic service. The function app requires a secret token in its URL to be called, which is only known to CloudScript, guaranteeing players won’t be able to externally call our logic servers directly.<br/><br/>Playfab enriches the proxied request with authentication details so we do not have to worry about unpacking the token at the logic server side.</p><h1 id="GameLogicServer-Sequencing:"><br/>Sequencing:</h1><p><br/>Commands are sequenced by timestamps. If a command is out of order it will be be taken as an error.</p><h1 id="GameLogicServer-Rollback:">Rollback:<br/></h1><p>We have no rollback currently.</p><h1 id="GameLogicServer-Concurrency:">Concurrency:<br/></h1><p>In logic server, every player command is exclusive. We have a pessimistic advisory lock to ensure a single command is running for a given player at the same time.</p><p /><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1914437633/1914404867.png">Screenshot 2022-04-19 at 11.22.18.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1914437633/1914732560.png">Screenshot 2022-04-19 at 12.08.13.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1914437633/1914798081.png">Screenshot 2022-04-19 at 12.08.13.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1914437633/1913880587.png">Screenshot 2022-04-19 at 13.05.16.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1914437633/1914044419.png">Screenshot 2022-04-19 at 13.09.47.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1914437633/1939701770.png">Screenshot 2022-05-18 at 13.59.25-20220518-125946.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

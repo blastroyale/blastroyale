@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Building</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Release-Process_2499837954.html">Release Process</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Building
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Carlos</span>, last modified on Nov 28, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>We have two systems for building releases of the game, depending on the target of the release.</p><p /><p>Hey do you want to build locally to test something quick? Check <a href="Building-Locally_2540273703.html" data-linked-resource-id="2540273703" data-linked-resource-version="3" data-linked-resource-type="page">Building Locally</a> </p><h1 id="Building-AzureDevops">Azure Devops</h1><p>This is used for internal builds shared inside the team, it doesn’t support building to stores ATM.</p><p>You can trigger a build using this pipeline:  <a class="external-link" href="https://dev.azure.com/firstlightgames/blast-royale/_build?definitionId=6" rel="nofollow">https://dev.azure.com/firstlightgames/blast-royale/_build?definitionId=6</a></p><p>You can see the links for downloading at slack <a class="external-link" href="https://firstlightgames.slack.com/archives/CDA5BUWVA" rel="nofollow">#tech-builds_azure</a>, and they are also automatically uploaded to Firebase App Distribution. </p><h2 id="Building-BuildProcess">Build Process</h2><p>TODO: Explain how the current pipeline works</p><h1 id="Building-UnityCloudBuild">Unity Cloud Build</h1><p><a class="external-link" href="https://cloud.unity.com/home/organizations/5772581095989/projects/9502afda-de54-4416-a44c-7462af57f087/cloud-build/history" rel="nofollow">https://cloud.unity.com/home/organizations/5772581095989/projects/9502afda-de54-4416-a44c-7462af57f087/cloud-build/history</a><br/>Only used for store builds. There are two configurations we use for every release of the game.<br/><code>Store - Android and Store - iOS</code> they are automatically uploaded to Google Play console and Apple Testflight. </p><p>For android you can’t install those builds directly with a link, you have to be an internal tester for the app, and download from Play Store, with iOS you can use links in <a class="external-link" href="https://firstlightgames.slack.com/archives/C06QL28F9JT" rel="nofollow">#tech-builds_unitycloud</a> </p><p><strong>DON’T FORGET TO COMMIT AND PUSH QUANTUM DLLS WHEN BUILDING IN UNITY CLOUD BUILD!</strong></p><p>It doesn’t automatically build quantum dlls like the azure devops pipeline, because Unity Cloud Build sucks and they don’t provide MsBuild in their agents. </p><p /><p> </p>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2540273672/2540699654.png">image-20241128-181352.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

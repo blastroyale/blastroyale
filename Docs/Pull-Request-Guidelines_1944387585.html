@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Pull Request Guidelines</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Tech-Vision_1786150927.html">Tech Vision</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Pull Request Guidelines
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Robert Gesicki</span>, last modified on Feb 07, 2023
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h2 id="PullRequestGuidelines-GeneralGuideline">General Guideline</h2><ul><li><p>Pull requests reviewers should not have to wonder <strong>what</strong> it is that they are reviewing. Anybody should be able to go into any pending pull request, and understand what a PR is aiming to achieve, not just people who are actively involved in development with the PR owner.</p></li><li><p>Do NOT merge other people’s PRs without explicit permission. </p></li><li><p>Check and fix ALL pipeline fails before merging. You should not be committing failing code into develop. We have a build and test pipeline for a reason. </p><ul><li><p>If the pipeline is already failing from develop, then you can merge, but it would be preferable to fix those on the PR if it’s a quick straightforward fix. Otherwise the relevant person should open up a separate PR to get the issues sorted.</p></li></ul></li></ul><p><strong>NO AUTO-GENERATED TITLES OR DESCRIPTIONS BY BITBUCKET - IT’S NOT HELPFUL.</strong></p><hr/><h2 id="PullRequestGuidelines-Titles">Titles</h2><p>Titles should be describing the feature concisely, or describing bug with valid Jira ticket code attached. Also, if a PR is not yet finished, or has known issues, title should have a [WIP] tag in the title.</p><h4 id="PullRequestGuidelines-Examples:">Examples:</h4><ul><li><p>Weapon stat calculation improvements</p></li><li><p>New sound effects implemented for all weapons</p></li><li><p>[WIP] Updated reloading mechanics</p></li><li><p>[BR-567] Fix for players falling out of the map</p></li><li><p>[WIP, BR-898] Temporary workaround for player character model disappearing in match</p></li></ul><hr/><h2 id="PullRequestGuidelines-Descriptions">Descriptions</h2><p>Descriptions should have 2 sections: Summary, Tech Details</p><ul><li><p><strong>Summary</strong> section should give a brief description of what the feature is (or the fix), why it was done, and any additional notes that are relevant. This section should also have links to the relevant documents, data sheets, Jira tickets pertaining to the feature</p></li><li><p><strong>Tech Details</strong> section should be a bullet point list of the only the <strong>KEY</strong> parts of the feature, and key scripts that were added/modified, ideally. Nothing crazy long, just a starting point for the reviewer to look into the implementation.</p></li><li><p><strong>TODO </strong>is an optional section that can be included to let know the reviewer that there are issues  currently on the branch that are yet to be fixed. All PRs with this section should be tagged as [WIP]. Do not merge branches that are work in progress - all issues should be resolved before merging.</p></li></ul><p /><p>Descriptions should also <em>ideally</em> reflect feedback that was implemented from reviews.</p><hr/><h2 id="PullRequestGuidelines-FullExample">Full Example</h2><p /><h3 id="PullRequestGuidelines-Title">Title</h3><p>[WIP, BR-1000] Player Preload Synchronization</p><h3 id="PullRequestGuidelines-Summary">Summary</h3><p>This PR implements new flow to synchronize all players loading into a match. This is done by setting, and observing Photon custom player properties during the matchmaking stage.</p><p>NOTE: This flow is likely to change in future iterations when matchmaking is refactored.</p><p>Miro board for flow visualisation: <a class="external-link" data-card-appearance="inline" href="https://miro.com/app/board/uXjVO7Q6_V8=/?share_link_id=129354892068" rel="nofollow">https://miro.com/app/board/uXjVO7Q6_V8=/?share_link_id=129354892068</a> </p><h3 id="PullRequestGuidelines-TechDetails">Tech Details</h3><ul><li><p><code>PlayerProperties</code> keys now stored in <code>GameConstants</code></p></li><li><p>BR Dev now starts a custom BR game with short room code</p></li><li><p>Load into match flow refactor - simulation can now start now only if all players have preloaded EQUIPMENT assets and are ready</p><ul><li><p><code>MatchState</code> observes Photon event <code>OnPlayerPropertiesUpdate</code> and iterates over list of players in the room to check if everybody has loaded in. This is the core of the system.</p></li></ul></li><li><p>For custom games - lock room button only appears once all current players have preloaded MATCH assets</p></li><li><p>Room now closes for matchmaking matches, after a delay when master client entered matchmaking stage</p></li></ul><h3 id="PullRequestGuidelines-TODO">TODO</h3><ul><li><p>Sometimes custom room joining fails due to refactors in NetworkState. Needs to be fixed before merge.</p></li></ul><p /><p />
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

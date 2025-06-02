@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Release Cycles &amp; Process</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Release-Process_2499837954.html">Release Process</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Release Cycles &amp; Process
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span>, last modified on Aug 01, 2022
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>The idea of this proposal is to mitigate release pain points.<br/></p><p><strong> Planning a Release Cycle:</strong></p><ul><li><p>Stakeholder define scope of the release and it’s objectives internally.</p></li><li><p>Stakeholder write down specifications for the release in an epic ticket in Jira and put this ticket in the release column (e.g what he wants, what needs to be achieved etc)</p></li><li><p>Planning meeting with the team and the stakeholder to make sure everyone understands the scope of the release and what’s need to be done, and if the timeline makes sense.</p></li><li><p>Start development.</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1986461746/1986592789.png" data-image-src="attachments/1986461746/1986592789.png" data-height="204" data-width="204" data-unresolved-comment-count="0" data-linked-resource-id="1986592789" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20220716-135922.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1986461746" data-linked-resource-container-version="14" data-media-id="470b4f78-fbbd-48bd-a794-a6d9e17d2ca9" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1986461746/1986461757.png" data-image-src="attachments/1986461746/1986461757.png" data-height="398" data-width="1039" data-unresolved-comment-count="0" data-linked-resource-id="1986461757" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20220716-142722.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1986461746" data-linked-resource-container-version="14" data-media-id="46924a2a-fdd1-499b-9a57-2833a4544ba5" data-media-type="file"></span><p><strong>Timeline:</strong></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1986461746/1987674113.png" data-image-src="attachments/1986461746/1987674113.png" data-height="234" data-width="1314" data-unresolved-comment-count="0" data-linked-resource-id="1987674113" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20220718-135144.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1986461746" data-linked-resource-container-version="14" data-media-id="ed9ea5d6-3c49-4019-a22c-e964caf737d9" data-media-type="file"></span><p /><p><strong>Step 1 - Feature Freeze </strong></p><ul><li><p>No more features prioritized by devs or producers.</p></li><li><p>Release candidates made for all projects using gitflow &amp; release branches (e.g release/1.2.3)</p></li><li><p>All teams communicate in #releases channel the release candidate versions</p></li><li><p>All release branches are deployed to staging environment</p></li><li><p>The bundle of versions are referred to a “release candidate”</p></li><li><p>Stakeholders approve the release candidate feature set</p></li><li><p>QA Week begins on the RC<br/></p></li></ul><p><strong>Step 2 - Release Drill &amp; QA Week - ETA 5 days</strong></p><ul><li><p>Ensure staging is a replica of production    - Server versions, Client Version, Server Configuration, Marketplace Services.</p></li><li><p>Copy Playfab data, postgres &amp; Moralis data from production to staging.</p></li></ul><ul><li><p>Release candidates are deployed to staging.</p></li><li><p>All external components are deployed (marketplace, game-logic service, game-client ready)</p></li><li><p>Engineering Pass to ensure nothing is missing</p></li><li><p>In parallel, QA Sanity Check test case runs. (Game &amp; Marketplace)</p></li><li><p>Game is tested on both Android &amp; IOS</p></li><li><p>In case of bugs, hotfix goes to release candidate and re-start.</p></li></ul><p /><p><strong>Step 3 - Release - ETA 1 day</strong></p><ul><li><p>Place title into maintenance so players can’t play while the game is in maintenance. This should last 10/30min or 1h/4h for long maintenances</p></li><li><p>Deploy servers, marketplace</p></li><li><p>Whitelist QA to be able to log-in in GM account</p></li><li><p>Engineering pass checking metrics</p></li><li><p>QA does simplified sanity pass</p></li><li><p>Maintenance removed, game open for players</p></li></ul><p /><p><strong>Step 4 - Post Release - ETA 3 days</strong></p><ul><li><p>Server metrics actively monitored</p></li><li><p>Game analytics actively monitored</p></li><li><p>Community actively monitored</p></li><li><p>Devs focused on finding and solving pain points uncovered during release, staging or known bugs that should be addressed.</p></li></ul><p /><p><strong>QA Sanity Check:</strong></p><ul><li><p>QA checks technical checklist (<a href="Game-Release-Checklist_1986428929.html" data-linked-resource-id="1986428929" data-linked-resource-version="130" data-linked-resource-type="page">Release Checklist - Blast Royale - Confluence (atlassian.net)</a>)</p></li><li><p>QA Logs in a player account and play the game as a random player.</p></li><li><p>QA runs the marketplace test cases <a href="https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/2003009545/Marketplace+QA+Test-Cases" data-linked-resource-id="2003009545" data-linked-resource-version="6" data-linked-resource-type="page">Marketplace QA Test-Cases</a> </p></li></ul><p /><p><strong>To Continue:</strong></p><ul><li><p>Write Down QA Sanity Test Case (both gameplay related and tech specific, some described in <a href="Game-Release-Checklist_1986428929.html" data-linked-resource-id="1986428929" data-linked-resource-version="130" data-linked-resource-type="page">Release Checklist - Blast Royale - Confluence (atlassian.net)</a>) (Gameplay + QA)</p></li><li><p>Ensure we can copy PlayFab data across environments, perhaps write scripts &amp; pipelines to help (Backend)</p></li><li><p>Finalize setup of new dev, production &amp; stagings envs (DevOps)</p></li></ul><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1986461746/1986658325">AYn6-Z0upzlRtd0KVX5mwV_S3MUOmmU0u4F3gythoP_ccOCNQ074HownEzREhzHHCEldQt9jORjtcjfjrYB21X_4E_wG2Z_rDYmpm0GrR-hAYYg0g7TdbrU2P-AV9lufiWi2me-ZAVR1Wf9PnQ</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1986461746/1986592789.png">image-20220716-135922.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1986461746/1986461757.png">image-20220716-142722.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1986461746/1987510273.png">image-20220718-133613.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1986461746/1986854917.png">image-20220718-135042.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1986461746/1987674113.png">image-20220718-135144.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

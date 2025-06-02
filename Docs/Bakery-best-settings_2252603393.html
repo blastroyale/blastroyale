@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Bakery best settings</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Game-Content-Creation_2499674114.html">Game Content Creation</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Map_2234023937.html">Map</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Map-Tools_2239365121.html">Map Tools</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Bakery best settings
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Tiryon Williams</span>, last modified by <span class='editor'> Nik Denissov</span> on Jan 15, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748614062822 {padding: 0px;}
+div.rbtoc1748614062822 ul {list-style: disc;margin-left: 0px;}
+div.rbtoc1748614062822 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748614062822'>
+<ul class='toc-indentation'>
+<li><a href='#Bakerybestsettings-Generalsetup'>General setup</a></li>
+<li><a href='#Bakerybestsettings-Mapobjectssetup'>Map objects setup</a></li>
+</ul>
+</div><h2 id="Bakerybestsettings-Generalsetup">General setup</h2><p>This page is to help keep track of the current bakery settings used for the best result, both in visual quality and number of lightmaps produced.</p><p /><p>The map requires both a directional light and a skylight object.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="312" loading="lazy" src="attachments/2252603393/2252734465.png?width=312" data-image-src="attachments/2252603393/2252734465.png" data-height="52" data-width="312" data-unresolved-comment-count="0" data-linked-resource-id="2252734465" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231114-150544.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="afb4b84e-10db-4c49-8096-200ae471b0b2" data-media-type="file"></span><p>Easy way to setup is to open a scene where you know the baking was done right, and copy those two objects from that scene into your scene.</p><p>Or you can setup things manually:</p><p /><ol start="1"><li><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="739" loading="lazy" src="attachments/2252603393/2252800001.png?width=739" data-image-src="attachments/2252603393/2252800001.png" data-height="436" data-width="798" data-unresolved-comment-count="0" data-linked-resource-id="2252800001" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231114-150609.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="0c451f59-496f-4c54-bffa-e66724d32653" data-media-type="file"></span><p>The skylight should have a bakery skylight component attached. </p><ol start="1"><li><p>Current best settings are pure white for the colour, and 1 on the intensity. Everything is default.</p></li></ol></li><li><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="739" loading="lazy" src="attachments/2252603393/2252668935.png?width=739" data-image-src="attachments/2252603393/2252668935.png" data-height="485" data-width="801" data-unresolved-comment-count="0" data-linked-resource-id="2252668935" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231114-150819.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="8c66f7aa-209d-45e9-8d03-66a0e41e7af9" data-media-type="file"></span><p>The directional light should have a Bakery Direct Light component attached. </p><ol start="1"><li><p>Colour should be white</p></li><li><p>Intensity should be 1</p></li><li><p>Shadow samples are 24</p></li><li><p>Indirect intensity is 0</p></li><li><p>Anti ailiasing is on</p></li></ol></li></ol><p /><p>Once both these scene objects have been configured, go to the bakery tab &gt; Render Lightmap to bring up the bakery window to start a render.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="288" loading="lazy" src="attachments/2252603393/2252668929.png?width=288" data-image-src="attachments/2252603393/2252668929.png" data-height="162" data-width="288" data-unresolved-comment-count="0" data-linked-resource-id="2252668929" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231114-150427.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="ead54337-db2d-43a6-8ea3-64b0d3866de0" data-media-type="file"></span><div class="table-wrap"><table data-table-width="1482" data-layout="default" data-local-id="74edfbf6-24c2-4604-a891-c31a4a0a0e90" class="confluenceTable"><tbody><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="236" loading="lazy" src="attachments/2252603393/2252668941.png?width=236" data-image-src="attachments/2252603393/2252668941.png" data-height="407" data-width="251" data-unresolved-comment-count="0" data-linked-resource-id="2252668941" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231114-151157.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="baf704f4-af98-4619-bd7c-094da1e260a0" data-media-type="file"></span><p>To access all settings, make sure your settings mode is experimental</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="247" loading="lazy" src="attachments/2252603393/2252636164.png?width=247" data-image-src="attachments/2252603393/2252636164.png" data-height="319" data-width="247" data-unresolved-comment-count="0" data-linked-resource-id="2252636164" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231114-151212.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="0307a547-4b56-4cc1-9c53-69cfac6e3aa9" data-media-type="file"></span><p /></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="252" loading="lazy" src="attachments/2252603393/2252767235.png?width=252" data-image-src="attachments/2252603393/2252767235.png" data-height="336" data-width="252" data-unresolved-comment-count="0" data-linked-resource-id="2252767235" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231114-151229.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="a1373309-676f-4932-855c-a5ce9f8f1055" data-media-type="file"></span><p /></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="253" loading="lazy" src="attachments/2252603393/2252767242.png?width=253" data-image-src="attachments/2252603393/2252767242.png" data-height="186" data-width="253" data-unresolved-comment-count="0" data-linked-resource-id="2252767242" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231114-151244.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="31f968bf-fb81-49a1-8c83-fbf4784421ef" data-media-type="file"></span><p /></td></tr></tbody></table></div><p /><h2 id="Bakerybestsettings-Mapobjectssetup">Map objects setup</h2><p /><p>All objects should be marked as Static</p><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>There’s an exception for destructible/moving objects, like Wooden gates and Moving gates in the FTUE small arena. They cannot be marked as static, because it prevents the animation from working</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240104-131453.png" width="760" loading="lazy" src="attachments/2252603393/2277343238.png?width=760" data-image-src="attachments/2252603393/2277343238.png" data-height="323" data-width="1368" data-unresolved-comment-count="0" data-linked-resource-id="2277343238" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240104-131453.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="797a5990-7205-4c0b-9aa6-cdd85542d1a8" data-media-type="file"></span><p /><p>All materials should use “FLG/Baked/Static Object” shader</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240104-131632.png" width="463" loading="lazy" src="attachments/2252603393/2277048329.png?width=463" data-image-src="attachments/2252603393/2277048329.png" data-height="135" data-width="463" data-unresolved-comment-count="0" data-linked-resource-id="2277048329" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240104-131632.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="0ef9ae4f-0411-4524-a438-fed7df637798" data-media-type="file"></span><p /><p>All meshes should have the setup that is on the screenshot below</p><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>The only <strong>exceptions</strong> are:</p><ul><li><p>the roofs of enterable buildings</p></li><li><p>the tiles of the ground</p></li><li><p>bushes</p></li></ul><p><strong>“Cast Shadows” should be turned OFF for them</strong>. Roofs otherwise will make rooms inside very dark. And for ground tiles it makes no sense to drop any shadow</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240104-131700.png" width="461" loading="lazy" src="attachments/2252603393/2276982790.png?width=461" data-image-src="attachments/2252603393/2276982790.png" data-height="446" data-width="461" data-unresolved-comment-count="0" data-linked-resource-id="2276982790" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240104-131700.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2252603393" data-linked-resource-container-version="5" data-media-id="1991f81b-3b7a-439e-8314-65f3188329af" data-media-type="file"></span>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2252668929.png">image-20231114-150427.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2252734465.png">image-20231114-150544.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2252800001.png">image-20231114-150609.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2252668935.png">image-20231114-150819.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2252701701.png">image-20231114-151150.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2252668941.png">image-20231114-151157.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2252636164.png">image-20231114-151212.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2252767235.png">image-20231114-151229.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2252767242.png">image-20231114-151244.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2277343238.png">image-20240104-131453.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2277048329.png">image-20240104-131632.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2252603393/2276982790.png">image-20240104-131700.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:07</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

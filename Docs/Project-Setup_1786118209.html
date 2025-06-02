@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Project Setup</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Developer-Guides_2500591617.html">Developer Guides</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Project Setup
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Miguel Tomas</span>, last modified by <span class='editor'> Gabriel</span> on Nov 12, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p><strong>GREAT SCOTT! The time has finally come! </strong></p><p>So, you've already met a lot of nice people here! But as good developers, we know that we're always eager to get our hands dirty and start working on the code. Here, we've done our best to clarify the entire 'Project Setup' process. However, it's worth emphasizing that the team will always be glad to help and provide any further guidance during our journey together.</p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="28346e16-8a1f-4aea-beb0-0410f0cb8c86" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Bitbucket Repository page:</strong></p></th><td class="confluenceTd"><ul><li><p><a class="external-link" href="https://bitbucket.org/first-light/blast-royale/src" rel="nofollow">https://bitbucket.org/first-light/blast-royale</a>  </p></li></ul></td></tr><tr><th class="confluenceTh"><p><strong>Unity Hub Download link:</strong></p></th><td class="confluenceTd"><ul><li><p><a class="external-link" href="https://unity.com/download" rel="nofollow">Download for Windows</a>   </p></li><li><p><a class="external-link" href="https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.dmg" rel="nofollow">Download for Mac</a></p></li></ul></td></tr><tr><th class="confluenceTh"><p><strong>Unity Editor</strong></p></th><td class="confluenceTd"><ul><li><p><strong>Current Version: 2022.3.30f1</strong></p></li><li><p>If you have already installed Unity Hub, simply copy the link below into your browser and start downloading the appropriate version.</p><ul><li><p><strong>unityhub://2022.3.30f1/70558241b701</strong></p></li></ul></li></ul></td></tr></tbody></table></div><h2 id="ProjectSetup-Getyourlicenses…ifneeded!">:identification_card:  Get your licenses… if needed!</h2><ul><li><p><strong>Unity License</strong>:</p><ul><li><p>Unless you plan on using your machine to build the game, you don’t exactly need to complete this step. However, if you do, <a class="confluence-userlink user-mention" data-account-id="61bc9d8b08e4e00069b435da" href="https://firstlightgames.atlassian.net/wiki/people/61bc9d8b08e4e00069b435da?ref=confluence" target="_blank" data-linked-resource-id="1814822931" data-linked-resource-version="1" data-linked-resource-type="userinfo" data-base-url="https://firstlightgames.atlassian.net/wiki">Gabriel</a> might be able to help you figure things out.</p></li></ul></li><li><p>JetBrains Rider:</p><ul><li><p>You’re free to use your favorite IDE, but if you're a proud member of “Rider Team“, <a class="confluence-userlink user-mention" data-account-id="61bc9d8b08e4e00069b435da" href="https://firstlightgames.atlassian.net/wiki/people/61bc9d8b08e4e00069b435da?ref=confluence" target="_blank" data-linked-resource-id="1814822931" data-linked-resource-version="1" data-linked-resource-type="userinfo" data-base-url="https://firstlightgames.atlassian.net/wiki">Gabriel</a> can help you to get a license.</p></li></ul></li></ul><h2 id="ProjectSetup-Instructions:"><img class="emoticon emoticon-blue-star" data-emoji-id="1f4dd" data-emoji-shortname=":pencil:" data-emoji-fallback="📝" src="images/icons/emoticons/72/1f4dd.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> Instructions:</h2><p>Noice <img class="emoticon emoticon-blue-star" data-emoji-id="1f60e" data-emoji-shortname=":sunglasses:" data-emoji-fallback="😎" src="images/icons/emoticons/72/1f60e.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> ! You got your licenses… you downloaded the Unity Hub and the right Unity version (we hope so!)… but what now? Stay with us and we will show you how deep the rabbit hole goes!</p><h3 id="ProjectSetup-SettingupyourGitClientandcloningtherepo:"><strong>Setting up your Git Client and cloning the repo:</strong></h3><ol start="1"><li><p>Install your favorite Git Client.</p></li><li><p>Make sure to install Git LFS (Large File System)</p><ul><li><p>For Windows: <a class="external-link" data-card-appearance="inline" href="https://git-lfs.github.com/" rel="nofollow">https://git-lfs.github.com/</a>  </p></li><li><p>For Mac:  <code>brew install git-lfs &amp;&amp; git lfs install</code> (if home brew command is ‘not found’ go to: <a class="external-link" data-card-appearance="inline" href="https://brew.sh/" rel="nofollow">https://brew.sh/</a> and install via terminal following the instructions.</p></li></ul></li><li><p>Clone the repository:</p><ul><li><p>SSH:  <code>git clone -b develop git@bitbucket.org:first-light/blast-royale.git</code></p></li></ul></li></ol><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Double-check if you’re cloning from the <code>develop</code> branch!</p></div></div><p /><h2 id="ProjectSetup-InstallingtheUnityEditorandaddingtheBlast-RoyaleprojecttoUnityHub:"><img class="emoticon emoticon-blue-star" data-emoji-id="1f4bf" data-emoji-shortname=":cd:" data-emoji-fallback="💿" src="images/icons/emoticons/72/1f4bf.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> Installing the Unity Editor and adding the Blast-Royale project to Unity Hub:</h2><ol start="1"><li><p>When you begin installing Unity, you'll encounter an 'Add Module' step where you'll need to check and install the following modules:</p><ul><li><p>Android Modules:</p><ul><li><p>OpenJDK</p></li><li><p>Android SDK &amp; NDK Tools</p></li></ul></li><li><p>iOS Build Support</p></li></ul></li><li><p>On Unity Hub, open the 'Projects' tab and open the 'blast-royale' project that you cloned during the previous step, then select <code>BlastRoyale</code> directory</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240215-122912.png" width="578" loading="lazy" src="attachments/1786118209/2302378001.png?width=578" data-image-src="attachments/1786118209/2302378001.png" data-height="593" data-width="1019" data-unresolved-comment-count="0" data-linked-resource-id="2302378001" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240215-122912.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1786118209" data-linked-resource-container-version="33" data-media-id="04c4cc20-ecd8-49d8-9850-36be028f97e8" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240828-164422.png" width="572" loading="lazy" src="attachments/1786118209/2462187523.png?width=572" data-image-src="attachments/1786118209/2462187523.png" data-height="566" data-width="1020" data-unresolved-comment-count="0" data-linked-resource-id="2462187523" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240828-164422.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1786118209" data-linked-resource-container-version="33" data-media-id="218e6c0a-823a-4522-b87c-d5d8d4425e2b" data-media-type="file"></span><p /><h2 id="ProjectSetup-SetupthePhotonQuantum-NetcodeFramework:"><img class="emoticon emoticon-blue-star" data-emoji-id="1f310" data-emoji-shortname=":globe_with_meridians:" data-emoji-fallback="🌐" src="images/icons/emoticons/72/1f310.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> Setup the Photon Quantum - Netcode Framework:</h2><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>You can skip this step if you are not a coder!!!</p></div></div><p /><div id="expander-1725688959" class="expand-container"><div id="expander-control-1725688959" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"></span><span class="expand-control-text">For Mac users:</span></div><div id="expander-content-1725688959" class="expand-content"><ol start="1"><li><p>Download and Install the <a class="external-link" href="https://download.mono-project.com/archive/6.12.0/macos-10-universal/MonoFramework-MDK-6.12.0.90.macos10.xamarin.universal.pkg" rel="nofollow">MonoFramework MDK</a></p></li><li><p>Install OS environment variables:</p><ul><li><p>For zsh users:</p><ul><li><p>Open ~/.zprofile and paste the code below in, replacing &lt;version&gt; with the Unity Current Version. </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">export JAVA_HOME=/Applications/Unity/Hub/Editor/&lt;version&gt;/PlaybackEngines/AndroidPlayer/OpenJDK
+export ANDROID_SDK_ROOT=/Applications/Unity/Hub/Editor/&lt;version&gt;/PlaybackEngines/AndroidPlayer/SDK
+export ANDROID_NDK_ROOT=/Applications/Unity/Hub/Editor/&lt;version&gt;/PlaybackEngines/AndroidPlayer/NDK
+grep -E &quot;^setenv&quot; /etc/launchd.conf | xargs -L 1 launchctl</pre>
+</div></div></li></ul></li><li><p>For bash users:</p><ul><li><p>Open ~/.bash_profile and paste the code below in, replacing &lt;version&gt; with the Unity Current Version. </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">export JAVA_HOME=/Applications/Unity/Hub/Editor/&lt;version&gt;/PlaybackEngines/AndroidPlayer/OpenJDK
+export ANDROID_SDK_ROOT=/Applications/Unity/Hub/Editor/&lt;version&gt;/PlaybackEngines/AndroidPlayer/SDK
+export ANDROID_NDK_ROOT=/Applications/Unity/Hub/Editor/&lt;version&gt;/PlaybackEngines/AndroidPlayer/NDK
+grep -E &quot;^setenv&quot; /etc/launchd.conf | xargs -L 1 launchctl</pre>
+</div></div></li></ul></li><li><p>Dock / Launcher / Finder:</p><ul><li><p>As <strong>SUDO, </strong>open the /etc/launchd.conf (or create if it doesn’t exist) and paste the code below in, replacing &lt;version&gt; with the Unity Current Version. </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">setenv JAVA_HOME /Applications/Unity/Hub/Editor/&lt;version&gt;/PlaybackEngines/AndroidPlayer/OpenJDK
+setenv ANDROID_SDK_ROOT /Applications/Unity/Hub/Editor/&lt;version&gt;/PlaybackEngines/AndroidPlayer/SDK
+setenv ANDROID_NDK_ROOT /Applications/Unity/Hub/Editor/&lt;version&gt;/PlaybackEngines/AndroidPlayer/NDK</pre>
+</div></div></li></ul></li></ul></li></ol><div class="confluence-information-macro confluence-information-macro-warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><strong>You must REBOOT for changes to take effect!</strong></p></div></div></div></div><div id="expander-128978966" class="expand-container"><div id="expander-control-128978966" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"></span><span class="expand-control-text">For Windows users:</span></div><div id="expander-content-128978966" class="expand-content"><ul><li><p>For Windows users, we will use the Visual Studio Installer (VS Installer) to install or modify the tools and frameworks required to run the project. If you already have Visual Studio installed, you probably already have it. Double-check by searching for 'Visual Studio Installer' in the Windows Search/Start Bar.</p><ul><li><p>In case you don’t find it, download the <a class="external-link" href="https://learn.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2022" rel="nofollow">Visual Studio here</a> and install it.  </p></li></ul></li></ul><ol start="1"><li><p>Open Visual Studio Installer:</p><ul><li><p>If you already have any Visual Studio Installation, click on <strong>'Modify'</strong>, otherwise proceed the installation.</p></li></ul></li><li><p>Switch to <strong>'Individual components'</strong> tab.</p><ul><li><p>You can access this tab during a new VS Installation process or modifying the installation later on.</p></li></ul></li><li><p>Under .NET select the following items:</p><ul><li><p>.NET Framework 4.8.0 SDK</p></li><li><p>.NET Framework 4.8.0 Target Packing</p></li></ul></li><li><p>Click on <strong>'Modify'</strong></p></li></ol></div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Regardless of the operating system you're using, you'll need to build the Quantum solution before opening the Unity project for the first time, and every time the Quantum project files are changed. </p><p>Please refer to the <a href="F.A.Q.---Quantum_1786118338.html" data-linked-resource-id="1786118338" data-linked-resource-version="6" data-linked-resource-type="page">F.A.Q. - Quantum</a>  for further instructions how to do so.</p></div></div><h2 id="ProjectSetup-Ignitionsequencestart!:"><img class="emoticon emoticon-blue-star" data-emoji-id="1f680" data-emoji-shortname=":rocket:" data-emoji-fallback="🚀" src="images/icons/emoticons/72/1f680.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> Ignition sequence start! :</h2><ol start="1"><li><p>Open the project you previously added to Unity Hub.</p></li><li><p>Open the 'Boot' Unity Scene and hit Play. This is the main project scene. </p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240215-172058.png" width="730" loading="lazy" src="attachments/1786118209/2301624358.png?width=730" data-image-src="attachments/1786118209/2301624358.png" data-height="650" data-width="1462" data-unresolved-comment-count="0" data-linked-resource-id="2301624358" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240215-172058.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1786118209" data-linked-resource-container-version="33" data-media-id="e4dd3023-8c24-4030-a6c0-88a5b83a29e1" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Sometimes git can include permissions on the files, creating lots of unneeded files. Depending how is your OS, going to the root folder of the project and running the following command can help mitigate the issue:<br/><br/><code>git config core.fileMode false</code></p></div></div><h2 id="ProjectSetup-Houston,wehaveaproblem!"><img class="emoticon emoticon-blue-star" data-emoji-id="1f47d" data-emoji-shortname=":alien:" data-emoji-fallback="👽" src="images/icons/emoticons/72/1f47d.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> Houston, we have a problem!</h2><p>If you get stuck at any step, don't hesitate to ask for help! The team would be glad to assist you!</p><p /><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/1786118234.png">image-20200325-164108.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/1786118237.png">image-20200325-163925.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/1845919745.png">image-20220204-114603.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/2001797144.png">image-20220731-130239.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/2302377994.png">image-20240215-122630.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/2302378001.png">image-20240215-122912.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/2302017557.png">image-20240215-132403.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/2302181396.png">image-20240215-132703.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/2301427773.png">image-20240215-163053.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/2301624358.png">image-20240215-172058.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/2461597698.png">image-20240828-164405.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1786118209/2462187523.png">image-20240828-164422.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

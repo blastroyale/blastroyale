@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Game NFT Synchronization</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Backend_1854144513.html">Backend</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Game NFT Synchronization
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Gabriel</span> on Jun 13, 2022
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p /><p>Currently we keep in sync the NFT’s a given playfab user has with a given wallet.<br/><br/>This sync process touches 3 different tech in 3 different teams. This document intention is to give visibility on the flow and each area. Will cover some potential issues as well in case we need troubleshooting.<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1959264261/1959526407.png" data-image-src="attachments/1959264261/1959526407.png" data-height="1117" data-width="1728" data-unresolved-comment-count="0" data-linked-resource-id="1959526407" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2022-06-13 at 13.26.46-20220613-122701.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1959264261" data-linked-resource-container-version="1" data-media-id="e8aedbfa-7fa7-48d3-b0a4-bcc3c53f1131" data-media-type="file"></span><h1 id="GameNFTSynchronization-Blockchain-Moralis&amp;Contracts:">Blockchain - Moralis &amp; Contracts:<br/></h1><ul><li><p>Reads events from the chain and index them in Moralis MongoDB.</p></li><li><p>Reads offchain events and index to MongoDB</p></li><li><p>Uses cloud script to index custom data like “Last Update” , “Owner” and “Seller” from marketplace. We need to index this custom data in order to know who is the real owner of a given NFT (even when it’s not in that person’s wallet)<br/></p><p><strong>Troubleshooting:</strong></p></li><li><p>If “Last Update” is not being updated properly the game nft plugin is unaware of changes and won’t reload.</p></li><li><p>If “Owner” and “Seller” out of sync, we won’t see those in the game. We will also have experience with invalid/wrong NFT’s in marketplace as well.</p></li><li><p>Moralis table that indexes everything is PolygonNFTMetadata table.</p></li></ul><p /><h1 id="GameNFTSynchronization-Marketplace-Account&amp;BlockchainService:">Marketplace - Account &amp; Blockchain Service:</h1><ul><li><p>Account Service converts PlayfabID to Wallet</p></li><li><p>Blockchain Service has endpoint to return all indexed NFT’s and endpoint to return last update time.<br/><br/><strong>Troubleshooting:</strong></p></li><li><p>Moralis is pointing to the wrong server - need to update the Moralis server id &amp; key in config variables.</p></li><li><p>To deploy Moralis changes to dev, need to go to our <a data-card-appearance="inline" href="https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1853685778/Cloud+Jenkins?src=mail&amp;src.mail.timestamp=1646335831856&amp;src.mail.notification=com.atlassian.confluence.plugins.confluence-notifications-batch-plugin%3Abatching-notification&amp;src.mail.recipient=8a7f808a7dc47fc7017dc8c898f201c0&amp;src.mail.atlOrigin=eyJpIjoiNzBjMmI0MzY1YWQ5NDY5MTk0MDE4MmIyNmYyYTQwMmEiLCJwIjoiYyJ9&amp;src.mail.action=view" rel="nofollow">https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1853685778/Cloud+Jenkins?src=mail&amp;src.mail.timestamp=1646335831856&amp;src.mail.notification=com.atlassian.confluence.plugins.confluence-notifications-batch-plugin%3Abatching-notification&amp;src.mail.recipient=8a7f808a7dc47fc7017dc8c898f201c0&amp;src.mail.atlOrigin=eyJpIjoiNzBjMmI0MzY1YWQ5NDY5MTk0MDE4MmIyNmYyYTQwMmEiLCJwIjoiYyJ9&amp;src.mail.action=view</a> build job and change the variables on the bash script that builds the docker image. This is in the process to be changed to Azure Devops on the short term. </p></li><li><p>To test in a dev server which nfts are indexed to a given user you can query from your browser, example:<br/><a class="external-link" href="https://devmarketplaceapi.azure-api.net/br-blockchain/blast-royale-equipment/indexed?key=devkey&amp;playfabId=25AC16816D274F73" rel="nofollow">https://devmarketplaceapi.azure-api.net/br-blockchain/blast-royale-equipment/indexed?key=devkey&amp;playfabId=25AC16816D274F73</a></p></li><li><p>Account linking is stored in our Postgres Database. We can use <a class="external-link" data-card-appearance="inline" href="https://www.pgadmin.org" rel="nofollow">https://www.pgadmin.org</a>  or other tools to connect to our dev database and check/manipulate linked accounts.</p></li></ul><h1 id="GameNFTSynchronization-Gameplay-NFTPlugin&amp;GameIds:">Gameplay - NFT Plugin &amp; Game Ids:</h1><ul><li><p>Converts NFT Metadata into Game Models</p></li><li><p>Removes unowned NFT’s from user inventory when not indexed</p></li><li><p>Adds owned NFT’s to user inventory when indexed</p></li><li><p>Keeps track of when the operation happened</p></li></ul><p /><h4 id="GameNFTSynchronization-Troubleshooting:">Troubleshooting:</h4><ul><li><p>If game ids change, conversion might fail. Failure is logged but not raised, means if any NFT has invalid data it simply won’t show in the game.</p></li><li><p>The server has env variables configuration for the urls for the marketplace blockchain service - if that changes we need to change on the game-server config. Likely won't change tho.</p></li><li><p>Can be ran locally to debug issues and its blockchain agnostic.<br/></p></li></ul><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1959264261/1959526407.png">Screenshot 2022-06-13 at 13.26.46-20220613-122701.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

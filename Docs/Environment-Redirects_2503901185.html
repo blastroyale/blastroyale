@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : Environment Redirects</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Developer-Guides_2500591617.html">Developer Guides</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : Environment Redirects
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Carlos</span>, last modified on Oct 16, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>This is used to change the environment of certain builds, this is configured remotely using Azure Blob Storage. The main use case is in the release process when we have a store build pointing to production but want to redirect the new builds to staging before publishing them.</p><h2 id="EnvironmentRedirects-Howtosetup">How to setup</h2><ol start="1"><li><p><a class="external-link" href="https://portal.azure.com/#@firstlight.games/resource/subscriptions/c431534a-6a7d-46dc-8529-b5d562318544/resourceGroups/mainnet-prod-core/providers/Microsoft.Storage/storageAccounts/blastroyalecdn/storagebrowser" rel="nofollow">Go to ‘blastroyalecdn’ blob storage inside Azure and go to the blob container called ‘builds</a>’</p></li><li><p>Duplicate the example file and name it following this rule <code>platform_buildnumber.json</code>, like <code>Android_30080.json</code> or <code>IPhonePlayer_30079.json</code> <strong>Remember Unity Cloud Build numbers start with 300</strong></p></li><li><p>Purge the cache inside <code>blastroyalecdn</code> <a class="external-link" href="https://portal.azure.com/#@firstlight.games/resource/subscriptions/c431534a-6a7d-46dc-8529-b5d562318544/resourceGroups/mainnet-prod-core/providers/Microsoft.Cdn/profiles/blastroyalecdn/overview" rel="nofollow">Front Door resource Link</a>.</p><ol start="1"><li><p>Click <code>Purge Cache</code></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241016-180928.png" width="630" loading="lazy" src="attachments/2503901185/2504163329.png?width=630" data-image-src="attachments/2503901185/2504163329.png" data-height="463" data-width="1043" data-unresolved-comment-count="0" data-linked-resource-id="2504163329" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241016-180928.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2503901185" data-linked-resource-container-version="5" data-media-id="e2e6e414-41b0-4753-8d0b-73b1aa52c476" data-media-type="file"></span><p> </p></li><li><p> Select endpoint cdn, then all domains, check <code>Purge all assets</code> and click purge. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241016-181217.png" width="572" loading="lazy" src="attachments/2503901185/2503966724.png?width=572" data-image-src="attachments/2503901185/2503966724.png" data-height="374" data-width="572" data-unresolved-comment-count="0" data-linked-resource-id="2503966724" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241016-181217.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="2503901185" data-linked-resource-container-version="5" data-media-id="740af3a5-68a0-4b18-9948-7e550f73b501" data-media-type="file"></span></li></ol></li><li><p>Finished, test build</p></li></ol><h2 id="EnvironmentRedirects-Howtodisableit?">How to disable it?</h2><ol start="1"><li><p>Delete the .json file from the blob container.</p></li><li><p>Clean the cache, same as setting it up.</p></li></ol><p /><h2 id="EnvironmentRedirects-HowcanIknowifredirectisworking?">How can I know if redirect is working?</h2><ul><li><p>Check for logs containing <code>Downloading redirect info from</code> and <code>Redirecting to</code>.</p></li></ul>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2503901185/2503901195.png">image-20241016-180850.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2503901185/2504163329.png">image-20241016-180928.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2503901185/2504163335.png">image-20241016-181101.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2503901185/2503966724.png">image-20241016-181217.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:08</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

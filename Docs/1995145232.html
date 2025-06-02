@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blast Royale : OLD WAY - left just for reference: Building navmesh - Manually</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Blast Royale</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="1786773509.html">🤖 Tech</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Game-Content-Creation_2499674114.html">Game Content Creation</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Map_2234023937.html">Map</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Generating-Navmesh_2370502657.html">Generating Navmesh</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Blast Royale : OLD WAY - left just for reference: Building navmesh - Manually
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Tiryon Williams</span>, last modified by <span class='editor'> Nik Denissov</span> on May 16, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="OLDWAY-leftjustforreference:Buildingnavmesh-Manually-SettingupfreshNavMeshforanewmap">Setting up fresh NavMesh for a new map</h2><p>Open your new scene and add 3D Object → Terrain into Hierarchy</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="682" loading="lazy" src="attachments/1995145232/2246606854.png?width=682" data-image-src="attachments/1995145232/2246606854.png" data-height="658" data-width="682" data-unresolved-comment-count="0" data-linked-resource-id="2246606854" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231025-203324.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="1cbda8de-6b71-458e-bf36-052d56c04fb5" data-media-type="file"></span><p>Rename the newly added GameObject to be “&lt;Mapname&gt;Terrain”</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="760" loading="lazy" src="attachments/1995145232/2248179713.png?width=760" data-image-src="attachments/1995145232/2248179713.png" data-height="426" data-width="897" data-unresolved-comment-count="0" data-linked-resource-id="2248179713" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-155635.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="97173950-5e53-4b22-910b-8e47086e6ad3" data-media-type="file"></span><p>In the Inspector → Terrain Collider component you need to disable tree colliders as we don’t need them</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="365" loading="lazy" src="attachments/1995145232/2248146946.png?width=365" data-image-src="attachments/1995145232/2248146946.png" data-height="246" data-width="365" data-unresolved-comment-count="0" data-linked-resource-id="2248146946" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-155738.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="9d1098d7-9737-4788-be59-0541146c883c" data-media-type="file"></span><p>Then let’s go into other terrain settings</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="362" loading="lazy" src="attachments/1995145232/2248245249.png?width=362" data-image-src="attachments/1995145232/2248245249.png" data-height="366" data-width="362" data-unresolved-comment-count="0" data-linked-resource-id="2248245249" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-155823.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="fceba346-3acc-40b6-86d4-7c07db3a5350" data-media-type="file"></span><p>As we are using Unity Terrain just for NavMesh we are interested only in 3 settings there</p><ul><li><p>Detail Resolution Per Patch defines how big the “cells” of the terrain are. To have enough flexibility with the nav mesh, set this value to 8</p></li><li><p>Terrain Width and Height should be roughly set to the size of the map. You can see the terrain in the scene window</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="760" loading="lazy" src="attachments/1995145232/2248212487.png?width=760" data-image-src="attachments/1995145232/2248212487.png" data-height="410" data-width="831" data-unresolved-comment-count="0" data-linked-resource-id="2248212487" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-165556.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="2ebb99e7-305f-4b87-bb56-f54a76e1867d" data-media-type="file"></span><p>When settings are defined - move the terrain in the scene window to align it with the map</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="760" loading="lazy" src="attachments/1995145232/2248278021.png?width=760" data-image-src="attachments/1995145232/2248278021.png" data-height="514" data-width="1254" data-unresolved-comment-count="0" data-linked-resource-id="2248278021" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-165802.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="32f07989-5783-4088-b20a-42e456cd34b2" data-media-type="file"></span><p>Now you can save the project. You can see that there’s a new terrain data created, with a new file added to the root of the project. It’s called “New Terrain” so rename it into “&lt;Mapname&gt;Terrain”</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="760" loading="lazy" src="attachments/1995145232/2248048662.png?width=760" data-image-src="attachments/1995145232/2248048662.png" data-height="674" data-width="1535" data-unresolved-comment-count="0" data-linked-resource-id="2248048662" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-170600.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="052de49a-ee92-4fb8-9223-5db3e1b19b8b" data-media-type="file"></span><p>Now create (if it doesn’t exist) the folder for design files of the map. We have a folder Design → Mapworks. Create &lt;Mapname&gt; folder there. Then move your new terrain data inside that folder</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="294" loading="lazy" src="attachments/1995145232/2247950345.png?width=294" data-image-src="attachments/1995145232/2247950345.png" data-height="606" data-width="294" data-unresolved-comment-count="0" data-linked-resource-id="2247950345" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-170751.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="26ed6abc-8086-42b1-aaf8-52de00cac04a" data-media-type="file"></span><p>Finally, drag the terrain gameobject from the hierarchy of the scene into Design → Mapworks → &lt;Mapname&gt; folder to create a prefab of the terrain</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="573" loading="lazy" src="attachments/1995145232/2248376334.png?width=573" data-image-src="attachments/1995145232/2248376334.png" data-height="308" data-width="573" data-unresolved-comment-count="0" data-linked-resource-id="2248376334" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-170927.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="dd098da4-59af-463a-b7b9-69f068a57cb4" data-media-type="file"></span><p>All setup is done now. Whenever you need to change navmesh you need to open the map scene, find terrain prefab, drag&amp;drop it into the scene, <strong>make changes in the prefab</strong>, then create new nav mesh, and then delete that terrain prefab from the scene before saving the scene.</p><h2 id="OLDWAY-leftjustforreference:Buildingnavmesh-Manually-ChangingandrebakingNavMesh">Changing and rebaking NavMesh</h2><p>To begin with - open you &lt;Mapname&gt; scene. Then find correspondent terrain prefab in Design → Mapworks → &lt;Mapname&gt; folder, then drag&amp;drop that terrain prefab into the hierarchy of the scene</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="655" loading="lazy" src="attachments/1995145232/2248081414.png?width=655" data-image-src="attachments/1995145232/2248081414.png" data-height="401" data-width="655" data-unresolved-comment-count="0" data-linked-resource-id="2248081414" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-171306.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="72ed8d80-4714-437f-b3a0-1ddbf3290532" data-media-type="file"></span><p>To “paint” nav mesh using Unity Terrain we actually paint holes in the terrain. To do so you need to select Terrain object, select “Paint Terrain” tool and then “Paint Holes” in the dropdown, then choose a brush “NavMeshTerrainSquareBrush“</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="366" loading="lazy" src="attachments/1995145232/2248048656.png?width=366" data-image-src="attachments/1995145232/2248048656.png" data-height="425" data-width="366" data-unresolved-comment-count="0" data-linked-resource-id="2248048656" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-170127.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="6262f418-48b2-4c7b-a96d-b6d9e19a9748" data-media-type="file"></span><p>With the brush selected, you can start painting holes on top of obstacles and places where you don’t want NavMesh to be present. Orange outline will work as a guidance for you.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="760" loading="lazy" src="attachments/1995145232/2248376328.png?width=760" data-image-src="attachments/1995145232/2248376328.png" data-height="506" data-width="1214" data-unresolved-comment-count="0" data-linked-resource-id="2248376328" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-170325.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="032de334-28b9-40e5-bee7-41f2103173ec" data-media-type="file"></span><p>To erase holes you need to hold Shift button and “paint” where you want holes to be erased</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="359" loading="lazy" src="attachments/1995145232/2248376340.png?width=359" data-image-src="attachments/1995145232/2248376340.png" data-height="419" data-width="359" data-unresolved-comment-count="0" data-linked-resource-id="2248376340" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-171706.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="c4bbb9a9-7880-4c7b-99c2-ff1cf22d761d" data-media-type="file"></span><p>Imagine there was an excessive hole in the ground and you removed it by “erasing” holes</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Before</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="362" loading="lazy" src="attachments/1995145232/2248572935.png?width=362" data-image-src="attachments/1995145232/2248572935.png" data-height="558" data-width="1068" data-unresolved-comment-count="0" data-linked-resource-id="2248572935" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-171516.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="a3c74354-5394-4918-8860-ce04b62abe60" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>After</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="362" loading="lazy" src="attachments/1995145232/2248441873.png?width=362" data-image-src="attachments/1995145232/2248441873.png" data-height="550" data-width="1029" data-unresolved-comment-count="0" data-linked-resource-id="2248441873" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-171626.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="8c1e7c0a-75ac-45a1-be44-3b1deb1ed7f9" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Now you are ready to bake. Disable all objects in the hierarchy except the NavMesh and Terrain. Select NavMesh gameobject. Make sure that in “UseGeometry” you have Physics Colliders and in Default Area you have Walkable. Then hit Bake</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="760" loading="lazy" src="attachments/1995145232/2248081421.png?width=760" data-image-src="attachments/1995145232/2248081421.png" data-height="575" data-width="1366" data-unresolved-comment-count="0" data-linked-resource-id="2248081421" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-172313.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="383ecf39-1f15-4d40-bc77-971ae3e9c065" data-media-type="file"></span><p>If you have gizoms active you will see how navmesh becomes the same as terrain</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="760" loading="lazy" src="attachments/1995145232/2248212493.png?width=760" data-image-src="attachments/1995145232/2248212493.png" data-height="564" data-width="790" data-unresolved-comment-count="0" data-linked-resource-id="2248212493" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20231030-172406.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="aabda2d9-cc65-43d0-9433-12efc750a7cd" data-media-type="file"></span><p>Now you can reenable disabled objects, delete Terrain object, and bake Quantum map.</p><p /><p /><p /><div id="expander-1086580887" class="expand-container"><div id="expander-control-1086580887" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"></span><span class="expand-control-text">Old way of building navmesh</span></div><div id="expander-content-1086580887" class="expand-content"><p>This is how old maps are working, except for Maze Mayhem</p><p /><p>The navmesh will not build unless the mesh renderers themselves are enabled.</p><p /><p>The navmesh should be built out of the collision layer of the map.</p><p>Process for building navmesh:</p><ul><li><p>Search Coll_ in hierarchy </p></li><li><p>For all collision meshes, enable their mesh renderers</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1995145232/1996324866.png" data-image-src="attachments/1995145232/1996324866.png" data-height="635" data-width="1536" data-unresolved-comment-count="0" data-linked-resource-id="1996324866" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20220726-161415.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="b3afef53-16b8-4d4e-ae9c-92585403542f" data-media-type="file"></span><ul><li><p>Build navmesh through unity </p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="340" loading="lazy" src="attachments/1995145232/1995833380.png?width=340" data-image-src="attachments/1995145232/1995833380.png" data-height="386" data-width="339" data-unresolved-comment-count="0" data-linked-resource-id="1995833380" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20220726-164545.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="c98a3aba-6979-475f-bfc7-6c219e8175b2" data-media-type="file"></span><ul><li><p>then build everything through quantum</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="attachments/1995145232/1995702333.png" data-image-src="attachments/1995145232/1995702333.png" data-height="456" data-width="336" data-unresolved-comment-count="0" data-linked-resource-id="1995702333" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20220726-164620.png" data-base-url="https://firstlightgames.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1995145232" data-linked-resource-container-version="9" data-media-id="deab27c4-70a8-40ca-91f9-f3fd0673187c" data-media-type="file"></span><ul><li><p>Disable collision mesh renderers again</p></li></ul><p>Make sure no other objects have any kind of navmesh baking inbuilt, or it will bake more complicated stuff and tank the performance. </p><p /></div></div><p /><p /><p /><p /><p /></div>
+</div>
+</div>
+</div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/1996488705.png">image-20220726-161129.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/1996128259.png">image-20220726-161301.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/1996324866.png">image-20220726-161415.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/1995833380.png">image-20220726-164545.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/1995702333.png">image-20220726-164620.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2246606854.png">image-20231025-203324.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248179713.png">image-20231030-155635.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248146946.png">image-20231030-155738.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248245249.png">image-20231030-155823.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248212487.png">image-20231030-165556.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248278021.png">image-20231030-165802.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248048656.png">image-20231030-170127.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248376328.png">image-20231030-170325.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248048662.png">image-20231030-170600.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2247950345.png">image-20231030-170751.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248376334.png">image-20231030-170927.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248081414.png">image-20231030-171306.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248572935.png">image-20231030-171516.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248441873.png">image-20231030-171626.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248376340.png">image-20231030-171706.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248081421.png">image-20231030-172313.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1995145232/2248212493.png">image-20231030-172406.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 30, 2025 14:07</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

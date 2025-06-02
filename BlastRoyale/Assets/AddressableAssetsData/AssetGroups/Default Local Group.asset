@@ -122,11 +122,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e5e11fad68074894b9c22df9090f7f61
-    m_Address: Assets/Art/AssetPacks/PolygonNature/FX/FX_Prefabs/SM_Waterfall_Foam.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e8fa8f21907090640a854146d341e06c
     m_Address: Assets/AddressableResources/Collections/WeaponSkins/M_props.mat
     m_ReadOnly: 0

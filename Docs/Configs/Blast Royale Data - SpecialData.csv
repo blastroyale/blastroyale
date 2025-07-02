@@ -1,0 +1,10 @@
+Id,SpecialType,Indicator,InitialCooldown,Cooldown,Radius,SpecialPower,Speed,MinRange,MaxRange,Knockback
+SpecialAimingAirstrike,Airstrike,Radial,26,30,3.5,0.55,2.5,0,9,50
+SpecialAimingStunGrenade,StunGrenade,Radial,26,30,1.5,1.5,1.5,0,8,0
+SpecialShieldSelf,ShieldSelfStatus,None,26,30,0,2,0,0,0,0
+SpecialSkyLaserBeam,HazardAimSpawn,Radial,26,30,1.75,0.4,0.7,0,10,0
+SpecialShieldedCharge,ShieldedCharge,ScalableLine,26,30,0,0,16,2,6,10
+SpecialAimingGrenade,Grenade,Radial,26,30,2.75,0.33,1,0,7,30
+SpecialDefaultDash,ShieldedCharge,ScalableLine,26,30,0,0,16,2,6,10
+SpecialRadar,Radar,None,26,30,40,3,0,0,0,0
+TutorialGrenade,Grenade,Radial,3,3,2.75,0.3,1,0,7,30

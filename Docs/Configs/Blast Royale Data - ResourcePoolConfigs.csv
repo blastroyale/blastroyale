@@ -1,0 +1,3 @@
+Id,PoolCapacity,RestockIntervalMinutes,TotalRestockIntervalMinutes,UseNftData,BaseMaxTake,ScaleMultiplier,ShapeModifier,MaxPoolCapacityDecreaseModifier,PoolCapacityDecreaseExponent,MaxTakeDecreaseModifier,TakeDecreaseExponent,PoolCapacityTrophiesModifier,TakeTrophiesModifier
+CS,25,180,720,TRUE,9,3.5,2,0.9,0.3,0.11,1.8,300000,30000
+BPP,1500,180,1440,FALSE,0,0,0,0,0,0,0,5000000,5000000

@@ -1,0 +1,15 @@
+Id,Type,Param1,Param2
+QuickSpecials,SpecialsCooldowns,10,0
+SpeedUp,Speed,1.3,0
+HealthyAir,HealthPerSeconds,100,3
+HammerTime,HammerTime,0,0
+ForceLevelPlayingField,ForceLevelPlayingField,0,0
+HidePlayerNames,HidePlayerNames,0,0
+DoNotDropSpecials,DoNotDropSpecials,0,0
+PistolsOnly,PistolsOnly,0,0
+SMGsOnly,SMGsOnly,0,0
+MinigunsOnly,MinigunsOnly,0,0
+ShotgunsOnly,ShotgunsOnly,0,0
+SnipersOnly,SnipersOnly,0,0
+RPGsOnly,RPGsOnly,0,0
+ConsumablesSharing,ConsumablesSharing,0,0

@@ -1,0 +1,3 @@
+Id,Health,SplashRadius,PowerAmount,DestructionLengthTime
+Barrel,100,5,400,0.75 | 1.5
+Barrier,600,0,0,0 | 0

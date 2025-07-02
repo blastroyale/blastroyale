@@ -1,0 +1,9 @@
+StatType,$DefaultValue,BaseValue,RarityMultiplier,LevelStepMultiplier,CeilToInt,$Display format
+Health,,10,1.1,0.05,TRUE,N0
+Power,,50,1,0.01,TRUE,N0
+Speed,,0.1,1.198,0.0295,FALSE,N3
+Armour,,10,1.198,0.0295,FALSE,P2
+AttackRange,,0.2,1.198,0.0295,FALSE,N3
+PickupSpeed,,10,1.198,0.0295,FALSE,P2
+AmmoCapacity,,10,1.198,0.0295,FALSE,P2
+Shield,,10,1.1,0.05,TRUE,N0

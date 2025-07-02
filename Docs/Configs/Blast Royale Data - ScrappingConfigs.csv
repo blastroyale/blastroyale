@@ -1,0 +1,11 @@
+Rarity,FragmentReward,CoinReward
+Common,0,100
+CommonPlus,0,200
+Uncommon,0,400
+UncommonPlus,0,750
+Rare,0,1500
+RarePlus,0,3000
+Epic,0,6000
+EpicPlus,0,12500
+Legendary,0,25000
+LegendaryPlus,0,50000

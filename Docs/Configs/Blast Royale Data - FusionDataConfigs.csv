@@ -1,0 +1,11 @@
+Rarity,FragmentCost,CoinCost
+Common,0,1500
+CommonPlus,0,2000
+Uncommon,0,3000
+UncommonPlus,0,4500
+Rare,0,6000
+RarePlus,0,8000
+Epic,0,10000
+EpicPlus,0,12500
+Legendary,0,15000
+LegendaryPlus,0,0

@@ -1,0 +1,3 @@
+ResourceType,BaseRepairCost,BasePower,DurabilityCostIncreasePerPoint
+COIN,150,1,0
+CS,20,2.5,0.2

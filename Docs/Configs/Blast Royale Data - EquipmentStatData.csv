@@ -1,0 +1,8 @@
+Faction,ArmorRatioToBaseK,SpeedRatioToBaseK,AttackRangeRatioToBaseK,PickupSpeedRatioToBaseK,AmmoCapacityRatioToBaseK,PowerRatioToBaseK,ShieldCapacityRatioToBaseK,HpRatioToBaseK
+Order,0,0,0,0.08775,0,0,0,0
+Chaos,0,0.0675,0,0,0,0,0,0
+Organic,0,0,0.12555,0,0,0,0,0
+Dark,0,0,0,0.08775,0,0,0,0
+Shadow,0,0,0,0.0975,0,0,0,0
+Celestial,0,0,0.15345,0,0,0,0,0
+Dimensional,0,0.0825,0,0,0,0,0,0
